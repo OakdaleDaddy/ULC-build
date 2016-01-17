@@ -39,8 +39,6 @@ namespace NICBOT.GUI
       public DigitalScaleParameters FrontScale;
       public DigitalScaleParameters RearScale;
 
-      public SensorRotationDisplayModes SensorRotationDisplayMode;
-
       public ValueParameter NitrogenPressureConversionUnit;
       public CautionParameter NitrogenPressureCaution;
 
@@ -312,8 +310,6 @@ namespace NICBOT.GUI
          this.StressSensor = new IpEndpointParameters("StressSensor", "192.168.1.102", 0);
          this.StressConversionUnit = new ValueParameter("StressConversionUnit", "MPa", 3, 0, 100, 1, 1, 1);
 
-         this.SensorRotationDisplayMode = SensorRotationDisplayModes.sidereal;
-
          this.NitrogenPressureConversionUnit = new ValueParameter("NitrogenPressureConversionUnit", "PSI", 3, 0, 1000, 1, 100, 100);
          this.NitrogenPressureCaution = new CautionParameter("NitrogenPressureCaution", 450, 425, 375, 350);
 
@@ -553,22 +549,6 @@ namespace NICBOT.GUI
             if (reader.Read())
             {
                result = (BusInterfaces)Enum.Parse(typeof(BusInterfaces), reader.Value.Trim());
-            }
-         }
-         catch { }
-
-         return (result);
-      }
-
-      private SensorRotationDisplayModes ReadSensorRotationDisplayMode(XmlReader reader)
-      {
-         SensorRotationDisplayModes result = SensorRotationDisplayModes.degrees;
-
-         try
-         {
-            if (reader.Read())
-            {
-               result = (SensorRotationDisplayModes)Enum.Parse(typeof(SensorRotationDisplayModes), reader.Value.Trim());
             }
          }
          catch { }
@@ -2266,11 +2246,6 @@ namespace NICBOT.GUI
                               this.Longitude = this.ReadDouble(reader);
                               break;
                            }
-                           case "SensorRotationDisplayMode":
-                           {
-                              this.SensorRotationDisplayMode = this.ReadSensorRotationDisplayMode(reader);
-                              break;
-                           }
                            case "GuideMomentaryButtonAction":
                            {
                               this.ReadElement(reader, ref this.GuideMomentaryButtonAction);
@@ -2783,9 +2758,6 @@ namespace NICBOT.GUI
 
             this.WriteDigitalScaleParameters(writer, this.FrontScale);
             this.WriteDigitalScaleParameters(writer, this.RearScale);
-
-            writer.WriteComment("SensorRotationDisplayMode from {degrees, sidereal}, sidereal for HH:MM");
-            this.WriteElement(writer, "SensorRotationDisplayMode", this.SensorRotationDisplayMode.ToString());
 
             this.WriteValueParameters(writer, this.NitrogenPressureConversionUnit);
             this.WriteCautionParameters(writer, this.NitrogenPressureCaution);

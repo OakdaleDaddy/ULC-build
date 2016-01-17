@@ -69,8 +69,6 @@
          this.crossSectionView1.RobotRoll = 60;
          this.crossSectionView1.RobotTopWheelIndicatorColor = System.Drawing.Color.Turquoise;
          this.crossSectionView1.RobotWheelColor = System.Drawing.Color.Teal;
-         this.crossSectionView1.SensorAngle = 60;
-         this.crossSectionView1.SensorVisible = true;
          this.crossSectionView1.Size = new System.Drawing.Size(232, 232);
          this.crossSectionView1.TabIndex = 134;
          // 

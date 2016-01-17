@@ -34,8 +34,6 @@ namespace NICBOT.Controls
       private Font pitchFont = System.Drawing.SystemFonts.DefaultFont;
       private Color pitchBackColor = Color.Black;
       private Color pitchForeColor = Color.White;
-      private bool sensorVisible;
-      private int sensorAngle;
 
       private BorderStyle borderStyle;
 
@@ -193,18 +191,6 @@ namespace NICBOT.Controls
             this.pitchForeColor = value;
             this.Invalidate();
          }
-      }
-
-      public bool SensorVisible
-      {
-         get { return this.sensorVisible; }
-         set { this.sensorVisible = value; Invalidate(); }
-      }
-
-      public int SensorAngle
-      {
-         get { return this.sensorAngle; }
-         set { this.sensorAngle = value; Invalidate(); }
       }
 
       /// <summary>
@@ -438,48 +424,6 @@ namespace NICBOT.Controls
          }
       }
 
-      private void PaintSensor(Graphics graphics, int centerX, int centerY, int circleDiameter)
-      {
-         int circleRadius = circleDiameter / 2;
-         int sensorWidth = (int)(0.42 * circleDiameter);
-         int sensorHeight = (int)(0.27 * circleDiameter);
-         StringFormat format = new StringFormat(StringFormat.GenericTypographic);
-
-         Matrix sensorMatrix = new Matrix();
-         sensorMatrix.RotateAt(-this.SensorAngle, new Point(centerX, centerY));
-         graphics.Transform = sensorMatrix;
-
-         int sensorXOffset = centerX - (sensorWidth / 2) - 1;
-         int sensorYOffset = centerY - (sensorHeight / 2) - 1;
-         SolidBrush sensorBrush = new SolidBrush(Color.FromArgb(64, Color.Orange));
-         graphics.FillRectangle(sensorBrush, sensorXOffset, sensorYOffset, sensorWidth, sensorHeight);
-         graphics.DrawRectangle(new Pen(Color.OrangeRed), sensorXOffset, sensorYOffset, sensorWidth, sensorHeight);
-
-         format.Alignment = StringAlignment.Center;
-         format.LineAlignment = StringAlignment.Far;
-         int sensorTextY = centerY + (sensorHeight / 2);
-         graphics.DrawString("sensor", this.Font, new SolidBrush(Color.Brown), centerX, sensorTextY, format);
-
-         Matrix sensorPointerMatrix = new Matrix();
-         sensorPointerMatrix.RotateAt(-this.SensorAngle, new Point(centerX, centerY));
-         graphics.Transform = sensorPointerMatrix;
-
-         int sensorLineSX = centerX;
-         int sensorLineSY = centerY - (sensorHeight / 2);
-         int sensorLineEX = centerX;
-         int sensorLineEY = centerY - (circleDiameter / 2);
-
-         Pen sensorLinePen = new Pen(Color.OrangeRed, 2);
-         sensorLinePen.CustomEndCap = new AdjustableArrowCap(5, 5);
-         graphics.DrawLine(sensorLinePen, sensorLineSX, sensorLineSY, sensorLineEX, sensorLineEY);
-
-         int sensorPointerDiameter = 5;
-         int sensorPointerX = centerX - (sensorPointerDiameter / 2) - 1;
-         int sensorPointerY = centerY - circleRadius - sensorPointerDiameter;
-         graphics.FillEllipse(new SolidBrush(Color.Red), sensorPointerX, sensorPointerY, sensorPointerDiameter, sensorPointerDiameter);
-         graphics.DrawEllipse(new Pen(Color.Black), sensorPointerX, sensorPointerY, sensorPointerDiameter, sensorPointerDiameter);
-      }
-
       protected override void OnPaint(PaintEventArgs e)
       {
          base.OnPaint(e);
@@ -517,11 +461,6 @@ namespace NICBOT.Controls
          }
 
          this.PaintRobot(e.Graphics, centerX, centerY, circleDiameter);
-
-         if (false != this.SensorVisible)
-         {
-            this.PaintSensor(e.Graphics, centerX, centerY, circleDiameter);
-         }
 
       }
    }

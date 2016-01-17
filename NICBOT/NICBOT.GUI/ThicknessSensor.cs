@@ -51,7 +51,6 @@
       private DateTime triggerDateTime;
       private string triggerDirection;
       private double triggerDisplacement;
-      private double triggerChannel;
       private double triggerRadialLocation;
           
       #endregion
@@ -336,7 +335,7 @@
                                                     this.triggerDateTime.Day,
                                                     this.triggerDirection,
                                                     this.triggerDisplacement,
-                                                    this.triggerChannel,
+                                                    0,
                                                     this.triggerRadialLocation,
                                                     this.triggerDateTime.Hour,
                                                     this.triggerDateTime.Minute,
@@ -454,7 +453,7 @@
          }
       }
 
-      public void TriggerReading(double latitude, double longitude, DateTime dateTime, Directions direction, double displacement, int channel, double radialLocation)
+      public void TriggerReading(double latitude, double longitude, DateTime dateTime, Directions direction, double displacement, double radialLocation)
       {
          if (this.Pending() == false)
          {
@@ -463,7 +462,6 @@
             this.triggerDateTime = dateTime;
             this.triggerDirection = this.GetDirectionString(direction);
             this.triggerDisplacement = displacement;
-            this.triggerChannel = channel;
             this.triggerRadialLocation = radialLocation;
 
             this.readingReady = false;

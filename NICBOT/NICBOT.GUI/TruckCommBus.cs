@@ -2485,14 +2485,14 @@ namespace NICBOT.GUI
 
       #region Sensor Functions
 
-      public void TriggerThicknessReading(double latitude, double longitude, DateTime dateTime, Directions direction, double displacement, int channel, double radialLocation)
+      public void TriggerThicknessReading(double latitude, double longitude, DateTime dateTime, Directions direction, double displacement, double radialLocation)
       {
-         ThicknessSensor.Instance.TriggerReading(latitude, longitude, dateTime, direction, displacement, channel, radialLocation);
+         ThicknessSensor.Instance.TriggerReading(latitude, longitude, dateTime, direction, displacement, radialLocation);
       }
 
-      public void TriggerStressReading(double latitude, double longitude, DateTime dateTime, Directions direction, double displacement, int channel, double radialLocation)
+      public void TriggerStressReading(double latitude, double longitude, DateTime dateTime, Directions direction, double displacement, double radialLocation)
       {
-         StressSensor.Instance.TriggerReading(latitude, longitude, dateTime, direction, displacement, channel, radialLocation);
+         StressSensor.Instance.TriggerReading(latitude, longitude, dateTime, direction, displacement, radialLocation);
       }
 
       public bool GetThicknessReadingEnabled()

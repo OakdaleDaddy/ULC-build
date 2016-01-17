@@ -1032,32 +1032,6 @@ namespace NICBOT.GUI
 
       #endregion
 
-      #region Sensor Helper Functions
-
-      private void UpdateSensorAngleSetPoint()
-      {
-         double setPoint = NicBotComm.Instance.GetSensorAngleSetPoint();
-
-         if (SensorRotationDisplayModes.sidereal == ParameterAccessor.Instance.SensorRotationDisplayMode)
-         {
-            int hour = (int)(setPoint / 30);
-            int minute = (int)((setPoint % 30) * 2);
-
-            if (0 == hour)
-            {
-               hour = 12;
-            }
-
-            this.SensorAngleSetPointTextPanel.ValueText = string.Format("{0:D2}:{1:D2}", hour, minute);
-         }
-         else
-         {
-            this.SensorAngleSetPointTextPanel.ValueText = string.Format("{0:0}°", setPoint);
-         }
-      }
-
-      #endregion
-
       #region Video Helper Functions
 
       private void ClearCameraSelects(CameraSelectButton button)
@@ -1229,7 +1203,7 @@ namespace NICBOT.GUI
          
          direction = this.sensorDirection;
          displacement = NicBotComm.Instance.GetReelTotalDistance() * 100;
-         radialLocation = NicBotComm.Instance.GetSensorAngle();
+         radialLocation = NicBotComm.Instance.GetRobotRoll();
 
          if ((double.IsNaN(latitude) == false) &&
              (double.IsNaN(longitude) == false) &&
@@ -1303,7 +1277,6 @@ namespace NICBOT.GUI
          this.SensorGpsDateTextPanel.ValueText = "";
          this.SensorGpsTimeTextPanel.ValueText = "";
          this.SensorDisplacementTextPanel.ValueText = "";
-         this.SensorAngleActualTextPanel.ValueText = "";
 
          this.UpdateTimer.Interval = 1;
          this.Process = this.ProcessStarting;
@@ -1352,8 +1325,6 @@ namespace NICBOT.GUI
             this.RobotCamera9Button.Camera = CameraLocations.robotRrfDrill;
             this.RobotCamera11Button.Camera = CameraLocations.robotFrfDrill;
             this.RobotCamera12Button.Camera = CameraLocations.robotLowerBack;
-
-            this.RobotCrossSectionView.SensorVisible = false;
          }
 
          if (RobotApplications.inspect == ParameterAccessor.Instance.RobotApplication)
@@ -1387,8 +1358,6 @@ namespace NICBOT.GUI
             this.RobotCamera10Button.Camera = CameraLocations.robotLowerForward;
             this.RobotCamera9Button.Camera = CameraLocations.robotSensorArm;
             this.RobotCamera12Button.Camera = CameraLocations.robotSensorBay;
-
-            this.RobotCrossSectionView.SensorVisible = true;
          }
 
          this.indicatorFlasher = false;
@@ -1454,9 +1423,6 @@ namespace NICBOT.GUI
 
          if (RobotApplications.inspect == ParameterAccessor.Instance.RobotApplication)
          {
-            NicBotComm.Instance.SetSensorAngle(0);
-            this.UpdateSensorAngleSetPoint();
-
             this.sensorThicknessPending = false;
             this.newThicknessReading = false;
             this.sensorStressPending = false;
@@ -1492,13 +1458,9 @@ namespace NICBOT.GUI
             this.SensorGpsTimeTextPanel.ValueText = "---";
 
             this.SensorThicknessAcquireButton.Enabled = false;
-            this.SensorThicknessChannelToggleButton.Enabled = false;
-            this.SensorThicknessChannelToggleButton.OptionASelected = true;
             this.SensorThicknessReadingTextPanel.ValueText = "";
 
             this.SensorStressAcquireButton.Enabled = false;
-            this.SensorStressChannelToggleButton.Enabled = false;
-            this.SensorStressChannelToggleButton.OptionASelected = true;
             this.SensorStressReadingTextPanel.ValueText = "";
 
             if (0 != ParameterAccessor.Instance.LocationServer.Port)
@@ -2118,45 +2080,6 @@ namespace NICBOT.GUI
 
          if (RobotApplications.inspect == ParameterAccessor.Instance.RobotApplication)
          {
-            double robotRoll = NicBotComm.Instance.GetRobotRoll();
-            double sensorAngle = NicBotComm.Instance.GetSensorAngle();
-            int readingAngle = (int)(robotRoll + sensorAngle);
-            this.RobotCrossSectionView.SensorAngle = (int)readingAngle - 90;
-
-            if (SensorRotationDisplayModes.sidereal == ParameterAccessor.Instance.SensorRotationDisplayMode)
-            {
-               int robotAngle = 360 - ((readingAngle - 90) % 360);
-               int hour = robotAngle / 30;
-               int minute = (robotAngle % 30) * 2;
-
-               if (0 == hour)
-               {
-                  hour = 12;
-               }
-               else if (hour > 12)
-               {
-                  hour -= 12;
-               }
-
-               this.SensorAngleActualTextPanel.ValueText = string.Format("{0:D2}:{1:D2}", hour, minute);
-#if false
-               double siderealAngle = readingAngle - 90;
-               int sensorHour = (int)(siderealAngle / 30);
-               int sensorMinute = (int)((siderealAngle % 30) * 2);
-
-               if (0 == sensorHour)
-               {
-                  sensorHour = 12;
-               }
-
-               this.SensorAngleActualTextPanel.ValueText = string.Format("{0:D2}:{1:D2}", sensorHour, sensorMinute);
-#endif
-            }
-            else
-            {
-               this.SensorAngleActualTextPanel.ValueText = string.Format("{0:0}°", readingAngle);
-            }
-
             double latitude = NicBotComm.Instance.GetGpsLatitude();
             if (double.IsNaN(latitude) == false)
             {
@@ -2200,9 +2123,7 @@ namespace NICBOT.GUI
                if (NicBotComm.Instance.GetThicknessReadingPending() == false)
                {
                   this.sensorThicknessPending = false;
-
                   this.SensorThicknessAcquireButton.Enabled = thicknessReadingEnabled;
-                  this.SensorThicknessChannelToggleButton.Enabled = thicknessReadingEnabled;
 
                   double thicknessReading = NicBotComm.Instance.GetThicknessReading();
 
@@ -2220,7 +2141,6 @@ namespace NICBOT.GUI
             else
             {
                this.SensorThicknessAcquireButton.Enabled = thicknessReadingEnabled;
-               this.SensorThicknessChannelToggleButton.Enabled = thicknessReadingEnabled;
             }
 
             if (false != this.newThicknessReading)
@@ -2235,9 +2155,7 @@ namespace NICBOT.GUI
                if (NicBotComm.Instance.GetStressReadingPending() == false)
                {
                   this.sensorStressPending = false;
-
                   this.SensorStressAcquireButton.Enabled = stressReadingEnabled;
-                  this.SensorStressChannelToggleButton.Enabled = stressReadingEnabled;
 
                   double stressReading = NicBotComm.Instance.GetStressReading();
 
@@ -2255,7 +2173,6 @@ namespace NICBOT.GUI
             else
             {
                this.SensorStressAcquireButton.Enabled = stressReadingEnabled;
-               this.SensorStressChannelToggleButton.Enabled = stressReadingEnabled;
             }
 
             if (false != this.newStressReading)
@@ -3594,80 +3511,6 @@ namespace NICBOT.GUI
          }
       }
 
-      private void SensorAngleSetPointTextPanel_HoldTimeout(object sender, HoldTimeoutEventArgs e)
-      {
-         double setPoint = NicBotComm.Instance.GetSensorAngleSetPoint();
-
-         if (SensorRotationDisplayModes.sidereal == ParameterAccessor.Instance.SensorRotationDisplayMode)
-         {
-            HourMinuteEntryForm hourMinuteEntryForm = new HourMinuteEntryForm();
-            this.SetDialogLocation(this.SensorAngleSetPointTextPanel, hourMinuteEntryForm);
-
-            int hour = (int)(setPoint / 30);
-            int minute = (int)((setPoint % 30) * 2);
-
-            hourMinuteEntryForm.Title = "SENSOR ANGLE";
-            hourMinuteEntryForm.PresentValue = string.Format("{0:D2}:{1:D2}", hour, minute);
-            hourMinuteEntryForm.DefaultValue = "00:00";
-
-            this.DimBackground();
-            DialogResult result = hourMinuteEntryForm.ShowDialog();
-            this.LightBackground();
-
-            if (System.Windows.Forms.DialogResult.OK == result)
-            {
-               string[] enteredValue = hourMinuteEntryForm.EnteredValue.Split(new char[] { ':' });
-               hour = int.Parse(enteredValue[0]);
-               minute = int.Parse(enteredValue[1]);
-
-               setPoint = (double)((hour * 30) + ((double)minute * 0.5));
-               NicBotComm.Instance.SetSensorAngle(setPoint);
-               this.UpdateSensorAngleSetPoint();
-            }
-         }
-         else
-         {
-            DialogResult result = this.LaunchNumberEdit(ref setPoint, this.SensorAngleSetPointTextPanel, "SENSOR ANGLE", 0, "°", 0, 0, 360);
-
-            if (result == System.Windows.Forms.DialogResult.OK)
-            {
-               NicBotComm.Instance.SetSensorAngle(setPoint);
-               this.UpdateSensorAngleSetPoint();
-            }
-         }
-      }
-
-      private void SensorAngleUpButton_Click(object sender, EventArgs e)
-      {
-         NicBotComm.Instance.DecreaseSensorAngle();
-         this.UpdateSensorAngleSetPoint();
-      }
-
-      private void SensorAngleUpButton_HoldTimeout(object sender, HoldTimeoutEventArgs e)
-      {
-         NicBotComm.Instance.DecreaseSensorAngle();
-         this.UpdateSensorAngleSetPoint();
-      }
-
-      private void SensorAngleDownButton_Click(object sender, EventArgs e)
-      {
-         NicBotComm.Instance.IncressSensorAngle();
-         this.UpdateSensorAngleSetPoint();
-      }
-
-      private void SensorAngleDownButton_HoldTimeout(object sender, HoldTimeoutEventArgs e)
-      {
-         NicBotComm.Instance.IncressSensorAngle();
-         this.UpdateSensorAngleSetPoint();
-      }
-
-      private void SensorHomeButton_HoldTimeout(object sender, HoldTimeoutEventArgs e)
-      {
-         NicBotComm.Instance.SetSensorHome();
-         NicBotComm.Instance.SetSensorAngle(0);
-         this.UpdateSensorAngleSetPoint();
-      }
-
       private void SensorThicknessAcquireButton_Click(object sender, EventArgs e)
       {
          double latitude = 0;
@@ -3681,20 +3524,13 @@ namespace NICBOT.GUI
 
          if (false != validData)
          {
-            int channel = (false != this.SensorThicknessChannelToggleButton.OptionASelected) ? 1 : 2;
-            NicBotComm.Instance.TriggerThicknessReading(latitude, longitude, dateTime, direction, displacement, channel, radialLocation);
+            NicBotComm.Instance.TriggerThicknessReading(latitude, longitude, dateTime, direction, displacement, radialLocation);
 
             this.SensorThicknessAcquireButton.Enabled = false;
-            this.SensorThicknessChannelToggleButton.Enabled = false;
             this.SensorDirectionTextPanel.Enabled = false;
             this.SensorThicknessReadingTextPanel.ValueText = "";
             this.sensorThicknessPending = true;
          }
-      }
-
-      private void SensorThicknessChannelToggleButton_Click(object sender, EventArgs e)
-      {
-         this.SensorThicknessChannelToggleButton.OptionASelected = !this.SensorThicknessChannelToggleButton.OptionASelected;
       }
 
       private void SensorStressAcquireButton_Click(object sender, EventArgs e)
@@ -3710,20 +3546,13 @@ namespace NICBOT.GUI
 
          if (false != validData)
          {
-            int channel = (false != this.SensorStressChannelToggleButton.OptionASelected) ? 1 : 2;
-            NicBotComm.Instance.TriggerStressReading(latitude, longitude, dateTime, direction, displacement, channel, radialLocation);
+            NicBotComm.Instance.TriggerStressReading(latitude, longitude, dateTime, direction, displacement, radialLocation);
 
             this.SensorStressAcquireButton.Enabled = false;
-            this.SensorStressChannelToggleButton.Enabled = false;
             this.SensorDirectionTextPanel.Enabled = false;
             this.SensorStressReadingTextPanel.ValueText = "";
             this.sensorStressPending = true;
          }
-      }
-
-      private void SensorStressChannelToggleButton_Click(object sender, EventArgs e)
-      {
-         this.SensorStressChannelToggleButton.OptionASelected = !this.SensorStressChannelToggleButton.OptionASelected;
       }
 
       #endregion

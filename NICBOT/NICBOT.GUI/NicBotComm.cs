@@ -449,34 +449,14 @@ namespace NICBOT.GUI
 
       #region Sensor Functions
 
-      public void SetSensorHome()
+      public void TriggerThicknessReading(double latitude, double longitude, DateTime dateTime, Directions direction, double displacement, double radialLocation)
       {
-         RobotCommBus.Instance.SetSensorHome();
+         TruckCommBus.Instance.TriggerThicknessReading(latitude, longitude, dateTime, direction, displacement, radialLocation);
       }
 
-      public void SetSensorAngle(double sensorAngleSetPoint)
+      public void TriggerStressReading(double latitude, double longitude, DateTime dateTime, Directions direction, double displacement, double radialLocation)
       {
-         RobotCommBus.Instance.SetSensorAngle(sensorAngleSetPoint);
-      }
-
-      public void IncressSensorAngle()
-      {
-         RobotCommBus.Instance.IncressSensorAngle();
-      }
-
-      public void DecreaseSensorAngle()
-      {
-         RobotCommBus.Instance.DecreaseSensorAngle();
-      }
-
-      public void TriggerThicknessReading(double latitude, double longitude, DateTime dateTime, Directions direction, double displacement, int channel, double radialLocation)
-      {
-         TruckCommBus.Instance.TriggerThicknessReading(latitude, longitude, dateTime, direction, displacement, channel, radialLocation);
-      }
-
-      public void TriggerStressReading(double latitude, double longitude, DateTime dateTime, Directions direction, double displacement, int channel, double radialLocation)
-      {
-         TruckCommBus.Instance.TriggerStressReading(latitude, longitude, dateTime, direction, displacement, channel, radialLocation);
+         TruckCommBus.Instance.TriggerStressReading(latitude, longitude, dateTime, direction, displacement, radialLocation);
       }
 
       public bool GetThicknessReadingEnabled()
@@ -502,16 +482,6 @@ namespace NICBOT.GUI
       public bool GetStressReadingPending()
       {
          return (TruckCommBus.Instance.GetStressReadingPending());
-      }
-
-      public double GetSensorAngle()
-      {
-         return (RobotCommBus.Instance.GetSensorAngle());
-      }
-
-      public double GetSensorAngleSetPoint()
-      {
-         return (RobotCommBus.Instance.GetSensorAngleSetPoint());
       }
 
       public double GetStressReading()

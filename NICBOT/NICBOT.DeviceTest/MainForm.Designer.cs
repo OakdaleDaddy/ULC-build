@@ -510,45 +510,10 @@
          this.NicbotInspectRearArmExtendCheckBox = new System.Windows.Forms.CheckBox();
          this.NicbotInspectFrontArmRetractCheckBox = new System.Windows.Forms.CheckBox();
          this.NicbotInspectFrontArmExtendCheckBox = new System.Windows.Forms.CheckBox();
-         this.DisableNicbotSensorMotorButton = new System.Windows.Forms.Button();
-         this.SetNicbotSensorPulsesPerDegreeButton = new System.Windows.Forms.Button();
-         this.NicbotSensorPulsesPerDegeeTextBox = new System.Windows.Forms.TextBox();
-         this.GetNicbotSensorPulsesPerDegreeButton = new System.Windows.Forms.Button();
-         this.label142 = new System.Windows.Forms.Label();
-         this.SetNicbotSensorHomingBackoffButton = new System.Windows.Forms.Button();
-         this.NicbotSensorHomingBackoffTextBox = new System.Windows.Forms.TextBox();
-         this.GetNicbotSensorHomingBackoffButton = new System.Windows.Forms.Button();
-         this.label141 = new System.Windows.Forms.Label();
-         this.SetNicbotSensorServoErrorLimitButton = new System.Windows.Forms.Button();
-         this.NicbotSensorServoErrorLimitTextBox = new System.Windows.Forms.TextBox();
-         this.GetNicbotSensorServoErrorLimitButton = new System.Windows.Forms.Button();
-         this.label140 = new System.Windows.Forms.Label();
-         this.SetNicbotSensorTravelVelocityButton = new System.Windows.Forms.Button();
-         this.NicbotSensorTravelVelocityTextBox = new System.Windows.Forms.TextBox();
-         this.GetNicbotSensorTravelVelocityButton = new System.Windows.Forms.Button();
-         this.label139 = new System.Windows.Forms.Label();
-         this.SetNicbotSensorHomingVelocityButton = new System.Windows.Forms.Button();
-         this.NicbotSensorHomingVelocityTextBox = new System.Windows.Forms.TextBox();
-         this.GetNicbotSensorHomingVelocityButton = new System.Windows.Forms.Button();
-         this.label138 = new System.Windows.Forms.Label();
-         this.GetNicbotSensorServoStatusButton = new System.Windows.Forms.Button();
-         this.NicbotSensorServoStatusTextBox = new System.Windows.Forms.TextBox();
-         this.label137 = new System.Windows.Forms.Label();
-         this.SetNicbotSensorAccelerationButton = new System.Windows.Forms.Button();
-         this.NicbotSensorAccelerationTextBox = new System.Windows.Forms.TextBox();
-         this.GetNicbotSensorAccelerationButton = new System.Windows.Forms.Button();
-         this.label136 = new System.Windows.Forms.Label();
-         this.SetNicbotSensorHomeButton = new System.Windows.Forms.Button();
          this.NicbotInspectRearLowerLimitLabel = new System.Windows.Forms.Label();
          this.NicbotInspectRearUpperLimitLabel = new System.Windows.Forms.Label();
          this.NicbotInspectFrontLowerLimitLabel = new System.Windows.Forms.Label();
          this.NicbotInspectFrontUpperLimitLabel = new System.Windows.Forms.Label();
-         this.NicbotSensorCwLimitLabel = new System.Windows.Forms.Label();
-         this.NicbotSensorCcwLimitLabel = new System.Windows.Forms.Label();
-         this.NicbotSensorIndexTextBox = new System.Windows.Forms.TextBox();
-         this.label51 = new System.Windows.Forms.Label();
-         this.SetNicbotSensorIndexButton = new System.Windows.Forms.Button();
-         this.NicbotActualSensorIndexTextBox = new System.Windows.Forms.TextBox();
          this.SetNicbotLightLevelButton = new System.Windows.Forms.Button();
          this.NicbotLightLevelTextBox = new System.Windows.Forms.TextBox();
          this.NicbotLightLevelCameraSelectTextBox = new System.Windows.Forms.TextBox();
@@ -4180,7 +4145,7 @@
          this.NicbotBodyRepairGroupBox.Controls.Add(this.SetNicbotOriginHuntOnButton);
          this.NicbotBodyRepairGroupBox.Location = new System.Drawing.Point(3, 85);
          this.NicbotBodyRepairGroupBox.Name = "NicbotBodyRepairGroupBox";
-         this.NicbotBodyRepairGroupBox.Size = new System.Drawing.Size(668, 472);
+         this.NicbotBodyRepairGroupBox.Size = new System.Drawing.Size(588, 472);
          this.NicbotBodyRepairGroupBox.TabIndex = 231;
          this.NicbotBodyRepairGroupBox.TabStop = false;
          this.NicbotBodyRepairGroupBox.Text = "REPAIR";
@@ -5488,48 +5453,13 @@
          this.NicbotBodyInspectGroupBox.Controls.Add(this.NicbotInspectRearArmExtendCheckBox);
          this.NicbotBodyInspectGroupBox.Controls.Add(this.NicbotInspectFrontArmRetractCheckBox);
          this.NicbotBodyInspectGroupBox.Controls.Add(this.NicbotInspectFrontArmExtendCheckBox);
-         this.NicbotBodyInspectGroupBox.Controls.Add(this.DisableNicbotSensorMotorButton);
-         this.NicbotBodyInspectGroupBox.Controls.Add(this.SetNicbotSensorPulsesPerDegreeButton);
-         this.NicbotBodyInspectGroupBox.Controls.Add(this.NicbotSensorPulsesPerDegeeTextBox);
-         this.NicbotBodyInspectGroupBox.Controls.Add(this.GetNicbotSensorPulsesPerDegreeButton);
-         this.NicbotBodyInspectGroupBox.Controls.Add(this.label142);
-         this.NicbotBodyInspectGroupBox.Controls.Add(this.SetNicbotSensorHomingBackoffButton);
-         this.NicbotBodyInspectGroupBox.Controls.Add(this.NicbotSensorHomingBackoffTextBox);
-         this.NicbotBodyInspectGroupBox.Controls.Add(this.GetNicbotSensorHomingBackoffButton);
-         this.NicbotBodyInspectGroupBox.Controls.Add(this.label141);
-         this.NicbotBodyInspectGroupBox.Controls.Add(this.SetNicbotSensorServoErrorLimitButton);
-         this.NicbotBodyInspectGroupBox.Controls.Add(this.NicbotSensorServoErrorLimitTextBox);
-         this.NicbotBodyInspectGroupBox.Controls.Add(this.GetNicbotSensorServoErrorLimitButton);
-         this.NicbotBodyInspectGroupBox.Controls.Add(this.label140);
-         this.NicbotBodyInspectGroupBox.Controls.Add(this.SetNicbotSensorTravelVelocityButton);
-         this.NicbotBodyInspectGroupBox.Controls.Add(this.NicbotSensorTravelVelocityTextBox);
-         this.NicbotBodyInspectGroupBox.Controls.Add(this.GetNicbotSensorTravelVelocityButton);
-         this.NicbotBodyInspectGroupBox.Controls.Add(this.label139);
-         this.NicbotBodyInspectGroupBox.Controls.Add(this.SetNicbotSensorHomingVelocityButton);
-         this.NicbotBodyInspectGroupBox.Controls.Add(this.NicbotSensorHomingVelocityTextBox);
-         this.NicbotBodyInspectGroupBox.Controls.Add(this.GetNicbotSensorHomingVelocityButton);
-         this.NicbotBodyInspectGroupBox.Controls.Add(this.label138);
-         this.NicbotBodyInspectGroupBox.Controls.Add(this.GetNicbotSensorServoStatusButton);
-         this.NicbotBodyInspectGroupBox.Controls.Add(this.NicbotSensorServoStatusTextBox);
-         this.NicbotBodyInspectGroupBox.Controls.Add(this.label137);
-         this.NicbotBodyInspectGroupBox.Controls.Add(this.SetNicbotSensorAccelerationButton);
-         this.NicbotBodyInspectGroupBox.Controls.Add(this.NicbotSensorAccelerationTextBox);
-         this.NicbotBodyInspectGroupBox.Controls.Add(this.GetNicbotSensorAccelerationButton);
-         this.NicbotBodyInspectGroupBox.Controls.Add(this.label136);
-         this.NicbotBodyInspectGroupBox.Controls.Add(this.SetNicbotSensorHomeButton);
          this.NicbotBodyInspectGroupBox.Controls.Add(this.NicbotInspectRearLowerLimitLabel);
          this.NicbotBodyInspectGroupBox.Controls.Add(this.NicbotInspectRearUpperLimitLabel);
          this.NicbotBodyInspectGroupBox.Controls.Add(this.NicbotInspectFrontLowerLimitLabel);
          this.NicbotBodyInspectGroupBox.Controls.Add(this.NicbotInspectFrontUpperLimitLabel);
-         this.NicbotBodyInspectGroupBox.Controls.Add(this.NicbotSensorCwLimitLabel);
-         this.NicbotBodyInspectGroupBox.Controls.Add(this.NicbotSensorCcwLimitLabel);
-         this.NicbotBodyInspectGroupBox.Controls.Add(this.NicbotSensorIndexTextBox);
-         this.NicbotBodyInspectGroupBox.Controls.Add(this.label51);
-         this.NicbotBodyInspectGroupBox.Controls.Add(this.SetNicbotSensorIndexButton);
-         this.NicbotBodyInspectGroupBox.Controls.Add(this.NicbotActualSensorIndexTextBox);
          this.NicbotBodyInspectGroupBox.Location = new System.Drawing.Point(3, 574);
          this.NicbotBodyInspectGroupBox.Name = "NicbotBodyInspectGroupBox";
-         this.NicbotBodyInspectGroupBox.Size = new System.Drawing.Size(668, 255);
+         this.NicbotBodyInspectGroupBox.Size = new System.Drawing.Size(588, 102);
          this.NicbotBodyInspectGroupBox.TabIndex = 230;
          this.NicbotBodyInspectGroupBox.TabStop = false;
          this.NicbotBodyInspectGroupBox.Text = "INSPECT";
@@ -5697,270 +5627,6 @@
          this.NicbotInspectFrontArmExtendCheckBox.UseVisualStyleBackColor = true;
          this.NicbotInspectFrontArmExtendCheckBox.CheckedChanged += new System.EventHandler(this.NicbotInspectFrontArmExtendCheckBox_CheckedChanged);
          // 
-         // DisableNicbotSensorMotorButton
-         // 
-         this.DisableNicbotSensorMotorButton.Location = new System.Drawing.Point(255, 105);
-         this.DisableNicbotSensorMotorButton.Name = "DisableNicbotSensorMotorButton";
-         this.DisableNicbotSensorMotorButton.Size = new System.Drawing.Size(58, 23);
-         this.DisableNicbotSensorMotorButton.TabIndex = 269;
-         this.DisableNicbotSensorMotorButton.Text = "Disable";
-         this.DisableNicbotSensorMotorButton.UseVisualStyleBackColor = true;
-         this.DisableNicbotSensorMotorButton.Click += new System.EventHandler(this.DisableNicbotSensorMotorButton_Click);
-         // 
-         // SetNicbotSensorPulsesPerDegreeButton
-         // 
-         this.SetNicbotSensorPulsesPerDegreeButton.Location = new System.Drawing.Point(586, 221);
-         this.SetNicbotSensorPulsesPerDegreeButton.Name = "SetNicbotSensorPulsesPerDegreeButton";
-         this.SetNicbotSensorPulsesPerDegreeButton.Size = new System.Drawing.Size(35, 23);
-         this.SetNicbotSensorPulsesPerDegreeButton.TabIndex = 267;
-         this.SetNicbotSensorPulsesPerDegreeButton.Text = "Set";
-         this.SetNicbotSensorPulsesPerDegreeButton.UseVisualStyleBackColor = true;
-         this.SetNicbotSensorPulsesPerDegreeButton.Click += new System.EventHandler(this.SetNicbotSensorPulsesPerDegreeButton_Click);
-         // 
-         // NicbotSensorPulsesPerDegeeTextBox
-         // 
-         this.NicbotSensorPulsesPerDegeeTextBox.Location = new System.Drawing.Point(485, 222);
-         this.NicbotSensorPulsesPerDegeeTextBox.Name = "NicbotSensorPulsesPerDegeeTextBox";
-         this.NicbotSensorPulsesPerDegeeTextBox.Size = new System.Drawing.Size(59, 20);
-         this.NicbotSensorPulsesPerDegeeTextBox.TabIndex = 265;
-         // 
-         // GetNicbotSensorPulsesPerDegreeButton
-         // 
-         this.GetNicbotSensorPulsesPerDegreeButton.Location = new System.Drawing.Point(550, 221);
-         this.GetNicbotSensorPulsesPerDegreeButton.Name = "GetNicbotSensorPulsesPerDegreeButton";
-         this.GetNicbotSensorPulsesPerDegreeButton.Size = new System.Drawing.Size(35, 23);
-         this.GetNicbotSensorPulsesPerDegreeButton.TabIndex = 268;
-         this.GetNicbotSensorPulsesPerDegreeButton.Text = "Get";
-         this.GetNicbotSensorPulsesPerDegreeButton.UseVisualStyleBackColor = true;
-         this.GetNicbotSensorPulsesPerDegreeButton.Click += new System.EventHandler(this.GetNicbotSensorPulsesPerDegreeButton_Click);
-         // 
-         // label142
-         // 
-         this.label142.AutoSize = true;
-         this.label142.Location = new System.Drawing.Point(320, 226);
-         this.label142.Name = "label142";
-         this.label142.Size = new System.Drawing.Size(163, 13);
-         this.label142.TabIndex = 266;
-         this.label142.Text = "SENSOR PULSE PER DEGREE";
-         // 
-         // SetNicbotSensorHomingBackoffButton
-         // 
-         this.SetNicbotSensorHomingBackoffButton.Location = new System.Drawing.Point(586, 175);
-         this.SetNicbotSensorHomingBackoffButton.Name = "SetNicbotSensorHomingBackoffButton";
-         this.SetNicbotSensorHomingBackoffButton.Size = new System.Drawing.Size(35, 23);
-         this.SetNicbotSensorHomingBackoffButton.TabIndex = 263;
-         this.SetNicbotSensorHomingBackoffButton.Text = "Set";
-         this.SetNicbotSensorHomingBackoffButton.UseVisualStyleBackColor = true;
-         this.SetNicbotSensorHomingBackoffButton.Click += new System.EventHandler(this.SetNicbotSensorHomingBackoffButton_Click);
-         // 
-         // NicbotSensorHomingBackoffTextBox
-         // 
-         this.NicbotSensorHomingBackoffTextBox.Location = new System.Drawing.Point(485, 176);
-         this.NicbotSensorHomingBackoffTextBox.Name = "NicbotSensorHomingBackoffTextBox";
-         this.NicbotSensorHomingBackoffTextBox.Size = new System.Drawing.Size(59, 20);
-         this.NicbotSensorHomingBackoffTextBox.TabIndex = 261;
-         // 
-         // GetNicbotSensorHomingBackoffButton
-         // 
-         this.GetNicbotSensorHomingBackoffButton.Location = new System.Drawing.Point(550, 175);
-         this.GetNicbotSensorHomingBackoffButton.Name = "GetNicbotSensorHomingBackoffButton";
-         this.GetNicbotSensorHomingBackoffButton.Size = new System.Drawing.Size(35, 23);
-         this.GetNicbotSensorHomingBackoffButton.TabIndex = 264;
-         this.GetNicbotSensorHomingBackoffButton.Text = "Get";
-         this.GetNicbotSensorHomingBackoffButton.UseVisualStyleBackColor = true;
-         this.GetNicbotSensorHomingBackoffButton.Click += new System.EventHandler(this.GetNicbotSensorHomingBackoffButton_Click);
-         // 
-         // label141
-         // 
-         this.label141.AutoSize = true;
-         this.label141.Location = new System.Drawing.Point(345, 180);
-         this.label141.Name = "label141";
-         this.label141.Size = new System.Drawing.Size(138, 13);
-         this.label141.TabIndex = 262;
-         this.label141.Text = "SENSOR HOME BACKOFF";
-         // 
-         // SetNicbotSensorServoErrorLimitButton
-         // 
-         this.SetNicbotSensorServoErrorLimitButton.Location = new System.Drawing.Point(586, 105);
-         this.SetNicbotSensorServoErrorLimitButton.Name = "SetNicbotSensorServoErrorLimitButton";
-         this.SetNicbotSensorServoErrorLimitButton.Size = new System.Drawing.Size(35, 23);
-         this.SetNicbotSensorServoErrorLimitButton.TabIndex = 259;
-         this.SetNicbotSensorServoErrorLimitButton.Text = "Set";
-         this.SetNicbotSensorServoErrorLimitButton.UseVisualStyleBackColor = true;
-         this.SetNicbotSensorServoErrorLimitButton.Click += new System.EventHandler(this.SetNicbotSensorServoErrorLimitButton_Click);
-         // 
-         // NicbotSensorServoErrorLimitTextBox
-         // 
-         this.NicbotSensorServoErrorLimitTextBox.Location = new System.Drawing.Point(485, 106);
-         this.NicbotSensorServoErrorLimitTextBox.Name = "NicbotSensorServoErrorLimitTextBox";
-         this.NicbotSensorServoErrorLimitTextBox.Size = new System.Drawing.Size(59, 20);
-         this.NicbotSensorServoErrorLimitTextBox.TabIndex = 257;
-         // 
-         // GetNicbotSensorServoErrorLimitButton
-         // 
-         this.GetNicbotSensorServoErrorLimitButton.Location = new System.Drawing.Point(550, 105);
-         this.GetNicbotSensorServoErrorLimitButton.Name = "GetNicbotSensorServoErrorLimitButton";
-         this.GetNicbotSensorServoErrorLimitButton.Size = new System.Drawing.Size(35, 23);
-         this.GetNicbotSensorServoErrorLimitButton.TabIndex = 260;
-         this.GetNicbotSensorServoErrorLimitButton.Text = "Get";
-         this.GetNicbotSensorServoErrorLimitButton.UseVisualStyleBackColor = true;
-         this.GetNicbotSensorServoErrorLimitButton.Click += new System.EventHandler(this.GetNicbotSensorServoErrorLimitButton_Click);
-         // 
-         // label140
-         // 
-         this.label140.AutoSize = true;
-         this.label140.Location = new System.Drawing.Point(366, 110);
-         this.label140.Name = "label140";
-         this.label140.Size = new System.Drawing.Size(117, 13);
-         this.label140.TabIndex = 258;
-         this.label140.Text = "SERVO ERROR LIMIT";
-         // 
-         // SetNicbotSensorTravelVelocityButton
-         // 
-         this.SetNicbotSensorTravelVelocityButton.Location = new System.Drawing.Point(586, 198);
-         this.SetNicbotSensorTravelVelocityButton.Name = "SetNicbotSensorTravelVelocityButton";
-         this.SetNicbotSensorTravelVelocityButton.Size = new System.Drawing.Size(35, 23);
-         this.SetNicbotSensorTravelVelocityButton.TabIndex = 255;
-         this.SetNicbotSensorTravelVelocityButton.Text = "Set";
-         this.SetNicbotSensorTravelVelocityButton.UseVisualStyleBackColor = true;
-         this.SetNicbotSensorTravelVelocityButton.Click += new System.EventHandler(this.SetNicbotSensorTravelVelocityButton_Click);
-         // 
-         // NicbotSensorTravelVelocityTextBox
-         // 
-         this.NicbotSensorTravelVelocityTextBox.Location = new System.Drawing.Point(485, 199);
-         this.NicbotSensorTravelVelocityTextBox.Name = "NicbotSensorTravelVelocityTextBox";
-         this.NicbotSensorTravelVelocityTextBox.Size = new System.Drawing.Size(59, 20);
-         this.NicbotSensorTravelVelocityTextBox.TabIndex = 253;
-         // 
-         // GetNicbotSensorTravelVelocityButton
-         // 
-         this.GetNicbotSensorTravelVelocityButton.Location = new System.Drawing.Point(550, 198);
-         this.GetNicbotSensorTravelVelocityButton.Name = "GetNicbotSensorTravelVelocityButton";
-         this.GetNicbotSensorTravelVelocityButton.Size = new System.Drawing.Size(35, 23);
-         this.GetNicbotSensorTravelVelocityButton.TabIndex = 256;
-         this.GetNicbotSensorTravelVelocityButton.Text = "Get";
-         this.GetNicbotSensorTravelVelocityButton.UseVisualStyleBackColor = true;
-         this.GetNicbotSensorTravelVelocityButton.Click += new System.EventHandler(this.GetNicbotSensorTravelVelocityButton_Click);
-         // 
-         // label139
-         // 
-         this.label139.AutoSize = true;
-         this.label139.Location = new System.Drawing.Point(331, 203);
-         this.label139.Name = "label139";
-         this.label139.Size = new System.Drawing.Size(152, 13);
-         this.label139.TabIndex = 254;
-         this.label139.Text = "SENSOR TRAVEL VELOCITY";
-         // 
-         // SetNicbotSensorHomingVelocityButton
-         // 
-         this.SetNicbotSensorHomingVelocityButton.Location = new System.Drawing.Point(586, 152);
-         this.SetNicbotSensorHomingVelocityButton.Name = "SetNicbotSensorHomingVelocityButton";
-         this.SetNicbotSensorHomingVelocityButton.Size = new System.Drawing.Size(35, 23);
-         this.SetNicbotSensorHomingVelocityButton.TabIndex = 251;
-         this.SetNicbotSensorHomingVelocityButton.Text = "Set";
-         this.SetNicbotSensorHomingVelocityButton.UseVisualStyleBackColor = true;
-         this.SetNicbotSensorHomingVelocityButton.Click += new System.EventHandler(this.SetNicbotSensorHomingVelocityButton_Click);
-         // 
-         // NicbotSensorHomingVelocityTextBox
-         // 
-         this.NicbotSensorHomingVelocityTextBox.Location = new System.Drawing.Point(485, 154);
-         this.NicbotSensorHomingVelocityTextBox.Name = "NicbotSensorHomingVelocityTextBox";
-         this.NicbotSensorHomingVelocityTextBox.Size = new System.Drawing.Size(59, 20);
-         this.NicbotSensorHomingVelocityTextBox.TabIndex = 249;
-         // 
-         // GetNicbotSensorHomingVelocityButton
-         // 
-         this.GetNicbotSensorHomingVelocityButton.Location = new System.Drawing.Point(550, 152);
-         this.GetNicbotSensorHomingVelocityButton.Name = "GetNicbotSensorHomingVelocityButton";
-         this.GetNicbotSensorHomingVelocityButton.Size = new System.Drawing.Size(35, 23);
-         this.GetNicbotSensorHomingVelocityButton.TabIndex = 252;
-         this.GetNicbotSensorHomingVelocityButton.Text = "Get";
-         this.GetNicbotSensorHomingVelocityButton.UseVisualStyleBackColor = true;
-         this.GetNicbotSensorHomingVelocityButton.Click += new System.EventHandler(this.GetNicbotSensorHomingVelocityButton_Click);
-         // 
-         // label138
-         // 
-         this.label138.AutoSize = true;
-         this.label138.Location = new System.Drawing.Point(329, 158);
-         this.label138.Name = "label138";
-         this.label138.Size = new System.Drawing.Size(154, 13);
-         this.label138.TabIndex = 250;
-         this.label138.Text = "SENSOR HOMING VELOCITY";
-         // 
-         // GetNicbotSensorServoStatusButton
-         // 
-         this.GetNicbotSensorServoStatusButton.Location = new System.Drawing.Point(219, 105);
-         this.GetNicbotSensorServoStatusButton.Name = "GetNicbotSensorServoStatusButton";
-         this.GetNicbotSensorServoStatusButton.Size = new System.Drawing.Size(35, 23);
-         this.GetNicbotSensorServoStatusButton.TabIndex = 248;
-         this.GetNicbotSensorServoStatusButton.Text = "Get";
-         this.GetNicbotSensorServoStatusButton.UseVisualStyleBackColor = true;
-         this.GetNicbotSensorServoStatusButton.Click += new System.EventHandler(this.GetNicbotSensorServoStatusButton_Click);
-         // 
-         // NicbotSensorServoStatusTextBox
-         // 
-         this.NicbotSensorServoStatusTextBox.Location = new System.Drawing.Point(173, 107);
-         this.NicbotSensorServoStatusTextBox.MaxLength = 5;
-         this.NicbotSensorServoStatusTextBox.Name = "NicbotSensorServoStatusTextBox";
-         this.NicbotSensorServoStatusTextBox.ReadOnly = true;
-         this.NicbotSensorServoStatusTextBox.Size = new System.Drawing.Size(40, 20);
-         this.NicbotSensorServoStatusTextBox.TabIndex = 246;
-         // 
-         // label137
-         // 
-         this.label137.AutoSize = true;
-         this.label137.Location = new System.Drawing.Point(81, 110);
-         this.label137.Name = "label137";
-         this.label137.Size = new System.Drawing.Size(90, 13);
-         this.label137.TabIndex = 247;
-         this.label137.Text = "SERVO STATUS";
-         // 
-         // SetNicbotSensorAccelerationButton
-         // 
-         this.SetNicbotSensorAccelerationButton.Location = new System.Drawing.Point(586, 128);
-         this.SetNicbotSensorAccelerationButton.Name = "SetNicbotSensorAccelerationButton";
-         this.SetNicbotSensorAccelerationButton.Size = new System.Drawing.Size(35, 23);
-         this.SetNicbotSensorAccelerationButton.TabIndex = 244;
-         this.SetNicbotSensorAccelerationButton.Text = "Set";
-         this.SetNicbotSensorAccelerationButton.UseVisualStyleBackColor = true;
-         this.SetNicbotSensorAccelerationButton.Click += new System.EventHandler(this.SetNicbotSensorAccelerationButton_Click);
-         // 
-         // NicbotSensorAccelerationTextBox
-         // 
-         this.NicbotSensorAccelerationTextBox.Location = new System.Drawing.Point(485, 129);
-         this.NicbotSensorAccelerationTextBox.Name = "NicbotSensorAccelerationTextBox";
-         this.NicbotSensorAccelerationTextBox.Size = new System.Drawing.Size(59, 20);
-         this.NicbotSensorAccelerationTextBox.TabIndex = 161;
-         // 
-         // GetNicbotSensorAccelerationButton
-         // 
-         this.GetNicbotSensorAccelerationButton.Location = new System.Drawing.Point(550, 128);
-         this.GetNicbotSensorAccelerationButton.Name = "GetNicbotSensorAccelerationButton";
-         this.GetNicbotSensorAccelerationButton.Size = new System.Drawing.Size(35, 23);
-         this.GetNicbotSensorAccelerationButton.TabIndex = 245;
-         this.GetNicbotSensorAccelerationButton.Text = "Get";
-         this.GetNicbotSensorAccelerationButton.UseVisualStyleBackColor = true;
-         this.GetNicbotSensorAccelerationButton.Click += new System.EventHandler(this.GetNicbotSensorAccelerationButton_Click);
-         // 
-         // label136
-         // 
-         this.label136.AutoSize = true;
-         this.label136.Location = new System.Drawing.Point(346, 132);
-         this.label136.Name = "label136";
-         this.label136.Size = new System.Drawing.Size(137, 13);
-         this.label136.TabIndex = 162;
-         this.label136.Text = "SENSOR ACCELERATION";
-         // 
-         // SetNicbotSensorHomeButton
-         // 
-         this.SetNicbotSensorHomeButton.Location = new System.Drawing.Point(255, 128);
-         this.SetNicbotSensorHomeButton.Name = "SetNicbotSensorHomeButton";
-         this.SetNicbotSensorHomeButton.Size = new System.Drawing.Size(58, 23);
-         this.SetNicbotSensorHomeButton.TabIndex = 160;
-         this.SetNicbotSensorHomeButton.Text = "Home";
-         this.SetNicbotSensorHomeButton.UseVisualStyleBackColor = true;
-         this.SetNicbotSensorHomeButton.Click += new System.EventHandler(this.SetNicbotSensorHomeButton_Click);
-         // 
          // NicbotInspectRearLowerLimitLabel
          // 
          this.NicbotInspectRearLowerLimitLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -6000,63 +5666,6 @@
          this.NicbotInspectFrontUpperLimitLabel.TabIndex = 156;
          this.NicbotInspectFrontUpperLimitLabel.Text = "UF";
          this.NicbotInspectFrontUpperLimitLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         // 
-         // NicbotSensorCwLimitLabel
-         // 
-         this.NicbotSensorCwLimitLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-         this.NicbotSensorCwLimitLabel.Location = new System.Drawing.Point(181, 157);
-         this.NicbotSensorCwLimitLabel.Name = "NicbotSensorCwLimitLabel";
-         this.NicbotSensorCwLimitLabel.Size = new System.Drawing.Size(54, 18);
-         this.NicbotSensorCwLimitLabel.TabIndex = 137;
-         this.NicbotSensorCwLimitLabel.Text = "CW";
-         this.NicbotSensorCwLimitLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         // 
-         // NicbotSensorCcwLimitLabel
-         // 
-         this.NicbotSensorCcwLimitLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-         this.NicbotSensorCcwLimitLabel.Location = new System.Drawing.Point(127, 157);
-         this.NicbotSensorCcwLimitLabel.Name = "NicbotSensorCcwLimitLabel";
-         this.NicbotSensorCcwLimitLabel.Size = new System.Drawing.Size(54, 18);
-         this.NicbotSensorCcwLimitLabel.TabIndex = 136;
-         this.NicbotSensorCcwLimitLabel.Text = "CCW";
-         this.NicbotSensorCcwLimitLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         // 
-         // NicbotSensorIndexTextBox
-         // 
-         this.NicbotSensorIndexTextBox.Location = new System.Drawing.Point(127, 131);
-         this.NicbotSensorIndexTextBox.MaxLength = 5;
-         this.NicbotSensorIndexTextBox.Name = "NicbotSensorIndexTextBox";
-         this.NicbotSensorIndexTextBox.Size = new System.Drawing.Size(40, 20);
-         this.NicbotSensorIndexTextBox.TabIndex = 120;
-         // 
-         // label51
-         // 
-         this.label51.AutoSize = true;
-         this.label51.Location = new System.Drawing.Point(37, 134);
-         this.label51.Name = "label51";
-         this.label51.Size = new System.Drawing.Size(88, 13);
-         this.label51.TabIndex = 121;
-         this.label51.Text = "SENSOR INDEX";
-         // 
-         // SetNicbotSensorIndexButton
-         // 
-         this.SetNicbotSensorIndexButton.Location = new System.Drawing.Point(219, 128);
-         this.SetNicbotSensorIndexButton.Name = "SetNicbotSensorIndexButton";
-         this.SetNicbotSensorIndexButton.Size = new System.Drawing.Size(35, 23);
-         this.SetNicbotSensorIndexButton.TabIndex = 122;
-         this.SetNicbotSensorIndexButton.Text = "Set";
-         this.SetNicbotSensorIndexButton.UseVisualStyleBackColor = true;
-         this.SetNicbotSensorIndexButton.Click += new System.EventHandler(this.SetNicbotSensorIndexButton_Click);
-         // 
-         // NicbotActualSensorIndexTextBox
-         // 
-         this.NicbotActualSensorIndexTextBox.Location = new System.Drawing.Point(173, 131);
-         this.NicbotActualSensorIndexTextBox.MaxLength = 5;
-         this.NicbotActualSensorIndexTextBox.Name = "NicbotActualSensorIndexTextBox";
-         this.NicbotActualSensorIndexTextBox.ReadOnly = true;
-         this.NicbotActualSensorIndexTextBox.Size = new System.Drawing.Size(40, 20);
-         this.NicbotActualSensorIndexTextBox.TabIndex = 123;
-         this.NicbotActualSensorIndexTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
          // 
          // SetNicbotLightLevelButton
          // 
@@ -7436,9 +7045,6 @@
       private System.Windows.Forms.TextBox NicbotLightLevelTextBox;
       private System.Windows.Forms.TextBox NicbotLightLevelCameraSelectTextBox;
       private System.Windows.Forms.Label label46;
-      private System.Windows.Forms.Button SetNicbotSensorIndexButton;
-      private System.Windows.Forms.TextBox NicbotSensorIndexTextBox;
-      private System.Windows.Forms.Label label51;
       private System.Windows.Forms.Button SetNicbotRearDrillIndexButton;
       private System.Windows.Forms.TextBox NicbotRearDrillIndexTextBox;
       private System.Windows.Forms.Label label50;
@@ -7455,7 +7061,6 @@
       private System.Windows.Forms.TextBox NicbotActualRearDrillIndexTextBox;
       private System.Windows.Forms.TextBox NicbotActualFrontDrillIndexTextBox;
       private System.Windows.Forms.TextBox NicbotActualRearDrillSpeedTextBox;
-      private System.Windows.Forms.TextBox NicbotActualSensorIndexTextBox;
       private System.Windows.Forms.TabPage Rs232TabPage;
       private System.Windows.Forms.TextBox ActiveRs232NodeIdTextBox;
       private System.Windows.Forms.Label label52;
@@ -7685,8 +7290,6 @@
       private System.Windows.Forms.Button NicbotConfigButton;
       private System.Windows.Forms.GroupBox NicbotBodyRepairGroupBox;
       private System.Windows.Forms.GroupBox NicbotBodyInspectGroupBox;
-      private System.Windows.Forms.Label NicbotSensorCwLimitLabel;
-      private System.Windows.Forms.Label NicbotSensorCcwLimitLabel;
       private System.Windows.Forms.TextBox NicbotAccelerometerZTextBox;
       private System.Windows.Forms.Label label132;
       private System.Windows.Forms.TextBox NicbotAccelerometerYTextBox;
@@ -7714,39 +7317,10 @@
       private System.Windows.Forms.TextBox NicbotWheelConsumerHeartbeatNodeIdTextBox;
       private System.Windows.Forms.Label label133;
       private System.Windows.Forms.Button SetNicbotWheelConsumerHeartbeatButton;
-      private System.Windows.Forms.Button SetNicbotSensorHomeButton;
       private System.Windows.Forms.TextBox NicbotPitchTextBox;
       private System.Windows.Forms.Label label135;
       private System.Windows.Forms.TextBox NicbotRollTextBox;
       private System.Windows.Forms.Label label134;
-      private System.Windows.Forms.Button SetNicbotSensorTravelVelocityButton;
-      private System.Windows.Forms.TextBox NicbotSensorTravelVelocityTextBox;
-      private System.Windows.Forms.Button GetNicbotSensorTravelVelocityButton;
-      private System.Windows.Forms.Label label139;
-      private System.Windows.Forms.Button SetNicbotSensorHomingVelocityButton;
-      private System.Windows.Forms.TextBox NicbotSensorHomingVelocityTextBox;
-      private System.Windows.Forms.Button GetNicbotSensorHomingVelocityButton;
-      private System.Windows.Forms.Label label138;
-      private System.Windows.Forms.Button GetNicbotSensorServoStatusButton;
-      private System.Windows.Forms.TextBox NicbotSensorServoStatusTextBox;
-      private System.Windows.Forms.Label label137;
-      private System.Windows.Forms.Button SetNicbotSensorAccelerationButton;
-      private System.Windows.Forms.TextBox NicbotSensorAccelerationTextBox;
-      private System.Windows.Forms.Button GetNicbotSensorAccelerationButton;
-      private System.Windows.Forms.Label label136;
-      private System.Windows.Forms.Button SetNicbotSensorServoErrorLimitButton;
-      private System.Windows.Forms.TextBox NicbotSensorServoErrorLimitTextBox;
-      private System.Windows.Forms.Button GetNicbotSensorServoErrorLimitButton;
-      private System.Windows.Forms.Label label140;
-      private System.Windows.Forms.Button SetNicbotSensorHomingBackoffButton;
-      private System.Windows.Forms.TextBox NicbotSensorHomingBackoffTextBox;
-      private System.Windows.Forms.Button GetNicbotSensorHomingBackoffButton;
-      private System.Windows.Forms.Label label141;
-      private System.Windows.Forms.Button SetNicbotSensorPulsesPerDegreeButton;
-      private System.Windows.Forms.TextBox NicbotSensorPulsesPerDegeeTextBox;
-      private System.Windows.Forms.Button GetNicbotSensorPulsesPerDegreeButton;
-      private System.Windows.Forms.Label label142;
-      private System.Windows.Forms.Button DisableNicbotSensorMotorButton;
       private System.Windows.Forms.CheckBox NicbotInspectSensorArmDeployCheckBox;
       private System.Windows.Forms.CheckBox NicbotInspectSensorArmStowCheckBox;
       private System.Windows.Forms.CheckBox NicbotInspectWheelLockCheckBox;

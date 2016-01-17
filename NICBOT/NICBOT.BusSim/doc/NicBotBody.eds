@@ -147,7 +147,6 @@ running:
 0x2312: front drill index set point, s16, RW, default=0 {0..limit} units of 1/10 mm (robot mode)
 0x2313: rear drill speed set point, s16, RW, default=0 RPM (robot mode)
 0x2314: rear drill index set point, s16, RW, default=0 {0..limit} units of 1/10 mm (robot mode)
-0x2315: sensor index set point, u16, RW, default=0, {0..35999} units of 0.01 degrees (inspect mode)
 
 0x2322: front drill index limit, u16, RO, 635 (robot mode)
 0x2324: rear drill index limit, u16, RO, 635 (robot mode)
@@ -183,14 +182,6 @@ no 0x2325: sensor index limit, u16, RO, 719 (inspect mode)
 0x2345: drill pulses per 1/10 mm, s32, RW, default=885472
 0x2346: front drill servo status, u8 R0
 0x2347: rear drill servo status, u8 R0
-
-0x2350: sensor servo acceleration, u32, RW, default=2560
-0x2351: sensor servo homing velocity, u32, RW, default=1310720
-0x2352: sensor servo homing backoff count, u32 RW, default=153641
-0x2353: sensor servo status, u8 R0
-0x2354: sensor servo error limit, u16 RW, default=300
-0x2355: sensor servo travel velocity, u32, RW, default=2621440
-0x2356: sensor pulses per degree, s32, RW, default=23199
 
 0x2411: actual front drill speed, s16, RO, default=0 RPM, mappable (robot mode)
 0x2412: actual front drill index, s16, RO, default=0, mappable {0..635} units of 1/10 mm (robot mode)
@@ -239,8 +230,8 @@ no 0x2325: sensor index limit, u16, RO, 719 (inspect mode)
  b15: front upper wheel in locking position {0=not, 1=position}
 
 0x2500: control word, u16, RW, default=0 (inspect)
- b00: move to home
- b01: disable sensor motor 
+ b00: 
+ b01: 
  b02: 
  b03:
  b04:
@@ -267,8 +258,8 @@ no 0x2325: sensor index limit, u16, RO, 719 (inspect mode)
  b07: last wheel position request (0=not axial, 1=axial)
  b08: 
  b09: 
- b10: sensor at CCW limit {0=limit, 1=not} 
- b11: sensor at CW limit {0=limit, 1=not} 
+ b10: 
+ b11: 
  b12: front lower wheel in locking position {0=not, 1=position}
  b13: rear upper upper wheel in locking position {0=not, 1=position}
  b14: rear lower upper wheel in locking position {0=not, 1=position}

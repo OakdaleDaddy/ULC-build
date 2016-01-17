@@ -119,10 +119,6 @@ namespace NICBOT.GUI
       private bool drillRearLaserSetPoint;
       private bool drillRearLaserRequested;
 
-      private bool robotHomeNeeded;
-      private double robotSensorAngleSetPoint;
-      private double robotSensorAngleRequested;
-
       private CameraLocations cameraA;
       private CameraLocations cameraB;
       private int videoASetPoint;
@@ -639,11 +635,6 @@ namespace NICBOT.GUI
             this.drillFrontConfigurationNeeded = true;
             this.drillRearConfigurationNeeded = true;
          }
-
-         if (RobotApplications.inspect == ParameterAccessor.Instance.RobotApplication)
-         {
-            this.robotBody.SetSensorAngle(0);
-         }
       }
 
       private void UpdateRobotWheelMode()
@@ -1011,18 +1002,6 @@ namespace NICBOT.GUI
 
          if (RobotApplications.inspect == ParameterAccessor.Instance.RobotApplication)
          {
-            if (false != this.robotHomeNeeded)
-            {
-               this.robotBody.SetSensorHome();
-               this.robotHomeNeeded = false;
-               this.robotSensorAngleSetPoint = 0;
-               this.robotSensorAngleRequested = 0;
-            }
-            else if (this.robotSensorAngleSetPoint != this.robotSensorAngleRequested)
-            {
-               this.robotBody.SetSensorAngle(this.robotSensorAngleSetPoint);
-               this.robotSensorAngleRequested = this.robotSensorAngleSetPoint;
-            }
          }
       }
 
@@ -1329,10 +1308,6 @@ namespace NICBOT.GUI
          this.drillFrontLaserRequested = false;
          this.drillRearLaserSetPoint = false;
          this.drillRearLaserRequested = false;
-
-         this.robotHomeNeeded = false;
-         this.robotSensorAngleSetPoint = 0;
-         this.robotSensorAngleRequested = 0;
 
          this.cameraA = CameraLocations.robotFrontUpperBack;
          this.cameraB = CameraLocations.robotLowerBack;
@@ -2325,90 +2300,6 @@ namespace NICBOT.GUI
          else
          {
             result = this.drillRearLaserSetPoint;
-         }
-
-         return (result);
-      }
-
-      #endregion
-
-      #region Robot Sensor Functions
-
-      public void SetSensorHome()
-      {
-         this.robotHomeNeeded = true;
-      }
-
-      public void SetSensorAngle(double sensorAngleSetPoint)
-      {
-         this.robotSensorAngleSetPoint = sensorAngleSetPoint;
-      }
-
-      public void IncressSensorAngle()
-      {
-         double step = 1;
-         double value = this.robotSensorAngleSetPoint;
-
-         if (SensorRotationDisplayModes.sidereal == ParameterAccessor.Instance.SensorRotationDisplayMode)
-         {
-            step = 0.5;
-         }
-
-         double limit = 360 - step;
-
-         if (value >= limit)
-         {
-            value = 0;
-         }
-         else
-         {
-            value += step;
-         }
-
-         this.SetSensorAngle(value);
-      }
-
-      public void DecreaseSensorAngle()
-      {
-         double step = 1;
-         double value = this.robotSensorAngleSetPoint;
-
-         if (SensorRotationDisplayModes.sidereal == ParameterAccessor.Instance.SensorRotationDisplayMode)
-         {
-            step = 0.5;
-         }
-
-         if (value <= 0)
-         {
-            value = 360 - step;
-         }
-         else
-         {
-            value -= step;
-         }
-
-         this.SetSensorAngle(value);
-      }
-
-      public double GetSensorAngle()
-      {
-         double result = 0;
-
-         if (RobotApplications.inspect == ParameterAccessor.Instance.RobotApplication)
-         {
-            result = this.robotBody.SensorAngle; // todo combine with body position to determine angle with reference to pipe
-         }
-
-         return (result);
-      }
-
-      public double GetSensorAngleSetPoint()
-      {
-         double result = 0;
-
-         if (RobotApplications.inspect == ParameterAccessor.Instance.RobotApplication)
-         {
-            result = this.robotSensorAngleSetPoint;
          }
 
          return (result);

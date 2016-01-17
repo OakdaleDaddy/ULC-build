@@ -92,7 +92,6 @@
     <Compile Include="Definitions\CameraLocations.cs" />
     <Compile Include="Definitions\CommunicationBuses.cs" />
     <Compile Include="Definitions\Directions.cs" />
-    <Compile Include="Definitions\SensorRotationDisplayModes.cs" />
     <Compile Include="DirectionEntryForm.cs">
       <SubType>Form</SubType>
     </Compile>
