@@ -472,6 +472,11 @@ namespace NICBOT.GUI
          }
          catch { }
 
+         if (result.Contains("\n") != false)
+         {
+            result = "";
+         }
+
          return (result);
       }
 
