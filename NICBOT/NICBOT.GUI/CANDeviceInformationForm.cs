@@ -182,6 +182,5 @@ namespace NICBOT.GUI
 
       #endregion
 
-
    }
 }

@@ -16,6 +16,12 @@ namespace NICBOT.GUI
 
    public partial class SystemStatusForm : Form
    {
+      #region Fields
+
+      private PopupDimmerForm dimmerForm;
+
+      #endregion
+
       #region Definitions
 
       public delegate void SystemResetDelegate();
@@ -103,6 +109,20 @@ namespace NICBOT.GUI
          }
       }
 
+      private void DimBackground()
+      {
+         this.dimmerForm.Top = this.Top;
+         this.dimmerForm.Left = this.Left;
+         this.dimmerForm.Height = this.Height;
+         this.dimmerForm.Width = this.Width;
+         this.dimmerForm.Show();
+      }
+
+      private void LightBackground()
+      {
+         this.dimmerForm.Hide();
+      }
+
       private void LaunchCANDeviceInformationForm(Label label, Device device)
       {
          if (null != device)
@@ -113,7 +133,9 @@ namespace NICBOT.GUI
             deviceInformationForm.Title = label.Text;
             deviceInformationForm.Device = device;
 
+            this.DimBackground();
             deviceInformationForm.ShowDialog();
+            this.LightBackground();
          }
       }
 
@@ -416,7 +438,10 @@ namespace NICBOT.GUI
          messageForm.Message = "DEFAULTS ASSIGNED ON THE NEXT SYSTEM START";
 
          this.SetDialogLocation(this.TriggerDefaultsButton, messageForm);
+
+         this.DimBackground();
          messageForm.ShowDialog();
+         this.LightBackground();
       }
 
       private void SystemResetButton_HoldTimeout(object sender, HoldTimeoutEventArgs e)
@@ -436,7 +461,9 @@ namespace NICBOT.GUI
          ipAddressEntryForm.PresentValue = ParameterAccessor.Instance.Trace.Address;
          ipAddressEntryForm.DefaultValue = "127.0.0.1";
 
+         this.DimBackground();
          DialogResult result = ipAddressEntryForm.ShowDialog();
+         this.LightBackground();
 
          if (result == System.Windows.Forms.DialogResult.OK)
          {
@@ -459,7 +486,9 @@ namespace NICBOT.GUI
          numberEntryForm.MinimumValue = 1;
          numberEntryForm.MaximumValue = 65535;
 
+         this.DimBackground();
          DialogResult result = numberEntryForm.ShowDialog();
+         this.LightBackground();
 
          if (result == System.Windows.Forms.DialogResult.OK)
          {
@@ -513,6 +542,10 @@ namespace NICBOT.GUI
       public SystemStatusForm()
       {
          this.InitializeComponent();
+
+         this.dimmerForm = new PopupDimmerForm();
+         this.dimmerForm.Opacity = 0.65;
+         this.dimmerForm.ShowInTaskbar = false;
       }
 
       #endregion

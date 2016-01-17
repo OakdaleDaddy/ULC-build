@@ -3825,7 +3825,7 @@ namespace NICBOT.GUI
          this.dimmerForm = new PopupDimmerForm();
          this.dimmerForm.Opacity = 0.65;
          this.dimmerForm.ShowInTaskbar = false;
-
+         
          LocationServer.Instance.OnLocationRequest = new LocationServer.LocationHandler(this.LocationDataProvider);
          LocationServer.Instance.OnThicknessReading = new LocationServer.ThicknessReadingHandler(this.ReceiveThicknessReading);
          LocationServer.Instance.OnStressReading = new LocationServer.StressReadingHandler(this.ReceiveStressReading);

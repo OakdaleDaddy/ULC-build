@@ -12,6 +12,12 @@ namespace NICBOT.GUI
 {
    public partial class ReelSetupForm : Form
    {
+      #region Fields
+
+      private PopupDimmerForm dimmerForm;
+
+      #endregion
+
       #region Properties
 
       public ValueParameter ReverseCurrent { set; get; }
@@ -86,6 +92,20 @@ namespace NICBOT.GUI
          form.Top = formTop;
       }
 
+      private void DimBackground()
+      {
+         this.dimmerForm.Top = this.Top;
+         this.dimmerForm.Left = this.Left;
+         this.dimmerForm.Height = this.Height;
+         this.dimmerForm.Width = this.Width;
+         this.dimmerForm.Show();
+      }
+
+      private void LightBackground()
+      {
+         this.dimmerForm.Hide();
+      }
+
       private DialogResult LaunchNumberEdit(ValueButton button, ValueParameter valueParameter)
       {
          NumberEntryForm numberEntryForm = new NumberEntryForm();
@@ -99,7 +119,9 @@ namespace NICBOT.GUI
          numberEntryForm.MinimumValue = valueParameter.MinimumValue;
          numberEntryForm.MaximumValue = valueParameter.MaximumValue;
 
+         this.DimBackground();
          DialogResult result = numberEntryForm.ShowDialog();
+         this.LightBackground();
 
          if (result == System.Windows.Forms.DialogResult.OK)
          {
@@ -173,6 +195,10 @@ namespace NICBOT.GUI
       public ReelSetupForm()
       {
          this.InitializeComponent();
+         
+         this.dimmerForm = new PopupDimmerForm();
+         this.dimmerForm.Opacity = 0.65;
+         this.dimmerForm.ShowInTaskbar = false;
       }
 
       #endregion

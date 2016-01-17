@@ -76,7 +76,7 @@
          this.MainPanel.Controls.Add(this.TitleLabel);
          this.MainPanel.Controls.Add(this.BackButton);
          this.MainPanel.EdgeWeight = 3;
-         this.MainPanel.Location = new System.Drawing.Point(8, 8);
+         this.MainPanel.Location = new System.Drawing.Point(0, 0);
          this.MainPanel.Name = "MainPanel";
          this.MainPanel.Size = new System.Drawing.Size(642, 420);
          this.MainPanel.TabIndex = 0;
@@ -430,7 +430,7 @@
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
          this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-         this.ClientSize = new System.Drawing.Size(658, 436);
+         this.ClientSize = new System.Drawing.Size(642, 420);
          this.Controls.Add(this.MainPanel);
          this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
          this.Name = "CANDeviceInformationForm";
