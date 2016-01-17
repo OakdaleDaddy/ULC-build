@@ -1,0 +1,460 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3960D9C5-C80C-4815-8246-E8813831C881}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NICBOT.GUI</RootNamespace>
+    <AssemblyName>NICBOT.GUI</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BodyPneumaticSetupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BodyPneumaticSetupForm.Designer.cs">
+      <DependentUpon>BodyPneumaticSetupForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CANDeviceInformationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CANDeviceInformationForm.Designer.cs">
+      <DependentUpon>CANDeviceInformationForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Definitions\BodyPositions.cs" />
+    <Compile Include="PopupDimmerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PopupDimmerForm.Designer.cs">
+      <DependentUpon>PopupDimmerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RepairBodySetupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RepairBodySetupForm.Designer.cs">
+      <DependentUpon>RepairBodySetupForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Definitions\CameraLocations.cs" />
+    <Compile Include="Definitions\CommunicationBuses.cs" />
+    <Compile Include="Definitions\Directions.cs" />
+    <Compile Include="Definitions\SensorRotationDisplayModes.cs" />
+    <Compile Include="DirectionEntryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DirectionEntryForm.Designer.cs">
+      <DependentUpon>DirectionEntryForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FeederMotorStatus.cs" />
+    <Compile Include="GuideMotorStatus.cs" />
+    <Compile Include="HourMinuteEntryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HourMinuteEntryForm.Designer.cs">
+      <DependentUpon>HourMinuteEntryForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InspectBodySetupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InspectBodySetupForm.Designer.cs">
+      <DependentUpon>InspectBodySetupForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LocationServer.cs" />
+    <Compile Include="MovementMotorStatus.cs" />
+    <Compile Include="Parameters\CautionParameter.cs" />
+    <Compile Include="Parameters\DigitalScaleParameters.cs" />
+    <Compile Include="Definitions\DrillAutoStates.cs" />
+    <Compile Include="DrillSetupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DrillSetupForm.Designer.cs">
+      <DependentUpon>DrillSetupForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Parameters\DrillParameters.cs" />
+    <Compile Include="FeederClampSetupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FeederClampSetupForm.Designer.cs">
+      <DependentUpon>FeederClampSetupForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Definitions\FeederModes.cs" />
+    <Compile Include="FgDigitalScale.cs" />
+    <Compile Include="Definitions\GuideDirections.cs" />
+    <Compile Include="Definitions\GuideLocations.cs" />
+    <Compile Include="Definitions\RobotApplications.cs" />
+    <Compile Include="IpAddressEntryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IpAddressEntryForm.Designer.cs">
+      <DependentUpon>IpAddressEntryForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Definitions\MotorDirections.cs" />
+    <Compile Include="Definitions\MovementForwardControls.cs" />
+    <Compile Include="Definitions\MotorStates.cs" />
+    <Compile Include="Definitions\MovementForwardModes.cs" />
+    <Compile Include="Definitions\MovementModes.cs" />
+    <Compile Include="Parameters\IpEndpointParameters.cs" />
+    <Compile Include="Parameters\MovementMotorParameters.cs" />
+    <Compile Include="Definitions\MovementWheelModes.cs" />
+    <Compile Include="Definitions\PumpAutoStates.cs" />
+    <Compile Include="Parameters\RobotBusParameters.cs" />
+    <Compile Include="Parameters\TruckBusParameters.cs" />
+    <Compile Include="PumpControl.cs" />
+    <Compile Include="Definitions\PumpDirections.cs" />
+    <Compile Include="Definitions\PumpModes.cs" />
+    <Compile Include="Parameters\PumpParameters.cs" />
+    <Compile Include="Definitions\ReelModes.cs" />
+    <Compile Include="RobotCommBus.cs" />
+    <Compile Include="SealantSetupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SealantSetupForm.Designer.cs">
+      <DependentUpon>SealantSetupForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Parameters\FeederMotorParameters.cs" />
+    <Compile Include="FeederSetupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FeederSetupForm.Designer.cs">
+      <DependentUpon>FeederSetupForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MessageForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MessageForm.Designer.cs">
+      <DependentUpon>MessageForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MovementSetupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MovementSetupForm.Designer.cs">
+      <DependentUpon>MovementSetupForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NicBotComm.cs" />
+    <Compile Include="NumberEntryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NumberEntryForm.Designer.cs">
+      <DependentUpon>NumberEntryForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OsdForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OsdForm.Designer.cs">
+      <DependentUpon>OsdForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Parameters\OsdParameters.cs" />
+    <Compile Include="Parameters\ParameterAccessor.cs" />
+    <Compile Include="GuideSetupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GuideSetupForm.Designer.cs">
+      <DependentUpon>GuideSetupForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReelSetupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReelSetupForm.Designer.cs">
+      <DependentUpon>ReelSetupForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimulatedPumpPressure.cs" />
+    <Compile Include="SimulatedPumpSpeed.cs" />
+    <Compile Include="Definitions\Solenoids.cs" />
+    <Compile Include="StressSensor.cs" />
+    <Compile Include="SystemStatusForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SystemStatusForm.Designer.cs">
+      <DependentUpon>SystemStatusForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Definitions\ToolLocations.cs" />
+    <Compile Include="ThicknessSensor.cs" />
+    <Compile Include="TruckCommBus.cs" />
+    <Compile Include="UserControls\NicBotButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UserControls\NicBotSideView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\RotatableLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UserControls\TransparentPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UserControls\TransparentLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UserControls\ValueCycleButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Parameters\ValueParameter.cs" />
+    <Compile Include="UserControls\BorderedPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UserControls\BorderedPanel.Designer.cs">
+      <DependentUpon>BorderedPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\CameraSelectButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UserControls\CameraSelectButton.Designer.cs">
+      <DependentUpon>CameraSelectButton.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\CircleControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\CircleControl.Designer.cs">
+      <DependentUpon>CircleControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LightIntensitySelectForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LightIntensitySelectForm.Designer.cs">
+      <DependentUpon>LightIntensitySelectForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="HoldTimeoutEventArgs.cs" />
+    <Compile Include="UserControls\DirectionalValuePanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UserControls\HoldButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UserControls\KeyButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UserControls\LineControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UserControls\ProgressBarValueDisplay.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\ProgressBarValueDisplay.Designer.cs">
+      <DependentUpon>ProgressBarValueDisplay.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserControls\ShadowForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserControls\ShadowForm.Designer.cs">
+      <DependentUpon>ShadowForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UpDownButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UserControls\UpDownButton.Designer.cs">
+      <DependentUpon>UpDownButton.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ValueButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UserControls\TextPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UserControls\ValueButton.Designer.cs">
+      <DependentUpon>ValueButton.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ValueToggleButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UserControls\VerticalLabel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\VerticalLabel.Designer.cs">
+      <DependentUpon>VerticalLabel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\VerticalProgressBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="VideoStampOsd.cs" />
+    <EmbeddedResource Include="BodyPneumaticSetupForm.resx">
+      <DependentUpon>BodyPneumaticSetupForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PopupDimmerForm.resx">
+      <DependentUpon>PopupDimmerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RepairBodySetupForm.resx">
+      <DependentUpon>RepairBodySetupForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CANDeviceInformationForm.resx">
+      <DependentUpon>CANDeviceInformationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DirectionEntryForm.resx">
+      <DependentUpon>DirectionEntryForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DrillSetupForm.resx">
+      <DependentUpon>DrillSetupForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FeederClampSetupForm.resx">
+      <DependentUpon>FeederClampSetupForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HourMinuteEntryForm.resx">
+      <DependentUpon>HourMinuteEntryForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InspectBodySetupForm.resx">
+      <DependentUpon>InspectBodySetupForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IpAddressEntryForm.resx">
+      <DependentUpon>IpAddressEntryForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SealantSetupForm.resx">
+      <DependentUpon>SealantSetupForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FeederSetupForm.resx">
+      <DependentUpon>FeederSetupForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LightIntensitySelectForm.resx">
+      <DependentUpon>LightIntensitySelectForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MessageForm.resx">
+      <DependentUpon>MessageForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MovementSetupForm.resx">
+      <DependentUpon>MovementSetupForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NumberEntryForm.resx">
+      <DependentUpon>NumberEntryForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OsdForm.resx">
+      <DependentUpon>OsdForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="GuideSetupForm.resx">
+      <DependentUpon>GuideSetupForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReelSetupForm.resx">
+      <DependentUpon>ReelSetupForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SystemStatusForm.resx">
+      <DependentUpon>SystemStatusForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NICBOT.CAN\NICBOT.CAN.csproj">
+      <Project>{206caed2-33ae-4d9d-bb5d-50af1b9a3cd4}</Project>
+      <Name>NICBOT.CAN</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NICBOT.Controls\NICBOT.Controls.csproj">
+      <Project>{087eb95e-a893-4190-aee6-32603a113187}</Project>
+      <Name>NICBOT.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NICBOT.PCANLight\NICBOT.PCANLight.csproj">
+      <Project>{a182ebe3-ce10-4825-8b06-b581685bb389}</Project>
+      <Name>NICBOT.PCANLight</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NICBOT.Utilities\NICBOT.Utilities.csproj">
+      <Project>{159c080c-76e7-46d8-94ed-02f9619165c0}</Project>
+      <Name>NICBOT.Utilities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,544 @@
+[FileInfo]
+FileName=UlcRoboticsGps.eds
+FileVersion=1
+FileRevision=1
+EDSVersion=4.0
+Description=EDS for ULC Robotics GPS
+CreationTime=10:19AM
+CreationDate=09-2-2015
+CreatedBy=Gary Russo
+ModificationTime=10:19AM
+ModificationDate=09-2-2015
+ModifiedBy=Gary Russo
+
+[DeviceInfo]
+VendorName= ULCRobotics
+VendorNumber=0
+ProductName= GPS
+ProductNumber=1
+RevisionNumber=1
+OrderCode=
+BaudRate_10=1
+BaudRate_20=1
+BaudRate_50=1
+BaudRate_125=1
+BaudRate_250=1
+BaudRate_500=1
+BaudRate_800=0
+BaudRate_1000=1
+SimpleBootUpMaster=0
+SimpleBootUpSlave=1
+Granularity=0x8
+DynamicChannelsSupported=0x0
+LSS_Supported=0
+GroupMessaging=0
+NrOfRXPDO=0
+NrOfTXPDO=0
+
+[DummyUsage]
+Dummy0001=0
+Dummy0002=0
+Dummy0003=0
+Dummy0004=0
+Dummy0005=0
+Dummy0006=0
+Dummy0007=0
+
+[MandatoryObjects]
+SupportedObjects=3
+1=0x1000
+2=0x1001
+3=0x1018
+
+[1000]
+ParameterName=DeviceType
+ObjectType=0x7
+DataType=0x7
+AccessType=ro
+DefaultValue=0x12345678
+PDOMapping=0
+
+[1001]
+ParameterName=ErrorRegister
+ObjectType=0x7
+DataType=0x5
+AccessType=ro
+DefaultValue=0x0
+PDOMapping=1
+
+[1018]
+ParameterName=IdentityObject
+ObjectType=0x9
+SubNumber=0x1
+
+[1018sub0]
+ParameterName=NrOfEntries
+ObjectType=0x7
+DataType=0x5
+AccessType=RO
+DefaultValue=1
+PDOMapping=0
+
+[1018sub1]
+ParameterName=Vendor ID
+ObjectType=0x7
+DataType=0x7
+AccessType=RO
+PDOMapping=0
+DefaultValue=0
+
+[OptionalObjects]
+SupportedObjects=9
+1=0x1008
+2=0x100A
+3=0x1017
+4=0x1800
+5=0x1A00
+6=0x1801
+7=0x1A01
+8=0x1802
+9=0x1A02
+10=0x1803
+11=0x1A03
+12=0x2100
+13=0x2101
+14=0x2102
+15=0x2105
+16=0x2201
+17=0x2202
+18=0x2203
+19=0x2205
+
+[1008]
+ParameterName=Manufacturer DeviceName
+ObjectType=0x7
+DataType=0x9
+AccessType=const
+DefaultValue="PCAN-GPS by ULC Robotics"
+PDOMapping=0
+
+[100a]
+ParameterName=Manufacturer SoftwareVersion
+ObjectType=0x7
+DataType=0x9
+AccessType=const
+DefaultValue=visible string, "vXYX <date> <time>"
+PDOMapping=0
+
+[1017]
+ParameterName=Producer heartbeat time
+ObjectType=0x7
+DataType=0x6
+AccessType=rw
+DefaultValue=0x0 (0=boot, 1=disconnected, 4=stopped, 5=operational, 7f=preop)
+PDOMapping=0
+
+[1800]
+ParameterName=TxPDO1 Communication Parameter
+ObjectType=9
+SubNumber=5
+
+[1800sub0]
+ParameterName=NrOfEntries
+ObjectType=0x7
+DataType=0x5
+AccessType=ro
+DefaultValue=5
+PDOMapping=0
+
+[1800sub1]
+ParameterName=COB-ID
+ObjectType=0x7
+DataType=0x7
+DefaultValue=$NodeID+0x180
+AccessType=rw
+PDOMapping=0
+
+[1800sub2]
+ParameterName=TransmissionType
+ObjectType=0x7
+DataType=0x5
+AccessType=rw
+DefaultValue=0
+PDOMapping=0
+
+[1800sub3]
+ParameterName=InhibitTime
+ObjectType=0x7
+DataType=0x6
+DefaultValue=0x0
+AccessType=rw
+PDOMapping=0
+
+[1800sub5]
+ParameterName=Event Timer
+ObjectType=0x7
+DataType=0x6
+DefaultValue=0x0
+AccessType=rw
+PDOMapping=0
+
+[1a00]
+ParameterName=TPDO1 Mapping
+ObjectType=0x9
+SubNumber=0x8
+
+[1a00sub0]
+ParameterName=NrOfEntries
+ObjectType=0x7
+DataType=0x5
+AccessType=rw
+DefaultValue=0
+PDOMapping=0
+
+[1a00sub1]
+ParameterName=1_Mapped Object
+ObjectType=0x7
+DataType=0x7
+AccessType=rw
+DefaultValue=0
+PDOMapping=0
+
+
+[1801]
+SubNumber=5
+ParameterName=TxPDO2 Communication Parameter
+ObjectType=9
+
+[1801sub0]
+ParameterName=NrOfEntries
+ObjectType=0x7
+DataType=0x5
+AccessType=ro
+DefaultValue=5
+PDOMapping=0
+
+[1801sub1]
+ParameterName=COB-ID
+ObjectType=0x7
+DataType=0x7
+DefaultValue=$NodeID+0x280
+AccessType=rw
+PDOMapping=0
+
+[1801sub2]
+ParameterName=TransmissionType
+ObjectType=0x7
+DataType=0x5
+AccessType=rw
+DefaultValue=0
+PDOMapping=0
+
+[1801sub3]
+ParameterName=InhibitTime
+ObjectType=0x7
+DataType=0x6
+DefaultValue=0x0
+AccessType=rw
+PDOMapping=0
+
+[1801sub5]
+ParameterName=Event Timer
+ObjectType=0x7
+DataType=0x6
+DefaultValue=0x0
+AccessType=rw
+PDOMapping=0
+
+[1a01]
+ParameterName=TPDO2 Mapping
+ObjectType=0x9
+SubNumber=0x8
+
+[1a01sub0]
+ParameterName=NrOfEntries
+ObjectType=0x7
+DataType=0x5
+AccessType=rw
+DefaultValue=0
+PDOMapping=0
+
+[1a01sub1]
+ParameterName=2_Mapped Object
+ObjectType=0x7
+DataType=0x7
+AccessType=rw
+DefaultValue=0
+PDOMapping=0
+
+[1802]
+SubNumber=5
+ParameterName=TxPDO3 Communication Parameter
+ObjectType=9
+
+[1802sub0]
+ParameterName=NrOfEntries
+ObjectType=0x7
+DataType=0x5
+AccessType=ro
+DefaultValue=5
+PDOMapping=0
+
+[1802sub1]
+ParameterName=COB-ID
+ObjectType=0x7
+DataType=0x7
+DefaultValue=$NodeID+0x380
+AccessType=rw
+PDOMapping=0
+
+[1802sub2]
+ParameterName=TransmissionType
+ObjectType=0x7
+DataType=0x5
+AccessType=rw
+DefaultValue=0
+PDOMapping=0
+
+[1802sub3]
+ParameterName=InhibitTime
+ObjectType=0x7
+DataType=0x6
+DefaultValue=0x0
+AccessType=rw
+PDOMapping=0
+
+[1802sub5]
+ParameterName=Event Timer
+ObjectType=0x7
+DataType=0x6
+DefaultValue=0x0
+AccessType=rw
+PDOMapping=0
+
+
+[1a02]
+ParameterName=TPDO3 Mapping
+ObjectType=0x9
+SubNumber=0x8
+
+[1a02sub0]
+ParameterName=NrOfEntries
+ObjectType=0x7
+DataType=0x5
+AccessType=rw
+DefaultValue=0
+PDOMapping=0
+
+[1a02sub1]
+ParameterName=3_Mapped Object
+ObjectType=0x7
+DataType=0x7
+AccessType=rw
+DefaultValue=0
+PDOMapping=0
+
+[1803]
+ParameterName=TxPDO4 Communication Parameter
+ObjectType=9
+SubNumber=5
+
+[1803sub0]
+ParameterName=NrOfEntries
+ObjectType=0x7
+DataType=0x5
+AccessType=ro
+DefaultValue=5
+PDOMapping=0
+
+[1803sub1]
+ParameterName=COB-ID
+ObjectType=0x7
+DataType=0x7
+DefaultValue=$NodeID+0x480
+AccessType=rw
+PDOMapping=0
+
+[1803sub2]
+ParameterName=TransmissionType
+ObjectType=0x7
+DataType=0x5
+AccessType=rw
+DefaultValue=0
+PDOMapping=0
+
+[1803sub3]
+ParameterName=InhibitTime
+ObjectType=0x7
+DataType=0x6
+DefaultValue=0x0
+AccessType=rw
+PDOMapping=0
+
+[1803sub5]
+ParameterName=Event Timer
+ObjectType=0x7
+DataType=0x6
+DefaultValue=0x0
+AccessType=rw
+PDOMapping=0
+
+[1a03]
+ParameterName=TPDO4 Mapping
+ObjectType=0x9
+SubNumber=0x8
+
+[1a03sub0]
+ParameterName=NrOfEntries
+ObjectType=0x7
+DataType=0x5
+AccessType=rw
+DefaultValue=0
+PDOMapping=0
+
+[1a03sub1]
+ParameterName=1_Mapped Object
+ObjectType=0x7
+DataType=0x7
+AccessType=rw
+DefaultValue=0
+PDOMapping=0
+
+
+[2100]
+ParameterName=Baud Rate
+ObjectType=0x7
+DataType=0x5
+LowLimit=0x0
+HighLimit=0xFF
+AccessType=rw
+DefaultValue=0x05
+PDOMapping=0
+
+[2101]
+ParameterName=Node number
+ObjectType=0x7
+DataType=0x5
+LowLimit=0x0
+HighLimit=0xFF
+AccessType=rw
+DefaultValue=0xFF
+PDOMapping=0
+
+[2105]
+ParameterName=Save All Parameters
+ObjectType=0x7
+DataType=0x7
+AccessType=rw
+DefaultValue=0x65766173
+PDOMapping=0
+
+[2201]
+ParameterName=State Objects
+ObjectType=0x9
+SubNumber=0x5
+
+[2201sub0]
+ParameterName=NrOfEntries
+ObjectType=0x7
+DataType=0x5
+AccessType=RO
+DefaultValue=5
+PDOMapping=0
+
+[2201sub1]
+ParameterName=GPS Antenna Status
+ObjectType=0x7
+DataType=0x5
+AccessType=RO
+DefaultValue=0 (0=init, 1=unknown, 2=ok, 3=short, 4=open)
+PDOMapping=1
+
+[2201sub2]
+ParameterName=GPS Satellite Count
+ObjectType=0x7
+DataType=0x5
+AccessType=RO
+DefaultValue=0
+PDOMapping=1
+
+[2201sub3]
+ParameterName=GPS Method
+ObjectType=0x7
+DataType=0x5
+AccessType=RO
+DefaultValue=0 (0=init, 1=none, 2=2D, 3=3D)
+PDOMapping=1
+
+[2201sub4]
+ParameterName=GPS Course
+ObjectType=0x7
+DataType=0x8
+AccessType=RO
+DefaultValue=0 (degrees, float)
+PDOMapping=1
+
+[2201sub5]
+ParameterName=GPS Speed
+ObjectType=0x7
+DataType=0x8
+AccessType=RO
+DefaultValue=0 (km/h, float)
+PDOMapping=1
+
+[2202]
+ParameterName=GPS Longitude
+ObjectType=0x22
+DataType=0x22
+AccessType=RO
+DefaultValue=0 
+PDOMapping=1
+
+[2203]
+ParameterName=GPS Latitude
+ObjectType=0x23
+DataType=0x23
+AccessType=RO
+DefaultValue=0 
+PDOMapping=1
+
+[2205]
+ParameterName=GPS UTC 
+ObjectType=0x24
+DataType=0x24
+AccessType=RO
+DefaultValue=0 
+PDOMapping=1
+
+
+
+[0022]
+00, 32, float, minutes 
+32, 16, int, degrees
+48, 08, int, 'W', 'E'
+
+[0023]
+00, 32, float, minutes 
+32, 16, int, degrees
+48, 08, int, 'N', 'S'
+
+[0024]
+00, 08, int, hours
+08, 08, int, minutes
+16, 08, int, seconds
+24, 08, int, year
+32, 08, int, month
+40, 08, int, day
+
+
+
+-73.0355555
+40.8616666
+
+ROUND TO 4 PLACES, SEE http://boulter.com/gps/distance/?from=40.8616666+-73.0000&to=40.8616666+-73.0004&units=m
+
+0.0001 ~ 27'
+
+
+~50', shows 36'
+40.861708, -73.035523
+40.861609, -73.035509
+
+~100', shows 99'
+40.861723, -73.035241
+40.861704, -73.035601

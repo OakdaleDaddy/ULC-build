@@ -1,0 +1,123 @@
+
+pre-op / stopped: 
+ - no motion
+ - heartbeats produced
+
+
+running:
+ - motion control
+ - heartbeats produced
+
+0x1000: device type, u32, RO, 0x00004020
+0x1001: error status, u32, RO, variable
+0x1008: device name, visible string, RO, "NICBOT Wheel"
+0x100A: version, visible string, RO, "va.b <date> <time>"
+0x1016: consumer heartbeat, u32, RW, default=0; (b0..b15=rate in mS, b16..b22=node ID to monitor), goes to preop on failure
+0x1017: producer heartbeat time, u16, RW, default=0, units of mS
+
+0x1018sub0: object identify count, u8, RO, 1
+0x1018sub1: object identify vender ID, u32, RO, 0
+
+0x1400sub0: RPDO1 entry count, u8, RO, 2
+0x1400sub1: RPDO1 COB-ID, u32, RW, 0x40000200 + node ID
+0x1400sub2: RPDO1 transmit type, u8, RW, default=0; {0..240, 254, 255}
+
+0x1401sub0: RPDO2 entry count, u8, RO, 2
+0x1401sub1: RPDO2 COB-ID, u32, RW, 0x40000200 + node ID
+0x1401sub2: RPDO2 transmit type, u8, RW, default=0; {0..240, 254, 255}
+
+0x1402sub0: RPDO3 entry count, u8, RO, 2
+0x1402sub1: RPDO3 COB-ID, u32, RW, 0x40000200 + node ID
+0x1402sub2: RPDO3 transmit type, u8, RW, default=0; {0..240, 254, 255}
+
+0x1403sub0: RPDO4 entry count, u8, RO, 2
+0x1403sub1: RPDO4 COB-ID, u32, RW, 0x40000200 + node ID
+0x1403sub2: RPDO4 transmit type, u8, RW, default=0; {0..240, 254, 255}
+
+0x1600sub0: RPDO1 map count, u8, RW, default=0
+0x1600subn: RPDO1 map u32, RW, default=0
+
+0x1601sub0: RPDO2 map count, u8, RW, default=0
+0x1601subn: RPDO2 map u32, RW, default=0
+
+0x1602sub0: RPDO3 map count, u8, RW, default=0
+0x1602subn: RPDO3 map u32, RW, default=0
+
+0x1603sub0: RPDO4 map count, u8, RW, default=0
+0x1603subn: RPDO4 map u32, RW, default=0
+
+0x1800sub0: TPDO1 entry count, u8, RO, 5
+0x1800sub1: TPDO1 COB-ID, u32, RW, 0x40000180 + node ID
+0x1800sub2: TPDO1 transmit type, u8, RW, default=0; {0..240, 254, 255}
+0x1800sub3: TPDO1 inhibit time, u16, RW, default=0, units of 100uS
+0x1800sub4: reserved
+0x1800sub5: TPDO1 event time, u16, RW, default=0, units of mS
+
+0x1801sub0: TPDO2 entry count, u8, RO, 5
+0x1801sub1: TPDO2 COB-ID, u32, RW, 0x40000280 + node ID
+0x1801sub2: TPDO2 transmit type, u8, RW, default=0; {0..240, 254, 255}
+0x1801sub3: TPDO2 inhibit time, u16, RW, default=0, units of 100uS
+0x1801sub4: reserved
+0x1801sub5: TPDO2 event time, u16, RW, default=0, units of mS
+
+0x1802sub0: TPDO3 entry count, u8, RO, 5
+0x1802sub1: TPDO3 COB-ID, u32, RW, 0x40000380 + node ID
+0x1802sub2: TPDO3 transmit type, u8, RW, default=0; {0..240, 254, 255}
+0x1802sub3: TPDO3 inhibit time, u16, RW, default=0, units of 100uS
+0x1802sub4: reserved
+0x1802sub5: TPDO3 event time, u16, RW, default=0, units of mS
+
+0x1803sub0: TPDO4 entry count, u8, RO, 5
+0x1803sub1: TPDO4 COB-ID, u32, RW, 0x40000480 + node ID
+0x1803sub2: TPDO4 transmit type, u8, RW, default=0; {0..240, 254, 255}
+0x1803sub3: TPDO4 inhibit time, u16, RW, default=0, units of 100uS
+0x1803sub4: reserved
+0x1803sub5: TPDO4 event time, u16, RW, default=0, units of mS
+
+0x1A00sub0: TPDO1 map count, u8, RW, default=0
+0x1A00subn: TPDO1 map u32, RW, default=0
+
+0x1A01sub0: TPDO2 map count, u8, RW, default=0
+0x1A01subn: TPDO2 map u32, RW, default=0
+
+0x1A02sub0: TPDO3 map count, u8, RW, default=0
+0x1A02subn: TPDO3 map u32, RW, default=0
+
+0x1A02sub0: TPDO4 map count, u8, RW, default=0
+0x1A02subn: TPDO4 map u32, RW, default=0
+
+0x2100: device CAN bit rate code, u8, RW, default=6, {0=10K, 1=20K, 2=50K, 3=100K, 4=125K, 5=250K, 6=500K, 7=1M}
+0x2101: device CAN node ID, u8, RW, default=32
+0x2102: device CAN node offset, u8, RW, default=0x20, {1..124} (adds to input b1/b0 bit mask when 2101 is 0xFF)
+0x2105: device store parameters, u32, RW, default=0x65766173, writing 0x65766173 stores 0x2100, 0x2101 and 0x2102 to non-volatile memory
+
+0x2301: motor temperature, u8, R0
+
+0x2441: accelerometer X value, u16, RO
+0x2442: accelerometer Y value, u16, RO
+0x2443: accelerometer Z value, u16, RO
+
+0x6040: control word, u16, RW, default=0, rx mappable (follows CiA402)
+ off: control word=0x6
+ mode: control word=0x6, control word=0x7, control word=0xF
+
+0x6041: status word, u16, RO, default=0x0240, tx mappable (follows CiA402)
+ 
+0x6060: mode of operation, s8, RW, default=0xFF (follows CiA402; 0xFF=no mode, 3=profile velocity, 4=profile torque)
+0x6061: mode of operation display, s8, RO, default=0xFF (follows 0x6060)
+
+0x606c: velocity actual value, s32, default=0, tx mappable
+
+0x6071: torque, s16, RW, default=0, units of mA, rx mappable
+0x6072: maximum torque, u16, RW, default=0
+0x6073: maximum current, u16, RW, default=0
+0x6075: motor rated current, u32, RW, default=1000, (follows CiA402, reference for current data)
+0x6076: motor rated torque, u32, RW
+0x6077: actual torque, s16, default=0, units of mA, tx mappable
+
+0x607F: maximum velocity, u32, default=40000 (RPMs)
+
+0x6083: velocity acceleration, u32, default=20 (RPM change per second)
+0x6084: velocity deceleration, u32, default=20 (RPM change per second)
+0x6087: torque slope, u32, RW, default=0 
+0x60FF: velocity target, s32, default=0, units of RPM, rx mappable

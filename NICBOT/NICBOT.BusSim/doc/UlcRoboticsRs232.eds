@@ -1,0 +1,535 @@
+[FileInfo]
+FileName=UlcRoboticsRs232.eds
+FileVersion=1
+FileRevision=1
+EDSVersion=4.0
+Description=EDS for ULC Robotics RS232
+CreationTime=8:22PM
+CreationDate=09-11-2015
+CreatedBy=Gary Russo
+ModificationTime=8:22PM
+ModificationDate=09-11-2015
+ModifiedBy=Gary Russo
+
+[DeviceInfo]
+VendorName= ULCRobotics
+VendorNumber=0
+ProductName= RS232
+ProductNumber=1
+RevisionNumber=1
+OrderCode=
+BaudRate_10=1
+BaudRate_20=1
+BaudRate_50=1
+BaudRate_125=1
+BaudRate_250=1
+BaudRate_500=1
+BaudRate_800=0
+BaudRate_1000=1
+SimpleBootUpMaster=0
+SimpleBootUpSlave=1
+Granularity=0x8
+DynamicChannelsSupported=0x0
+LSS_Supported=0
+GroupMessaging=0
+NrOfRXPDO=0
+NrOfTXPDO=0
+
+[DummyUsage]
+Dummy0001=0
+Dummy0002=0
+Dummy0003=0
+Dummy0004=0
+Dummy0005=0
+Dummy0006=0
+Dummy0007=0
+
+[MandatoryObjects]
+SupportedObjects=3
+1=0x1000
+2=0x1001
+3=0x1018
+
+[1000]
+ParameterName=DeviceType
+ObjectType=0x7
+DataType=0x7
+AccessType=ro
+DefaultValue=0x00000000
+PDOMapping=0
+
+[1001]
+ParameterName=ErrorRegister
+ObjectType=0x7
+DataType=0x5
+AccessType=ro
+DefaultValue=0x0
+PDOMapping=1
+
+[1018]
+ParameterName=IdentityObject
+ObjectType=0x9
+SubNumber=0x1
+
+[1018sub0]
+ParameterName=NrOfEntries
+ObjectType=0x7
+DataType=0x5
+AccessType=RO
+DefaultValue=1
+PDOMapping=0
+
+[1018sub1]
+ParameterName=Vendor ID
+ObjectType=0x7
+DataType=0x7
+AccessType=RO
+PDOMapping=0
+DefaultValue=0
+
+[OptionalObjects]
+SupportedObjects=9
+1=0x1008
+2=0x100A
+3=0x1017
+4=0x1800
+5=0x1A00
+6=0x1801
+7=0x1A01
+8=0x1802
+9=0x1A02
+10=0x1803
+11=0x1A03
+12=0x2100
+13=0x2101
+14=0x2102
+15=0x2105
+16=0x2201
+17=0x2202
+18=0x2203
+19=0x2205
+
+[1008]
+ParameterName=Manufacturer DeviceName
+ObjectType=0x7
+DataType=0x9
+AccessType=const
+DefaultValue="PCAN-RS232 by ULC Robotics"
+PDOMapping=0
+
+[100a]
+ParameterName=Manufacturer SoftwareVersion
+ObjectType=0x7
+DataType=0x9
+AccessType=const
+DefaultValue=visible string, "vXYX <date> <time>"
+PDOMapping=0
+
+[1017]
+ParameterName=Producer heartbeat time
+ObjectType=0x7
+DataType=0x6
+AccessType=rw
+DefaultValue=0x0 (0=boot, 1=disconnected, 4=stopped, 5=operational, 7f=preop)
+PDOMapping=0
+
+[1800]
+ParameterName=TxPDO1 Communication Parameter
+ObjectType=9
+SubNumber=5
+
+[1800sub0]
+ParameterName=NrOfEntries
+ObjectType=0x7
+DataType=0x5
+AccessType=ro
+DefaultValue=5
+PDOMapping=0
+
+[1800sub1]
+ParameterName=COB-ID
+ObjectType=0x7
+DataType=0x7
+DefaultValue=$NodeID+0x180
+AccessType=rw
+PDOMapping=0
+
+[1800sub2]
+ParameterName=TransmissionType
+ObjectType=0x7
+DataType=0x5
+AccessType=rw
+DefaultValue=0
+PDOMapping=0
+
+[1800sub3]
+ParameterName=InhibitTime
+ObjectType=0x7
+DataType=0x6
+DefaultValue=0x0
+AccessType=rw
+PDOMapping=0
+
+[1800sub5]
+ParameterName=Event Timer
+ObjectType=0x7
+DataType=0x6
+DefaultValue=0x0
+AccessType=rw
+PDOMapping=0
+
+[1a00]
+ParameterName=TPDO1 Mapping
+ObjectType=0x9
+SubNumber=0x8
+
+[1a00sub0]
+ParameterName=NrOfEntries
+ObjectType=0x7
+DataType=0x5
+AccessType=rw
+DefaultValue=0
+PDOMapping=0
+
+[1a00sub1]
+ParameterName=1_Mapped Object
+ObjectType=0x7
+DataType=0x7
+AccessType=rw
+DefaultValue=0
+PDOMapping=0
+
+
+[1801]
+SubNumber=5
+ParameterName=TxPDO2 Communication Parameter
+ObjectType=9
+
+[1801sub0]
+ParameterName=NrOfEntries
+ObjectType=0x7
+DataType=0x5
+AccessType=ro
+DefaultValue=5
+PDOMapping=0
+
+[1801sub1]
+ParameterName=COB-ID
+ObjectType=0x7
+DataType=0x7
+DefaultValue=$NodeID+0x280
+AccessType=rw
+PDOMapping=0
+
+[1801sub2]
+ParameterName=TransmissionType
+ObjectType=0x7
+DataType=0x5
+AccessType=rw
+DefaultValue=0
+PDOMapping=0
+
+[1801sub3]
+ParameterName=InhibitTime
+ObjectType=0x7
+DataType=0x6
+DefaultValue=0x0
+AccessType=rw
+PDOMapping=0
+
+[1801sub5]
+ParameterName=Event Timer
+ObjectType=0x7
+DataType=0x6
+DefaultValue=0x0
+AccessType=rw
+PDOMapping=0
+
+[1a01]
+ParameterName=TPDO2 Mapping
+ObjectType=0x9
+SubNumber=0x8
+
+[1a01sub0]
+ParameterName=NrOfEntries
+ObjectType=0x7
+DataType=0x5
+AccessType=rw
+DefaultValue=0
+PDOMapping=0
+
+[1a01sub1]
+ParameterName=2_Mapped Object
+ObjectType=0x7
+DataType=0x7
+AccessType=rw
+DefaultValue=0
+PDOMapping=0
+
+[1802]
+SubNumber=5
+ParameterName=TxPDO3 Communication Parameter
+ObjectType=9
+
+[1802sub0]
+ParameterName=NrOfEntries
+ObjectType=0x7
+DataType=0x5
+AccessType=ro
+DefaultValue=5
+PDOMapping=0
+
+[1802sub1]
+ParameterName=COB-ID
+ObjectType=0x7
+DataType=0x7
+DefaultValue=$NodeID+0x380
+AccessType=rw
+PDOMapping=0
+
+[1802sub2]
+ParameterName=TransmissionType
+ObjectType=0x7
+DataType=0x5
+AccessType=rw
+DefaultValue=0
+PDOMapping=0
+
+[1802sub3]
+ParameterName=InhibitTime
+ObjectType=0x7
+DataType=0x6
+DefaultValue=0x0
+AccessType=rw
+PDOMapping=0
+
+[1802sub5]
+ParameterName=Event Timer
+ObjectType=0x7
+DataType=0x6
+DefaultValue=0x0
+AccessType=rw
+PDOMapping=0
+
+
+[1a02]
+ParameterName=TPDO3 Mapping
+ObjectType=0x9
+SubNumber=0x8
+
+[1a02sub0]
+ParameterName=NrOfEntries
+ObjectType=0x7
+DataType=0x5
+AccessType=rw
+DefaultValue=0
+PDOMapping=0
+
+[1a02sub1]
+ParameterName=3_Mapped Object
+ObjectType=0x7
+DataType=0x7
+AccessType=rw
+DefaultValue=0
+PDOMapping=0
+
+[1803]
+ParameterName=TxPDO4 Communication Parameter
+ObjectType=9
+SubNumber=5
+
+[1803sub0]
+ParameterName=NrOfEntries
+ObjectType=0x7
+DataType=0x5
+AccessType=ro
+DefaultValue=5
+PDOMapping=0
+
+[1803sub1]
+ParameterName=COB-ID
+ObjectType=0x7
+DataType=0x7
+DefaultValue=$NodeID+0x480
+AccessType=rw
+PDOMapping=0
+
+[1803sub2]
+ParameterName=TransmissionType
+ObjectType=0x7
+DataType=0x5
+AccessType=rw
+DefaultValue=0
+PDOMapping=0
+
+[1803sub3]
+ParameterName=InhibitTime
+ObjectType=0x7
+DataType=0x6
+DefaultValue=0x0
+AccessType=rw
+PDOMapping=0
+
+[1803sub5]
+ParameterName=Event Timer
+ObjectType=0x7
+DataType=0x6
+DefaultValue=0x0
+AccessType=rw
+PDOMapping=0
+
+[1a03]
+ParameterName=TPDO4 Mapping
+ObjectType=0x9
+SubNumber=0x8
+
+[1a03sub0]
+ParameterName=NrOfEntries
+ObjectType=0x7
+DataType=0x5
+AccessType=rw
+DefaultValue=0
+PDOMapping=0
+
+[1a03sub1]
+ParameterName=1_Mapped Object
+ObjectType=0x7
+DataType=0x7
+AccessType=rw
+DefaultValue=0
+PDOMapping=0
+
+
+[2100]
+ParameterName=Baud Rate
+ObjectType=0x7
+DataType=0x5
+LowLimit=0x0
+HighLimit=0xFF
+AccessType=rw
+DefaultValue=0x05
+PDOMapping=0
+
+[2101]
+ParameterName=Node number
+ObjectType=0x7
+DataType=0x5
+LowLimit=0x0
+HighLimit=0xFF
+AccessType=rw
+DefaultValue=0xFF (specify 0xFF to use input + offset)
+PDOMapping=0
+
+[2102]
+ParameterName=Node number offset
+ObjectType=0x7
+DataType=0x5
+LowLimit=0x0
+HighLimit=0xFF
+AccessType=rw
+DefaultValue=0x60 (adds to Din when 2101 is 0xFF)
+PDOMapping=0
+
+[2105]
+ParameterName=Save All Parameters
+ObjectType=0x7
+DataType=0x7
+AccessType=rw
+DefaultValue=0x65766173
+PDOMapping=0
+
+[2200]
+ParameterName=RS232 Parameters, configurable only when pre-op, activated when started
+ObjectType=0x9
+SubNumber=0x5
+
+[2200sub1]
+ParameterName=baud
+ObjectType=0x7
+DataType=0x7
+AccessType=rw
+DefaultValue=9600
+PDOMapping=0
+
+[2200sub2]
+ParameterName=data bits
+ObjectType=0x7
+DataType=0x5
+AccessType=rw
+DefaultValue=7 {5, 6, 7, 8}
+PDOMapping=0
+
+[2200sub3]
+ParameterName=stop bits
+ObjectType=0x7
+DataType=0x5
+AccessType=rw
+DefaultValue=1 {1, 2}
+PDOMapping=0
+
+[2200sub4]
+ParameterName=parity
+ObjectType=0x7
+DataType=0x5
+AccessType=rw
+DefaultValue=2 {0=none, 1=odd, 2=even}
+PDOMapping=0
+
+[2200sub5]
+ParameterName=idle send time
+ObjectType=0x7
+DataType=0x6
+AccessType=rw
+DefaultValue=20, units of mS, idle time before sending frame when 2400h mapped to TPDO
+PDOMapping=0
+
+[2300]
+ParameterName=tx buffer
+ObjectType=0x7
+DataType=0x9
+AccessType=W
+DefaultValue=00
+PDOMapping=1 (size is 64 bits to prevent additional mappings within same PDO, DLC sets length)
+
+[2400]
+ParameterName=rx buffer
+ObjectType=0x7
+DataType=0x9
+AccessType=r
+DefaultValue=00
+PDOMapping=1 (size is 64 bits to prevent additional mappings within same PDO, DLC sets length)
+
+[2500] 
+ParameterName=digital output
+ObjectType=0x7
+DataType=0x5
+AccessType=w
+DefaultValue=xx {0=low, 1=high}
+PDOMapping=1
+
+[2600] 
+ParameterName=digital input
+ObjectType=0x7
+DataType=0x7
+AccessType=r
+DefaultValue=xx (b0=digital input)
+PDOMapping=1
+
+
+
+TPDO mapping can be used to have received data sent on CAN bus.
+Inhibbit time can be set to limit number of TPDO frames.
+TPDO output will load up to 8 bytes of received data, DLC of frame determines data count.
+TPDO mapping can only contain the rx buffer when mapped.
+
+RPDO mapping can be used to have CAN bus data transmitted.
+DLC of frame determines data count.
+RPDO mapping can only contain the tx buffer when mapped.
+
+Emergency frame sent and device stopped when receive buffer overflows.
+
+Emergency frame sent and device stopped when transmit buffer overflows.
+SDO transfer aborted when writes to transmit buffer attempts overflow.
+RPDO transfer to transmit buffer triggers emergency frame.
+
+

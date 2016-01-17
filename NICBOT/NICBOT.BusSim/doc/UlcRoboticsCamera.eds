@@ -1,0 +1,237 @@
+[FileInfo]
+FileName=UlcRoboticsCamera.eds
+FileVersion=1
+FileRevision=1
+EDSVersion=4.0
+Description=EDS for ULC Robotics Camera
+CreationTime=10:19AM
+CreationDate=08-22-2015
+CreatedBy=Gary Russo
+ModificationTime=10:19AM
+ModificationDate=08-22-2015
+ModifiedBy=Gary Russo
+
+[DeviceInfo]
+VendorName= ULCRobotics
+VendorNumber=0
+ProductName= Camera
+ProductNumber=1
+RevisionNumber=1
+OrderCode=
+BaudRate_10=1
+BaudRate_20=1
+BaudRate_50=1
+BaudRate_125=1
+BaudRate_250=1
+BaudRate_500=1
+BaudRate_800=0
+BaudRate_1000=1
+SimpleBootUpMaster=0
+SimpleBootUpSlave=1
+Granularity=0x8
+DynamicChannelsSupported=0x0
+LSS_Supported=0
+GroupMessaging=0
+NrOfRXPDO=0
+NrOfTXPDO=0
+
+[DummyUsage]
+Dummy0001=0
+Dummy0002=0
+Dummy0003=0
+Dummy0004=0
+Dummy0005=0
+Dummy0006=0
+Dummy0007=0
+
+[MandatoryObjects]
+SupportedObjects=3
+1=0x1000
+2=0x1001
+3=0x1018
+
+[1000]
+ParameterName=DeviceType
+ObjectType=0x7
+DataType=0x7
+AccessType=ro
+DefaultValue=0
+PDOMapping=0
+
+[1001]
+ParameterName=ErrorRegister
+ObjectType=0x7
+DataType=0x5
+AccessType=ro
+DefaultValue=0x0
+PDOMapping=1
+
+[1018]
+ParameterName=IdentityObject
+ObjectType=0x9
+SubNumber=0x2
+
+[1018sub0]
+ParameterName=NrOfEntries
+ObjectType=0x7
+DataType=0x5
+AccessType=RO
+DefaultValue=1
+PDOMapping=0
+
+[1018sub1]
+ParameterName=Vencor ID
+ObjectType=0x7
+DataType=0x7
+AccessType=RO
+PDOMapping=0
+DefaultValue=0
+
+[OptionalObjects]
+SupportedObjects=9
+1=0x1008
+2=0x100A
+3=0x1017
+4=0x2001
+5=0x2002
+6=0x2100
+7=0x2101
+8=0x2102
+9=0x2103
+10=0x2105
+
+[1008]
+ParameterName=Manufacturer DeviceName
+ObjectType=0x7
+DataType=0x9
+AccessType=const
+DefaultValue=CameraWithLight
+PDOMapping=0
+
+[100a]
+ParameterName=Manufacturer SoftwareVersion
+ObjectType=0x7
+DataType=0x9
+AccessType=const
+DefaultValue=visible string, "vXYX <date> <time>"
+PDOMapping=0
+
+[1017]
+ParameterName=Producer heartbeat time
+ObjectType=0x7
+DataType=0x6
+AccessType=rw
+DefaultValue=0x0 (0=boot, 1=disconnected, 4=stopped, 5=operational, 7f=preop)
+PDOMapping=0
+
+[2001]
+ParameterName=State Objects
+ObjectType=0x9
+SubNumber=0x4
+
+[2001sub0]
+ParameterName=NrOfEntries
+ObjectType=0x7
+DataType=0x5
+AccessType=RO
+DefaultValue=3
+PDOMapping=0
+
+[2001sub1]
+ParameterName=Operational State
+ObjectType=0x7
+DataType=0x5
+AccessType=RW
+DefaultValue=0 (0=off, 1=on)
+PDOMapping=1
+
+[2001sub2]
+ParameterName=PowerUp State
+ObjectType=0x7
+DataType=0x5
+AccessType=RW
+DefaultValue=0 (0=off, 1=on)
+PDOMapping=1
+
+[2001sub3]
+ParameterName=Timeout State
+ObjectType=0x7
+DataType=0x5
+AccessType=RW
+DefaultValue=0 (0=off, 1=on)
+PDOMapping=1
+
+[2002]
+ParameterName=Light Intensity Objects
+ObjectType=0x9
+SubNumber=0x4
+
+[2002sub1]
+ParameterName=Operational State
+ObjectType=0x7
+DataType=0x5
+AccessType=RW
+DefaultValue=0 (0=off, 255=full)
+PDOMapping=1
+
+[2002sub2]
+ParameterName=PowerUp Intensity
+ObjectType=0x7
+DataType=0x5
+AccessType=RW
+DefaultValue=0 (0=off, 255=full)
+PDOMapping=1
+
+[2002sub3]
+ParameterName=Timeout Intensity
+ObjectType=0x7
+DataType=0x5
+AccessType=RW
+DefaultValue=0 (0=off, 255=full)
+PDOMapping=1
+
+[2100]
+ParameterName=Baud Rate
+ObjectType=0x7
+DataType=0x5
+LowLimit=0x0
+HighLimit=0xFF
+AccessType=rw
+DefaultValue=0x05
+PDOMapping=0
+
+[2101]
+ParameterName=Node number
+ObjectType=0x7
+DataType=0x5
+LowLimit=0x0
+HighLimit=0xFF
+AccessType=rw
+DefaultValue=0xFF
+PDOMapping=0
+
+[2102]
+ParameterName=Timeout
+ObjectType=0x7
+DataType=0x6
+LowLimit=0x0
+HighLimit=0xFFFF
+AccessType=rw
+DefaultValue=0
+PDOMapping=0
+
+[2103]
+ParameterName=Location
+ObjectType=0x7
+DataType=0x9
+AccessType=rw
+DefaultValue=
+PDOMapping=0
+
+[2105]
+ParameterName=Save All Parameters
+ObjectType=0x7
+DataType=0x7
+AccessType=rw
+DefaultValue=0x65766173
+PDOMapping=0

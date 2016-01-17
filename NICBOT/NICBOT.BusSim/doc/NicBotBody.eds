@@ -1,0 +1,276 @@
+
+pre-op / stopped: 
+ - all camera off
+ - all camera lights off
+ - video A to no select
+ - video B to no select
+ - solenoids set to off on power up, otherwise not altered
+ - heartbeats produced
+ - front laser is off
+ - front drill indexer is off
+ - front drill rotation is off
+ - rear laser is off
+ - rear drill indexer is off
+ - rear drill rotation is off
+ - sensor is off
+
+
+running:
+ - video A follows video A select
+ - video B follows video B select
+ - camera of video A select is on
+ - camera of video B select is on
+ - solenoid follows solenoid control
+ - cameras not selected by video A or video B are off
+ - camera lights follow camera light contols
+ - heartbeats produced
+ - front laser follows control
+ - front drill indexer follows controls and set point
+ - front drill rotation follows set point
+ - rear laser follows control
+ - rear drill indexer follows controls and set point
+ - rear drill rotation follows controls and set point
+ - sensor follows set point
+
+
+0x1000: device type, u32, RO, 0x00003010
+0x1001: error status, u32, RO, variable
+0x1008: device name, visible string, RO, "NICBOT Body"
+0x100A: version, visible string, RO, "va.b <date> <time>"
+0x1016: consumer heartbeat, u32, RW, default=0; (b0..b15=rate in mS, b16..b22=node ID to monitor), goes to preop on failure
+0x1017: producer heartbeat time, u16, RW, default=0, units of mS
+
+0x1018sub0: object identify count, u8, RO, 1
+0x1018sub1: object identify vender ID, u32, RO, 0
+
+0x1800sub0: TPDO1 entry count, u8, RO, 5
+0x1800sub1: TPDO1 COB-ID, u32, RW, 0x40000180 + node ID
+0x1800sub2: TPDO1 transmit type, u8, RW, default=0; {0..240, 254, 255}
+0x1800sub3: TPDO1 inhibit time, u16, RW, default=0, units of 100uS
+0x1800sub4: reserved
+0x1800sub5: TPDO1 event time, u16, RW, default=0, units of mS
+
+0x1801sub0: TPDO2 entry count, u8, RO, 5
+0x1801sub1: TPDO2 COB-ID, u32, RW, 0x40000280 + node ID
+0x1801sub2: TPDO2 transmit type, u8, RW, default=0; {0..240, 254, 255}
+0x1801sub3: TPDO2 inhibit time, u16, RW, default=0, units of 100uS
+0x1801sub4: reserved
+0x1801sub5: TPDO2 event time, u16, RW, default=0, units of mS
+
+0x1802sub0: TPDO3 entry count, u8, RO, 5
+0x1802sub1: TPDO3 COB-ID, u32, RW, 0x40000380 + node ID
+0x1802sub2: TPDO3 transmit type, u8, RW, default=0; {0..240, 254, 255}
+0x1802sub3: TPDO3 inhibit time, u16, RW, default=0, units of 100uS
+0x1802sub4: reserved
+0x1802sub5: TPDO3 event time, u16, RW, default=0, units of mS
+
+0x1803sub0: TPDO4 entry count, u8, RO, 5
+0x1803sub1: TPDO4 COB-ID, u32, RW, 0x40000480 + node ID
+0x1803sub2: TPDO4 transmit type, u8, RW, default=0; {0..240, 254, 255}
+0x1803sub3: TPDO4 inhibit time, u16, RW, default=0, units of 100uS
+0x1803sub4: reserved
+0x1803sub5: TPDO4 event time, u16, RW, default=0, units of mS
+
+0x1A00sub0: TPDO1 map count, u8, RW, default=0
+0x1A00subn: TPDO1 map u32, RW, default=0
+
+0x1A01sub0: TPDO2 map count, u8, RW, default=0
+0x1A01subn: TPDO2 map u32, RW, default=0
+
+0x1A02sub0: TPDO3 map count, u8, RW, default=0
+0x1A02subn: TPDO3 map u32, RW, default=0
+
+0x1A02sub0: TPDO4 map count, u8, RW, default=0
+0x1A02subn: TPDO4 map u32, RW, default=0
+
+0x2100: device CAN bit rate code, u8, RW, default=6, {0=10K, 1=20K, 2=50K, 3=100K, 4=125K, 5=250K, 6=500K, 7=1M}
+0x2101: device CAN node ID, u8, RW, default=31
+0x2102: device mode, u8, RW, default=0, {0=repair, 1=inspect}
+0x2105: device store parameters, u32, RW, default=0x65766173, writing 0x65766173 stores 0x2100, 0x2101 and 0x2102 to non-volatile memory
+
+0x2301sub0: camera select entry count, u8, RO, 2
+0x2301sub1: camera select A , u8, RW, default=0 {0..12}
+0x2301sub2: camera select B , u8, RW, default=0 {0..12}
+
+0x2303sub0: camera light intensity entry count, u8, RO, 12
+0x2303sub1: camera 1 light intensity, u8, RW, default=0 {0..255}
+0x2303sub2: camera 2 light intensity, u8, RW, default=0 {0..255}
+0x2303sub3: camera 3 light intensity, u8, RW, default=0 {0..255}
+0x2303sub4: camera 4 light intensity, u8, RW, default=0 {0..255}
+0x2303sub5: camera 5 light intensity, u8, RW, default=0 {0..255}
+0x2303sub6: camera 6 light intensity, u8, RW, default=0 {0..255}
+0x2303sub7: camera 7 light intensity, u8, RW, default=0 {0..255}
+0x2303sub8: camera 8 light intensity, u8, RW, default=0 {0..255}
+0x2303sub9: camera 9 light intensity, u8, RW, default=0 {0..255}
+0x2303sub10: camera 10 light intensity, u8, RW, default=0 {0..255}
+0x2303sub11: camera 11 light intensity, u8, RW, default=0 {0..255}
+0x2303sub12: camera 12 light intensity, u8, RW, default=0 {0..255}
+
+0x2304: solenoid control, u16, RW, default=0 (repair)
+ b00: lower arm extend
+ b01: lower arm retract
+ b02: front drill cover
+ b03: rear drill cover
+ b04: wheel circumferential
+ b05: wheel axial
+ b06: rear arm extend
+ b07: rear arm retract
+ b08:
+ b09:
+ b10:
+ b11: wheel lock
+ b12: front arm retract
+ b13: front arm extend
+ b14: front nozzle
+ b15: rear nozzle
+
+0x2304: solenoid control, u16, RW, default=0 (inspect)
+ b00: sensor retract
+ b01: sensor extend
+ b02: sensor stow
+ b03: sensor deploy
+ b04: lower arm retract
+ b05: lower arm extend
+ b06: wheel circumferential
+ b07: wheel axial
+ b08:
+ b09:
+ b10:
+ b11: wheel lock
+ b12: rear arm extend
+ b13: rear arm retract
+ b14: front arm extend
+ b15: front arm retract
+2:52 PM 11/7/2015
+
+0x2311: front drill speed set point, s16, RW, default=0 RPM (robot mode)
+0x2312: front drill index set point, s16, RW, default=0 {0..limit} units of 1/10 mm (robot mode)
+0x2313: rear drill speed set point, s16, RW, default=0 RPM (robot mode)
+0x2314: rear drill index set point, s16, RW, default=0 {0..limit} units of 1/10 mm (robot mode)
+0x2315: sensor index set point, u16, RW, default=0, {0..35999} units of 0.01 degrees (inspect mode)
+
+0x2322: front drill index limit, u16, RO, 635 (robot mode)
+0x2324: rear drill index limit, u16, RO, 635 (robot mode)
+no 0x2325: sensor index limit, u16, RO, 719 (inspect mode)
+
+0x2331sub0: auto drill parameter entry count, u8, RO, 9 (robot mode)
+0x2331sub1: auto drill control, u8, RW, default=0 (robot mode) 
+ b0: mode {0=continuous, 1=peck}
+ b1:
+ b2:
+ b3:
+ b4: auto origin {0=off, 1=on}
+ b5: retraction mode {0=distance, 1=position}
+ b6:
+ b7:
+0x2331sub2: indexer search speed, u16, RW, default=0, units of 1/10mm/MIN (robot mode)
+0x2331sub3: indexer travel speed, u16, RW, default=0, units of 1/10mm/MIN (robot mode)
+0x2331sub4: drill rotation speed, s16, RW, default=0, RPM (robot mode)
+0x2331sub5: indexer cutting speed, u16, RW, default=0, units of 1/10mm/MIN (robot mode)
+0x2331sub6: indexer cutting depth, u16, RW, default=0, {0..limit} units of 1/10mm (robot mode)
+0x2331sub7: indexer peck cutting increment, u16, RW, default=0, units of 1/10mm (robot mode)
+0x2331sub8: indexer peck retraction distance, u16, RW, default=0, units of 1/10mm (robot mode)
+0x2331sub9: indexer peck retraction position, u16, RW, default=0, {0..limit} units of 1/10mm (robot mode)
+
+0x233D: drill servo proportional control constant (KP), u32, RW, default=30
+0x233E: drill servo integral control constant (KI), u32, RW, default=15
+0x233F: drill servo derivative control constant (KD), u32, RW, default=767
+0x2340: drill servo acceleration, u32, RW, default=2560
+0x2341: drill servo homing velocity, u32, RW, default=1310720
+0x2342: drill servo homing backoff count, u32 RW, default=44274
+0x2343: drill servo travel velocity, u32, RW, default=2621440
+0x2344: drill servo error limit, u16 RW, default=3000
+0x2345: drill pulses per 1/10 mm, s32, RW, default=885472
+0x2346: front drill servo status, u8 R0
+0x2347: rear drill servo status, u8 R0
+
+0x2350: sensor servo acceleration, u32, RW, default=2560
+0x2351: sensor servo homing velocity, u32, RW, default=1310720
+0x2352: sensor servo homing backoff count, u32 RW, default=153641
+0x2353: sensor servo status, u8 R0
+0x2354: sensor servo error limit, u16 RW, default=300
+0x2355: sensor servo travel velocity, u32, RW, default=2621440
+0x2356: sensor pulses per degree, s32, RW, default=23199
+
+0x2411: actual front drill speed, s16, RO, default=0 RPM, mappable (robot mode)
+0x2412: actual front drill index, s16, RO, default=0, mappable {0..635} units of 1/10 mm (robot mode)
+0x2413: actual rear drill speed, s16, RO, default=0, mappable RPM (robot mode)
+0x2414: actual rear drill index, s16, RO, default=0, mappable {0..635} units of 1/10 mm (robot mode)
+0x2415: actual sensor index, u16, RO, default=0, mappable (inspect mode)
+
+0x2441: accelerometer X value, u16, RO, mappable 
+0x2442: accelerometer Y value, u16, RO, mappable 
+0x2443: accelerometer Z value, u16, RO, mappable 
+
+0x2500: control word, u16, RW, default=0 (repair)
+ b00: front laser control {0=off, 1=on}
+ b01: front drill stop 
+ b02: front drill move index to retraction limit
+ b03: front drill move index to origin 
+ b04: front drill auto cut run {0=stop, 1=run}
+ b05: front drill auto cut pause {0=run, 1=pause}
+ b06: 
+ b07: 
+ b08: rear laser control {0=off, 1=on}
+ b09: rear drill stop 
+ b10: rear drill move index to retraction limit
+ b11: rear drill move index to origin 
+ b12: rear drill auto cut run {0=stop, 1=run}
+ b13: rear drill auto cut pause {0=run, 1=pause}
+ b14: 
+ b15: 
+
+0x2501: status word, u16, RO, mappable (repair)
+ b00: front indexer error
+ b01: front function complete
+ b02: 
+ b03: rear indexer error
+ b04: rear function complete
+ b05: 
+ b06: last wheel position request (0=not circumferential, 1=circumferential)
+ b07: last wheel position request (0=not axial, 1=axial)
+ b08: rear drill at retraction limit {0=not, 1=limit}
+ b09: rear drill at extension limit {0=not, 1=limit}
+ b10: front drill at retraction limit {0=not, 1=limit}
+ b11: front drill at extension limit {0=not, 1=limit}
+ b12: front lower wheel in locking position {0=not, 1=position}
+ b13: rear upper upper wheel in locking position {0=not, 1=position}
+ b14: rear lower upper wheel in locking position {0=not, 1=position}
+ b15: front upper wheel in locking position {0=not, 1=position}
+
+0x2500: control word, u16, RW, default=0 (inspect)
+ b00: move to home
+ b01: disable sensor motor 
+ b02: 
+ b03:
+ b04:
+ b05:
+ b06:
+ b07:
+ b08:
+ b09:
+ b10:
+ b11:
+ b12:
+ b13:
+ b14:
+ b15:
+
+0x2501: status word, u8, RO, mappable (inspect)
+ b00: 
+ b01: 
+ b02: 
+ b03: 
+ b04: 
+ b05: 
+ b06: last wheel position request (0=not circumferential, 1=circumferential)
+ b07: last wheel position request (0=not axial, 1=axial)
+ b08: 
+ b09: 
+ b10: sensor at CCW limit {0=limit, 1=not} 
+ b11: sensor at CW limit {0=limit, 1=not} 
+ b12: front lower wheel in locking position {0=not, 1=position}
+ b13: rear upper upper wheel in locking position {0=not, 1=position}
+ b14: rear lower upper wheel in locking position {0=not, 1=position}
+ b15: front upper wheel in locking position {0=not, 1=position}
+

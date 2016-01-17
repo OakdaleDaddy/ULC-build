@@ -1,0 +1,76 @@
+
+Launch: (Digital is node ID 16, Analog is node ID 18)
+ - Digital IO B, DOut0 : launch camera select b0
+ - Digital IO B, DOut1 : launch camera select b1
+ - Digital IO B, DOut2 : 
+ - Digital IO B, DOut2 : 
+
+ - Digital IO B, DIn0 : limit switch (clampping, TBD)
+ - Digital IO B, DIn1 : limit switch (dock indicator, TBD)
+ - Digital IO B, DIn2 :
+ - Digital IO B, DIn3 :
+ - Digital IO B, DIn4 :
+ - Digital IO B, DIn5 :
+ - Digital IO B, DIn6 :
+ - Digital IO B, DIn7 :
+
+ - Analog IO B, AOut0 : launch camera 1 light intensity 
+ - Analog IO B, AOut1 : launch camera 2 light intensity 
+ - Analog IO B, AOut2 : launch camera 3 light intensity 
+ - Analog IO B, AOut3 : launch camera 4 light intensity 
+
+ - Analog IO B, AIn0 : External 1 (open for use, TBD)
+ - Analog IO B, AIn1 : External 2 (open for use, TBD)
+ - Analog IO B, AIn2 : 
+ - Analog IO B, AIn3 : 
+ - Analog IO B, AIn4 : 
+ - Analog IO B, AIn5 : 
+ - Analog IO B, AIn6 : 
+ - Analog IO B, AIn7 : 
+
+Reel Cart: (Digital is node ID 17, Analog is node ID 19)
+ - Digital IO A, DOut0 : 
+ - Digital IO A, DOut1 : 
+ - Digital IO A, DOut2 : 
+ - Digital IO A, DOut3 :
+
+ - Digital IO A, DIn0 : nitrogen #1 switch 
+ - Digital IO A, DIn1 : nitrogen #2 switch 
+ - Digital IO A, DIn2 : 
+ - Digital IO A, DIn3 :
+ - Digital IO A, DIn4 :
+ - Digital IO A, DIn5 :
+ - Digital IO A, DIn6 :
+ - Digital IO A, DIn7 :
+
+ - Analog IO A, AOut0 :
+ - Analog IO A, AOut1 :
+ - Analog IO A, AOut2 :
+ - Analog IO A, AOut3 :
+
+ - Analog IO A, AIn0 : nitrogen #1 pressure, conversion TBD, 2 to 10 volt input, show fault if 1 volt, 2 volts is 0 PSI
+ - Analog IO A, AIn1 : nitrogen #2 pressure, conversion TBD, 2 to 10 volt input, show fault if 1 volt, 2 volts is 0 PSI
+ - Analog IO A, AIn2 : pump #1 (front) pressure 1 volt is error, 2 to 10 is reading
+ - Analog IO A, AIn3 : pump #2 (rear) pressure 1 volt is error, 2 to 10 is reading
+ - Analog IO A, AIn4 : 
+ - Analog IO A, AIn5 : 
+ - Analog IO A, AIn6 : 
+ - Analog IO A, AIn7 : 
+
+Left Guide Motor:
+ - DIn0 : node ID rotary switch b0 
+ - DIn1 : node ID rotary switch b1 
+ - DIn2 : node ID rotary switch b2
+ - DIn3 : node ID rotary switch b3
+ - DIn4 : retraction limit switch, 1=at limit
+ - DIn5 : extension limit switch, 1=at limit
+
+Right Guide Motor:
+ - DIn0 : node ID rotary switch b0 
+ - DIn1 : node ID rotary switch b1 
+ - DIn2 : node ID rotary switch b2
+ - DIn3 : node ID rotary switch b3
+ - DIn4 : retraction limit switch, 1=at limit
+ - DIn5 : extension limit switch, 1=at limit
+
+ 
