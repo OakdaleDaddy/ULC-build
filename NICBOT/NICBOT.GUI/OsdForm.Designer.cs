@@ -30,21 +30,17 @@
       {
          this.BackPanel = new System.Windows.Forms.Panel();
          this.panel3 = new System.Windows.Forms.Panel();
-         this.panel2 = new System.Windows.Forms.Panel();
-         this.ClearScreenButton = new System.Windows.Forms.Button();
-         this.WriteTextButton = new System.Windows.Forms.Button();
-         this.OsdRichTextBox = new System.Windows.Forms.RichTextBox();
-         this.panel1 = new System.Windows.Forms.Panel();
-         this.ScreenHorizontalOffsetIncreaseButton = new NICBOT.GUI.NicBotButton();
-         this.ScreenVeriticalOffsetDecreaseButton = new NICBOT.GUI.UpDownButton();
-         this.ScreenVeriticalOffsetIncreaseButton = new NICBOT.GUI.UpDownButton();
-         this.ScreenHorizontalOffsetDecreaseButton = new NICBOT.GUI.NicBotButton();
          this.DescriptionToggleButton = new NICBOT.GUI.CameraSelectButton();
          this.CameraIdToggleButton = new NICBOT.GUI.CameraSelectButton();
          this.PipePositionToggleButton = new NICBOT.GUI.CameraSelectButton();
          this.PipeDisplacmentToggleButton = new NICBOT.GUI.CameraSelectButton();
          this.DateToggleButton = new NICBOT.GUI.CameraSelectButton();
          this.TimeToggleButton = new NICBOT.GUI.CameraSelectButton();
+         this.panel2 = new System.Windows.Forms.Panel();
+         this.ClearScreenButton = new System.Windows.Forms.Button();
+         this.WriteTextButton = new System.Windows.Forms.Button();
+         this.OsdRichTextBox = new System.Windows.Forms.RichTextBox();
+         this.panel1 = new System.Windows.Forms.Panel();
          this.SpaceKeyButton = new NICBOT.GUI.KeyButton();
          this.ForwardSlashKeyButton = new NICBOT.GUI.KeyButton();
          this.PeriodKeyButton = new NICBOT.GUI.KeyButton();
@@ -113,17 +109,13 @@
          // BackPanel
          // 
          this.BackPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-         this.BackPanel.Controls.Add(this.ScreenHorizontalOffsetIncreaseButton);
-         this.BackPanel.Controls.Add(this.ScreenVeriticalOffsetDecreaseButton);
-         this.BackPanel.Controls.Add(this.ScreenVeriticalOffsetIncreaseButton);
-         this.BackPanel.Controls.Add(this.ScreenHorizontalOffsetDecreaseButton);
          this.BackPanel.Controls.Add(this.panel3);
          this.BackPanel.Controls.Add(this.panel2);
          this.BackPanel.Controls.Add(this.OsdRichTextBox);
          this.BackPanel.Controls.Add(this.panel1);
-         this.BackPanel.Location = new System.Drawing.Point(4, 4);
+         this.BackPanel.Location = new System.Drawing.Point(0, 0);
          this.BackPanel.Name = "BackPanel";
-         this.BackPanel.Size = new System.Drawing.Size(1199, 725);
+         this.BackPanel.Size = new System.Drawing.Size(1213, 667);
          this.BackPanel.TabIndex = 0;
          // 
          // panel3
@@ -135,210 +127,10 @@
          this.panel3.Controls.Add(this.PipeDisplacmentToggleButton);
          this.panel3.Controls.Add(this.DateToggleButton);
          this.panel3.Controls.Add(this.TimeToggleButton);
-         this.panel3.Location = new System.Drawing.Point(896, 88);
+         this.panel3.Location = new System.Drawing.Point(901, 16);
          this.panel3.Name = "panel3";
          this.panel3.Size = new System.Drawing.Size(296, 220);
          this.panel3.TabIndex = 36;
-         // 
-         // panel2
-         // 
-         this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-         this.panel2.Controls.Add(this.ClearScreenButton);
-         this.panel2.Controls.Add(this.WriteTextButton);
-         this.panel2.Location = new System.Drawing.Point(11, 88);
-         this.panel2.Name = "panel2";
-         this.panel2.Size = new System.Drawing.Size(290, 220);
-         this.panel2.TabIndex = 35;
-         // 
-         // ClearScreenButton
-         // 
-         this.ClearScreenButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-         this.ClearScreenButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.ClearScreenButton.ForeColor = System.Drawing.Color.Black;
-         this.ClearScreenButton.Location = new System.Drawing.Point(167, 114);
-         this.ClearScreenButton.Name = "ClearScreenButton";
-         this.ClearScreenButton.Size = new System.Drawing.Size(107, 90);
-         this.ClearScreenButton.TabIndex = 33;
-         this.ClearScreenButton.Text = "CLEAR SCREEN";
-         this.ClearScreenButton.UseVisualStyleBackColor = false;
-         this.ClearScreenButton.Click += new System.EventHandler(this.ClearScreenButton_Click);
-         // 
-         // WriteTextButton
-         // 
-         this.WriteTextButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-         this.WriteTextButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.WriteTextButton.ForeColor = System.Drawing.Color.Black;
-         this.WriteTextButton.Location = new System.Drawing.Point(167, 16);
-         this.WriteTextButton.Name = "WriteTextButton";
-         this.WriteTextButton.Size = new System.Drawing.Size(107, 90);
-         this.WriteTextButton.TabIndex = 34;
-         this.WriteTextButton.Text = "WRITE TEXT";
-         this.WriteTextButton.UseVisualStyleBackColor = false;
-         this.WriteTextButton.Click += new System.EventHandler(this.WriteTextButton_Click);
-         // 
-         // OsdRichTextBox
-         // 
-         this.OsdRichTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-         this.OsdRichTextBox.Font = new System.Drawing.Font("Consolas", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.OsdRichTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-         this.OsdRichTextBox.Location = new System.Drawing.Point(317, 92);
-         this.OsdRichTextBox.Name = "OsdRichTextBox";
-         this.OsdRichTextBox.ReadOnly = true;
-         this.OsdRichTextBox.Size = new System.Drawing.Size(563, 210);
-         this.OsdRichTextBox.TabIndex = 1;
-         this.OsdRichTextBox.Text = "12345678901234567890123456789\n12345678901234567890123456789\n123456789012345678901" +
-    "23456789\n12345678901234567890123456789\n12345678901234567890123456789";
-         this.OsdRichTextBox.WordWrap = false;
-         // 
-         // panel1
-         // 
-         this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-         this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-         this.panel1.Controls.Add(this.SpaceKeyButton);
-         this.panel1.Controls.Add(this.ForwardSlashKeyButton);
-         this.panel1.Controls.Add(this.PeriodKeyButton);
-         this.panel1.Controls.Add(this.CommaKeyButton);
-         this.panel1.Controls.Add(this.RightShiftKeyButton);
-         this.panel1.Controls.Add(this.MKeyButton);
-         this.panel1.Controls.Add(this.NKeyButton);
-         this.panel1.Controls.Add(this.BKeyButton);
-         this.panel1.Controls.Add(this.VkeyButton);
-         this.panel1.Controls.Add(this.CKeyButton);
-         this.panel1.Controls.Add(this.XKeyButton);
-         this.panel1.Controls.Add(this.LeftShiftKeyButton);
-         this.panel1.Controls.Add(this.ZKeyButton);
-         this.panel1.Controls.Add(this.EnterKeyButton);
-         this.panel1.Controls.Add(this.SingleQuoteKeyButton);
-         this.panel1.Controls.Add(this.SemaColonKeyButton);
-         this.panel1.Controls.Add(this.LKeyButton);
-         this.panel1.Controls.Add(this.KKeyButton);
-         this.panel1.Controls.Add(this.JKeyButton);
-         this.panel1.Controls.Add(this.HKeyButton);
-         this.panel1.Controls.Add(this.GKeyButton);
-         this.panel1.Controls.Add(this.FKeyButton);
-         this.panel1.Controls.Add(this.DKeyButton);
-         this.panel1.Controls.Add(this.SKeyButton);
-         this.panel1.Controls.Add(this.CapsLockKeyButton);
-         this.panel1.Controls.Add(this.AKeyButton);
-         this.panel1.Controls.Add(this.BackSlashKeyButton);
-         this.panel1.Controls.Add(this.RightBracketKeyButton);
-         this.panel1.Controls.Add(this.LeftBracketKeyButton);
-         this.panel1.Controls.Add(this.PKeyButton);
-         this.panel1.Controls.Add(this.UpArrowKeyButton);
-         this.panel1.Controls.Add(this.RightArrowKeyButton);
-         this.panel1.Controls.Add(this.DownKeyButton);
-         this.panel1.Controls.Add(this.BackspaceKeyButton);
-         this.panel1.Controls.Add(this.LeftArrowKeyButton);
-         this.panel1.Controls.Add(this.OKeyButton);
-         this.panel1.Controls.Add(this.IKeyButton);
-         this.panel1.Controls.Add(this.UKeyButton);
-         this.panel1.Controls.Add(this.YKeyButton);
-         this.panel1.Controls.Add(this.TKeyButton);
-         this.panel1.Controls.Add(this.RKeyButton);
-         this.panel1.Controls.Add(this.EkeyButton);
-         this.panel1.Controls.Add(this.WKeyButton);
-         this.panel1.Controls.Add(this.QKeyButton);
-         this.panel1.Controls.Add(this.EqualKeyButton);
-         this.panel1.Controls.Add(this.DashKeyButton);
-         this.panel1.Controls.Add(this.ZeroKeyButton);
-         this.panel1.Controls.Add(this.NineKeyButton);
-         this.panel1.Controls.Add(this.EightKeyButton);
-         this.panel1.Controls.Add(this.SevenKeyButton);
-         this.panel1.Controls.Add(this.SixKeyButton);
-         this.panel1.Controls.Add(this.FiveKeyButton);
-         this.panel1.Controls.Add(this.FourKeyButton);
-         this.panel1.Controls.Add(this.ThreeKeyButton);
-         this.panel1.Controls.Add(this.TwoKeyButton);
-         this.panel1.Controls.Add(this.DeleteKeyButton);
-         this.panel1.Controls.Add(this.TabKeyButton);
-         this.panel1.Controls.Add(this.ExitKeyButton);
-         this.panel1.Controls.Add(this.OneKeyButton);
-         this.panel1.Location = new System.Drawing.Point(11, 314);
-         this.panel1.Name = "panel1";
-         this.panel1.Size = new System.Drawing.Size(1181, 398);
-         this.panel1.TabIndex = 0;
-         // 
-         // ScreenHorizontalOffsetIncreaseButton
-         // 
-         this.ScreenHorizontalOffsetIncreaseButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.ScreenHorizontalOffsetIncreaseButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
-         this.ScreenHorizontalOffsetIncreaseButton.DisabledForeColor = System.Drawing.Color.Silver;
-         this.ScreenHorizontalOffsetIncreaseButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
-         this.ScreenHorizontalOffsetIncreaseButton.Location = new System.Drawing.Point(737, 19);
-         this.ScreenHorizontalOffsetIncreaseButton.Name = "ScreenHorizontalOffsetIncreaseButton";
-         this.ScreenHorizontalOffsetIncreaseButton.Size = new System.Drawing.Size(107, 67);
-         this.ScreenHorizontalOffsetIncreaseButton.TabIndex = 168;
-         this.ScreenHorizontalOffsetIncreaseButton.Text = "MORE";
-         this.ScreenHorizontalOffsetIncreaseButton.UseVisualStyleBackColor = false;
-         this.ScreenHorizontalOffsetIncreaseButton.Click += new System.EventHandler(this.ScreenHorizontalOffsetIncreaseButton_Click);
-         // 
-         // ScreenVeriticalOffsetDecreaseButton
-         // 
-         this.ScreenVeriticalOffsetDecreaseButton.ArrowColor = System.Drawing.Color.Black;
-         this.ScreenVeriticalOffsetDecreaseButton.ArrowHighlightColor = System.Drawing.Color.DarkGray;
-         this.ScreenVeriticalOffsetDecreaseButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.ScreenVeriticalOffsetDecreaseButton.DisabledArrowColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-         this.ScreenVeriticalOffsetDecreaseButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
-         this.ScreenVeriticalOffsetDecreaseButton.DisabledForeColor = System.Drawing.Color.Silver;
-         this.ScreenVeriticalOffsetDecreaseButton.EdgeSpace = 8;
-         this.ScreenVeriticalOffsetDecreaseButton.ForeColor = System.Drawing.SystemColors.HighlightText;
-         this.ScreenVeriticalOffsetDecreaseButton.HighLightOffset = 7;
-         this.ScreenVeriticalOffsetDecreaseButton.HighlightVisible = true;
-         this.ScreenVeriticalOffsetDecreaseButton.HighLightWeight = 2;
-         this.ScreenVeriticalOffsetDecreaseButton.HoldRepeat = true;
-         this.ScreenVeriticalOffsetDecreaseButton.HoldRepeatInterval = 100;
-         this.ScreenVeriticalOffsetDecreaseButton.HoldTimeoutInterval = 100;
-         this.ScreenVeriticalOffsetDecreaseButton.Location = new System.Drawing.Point(484, 19);
-         this.ScreenVeriticalOffsetDecreaseButton.Name = "ScreenVeriticalOffsetDecreaseButton";
-         this.ScreenVeriticalOffsetDecreaseButton.Size = new System.Drawing.Size(107, 67);
-         this.ScreenVeriticalOffsetDecreaseButton.TabIndex = 167;
-         this.ScreenVeriticalOffsetDecreaseButton.Text = "DECREASE";
-         this.ScreenVeriticalOffsetDecreaseButton.TextOffset = 0;
-         this.ScreenVeriticalOffsetDecreaseButton.TextVisible = false;
-         this.ScreenVeriticalOffsetDecreaseButton.UpDown = false;
-         this.ScreenVeriticalOffsetDecreaseButton.UseVisualStyleBackColor = false;
-         this.ScreenVeriticalOffsetDecreaseButton.Click += new System.EventHandler(this.ScreenVeriticalOffsetDecreaseButton_Click);
-         // 
-         // ScreenVeriticalOffsetIncreaseButton
-         // 
-         this.ScreenVeriticalOffsetIncreaseButton.ArrowColor = System.Drawing.Color.Black;
-         this.ScreenVeriticalOffsetIncreaseButton.ArrowHighlightColor = System.Drawing.Color.DarkGray;
-         this.ScreenVeriticalOffsetIncreaseButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.ScreenVeriticalOffsetIncreaseButton.DisabledArrowColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-         this.ScreenVeriticalOffsetIncreaseButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
-         this.ScreenVeriticalOffsetIncreaseButton.DisabledForeColor = System.Drawing.Color.Silver;
-         this.ScreenVeriticalOffsetIncreaseButton.EdgeSpace = 8;
-         this.ScreenVeriticalOffsetIncreaseButton.ForeColor = System.Drawing.SystemColors.HighlightText;
-         this.ScreenVeriticalOffsetIncreaseButton.HighLightOffset = 7;
-         this.ScreenVeriticalOffsetIncreaseButton.HighlightVisible = true;
-         this.ScreenVeriticalOffsetIncreaseButton.HighLightWeight = 2;
-         this.ScreenVeriticalOffsetIncreaseButton.HoldRepeat = true;
-         this.ScreenVeriticalOffsetIncreaseButton.HoldRepeatInterval = 100;
-         this.ScreenVeriticalOffsetIncreaseButton.HoldTimeoutInterval = 100;
-         this.ScreenVeriticalOffsetIncreaseButton.Location = new System.Drawing.Point(620, 20);
-         this.ScreenVeriticalOffsetIncreaseButton.Name = "ScreenVeriticalOffsetIncreaseButton";
-         this.ScreenVeriticalOffsetIncreaseButton.Size = new System.Drawing.Size(107, 67);
-         this.ScreenVeriticalOffsetIncreaseButton.TabIndex = 166;
-         this.ScreenVeriticalOffsetIncreaseButton.Text = "INCREASE";
-         this.ScreenVeriticalOffsetIncreaseButton.TextOffset = 0;
-         this.ScreenVeriticalOffsetIncreaseButton.TextVisible = false;
-         this.ScreenVeriticalOffsetIncreaseButton.UpDown = true;
-         this.ScreenVeriticalOffsetIncreaseButton.UseVisualStyleBackColor = false;
-         this.ScreenVeriticalOffsetIncreaseButton.Click += new System.EventHandler(this.ScreenVeriticalOffsetIncreaseButton_Click);
-         // 
-         // ScreenHorizontalOffsetDecreaseButton
-         // 
-         this.ScreenHorizontalOffsetDecreaseButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.ScreenHorizontalOffsetDecreaseButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
-         this.ScreenHorizontalOffsetDecreaseButton.DisabledForeColor = System.Drawing.Color.Silver;
-         this.ScreenHorizontalOffsetDecreaseButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
-         this.ScreenHorizontalOffsetDecreaseButton.Location = new System.Drawing.Point(361, 20);
-         this.ScreenHorizontalOffsetDecreaseButton.Name = "ScreenHorizontalOffsetDecreaseButton";
-         this.ScreenHorizontalOffsetDecreaseButton.Size = new System.Drawing.Size(107, 67);
-         this.ScreenHorizontalOffsetDecreaseButton.TabIndex = 165;
-         this.ScreenHorizontalOffsetDecreaseButton.Text = "LESS";
-         this.ScreenHorizontalOffsetDecreaseButton.UseVisualStyleBackColor = false;
-         this.ScreenHorizontalOffsetDecreaseButton.Click += new System.EventHandler(this.ScreenHorizontalOffsetDecreaseButton_Click);
          // 
          // DescriptionToggleButton
          // 
@@ -501,6 +293,124 @@
          this.TimeToggleButton.Text = "TIME";
          this.TimeToggleButton.UseVisualStyleBackColor = false;
          this.TimeToggleButton.Click += new System.EventHandler(this.TimeToggleButton_Click);
+         // 
+         // panel2
+         // 
+         this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+         this.panel2.Controls.Add(this.ClearScreenButton);
+         this.panel2.Controls.Add(this.WriteTextButton);
+         this.panel2.Location = new System.Drawing.Point(16, 16);
+         this.panel2.Name = "panel2";
+         this.panel2.Size = new System.Drawing.Size(290, 220);
+         this.panel2.TabIndex = 35;
+         // 
+         // ClearScreenButton
+         // 
+         this.ClearScreenButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+         this.ClearScreenButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.ClearScreenButton.ForeColor = System.Drawing.Color.Black;
+         this.ClearScreenButton.Location = new System.Drawing.Point(167, 114);
+         this.ClearScreenButton.Name = "ClearScreenButton";
+         this.ClearScreenButton.Size = new System.Drawing.Size(107, 90);
+         this.ClearScreenButton.TabIndex = 33;
+         this.ClearScreenButton.Text = "CLEAR SCREEN";
+         this.ClearScreenButton.UseVisualStyleBackColor = false;
+         this.ClearScreenButton.Click += new System.EventHandler(this.ClearScreenButton_Click);
+         // 
+         // WriteTextButton
+         // 
+         this.WriteTextButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+         this.WriteTextButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.WriteTextButton.ForeColor = System.Drawing.Color.Black;
+         this.WriteTextButton.Location = new System.Drawing.Point(167, 16);
+         this.WriteTextButton.Name = "WriteTextButton";
+         this.WriteTextButton.Size = new System.Drawing.Size(107, 90);
+         this.WriteTextButton.TabIndex = 34;
+         this.WriteTextButton.Text = "WRITE TEXT";
+         this.WriteTextButton.UseVisualStyleBackColor = false;
+         this.WriteTextButton.Click += new System.EventHandler(this.WriteTextButton_Click);
+         // 
+         // OsdRichTextBox
+         // 
+         this.OsdRichTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+         this.OsdRichTextBox.Font = new System.Drawing.Font("Consolas", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.OsdRichTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+         this.OsdRichTextBox.Location = new System.Drawing.Point(322, 20);
+         this.OsdRichTextBox.Name = "OsdRichTextBox";
+         this.OsdRichTextBox.ReadOnly = true;
+         this.OsdRichTextBox.Size = new System.Drawing.Size(563, 215);
+         this.OsdRichTextBox.TabIndex = 1;
+         this.OsdRichTextBox.Text = "12345678901234567890123456789\n12345678901234567890123456789\n123456789012345678901" +
+    "23456789\n12345678901234567890123456789\n12345678901234567890123456789";
+         this.OsdRichTextBox.WordWrap = false;
+         // 
+         // panel1
+         // 
+         this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+         this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+         this.panel1.Controls.Add(this.SpaceKeyButton);
+         this.panel1.Controls.Add(this.ForwardSlashKeyButton);
+         this.panel1.Controls.Add(this.PeriodKeyButton);
+         this.panel1.Controls.Add(this.CommaKeyButton);
+         this.panel1.Controls.Add(this.RightShiftKeyButton);
+         this.panel1.Controls.Add(this.MKeyButton);
+         this.panel1.Controls.Add(this.NKeyButton);
+         this.panel1.Controls.Add(this.BKeyButton);
+         this.panel1.Controls.Add(this.VkeyButton);
+         this.panel1.Controls.Add(this.CKeyButton);
+         this.panel1.Controls.Add(this.XKeyButton);
+         this.panel1.Controls.Add(this.LeftShiftKeyButton);
+         this.panel1.Controls.Add(this.ZKeyButton);
+         this.panel1.Controls.Add(this.EnterKeyButton);
+         this.panel1.Controls.Add(this.SingleQuoteKeyButton);
+         this.panel1.Controls.Add(this.SemaColonKeyButton);
+         this.panel1.Controls.Add(this.LKeyButton);
+         this.panel1.Controls.Add(this.KKeyButton);
+         this.panel1.Controls.Add(this.JKeyButton);
+         this.panel1.Controls.Add(this.HKeyButton);
+         this.panel1.Controls.Add(this.GKeyButton);
+         this.panel1.Controls.Add(this.FKeyButton);
+         this.panel1.Controls.Add(this.DKeyButton);
+         this.panel1.Controls.Add(this.SKeyButton);
+         this.panel1.Controls.Add(this.CapsLockKeyButton);
+         this.panel1.Controls.Add(this.AKeyButton);
+         this.panel1.Controls.Add(this.BackSlashKeyButton);
+         this.panel1.Controls.Add(this.RightBracketKeyButton);
+         this.panel1.Controls.Add(this.LeftBracketKeyButton);
+         this.panel1.Controls.Add(this.PKeyButton);
+         this.panel1.Controls.Add(this.UpArrowKeyButton);
+         this.panel1.Controls.Add(this.RightArrowKeyButton);
+         this.panel1.Controls.Add(this.DownKeyButton);
+         this.panel1.Controls.Add(this.BackspaceKeyButton);
+         this.panel1.Controls.Add(this.LeftArrowKeyButton);
+         this.panel1.Controls.Add(this.OKeyButton);
+         this.panel1.Controls.Add(this.IKeyButton);
+         this.panel1.Controls.Add(this.UKeyButton);
+         this.panel1.Controls.Add(this.YKeyButton);
+         this.panel1.Controls.Add(this.TKeyButton);
+         this.panel1.Controls.Add(this.RKeyButton);
+         this.panel1.Controls.Add(this.EkeyButton);
+         this.panel1.Controls.Add(this.WKeyButton);
+         this.panel1.Controls.Add(this.QKeyButton);
+         this.panel1.Controls.Add(this.EqualKeyButton);
+         this.panel1.Controls.Add(this.DashKeyButton);
+         this.panel1.Controls.Add(this.ZeroKeyButton);
+         this.panel1.Controls.Add(this.NineKeyButton);
+         this.panel1.Controls.Add(this.EightKeyButton);
+         this.panel1.Controls.Add(this.SevenKeyButton);
+         this.panel1.Controls.Add(this.SixKeyButton);
+         this.panel1.Controls.Add(this.FiveKeyButton);
+         this.panel1.Controls.Add(this.FourKeyButton);
+         this.panel1.Controls.Add(this.ThreeKeyButton);
+         this.panel1.Controls.Add(this.TwoKeyButton);
+         this.panel1.Controls.Add(this.DeleteKeyButton);
+         this.panel1.Controls.Add(this.TabKeyButton);
+         this.panel1.Controls.Add(this.ExitKeyButton);
+         this.panel1.Controls.Add(this.OneKeyButton);
+         this.panel1.Location = new System.Drawing.Point(16, 252);
+         this.panel1.Name = "panel1";
+         this.panel1.Size = new System.Drawing.Size(1181, 398);
+         this.panel1.TabIndex = 0;
          // 
          // SpaceKeyButton
          // 
@@ -1453,7 +1363,7 @@
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
          this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-         this.ClientSize = new System.Drawing.Size(1209, 736);
+         this.ClientSize = new System.Drawing.Size(1213, 667);
          this.Controls.Add(this.BackPanel);
          this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
          this.Name = "OsdForm";
@@ -1541,10 +1451,6 @@
       private System.Windows.Forms.Panel panel2;
       private System.Windows.Forms.Button ClearScreenButton;
       private System.Windows.Forms.Button WriteTextButton;
-      private NicBotButton ScreenHorizontalOffsetDecreaseButton;
-      private NicBotButton ScreenHorizontalOffsetIncreaseButton;
-      private UpDownButton ScreenVeriticalOffsetDecreaseButton;
-      private UpDownButton ScreenVeriticalOffsetIncreaseButton;
       private CameraSelectButton CameraIdToggleButton;
       private CameraSelectButton DescriptionToggleButton;
    }

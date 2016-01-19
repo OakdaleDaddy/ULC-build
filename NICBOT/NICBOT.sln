@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 2012 for Windows Desktop
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NICBOT.Utilities", "NICBOT.Utilities\NICBOT.Utilities.csproj", "{159C080C-76E7-46D8-94ED-02F9619165C0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NICBOT.Controls", "NICBOT.Controls\NICBOT.Controls.csproj", "{087EB95E-A893-4190-AEE6-32603A113187}"
@@ -22,6 +22,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NICBOT.DeviceTest", "NICBOT.DeviceTest\NICBOT.DeviceTest.csproj", "{8158AC3E-75BD-47C2-B813-A7C24D31623E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NICBOT.SensorClient", "NICBOT.SensorClient\NICBOT.SensorClient.csproj", "{B01A521F-EBC0-4517-88D9-E6E3F4C5C3A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NICBOT.OSD", "NICBOT.OSD\NICBOT.OSD.csproj", "{75D90953-2307-4BD0-9E5A-BF91CAD6AC2E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -73,6 +75,10 @@ Global
 		{B01A521F-EBC0-4517-88D9-E6E3F4C5C3A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B01A521F-EBC0-4517-88D9-E6E3F4C5C3A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B01A521F-EBC0-4517-88D9-E6E3F4C5C3A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75D90953-2307-4BD0-9E5A-BF91CAD6AC2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75D90953-2307-4BD0-9E5A-BF91CAD6AC2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75D90953-2307-4BD0-9E5A-BF91CAD6AC2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75D90953-2307-4BD0-9E5A-BF91CAD6AC2E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
