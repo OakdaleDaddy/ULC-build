@@ -21,6 +21,8 @@
       private static FgDigitalScale rear = null;
 
       private bool active;
+
+      private string location;
       
       private SerialPort serialPort;
       private byte[] serialPortRxBuffer;
@@ -37,6 +39,7 @@
       private bool execute;
       private Thread thread;
 
+      private int commTimeoutCount;
       private double reading;
 
       #endregion
@@ -50,7 +53,7 @@
             if (null == front)
             {
                front = new FgDigitalScale();
-               front.Initialize();
+               front.Initialize("front");
             }
 
             return front;
@@ -64,7 +67,7 @@
             if (null == rear)
             {
                rear = new FgDigitalScale();
-               rear.Initialize();
+               rear.Initialize("rear");
             }
 
             return rear;
@@ -76,6 +79,12 @@
       #endregion
 
       #region Helper Functions
+
+      private void Initialize(string location)
+      {
+         this.location = location;
+         this.Initialize();
+      }
 
       private void ProcessRxData(byte[] buffer, int count)
       {
@@ -89,6 +98,8 @@
 
                if ('\n' == ch)
                {
+                  this.commTimeoutCount = 0;
+
                   if (this.serialPortProcessCount >= 6)
                   {
                      if (('S' == this.serialPortProcessBuffer[0]) &&
@@ -180,7 +191,16 @@
             {
                if (DateTime.Now > this.serialRxTimeLimit)
                {
-                  this.faultReason = "comm timeout";
+                  if (this.commTimeoutCount < 5)
+                  {
+                     this.commTimeoutCount++;
+                     Tracer.WriteMedium(TraceGroup.TBUS, "", "{0} scale communication timeout {1}", this.location, this.commTimeoutCount);
+                  }
+                  else
+                  {
+                     Tracer.WriteMedium(TraceGroup.TBUS, "", "{0} scale communication failure", this.location);
+                     this.faultReason = "comm timeout";
+                  }
                }
             }
 

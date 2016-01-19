@@ -14,9 +14,6 @@ namespace NICBOT.GUI
    {
       #region Fields
 
-      private ToolLocations drillLocation;
-      private DrillParameters selectedDrill;
-
       private PopupDimmerForm dimmerForm;
 
       #endregion
