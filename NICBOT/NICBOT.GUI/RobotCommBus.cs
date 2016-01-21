@@ -55,6 +55,7 @@ namespace NICBOT.GUI
       private bool busReady;
       private string busStatus;
       private Queue busReceiveQueue;
+      private Queue deviceResetQueue;
 
       private UlcRoboticsNicbotBody robotBody;
       private UlcRoboticsNicbotWheel robotTopFrontWheel;
@@ -526,6 +527,17 @@ namespace NICBOT.GUI
 
       #region Device Process Loop
 
+      private void UpdateControllerHeartbeat()
+      {
+         if ((0 != ParameterAccessor.Instance.RobotBus.ProducerHeartbeatRate) &&
+             (false != this.controllerServiced) &&
+             (DateTime.Now > this.controllerHeartbeatLimit))
+         {
+            this.SendControllerHeartBeat();
+            this.controllerHeartbeatLimit = this.controllerHeartbeatLimit.AddMilliseconds(ParameterAccessor.Instance.RobotBus.ProducerHeartbeatRate);
+         }
+      }
+
       private void ProcessCommFrames()
       {
          int receiveCount = 0;
@@ -572,6 +584,7 @@ namespace NICBOT.GUI
 
          for (; this.execute; )
          {
+            this.UpdateControllerHeartbeat();
             this.ProcessCommFrames();
 
             foreach (Device device in this.deviceList)
@@ -586,6 +599,40 @@ namespace NICBOT.GUI
       #endregion
 
       #region Robot Body Functions 
+
+      private void InitializeRobotBody()
+      {
+         this.robotBody.Initialize();
+         this.robotSolenoidSetPointChangeCounter = 0;
+         this.robotSolenoidSetPoint = this.robotBody.GetSolenoidCache();
+         this.robotSolenoidRequested = this.robotSolenoidSetPoint;
+
+         this.drillFrontOriginOffset = double.NaN;
+         this.drillRearOriginOffset = double.NaN;
+         this.drillFrontRotationRequested = 0;
+         this.drillRearRotationRequested = 0;
+         this.drillFrontIndexRequested = 0;
+         this.drillFrontIndexSpeedRequested = 0;
+         this.drillRearIndexRequested = 0;
+         this.drillRearIndexSpeedRequested = 0;
+         this.drillFrontConfigurationNeeded = false;
+         this.drillRearConfigurationNeeded = false;
+         this.drillFrontRetractToLimit = false;
+         this.drillRearRetractToLimit = false;
+         this.drillFrontStop = false;
+         this.drillRearStop = false;
+         this.drillFrontLaserRequested = false;
+         this.drillRearLaserRequested = false;
+
+         this.videoARequested = 0;
+         this.videoBRequested = 0;
+
+         for (int i = 0; i < this.cameraLightLevelSetPoints.Length; i++)
+         {
+            this.cameraLightLevelRequests[i] = 0;
+         }
+
+      }
 
       private void SetRobotWheelModeChangeState(MovementWheelModeChangeStates newState)
       {
@@ -1244,22 +1291,12 @@ namespace NICBOT.GUI
 
       #region Process Functions
 
-      private void UpdateControllerHeartbeat()
-      {
-         if ((0 != ParameterAccessor.Instance.RobotBus.ProducerHeartbeatRate) &&
-             (false != this.controllerServiced) &&
-             (DateTime.Now > this.controllerHeartbeatLimit))
-         {
-            this.SendControllerHeartBeat();
-            this.controllerHeartbeatLimit = this.controllerHeartbeatLimit.AddMilliseconds(ParameterAccessor.Instance.RobotBus.ProducerHeartbeatRate);
-         }
-      }
-
       private void InitializeValues()
       {
          this.busReady = false;
          this.busStatus = null;
          this.busReceiveQueue.Clear();
+         this.deviceResetQueue.Clear();
 
          this.robotBody.NodeId = (byte)ParameterAccessor.Instance.RobotBus.RobotBodyBusId;
          this.robotTopFrontWheel.NodeId = (byte)ParameterAccessor.Instance.RobotBus.RobotTopFrontWheelBusId;
@@ -1274,10 +1311,7 @@ namespace NICBOT.GUI
          this.robotBottomFrontWheel.TraceMask = ParameterAccessor.Instance.RobotBus.RobotBottomFrontWheelTraceMask;
          this.robotBottomRearWheel.TraceMask = ParameterAccessor.Instance.RobotBus.RobotBottomRearWheelTraceMask;
 
-         this.robotBody.Initialize();         
-         this.robotSolenoidSetPointChangeCounter = 0;
-         this.robotSolenoidSetPoint = this.robotBody.GetSolenoidCache();
-         this.robotSolenoidRequested = this.robotSolenoidSetPoint;
+         this.InitializeRobotBody();
 
          this.movementMode = MovementModes.off;
          this.movementForwardMode = MovementForwardModes.normalAxial;
@@ -1286,40 +1320,21 @@ namespace NICBOT.GUI
          this.movementBottomFrontWheelStatus.Initialize();
          this.movementBottomRearWheelStatus.Initialize();
 
-         this.drillFrontOriginOffset = double.NaN;
-         this.drillRearOriginOffset = double.NaN;
          this.drillFrontRotationSetPoint = 0;
-         this.drillFrontRotationRequested = 0;
          this.drillRearRotationSetPoint = 0;
-         this.drillRearRotationRequested = 0;
          this.drillFrontIndexSetPoint = 0;
-         this.drillFrontIndexRequested = 0;
-         this.drillFrontIndexSpeedRequested = 0;
          this.drillRearIndexSetPoint = 0;
-         this.drillRearIndexRequested = 0;
-         this.drillRearIndexSpeedRequested = 0;
-         this.drillFrontConfigurationNeeded = false;
-         this.drillRearConfigurationNeeded = false;
-         this.drillFrontRetractToLimit = false;
-         this.drillRearRetractToLimit = false;
-         this.drillFrontStop = false;
-         this.drillRearStop = false;
          this.drillFrontLaserSetPoint = false;
-         this.drillFrontLaserRequested = false;
          this.drillRearLaserSetPoint = false;
-         this.drillRearLaserRequested = false;
 
          this.cameraA = CameraLocations.robotFrontUpperBack;
          this.cameraB = CameraLocations.robotLowerBack;
          this.videoASetPoint = 0;
-         this.videoARequested = 0;
          this.videoBSetPoint = 0;
-         this.videoBRequested = 0;
 
          for (int i = 0; i < this.cameraLightLevelSetPoints.Length; i++)
          {
             this.cameraLightLevelSetPoints[i] = 0;
-            this.cameraLightLevelRequests[i] = 0;
          }
       }
 
@@ -1385,6 +1400,75 @@ namespace NICBOT.GUI
          }
       }
 
+      private void UpdateDeviceReset()
+      {
+         int receiveCount = 0;
+         DeviceRestartRequest request = null;
+
+         do
+         {
+            lock (this)
+            {
+               receiveCount = this.deviceResetQueue.Count;
+
+               if (receiveCount > 0)
+               {
+                  request = (DeviceRestartRequest)this.deviceResetQueue.Dequeue();
+               }
+            }
+
+            if (null != request)
+            {
+               BusComponentId id = (BusComponentId)request.Id;
+
+               if (BusComponentId.RobotBody == id)
+               {
+                  this.InitializeRobotBody();
+                  this.robotBody.Reset();
+                  this.StartRobotBody();
+               }
+               else if (BusComponentId.RobotTopFrontWheel == id)
+               {
+                  this.robotTopFrontWheel.Initialize();
+                  this.robotTopFrontWheel.Reset();
+                  this.StartRobotWheel(this.robotTopFrontWheel);
+               }
+               else if (BusComponentId.RobotTopRearWheel == id)
+               {
+                  this.robotTopRearWheel.Initialize();
+                  this.robotTopRearWheel.Reset();
+                  this.StartRobotWheel(this.robotTopRearWheel);
+               }
+               else if (BusComponentId.RobotBottomFrontWheel == id)
+               {
+                  this.robotBottomFrontWheel.Initialize();
+                  this.robotBottomFrontWheel.Reset();
+                  this.StartRobotWheel(this.robotBottomFrontWheel);
+               }
+               else if (BusComponentId.RobotBottomRearWheel == id)
+               {
+                  this.robotBottomRearWheel.Initialize();
+                  this.robotBottomRearWheel.Reset();
+                  this.StartRobotWheel(this.robotBottomRearWheel);
+               }
+
+               if (null != request.OnComplete)
+               {
+                  try
+                  {
+                     request.OnComplete(id);
+                  }
+                  catch (Exception ex)
+                  {
+                  }
+               }
+
+               request = null;
+            }
+         }
+         while (0 != receiveCount);
+      }
+
       private void ExecuteProcessLoop()
       {
          this.ready = true;
@@ -1397,10 +1481,9 @@ namespace NICBOT.GUI
 
          for (; this.execute; )
          {
-            this.UpdateControllerHeartbeat();
-            
             this.UpdateRobotBody();
             this.UpdateRobotWheels();
+            this.UpdateDeviceReset();
 
             Thread.Sleep(1);
          }
@@ -1466,6 +1549,7 @@ namespace NICBOT.GUI
       private void Initialize()
       {
          this.busReceiveQueue = new Queue();
+         this.deviceResetQueue = new Queue();
 
          this.robotBody = new UlcRoboticsNicbotBody("nicbot body", (byte)ParameterAccessor.Instance.RobotBus.RobotBodyBusId);
          this.robotTopFrontWheel = new UlcRoboticsNicbotWheel("nicbot tf-wheel", (byte)ParameterAccessor.Instance.RobotBus.RobotTopFrontWheelBusId);
@@ -1624,9 +1708,10 @@ namespace NICBOT.GUI
          return (result);
       }
 
-      public Device GetDevice(BusComponentId id)
+      public Device GetDevice(Enum deviceId)
       {
          Device result = null;
+         BusComponentId id = (BusComponentId)deviceId;
 
          switch (id)
          {
@@ -1658,6 +1743,15 @@ namespace NICBOT.GUI
          }
 
          return (result);
+      }
+
+      public void RestartDevice(Enum deviceId, DeviceRestartRequest.CompleteHandler onComplete)
+      {
+         lock (this)
+         {
+            DeviceRestartRequest request = new DeviceRestartRequest(deviceId, onComplete);
+            this.deviceResetQueue.Enqueue(request);
+         }
       }
 
       #endregion

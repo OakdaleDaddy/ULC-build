@@ -16,6 +16,12 @@ namespace NICBOT.GUI
 
    public partial class SystemStatusForm : Form
    {
+      #region Definitions 
+
+      private delegate Device DeviceRetrievalHandler(Enum deviceId);
+
+      #endregion
+
       #region Fields
 
       private PopupDimmerForm dimmerForm;
@@ -123,8 +129,10 @@ namespace NICBOT.GUI
          this.dimmerForm.Hide();
       }
 
-      private void LaunchCANDeviceInformationForm(Label label, Device device)
+      private void LaunchCANDeviceInformationForm(Label label, Enum deviceId, DeviceRetrievalHandler onDeviceRetrive, DeviceRestartRequest.RestartHandler onRestartHandler)
       {
+         Device device = onDeviceRetrive(deviceId);
+
          if (null != device)
          {
             CANDeviceInformationForm deviceInformationForm = new CANDeviceInformationForm();
@@ -132,6 +140,9 @@ namespace NICBOT.GUI
 
             deviceInformationForm.Title = label.Text;
             deviceInformationForm.Device = device;
+            deviceInformationForm.DeviceId = deviceId;
+
+            deviceInformationForm.OnDeviceRestart = onRestartHandler;
 
             this.DimBackground();
             deviceInformationForm.ShowDialog();
@@ -293,140 +304,117 @@ namespace NICBOT.GUI
 
       private void RobotBodyLabel_Click(object sender, EventArgs e)
       {
-         Device device = RobotCommBus.Instance.GetDevice(RobotCommBus.BusComponentId.RobotBody);
-         this.LaunchCANDeviceInformationForm(this.RobotBodyLabel, device);
+         this.LaunchCANDeviceInformationForm(this.RobotBodyLabel, RobotCommBus.BusComponentId.RobotBody, RobotCommBus.Instance.GetDevice, RobotCommBus.Instance.RestartDevice);
       }
 
       private void RobotTopFrontWheelLabel_Click(object sender, EventArgs e)
       {
-         Device device = RobotCommBus.Instance.GetDevice(RobotCommBus.BusComponentId.RobotTopFrontWheel);
-         this.LaunchCANDeviceInformationForm(this.RobotTopFrontWheelLabel, device);
+         this.LaunchCANDeviceInformationForm(this.RobotTopFrontWheelLabel, RobotCommBus.BusComponentId.RobotTopFrontWheel, RobotCommBus.Instance.GetDevice, RobotCommBus.Instance.RestartDevice);
       }
 
       private void RobotTopRearLabel_Click(object sender, EventArgs e)
       {
-         Device device = RobotCommBus.Instance.GetDevice(RobotCommBus.BusComponentId.RobotTopRearWheel);
-         this.LaunchCANDeviceInformationForm(this.RobotTopRearLabel, device);
+         this.LaunchCANDeviceInformationForm(this.RobotTopRearLabel, RobotCommBus.BusComponentId.RobotTopRearWheel, RobotCommBus.Instance.GetDevice, RobotCommBus.Instance.RestartDevice);
       }
 
       private void RobotBottomFrontWheelLabel_Click(object sender, EventArgs e)
       {
-         Device device = RobotCommBus.Instance.GetDevice(RobotCommBus.BusComponentId.RobotBottomFrontWheel);
-         this.LaunchCANDeviceInformationForm(this.RobotBottomFrontWheelLabel, device);
+         this.LaunchCANDeviceInformationForm(this.RobotBottomFrontWheelLabel, RobotCommBus.BusComponentId.RobotBottomFrontWheel, RobotCommBus.Instance.GetDevice, RobotCommBus.Instance.RestartDevice);
       }
 
       private void RobotBottomRearWheelLabel_Click(object sender, EventArgs e)
       {
-         Device device = RobotCommBus.Instance.GetDevice(RobotCommBus.BusComponentId.RobotBottomRearWheel);
-         this.LaunchCANDeviceInformationForm(this.RobotBottomRearWheelLabel, device);
+         this.LaunchCANDeviceInformationForm(this.RobotBottomRearWheelLabel, RobotCommBus.BusComponentId.RobotBottomRearWheel, RobotCommBus.Instance.GetDevice, RobotCommBus.Instance.RestartDevice);
       }
 
       private void FrontPumpMotorLabel_Click(object sender, EventArgs e)
       {
-         Device device = TruckCommBus.Instance.GetDevice(TruckCommBus.BusComponentId.FrontPumpMotor);
-         this.LaunchCANDeviceInformationForm(this.FrontPumpMotorLabel, device);
+         this.LaunchCANDeviceInformationForm(this.FrontPumpMotorLabel, TruckCommBus.BusComponentId.FrontPumpMotor, TruckCommBus.Instance.GetDevice, TruckCommBus.Instance.RestartDevice);
       }
 
       private void FrontScaleRs232Label_Click(object sender, EventArgs e)
       {
-         Device device = TruckCommBus.Instance.GetDevice(TruckCommBus.BusComponentId.FrontScaleRs232);
-         this.LaunchCANDeviceInformationForm(this.FrontScaleRs232Label, device);
+         this.LaunchCANDeviceInformationForm(this.FrontScaleRs232Label, TruckCommBus.BusComponentId.FrontScaleRs232, TruckCommBus.Instance.GetDevice, TruckCommBus.Instance.RestartDevice);
       }
 
       private void RearPumpMotorLabel_Click(object sender, EventArgs e)
       {
-         Device device = TruckCommBus.Instance.GetDevice(TruckCommBus.BusComponentId.RearPumpMotor);
-         this.LaunchCANDeviceInformationForm(this.RearPumpMotorLabel, device);
+         this.LaunchCANDeviceInformationForm(this.RearPumpMotorLabel, TruckCommBus.BusComponentId.RearPumpMotor, TruckCommBus.Instance.GetDevice, TruckCommBus.Instance.RestartDevice);
       }
 
       private void RearScaleRs232Label_Click(object sender, EventArgs e)
       {
-         Device device = TruckCommBus.Instance.GetDevice(TruckCommBus.BusComponentId.RearScaleRs232);
-         this.LaunchCANDeviceInformationForm(this.RearScaleRs232Label, device);
+         this.LaunchCANDeviceInformationForm(this.RearScaleRs232Label, TruckCommBus.BusComponentId.RearScaleRs232, TruckCommBus.Instance.GetDevice, TruckCommBus.Instance.RestartDevice);
       }
 
       private void GpsLabel_Click(object sender, EventArgs e)
       {
-         Device device = TruckCommBus.Instance.GetDevice(TruckCommBus.BusComponentId.Gps);
-         this.LaunchCANDeviceInformationForm(this.GpsLabel, device);
+         this.LaunchCANDeviceInformationForm(this.GpsLabel, TruckCommBus.BusComponentId.Gps, TruckCommBus.Instance.GetDevice, TruckCommBus.Instance.RestartDevice);
       }
 
       private void ReelMotorLabel_Click(object sender, EventArgs e)
       {
-         Device device = TruckCommBus.Instance.GetDevice(TruckCommBus.BusComponentId.ReelMotor);
-         this.LaunchCANDeviceInformationForm(this.ReelMotorLabel, device);
+         this.LaunchCANDeviceInformationForm(this.ReelMotorLabel, TruckCommBus.BusComponentId.ReelMotor, TruckCommBus.Instance.GetDevice, TruckCommBus.Instance.RestartDevice);
       }
 
       private void ReelDigitalIoLabel_Click(object sender, EventArgs e)
       {
-         Device device = TruckCommBus.Instance.GetDevice(TruckCommBus.BusComponentId.ReelDigitalIo);
-         this.LaunchCANDeviceInformationForm(this.ReelDigitalIoLabel, device);
+         this.LaunchCANDeviceInformationForm(this.ReelDigitalIoLabel, TruckCommBus.BusComponentId.ReelDigitalIo, TruckCommBus.Instance.GetDevice, TruckCommBus.Instance.RestartDevice);
       }
 
       private void ReelAnalogIoLabel_Click(object sender, EventArgs e)
       {
-         Device device = TruckCommBus.Instance.GetDevice(TruckCommBus.BusComponentId.ReelAnalogIo);
-         this.LaunchCANDeviceInformationForm(this.ReelAnalogIoLabel, device);
+         this.LaunchCANDeviceInformationForm(this.ReelAnalogIoLabel, TruckCommBus.BusComponentId.ReelAnalogIo, TruckCommBus.Instance.GetDevice, TruckCommBus.Instance.RestartDevice);
       }
 
       private void ReelEncoderLabel_Click(object sender, EventArgs e)
       {
-         Device device = TruckCommBus.Instance.GetDevice(TruckCommBus.BusComponentId.ReelEncoder);
-         this.LaunchCANDeviceInformationForm(this.ReelEncoderLabel, device);
+         this.LaunchCANDeviceInformationForm(this.ReelEncoderLabel, TruckCommBus.BusComponentId.ReelEncoder, TruckCommBus.Instance.GetDevice, TruckCommBus.Instance.RestartDevice);
       }
 
       private void FeederTopFrontMotorLabel_Click(object sender, EventArgs e)
       {
-         Device device = TruckCommBus.Instance.GetDevice(TruckCommBus.BusComponentId.FeederTopFrontMotor);
-         this.LaunchCANDeviceInformationForm(this.FeederTopFrontMotorLabel, device);
+         this.LaunchCANDeviceInformationForm(this.FeederTopFrontMotorLabel, TruckCommBus.BusComponentId.FeederTopFrontMotor, TruckCommBus.Instance.GetDevice, TruckCommBus.Instance.RestartDevice);
       }
 
       private void FeederTopRearMotorLabel_Click(object sender, EventArgs e)
       {
-         Device device = TruckCommBus.Instance.GetDevice(TruckCommBus.BusComponentId.FeederTopRearMotor);
-         this.LaunchCANDeviceInformationForm(this.FeederTopRearMotorLabel, device);
+         this.LaunchCANDeviceInformationForm(this.FeederTopRearMotorLabel, TruckCommBus.BusComponentId.FeederTopRearMotor, TruckCommBus.Instance.GetDevice, TruckCommBus.Instance.RestartDevice);
       }
 
       private void FeederBottomFrontMotorLabel_Click(object sender, EventArgs e)
       {
-         Device device = TruckCommBus.Instance.GetDevice(TruckCommBus.BusComponentId.FeederBottomFrontMotor);
-         this.LaunchCANDeviceInformationForm(this.FeederBottomFrontMotorLabel, device);
+         this.LaunchCANDeviceInformationForm(this.FeederBottomFrontMotorLabel, TruckCommBus.BusComponentId.FeederBottomFrontMotor, TruckCommBus.Instance.GetDevice, TruckCommBus.Instance.RestartDevice);
       }
 
       private void FeederBottomRearMotorLabel_Click(object sender, EventArgs e)
       {
-         Device device = TruckCommBus.Instance.GetDevice(TruckCommBus.BusComponentId.FeederBottomRearMotor);
-         this.LaunchCANDeviceInformationForm(this.FeederBottomRearMotorLabel, device);
+         this.LaunchCANDeviceInformationForm(this.FeederBottomRearMotorLabel, TruckCommBus.BusComponentId.FeederBottomRearMotor, TruckCommBus.Instance.GetDevice, TruckCommBus.Instance.RestartDevice);
       }
 
       private void FeederEncoderLabel_Click(object sender, EventArgs e)
       {
-         Device device = TruckCommBus.Instance.GetDevice(TruckCommBus.BusComponentId.FeederEncoder);
-         this.LaunchCANDeviceInformationForm(this.FeederEncoderLabel, device);
+         this.LaunchCANDeviceInformationForm(this.FeederEncoderLabel, TruckCommBus.BusComponentId.FeederEncoder, TruckCommBus.Instance.GetDevice, TruckCommBus.Instance.RestartDevice);
       }
 
       private void GuideLeftMotorLabel_Click(object sender, EventArgs e)
       {
-         Device device = TruckCommBus.Instance.GetDevice(TruckCommBus.BusComponentId.GuideLeftMotor);
-         this.LaunchCANDeviceInformationForm(this.GuideLeftMotorLabel, device);
+         this.LaunchCANDeviceInformationForm(this.GuideLeftMotorLabel, TruckCommBus.BusComponentId.GuideLeftMotor, TruckCommBus.Instance.GetDevice, TruckCommBus.Instance.RestartDevice);
       }
 
       private void GuideRightMotorLabel_Click(object sender, EventArgs e)
       {
-         Device device = TruckCommBus.Instance.GetDevice(TruckCommBus.BusComponentId.GuideRightMotor);
-         this.LaunchCANDeviceInformationForm(this.GuideRightMotorLabel, device);
+         this.LaunchCANDeviceInformationForm(this.GuideRightMotorLabel, TruckCommBus.BusComponentId.GuideRightMotor, TruckCommBus.Instance.GetDevice, TruckCommBus.Instance.RestartDevice);
       }
 
       private void LaunchDigitalIoLabel_Click(object sender, EventArgs e)
       {
-         Device device = TruckCommBus.Instance.GetDevice(TruckCommBus.BusComponentId.LaunchDigitalIo);
-         this.LaunchCANDeviceInformationForm(this.LaunchDigitalIoLabel, device);
+         this.LaunchCANDeviceInformationForm(this.LaunchDigitalIoLabel, TruckCommBus.BusComponentId.LaunchDigitalIo, TruckCommBus.Instance.GetDevice, TruckCommBus.Instance.RestartDevice);
       }
 
       private void LaunchAnalogIoLabel_Click(object sender, EventArgs e)
       {
-         Device device = TruckCommBus.Instance.GetDevice(TruckCommBus.BusComponentId.LaunchAnalogIo);
-         this.LaunchCANDeviceInformationForm(this.LaunchAnalogIoLabel, device);
+         this.LaunchCANDeviceInformationForm(this.LaunchAnalogIoLabel, TruckCommBus.BusComponentId.LaunchAnalogIo, TruckCommBus.Instance.GetDevice, TruckCommBus.Instance.RestartDevice);
       }
 
       private void TriggerDefaultsButton_HoldTimeout(object sender, HoldTimeoutEventArgs e)

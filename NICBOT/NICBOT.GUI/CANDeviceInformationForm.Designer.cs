@@ -93,7 +93,6 @@
          this.RestartButton.TabIndex = 182;
          this.RestartButton.Text = "RESTART";
          this.RestartButton.UseVisualStyleBackColor = false;
-         this.RestartButton.Visible = false;
          this.RestartButton.Click += new System.EventHandler(this.RestartButton_Click);
          // 
          // DeviceTypeValuePanel

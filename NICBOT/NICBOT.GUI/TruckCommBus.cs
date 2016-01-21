@@ -66,6 +66,7 @@ namespace NICBOT.GUI
       private bool busReady;
       private string busStatus;
       private Queue busReceiveQueue;
+      private Queue deviceResetQueue;
       
       private ElmoWhistleMotor reelMotor;
       private PeakDigitalIo reelDigitalIo;
@@ -162,29 +163,6 @@ namespace NICBOT.GUI
             this.DeviceTraceTransmit(cobId, heartbeatMsg);
          }
       }
-
-#if false
-      private bool TraceBusTraffic(int cobId)
-      {
-         bool result = true;
-
-         if ((0x185 == cobId) ||
-             (0x186 == cobId) ||
-             (0x194 == cobId) ||
-             (0x198 == cobId) ||
-             (0x298 == cobId) ||
-             (0x290 == cobId) ||
-             (0x1AA == cobId) ||
-             (0x2AA == cobId) ||
-             (0x3AA == cobId) ||
-             (0x4AA == cobId))
-         {
-            result = false;
-         }
-
-         return (result);
-      }
-#endif
 
       #endregion
 
@@ -336,6 +314,17 @@ namespace NICBOT.GUI
 
       #region Device Process Loop
 
+      private void UpdateControllerHeartbeat()
+      {
+         if ((0 != ParameterAccessor.Instance.TruckBus.ProducerHeartbeatRate) &&
+             (false != this.controllerServiced) &&
+             (DateTime.Now > this.controllerHeartbeatLimit))
+         {
+            this.SendControllerHeartBeat();
+            this.controllerHeartbeatLimit = this.controllerHeartbeatLimit.AddMilliseconds(ParameterAccessor.Instance.TruckBus.ProducerHeartbeatRate);
+         }
+      }
+
       private void ProcessCommFrames()
       {
          int receiveCount = 0;
@@ -382,6 +371,7 @@ namespace NICBOT.GUI
 
          for (; this.execute; )
          {
+            this.UpdateControllerHeartbeat();
             this.ProcessCommFrames();
 
             foreach (Device device in this.deviceList)
@@ -403,9 +393,7 @@ namespace NICBOT.GUI
          {
             this.reelMotor.SetConsumerHeartbeat((UInt16)ParameterAccessor.Instance.TruckBus.ConsumerHeartbeatRate, (byte)ParameterAccessor.Instance.TruckBus.ControllerBusId);
             this.reelMotor.SetProducerHeartbeat((UInt16)ParameterAccessor.Instance.TruckBus.ProducerHeartbeatRate);
-            this.SendControllerHeartBeat();
             this.reelMotor.Start();
-            this.SendControllerHeartBeat();
 
             Thread.Sleep(100); // need delay beteen start and current mode
             this.reelMotor.SetMode(ElmoWhistleMotor.Modes.current);
@@ -490,9 +478,7 @@ namespace NICBOT.GUI
          {
             motor.SetConsumerHeartbeat((UInt16)ParameterAccessor.Instance.TruckBus.ConsumerHeartbeatRate, (byte)ParameterAccessor.Instance.TruckBus.ControllerBusId);
             motor.SetProducerHeartbeat((UInt16)ParameterAccessor.Instance.TruckBus.ProducerHeartbeatRate);
-            this.SendControllerHeartBeat();
             motor.Start();
-            this.SendControllerHeartBeat();
 
             Tracer.WriteMedium(TraceGroup.TBUS, null, "{0} started", motor.Name);
          }
@@ -723,9 +709,7 @@ namespace NICBOT.GUI
 
             motor.SetConsumerHeartbeat((UInt16)ParameterAccessor.Instance.TruckBus.ConsumerHeartbeatRate, (byte)ParameterAccessor.Instance.TruckBus.ControllerBusId);
             motor.SetProducerHeartbeat((UInt16)ParameterAccessor.Instance.TruckBus.ProducerHeartbeatRate);
-            this.SendControllerHeartBeat();
             motor.Start();
-            this.SendControllerHeartBeat();
 
             motor.SetMode(ElmoWhistleMotor.Modes.velocity);
 
@@ -1119,22 +1103,12 @@ namespace NICBOT.GUI
 
       #region Process Support Functions
 
-      private void UpdateControllerHeartbeat()
-      {
-         if ((0 != ParameterAccessor.Instance.TruckBus.ProducerHeartbeatRate) &&
-             (false != this.controllerServiced) &&
-             (DateTime.Now > this.controllerHeartbeatLimit))
-         {
-            this.SendControllerHeartBeat();
-            this.controllerHeartbeatLimit = this.controllerHeartbeatLimit.AddMilliseconds(ParameterAccessor.Instance.TruckBus.ProducerHeartbeatRate);
-         }
-      }
-
       private void InitializeValues()
       {
          this.busReady = false;
          this.busStatus = null;
          this.busReceiveQueue.Clear();
+         this.deviceResetQueue.Clear();
          
          this.reelMotor.NodeId = (byte)ParameterAccessor.Instance.TruckBus.ReelMotorBusId;
          this.reelDigitalIo.NodeId = (byte)ParameterAccessor.Instance.TruckBus.ReelDigitalBusId;
@@ -1274,6 +1248,38 @@ namespace NICBOT.GUI
          }
       }
 
+      private void UpdateDeviceReset()
+      {
+         int receiveCount = 0;
+         DeviceRestartRequest request = null;
+
+         do
+         {
+            lock (this)
+            {
+               receiveCount = this.deviceResetQueue.Count;
+
+               if (receiveCount > 0)
+               {
+                  request = (DeviceRestartRequest)this.deviceResetQueue.Dequeue();
+               }
+            }
+
+            if (null != request)
+            {
+               BusComponentId id = (BusComponentId)request.Id;
+
+               // add restart handling here
+
+               if (null != request.OnComplete)
+               {
+                  request.OnComplete(id);
+               }
+            }
+         }
+         while (0 != receiveCount);
+      }
+
       private void ExecuteProcessLoop()
       {
          this.ready = true;
@@ -1295,8 +1301,6 @@ namespace NICBOT.GUI
 
          for (; this.execute; )
          {
-            this.UpdateControllerHeartbeat();
-
             this.UpdateReel();
             this.UpdateFeeder();
             this.UpdateGuide();
@@ -1308,6 +1312,8 @@ namespace NICBOT.GUI
             {
                this.UpdatePumps();
             }
+
+            this.UpdateDeviceReset();
 
             Thread.Sleep(1);
          }
@@ -1445,6 +1451,7 @@ namespace NICBOT.GUI
       private void Initialize()
       {
          this.busReceiveQueue = new Queue();
+         this.deviceResetQueue = new Queue();
 
          this.reelMotor = new ElmoWhistleMotor("reel motor", (byte)ParameterAccessor.Instance.TruckBus.ReelMotorBusId);
          this.reelDigitalIo = new PeakDigitalIo("reel digital IO", (byte)ParameterAccessor.Instance.TruckBus.ReelDigitalBusId);
@@ -1864,9 +1871,10 @@ namespace NICBOT.GUI
          return (result);
       }
 
-      public Device GetDevice(BusComponentId id)
+      public Device GetDevice(Enum deviceId)
       {
          Device result = null;
+         BusComponentId id = (BusComponentId)deviceId;
 
          switch (id)
          {
@@ -1980,6 +1988,16 @@ namespace NICBOT.GUI
 
          return (result);
       }
+
+      public void RestartDevice(Enum deviceId, DeviceRestartRequest.CompleteHandler onComplete)
+      {
+         lock (this)
+         {
+            DeviceRestartRequest request = new DeviceRestartRequest(deviceId, onComplete);
+            this.deviceResetQueue.Enqueue(request);
+         }
+      }
+
 
       #endregion
 

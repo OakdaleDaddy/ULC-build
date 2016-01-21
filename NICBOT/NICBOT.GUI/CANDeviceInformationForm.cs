@@ -15,10 +15,16 @@ namespace NICBOT.GUI
 
    public partial class CANDeviceInformationForm : Form
    {
+      #region Definition
+
+      #endregion
+
       #region Properties
 
       public string Title { set; get; }
       public CAN.Device Device { set; get; }
+      public Enum DeviceId { set; get; }
+      public DeviceRestartRequest.RestartHandler OnDeviceRestart { set; get; }
 
       #endregion
 
@@ -33,6 +39,43 @@ namespace NICBOT.GUI
          else
          {
             button.ForeColor = Color.Black;
+         }
+      }
+
+      private void SetDeviceStatus()
+      {
+         if (null != this.Device)
+         {
+            this.DeviceNameValuePanel.ValueText = this.Device.DeviceName;
+            this.DeviceVersionValuePanel.ValueText = this.Device.DeviceVersion;
+            this.DeviceTypeValuePanel.ValueText = string.Format("{0:X8}", this.Device.DeviceType);
+            this.LoggingNameValuePanel.ValueText = this.Device.Name;
+            this.NodeIdValuePanel.ValueText = this.Device.NodeId.ToString();
+
+            this.SetLogSelect(this.SdoButton, this.Device.TraceSDO);
+            this.SetLogSelect(this.HbButton, this.Device.TraceHB);
+            this.SetLogSelect(this.Rpdo1Button, this.Device.TraceRPDO1);
+            this.SetLogSelect(this.Rpdo2Button, this.Device.TraceRPDO2);
+            this.SetLogSelect(this.Rpdo3Button, this.Device.TraceRPDO3);
+            this.SetLogSelect(this.Rpdo4Button, this.Device.TraceRPDO4);
+            this.SetLogSelect(this.Tpdo1Button, this.Device.TraceTPDO1);
+            this.SetLogSelect(this.Tpdo2Button, this.Device.TraceTPDO2);
+            this.SetLogSelect(this.Tpdo3Button, this.Device.TraceTPDO3);
+            this.SetLogSelect(this.Tpdo4Button, this.Device.TraceTPDO4);
+         }
+      }
+
+      private void RestartComplete()
+      {
+         this.SetDeviceStatus();
+         this.RestartButton.Enabled = true;
+      }
+
+      private void ProcessDeviceRestartComplete(Enum deviceId)
+      {
+         if (Enum.Equals(deviceId, this.DeviceId) != false)
+         {
+            this.Invoke((MethodInvoker)(() => { this.RestartComplete(); })); 
          }
       }
 
@@ -132,9 +175,13 @@ namespace NICBOT.GUI
 
       private void RestartButton_Click(object sender, EventArgs e)
       {
-         this.Device.Reset();
-         this.Device.Configure();
-         this.Device.Start();
+         if (null != this.OnDeviceRestart)
+         {
+            this.RestartButton.Enabled = false;
+
+            DeviceRestartRequest.CompleteHandler onComplete = new DeviceRestartRequest.CompleteHandler(this.ProcessDeviceRestartComplete);
+            this.OnDeviceRestart(this.DeviceId, onComplete);
+         }
       }
 
       private void BackButton_Click(object sender, EventArgs e)
@@ -149,26 +196,8 @@ namespace NICBOT.GUI
       private void CANDeviceInformationForm_Shown(object sender, EventArgs e)
       {
          this.TitleLabel.Text = this.Title;
-
-         if (null != this.Device)
-         {
-            this.DeviceNameValuePanel.ValueText = this.Device.DeviceName;
-            this.DeviceVersionValuePanel.ValueText = this.Device.DeviceVersion;
-            this.DeviceTypeValuePanel.ValueText = string.Format("{0:X8}", this.Device.DeviceType);
-            this.LoggingNameValuePanel.ValueText = this.Device.Name;
-            this.NodeIdValuePanel.ValueText = this.Device.NodeId.ToString();
-
-            this.SetLogSelect(this.SdoButton, this.Device.TraceSDO);
-            this.SetLogSelect(this.HbButton, this.Device.TraceHB);
-            this.SetLogSelect(this.Rpdo1Button, this.Device.TraceRPDO1);
-            this.SetLogSelect(this.Rpdo2Button, this.Device.TraceRPDO2);
-            this.SetLogSelect(this.Rpdo3Button, this.Device.TraceRPDO3);
-            this.SetLogSelect(this.Rpdo4Button, this.Device.TraceRPDO4);
-            this.SetLogSelect(this.Tpdo1Button, this.Device.TraceTPDO1);
-            this.SetLogSelect(this.Tpdo2Button, this.Device.TraceTPDO2);
-            this.SetLogSelect(this.Tpdo3Button, this.Device.TraceTPDO3);
-            this.SetLogSelect(this.Tpdo4Button, this.Device.TraceTPDO4);
-         }
+         this.SetDeviceStatus();
+         this.RestartButton.Visible = (null != this.OnDeviceRestart) ? true : false;
       }
 
       #endregion

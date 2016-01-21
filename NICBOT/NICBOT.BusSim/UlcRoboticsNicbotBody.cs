@@ -395,25 +395,28 @@ namespace NICBOT.BusSim
       {
          Int32 position;
 
-         position = this.Servo1UserControl.GetActualPosition();
-         position *= -100;
-         position /= (Int32)this.drillServoPulsesPerUnit;
-         position &= 0xFFFF;
-         
-         if (position != this.ActualFrontDrillIndex)
+         if (0 != this.drillServoPulsesPerUnit)
          {
-            this.ActualFrontDrillIndex = (Int16)position;
-         }
+            position = this.Servo1UserControl.GetActualPosition();
+            position *= -100;
+            position /= (Int32)this.drillServoPulsesPerUnit;
+            position &= 0xFFFF;
+
+            if (position != this.ActualFrontDrillIndex)
+            {
+               this.ActualFrontDrillIndex = (Int16)position;
+            }
 
 
-         position = this.Servo0UserControl.GetActualPosition();
-         position *= -100;
-         position /= (Int32)this.drillServoPulsesPerUnit;
-         position &= 0xFFFF;
+            position = this.Servo0UserControl.GetActualPosition();
+            position *= -100;
+            position /= (Int32)this.drillServoPulsesPerUnit;
+            position &= 0xFFFF;
 
-         if (position != actualRearDrillIndex)
-         {
-            this.ActualRearDrillIndex = (Int16)position;
+            if (position != actualRearDrillIndex)
+            {
+               this.ActualRearDrillIndex = (Int16)position;
+            }
          }
       }
 
