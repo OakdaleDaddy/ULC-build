@@ -17,6 +17,8 @@ namespace NICBOT.GUI
    {
       #region Definitions
 
+      private const int BootTimeoutPeriod= 1000;
+
       //private bool SimulatePumpSpeed = true;
       //private bool SimulatePumpPressure = true;
 
@@ -117,6 +119,7 @@ namespace NICBOT.GUI
       private FeederModes feederModeSetPoint; // applicable to 4 motors
       private double feederVelocitySetPoint; // applicable to 4 motors
       private bool evaluateFeederParameters; // forces evaluation of set points
+      private DateTime feederTraceTimeLimit; // limits log output 
 
       private FeederMotorStatus feederTopFrontStatus;
       private FeederMotorStatus feederTopRearStatus;
@@ -385,9 +388,18 @@ namespace NICBOT.GUI
 
       #endregion
 
+      #region Reel Functions
+
       #region Reel Motor Functions
 
-      private void StartReel()
+      private void InitializeReelMotor()
+      {
+         this.reelMotor.Initialize();
+         this.reelRequestedControlMode = ElmoWhistleMotor.ControlModes.SingleLoopPosition;
+         this.reelRequestedCurrent = 0;
+      }
+
+      private void StartReelMotor()
       {
          if (null == this.reelMotor.FaultReason)
          {
@@ -400,12 +412,81 @@ namespace NICBOT.GUI
 
             Tracer.WriteMedium(TraceGroup.TBUS, null, "{0} started", this.reelMotor.Name);
          }
+      }
 
+      #endregion
+
+      #region Reel Digital IO Functions
+
+      private void InitilizeReelDigitalIo()
+      {
+         this.reelDigitalIo.Initialize();
+         this.reelDigitalOutRequested = 0;
+      }
+
+      private void StartReelDigitalIo()
+      {
+         this.reelDigitalIo.Configure();
+         this.reelDigitalIo.Start();
+      }
+
+      #endregion
+
+      #region Reel Analog IO Functions
+
+      private void InitilizeReelAnalogIo()
+      {
+         this.reelAnalogIo.Initialize();
+         this.nitrogenPressureReading1 = double.NaN;
+         this.nitrogenPressureReading2 = double.NaN;
+         this.frontPumpPressureReading = double.NaN;
+         this.rearPumpPressureReading = double.NaN;
+      }
+
+      private void StartReelAnalogIo()
+      {
+         this.reelAnalogIo.Configure();
+         this.reelAnalogIo.Start();
+      }
+
+      #endregion
+
+      #region Reel Encoder Functions
+      
+      private void InitializeReelEncoder()
+      {
+         this.reelEncoder.Initialize();
+         this.reelCalibrationStart = 0;
+         this.reelCalibrationEnabled = false;
+      }
+
+      private void StartReelEncoder()
+      {
          this.reelEncoder.Start();
+      }
+
+      #endregion
+
+      private void InitializeReel()
+      {
+         this.InitializeReelMotor();
+         this.InitilizeReelDigitalIo();
+         this.InitilizeReelAnalogIo();
+         this.InitializeReelEncoder();
+      }
+
+      private void StartReel()
+      {
+         this.StartReelMotor();
+         this.StartReelDigitalIo();
+         this.StartReelAnalogIo();
+         this.StartReelEncoder();
       }
 
       private void UpdateReel()
       {
+         #region Reel Motor
+
          if (null == this.reelMotor.FaultReason)
          {
             ElmoWhistleMotor.ControlModes neededControlMode = ElmoWhistleMotor.ControlModes.SingleLoopPosition;
@@ -466,11 +547,155 @@ namespace NICBOT.GUI
                }
             }
          }
+
+         #endregion
+
+         #region Reel Digital IO
+
+         byte neededOutValue = 0;
+
+         if (RobotApplications.repair == ParameterAccessor.Instance.RobotApplication)
+         {
+#if false
+            if (PumpControl.Front.GetOnState() != false)
+            {
+               if (PumpControl.Front.GetDirection() == PumpDirections.reverse)
+               {
+                  neededOutValue |= 0x01;
+               }
+
+               neededOutValue |= 0x02;
+            }
+
+            if (PumpControl.Rear.GetOnState() != false)
+            {
+               if (PumpControl.Rear.GetDirection() == PumpDirections.reverse)
+               {
+                  neededOutValue |= 0x04;
+               }
+
+               neededOutValue |= 0x08;
+            }
+#endif
+         }
+
+         if (neededOutValue != this.reelDigitalOutRequested)
+         {
+            this.reelDigitalIo.SetOutput(neededOutValue);
+            this.reelDigitalOutRequested = neededOutValue;
+            Tracer.WriteMedium(TraceGroup.TBUS, null, "reel digital out {0:X2}", neededOutValue);
+         }
+
+         #endregion
+
+         #region Reel Analog IO
+
+         if (RobotApplications.repair == ParameterAccessor.Instance.RobotApplication)
+         {
+#if false
+            if (false == SimulatePumpSpeed)
+            {
+               double frontPumpSpeedVoltage = ((double)this.reelAnalogIo.AnalogIn0 * 10) / 4095;
+               this.frontPumpSpeedReading = frontPumpSpeedVoltage * ParameterAccessor.Instance.FrontPump.RpmPerVolt;
+
+               double rearPumpSpeedVoltage = ((double)this.reelAnalogIo.AnalogIn1 * 10) / 4095;
+               this.rearPumpSpeedReading = rearPumpSpeedVoltage * ParameterAccessor.Instance.FrontPump.RpmPerVolt;
+            }
+            else
+            {
+               this.frontPumpSpeedReading = SimulatedPumpSpeed.Front.GetSpeed(PumpControl.Front.GetOnState(), PumpControl.Front.GetSpeedSetting(), PumpControl.Front.GetDirection());
+               this.rearPumpSpeedReading = SimulatedPumpSpeed.Rear.GetSpeed(PumpControl.Rear.GetOnState(), PumpControl.Rear.GetSpeedSetting(), PumpControl.Rear.GetDirection());
+            }
+#endif
+
+#if false
+            if (false == SimulatePumpPressure)
+            {
+               double frontPumpPressureVoltage = ((double)this.reelAnalogIo.AnalogIn3 * 10) / 4095;
+               this.frontPumpPressureReading = frontPumpPressureVoltage * ParameterAccessor.Instance.FrontPump.PsiPerVolt;
+
+               double rearPumpPressureVoltage = ((double)this.reelAnalogIo.AnalogIn4 * 10) / 4095;
+               this.rearPumpPressureReading = rearPumpPressureVoltage * ParameterAccessor.Instance.FrontPump.PsiPerVolt;
+            }
+            else
+            {
+               this.frontPumpPressureReading = SimulatedPumpPressure.Front.GetPressure(PumpControl.Front.GetMeasuredVolume());
+               this.rearPumpPressureReading = SimulatedPumpPressure.Rear.GetPressure(PumpControl.Rear.GetMeasuredVolume());
+            }
+#endif
+            double frontPumpPressureVoltage = ((double)this.reelAnalogIo.AnalogIn2 * 10) / 32767;
+
+            if (frontPumpPressureVoltage >= 2.0)
+            {
+               this.frontPumpPressureReading = (frontPumpPressureVoltage - 2) * ParameterAccessor.Instance.FrontPump.PsiPerVolt;
+               this.frontPressureFault = null;
+            }
+            else if (frontPumpPressureVoltage >= 1.5)
+            {
+               this.frontPumpPressureReading = 0;
+               this.frontPressureFault = null;
+            }
+            else
+            {
+               this.frontPumpPressureReading = double.NaN;
+               this.frontPressureFault = "disconnected";
+            }
+
+            double rearPumpPressureVoltage = ((double)this.reelAnalogIo.AnalogIn3 * 10) / 32767;
+
+            if (rearPumpPressureVoltage >= 2.0)
+            {
+               this.rearPumpPressureReading = (rearPumpPressureVoltage - 2) * ParameterAccessor.Instance.RearPump.PsiPerVolt;
+               this.rearPressureFault = null;
+            }
+            else if (rearPumpPressureVoltage >= 1.5)
+            {
+               this.rearPumpPressureReading = 0;
+               this.rearPressureFault = null;
+            }
+            else
+            {
+               this.rearPumpPressureReading = double.NaN;
+               this.rearPressureFault = "disconnected";
+            }
+         }
+
+         double nitrogenPressure1Voltage = ((double)this.reelAnalogIo.AnalogIn0 * 10) / 32767;
+
+         if (nitrogenPressure1Voltage >= 2.0)
+         {
+            this.nitrogenPressureReading1 = (nitrogenPressure1Voltage - 2) * ParameterAccessor.Instance.NitrogenPressureConversionUnit.OperationalValue;
+            this.nitrogenSensor1Fault = null;
+         }
+         else
+         {
+            this.nitrogenPressureReading1 = double.NaN;
+            this.nitrogenSensor1Fault = "disconnected";
+         }
+
+         double nitrogenPressure2Voltage = ((double)this.reelAnalogIo.AnalogIn1 * 10) / 32767;
+
+         if (nitrogenPressure2Voltage >= 2.0)
+         {
+            this.nitrogenPressureReading2 = (nitrogenPressure2Voltage - 2) * ParameterAccessor.Instance.NitrogenPressureConversionUnit.OperationalValue;
+            this.nitrogenSensor2Fault = null;
+         }
+         else
+         {
+            this.nitrogenPressureReading2 = double.NaN;
+            this.nitrogenSensor2Fault = "disconnected";
+         }
+
+         #endregion
+
+         #region Reel Encoder
+
+         #endregion
       }
 
       #endregion
 
-      #region Feeder Motor Functions
+      #region Feeder Functions
 
       private void StartFeederMotor(ElmoWhistleMotor motor)
       {
@@ -482,6 +707,23 @@ namespace NICBOT.GUI
 
             Tracer.WriteMedium(TraceGroup.TBUS, null, "{0} started", motor.Name);
          }
+      }
+
+      private void InitializeFeeder()
+      {
+         this.evaluateFeederParameters = false;
+
+         this.feederTopFrontMotor.Initialize();
+         this.feederTopFrontStatus.Initialize();
+
+         this.feederTopRearMotor.Initialize();
+         this.feederTopRearStatus.Initialize();
+
+         this.feederBottomFrontMotor.Initialize();
+         this.feederBottomFrontStatus.Initialize();
+
+         this.feederBottomRearMotor.Initialize();
+         this.feederBottomRearStatus.Initialize();
       }
 
       private void StartFeeder()
@@ -668,8 +910,6 @@ namespace NICBOT.GUI
          this.evaluateFeederParameters = false;
       }
 
-      private DateTime feederTraceTimeLimit;
-
       private void EvaluateFeederMotorVelocity(ElmoWhistleMotor motor, FeederMotorStatus status, FeederMotorParameters parameters, ref double total, ref int count)
       {
          if ((null == motor.FaultReason) &&
@@ -715,6 +955,15 @@ namespace NICBOT.GUI
 
             Tracer.WriteMedium(TraceGroup.TBUS, null, "{0} started", motor.Name);
          }
+      }
+
+      private void InitializeGuide()
+      {
+         this.guideLeftMotor.Initialize();
+         this.guideLeftStatus.Initialize();
+
+         this.guideRightMotor.Initialize();
+         this.guideRightStatus.Initialize();
       }
 
       private void StartGuide()
@@ -776,72 +1025,63 @@ namespace NICBOT.GUI
 
       #endregion
 
-      #region Digital Control Functions
+      #region Launch Tube Functions
 
-      private void StartDigitalControls()
+      #region Launch Tube Digital IO Functions
+
+      private void InitilizeLaunchTubeDigitalIo()
       {
-         //this.feederClampInitialized = false;
-         //this.feederClampAdjusting = false;
+         this.launchDigitalIo.Initialize();
 
-         this.reelDigitalOutRequested = 0;
-
-         this.selectedLaunchCamera = CameraLocations.launchLeftGuide;
+         this.selectedLaunchCamera = CameraLocations.launchLeftGuide; // launch digital IO
          this.launchDigitalOutRequested = 0;
+      }
 
-         //this.reelDigitalIo.SetConsumerHeartbeat((UInt16)ParameterAccessor.Instance.TruckBus.ConsumerHeartbeatRate, (byte)ParameterAccessor.Instance.TruckBus.ControllerBusId);
-         //this.reelDigitalIo.SetProducerHeartbeat((UInt16)ParameterAccessor.Instance.TruckBus.ProducerHeartbeatRate);
-         this.reelDigitalIo.Configure();
-         this.reelDigitalIo.Start();
-
-         //this.launchDigitalIo.SetConsumerHeartbeat((UInt16)ParameterAccessor.Instance.TruckBus.ConsumerHeartbeatRate, (byte)ParameterAccessor.Instance.TruckBus.ControllerBusId);
-         //this.launchDigitalIo.SetProducerHeartbeat((UInt16)ParameterAccessor.Instance.TruckBus.ProducerHeartbeatRate);
+      private void StartLaunchTubeDigitalIo()
+      {
          this.launchDigitalIo.Configure();
          this.launchDigitalIo.Start();
       }
 
-      private void UpdateDigitalControls()
+      #endregion
+
+      #region Launch Tube Analog IO Functions
+
+      private void InitilizeLaunchTubeAnalogIo()
       {
-         #region Digital Reel Update
+         this.launchAnalogIo.Initialize();
+
+         for (int i = 0; i < this.launchCameraLightIntensityRequests.Length; i++)
+         {
+            this.launchCameraLightIntensityRequests[i] = -1;
+         }
+      }
+
+      private void StartLaunchTubeAnalogIo()
+      {
+         this.launchAnalogIo.Configure();
+         this.launchAnalogIo.Start();
+      }
+
+      #endregion
+
+      private void InitializeLaunchTube()
+      {
+         this.InitilizeLaunchTubeDigitalIo();
+         this.InitilizeLaunchTubeAnalogIo();
+      }
+
+      private void StartLaunchTube()
+      {
+         this.StartLaunchTubeDigitalIo();
+         this.StartLaunchTubeAnalogIo();
+      }
+
+      private void UpdateLaunchTube()
+      {
+         #region Digital IO Update
 
          byte neededOutValue = 0;
-
-         if (RobotApplications.repair == ParameterAccessor.Instance.RobotApplication)
-         {
-#if false
-            if (PumpControl.Front.GetOnState() != false)
-            {
-               if (PumpControl.Front.GetDirection() == PumpDirections.reverse)
-               {
-                  neededOutValue |= 0x01;
-               }
-
-               neededOutValue |= 0x02;
-            }
-
-            if (PumpControl.Rear.GetOnState() != false)
-            {
-               if (PumpControl.Rear.GetDirection() == PumpDirections.reverse)
-               {
-                  neededOutValue |= 0x04;
-               }
-
-               neededOutValue |= 0x08;
-            }
-#endif
-         }
-
-         if (neededOutValue != this.reelDigitalOutRequested)
-         {
-            this.reelDigitalIo.SetOutput(neededOutValue);
-            this.reelDigitalOutRequested = neededOutValue;
-            Tracer.WriteMedium(TraceGroup.TBUS, null, "reel digital out {0:X2}", neededOutValue);
-         }
-
-         #endregion
-
-         #region Digital Launch Update
-
-         neededOutValue = 0;
 
          if (CameraLocations.launchRightGuide == this.selectedLaunchCamera)
          {
@@ -864,30 +1104,8 @@ namespace NICBOT.GUI
          }
 
          #endregion
-      }
 
-      #endregion
-
-      #region Analog Control Functions
-
-      private void StartAnalogControls()
-      {
-         //this.reelAnalogIo.SetConsumerHeartbeat((UInt16)ParameterAccessor.Instance.TruckBus.ConsumerHeartbeatRate, (byte)ParameterAccessor.Instance.TruckBus.ControllerBusId);
-         //this.reelAnalogIo.SetProducerHeartbeat((UInt16)ParameterAccessor.Instance.TruckBus.ProducerHeartbeatRate);
-         this.reelAnalogIo.Configure();
-         this.reelAnalogIo.Start();
-
-         //this.launchAnalogIo.SetConsumerHeartbeat((UInt16)ParameterAccessor.Instance.TruckBus.ConsumerHeartbeatRate, (byte)ParameterAccessor.Instance.TruckBus.ControllerBusId);
-         //this.launchAnalogIo.SetProducerHeartbeat((UInt16)ParameterAccessor.Instance.TruckBus.ProducerHeartbeatRate);
-         this.launchAnalogIo.Configure();
-         this.launchAnalogIo.Start();
-      }
-
-      private void UpdateAnalogControls()
-      {
-         if (RobotApplications.repair == ParameterAccessor.Instance.RobotApplication)
-         {
-         }
+         #region Analog IO Update
 
          for (int i = 0; i < this.launchCameraLightIntensities.Length; i++)
          {
@@ -899,110 +1117,18 @@ namespace NICBOT.GUI
                Tracer.WriteMedium(TraceGroup.TBUS, null, "camera {0} light set to {1}", i + 1, setPoint);
             }
          }
-      }
 
-      private void UpdateAnalogReadings()
-      {
-         if (RobotApplications.repair == ParameterAccessor.Instance.RobotApplication)
-         {
-#if false
-            if (false == SimulatePumpSpeed)
-            {
-               double frontPumpSpeedVoltage = ((double)this.reelAnalogIo.AnalogIn0 * 10) / 4095;
-               this.frontPumpSpeedReading = frontPumpSpeedVoltage * ParameterAccessor.Instance.FrontPump.RpmPerVolt;
-
-               double rearPumpSpeedVoltage = ((double)this.reelAnalogIo.AnalogIn1 * 10) / 4095;
-               this.rearPumpSpeedReading = rearPumpSpeedVoltage * ParameterAccessor.Instance.FrontPump.RpmPerVolt;
-            }
-            else
-            {
-               this.frontPumpSpeedReading = SimulatedPumpSpeed.Front.GetSpeed(PumpControl.Front.GetOnState(), PumpControl.Front.GetSpeedSetting(), PumpControl.Front.GetDirection());
-               this.rearPumpSpeedReading = SimulatedPumpSpeed.Rear.GetSpeed(PumpControl.Rear.GetOnState(), PumpControl.Rear.GetSpeedSetting(), PumpControl.Rear.GetDirection());
-            }
-#endif
-
-#if false
-            if (false == SimulatePumpPressure)
-            {
-               double frontPumpPressureVoltage = ((double)this.reelAnalogIo.AnalogIn3 * 10) / 4095;
-               this.frontPumpPressureReading = frontPumpPressureVoltage * ParameterAccessor.Instance.FrontPump.PsiPerVolt;
-
-               double rearPumpPressureVoltage = ((double)this.reelAnalogIo.AnalogIn4 * 10) / 4095;
-               this.rearPumpPressureReading = rearPumpPressureVoltage * ParameterAccessor.Instance.FrontPump.PsiPerVolt;
-            }
-            else
-            {
-               this.frontPumpPressureReading = SimulatedPumpPressure.Front.GetPressure(PumpControl.Front.GetMeasuredVolume());
-               this.rearPumpPressureReading = SimulatedPumpPressure.Rear.GetPressure(PumpControl.Rear.GetMeasuredVolume());
-            }
-#endif
-            double frontPumpPressureVoltage = ((double)this.reelAnalogIo.AnalogIn2 * 10) / 32767;
-
-            if (frontPumpPressureVoltage >= 2.0)
-            {
-               this.frontPumpPressureReading = (frontPumpPressureVoltage - 2) * ParameterAccessor.Instance.FrontPump.PsiPerVolt;
-               this.frontPressureFault = null;
-            }
-            else if (frontPumpPressureVoltage >= 1.5)
-            {
-               this.frontPumpPressureReading = 0;
-               this.frontPressureFault = null;
-            }
-            else
-            {
-               this.frontPumpPressureReading = double.NaN;
-               this.frontPressureFault = "disconnected";
-            }
-
-            double rearPumpPressureVoltage = ((double)this.reelAnalogIo.AnalogIn3 * 10) / 32767;
-
-            if (rearPumpPressureVoltage >= 2.0)
-            {
-               this.rearPumpPressureReading = (rearPumpPressureVoltage - 2) * ParameterAccessor.Instance.RearPump.PsiPerVolt;
-               this.rearPressureFault = null;
-            }
-            else if (rearPumpPressureVoltage >= 1.5)
-            {
-               this.rearPumpPressureReading = 0;
-               this.rearPressureFault = null;
-            }
-            else
-            {
-               this.rearPumpPressureReading = double.NaN;
-               this.rearPressureFault = "disconnected";
-            }
-         }
-
-         double nitrogenPressure1Voltage = ((double)this.reelAnalogIo.AnalogIn0 * 10) / 32767;
-
-         if (nitrogenPressure1Voltage >= 2.0)
-         {
-            this.nitrogenPressureReading1 = (nitrogenPressure1Voltage - 2) * ParameterAccessor.Instance.NitrogenPressureConversionUnit.OperationalValue;
-            this.nitrogenSensor1Fault = null;
-         }
-         else
-         {
-            this.nitrogenPressureReading1 = double.NaN;
-            this.nitrogenSensor1Fault = "disconnected";
-         }
-
-         double nitrogenPressure2Voltage = ((double)this.reelAnalogIo.AnalogIn1 * 10) / 32767;
-
-         if (nitrogenPressure2Voltage >= 2.0)
-         {
-            this.nitrogenPressureReading2 = (nitrogenPressure2Voltage - 2) * ParameterAccessor.Instance.NitrogenPressureConversionUnit.OperationalValue;
-            this.nitrogenSensor2Fault = null;
-         }
-         else
-         {
-            this.nitrogenPressureReading2 = double.NaN;
-            this.nitrogenSensor2Fault = "disconnected";
-         }
+         #endregion
       }
 
       #endregion
 
       #region GPS Functions
+
+      private void InitializeGps()
+      {
+         this.gps.Initialize();
+      }
 
       private void StartGps()
       {
@@ -1013,26 +1139,54 @@ namespace NICBOT.GUI
 
       #region Pump Functions
 
-      private void StartPumps()
-      {
-         PumpControl.Front.Initialize();
-         PumpControl.Rear.Initialize();
+      #region Front Pump Functions
 
+      private void InitializeFrontPump()
+      {
+         this.frontPumpSpeedReading = 0;
+         PumpControl.Front.Initialize();
          this.frontPumpRequestedMode = ElmoWhistleMotor.Modes.off;
          this.frontPumpRequestedSpeed = 0;
-         this.rearPumpRequestedMode = ElmoWhistleMotor.Modes.off;
-         this.rearPumpRequestedSpeed = 0;
+      }
 
+      private void StartFrontPump()
+      {
          this.frontPumpMotor.SetConsumerHeartbeat((UInt16)ParameterAccessor.Instance.TruckBus.ConsumerHeartbeatRate, (byte)ParameterAccessor.Instance.TruckBus.ControllerBusId);
          this.frontPumpMotor.SetProducerHeartbeat((UInt16)ParameterAccessor.Instance.TruckBus.ProducerHeartbeatRate);
          this.frontPumpMotor.Start();
+      }
 
+      #endregion
+
+      #region Rear Pump Functions
+
+      private void InitializeRearPump()
+      {
+         this.rearPumpSpeedReading = 0;
+         PumpControl.Rear.Initialize();
+         this.rearPumpRequestedMode = ElmoWhistleMotor.Modes.off;
+         this.rearPumpRequestedSpeed = 0;
+      }
+
+      private void StartRearPump()
+      {
          this.rearPumpMotor.SetConsumerHeartbeat((UInt16)ParameterAccessor.Instance.TruckBus.ConsumerHeartbeatRate, (byte)ParameterAccessor.Instance.TruckBus.ControllerBusId);
          this.rearPumpMotor.SetProducerHeartbeat((UInt16)ParameterAccessor.Instance.TruckBus.ProducerHeartbeatRate);
          this.rearPumpMotor.Start();
+      }
 
-         this.frontScaleRs232.Start(9600, 7, 2, 1);
-         this.rearScaleRs232.Start(9600, 7, 2, 1);
+      #endregion
+
+      private void InitializePumps()
+      {
+         this.InitializeFrontPump();
+         this.InitializeRearPump();
+      }
+
+      private void StartPumps()
+      {
+         this.StartFrontPump();
+         this.StartRearPump();
       }
 
       private void UpdatePumpMotor(ElmoWhistleMotor motor, double setPoint, ref ElmoWhistleMotor.Modes requestedMode, ref double requestedSetPoint)
@@ -1101,7 +1255,71 @@ namespace NICBOT.GUI
 
       #endregion
 
+      #region RS232 Scale Functions
+
+      #region Front RS232 Scale Functions
+
+      private void InitializeFrontRs232Scale()
+      {
+         this.frontScaleRs232.Initialize();
+      }
+
+      private void StartFrontRs232Scale()
+      {
+         this.frontScaleRs232.Start(9600, 7, 2, 1);
+      }
+
+      #endregion
+
+      #region Rear RS232 Scale Functions
+
+      private void InitializeRearRs232Scale()
+      {
+         this.rearScaleRs232.Initialize();
+      }
+
+      private void StartRearRs232Scale()
+      {
+         this.rearScaleRs232.Start(9600, 7, 2, 1);
+      }
+
+      #endregion
+
+      private void InitializeRs232Scales()
+      {
+         this.InitializeFrontRs232Scale();
+         this.InitializeRearRs232Scale();
+      }
+
+      private void StartRs232Scales()
+      {
+         this.StartFrontRs232Scale();
+         this.StartRearRs232Scale();
+      }
+
+      #endregion
+
       #region Process Support Functions
+
+      private void WaitDeviceHeartbeat(Device device)
+      {
+         DateTime limit = DateTime.Now.AddMilliseconds(BootTimeoutPeriod);
+
+         for (; ; )
+         {
+            if (false != device.ReceiveBootupHeartbeat)
+            {
+               break;
+            }
+            else if (DateTime.Now > limit)
+            {
+               device.Fault("boot timeout");
+               break;
+            }
+
+            Thread.Sleep(50);
+         }
+      }
 
       private void InitializeValues()
       {
@@ -1160,33 +1378,30 @@ namespace NICBOT.GUI
          }
 
 
-         this.reelRequestedControlMode = ElmoWhistleMotor.ControlModes.SingleLoopPosition;
+         this.InitializeReel();
+
          this.reelModeSetPoint = ReelModes.off;
          this.reelNonManualModeSetPoint = this.reelModeSetPoint;
          this.reelManualCurrentSetPoint = 0;
-         this.reelRequestedCurrent = 0;
          this.reelTotalStart = 0;
          this.reelTripStart = 0;
-         this.reelCalibrationStart = 0;
-         this.reelCalibrationEnabled = false;
+
+
+         this.InitializeFeeder();
 
          this.feederModeSetPoint = FeederModes.off;
          this.feederVelocitySetPoint = 0;
-         this.evaluateFeederParameters = false;
-         this.feederTopFrontStatus.Initialize();
-         this.feederTopRearStatus.Initialize();
-         this.feederBottomFrontStatus.Initialize();
-         this.feederBottomRearStatus.Initialize();
 
-         this.guideLeftStatus.Initialize();
-         this.guideRightStatus.Initialize();
 
-         this.nitrogenPressureReading1 = double.NaN;
-         this.nitrogenPressureReading2 = double.NaN;
-         this.frontPumpPressureReading = double.NaN;
-         this.rearPumpPressureReading = double.NaN;
-         this.frontPumpSpeedReading = 0;
-         this.rearPumpSpeedReading = 0;
+         this.InitializeGuide();
+         this.InitializeLaunchTube();
+         this.InitializeGps();
+
+         if (RobotApplications.repair == ParameterAccessor.Instance.RobotApplication)
+         {
+            this.InitializePumps();
+            this.InitializeRs232Scales();
+         }
       }
 
       private void StartBus()
@@ -1204,7 +1419,7 @@ namespace NICBOT.GUI
          {
             PCANLight.ResetBus(this.busInterfaceId);
 
-            DateTime busStartLimit = DateTime.Now.AddMilliseconds(1000);
+            DateTime busStartLimit = DateTime.Now.AddMilliseconds(BootTimeoutPeriod);
 
             for (; this.execute; )
             {
@@ -1269,11 +1484,165 @@ namespace NICBOT.GUI
             {
                BusComponentId id = (BusComponentId)request.Id;
 
-               // add restart handling here
+               if (BusComponentId.ReelMotor == id)
+               {
+                  this.InitializeReelMotor();
+                  this.reelMotor.Reset();
+                  this.WaitDeviceHeartbeat(this.reelMotor);
+                  this.StartReelMotor();
+               }
+               else if (BusComponentId.ReelDigitalIo == id)
+               {
+                  this.InitilizeReelDigitalIo();
+                  this.reelDigitalIo.Reset();
+                  this.WaitDeviceHeartbeat(this.reelDigitalIo);
+                  this.StartReelDigitalIo();
+               }
+               else if (BusComponentId.ReelAnalogIo == id)
+               {
+                  this.InitilizeReelAnalogIo();
+                  this.reelAnalogIo.Reset();
+                  this.WaitDeviceHeartbeat(this.reelAnalogIo);
+                  this.StartReelAnalogIo();
+               }
+               else if (BusComponentId.ReelEncoder == id)
+               {
+                  this.InitializeReelEncoder();
+                  this.reelEncoder.Reset();
+                  this.WaitDeviceHeartbeat(this.reelEncoder);
+                  this.StartReelEncoder();
+               }
+               else if (BusComponentId.FeederTopFrontMotor == id)
+               {
+                  this.evaluateFeederParameters = false;
+                  this.feederTopFrontMotor.Initialize();
+                  this.feederTopFrontStatus.Initialize();
+                  this.WaitDeviceHeartbeat(this.feederTopFrontMotor);
+                  this.feederTopFrontMotor.Reset();
+                  this.StartFeederMotor(this.feederTopFrontMotor);
+               }
+               else if (BusComponentId.FeederTopRearMotor == id)
+               {
+                  this.evaluateFeederParameters = false;
+                  this.feederTopRearMotor.Initialize();
+                  this.feederTopRearStatus.Initialize();
+                  this.WaitDeviceHeartbeat(this.feederTopRearMotor);
+                  this.feederTopRearMotor.Reset();
+                  this.StartFeederMotor(this.feederTopRearMotor);
+               }
+               else if (BusComponentId.FeederBottomFrontMotor == id)
+               {
+                  this.evaluateFeederParameters = false;
+                  this.feederBottomFrontMotor.Initialize();
+                  this.feederBottomFrontStatus.Initialize();
+                  this.feederBottomFrontMotor.Reset();
+                  this.WaitDeviceHeartbeat(this.feederBottomFrontMotor);
+                  this.StartFeederMotor(this.feederBottomFrontMotor);
+               }
+               else if (BusComponentId.FeederBottomRearMotor == id)
+               {
+                  this.evaluateFeederParameters = false;
+                  this.feederBottomRearMotor.Initialize();
+                  this.feederBottomRearStatus.Initialize();
+                  this.feederBottomRearMotor.Reset();
+                  this.WaitDeviceHeartbeat(this.feederBottomRearMotor);
+                  this.StartFeederMotor(this.feederBottomRearMotor);
+               }
+               else if (BusComponentId.FeederEncoder == id)
+               {
+#if false // currently off
+                  // not initialized
+                  this.feederEncoder.Reset();
+                  // wait for reset heartbeat?
+                  // not started
+#endif
+               }
+               else if (BusComponentId.GuideLeftMotor == id)
+               {
+                  this.guideLeftMotor.Initialize();
+                  this.guideLeftStatus.Initialize();
+                  this.guideLeftMotor.Reset();
+                  this.WaitDeviceHeartbeat(this.guideLeftMotor);
+                  this.StartGuideMotor(this.guideLeftMotor);
+               }
+               else if (BusComponentId.GuideRightMotor == id)
+               {
+                  this.guideRightMotor.Initialize();
+                  this.guideRightStatus.Initialize();
+                  this.guideRightMotor.Reset();
+                  this.WaitDeviceHeartbeat(this.guideRightMotor);
+                  this.StartGuideMotor(this.guideRightMotor);
+               }
+               else if (BusComponentId.LaunchDigitalIo == id)
+               {
+                  this.InitilizeLaunchTubeDigitalIo();
+                  this.launchDigitalIo.Reset();
+                  this.WaitDeviceHeartbeat(this.launchDigitalIo);
+                  this.StartLaunchTubeDigitalIo();
+
+               }
+               else if (BusComponentId.LaunchAnalogIo == id)
+               {
+                  this.InitilizeLaunchTubeAnalogIo();
+                  this.launchAnalogIo.Reset();
+                  this.WaitDeviceHeartbeat(this.launchAnalogIo);
+                  this.StartLaunchTubeAnalogIo();
+               }
+               else if (BusComponentId.Gps == id)
+               {
+                  this.InitializeGps();
+                  this.gps.Reset();
+                  this.WaitDeviceHeartbeat(this.gps);
+                  this.StartGps();
+               }
+               else if (BusComponentId.FrontPumpMotor == id)
+               {
+                  if (RobotApplications.repair == ParameterAccessor.Instance.RobotApplication)
+                  {
+                     this.InitializeFrontPump();
+                     this.frontPumpMotor.Reset();
+                     this.WaitDeviceHeartbeat(this.frontPumpMotor);
+                     this.StartFrontPump();
+                  }
+               }
+               else if (BusComponentId.FrontScaleRs232 == id)
+               {
+                  if (RobotApplications.repair == ParameterAccessor.Instance.RobotApplication)
+                  {
+                     this.InitializeFrontRs232Scale();
+                     this.frontScaleRs232.Reset();
+                     this.WaitDeviceHeartbeat(this.frontScaleRs232);
+                     this.StartFrontRs232Scale();
+                  }
+               }
+               else if (BusComponentId.RearPumpMotor == id)
+               {
+                  if (RobotApplications.repair == ParameterAccessor.Instance.RobotApplication)
+                  {
+                     this.InitializeRearPump();
+                     this.rearPumpMotor.Reset();
+                     this.WaitDeviceHeartbeat(this.rearPumpMotor);
+                     this.StartRearPump();
+                  }
+               }
+               else if (BusComponentId.RearScaleRs232 == id)
+               {
+                  if (RobotApplications.repair == ParameterAccessor.Instance.RobotApplication)
+                  {
+                     this.InitializeRearRs232Scale();
+                     this.rearScaleRs232.Reset();
+                     this.WaitDeviceHeartbeat(this.rearScaleRs232);
+                     this.StartRearRs232Scale();
+                  }
+               }
 
                if (null != request.OnComplete)
                {
-                  request.OnComplete(id);
+                  try
+                  {
+                     request.OnComplete(id);
+                  }
+                  catch { }
                }
             }
          }
@@ -1290,13 +1659,13 @@ namespace NICBOT.GUI
          this.StartReel();
          this.StartFeeder();
          this.StartGuide();
-         this.StartDigitalControls();
-         this.StartAnalogControls();
+         this.StartLaunchTube();
          this.StartGps();
 
          if (RobotApplications.repair == ParameterAccessor.Instance.RobotApplication)
          {
             this.StartPumps();
+            this.StartRs232Scales();
          }
 
          for (; this.execute; )
@@ -1304,9 +1673,7 @@ namespace NICBOT.GUI
             this.UpdateReel();
             this.UpdateFeeder();
             this.UpdateGuide();
-            this.UpdateDigitalControls();
-            this.UpdateAnalogControls();
-            this.UpdateAnalogReadings();
+            this.UpdateLaunchTube();
 
             if (RobotApplications.repair == ParameterAccessor.Instance.RobotApplication)
             {
@@ -1522,11 +1889,6 @@ namespace NICBOT.GUI
 
          this.guideLeftStatus = new GuideMotorStatus();
          this.guideRightStatus = new GuideMotorStatus();
-
-         for (int i = 0; i < this.launchCameraLightIntensityRequests.Length; i++)
-         {
-            this.launchCameraLightIntensityRequests[i] = -1;
-         }
       }
 
       private TruckCommBus()

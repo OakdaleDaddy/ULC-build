@@ -28,7 +28,10 @@
       /// </summary>
       private void InitializeComponent()
       {
+         this.components = new System.ComponentModel.Container();
+         this.UpdateTimer = new System.Windows.Forms.Timer(this.components);
          this.MainPanel = new NICBOT.GUI.BorderedPanel();
+         this.DeviceStatusTextBox = new System.Windows.Forms.TextBox();
          this.RestartButton = new NICBOT.GUI.NicBotButton();
          this.DeviceTypeValuePanel = new NICBOT.GUI.TextPanel();
          this.label1 = new System.Windows.Forms.Label();
@@ -58,9 +61,15 @@
          this.TraceSelectPanel.SuspendLayout();
          this.SuspendLayout();
          // 
+         // UpdateTimer
+         // 
+         this.UpdateTimer.Interval = 50;
+         this.UpdateTimer.Tick += new System.EventHandler(this.UpdateTimer_Tick);
+         // 
          // MainPanel
          // 
          this.MainPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+         this.MainPanel.Controls.Add(this.DeviceStatusTextBox);
          this.MainPanel.Controls.Add(this.RestartButton);
          this.MainPanel.Controls.Add(this.DeviceTypeValuePanel);
          this.MainPanel.Controls.Add(this.label1);
@@ -78,8 +87,21 @@
          this.MainPanel.EdgeWeight = 3;
          this.MainPanel.Location = new System.Drawing.Point(0, 0);
          this.MainPanel.Name = "MainPanel";
-         this.MainPanel.Size = new System.Drawing.Size(642, 420);
+         this.MainPanel.Size = new System.Drawing.Size(642, 458);
          this.MainPanel.TabIndex = 0;
+         // 
+         // DeviceStatusTextBox
+         // 
+         this.DeviceStatusTextBox.BackColor = System.Drawing.Color.Red;
+         this.DeviceStatusTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+         this.DeviceStatusTextBox.ForeColor = System.Drawing.Color.Black;
+         this.DeviceStatusTextBox.Location = new System.Drawing.Point(129, 199);
+         this.DeviceStatusTextBox.Name = "DeviceStatusTextBox";
+         this.DeviceStatusTextBox.ReadOnly = true;
+         this.DeviceStatusTextBox.Size = new System.Drawing.Size(380, 26);
+         this.DeviceStatusTextBox.TabIndex = 183;
+         this.DeviceStatusTextBox.Text = "not connected";
+         this.DeviceStatusTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
          // 
          // RestartButton
          // 
@@ -87,7 +109,7 @@
          this.RestartButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
          this.RestartButton.DisabledForeColor = System.Drawing.Color.Silver;
          this.RestartButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold);
-         this.RestartButton.Location = new System.Drawing.Point(43, 335);
+         this.RestartButton.Location = new System.Drawing.Point(43, 373);
          this.RestartButton.Name = "RestartButton";
          this.RestartButton.Size = new System.Drawing.Size(107, 67);
          this.RestartButton.TabIndex = 182;
@@ -136,7 +158,7 @@
          this.TraceSelectPanel.Controls.Add(this.label5);
          this.TraceSelectPanel.Controls.Add(this.SdoButton);
          this.TraceSelectPanel.EdgeWeight = 2;
-         this.TraceSelectPanel.Location = new System.Drawing.Point(28, 197);
+         this.TraceSelectPanel.Location = new System.Drawing.Point(28, 235);
          this.TraceSelectPanel.Name = "TraceSelectPanel";
          this.TraceSelectPanel.Size = new System.Drawing.Size(587, 132);
          this.TraceSelectPanel.TabIndex = 179;
@@ -416,7 +438,7 @@
          this.BackButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
          this.BackButton.DisabledForeColor = System.Drawing.Color.Silver;
          this.BackButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold);
-         this.BackButton.Location = new System.Drawing.Point(493, 335);
+         this.BackButton.Location = new System.Drawing.Point(493, 373);
          this.BackButton.Name = "BackButton";
          this.BackButton.Size = new System.Drawing.Size(107, 67);
          this.BackButton.TabIndex = 167;
@@ -429,7 +451,7 @@
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
          this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-         this.ClientSize = new System.Drawing.Size(642, 420);
+         this.ClientSize = new System.Drawing.Size(642, 458);
          this.Controls.Add(this.MainPanel);
          this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
          this.Name = "CANDeviceInformationForm";
@@ -437,6 +459,7 @@
          this.Text = "CANDeviceInformationForm";
          this.Shown += new System.EventHandler(this.CANDeviceInformationForm_Shown);
          this.MainPanel.ResumeLayout(false);
+         this.MainPanel.PerformLayout();
          this.TraceSelectPanel.ResumeLayout(false);
          this.ResumeLayout(false);
 
@@ -470,5 +493,7 @@
       private TextPanel DeviceTypeValuePanel;
       private System.Windows.Forms.Label label1;
       private NicBotButton RestartButton;
+      private System.Windows.Forms.TextBox DeviceStatusTextBox;
+      private System.Windows.Forms.Timer UpdateTimer;
    }
 }

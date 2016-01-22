@@ -19,6 +19,12 @@ namespace NICBOT.GUI
 
       #endregion
 
+      #region Fields
+
+      private string previousStatus;
+
+      #endregion
+
       #region Properties
 
       public string Title { set; get; }
@@ -42,7 +48,30 @@ namespace NICBOT.GUI
          }
       }
 
-      private void SetDeviceStatus()
+      private void ShowDeviceStatus()
+      {
+         string status = this.Device.FaultReason;
+
+         if (this.previousStatus != status)
+         {
+            if (null != status)
+            {
+               this.DeviceStatusTextBox.Text = status;
+               this.DeviceStatusTextBox.BackColor = Color.Red;
+            }
+            else
+            {
+               this.DeviceStatusTextBox.Text = "ready";
+               this.DeviceStatusTextBox.BackColor = Color.LimeGreen;
+            }
+
+            this.DeviceStatusTextBox.DeselectAll();
+            this.TitleLabel.Focus();
+            this.previousStatus = status;
+         }
+      }
+
+      private void ShowDeviceInformation()
       {
          if (null != this.Device)
          {
@@ -67,7 +96,7 @@ namespace NICBOT.GUI
 
       private void RestartComplete()
       {
-         this.SetDeviceStatus();
+         this.ShowDeviceInformation();
          this.RestartButton.Enabled = true;
       }
 
@@ -195,9 +224,19 @@ namespace NICBOT.GUI
 
       private void CANDeviceInformationForm_Shown(object sender, EventArgs e)
       {
+         this.previousStatus = null;
+
          this.TitleLabel.Text = this.Title;
-         this.SetDeviceStatus();
+         this.ShowDeviceInformation();
+         this.ShowDeviceStatus();
          this.RestartButton.Visible = (null != this.OnDeviceRestart) ? true : false;
+
+         this.UpdateTimer.Enabled = true;
+      }
+
+      private void UpdateTimer_Tick(object sender, EventArgs e)
+      {
+         this.ShowDeviceStatus();
       }
 
       #endregion

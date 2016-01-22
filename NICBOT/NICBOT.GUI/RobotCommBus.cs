@@ -17,6 +17,8 @@ namespace NICBOT.GUI
    {
       #region Definitions
 
+      private const int BootTimeoutPeriod = 1500;
+
       public enum BusComponentId
       {
          Bus,
@@ -1289,8 +1291,28 @@ namespace NICBOT.GUI
 
       #endregion
 
-      #region Process Functions
+      #region Process Support Functions
 
+      private void WaitDeviceHeartbeat(Device device)
+      {
+         DateTime limit = DateTime.Now.AddMilliseconds(BootTimeoutPeriod);
+
+         for (; ; )
+         {
+            if (false != device.ReceiveBootupHeartbeat)
+            {
+               break;
+            }
+            else if (DateTime.Now > limit)
+            {
+               device.Fault("boot timeout");
+               break;
+            }
+
+            Thread.Sleep(50);
+         }
+      }
+      
       private void InitializeValues()
       {
          this.busReady = false;
@@ -1353,7 +1375,7 @@ namespace NICBOT.GUI
          {
             PCANLight.ResetBus(this.busInterfaceId);
 
-            DateTime busStartLimit = DateTime.Now.AddMilliseconds(1500);
+            DateTime busStartLimit = DateTime.Now.AddMilliseconds(BootTimeoutPeriod);
 
             for (; this.execute; )
             {
@@ -1423,32 +1445,38 @@ namespace NICBOT.GUI
 
                if (BusComponentId.RobotBody == id)
                {
+                  this.robotBody.Initialize();
                   this.InitializeRobotBody();
                   this.robotBody.Reset();
+                  this.WaitDeviceHeartbeat(this.robotBody);
                   this.StartRobotBody();
                }
                else if (BusComponentId.RobotTopFrontWheel == id)
                {
                   this.robotTopFrontWheel.Initialize();
                   this.robotTopFrontWheel.Reset();
+                  this.WaitDeviceHeartbeat(this.robotTopFrontWheel);
                   this.StartRobotWheel(this.robotTopFrontWheel);
                }
                else if (BusComponentId.RobotTopRearWheel == id)
                {
                   this.robotTopRearWheel.Initialize();
                   this.robotTopRearWheel.Reset();
+                  this.WaitDeviceHeartbeat(this.robotTopRearWheel);
                   this.StartRobotWheel(this.robotTopRearWheel);
                }
                else if (BusComponentId.RobotBottomFrontWheel == id)
                {
                   this.robotBottomFrontWheel.Initialize();
                   this.robotBottomFrontWheel.Reset();
+                  this.WaitDeviceHeartbeat(this.robotBottomFrontWheel);
                   this.StartRobotWheel(this.robotBottomFrontWheel);
                }
                else if (BusComponentId.RobotBottomRearWheel == id)
                {
                   this.robotBottomRearWheel.Initialize();
                   this.robotBottomRearWheel.Reset();
+                  this.WaitDeviceHeartbeat(this.robotBottomRearWheel);
                   this.StartRobotWheel(this.robotBottomRearWheel);
                }
 
@@ -1458,9 +1486,7 @@ namespace NICBOT.GUI
                   {
                      request.OnComplete(id);
                   }
-                  catch (Exception ex)
-                  {
-                  }
+                  catch { }
                }
 
                request = null;
