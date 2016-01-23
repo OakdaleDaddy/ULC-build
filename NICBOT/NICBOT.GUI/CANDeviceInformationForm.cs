@@ -66,7 +66,7 @@ namespace NICBOT.GUI
             }
 
             this.DeviceStatusTextBox.DeselectAll();
-            this.TitleLabel.Focus();
+            this.HbButton.Focus();
             this.previousStatus = status;
          }
       }
@@ -206,6 +206,7 @@ namespace NICBOT.GUI
       {
          if (null != this.OnDeviceRestart)
          {
+            this.HbButton.Focus();
             this.RestartButton.Enabled = false;
 
             DeviceRestartRequest.CompleteHandler onComplete = new DeviceRestartRequest.CompleteHandler(this.ProcessDeviceRestartComplete);
@@ -224,7 +225,7 @@ namespace NICBOT.GUI
 
       private void CANDeviceInformationForm_Shown(object sender, EventArgs e)
       {
-         this.previousStatus = null;
+         this.previousStatus = "";
 
          this.TitleLabel.Text = this.Title;
          this.ShowDeviceInformation();

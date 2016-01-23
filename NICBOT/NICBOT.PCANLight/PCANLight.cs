@@ -2215,7 +2215,7 @@ namespace NICBOT.PCANLight
                   sb.AppendFormat("{0:X2}", data[i]);
                }
 
-               Tracer.WriteError(context[busIndex].traceGroup, "", "send failure {0}", sb.ToString());
+               Tracer.WriteError(context[busIndex].traceGroup, "", "send failure {0} data {1}", result, sb.ToString());
             }
          }
 
