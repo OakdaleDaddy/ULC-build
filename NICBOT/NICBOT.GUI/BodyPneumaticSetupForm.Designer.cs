@@ -30,6 +30,11 @@
       {
          this.BackButton = new System.Windows.Forms.Button();
          this.crossSectionView1 = new NICBOT.Controls.CrossSectionView();
+         this.FeederOffButton = new NICBOT.GUI.HoldButton();
+         this.button1 = new System.Windows.Forms.Button();
+         this.button2 = new System.Windows.Forms.Button();
+         this.button3 = new System.Windows.Forms.Button();
+         this.button4 = new System.Windows.Forms.Button();
          this.SuspendLayout();
          // 
          // BackButton
@@ -72,11 +77,80 @@
          this.crossSectionView1.Size = new System.Drawing.Size(232, 232);
          this.crossSectionView1.TabIndex = 134;
          // 
+         // FeederOffButton
+         // 
+         this.FeederOffButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.FeederOffButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
+         this.FeederOffButton.DisabledForeColor = System.Drawing.Color.Silver;
+         this.FeederOffButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
+         this.FeederOffButton.HoldTimeoutEnable = true;
+         this.FeederOffButton.HoldTimeoutInterval = 100;
+         this.FeederOffButton.Location = new System.Drawing.Point(347, 110);
+         this.FeederOffButton.Name = "FeederOffButton";
+         this.FeederOffButton.Size = new System.Drawing.Size(107, 90);
+         this.FeederOffButton.TabIndex = 152;
+         this.FeederOffButton.Text = "OFF   (FREE)";
+         this.FeederOffButton.UseVisualStyleBackColor = false;
+         // 
+         // button1
+         // 
+         this.button1.BackColor = System.Drawing.Color.LightGray;
+         this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.button1.ForeColor = System.Drawing.Color.Black;
+         this.button1.Location = new System.Drawing.Point(308, 206);
+         this.button1.Name = "button1";
+         this.button1.Size = new System.Drawing.Size(72, 67);
+         this.button1.TabIndex = 153;
+         this.button1.Text = "BACK";
+         this.button1.UseVisualStyleBackColor = false;
+         // 
+         // button2
+         // 
+         this.button2.BackColor = System.Drawing.Color.DarkGray;
+         this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.button2.ForeColor = System.Drawing.Color.Black;
+         this.button2.Location = new System.Drawing.Point(386, 206);
+         this.button2.Name = "button2";
+         this.button2.Size = new System.Drawing.Size(72, 67);
+         this.button2.TabIndex = 154;
+         this.button2.Text = "BACK";
+         this.button2.UseVisualStyleBackColor = false;
+         // 
+         // button3
+         // 
+         this.button3.BackColor = System.Drawing.Color.Gray;
+         this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.button3.ForeColor = System.Drawing.Color.Black;
+         this.button3.Location = new System.Drawing.Point(464, 205);
+         this.button3.Name = "button3";
+         this.button3.Size = new System.Drawing.Size(72, 67);
+         this.button3.TabIndex = 155;
+         this.button3.Text = "BACK";
+         this.button3.UseVisualStyleBackColor = false;
+         // 
+         // button4
+         // 
+         this.button4.BackColor = System.Drawing.Color.Silver;
+         this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.button4.ForeColor = System.Drawing.Color.Black;
+         this.button4.Location = new System.Drawing.Point(464, 133);
+         this.button4.Name = "button4";
+         this.button4.Size = new System.Drawing.Size(72, 67);
+         this.button4.TabIndex = 156;
+         this.button4.Text = "BACK";
+         this.button4.UseVisualStyleBackColor = false;
+         // 
          // BodyPneumaticSetupForm
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+         this.BackColor = System.Drawing.Color.Olive;
          this.ClientSize = new System.Drawing.Size(581, 379);
+         this.Controls.Add(this.button4);
+         this.Controls.Add(this.button3);
+         this.Controls.Add(this.button2);
+         this.Controls.Add(this.button1);
+         this.Controls.Add(this.FeederOffButton);
          this.Controls.Add(this.crossSectionView1);
          this.Controls.Add(this.BackButton);
          this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -91,5 +165,10 @@
 
       private System.Windows.Forms.Button BackButton;
       private Controls.CrossSectionView crossSectionView1;
+      private HoldButton FeederOffButton;
+      private System.Windows.Forms.Button button1;
+      private System.Windows.Forms.Button button2;
+      private System.Windows.Forms.Button button3;
+      private System.Windows.Forms.Button button4;
    }
 }

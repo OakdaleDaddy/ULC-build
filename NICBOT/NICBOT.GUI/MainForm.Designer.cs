@@ -4311,7 +4311,7 @@
          this.MovementManulPanel.Controls.Add(this.MotorManualJogDistanceValueButton);
          this.MovementManulPanel.Location = new System.Drawing.Point(1938, 632);
          this.MovementManulPanel.Name = "MovementManulPanel";
-         this.MovementManulPanel.Size = new System.Drawing.Size(387, 188);
+         this.MovementManulPanel.Size = new System.Drawing.Size(386, 188);
          this.MovementManulPanel.TabIndex = 127;
          this.MovementManulPanel.Visible = false;
          // 
@@ -4711,7 +4711,7 @@
          this.SensorThicknessAcquireButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
          this.SensorThicknessAcquireButton.DisabledForeColor = System.Drawing.Color.Silver;
          this.SensorThicknessAcquireButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
-         this.SensorThicknessAcquireButton.HoldTimeoutEnable = true;
+         this.SensorThicknessAcquireButton.HoldTimeoutEnable = false;
          this.SensorThicknessAcquireButton.HoldTimeoutInterval = 100;
          this.SensorThicknessAcquireButton.Location = new System.Drawing.Point(46, 8);
          this.SensorThicknessAcquireButton.Name = "SensorThicknessAcquireButton";
@@ -4727,7 +4727,7 @@
          this.SensorStressAcquireButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
          this.SensorStressAcquireButton.DisabledForeColor = System.Drawing.Color.Silver;
          this.SensorStressAcquireButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
-         this.SensorStressAcquireButton.HoldTimeoutEnable = true;
+         this.SensorStressAcquireButton.HoldTimeoutEnable = false;
          this.SensorStressAcquireButton.HoldTimeoutInterval = 100;
          this.SensorStressAcquireButton.Location = new System.Drawing.Point(46, 83);
          this.SensorStressAcquireButton.Name = "SensorStressAcquireButton";

@@ -278,6 +278,46 @@ namespace NICBOT.GUI
 
       #endregion
 
+      #region Helper Functions
+
+      private void PaintHoldIndicator(Graphics graphics)
+      {
+         Point[] upperLeftArrow = null;
+         Point[] upperRightArrow = null;
+         Point[] lowerLeftArrow = null;
+         Point[] lowerRightArrow = null;
+
+         if (false != this.pressed)
+         {
+            upperLeftArrow = new Point[3] { new Point(3, 3), new Point(10, 3), new Point(3, 10) };
+            upperRightArrow = new Point[3] { new Point(this.ClientRectangle.Width - 10, 3), new Point(this.ClientRectangle.Width - 3, 3), new Point(this.ClientRectangle.Width - 3, 10) };
+            lowerLeftArrow = new Point[3] { new Point(3, this.ClientRectangle.Height - 11), new Point(3, this.ClientRectangle.Height - 3), new Point(10, this.ClientRectangle.Height - 3) };
+            lowerRightArrow = new Point[3] { new Point(this.ClientRectangle.Width - 11, this.ClientRectangle.Height - 3), new Point(this.ClientRectangle.Width - 3, this.ClientRectangle.Height - 3), new Point(this.ClientRectangle.Width - 3, this.ClientRectangle.Height - 12) };
+         }
+         else if (false != this.focused)
+         {
+            upperLeftArrow = new Point[3] { new Point(2, 2), new Point(9, 2), new Point(2, 9) };
+            upperRightArrow = new Point[3] { new Point(this.ClientRectangle.Width - 11, 2), new Point(this.ClientRectangle.Width - 4, 2), new Point(this.ClientRectangle.Width - 4, 9) };
+            lowerLeftArrow = new Point[3] { new Point(2, this.ClientRectangle.Height - 12), new Point(2, this.ClientRectangle.Height - 4), new Point(9, this.ClientRectangle.Height - 4) };
+            lowerRightArrow = new Point[3] { new Point(this.ClientRectangle.Width - 12, this.ClientRectangle.Height - 4), new Point(this.ClientRectangle.Width - 4, this.ClientRectangle.Height - 4), new Point(this.ClientRectangle.Width - 4, this.ClientRectangle.Height - 13) };
+         }
+         else
+         {
+            upperLeftArrow = new Point[3] { new Point(1, 1), new Point(8, 1), new Point(1, 8) };
+            upperRightArrow = new Point[3] { new Point(this.ClientRectangle.Width - 10, 1), new Point(this.ClientRectangle.Width - 3, 1), new Point(this.ClientRectangle.Width - 3, 8) };
+            lowerLeftArrow = new Point[3] { new Point(1, this.ClientRectangle.Height - 11), new Point(1, this.ClientRectangle.Height - 3), new Point(8, this.ClientRectangle.Height - 3) };
+            lowerRightArrow = new Point[3] { new Point(this.ClientRectangle.Width - 11, this.ClientRectangle.Height - 3), new Point(this.ClientRectangle.Width - 3, this.ClientRectangle.Height - 3), new Point(this.ClientRectangle.Width - 3, this.ClientRectangle.Height - 12) };
+         }
+
+         SolidBrush arrowBrush = new SolidBrush(Color.Gray);
+         graphics.FillPolygon(arrowBrush, upperLeftArrow);
+         graphics.FillPolygon(arrowBrush, upperRightArrow);
+         graphics.FillPolygon(arrowBrush, lowerLeftArrow);
+         graphics.FillPolygon(arrowBrush, lowerRightArrow);
+      }
+
+      #endregion
+
       #region Event
 
       void ValueToggleButton_Enter(object sender, EventArgs e)
@@ -350,7 +390,7 @@ namespace NICBOT.GUI
             e.Graphics.DrawRectangle(new Pen(Color.Black), 0, 0, this.ClientRectangle.Width - 1, this.ClientRectangle.Height - 1);
             e.Graphics.DrawRectangle(new Pen(Color.FromKnownColor(KnownColor.ControlDarkDark)), 1, 1, this.ClientRectangle.Width - 3, this.ClientRectangle.Height - 3);
          }
-         else if (false != focused)
+         else if (false != this.focused)
          {
             e.Graphics.DrawRectangle(new Pen(Color.Black), 0, 0, this.ClientRectangle.Width - 1, this.ClientRectangle.Height - 1);
 
@@ -376,6 +416,10 @@ namespace NICBOT.GUI
             e.Graphics.DrawLine(new Pen(Color.Black, 1), this.ClientRectangle.Width - 1, 0, this.ClientRectangle.Width - 1, this.ClientRectangle.Height - 1);
          }
 
+         if ((0 != this.HoldTimeoutInterval) && (null != this.HoldTimeout))
+         {
+            this.PaintHoldIndicator(e.Graphics);
+         }
 
          StringFormat textFormat = new StringFormat(StringFormat.GenericTypographic);
          textFormat.Alignment = StringAlignment.Center;

@@ -13,8 +13,23 @@ namespace NICBOT.GUI
    {
       private Timer holdTimer;
       private bool holdTimeout;
+      private bool holdTimeoutEnable;
 
-      public bool HoldTimeoutEnable { set; get; }
+      public bool HoldTimeoutEnable 
+      { 
+         set
+         {
+            this.holdTimeoutEnable = value;
+            this.ShowHold = value;
+         }
+         
+         get
+         {
+            return(this.holdTimeoutEnable);
+         }
+      }
+      
+      
       public int HoldTimeoutInterval { set; get; }
 
       public event HoldTimeoutHandler HoldTimeout;

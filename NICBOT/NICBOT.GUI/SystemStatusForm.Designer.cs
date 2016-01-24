@@ -114,12 +114,12 @@
          this.TriggerDefaultsButton = new NICBOT.GUI.HoldButton();
          this.SystemResetButton = new NICBOT.GUI.HoldButton();
          this.LoggingPanel = new NICBOT.GUI.BorderedPanel();
+         this.RobotBusHeartbeatButton = new NICBOT.GUI.HoldButton();
+         this.TruckBusHeartbeatButton = new NICBOT.GUI.NicBotButton();
          this.label14 = new System.Windows.Forms.Label();
          this.LoggingPortValueButton = new NICBOT.GUI.ValueButton();
          this.LoggingAddressValueButton = new NICBOT.GUI.ValueButton();
          this.BackButton = new NICBOT.GUI.NicBotButton();
-         this.TruckBusHeartbeatButton = new NICBOT.GUI.NicBotButton();
-         this.RobotBusHeartbeatButton = new NICBOT.GUI.HoldButton();
          this.MainPanel.SuspendLayout();
          this.LocationPanel.SuspendLayout();
          this.DeviceStatusPanel.SuspendLayout();
@@ -1319,6 +1319,37 @@
          this.LoggingPanel.Size = new System.Drawing.Size(275, 205);
          this.LoggingPanel.TabIndex = 198;
          // 
+         // RobotBusHeartbeatButton
+         // 
+         this.RobotBusHeartbeatButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.RobotBusHeartbeatButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
+         this.RobotBusHeartbeatButton.DisabledForeColor = System.Drawing.Color.Silver;
+         this.RobotBusHeartbeatButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
+         this.RobotBusHeartbeatButton.ForeColor = System.Drawing.Color.Black;
+         this.RobotBusHeartbeatButton.HoldTimeoutEnable = false;
+         this.RobotBusHeartbeatButton.HoldTimeoutInterval = 0;
+         this.RobotBusHeartbeatButton.Location = new System.Drawing.Point(27, 122);
+         this.RobotBusHeartbeatButton.Name = "RobotBusHeartbeatButton";
+         this.RobotBusHeartbeatButton.Size = new System.Drawing.Size(107, 67);
+         this.RobotBusHeartbeatButton.TabIndex = 201;
+         this.RobotBusHeartbeatButton.Text = "ROBOT    BUS HB";
+         this.RobotBusHeartbeatButton.UseVisualStyleBackColor = false;
+         this.RobotBusHeartbeatButton.Click += new System.EventHandler(this.RobotBusHeartbeatButton_Click);
+         // 
+         // TruckBusHeartbeatButton
+         // 
+         this.TruckBusHeartbeatButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.TruckBusHeartbeatButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
+         this.TruckBusHeartbeatButton.DisabledForeColor = System.Drawing.Color.Silver;
+         this.TruckBusHeartbeatButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.TruckBusHeartbeatButton.Location = new System.Drawing.Point(142, 122);
+         this.TruckBusHeartbeatButton.Name = "TruckBusHeartbeatButton";
+         this.TruckBusHeartbeatButton.Size = new System.Drawing.Size(107, 67);
+         this.TruckBusHeartbeatButton.TabIndex = 200;
+         this.TruckBusHeartbeatButton.Text = "TRUCK     BUS HB";
+         this.TruckBusHeartbeatButton.UseVisualStyleBackColor = false;
+         this.TruckBusHeartbeatButton.Click += new System.EventHandler(this.TruckBusHeartbeatButton_Click);
+         // 
          // label14
          // 
          this.label14.BackColor = System.Drawing.Color.Teal;
@@ -1401,37 +1432,6 @@
          this.BackButton.Text = "BACK";
          this.BackButton.UseVisualStyleBackColor = false;
          this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
-         // 
-         // TruckBusHeartbeatButton
-         // 
-         this.TruckBusHeartbeatButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.TruckBusHeartbeatButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
-         this.TruckBusHeartbeatButton.DisabledForeColor = System.Drawing.Color.Silver;
-         this.TruckBusHeartbeatButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.TruckBusHeartbeatButton.Location = new System.Drawing.Point(142, 122);
-         this.TruckBusHeartbeatButton.Name = "TruckBusHeartbeatButton";
-         this.TruckBusHeartbeatButton.Size = new System.Drawing.Size(107, 67);
-         this.TruckBusHeartbeatButton.TabIndex = 200;
-         this.TruckBusHeartbeatButton.Text = "TRUCK     BUS HB";
-         this.TruckBusHeartbeatButton.UseVisualStyleBackColor = false;
-         this.TruckBusHeartbeatButton.Click += new System.EventHandler(this.TruckBusHeartbeatButton_Click);
-         // 
-         // RobotBusHeartbeatButton
-         // 
-         this.RobotBusHeartbeatButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.RobotBusHeartbeatButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
-         this.RobotBusHeartbeatButton.DisabledForeColor = System.Drawing.Color.Silver;
-         this.RobotBusHeartbeatButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
-         this.RobotBusHeartbeatButton.ForeColor = System.Drawing.Color.Black;
-         this.RobotBusHeartbeatButton.HoldTimeoutEnable = true;
-         this.RobotBusHeartbeatButton.HoldTimeoutInterval = 100;
-         this.RobotBusHeartbeatButton.Location = new System.Drawing.Point(27, 122);
-         this.RobotBusHeartbeatButton.Name = "RobotBusHeartbeatButton";
-         this.RobotBusHeartbeatButton.Size = new System.Drawing.Size(107, 67);
-         this.RobotBusHeartbeatButton.TabIndex = 201;
-         this.RobotBusHeartbeatButton.Text = "ROBOT    BUS HB";
-         this.RobotBusHeartbeatButton.UseVisualStyleBackColor = false;
-         this.RobotBusHeartbeatButton.Click += new System.EventHandler(this.RobotBusHeartbeatButton_Click);
          // 
          // SystemStatusForm
          // 
