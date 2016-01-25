@@ -285,6 +285,13 @@
          this.VersionLabel = new System.Windows.Forms.Label();
          this.RobotCrossSectionView = new NICBOT.Controls.CrossSectionView();
          this.BotSideView = new NICBOT.GUI.NicBotSideView();
+         this.borderedPanel3 = new NICBOT.GUI.BorderedPanel();
+         this.label22 = new System.Windows.Forms.Label();
+         this.lineControl4 = new NICBOT.GUI.LineControl();
+         this.RobotTotalCurrentTextPanel = new NICBOT.GUI.TextPanel();
+         this.LaunchTotalCurrentTextPanel = new NICBOT.GUI.TextPanel();
+         this.label31 = new System.Windows.Forms.Label();
+         this.label34 = new System.Windows.Forms.Label();
          this.ControlPanel.SuspendLayout();
          this.panel12.SuspendLayout();
          this.panel23.SuspendLayout();
@@ -315,6 +322,7 @@
          this.InspectionPanel.SuspendLayout();
          this.borderedPanel6.SuspendLayout();
          this.borderedPanel5.SuspendLayout();
+         this.borderedPanel3.SuspendLayout();
          this.SuspendLayout();
          // 
          // TitleLabel
@@ -3037,6 +3045,7 @@
          // panel1
          // 
          this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+         this.panel1.Controls.Add(this.borderedPanel3);
          this.panel1.Controls.Add(this.RearSealantReserviorPanel);
          this.panel1.Controls.Add(this.FrontSealantReserviorPanel);
          this.panel1.Controls.Add(this.borderedPanel2);
@@ -4843,6 +4852,97 @@
          this.BotSideView.TabIndex = 37;
          this.BotSideView.VerticalEdge = 6;
          // 
+         // borderedPanel3
+         // 
+         this.borderedPanel3.BackColor = System.Drawing.Color.Olive;
+         this.borderedPanel3.Controls.Add(this.label22);
+         this.borderedPanel3.Controls.Add(this.lineControl4);
+         this.borderedPanel3.Controls.Add(this.RobotTotalCurrentTextPanel);
+         this.borderedPanel3.Controls.Add(this.LaunchTotalCurrentTextPanel);
+         this.borderedPanel3.Controls.Add(this.label31);
+         this.borderedPanel3.Controls.Add(this.label34);
+         this.borderedPanel3.EdgeWeight = 2;
+         this.borderedPanel3.Location = new System.Drawing.Point(135, 8);
+         this.borderedPanel3.Name = "borderedPanel3";
+         this.borderedPanel3.Size = new System.Drawing.Size(119, 147);
+         this.borderedPanel3.TabIndex = 182;
+         // 
+         // label22
+         // 
+         this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.label22.Location = new System.Drawing.Point(12, 23);
+         this.label22.Name = "label22";
+         this.label22.Size = new System.Drawing.Size(94, 15);
+         this.label22.TabIndex = 171;
+         this.label22.Text = "ROBOT";
+         this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         // 
+         // lineControl4
+         // 
+         this.lineControl4.BackColor = System.Drawing.Color.Transparent;
+         this.lineControl4.EdgeColor = System.Drawing.Color.Black;
+         this.lineControl4.LineType = NICBOT.GUI.LineControl.LineDrawType.Top;
+         this.lineControl4.LineWeight = 1;
+         this.lineControl4.Location = new System.Drawing.Point(2, 22);
+         this.lineControl4.Name = "lineControl4";
+         this.lineControl4.Opacity = 100;
+         this.lineControl4.ShowBackground = false;
+         this.lineControl4.ShowEdge = false;
+         this.lineControl4.Size = new System.Drawing.Size(115, 8);
+         this.lineControl4.TabIndex = 170;
+         this.lineControl4.Text = "lineControl4";
+         // 
+         // RobotTotalCurrentTextPanel
+         // 
+         this.RobotTotalCurrentTextPanel.BackColor = System.Drawing.Color.Black;
+         this.RobotTotalCurrentTextPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+         this.RobotTotalCurrentTextPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.RobotTotalCurrentTextPanel.ForeColor = System.Drawing.Color.White;
+         this.RobotTotalCurrentTextPanel.HoldTimeoutEnable = false;
+         this.RobotTotalCurrentTextPanel.HoldTimeoutInterval = 100;
+         this.RobotTotalCurrentTextPanel.Location = new System.Drawing.Point(10, 38);
+         this.RobotTotalCurrentTextPanel.Name = "RobotTotalCurrentTextPanel";
+         this.RobotTotalCurrentTextPanel.Size = new System.Drawing.Size(99, 42);
+         this.RobotTotalCurrentTextPanel.TabIndex = 169;
+         this.RobotTotalCurrentTextPanel.ValueText = "#.## A";
+         this.RobotTotalCurrentTextPanel.ValueTextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         // 
+         // LaunchTotalCurrentTextPanel
+         // 
+         this.LaunchTotalCurrentTextPanel.BackColor = System.Drawing.Color.Black;
+         this.LaunchTotalCurrentTextPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+         this.LaunchTotalCurrentTextPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.LaunchTotalCurrentTextPanel.ForeColor = System.Drawing.Color.White;
+         this.LaunchTotalCurrentTextPanel.HoldTimeoutEnable = false;
+         this.LaunchTotalCurrentTextPanel.HoldTimeoutInterval = 100;
+         this.LaunchTotalCurrentTextPanel.Location = new System.Drawing.Point(10, 95);
+         this.LaunchTotalCurrentTextPanel.Name = "LaunchTotalCurrentTextPanel";
+         this.LaunchTotalCurrentTextPanel.Size = new System.Drawing.Size(99, 42);
+         this.LaunchTotalCurrentTextPanel.TabIndex = 142;
+         this.LaunchTotalCurrentTextPanel.ValueText = "#.## A";
+         this.LaunchTotalCurrentTextPanel.ValueTextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         // 
+         // label31
+         // 
+         this.label31.BackColor = System.Drawing.Color.PaleGoldenrod;
+         this.label31.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.label31.Location = new System.Drawing.Point(2, 2);
+         this.label31.Name = "label31";
+         this.label31.Size = new System.Drawing.Size(115, 20);
+         this.label31.TabIndex = 168;
+         this.label31.Text = "CURRENT";
+         this.label31.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         // 
+         // label34
+         // 
+         this.label34.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.label34.Location = new System.Drawing.Point(12, 80);
+         this.label34.Name = "label34";
+         this.label34.Size = new System.Drawing.Size(94, 15);
+         this.label34.TabIndex = 141;
+         this.label34.Text = "LAUNCH";
+         this.label34.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         // 
          // MainForm
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -4920,6 +5020,7 @@
          this.InspectionPanel.ResumeLayout(false);
          this.borderedPanel6.ResumeLayout(false);
          this.borderedPanel5.ResumeLayout(false);
+         this.borderedPanel3.ResumeLayout(false);
          this.ResumeLayout(false);
 
       }
@@ -5181,6 +5282,13 @@
       private RotatableLabel rotatableLabel13;
       private Controls.CrossSectionView RobotCrossSectionView;
       private System.Windows.Forms.Label VersionLabel;
+      private BorderedPanel borderedPanel3;
+      private System.Windows.Forms.Label label22;
+      private LineControl lineControl4;
+      private TextPanel RobotTotalCurrentTextPanel;
+      private TextPanel LaunchTotalCurrentTextPanel;
+      private System.Windows.Forms.Label label31;
+      private System.Windows.Forms.Label label34;
    }
 }
 

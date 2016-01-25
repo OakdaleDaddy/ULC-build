@@ -173,6 +173,8 @@ namespace NICBOT.GUI
          this.SetComponentStatus(RobotCommBus.Instance.GetStatus(RobotCommBus.BusComponentId.RobotBottomRearWheel), this.RobotBottomRearWheelStatusTextBox);
          this.SetComponentStatus(TruckCommBus.Instance.GetStatus(TruckCommBus.BusComponentId.NitrogenSensor1), this.NitrogenSensor1StatusTextBox);
          this.SetComponentStatus(TruckCommBus.Instance.GetStatus(TruckCommBus.BusComponentId.NitrogenSensor2), this.NitrogenSensor2StatusTextBox);
+         this.SetComponentStatus(TruckCommBus.Instance.GetStatus(TruckCommBus.BusComponentId.RobotTotalCurrentSensor), this.RobotTotalCurrentSensorStatusTextBox);
+         this.SetComponentStatus(TruckCommBus.Instance.GetStatus(TruckCommBus.BusComponentId.LaunchTotalCurrentSensor), this.LaunchTotalCurrentSensorStatusTextBox);         
 
          this.SetComponentStatus(TruckCommBus.Instance.GetStatus(TruckCommBus.BusComponentId.Gps), this.GpsStatusTextBox);
          this.SetComponentStatus(TruckCommBus.Instance.GetStatus(TruckCommBus.BusComponentId.Bus), this.TruckBusStatusTextBox);

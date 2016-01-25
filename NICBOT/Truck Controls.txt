@@ -37,7 +37,7 @@ Reel Cart: (Digital is node ID 17, Analog is node ID 19)
  - Digital IO A, DIn0 : nitrogen #1 switch 
  - Digital IO A, DIn1 : nitrogen #2 switch 
  - Digital IO A, DIn2 : 
- - Digital IO A, DIn3 :
+ - Digital IO A, DIn3 : 
  - Digital IO A, DIn4 :
  - Digital IO A, DIn5 :
  - Digital IO A, DIn6 :
@@ -52,8 +52,8 @@ Reel Cart: (Digital is node ID 17, Analog is node ID 19)
  - Analog IO A, AIn1 : nitrogen #2 pressure, conversion TBD, 2 to 10 volt input, show fault if 1 volt, 2 volts is 0 PSI
  - Analog IO A, AIn2 : pump #1 (front) pressure 1 volt is error, 2 to 10 is reading
  - Analog IO A, AIn3 : pump #2 (rear) pressure 1 volt is error, 2 to 10 is reading
- - Analog IO A, AIn4 : 
- - Analog IO A, AIn5 : 
+ - Analog IO A, AIn4 : robot total current
+ - Analog IO A, AIn5 : launch total current
  - Analog IO A, AIn6 : 
  - Analog IO A, AIn7 : 
 

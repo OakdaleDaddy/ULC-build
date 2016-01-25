@@ -253,6 +253,16 @@ namespace NICBOT.GUI
          return (TruckCommBus.Instance.GetNitrogenPressureReading2());
       }
 
+      public double GetRobotTotalCurrentReading()
+      {
+         return (TruckCommBus.Instance.GetRobotTotalCurrentReading());
+      }
+
+      public double GetLaunchTotalCurrentReading()
+      {
+         return (TruckCommBus.Instance.GetLaunchTotalCurrentReading());
+      }
+
       #endregion
 
       #region Pump Functions

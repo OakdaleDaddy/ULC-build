@@ -41,6 +41,8 @@ namespace NICBOT.GUI
          Gps,
          NitrogenSensor1,
          NitrogenSensor2,
+         RobotTotalCurrentSensor,
+         LaunchTotalCurrentSensor,
          FrontPumpMotor,
          FrontPressureSensor,
          FrontScaleRs232,
@@ -96,11 +98,15 @@ namespace NICBOT.GUI
 
       private string nitrogenSensor1Fault;
       private string nitrogenSensor2Fault;
+      private string robotTotalCurrentFault;
+      private string launchTotalCurrentFault;
       private string frontPressureFault;
       private string rearPressureFault;
 
       private double nitrogenPressureReading1;
       private double nitrogenPressureReading2;
+      private double robotTotalCurrentReading;
+      private double launchTotalCurrentReading;
       private double frontPumpSpeedReading;
       private double rearPumpSpeedReading;
       private double frontPumpPressureReading;
@@ -256,6 +262,8 @@ namespace NICBOT.GUI
          {
             this.nitrogenSensor1Fault = "interface not ready";
             this.nitrogenSensor2Fault = "interface not ready";
+            this.robotTotalCurrentFault = "interface not ready";
+            this.launchTotalCurrentFault = "interface not ready"; 
             this.frontPressureFault = "interface not ready";
             this.rearPressureFault = "interface not ready";
          }
@@ -439,6 +447,8 @@ namespace NICBOT.GUI
          this.reelAnalogIo.Initialize();
          this.nitrogenPressureReading1 = double.NaN;
          this.nitrogenPressureReading2 = double.NaN;
+         this.robotTotalCurrentReading = double.NaN;
+         this.launchTotalCurrentReading = double.NaN;
          this.frontPumpPressureReading = double.NaN;
          this.rearPumpPressureReading = double.NaN;
       }
@@ -684,6 +694,32 @@ namespace NICBOT.GUI
          {
             this.nitrogenPressureReading2 = double.NaN;
             this.nitrogenSensor2Fault = "disconnected";
+         }
+
+         double robotTotalCurrentVoltage = ((double)this.reelAnalogIo.AnalogIn4 * 10) / 32767;
+
+         if (robotTotalCurrentVoltage >= 2.0)
+         {
+            this.robotTotalCurrentReading = (robotTotalCurrentVoltage - 2) * ParameterAccessor.Instance.RobotTotalCurrentConversionUnit.OperationalValue;
+            this.robotTotalCurrentFault = null;
+         }
+         else
+         {
+            this.robotTotalCurrentReading = double.NaN;
+            this.robotTotalCurrentFault = "disconnected";
+         }
+
+         double launchTotalCurrentVoltage = ((double)this.reelAnalogIo.AnalogIn5 * 10) / 32767;
+
+         if (robotTotalCurrentVoltage >= 2.0)
+         {
+            this.launchTotalCurrentReading = (launchTotalCurrentVoltage - 2) * ParameterAccessor.Instance.LaunchTotalCurrentConversionUnit.OperationalValue;
+            this.launchTotalCurrentFault = null;
+         }
+         else
+         {
+            this.robotTotalCurrentReading = double.NaN;
+            this.launchTotalCurrentFault = "disconnected";
          }
 
          #endregion
@@ -2138,6 +2174,16 @@ namespace NICBOT.GUI
                result = this.nitrogenSensor2Fault;
                break;
             }
+            case BusComponentId.RobotTotalCurrentSensor:
+            {
+               result = this.robotTotalCurrentFault;
+               break;
+            }
+            case BusComponentId.LaunchTotalCurrentSensor:
+            {
+               result = this.launchTotalCurrentFault;
+               break;
+            }
             case BusComponentId.FrontPumpMotor:
             {
                if (RobotApplications.repair == ParameterAccessor.Instance.RobotApplication)
@@ -2363,7 +2409,7 @@ namespace NICBOT.GUI
 
       #endregion
 
-      #region Main Air Functions
+      #region Sensor Functions
 
       public double GetNitrogenPressureReading1()
       {
@@ -2373,6 +2419,16 @@ namespace NICBOT.GUI
       public double GetNitrogenPressureReading2()
       {
          return (this.nitrogenPressureReading2);
+      }
+
+      public double GetRobotTotalCurrentReading()
+      {
+         return (this.robotTotalCurrentReading);
+      }
+
+      public double GetLaunchTotalCurrentReading()
+      {
+         return (this.launchTotalCurrentReading);
       }
       
       #endregion

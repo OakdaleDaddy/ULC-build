@@ -1457,10 +1457,10 @@ namespace NICBOT.GUI
             this.SensorGpsDateTextPanel.ValueText = "---";
             this.SensorGpsTimeTextPanel.ValueText = "---";
 
-            this.SensorThicknessAcquireButton.Enabled = false;
+            this.SensorThicknessAcquireButton.Enabled = true;
             this.SensorThicknessReadingTextPanel.ValueText = "";
 
-            this.SensorStressAcquireButton.Enabled = false;
+            this.SensorStressAcquireButton.Enabled = true;
             this.SensorStressReadingTextPanel.ValueText = "";
 
             if (0 != ParameterAccessor.Instance.LocationServer.Port)
@@ -1583,7 +1583,7 @@ namespace NICBOT.GUI
 
          #endregion
 
-         #region Status (Main Air)
+         #region Status (Main Air, Total Currents, Sealant Reserved)
 
          double nitrogenPressure1Reading = NicBotComm.Instance.GetNitrogenPressureReading1();
 
@@ -1607,6 +1607,28 @@ namespace NICBOT.GUI
          else
          {
             this.NitrogenPressure2TextPanel.ValueText = "---";
+         }
+
+         double robotTotalCurrentReading = NicBotComm.Instance.GetRobotTotalCurrentReading();
+
+         if (double.IsNaN(robotTotalCurrentReading) == false)
+         {
+            this.RobotTotalCurrentTextPanel.ValueText = this.GetValueText(robotTotalCurrentReading, ParameterAccessor.Instance.RobotTotalCurrentConversionUnit);
+         }
+         else
+         {
+            this.RobotTotalCurrentTextPanel.ValueText = "---";
+         }
+
+         double launchTotalCurrentReading = NicBotComm.Instance.GetLaunchTotalCurrentReading();
+
+         if (double.IsNaN(launchTotalCurrentReading) == false)
+         {
+            this.LaunchTotalCurrentTextPanel.ValueText = this.GetValueText(launchTotalCurrentReading, ParameterAccessor.Instance.LaunchTotalCurrentConversionUnit);
+         }
+         else
+         {
+            this.LaunchTotalCurrentTextPanel.ValueText = "---";
          }
 
          if (RobotApplications.repair == ParameterAccessor.Instance.RobotApplication)

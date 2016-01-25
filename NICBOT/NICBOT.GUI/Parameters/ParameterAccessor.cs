@@ -42,6 +42,9 @@ namespace NICBOT.GUI
       public ValueParameter NitrogenPressureConversionUnit;
       public CautionParameter NitrogenPressureCaution;
 
+      public ValueParameter RobotTotalCurrentConversionUnit;
+      public ValueParameter LaunchTotalCurrentConversionUnit;
+
       public ValueParameter GuideExtensionSpeed;
       public ValueParameter GuideRetractionSpeed;
       public bool GuideMomentaryButtonAction;
@@ -312,6 +315,9 @@ namespace NICBOT.GUI
 
          this.NitrogenPressureConversionUnit = new ValueParameter("NitrogenPressureConversionUnit", "PSI", 3, 0, 1000, 1, 100, 100);
          this.NitrogenPressureCaution = new CautionParameter("NitrogenPressureCaution", 450, 425, 375, 350);
+
+         this.RobotTotalCurrentConversionUnit = new ValueParameter("RobotTotalCurrentConversionUnit", "A", 2, 0, 1000, 1, 100, 100);
+         this.LaunchTotalCurrentConversionUnit = new ValueParameter("LaunchTotalCurrentConversionUnit", "A", 2, 0, 1000, 1, 100, 100);
 
          this.GuideExtensionSpeed = new ValueParameter("GuideExtensionSpeed", "RPM", 0, 1, 4500, 1, 1500, 1500);
          this.GuideRetractionSpeed = new ValueParameter("GuideRetractionSpeed", "RPM", 0, 1, 4500, 1, 1500, 1500);
@@ -2121,6 +2127,16 @@ namespace NICBOT.GUI
                                        this.NitrogenPressureConversionUnit = valueParameter;
                                        break;
                                     }
+                                    case "RobotTotalCurrentConversionUnit":
+                                    {
+                                       this.RobotTotalCurrentConversionUnit = valueParameter;
+                                       break;
+                                    }
+                                    case "LaunchTotalCurrentConversionUnit":
+                                    {
+                                       this.LaunchTotalCurrentConversionUnit = valueParameter;
+                                       break;
+                                    }
                                     case "GuideExtensionSpeed":
                                     {
                                        this.GuideExtensionSpeed = valueParameter;
@@ -2766,6 +2782,9 @@ namespace NICBOT.GUI
 
             this.WriteValueParameters(writer, this.NitrogenPressureConversionUnit);
             this.WriteCautionParameters(writer, this.NitrogenPressureCaution);
+
+            this.WriteValueParameters(writer, this.RobotTotalCurrentConversionUnit);
+            this.WriteValueParameters(writer, this.LaunchTotalCurrentConversionUnit);
 
             this.WriteValueParameters(writer, this.GuideExtensionSpeed);
             this.WriteValueParameters(writer, this.GuideRetractionSpeed);

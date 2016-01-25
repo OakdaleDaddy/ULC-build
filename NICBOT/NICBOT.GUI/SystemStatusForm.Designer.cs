@@ -120,6 +120,10 @@
          this.LoggingPortValueButton = new NICBOT.GUI.ValueButton();
          this.LoggingAddressValueButton = new NICBOT.GUI.ValueButton();
          this.BackButton = new NICBOT.GUI.NicBotButton();
+         this.label2 = new System.Windows.Forms.Label();
+         this.RobotTotalCurrentSensorStatusTextBox = new System.Windows.Forms.TextBox();
+         this.label3 = new System.Windows.Forms.Label();
+         this.LaunchTotalCurrentSensorStatusTextBox = new System.Windows.Forms.TextBox();
          this.MainPanel.SuspendLayout();
          this.LocationPanel.SuspendLayout();
          this.DeviceStatusPanel.SuspendLayout();
@@ -145,7 +149,7 @@
          this.MainPanel.EdgeWeight = 3;
          this.MainPanel.Location = new System.Drawing.Point(0, 0);
          this.MainPanel.Name = "MainPanel";
-         this.MainPanel.Size = new System.Drawing.Size(1781, 647);
+         this.MainPanel.Size = new System.Drawing.Size(1781, 711);
          this.MainPanel.TabIndex = 0;
          // 
          // LocationPanel
@@ -236,7 +240,7 @@
          this.DeviceStatusPanel.EdgeWeight = 3;
          this.DeviceStatusPanel.Location = new System.Drawing.Point(16, 16);
          this.DeviceStatusPanel.Name = "DeviceStatusPanel";
-         this.DeviceStatusPanel.Size = new System.Drawing.Size(1466, 615);
+         this.DeviceStatusPanel.Size = new System.Drawing.Size(1466, 679);
          this.DeviceStatusPanel.TabIndex = 200;
          // 
          // DeviceStatusBPanel
@@ -741,6 +745,10 @@
          // DeviceStatusAPanel
          // 
          this.DeviceStatusAPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(75)))), ((int)(((byte)(75)))));
+         this.DeviceStatusAPanel.Controls.Add(this.label3);
+         this.DeviceStatusAPanel.Controls.Add(this.LaunchTotalCurrentSensorStatusTextBox);
+         this.DeviceStatusAPanel.Controls.Add(this.label2);
+         this.DeviceStatusAPanel.Controls.Add(this.RobotTotalCurrentSensorStatusTextBox);
          this.DeviceStatusAPanel.Controls.Add(this.label39);
          this.DeviceStatusAPanel.Controls.Add(this.RearPressureSensorStatusTextBox);
          this.DeviceStatusAPanel.Controls.Add(this.label38);
@@ -779,7 +787,7 @@
          this.DeviceStatusAPanel.ForeColor = System.Drawing.SystemColors.ControlText;
          this.DeviceStatusAPanel.Location = new System.Drawing.Point(24, 47);
          this.DeviceStatusAPanel.Name = "DeviceStatusAPanel";
-         this.DeviceStatusAPanel.Size = new System.Drawing.Size(705, 552);
+         this.DeviceStatusAPanel.Size = new System.Drawing.Size(705, 616);
          this.DeviceStatusAPanel.TabIndex = 202;
          // 
          // label39
@@ -788,7 +796,7 @@
          this.label39.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
          this.label39.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
          this.label39.ForeColor = System.Drawing.Color.Gainsboro;
-         this.label39.Location = new System.Drawing.Point(8, 456);
+         this.label39.Location = new System.Drawing.Point(8, 520);
          this.label39.Name = "label39";
          this.label39.Size = new System.Drawing.Size(301, 23);
          this.label39.TabIndex = 240;
@@ -800,7 +808,7 @@
          this.RearPressureSensorStatusTextBox.BackColor = System.Drawing.Color.Red;
          this.RearPressureSensorStatusTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
          this.RearPressureSensorStatusTextBox.ForeColor = System.Drawing.Color.Black;
-         this.RearPressureSensorStatusTextBox.Location = new System.Drawing.Point(317, 454);
+         this.RearPressureSensorStatusTextBox.Location = new System.Drawing.Point(317, 518);
          this.RearPressureSensorStatusTextBox.Name = "RearPressureSensorStatusTextBox";
          this.RearPressureSensorStatusTextBox.ReadOnly = true;
          this.RearPressureSensorStatusTextBox.Size = new System.Drawing.Size(380, 26);
@@ -814,7 +822,7 @@
          this.label38.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
          this.label38.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
          this.label38.ForeColor = System.Drawing.Color.Gainsboro;
-         this.label38.Location = new System.Drawing.Point(8, 328);
+         this.label38.Location = new System.Drawing.Point(8, 392);
          this.label38.Name = "label38";
          this.label38.Size = new System.Drawing.Size(301, 23);
          this.label38.TabIndex = 238;
@@ -826,7 +834,7 @@
          this.FrontPressureSensorStatusTextBox.BackColor = System.Drawing.Color.Red;
          this.FrontPressureSensorStatusTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
          this.FrontPressureSensorStatusTextBox.ForeColor = System.Drawing.Color.Black;
-         this.FrontPressureSensorStatusTextBox.Location = new System.Drawing.Point(317, 326);
+         this.FrontPressureSensorStatusTextBox.Location = new System.Drawing.Point(317, 390);
          this.FrontPressureSensorStatusTextBox.Name = "FrontPressureSensorStatusTextBox";
          this.FrontPressureSensorStatusTextBox.ReadOnly = true;
          this.FrontPressureSensorStatusTextBox.Size = new System.Drawing.Size(380, 26);
@@ -839,7 +847,7 @@
          this.RearScaleRs232StatusTextBox.BackColor = System.Drawing.Color.Red;
          this.RearScaleRs232StatusTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
          this.RearScaleRs232StatusTextBox.ForeColor = System.Drawing.Color.Black;
-         this.RearScaleRs232StatusTextBox.Location = new System.Drawing.Point(317, 486);
+         this.RearScaleRs232StatusTextBox.Location = new System.Drawing.Point(317, 550);
          this.RearScaleRs232StatusTextBox.Name = "RearScaleRs232StatusTextBox";
          this.RearScaleRs232StatusTextBox.ReadOnly = true;
          this.RearScaleRs232StatusTextBox.Size = new System.Drawing.Size(380, 26);
@@ -853,7 +861,7 @@
          this.RearScaleRs232Label.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
          this.RearScaleRs232Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
          this.RearScaleRs232Label.ForeColor = System.Drawing.Color.Gainsboro;
-         this.RearScaleRs232Label.Location = new System.Drawing.Point(8, 488);
+         this.RearScaleRs232Label.Location = new System.Drawing.Point(8, 552);
          this.RearScaleRs232Label.Name = "RearScaleRs232Label";
          this.RearScaleRs232Label.Size = new System.Drawing.Size(301, 23);
          this.RearScaleRs232Label.TabIndex = 216;
@@ -880,7 +888,7 @@
          this.RearPumpMotorLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
          this.RearPumpMotorLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
          this.RearPumpMotorLabel.ForeColor = System.Drawing.Color.Gainsboro;
-         this.RearPumpMotorLabel.Location = new System.Drawing.Point(8, 424);
+         this.RearPumpMotorLabel.Location = new System.Drawing.Point(8, 488);
          this.RearPumpMotorLabel.Name = "RearPumpMotorLabel";
          this.RearPumpMotorLabel.Size = new System.Drawing.Size(301, 23);
          this.RearPumpMotorLabel.TabIndex = 222;
@@ -907,7 +915,7 @@
          this.label19.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
          this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
          this.label19.ForeColor = System.Drawing.Color.Gainsboro;
-         this.label19.Location = new System.Drawing.Point(8, 520);
+         this.label19.Location = new System.Drawing.Point(8, 584);
          this.label19.Name = "label19";
          this.label19.Size = new System.Drawing.Size(301, 23);
          this.label19.TabIndex = 206;
@@ -920,7 +928,7 @@
          this.FrontScaleRs232Label.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
          this.FrontScaleRs232Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
          this.FrontScaleRs232Label.ForeColor = System.Drawing.Color.Gainsboro;
-         this.FrontScaleRs232Label.Location = new System.Drawing.Point(8, 360);
+         this.FrontScaleRs232Label.Location = new System.Drawing.Point(8, 424);
          this.FrontScaleRs232Label.Name = "FrontScaleRs232Label";
          this.FrontScaleRs232Label.Size = new System.Drawing.Size(301, 23);
          this.FrontScaleRs232Label.TabIndex = 214;
@@ -933,7 +941,7 @@
          this.RearPumpMotorStatusTextBox.BackColor = System.Drawing.Color.Red;
          this.RearPumpMotorStatusTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
          this.RearPumpMotorStatusTextBox.ForeColor = System.Drawing.Color.Black;
-         this.RearPumpMotorStatusTextBox.Location = new System.Drawing.Point(317, 422);
+         this.RearPumpMotorStatusTextBox.Location = new System.Drawing.Point(317, 486);
          this.RearPumpMotorStatusTextBox.Name = "RearPumpMotorStatusTextBox";
          this.RearPumpMotorStatusTextBox.ReadOnly = true;
          this.RearPumpMotorStatusTextBox.Size = new System.Drawing.Size(380, 26);
@@ -959,7 +967,7 @@
          this.RearScaleStatusTextBox.BackColor = System.Drawing.Color.Red;
          this.RearScaleStatusTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
          this.RearScaleStatusTextBox.ForeColor = System.Drawing.Color.Black;
-         this.RearScaleStatusTextBox.Location = new System.Drawing.Point(317, 518);
+         this.RearScaleStatusTextBox.Location = new System.Drawing.Point(317, 582);
          this.RearScaleStatusTextBox.Name = "RearScaleStatusTextBox";
          this.RearScaleStatusTextBox.ReadOnly = true;
          this.RearScaleStatusTextBox.Size = new System.Drawing.Size(380, 26);
@@ -973,7 +981,7 @@
          this.FrontPumpMotorLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
          this.FrontPumpMotorLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
          this.FrontPumpMotorLabel.ForeColor = System.Drawing.Color.Gainsboro;
-         this.FrontPumpMotorLabel.Location = new System.Drawing.Point(8, 296);
+         this.FrontPumpMotorLabel.Location = new System.Drawing.Point(8, 360);
          this.FrontPumpMotorLabel.Name = "FrontPumpMotorLabel";
          this.FrontPumpMotorLabel.Size = new System.Drawing.Size(301, 23);
          this.FrontPumpMotorLabel.TabIndex = 220;
@@ -1000,7 +1008,7 @@
          this.label18.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
          this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
          this.label18.ForeColor = System.Drawing.Color.Gainsboro;
-         this.label18.Location = new System.Drawing.Point(8, 392);
+         this.label18.Location = new System.Drawing.Point(8, 456);
          this.label18.Name = "label18";
          this.label18.Size = new System.Drawing.Size(301, 23);
          this.label18.TabIndex = 204;
@@ -1039,7 +1047,7 @@
          this.FrontPumpMotorStatusTextBox.BackColor = System.Drawing.Color.Red;
          this.FrontPumpMotorStatusTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
          this.FrontPumpMotorStatusTextBox.ForeColor = System.Drawing.Color.Black;
-         this.FrontPumpMotorStatusTextBox.Location = new System.Drawing.Point(317, 294);
+         this.FrontPumpMotorStatusTextBox.Location = new System.Drawing.Point(317, 358);
          this.FrontPumpMotorStatusTextBox.Name = "FrontPumpMotorStatusTextBox";
          this.FrontPumpMotorStatusTextBox.ReadOnly = true;
          this.FrontPumpMotorStatusTextBox.Size = new System.Drawing.Size(380, 26);
@@ -1052,7 +1060,7 @@
          this.FrontScaleStatusTextBox.BackColor = System.Drawing.Color.Red;
          this.FrontScaleStatusTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
          this.FrontScaleStatusTextBox.ForeColor = System.Drawing.Color.Black;
-         this.FrontScaleStatusTextBox.Location = new System.Drawing.Point(317, 390);
+         this.FrontScaleStatusTextBox.Location = new System.Drawing.Point(317, 454);
          this.FrontScaleStatusTextBox.Name = "FrontScaleStatusTextBox";
          this.FrontScaleStatusTextBox.ReadOnly = true;
          this.FrontScaleStatusTextBox.Size = new System.Drawing.Size(380, 26);
@@ -1118,7 +1126,7 @@
          this.FrontScaleRs232StatusTextBox.BackColor = System.Drawing.Color.Red;
          this.FrontScaleRs232StatusTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
          this.FrontScaleRs232StatusTextBox.ForeColor = System.Drawing.Color.Black;
-         this.FrontScaleRs232StatusTextBox.Location = new System.Drawing.Point(317, 358);
+         this.FrontScaleRs232StatusTextBox.Location = new System.Drawing.Point(317, 422);
          this.FrontScaleRs232StatusTextBox.Name = "FrontScaleRs232StatusTextBox";
          this.FrontScaleRs232StatusTextBox.ReadOnly = true;
          this.FrontScaleRs232StatusTextBox.Size = new System.Drawing.Size(380, 26);
@@ -1425,7 +1433,7 @@
          this.BackButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
          this.BackButton.DisabledForeColor = System.Drawing.Color.Silver;
          this.BackButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold);
-         this.BackButton.Location = new System.Drawing.Point(1574, 548);
+         this.BackButton.Location = new System.Drawing.Point(1574, 612);
          this.BackButton.Name = "BackButton";
          this.BackButton.Size = new System.Drawing.Size(107, 67);
          this.BackButton.TabIndex = 166;
@@ -1433,12 +1441,64 @@
          this.BackButton.UseVisualStyleBackColor = false;
          this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
          // 
+         // label2
+         // 
+         this.label2.BackColor = System.Drawing.Color.Teal;
+         this.label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+         this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.label2.ForeColor = System.Drawing.Color.Gainsboro;
+         this.label2.Location = new System.Drawing.Point(8, 296);
+         this.label2.Name = "label2";
+         this.label2.Size = new System.Drawing.Size(301, 23);
+         this.label2.TabIndex = 242;
+         this.label2.Text = "ROBOT TOTAL CURRENT";
+         this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         // 
+         // RobotTotalCurrentSensorStatusTextBox
+         // 
+         this.RobotTotalCurrentSensorStatusTextBox.BackColor = System.Drawing.Color.Red;
+         this.RobotTotalCurrentSensorStatusTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+         this.RobotTotalCurrentSensorStatusTextBox.ForeColor = System.Drawing.Color.Black;
+         this.RobotTotalCurrentSensorStatusTextBox.Location = new System.Drawing.Point(317, 294);
+         this.RobotTotalCurrentSensorStatusTextBox.Name = "RobotTotalCurrentSensorStatusTextBox";
+         this.RobotTotalCurrentSensorStatusTextBox.ReadOnly = true;
+         this.RobotTotalCurrentSensorStatusTextBox.Size = new System.Drawing.Size(380, 26);
+         this.RobotTotalCurrentSensorStatusTextBox.TabIndex = 241;
+         this.RobotTotalCurrentSensorStatusTextBox.Text = "not connected";
+         this.RobotTotalCurrentSensorStatusTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+         // 
+         // label3
+         // 
+         this.label3.BackColor = System.Drawing.Color.Teal;
+         this.label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+         this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.label3.ForeColor = System.Drawing.Color.Gainsboro;
+         this.label3.Location = new System.Drawing.Point(8, 328);
+         this.label3.Name = "label3";
+         this.label3.Size = new System.Drawing.Size(301, 23);
+         this.label3.TabIndex = 244;
+         this.label3.Text = "LAUNCH TOTAL CURRENT";
+         this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         // 
+         // LaunchTotalCurrentSensorStatusTextBox
+         // 
+         this.LaunchTotalCurrentSensorStatusTextBox.BackColor = System.Drawing.Color.Red;
+         this.LaunchTotalCurrentSensorStatusTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+         this.LaunchTotalCurrentSensorStatusTextBox.ForeColor = System.Drawing.Color.Black;
+         this.LaunchTotalCurrentSensorStatusTextBox.Location = new System.Drawing.Point(317, 326);
+         this.LaunchTotalCurrentSensorStatusTextBox.Name = "LaunchTotalCurrentSensorStatusTextBox";
+         this.LaunchTotalCurrentSensorStatusTextBox.ReadOnly = true;
+         this.LaunchTotalCurrentSensorStatusTextBox.Size = new System.Drawing.Size(380, 26);
+         this.LaunchTotalCurrentSensorStatusTextBox.TabIndex = 243;
+         this.LaunchTotalCurrentSensorStatusTextBox.Text = "not connected";
+         this.LaunchTotalCurrentSensorStatusTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+         // 
          // SystemStatusForm
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
          this.AutoScroll = true;
-         this.ClientSize = new System.Drawing.Size(1781, 647);
+         this.ClientSize = new System.Drawing.Size(1781, 711);
          this.Controls.Add(this.MainPanel);
          this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
          this.Name = "SystemStatusForm";
@@ -1551,5 +1611,9 @@
       private System.Windows.Forms.TextBox NitrogenSensor1StatusTextBox;
       private HoldButton RobotBusHeartbeatButton;
       private NicBotButton TruckBusHeartbeatButton;
+      private System.Windows.Forms.Label label3;
+      private System.Windows.Forms.TextBox LaunchTotalCurrentSensorStatusTextBox;
+      private System.Windows.Forms.Label label2;
+      private System.Windows.Forms.TextBox RobotTotalCurrentSensorStatusTextBox;
    }
 }
