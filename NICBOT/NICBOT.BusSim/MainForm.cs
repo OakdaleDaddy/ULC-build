@@ -223,6 +223,32 @@ namespace NICBOT.BusSim
          return (appKey);
       }
 
+      private void ValidateWindowLocation(ref int top, ref int left, int defaultValueTop, int defaultValueLeft)
+      {
+         int topResult = defaultValueTop;
+         int leftResult = defaultValueLeft;
+
+         for (int i = 0; i < Screen.AllScreens.Length; i++)
+         {
+            int minimumLeft = Screen.AllScreens[i].Bounds.X;
+            int maximumLeft = minimumLeft + Screen.AllScreens[i].Bounds.Width;
+            int minimumTop = Screen.AllScreens[i].Bounds.Y;
+            int maximumTop = minimumTop + Screen.AllScreens[i].Bounds.Height;
+
+            if ((top >= minimumTop) && (top <= maximumTop) &&
+                (left >= minimumLeft) && (left <= maximumLeft))
+            {
+               topResult = top;
+               leftResult = left;
+
+               break;
+            }
+         }
+
+         top = topResult;
+         left = leftResult;
+      }
+
       private void LoadRegistry()
       {
          RegistryKey appKey;
@@ -243,12 +269,16 @@ namespace NICBOT.BusSim
          this.Width = (null != keyValue) ? (int.TryParse(keyValue.ToString(), out parsedValue) ? parsedValue : defaultValue) : defaultValue;
 
          keyValue = appKey.GetValue("Top");
-         defaultValue = (SystemInformation.PrimaryMonitorSize.Height - this.Height) / 2;
-         this.Top = (null != keyValue) ? (int.TryParse(keyValue.ToString(), out parsedValue) ? parsedValue : defaultValue) : defaultValue;
-
+         int defaultValueTop = (SystemInformation.PrimaryMonitorSize.Height - this.Height) / 2;
+         int top = (null != keyValue) ? (int.TryParse(keyValue.ToString(), out parsedValue) ? parsedValue : defaultValue) : defaultValue;
+                  
          keyValue = appKey.GetValue("Left");
-         defaultValue = (SystemInformation.PrimaryMonitorSize.Width - this.Width) / 2;
-         this.Left = (null != keyValue) ? (int.TryParse(keyValue.ToString(), out parsedValue) ? parsedValue : defaultValue) : defaultValue;
+         int defaultValueLeft = (SystemInformation.PrimaryMonitorSize.Width - this.Width) / 2;
+         int left = (null != keyValue) ? (int.TryParse(keyValue.ToString(), out parsedValue) ? parsedValue : defaultValue) : defaultValue;
+
+         this.ValidateWindowLocation(ref top, ref left, defaultValueTop, defaultValueLeft);
+         this.Top = top;
+         this.Left = left;
 
          keyValue = appKey.GetValue("WindowState");
          this.WindowState = ((null != keyValue) && Enum.IsDefined(this.WindowState.GetType(), keyValue)) ? (FormWindowState)Enum.Parse(this.WindowState.GetType(), keyValue.ToString()) : FormWindowState.Normal;
