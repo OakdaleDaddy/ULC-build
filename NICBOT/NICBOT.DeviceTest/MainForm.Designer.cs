@@ -420,19 +420,10 @@
          this.NicbotRepairFrontLaserOnButton = new System.Windows.Forms.Button();
          this.label143 = new System.Windows.Forms.Label();
          this.NicbotRepairFrontLaserOffButton = new System.Windows.Forms.Button();
-         this.NicbotRepairLastCircumfertialLabel = new System.Windows.Forms.Label();
-         this.NicbotRepairLastAxialLabel = new System.Windows.Forms.Label();
-         this.NicbotRepairRearLowerLimitLabel = new System.Windows.Forms.Label();
-         this.NicbotRepairRearUpperLimitLabel = new System.Windows.Forms.Label();
-         this.NicbotRepairFrontLowerLimitLabel = new System.Windows.Forms.Label();
-         this.NicbotRepairFrontUpperLimitLabel = new System.Windows.Forms.Label();
-         this.NicbotRepairWheelLockCheckBox = new System.Windows.Forms.CheckBox();
-         this.NicbotRepairWheelAxialCheckBox = new System.Windows.Forms.CheckBox();
          this.label78 = new System.Windows.Forms.Label();
          this.SetNicbotRearDrillSpeedButton = new System.Windows.Forms.Button();
          this.NicbotActualRearDrillIndexTextBox = new System.Windows.Forms.TextBox();
          this.NicbotActualRearDrillSpeedTextBox = new System.Windows.Forms.TextBox();
-         this.NicbotRepairWheelCircumfernceCheckBox = new System.Windows.Forms.CheckBox();
          this.SetNicbotRearDrillIndexButton = new System.Windows.Forms.Button();
          this.label87 = new System.Windows.Forms.Label();
          this.NicbotRearDrillIndexTextBox = new System.Windows.Forms.TextBox();
@@ -495,25 +486,16 @@
          this.label64 = new System.Windows.Forms.Label();
          this.SetNicbotOriginHuntOnButton = new System.Windows.Forms.Button();
          this.NicbotBodyInspectGroupBox = new System.Windows.Forms.GroupBox();
-         this.NicbotInspectLastCircumfertialLabel = new System.Windows.Forms.Label();
-         this.NicbotInspectLastAxialLabel = new System.Windows.Forms.Label();
          this.NicbotInspectSensorArmDeployCheckBox = new System.Windows.Forms.CheckBox();
          this.NicbotInspectSensorArmStowCheckBox = new System.Windows.Forms.CheckBox();
-         this.NicbotInspectWheelLockCheckBox = new System.Windows.Forms.CheckBox();
          this.NicbotInspectSensorExtendCheckBox = new System.Windows.Forms.CheckBox();
          this.NicbotInspectSensorRetractCheckBox = new System.Windows.Forms.CheckBox();
-         this.NicbotInspectWheelAxialCheckBox = new System.Windows.Forms.CheckBox();
-         this.NicbotInspectWheelCircumfernceCheckBox = new System.Windows.Forms.CheckBox();
          this.NicbotInspectLowerArmsRetractCheckBox = new System.Windows.Forms.CheckBox();
          this.NicbotInspectLowerArmsExtendCheckBox = new System.Windows.Forms.CheckBox();
          this.NicbotInspectRearArmRetractCheckBox = new System.Windows.Forms.CheckBox();
          this.NicbotInspectRearArmExtendCheckBox = new System.Windows.Forms.CheckBox();
          this.NicbotInspectFrontArmRetractCheckBox = new System.Windows.Forms.CheckBox();
          this.NicbotInspectFrontArmExtendCheckBox = new System.Windows.Forms.CheckBox();
-         this.NicbotInspectRearLowerLimitLabel = new System.Windows.Forms.Label();
-         this.NicbotInspectRearUpperLimitLabel = new System.Windows.Forms.Label();
-         this.NicbotInspectFrontLowerLimitLabel = new System.Windows.Forms.Label();
-         this.NicbotInspectFrontUpperLimitLabel = new System.Windows.Forms.Label();
          this.SetNicbotLightLevelButton = new System.Windows.Forms.Button();
          this.NicbotLightLevelTextBox = new System.Windows.Forms.TextBox();
          this.NicbotLightLevelCameraSelectTextBox = new System.Windows.Forms.TextBox();
@@ -4073,19 +4055,10 @@
          this.NicbotBodyRepairGroupBox.Controls.Add(this.NicbotRepairFrontLaserOnButton);
          this.NicbotBodyRepairGroupBox.Controls.Add(this.label143);
          this.NicbotBodyRepairGroupBox.Controls.Add(this.NicbotRepairFrontLaserOffButton);
-         this.NicbotBodyRepairGroupBox.Controls.Add(this.NicbotRepairLastCircumfertialLabel);
-         this.NicbotBodyRepairGroupBox.Controls.Add(this.NicbotRepairLastAxialLabel);
-         this.NicbotBodyRepairGroupBox.Controls.Add(this.NicbotRepairRearLowerLimitLabel);
-         this.NicbotBodyRepairGroupBox.Controls.Add(this.NicbotRepairRearUpperLimitLabel);
-         this.NicbotBodyRepairGroupBox.Controls.Add(this.NicbotRepairFrontLowerLimitLabel);
-         this.NicbotBodyRepairGroupBox.Controls.Add(this.NicbotRepairFrontUpperLimitLabel);
-         this.NicbotBodyRepairGroupBox.Controls.Add(this.NicbotRepairWheelLockCheckBox);
-         this.NicbotBodyRepairGroupBox.Controls.Add(this.NicbotRepairWheelAxialCheckBox);
          this.NicbotBodyRepairGroupBox.Controls.Add(this.label78);
          this.NicbotBodyRepairGroupBox.Controls.Add(this.SetNicbotRearDrillSpeedButton);
          this.NicbotBodyRepairGroupBox.Controls.Add(this.NicbotActualRearDrillIndexTextBox);
          this.NicbotBodyRepairGroupBox.Controls.Add(this.NicbotActualRearDrillSpeedTextBox);
-         this.NicbotBodyRepairGroupBox.Controls.Add(this.NicbotRepairWheelCircumfernceCheckBox);
          this.NicbotBodyRepairGroupBox.Controls.Add(this.SetNicbotRearDrillIndexButton);
          this.NicbotBodyRepairGroupBox.Controls.Add(this.label87);
          this.NicbotBodyRepairGroupBox.Controls.Add(this.NicbotRearDrillIndexTextBox);
@@ -4145,14 +4118,14 @@
          this.NicbotBodyRepairGroupBox.Controls.Add(this.SetNicbotOriginHuntOnButton);
          this.NicbotBodyRepairGroupBox.Location = new System.Drawing.Point(3, 85);
          this.NicbotBodyRepairGroupBox.Name = "NicbotBodyRepairGroupBox";
-         this.NicbotBodyRepairGroupBox.Size = new System.Drawing.Size(588, 472);
+         this.NicbotBodyRepairGroupBox.Size = new System.Drawing.Size(700, 418);
          this.NicbotBodyRepairGroupBox.TabIndex = 231;
          this.NicbotBodyRepairGroupBox.TabStop = false;
          this.NicbotBodyRepairGroupBox.Text = "REPAIR";
          // 
          // SetNicbotRepairServoKdButton
          // 
-         this.SetNicbotRepairServoKdButton.Location = new System.Drawing.Point(259, 299);
+         this.SetNicbotRepairServoKdButton.Location = new System.Drawing.Point(259, 278);
          this.SetNicbotRepairServoKdButton.Name = "SetNicbotRepairServoKdButton";
          this.SetNicbotRepairServoKdButton.Size = new System.Drawing.Size(35, 23);
          this.SetNicbotRepairServoKdButton.TabIndex = 354;
@@ -4162,7 +4135,7 @@
          // 
          // GetNicbotRepairServoKdButton
          // 
-         this.GetNicbotRepairServoKdButton.Location = new System.Drawing.Point(223, 299);
+         this.GetNicbotRepairServoKdButton.Location = new System.Drawing.Point(223, 278);
          this.GetNicbotRepairServoKdButton.Name = "GetNicbotRepairServoKdButton";
          this.GetNicbotRepairServoKdButton.Size = new System.Drawing.Size(35, 23);
          this.GetNicbotRepairServoKdButton.TabIndex = 355;
@@ -4172,7 +4145,7 @@
          // 
          // NicbotRepairServoKdTextBox
          // 
-         this.NicbotRepairServoKdTextBox.Location = new System.Drawing.Point(158, 300);
+         this.NicbotRepairServoKdTextBox.Location = new System.Drawing.Point(158, 279);
          this.NicbotRepairServoKdTextBox.Name = "NicbotRepairServoKdTextBox";
          this.NicbotRepairServoKdTextBox.Size = new System.Drawing.Size(59, 20);
          this.NicbotRepairServoKdTextBox.TabIndex = 353;
@@ -4180,7 +4153,7 @@
          // label154
          // 
          this.label154.AutoSize = true;
-         this.label154.Location = new System.Drawing.Point(94, 304);
+         this.label154.Location = new System.Drawing.Point(94, 283);
          this.label154.Name = "label154";
          this.label154.Size = new System.Drawing.Size(62, 13);
          this.label154.TabIndex = 352;
@@ -4188,7 +4161,7 @@
          // 
          // SetNicbotRepairServoKiButton
          // 
-         this.SetNicbotRepairServoKiButton.Location = new System.Drawing.Point(259, 276);
+         this.SetNicbotRepairServoKiButton.Location = new System.Drawing.Point(259, 255);
          this.SetNicbotRepairServoKiButton.Name = "SetNicbotRepairServoKiButton";
          this.SetNicbotRepairServoKiButton.Size = new System.Drawing.Size(35, 23);
          this.SetNicbotRepairServoKiButton.TabIndex = 350;
@@ -4198,7 +4171,7 @@
          // 
          // GetNicbotRepairServoKiButton
          // 
-         this.GetNicbotRepairServoKiButton.Location = new System.Drawing.Point(223, 276);
+         this.GetNicbotRepairServoKiButton.Location = new System.Drawing.Point(223, 255);
          this.GetNicbotRepairServoKiButton.Name = "GetNicbotRepairServoKiButton";
          this.GetNicbotRepairServoKiButton.Size = new System.Drawing.Size(35, 23);
          this.GetNicbotRepairServoKiButton.TabIndex = 351;
@@ -4208,7 +4181,7 @@
          // 
          // NicbotRepairServoKiTextBox
          // 
-         this.NicbotRepairServoKiTextBox.Location = new System.Drawing.Point(158, 277);
+         this.NicbotRepairServoKiTextBox.Location = new System.Drawing.Point(158, 256);
          this.NicbotRepairServoKiTextBox.Name = "NicbotRepairServoKiTextBox";
          this.NicbotRepairServoKiTextBox.Size = new System.Drawing.Size(59, 20);
          this.NicbotRepairServoKiTextBox.TabIndex = 349;
@@ -4216,7 +4189,7 @@
          // label153
          // 
          this.label153.AutoSize = true;
-         this.label153.Location = new System.Drawing.Point(99, 281);
+         this.label153.Location = new System.Drawing.Point(99, 260);
          this.label153.Name = "label153";
          this.label153.Size = new System.Drawing.Size(57, 13);
          this.label153.TabIndex = 348;
@@ -4224,7 +4197,7 @@
          // 
          // SetNicbotRepairServoKpButton
          // 
-         this.SetNicbotRepairServoKpButton.Location = new System.Drawing.Point(259, 253);
+         this.SetNicbotRepairServoKpButton.Location = new System.Drawing.Point(259, 232);
          this.SetNicbotRepairServoKpButton.Name = "SetNicbotRepairServoKpButton";
          this.SetNicbotRepairServoKpButton.Size = new System.Drawing.Size(35, 23);
          this.SetNicbotRepairServoKpButton.TabIndex = 346;
@@ -4234,7 +4207,7 @@
          // 
          // GetNicbotRepairServoKpButton
          // 
-         this.GetNicbotRepairServoKpButton.Location = new System.Drawing.Point(223, 253);
+         this.GetNicbotRepairServoKpButton.Location = new System.Drawing.Point(223, 232);
          this.GetNicbotRepairServoKpButton.Name = "GetNicbotRepairServoKpButton";
          this.GetNicbotRepairServoKpButton.Size = new System.Drawing.Size(35, 23);
          this.GetNicbotRepairServoKpButton.TabIndex = 347;
@@ -4244,7 +4217,7 @@
          // 
          // NicbotRepairServoKpTextBox
          // 
-         this.NicbotRepairServoKpTextBox.Location = new System.Drawing.Point(158, 254);
+         this.NicbotRepairServoKpTextBox.Location = new System.Drawing.Point(158, 233);
          this.NicbotRepairServoKpTextBox.Name = "NicbotRepairServoKpTextBox";
          this.NicbotRepairServoKpTextBox.Size = new System.Drawing.Size(59, 20);
          this.NicbotRepairServoKpTextBox.TabIndex = 345;
@@ -4252,7 +4225,7 @@
          // label152
          // 
          this.label152.AutoSize = true;
-         this.label152.Location = new System.Drawing.Point(94, 257);
+         this.label152.Location = new System.Drawing.Point(94, 236);
          this.label152.Name = "label152";
          this.label152.Size = new System.Drawing.Size(61, 13);
          this.label152.TabIndex = 344;
@@ -4260,7 +4233,7 @@
          // 
          // SetNicbotRepairRearStopButton
          // 
-         this.SetNicbotRepairRearStopButton.Location = new System.Drawing.Point(572, 178);
+         this.SetNicbotRepairRearStopButton.Location = new System.Drawing.Point(572, 157);
          this.SetNicbotRepairRearStopButton.Name = "SetNicbotRepairRearStopButton";
          this.SetNicbotRepairRearStopButton.Size = new System.Drawing.Size(58, 23);
          this.SetNicbotRepairRearStopButton.TabIndex = 343;
@@ -4270,7 +4243,7 @@
          // 
          // SetNicbotRepairFrontStopButton
          // 
-         this.SetNicbotRepairFrontStopButton.Location = new System.Drawing.Point(260, 178);
+         this.SetNicbotRepairFrontStopButton.Location = new System.Drawing.Point(260, 157);
          this.SetNicbotRepairFrontStopButton.Name = "SetNicbotRepairFrontStopButton";
          this.SetNicbotRepairFrontStopButton.Size = new System.Drawing.Size(58, 23);
          this.SetNicbotRepairFrontStopButton.TabIndex = 342;
@@ -4280,7 +4253,7 @@
          // 
          // SetNicbotRepairServoAccelerationButton
          // 
-         this.SetNicbotRepairServoAccelerationButton.Location = new System.Drawing.Point(259, 230);
+         this.SetNicbotRepairServoAccelerationButton.Location = new System.Drawing.Point(259, 209);
          this.SetNicbotRepairServoAccelerationButton.Name = "SetNicbotRepairServoAccelerationButton";
          this.SetNicbotRepairServoAccelerationButton.Size = new System.Drawing.Size(35, 23);
          this.SetNicbotRepairServoAccelerationButton.TabIndex = 340;
@@ -4290,14 +4263,14 @@
          // 
          // NicbotRepairServoAccelerationTextBox
          // 
-         this.NicbotRepairServoAccelerationTextBox.Location = new System.Drawing.Point(158, 231);
+         this.NicbotRepairServoAccelerationTextBox.Location = new System.Drawing.Point(158, 210);
          this.NicbotRepairServoAccelerationTextBox.Name = "NicbotRepairServoAccelerationTextBox";
          this.NicbotRepairServoAccelerationTextBox.Size = new System.Drawing.Size(59, 20);
          this.NicbotRepairServoAccelerationTextBox.TabIndex = 338;
          // 
          // GetNicbotRepairServoAccelerationButton
          // 
-         this.GetNicbotRepairServoAccelerationButton.Location = new System.Drawing.Point(223, 230);
+         this.GetNicbotRepairServoAccelerationButton.Location = new System.Drawing.Point(223, 209);
          this.GetNicbotRepairServoAccelerationButton.Name = "GetNicbotRepairServoAccelerationButton";
          this.GetNicbotRepairServoAccelerationButton.Size = new System.Drawing.Size(35, 23);
          this.GetNicbotRepairServoAccelerationButton.TabIndex = 341;
@@ -4308,7 +4281,7 @@
          // label151
          // 
          this.label151.AutoSize = true;
-         this.label151.Location = new System.Drawing.Point(27, 235);
+         this.label151.Location = new System.Drawing.Point(27, 214);
          this.label151.Name = "label151";
          this.label151.Size = new System.Drawing.Size(129, 13);
          this.label151.TabIndex = 339;
@@ -4316,7 +4289,7 @@
          // 
          // SetNicbotRepairServoErrorLimitButton
          // 
-         this.SetNicbotRepairServoErrorLimitButton.Location = new System.Drawing.Point(259, 207);
+         this.SetNicbotRepairServoErrorLimitButton.Location = new System.Drawing.Point(259, 186);
          this.SetNicbotRepairServoErrorLimitButton.Name = "SetNicbotRepairServoErrorLimitButton";
          this.SetNicbotRepairServoErrorLimitButton.Size = new System.Drawing.Size(35, 23);
          this.SetNicbotRepairServoErrorLimitButton.TabIndex = 336;
@@ -4326,14 +4299,14 @@
          // 
          // NicbotRepairServoErrorLimitTextBox
          // 
-         this.NicbotRepairServoErrorLimitTextBox.Location = new System.Drawing.Point(158, 209);
+         this.NicbotRepairServoErrorLimitTextBox.Location = new System.Drawing.Point(158, 188);
          this.NicbotRepairServoErrorLimitTextBox.Name = "NicbotRepairServoErrorLimitTextBox";
          this.NicbotRepairServoErrorLimitTextBox.Size = new System.Drawing.Size(59, 20);
          this.NicbotRepairServoErrorLimitTextBox.TabIndex = 334;
          // 
          // GetNicbotRepairServoErrorLimitButton
          // 
-         this.GetNicbotRepairServoErrorLimitButton.Location = new System.Drawing.Point(223, 207);
+         this.GetNicbotRepairServoErrorLimitButton.Location = new System.Drawing.Point(223, 186);
          this.GetNicbotRepairServoErrorLimitButton.Name = "GetNicbotRepairServoErrorLimitButton";
          this.GetNicbotRepairServoErrorLimitButton.Size = new System.Drawing.Size(35, 23);
          this.GetNicbotRepairServoErrorLimitButton.TabIndex = 337;
@@ -4344,7 +4317,7 @@
          // label150
          // 
          this.label150.AutoSize = true;
-         this.label150.Location = new System.Drawing.Point(39, 212);
+         this.label150.Location = new System.Drawing.Point(39, 191);
          this.label150.Name = "label150";
          this.label150.Size = new System.Drawing.Size(117, 13);
          this.label150.TabIndex = 335;
@@ -4352,7 +4325,7 @@
          // 
          // SetNicbotRepairServoHomeBackoffCountButton
          // 
-         this.SetNicbotRepairServoHomeBackoffCountButton.Location = new System.Drawing.Point(571, 230);
+         this.SetNicbotRepairServoHomeBackoffCountButton.Location = new System.Drawing.Point(571, 209);
          this.SetNicbotRepairServoHomeBackoffCountButton.Name = "SetNicbotRepairServoHomeBackoffCountButton";
          this.SetNicbotRepairServoHomeBackoffCountButton.Size = new System.Drawing.Size(35, 23);
          this.SetNicbotRepairServoHomeBackoffCountButton.TabIndex = 332;
@@ -4362,14 +4335,14 @@
          // 
          // NicbotRepairServoHomeBackoffCountTextBox
          // 
-         this.NicbotRepairServoHomeBackoffCountTextBox.Location = new System.Drawing.Point(470, 231);
+         this.NicbotRepairServoHomeBackoffCountTextBox.Location = new System.Drawing.Point(470, 210);
          this.NicbotRepairServoHomeBackoffCountTextBox.Name = "NicbotRepairServoHomeBackoffCountTextBox";
          this.NicbotRepairServoHomeBackoffCountTextBox.Size = new System.Drawing.Size(59, 20);
          this.NicbotRepairServoHomeBackoffCountTextBox.TabIndex = 330;
          // 
          // GetNicbotRepairServoHomeBackoffCountButton
          // 
-         this.GetNicbotRepairServoHomeBackoffCountButton.Location = new System.Drawing.Point(535, 230);
+         this.GetNicbotRepairServoHomeBackoffCountButton.Location = new System.Drawing.Point(535, 209);
          this.GetNicbotRepairServoHomeBackoffCountButton.Name = "GetNicbotRepairServoHomeBackoffCountButton";
          this.GetNicbotRepairServoHomeBackoffCountButton.Size = new System.Drawing.Size(35, 23);
          this.GetNicbotRepairServoHomeBackoffCountButton.TabIndex = 333;
@@ -4380,7 +4353,7 @@
          // label147
          // 
          this.label147.AutoSize = true;
-         this.label147.Location = new System.Drawing.Point(338, 235);
+         this.label147.Location = new System.Drawing.Point(338, 214);
          this.label147.Name = "label147";
          this.label147.Size = new System.Drawing.Size(130, 13);
          this.label147.TabIndex = 331;
@@ -4388,7 +4361,7 @@
          // 
          // SetNicbotRepairServoTravelVelocityButton
          // 
-         this.SetNicbotRepairServoTravelVelocityButton.Location = new System.Drawing.Point(571, 253);
+         this.SetNicbotRepairServoTravelVelocityButton.Location = new System.Drawing.Point(571, 232);
          this.SetNicbotRepairServoTravelVelocityButton.Name = "SetNicbotRepairServoTravelVelocityButton";
          this.SetNicbotRepairServoTravelVelocityButton.Size = new System.Drawing.Size(35, 23);
          this.SetNicbotRepairServoTravelVelocityButton.TabIndex = 328;
@@ -4398,14 +4371,14 @@
          // 
          // NicbotRepairServoTravelVelocityTextBox
          // 
-         this.NicbotRepairServoTravelVelocityTextBox.Location = new System.Drawing.Point(470, 254);
+         this.NicbotRepairServoTravelVelocityTextBox.Location = new System.Drawing.Point(470, 233);
          this.NicbotRepairServoTravelVelocityTextBox.Name = "NicbotRepairServoTravelVelocityTextBox";
          this.NicbotRepairServoTravelVelocityTextBox.Size = new System.Drawing.Size(59, 20);
          this.NicbotRepairServoTravelVelocityTextBox.TabIndex = 326;
          // 
          // GetNicbotRepairServoTravelVelocityButton
          // 
-         this.GetNicbotRepairServoTravelVelocityButton.Location = new System.Drawing.Point(535, 253);
+         this.GetNicbotRepairServoTravelVelocityButton.Location = new System.Drawing.Point(535, 232);
          this.GetNicbotRepairServoTravelVelocityButton.Name = "GetNicbotRepairServoTravelVelocityButton";
          this.GetNicbotRepairServoTravelVelocityButton.Size = new System.Drawing.Size(35, 23);
          this.GetNicbotRepairServoTravelVelocityButton.TabIndex = 329;
@@ -4416,7 +4389,7 @@
          // label148
          // 
          this.label148.AutoSize = true;
-         this.label148.Location = new System.Drawing.Point(324, 258);
+         this.label148.Location = new System.Drawing.Point(324, 237);
          this.label148.Name = "label148";
          this.label148.Size = new System.Drawing.Size(144, 13);
          this.label148.TabIndex = 327;
@@ -4424,7 +4397,7 @@
          // 
          // SetNicbotRepairServoHomingVelocityButton
          // 
-         this.SetNicbotRepairServoHomingVelocityButton.Location = new System.Drawing.Point(571, 207);
+         this.SetNicbotRepairServoHomingVelocityButton.Location = new System.Drawing.Point(571, 186);
          this.SetNicbotRepairServoHomingVelocityButton.Name = "SetNicbotRepairServoHomingVelocityButton";
          this.SetNicbotRepairServoHomingVelocityButton.Size = new System.Drawing.Size(35, 23);
          this.SetNicbotRepairServoHomingVelocityButton.TabIndex = 324;
@@ -4434,14 +4407,14 @@
          // 
          // NicbotRepairServoHomingVelocityTextBox
          // 
-         this.NicbotRepairServoHomingVelocityTextBox.Location = new System.Drawing.Point(470, 209);
+         this.NicbotRepairServoHomingVelocityTextBox.Location = new System.Drawing.Point(470, 188);
          this.NicbotRepairServoHomingVelocityTextBox.Name = "NicbotRepairServoHomingVelocityTextBox";
          this.NicbotRepairServoHomingVelocityTextBox.Size = new System.Drawing.Size(59, 20);
          this.NicbotRepairServoHomingVelocityTextBox.TabIndex = 322;
          // 
          // GetNicbotRepairServoHomingVelocityButton
          // 
-         this.GetNicbotRepairServoHomingVelocityButton.Location = new System.Drawing.Point(535, 207);
+         this.GetNicbotRepairServoHomingVelocityButton.Location = new System.Drawing.Point(535, 186);
          this.GetNicbotRepairServoHomingVelocityButton.Name = "GetNicbotRepairServoHomingVelocityButton";
          this.GetNicbotRepairServoHomingVelocityButton.Size = new System.Drawing.Size(35, 23);
          this.GetNicbotRepairServoHomingVelocityButton.TabIndex = 325;
@@ -4452,7 +4425,7 @@
          // label149
          // 
          this.label149.AutoSize = true;
-         this.label149.Location = new System.Drawing.Point(322, 212);
+         this.label149.Location = new System.Drawing.Point(322, 191);
          this.label149.Name = "label149";
          this.label149.Size = new System.Drawing.Size(146, 13);
          this.label149.TabIndex = 323;
@@ -4460,7 +4433,7 @@
          // 
          // GetNicbotRepairRearServoStatusButton
          // 
-         this.GetNicbotRepairRearServoStatusButton.Location = new System.Drawing.Point(535, 178);
+         this.GetNicbotRepairRearServoStatusButton.Location = new System.Drawing.Point(535, 157);
          this.GetNicbotRepairRearServoStatusButton.Name = "GetNicbotRepairRearServoStatusButton";
          this.GetNicbotRepairRearServoStatusButton.Size = new System.Drawing.Size(35, 23);
          this.GetNicbotRepairRearServoStatusButton.TabIndex = 321;
@@ -4470,7 +4443,7 @@
          // 
          // NicbotRepairRearDrilServoStatusTextBox
          // 
-         this.NicbotRepairRearDrilServoStatusTextBox.Location = new System.Drawing.Point(489, 180);
+         this.NicbotRepairRearDrilServoStatusTextBox.Location = new System.Drawing.Point(489, 159);
          this.NicbotRepairRearDrilServoStatusTextBox.MaxLength = 5;
          this.NicbotRepairRearDrilServoStatusTextBox.Name = "NicbotRepairRearDrilServoStatusTextBox";
          this.NicbotRepairRearDrilServoStatusTextBox.ReadOnly = true;
@@ -4480,7 +4453,7 @@
          // label146
          // 
          this.label146.AutoSize = true;
-         this.label146.Location = new System.Drawing.Point(364, 183);
+         this.label146.Location = new System.Drawing.Point(364, 162);
          this.label146.Name = "label146";
          this.label146.Size = new System.Drawing.Size(123, 13);
          this.label146.TabIndex = 320;
@@ -4488,7 +4461,7 @@
          // 
          // GetNicbotRepairFrontServoStatusButton
          // 
-         this.GetNicbotRepairFrontServoStatusButton.Location = new System.Drawing.Point(223, 178);
+         this.GetNicbotRepairFrontServoStatusButton.Location = new System.Drawing.Point(223, 157);
          this.GetNicbotRepairFrontServoStatusButton.Name = "GetNicbotRepairFrontServoStatusButton";
          this.GetNicbotRepairFrontServoStatusButton.Size = new System.Drawing.Size(35, 23);
          this.GetNicbotRepairFrontServoStatusButton.TabIndex = 318;
@@ -4498,7 +4471,7 @@
          // 
          // NicbotRepairFrontDrilServoStatusTextBox
          // 
-         this.NicbotRepairFrontDrilServoStatusTextBox.Location = new System.Drawing.Point(177, 180);
+         this.NicbotRepairFrontDrilServoStatusTextBox.Location = new System.Drawing.Point(177, 159);
          this.NicbotRepairFrontDrilServoStatusTextBox.MaxLength = 5;
          this.NicbotRepairFrontDrilServoStatusTextBox.Name = "NicbotRepairFrontDrilServoStatusTextBox";
          this.NicbotRepairFrontDrilServoStatusTextBox.ReadOnly = true;
@@ -4508,7 +4481,7 @@
          // label145
          // 
          this.label145.AutoSize = true;
-         this.label145.Location = new System.Drawing.Point(45, 183);
+         this.label145.Location = new System.Drawing.Point(45, 162);
          this.label145.Name = "label145";
          this.label145.Size = new System.Drawing.Size(130, 13);
          this.label145.TabIndex = 317;
@@ -4516,7 +4489,7 @@
          // 
          // SetNicbotRepairPulsesPerUnitbutton
          // 
-         this.SetNicbotRepairPulsesPerUnitbutton.Location = new System.Drawing.Point(571, 276);
+         this.SetNicbotRepairPulsesPerUnitbutton.Location = new System.Drawing.Point(571, 255);
          this.SetNicbotRepairPulsesPerUnitbutton.Name = "SetNicbotRepairPulsesPerUnitbutton";
          this.SetNicbotRepairPulsesPerUnitbutton.Size = new System.Drawing.Size(35, 23);
          this.SetNicbotRepairPulsesPerUnitbutton.TabIndex = 314;
@@ -4526,14 +4499,14 @@
          // 
          // NicbotRepairPulsesPerUnitTextBox
          // 
-         this.NicbotRepairPulsesPerUnitTextBox.Location = new System.Drawing.Point(470, 277);
+         this.NicbotRepairPulsesPerUnitTextBox.Location = new System.Drawing.Point(470, 256);
          this.NicbotRepairPulsesPerUnitTextBox.Name = "NicbotRepairPulsesPerUnitTextBox";
          this.NicbotRepairPulsesPerUnitTextBox.Size = new System.Drawing.Size(59, 20);
          this.NicbotRepairPulsesPerUnitTextBox.TabIndex = 312;
          // 
          // GetNicbotRepairPulsesPerUnitbutton
          // 
-         this.GetNicbotRepairPulsesPerUnitbutton.Location = new System.Drawing.Point(535, 276);
+         this.GetNicbotRepairPulsesPerUnitbutton.Location = new System.Drawing.Point(535, 255);
          this.GetNicbotRepairPulsesPerUnitbutton.Name = "GetNicbotRepairPulsesPerUnitbutton";
          this.GetNicbotRepairPulsesPerUnitbutton.Size = new System.Drawing.Size(35, 23);
          this.GetNicbotRepairPulsesPerUnitbutton.TabIndex = 315;
@@ -4544,7 +4517,7 @@
          // label62
          // 
          this.label62.AutoSize = true;
-         this.label62.Location = new System.Drawing.Point(332, 281);
+         this.label62.Location = new System.Drawing.Point(332, 260);
          this.label62.Name = "label62";
          this.label62.Size = new System.Drawing.Size(136, 13);
          this.label62.TabIndex = 313;
@@ -4554,7 +4527,7 @@
          // 
          this.NicbotRepairFrontDrillExtendLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
          this.NicbotRepairFrontDrillExtendLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.NicbotRepairFrontDrillExtendLabel.Location = new System.Drawing.Point(223, 106);
+         this.NicbotRepairFrontDrillExtendLabel.Location = new System.Drawing.Point(223, 78);
          this.NicbotRepairFrontDrillExtendLabel.Name = "NicbotRepairFrontDrillExtendLabel";
          this.NicbotRepairFrontDrillExtendLabel.Size = new System.Drawing.Size(54, 18);
          this.NicbotRepairFrontDrillExtendLabel.TabIndex = 311;
@@ -4565,7 +4538,7 @@
          // 
          this.NicbotRepairFrontDrillRetractLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
          this.NicbotRepairFrontDrillRetractLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.NicbotRepairFrontDrillRetractLabel.Location = new System.Drawing.Point(283, 106);
+         this.NicbotRepairFrontDrillRetractLabel.Location = new System.Drawing.Point(283, 78);
          this.NicbotRepairFrontDrillRetractLabel.Name = "NicbotRepairFrontDrillRetractLabel";
          this.NicbotRepairFrontDrillRetractLabel.Size = new System.Drawing.Size(54, 18);
          this.NicbotRepairFrontDrillRetractLabel.TabIndex = 310;
@@ -4576,7 +4549,7 @@
          // 
          this.NicbotRepairRearDrillExtendLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
          this.NicbotRepairRearDrillExtendLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.NicbotRepairRearDrillExtendLabel.Location = new System.Drawing.Point(535, 106);
+         this.NicbotRepairRearDrillExtendLabel.Location = new System.Drawing.Point(535, 78);
          this.NicbotRepairRearDrillExtendLabel.Name = "NicbotRepairRearDrillExtendLabel";
          this.NicbotRepairRearDrillExtendLabel.Size = new System.Drawing.Size(54, 18);
          this.NicbotRepairRearDrillExtendLabel.TabIndex = 309;
@@ -4587,7 +4560,7 @@
          // 
          this.NicbotRepairRearDrillRetractLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
          this.NicbotRepairRearDrillRetractLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.NicbotRepairRearDrillRetractLabel.Location = new System.Drawing.Point(595, 106);
+         this.NicbotRepairRearDrillRetractLabel.Location = new System.Drawing.Point(595, 78);
          this.NicbotRepairRearDrillRetractLabel.Name = "NicbotRepairRearDrillRetractLabel";
          this.NicbotRepairRearDrillRetractLabel.Size = new System.Drawing.Size(54, 18);
          this.NicbotRepairRearDrillRetractLabel.TabIndex = 308;
@@ -4596,7 +4569,7 @@
          // 
          // SetNicbotRepairRearOriginButton
          // 
-         this.SetNicbotRepairRearOriginButton.Location = new System.Drawing.Point(572, 154);
+         this.SetNicbotRepairRearOriginButton.Location = new System.Drawing.Point(572, 128);
          this.SetNicbotRepairRearOriginButton.Name = "SetNicbotRepairRearOriginButton";
          this.SetNicbotRepairRearOriginButton.Size = new System.Drawing.Size(58, 23);
          this.SetNicbotRepairRearOriginButton.TabIndex = 307;
@@ -4606,7 +4579,7 @@
          // 
          // SetNicbotRepairRearRetractButton
          // 
-         this.SetNicbotRepairRearRetractButton.Location = new System.Drawing.Point(572, 130);
+         this.SetNicbotRepairRearRetractButton.Location = new System.Drawing.Point(572, 104);
          this.SetNicbotRepairRearRetractButton.Name = "SetNicbotRepairRearRetractButton";
          this.SetNicbotRepairRearRetractButton.Size = new System.Drawing.Size(58, 23);
          this.SetNicbotRepairRearRetractButton.TabIndex = 306;
@@ -4616,7 +4589,7 @@
          // 
          // SetNicbotRepairFrontOriginButton
          // 
-         this.SetNicbotRepairFrontOriginButton.Location = new System.Drawing.Point(260, 154);
+         this.SetNicbotRepairFrontOriginButton.Location = new System.Drawing.Point(260, 128);
          this.SetNicbotRepairFrontOriginButton.Name = "SetNicbotRepairFrontOriginButton";
          this.SetNicbotRepairFrontOriginButton.Size = new System.Drawing.Size(58, 23);
          this.SetNicbotRepairFrontOriginButton.TabIndex = 305;
@@ -4626,7 +4599,7 @@
          // 
          // SetNicbotRepairFrontRetractButton
          // 
-         this.SetNicbotRepairFrontRetractButton.Location = new System.Drawing.Point(260, 130);
+         this.SetNicbotRepairFrontRetractButton.Location = new System.Drawing.Point(260, 104);
          this.SetNicbotRepairFrontRetractButton.Name = "SetNicbotRepairFrontRetractButton";
          this.SetNicbotRepairFrontRetractButton.Size = new System.Drawing.Size(58, 23);
          this.SetNicbotRepairFrontRetractButton.TabIndex = 304;
@@ -4636,7 +4609,7 @@
          // 
          // NicbotRepairRearLaserOnButton
          // 
-         this.NicbotRepairRearLaserOnButton.Location = new System.Drawing.Point(443, 104);
+         this.NicbotRepairRearLaserOnButton.Location = new System.Drawing.Point(443, 76);
          this.NicbotRepairRearLaserOnButton.Name = "NicbotRepairRearLaserOnButton";
          this.NicbotRepairRearLaserOnButton.Size = new System.Drawing.Size(40, 23);
          this.NicbotRepairRearLaserOnButton.TabIndex = 302;
@@ -4647,7 +4620,7 @@
          // label144
          // 
          this.label144.AutoSize = true;
-         this.label144.Location = new System.Drawing.Point(366, 109);
+         this.label144.Location = new System.Drawing.Point(366, 81);
          this.label144.Name = "label144";
          this.label144.Size = new System.Drawing.Size(75, 13);
          this.label144.TabIndex = 301;
@@ -4655,7 +4628,7 @@
          // 
          // NicbotRepairRearLaserOffButton
          // 
-         this.NicbotRepairRearLaserOffButton.Location = new System.Drawing.Point(484, 104);
+         this.NicbotRepairRearLaserOffButton.Location = new System.Drawing.Point(484, 76);
          this.NicbotRepairRearLaserOffButton.Name = "NicbotRepairRearLaserOffButton";
          this.NicbotRepairRearLaserOffButton.Size = new System.Drawing.Size(40, 23);
          this.NicbotRepairRearLaserOffButton.TabIndex = 303;
@@ -4665,7 +4638,7 @@
          // 
          // NicbotRepairFrontLaserOnButton
          // 
-         this.NicbotRepairFrontLaserOnButton.Location = new System.Drawing.Point(131, 104);
+         this.NicbotRepairFrontLaserOnButton.Location = new System.Drawing.Point(131, 76);
          this.NicbotRepairFrontLaserOnButton.Name = "NicbotRepairFrontLaserOnButton";
          this.NicbotRepairFrontLaserOnButton.Size = new System.Drawing.Size(40, 23);
          this.NicbotRepairFrontLaserOnButton.TabIndex = 299;
@@ -4676,7 +4649,7 @@
          // label143
          // 
          this.label143.AutoSize = true;
-         this.label143.Location = new System.Drawing.Point(47, 109);
+         this.label143.Location = new System.Drawing.Point(47, 81);
          this.label143.Name = "label143";
          this.label143.Size = new System.Drawing.Size(82, 13);
          this.label143.TabIndex = 298;
@@ -4684,7 +4657,7 @@
          // 
          // NicbotRepairFrontLaserOffButton
          // 
-         this.NicbotRepairFrontLaserOffButton.Location = new System.Drawing.Point(172, 104);
+         this.NicbotRepairFrontLaserOffButton.Location = new System.Drawing.Point(172, 76);
          this.NicbotRepairFrontLaserOffButton.Name = "NicbotRepairFrontLaserOffButton";
          this.NicbotRepairFrontLaserOffButton.Size = new System.Drawing.Size(40, 23);
          this.NicbotRepairFrontLaserOffButton.TabIndex = 300;
@@ -4692,92 +4665,10 @@
          this.NicbotRepairFrontLaserOffButton.UseVisualStyleBackColor = true;
          this.NicbotRepairFrontLaserOffButton.Click += new System.EventHandler(this.NicbotRepairFrontLaserOffButton_Click);
          // 
-         // NicbotRepairLastCircumfertialLabel
-         // 
-         this.NicbotRepairLastCircumfertialLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-         this.NicbotRepairLastCircumfertialLabel.Location = new System.Drawing.Point(425, 75);
-         this.NicbotRepairLastCircumfertialLabel.Name = "NicbotRepairLastCircumfertialLabel";
-         this.NicbotRepairLastCircumfertialLabel.Size = new System.Drawing.Size(54, 18);
-         this.NicbotRepairLastCircumfertialLabel.TabIndex = 297;
-         this.NicbotRepairLastCircumfertialLabel.Text = "LAST-C";
-         this.NicbotRepairLastCircumfertialLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         // 
-         // NicbotRepairLastAxialLabel
-         // 
-         this.NicbotRepairLastAxialLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-         this.NicbotRepairLastAxialLabel.Location = new System.Drawing.Point(485, 75);
-         this.NicbotRepairLastAxialLabel.Name = "NicbotRepairLastAxialLabel";
-         this.NicbotRepairLastAxialLabel.Size = new System.Drawing.Size(54, 18);
-         this.NicbotRepairLastAxialLabel.TabIndex = 296;
-         this.NicbotRepairLastAxialLabel.Text = "LAST-A";
-         this.NicbotRepairLastAxialLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         // 
-         // NicbotRepairRearLowerLimitLabel
-         // 
-         this.NicbotRepairRearLowerLimitLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-         this.NicbotRepairRearLowerLimitLabel.Location = new System.Drawing.Point(245, 75);
-         this.NicbotRepairRearLowerLimitLabel.Name = "NicbotRepairRearLowerLimitLabel";
-         this.NicbotRepairRearLowerLimitLabel.Size = new System.Drawing.Size(54, 18);
-         this.NicbotRepairRearLowerLimitLabel.TabIndex = 295;
-         this.NicbotRepairRearLowerLimitLabel.Text = "LR";
-         this.NicbotRepairRearLowerLimitLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         // 
-         // NicbotRepairRearUpperLimitLabel
-         // 
-         this.NicbotRepairRearUpperLimitLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-         this.NicbotRepairRearUpperLimitLabel.Location = new System.Drawing.Point(305, 75);
-         this.NicbotRepairRearUpperLimitLabel.Name = "NicbotRepairRearUpperLimitLabel";
-         this.NicbotRepairRearUpperLimitLabel.Size = new System.Drawing.Size(54, 18);
-         this.NicbotRepairRearUpperLimitLabel.TabIndex = 294;
-         this.NicbotRepairRearUpperLimitLabel.Text = "UR";
-         this.NicbotRepairRearUpperLimitLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         // 
-         // NicbotRepairFrontLowerLimitLabel
-         // 
-         this.NicbotRepairFrontLowerLimitLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-         this.NicbotRepairFrontLowerLimitLabel.Location = new System.Drawing.Point(185, 75);
-         this.NicbotRepairFrontLowerLimitLabel.Name = "NicbotRepairFrontLowerLimitLabel";
-         this.NicbotRepairFrontLowerLimitLabel.Size = new System.Drawing.Size(54, 18);
-         this.NicbotRepairFrontLowerLimitLabel.TabIndex = 293;
-         this.NicbotRepairFrontLowerLimitLabel.Text = "LF";
-         this.NicbotRepairFrontLowerLimitLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         // 
-         // NicbotRepairFrontUpperLimitLabel
-         // 
-         this.NicbotRepairFrontUpperLimitLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-         this.NicbotRepairFrontUpperLimitLabel.Location = new System.Drawing.Point(365, 75);
-         this.NicbotRepairFrontUpperLimitLabel.Name = "NicbotRepairFrontUpperLimitLabel";
-         this.NicbotRepairFrontUpperLimitLabel.Size = new System.Drawing.Size(54, 18);
-         this.NicbotRepairFrontUpperLimitLabel.TabIndex = 292;
-         this.NicbotRepairFrontUpperLimitLabel.Text = "UF";
-         this.NicbotRepairFrontUpperLimitLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         // 
-         // NicbotRepairWheelLockCheckBox
-         // 
-         this.NicbotRepairWheelLockCheckBox.AutoSize = true;
-         this.NicbotRepairWheelLockCheckBox.Location = new System.Drawing.Point(25, 73);
-         this.NicbotRepairWheelLockCheckBox.Name = "NicbotRepairWheelLockCheckBox";
-         this.NicbotRepairWheelLockCheckBox.Size = new System.Drawing.Size(96, 17);
-         this.NicbotRepairWheelLockCheckBox.TabIndex = 291;
-         this.NicbotRepairWheelLockCheckBox.Text = "WHEEL LOCK";
-         this.NicbotRepairWheelLockCheckBox.UseVisualStyleBackColor = true;
-         this.NicbotRepairWheelLockCheckBox.CheckedChanged += new System.EventHandler(this.NicbotRepairWheelLockCheckBox_CheckedChanged);
-         // 
-         // NicbotRepairWheelAxialCheckBox
-         // 
-         this.NicbotRepairWheelAxialCheckBox.AutoSize = true;
-         this.NicbotRepairWheelAxialCheckBox.Location = new System.Drawing.Point(505, 55);
-         this.NicbotRepairWheelAxialCheckBox.Name = "NicbotRepairWheelAxialCheckBox";
-         this.NicbotRepairWheelAxialCheckBox.Size = new System.Drawing.Size(98, 17);
-         this.NicbotRepairWheelAxialCheckBox.TabIndex = 290;
-         this.NicbotRepairWheelAxialCheckBox.Text = "WHEEL AXIAL";
-         this.NicbotRepairWheelAxialCheckBox.UseVisualStyleBackColor = true;
-         this.NicbotRepairWheelAxialCheckBox.CheckedChanged += new System.EventHandler(this.NicbotRepairWheelAxialCheckBox_CheckedChanged);
-         // 
          // label78
          // 
          this.label78.AutoSize = true;
-         this.label78.Location = new System.Drawing.Point(331, 396);
+         this.label78.Location = new System.Drawing.Point(334, 360);
          this.label78.Name = "label78";
          this.label78.Size = new System.Drawing.Size(102, 13);
          this.label78.TabIndex = 216;
@@ -4786,7 +4677,7 @@
          // 
          // SetNicbotRearDrillSpeedButton
          // 
-         this.SetNicbotRearDrillSpeedButton.Location = new System.Drawing.Point(535, 130);
+         this.SetNicbotRearDrillSpeedButton.Location = new System.Drawing.Point(535, 104);
          this.SetNicbotRearDrillSpeedButton.Name = "SetNicbotRearDrillSpeedButton";
          this.SetNicbotRearDrillSpeedButton.Size = new System.Drawing.Size(35, 23);
          this.SetNicbotRearDrillSpeedButton.TabIndex = 113;
@@ -4796,7 +4687,7 @@
          // 
          // NicbotActualRearDrillIndexTextBox
          // 
-         this.NicbotActualRearDrillIndexTextBox.Location = new System.Drawing.Point(489, 156);
+         this.NicbotActualRearDrillIndexTextBox.Location = new System.Drawing.Point(489, 130);
          this.NicbotActualRearDrillIndexTextBox.MaxLength = 5;
          this.NicbotActualRearDrillIndexTextBox.Name = "NicbotActualRearDrillIndexTextBox";
          this.NicbotActualRearDrillIndexTextBox.ReadOnly = true;
@@ -4806,7 +4697,7 @@
          // 
          // NicbotActualRearDrillSpeedTextBox
          // 
-         this.NicbotActualRearDrillSpeedTextBox.Location = new System.Drawing.Point(489, 132);
+         this.NicbotActualRearDrillSpeedTextBox.Location = new System.Drawing.Point(489, 106);
          this.NicbotActualRearDrillSpeedTextBox.MaxLength = 5;
          this.NicbotActualRearDrillSpeedTextBox.Name = "NicbotActualRearDrillSpeedTextBox";
          this.NicbotActualRearDrillSpeedTextBox.ReadOnly = true;
@@ -4814,20 +4705,9 @@
          this.NicbotActualRearDrillSpeedTextBox.TabIndex = 124;
          this.NicbotActualRearDrillSpeedTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
          // 
-         // NicbotRepairWheelCircumfernceCheckBox
-         // 
-         this.NicbotRepairWheelCircumfernceCheckBox.AutoSize = true;
-         this.NicbotRepairWheelCircumfernceCheckBox.Location = new System.Drawing.Point(345, 55);
-         this.NicbotRepairWheelCircumfernceCheckBox.Name = "NicbotRepairWheelCircumfernceCheckBox";
-         this.NicbotRepairWheelCircumfernceCheckBox.Size = new System.Drawing.Size(93, 17);
-         this.NicbotRepairWheelCircumfernceCheckBox.TabIndex = 289;
-         this.NicbotRepairWheelCircumfernceCheckBox.Text = "WHEEL CIRC";
-         this.NicbotRepairWheelCircumfernceCheckBox.UseVisualStyleBackColor = true;
-         this.NicbotRepairWheelCircumfernceCheckBox.CheckedChanged += new System.EventHandler(this.NicbotRepairWheelCircumfernceCheckBox_CheckedChanged);
-         // 
          // SetNicbotRearDrillIndexButton
          // 
-         this.SetNicbotRearDrillIndexButton.Location = new System.Drawing.Point(535, 154);
+         this.SetNicbotRearDrillIndexButton.Location = new System.Drawing.Point(535, 128);
          this.SetNicbotRearDrillIndexButton.Name = "SetNicbotRearDrillIndexButton";
          this.SetNicbotRearDrillIndexButton.Size = new System.Drawing.Size(35, 23);
          this.SetNicbotRearDrillIndexButton.TabIndex = 119;
@@ -4838,7 +4718,7 @@
          // label87
          // 
          this.label87.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.label87.Location = new System.Drawing.Point(625, 364);
+         this.label87.Location = new System.Drawing.Point(628, 328);
          this.label87.Name = "label87";
          this.label87.Size = new System.Drawing.Size(25, 26);
          this.label87.TabIndex = 229;
@@ -4847,7 +4727,7 @@
          // 
          // NicbotRearDrillIndexTextBox
          // 
-         this.NicbotRearDrillIndexTextBox.Location = new System.Drawing.Point(443, 156);
+         this.NicbotRearDrillIndexTextBox.Location = new System.Drawing.Point(443, 130);
          this.NicbotRearDrillIndexTextBox.MaxLength = 5;
          this.NicbotRearDrillIndexTextBox.Name = "NicbotRearDrillIndexTextBox";
          this.NicbotRearDrillIndexTextBox.Size = new System.Drawing.Size(40, 20);
@@ -4856,7 +4736,7 @@
          // label50
          // 
          this.label50.AutoSize = true;
-         this.label50.Location = new System.Drawing.Point(334, 159);
+         this.label50.Location = new System.Drawing.Point(334, 133);
          this.label50.Name = "label50";
          this.label50.Size = new System.Drawing.Size(107, 13);
          this.label50.TabIndex = 118;
@@ -4875,7 +4755,7 @@
          // 
          // NicbotRearDrillSpeedTextBox
          // 
-         this.NicbotRearDrillSpeedTextBox.Location = new System.Drawing.Point(443, 132);
+         this.NicbotRearDrillSpeedTextBox.Location = new System.Drawing.Point(443, 106);
          this.NicbotRearDrillSpeedTextBox.MaxLength = 6;
          this.NicbotRearDrillSpeedTextBox.Name = "NicbotRearDrillSpeedTextBox";
          this.NicbotRearDrillSpeedTextBox.Size = new System.Drawing.Size(40, 20);
@@ -4884,7 +4764,7 @@
          // label88
          // 
          this.label88.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.label88.Location = new System.Drawing.Point(625, 339);
+         this.label88.Location = new System.Drawing.Point(628, 303);
          this.label88.Name = "label88";
          this.label88.Size = new System.Drawing.Size(25, 26);
          this.label88.TabIndex = 228;
@@ -4894,7 +4774,7 @@
          // label48
          // 
          this.label48.AutoSize = true;
-         this.label48.Location = new System.Drawing.Point(331, 135);
+         this.label48.Location = new System.Drawing.Point(331, 109);
          this.label48.Name = "label48";
          this.label48.Size = new System.Drawing.Size(110, 13);
          this.label48.TabIndex = 112;
@@ -4913,7 +4793,7 @@
          // 
          // NicbotAutoDrillPeckIncrementTextBox
          // 
-         this.NicbotAutoDrillPeckIncrementTextBox.Location = new System.Drawing.Point(435, 393);
+         this.NicbotAutoDrillPeckIncrementTextBox.Location = new System.Drawing.Point(438, 357);
          this.NicbotAutoDrillPeckIncrementTextBox.MaxLength = 32768;
          this.NicbotAutoDrillPeckIncrementTextBox.Name = "NicbotAutoDrillPeckIncrementTextBox";
          this.NicbotAutoDrillPeckIncrementTextBox.Size = new System.Drawing.Size(27, 20);
@@ -4934,7 +4814,7 @@
          // 
          // NicbotAutoDrillCuttingDepthTextBox
          // 
-         this.NicbotAutoDrillCuttingDepthTextBox.Location = new System.Drawing.Point(435, 368);
+         this.NicbotAutoDrillCuttingDepthTextBox.Location = new System.Drawing.Point(438, 332);
          this.NicbotAutoDrillCuttingDepthTextBox.MaxLength = 32768;
          this.NicbotAutoDrillCuttingDepthTextBox.Name = "NicbotAutoDrillCuttingDepthTextBox";
          this.NicbotAutoDrillCuttingDepthTextBox.Size = new System.Drawing.Size(27, 20);
@@ -4955,7 +4835,7 @@
          // 
          // NicbotAutoDrillCuttingSpeedTextBox
          // 
-         this.NicbotAutoDrillCuttingSpeedTextBox.Location = new System.Drawing.Point(435, 343);
+         this.NicbotAutoDrillCuttingSpeedTextBox.Location = new System.Drawing.Point(438, 307);
          this.NicbotAutoDrillCuttingSpeedTextBox.MaxLength = 32768;
          this.NicbotAutoDrillCuttingSpeedTextBox.Name = "NicbotAutoDrillCuttingSpeedTextBox";
          this.NicbotAutoDrillCuttingSpeedTextBox.Size = new System.Drawing.Size(27, 20);
@@ -4977,7 +4857,7 @@
          // label84
          // 
          this.label84.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.label84.Location = new System.Drawing.Point(460, 389);
+         this.label84.Location = new System.Drawing.Point(463, 353);
          this.label84.Name = "label84";
          this.label84.Size = new System.Drawing.Size(25, 26);
          this.label84.TabIndex = 227;
@@ -4998,7 +4878,7 @@
          // label85
          // 
          this.label85.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.label85.Location = new System.Drawing.Point(460, 364);
+         this.label85.Location = new System.Drawing.Point(463, 328);
          this.label85.Name = "label85";
          this.label85.Size = new System.Drawing.Size(25, 26);
          this.label85.TabIndex = 226;
@@ -5008,7 +4888,7 @@
          // label86
          // 
          this.label86.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.label86.Location = new System.Drawing.Point(460, 339);
+         this.label86.Location = new System.Drawing.Point(463, 303);
          this.label86.Name = "label86";
          this.label86.Size = new System.Drawing.Size(25, 26);
          this.label86.TabIndex = 225;
@@ -5017,7 +4897,7 @@
          // 
          // NicbotAutoDrillSearchSpeedTextBox
          // 
-         this.NicbotAutoDrillSearchSpeedTextBox.Location = new System.Drawing.Point(286, 343);
+         this.NicbotAutoDrillSearchSpeedTextBox.Location = new System.Drawing.Point(289, 307);
          this.NicbotAutoDrillSearchSpeedTextBox.MaxLength = 32768;
          this.NicbotAutoDrillSearchSpeedTextBox.Name = "NicbotAutoDrillSearchSpeedTextBox";
          this.NicbotAutoDrillSearchSpeedTextBox.Size = new System.Drawing.Size(27, 20);
@@ -5028,7 +4908,7 @@
          // label47
          // 
          this.label47.AutoSize = true;
-         this.label47.Location = new System.Drawing.Point(12, 135);
+         this.label47.Location = new System.Drawing.Point(12, 109);
          this.label47.Name = "label47";
          this.label47.Size = new System.Drawing.Size(117, 13);
          this.label47.TabIndex = 109;
@@ -5036,7 +4916,7 @@
          // 
          // NicbotAutoDrillTravelSpeedTextBox
          // 
-         this.NicbotAutoDrillTravelSpeedTextBox.Location = new System.Drawing.Point(286, 368);
+         this.NicbotAutoDrillTravelSpeedTextBox.Location = new System.Drawing.Point(289, 332);
          this.NicbotAutoDrillTravelSpeedTextBox.MaxLength = 32768;
          this.NicbotAutoDrillTravelSpeedTextBox.Name = "NicbotAutoDrillTravelSpeedTextBox";
          this.NicbotAutoDrillTravelSpeedTextBox.Size = new System.Drawing.Size(27, 20);
@@ -5046,7 +4926,7 @@
          // 
          // NicbotFrontDrillSpeedTextBox
          // 
-         this.NicbotFrontDrillSpeedTextBox.Location = new System.Drawing.Point(131, 132);
+         this.NicbotFrontDrillSpeedTextBox.Location = new System.Drawing.Point(131, 106);
          this.NicbotFrontDrillSpeedTextBox.MaxLength = 6;
          this.NicbotFrontDrillSpeedTextBox.Name = "NicbotFrontDrillSpeedTextBox";
          this.NicbotFrontDrillSpeedTextBox.Size = new System.Drawing.Size(40, 20);
@@ -5054,7 +4934,7 @@
          // 
          // NicbotAutoDrillRotationSpeedTextBox
          // 
-         this.NicbotAutoDrillRotationSpeedTextBox.Location = new System.Drawing.Point(286, 393);
+         this.NicbotAutoDrillRotationSpeedTextBox.Location = new System.Drawing.Point(289, 357);
          this.NicbotAutoDrillRotationSpeedTextBox.MaxLength = 32768;
          this.NicbotAutoDrillRotationSpeedTextBox.Name = "NicbotAutoDrillRotationSpeedTextBox";
          this.NicbotAutoDrillRotationSpeedTextBox.Size = new System.Drawing.Size(27, 20);
@@ -5075,7 +4955,7 @@
          // 
          // SetNicbotFrontDrillSpeedButton
          // 
-         this.SetNicbotFrontDrillSpeedButton.Location = new System.Drawing.Point(223, 130);
+         this.SetNicbotFrontDrillSpeedButton.Location = new System.Drawing.Point(223, 104);
          this.SetNicbotFrontDrillSpeedButton.Name = "SetNicbotFrontDrillSpeedButton";
          this.SetNicbotFrontDrillSpeedButton.Size = new System.Drawing.Size(35, 23);
          this.SetNicbotFrontDrillSpeedButton.TabIndex = 110;
@@ -5086,7 +4966,7 @@
          // label83
          // 
          this.label83.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.label83.Location = new System.Drawing.Point(311, 393);
+         this.label83.Location = new System.Drawing.Point(314, 357);
          this.label83.Name = "label83";
          this.label83.Size = new System.Drawing.Size(25, 19);
          this.label83.TabIndex = 224;
@@ -5107,7 +4987,7 @@
          // label82
          // 
          this.label82.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.label82.Location = new System.Drawing.Point(311, 364);
+         this.label82.Location = new System.Drawing.Point(314, 328);
          this.label82.Name = "label82";
          this.label82.Size = new System.Drawing.Size(25, 26);
          this.label82.TabIndex = 223;
@@ -5128,7 +5008,7 @@
          // label81
          // 
          this.label81.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.label81.Location = new System.Drawing.Point(311, 339);
+         this.label81.Location = new System.Drawing.Point(314, 303);
          this.label81.Name = "label81";
          this.label81.Size = new System.Drawing.Size(25, 26);
          this.label81.TabIndex = 222;
@@ -5149,7 +5029,7 @@
          // label80
          // 
          this.label80.AutoSize = true;
-         this.label80.Location = new System.Drawing.Point(482, 346);
+         this.label80.Location = new System.Drawing.Point(485, 310);
          this.label80.Name = "label80";
          this.label80.Size = new System.Drawing.Size(115, 13);
          this.label80.TabIndex = 218;
@@ -5159,7 +5039,7 @@
          // label49
          // 
          this.label49.AutoSize = true;
-         this.label49.Location = new System.Drawing.Point(15, 159);
+         this.label49.Location = new System.Drawing.Point(15, 133);
          this.label49.Name = "label49";
          this.label49.Size = new System.Drawing.Size(114, 13);
          this.label49.TabIndex = 115;
@@ -5167,7 +5047,7 @@
          // 
          // NicbotAutoDrillPeckRetractionPositionTextBox
          // 
-         this.NicbotAutoDrillPeckRetractionPositionTextBox.Location = new System.Drawing.Point(599, 368);
+         this.NicbotAutoDrillPeckRetractionPositionTextBox.Location = new System.Drawing.Point(602, 332);
          this.NicbotAutoDrillPeckRetractionPositionTextBox.MaxLength = 32768;
          this.NicbotAutoDrillPeckRetractionPositionTextBox.Name = "NicbotAutoDrillPeckRetractionPositionTextBox";
          this.NicbotAutoDrillPeckRetractionPositionTextBox.Size = new System.Drawing.Size(27, 20);
@@ -5177,7 +5057,7 @@
          // 
          // NicbotFrontDrillIndexTextBox
          // 
-         this.NicbotFrontDrillIndexTextBox.Location = new System.Drawing.Point(131, 156);
+         this.NicbotFrontDrillIndexTextBox.Location = new System.Drawing.Point(131, 130);
          this.NicbotFrontDrillIndexTextBox.MaxLength = 5;
          this.NicbotFrontDrillIndexTextBox.Name = "NicbotFrontDrillIndexTextBox";
          this.NicbotFrontDrillIndexTextBox.Size = new System.Drawing.Size(40, 20);
@@ -5187,7 +5067,7 @@
          // label79
          // 
          this.label79.AutoSize = true;
-         this.label79.Location = new System.Drawing.Point(485, 371);
+         this.label79.Location = new System.Drawing.Point(488, 335);
          this.label79.Name = "label79";
          this.label79.Size = new System.Drawing.Size(112, 13);
          this.label79.TabIndex = 220;
@@ -5196,7 +5076,7 @@
          // 
          // SetNicbotFrontDrillIndexButton
          // 
-         this.SetNicbotFrontDrillIndexButton.Location = new System.Drawing.Point(223, 154);
+         this.SetNicbotFrontDrillIndexButton.Location = new System.Drawing.Point(223, 128);
          this.SetNicbotFrontDrillIndexButton.Name = "SetNicbotFrontDrillIndexButton";
          this.SetNicbotFrontDrillIndexButton.Size = new System.Drawing.Size(35, 23);
          this.SetNicbotFrontDrillIndexButton.TabIndex = 116;
@@ -5206,7 +5086,7 @@
          // 
          // NicbotAutoDrillPeckRetractionDistanceTextBox
          // 
-         this.NicbotAutoDrillPeckRetractionDistanceTextBox.Location = new System.Drawing.Point(599, 343);
+         this.NicbotAutoDrillPeckRetractionDistanceTextBox.Location = new System.Drawing.Point(602, 307);
          this.NicbotAutoDrillPeckRetractionDistanceTextBox.MaxLength = 32768;
          this.NicbotAutoDrillPeckRetractionDistanceTextBox.Name = "NicbotAutoDrillPeckRetractionDistanceTextBox";
          this.NicbotAutoDrillPeckRetractionDistanceTextBox.Size = new System.Drawing.Size(27, 20);
@@ -5217,7 +5097,7 @@
          // label77
          // 
          this.label77.AutoSize = true;
-         this.label77.Location = new System.Drawing.Point(338, 371);
+         this.label77.Location = new System.Drawing.Point(341, 335);
          this.label77.Name = "label77";
          this.label77.Size = new System.Drawing.Size(95, 13);
          this.label77.TabIndex = 214;
@@ -5227,7 +5107,7 @@
          // label75
          // 
          this.label75.AutoSize = true;
-         this.label75.Location = new System.Drawing.Point(194, 346);
+         this.label75.Location = new System.Drawing.Point(197, 310);
          this.label75.Name = "label75";
          this.label75.Size = new System.Drawing.Size(90, 13);
          this.label75.TabIndex = 212;
@@ -5237,7 +5117,7 @@
          // label76
          // 
          this.label76.AutoSize = true;
-         this.label76.Location = new System.Drawing.Point(196, 371);
+         this.label76.Location = new System.Drawing.Point(199, 335);
          this.label76.Name = "label76";
          this.label76.Size = new System.Drawing.Size(88, 13);
          this.label76.TabIndex = 210;
@@ -5247,7 +5127,7 @@
          // label65
          // 
          this.label65.AutoSize = true;
-         this.label65.Location = new System.Drawing.Point(182, 396);
+         this.label65.Location = new System.Drawing.Point(185, 360);
          this.label65.Name = "label65";
          this.label65.Size = new System.Drawing.Size(102, 13);
          this.label65.TabIndex = 208;
@@ -5257,7 +5137,7 @@
          // label74
          // 
          this.label74.AutoSize = true;
-         this.label74.Location = new System.Drawing.Point(339, 346);
+         this.label74.Location = new System.Drawing.Point(342, 310);
          this.label74.Name = "label74";
          this.label74.Size = new System.Drawing.Size(94, 13);
          this.label74.TabIndex = 206;
@@ -5266,7 +5146,7 @@
          // 
          // NicbotActualFrontDrillIndexTextBox
          // 
-         this.NicbotActualFrontDrillIndexTextBox.Location = new System.Drawing.Point(177, 156);
+         this.NicbotActualFrontDrillIndexTextBox.Location = new System.Drawing.Point(177, 130);
          this.NicbotActualFrontDrillIndexTextBox.MaxLength = 5;
          this.NicbotActualFrontDrillIndexTextBox.Name = "NicbotActualFrontDrillIndexTextBox";
          this.NicbotActualFrontDrillIndexTextBox.ReadOnly = true;
@@ -5276,7 +5156,7 @@
          // 
          // SetNicbotAutoDrillParametersButton
          // 
-         this.SetNicbotAutoDrillParametersButton.Location = new System.Drawing.Point(544, 391);
+         this.SetNicbotAutoDrillParametersButton.Location = new System.Drawing.Point(547, 355);
          this.SetNicbotAutoDrillParametersButton.Name = "SetNicbotAutoDrillParametersButton";
          this.SetNicbotAutoDrillParametersButton.Size = new System.Drawing.Size(90, 23);
          this.SetNicbotAutoDrillParametersButton.TabIndex = 159;
@@ -5287,7 +5167,7 @@
          // NicbotAutoDrillOriginCheckBox
          // 
          this.NicbotAutoDrillOriginCheckBox.AutoSize = true;
-         this.NicbotAutoDrillOriginCheckBox.Location = new System.Drawing.Point(5, 345);
+         this.NicbotAutoDrillOriginCheckBox.Location = new System.Drawing.Point(8, 309);
          this.NicbotAutoDrillOriginCheckBox.Name = "NicbotAutoDrillOriginCheckBox";
          this.NicbotAutoDrillOriginCheckBox.Size = new System.Drawing.Size(97, 17);
          this.NicbotAutoDrillOriginCheckBox.TabIndex = 158;
@@ -5296,7 +5176,7 @@
          // 
          // NicbotActualFrontDrillSpeedTextBox
          // 
-         this.NicbotActualFrontDrillSpeedTextBox.Location = new System.Drawing.Point(177, 132);
+         this.NicbotActualFrontDrillSpeedTextBox.Location = new System.Drawing.Point(177, 106);
          this.NicbotActualFrontDrillSpeedTextBox.MaxLength = 5;
          this.NicbotActualFrontDrillSpeedTextBox.Name = "NicbotActualFrontDrillSpeedTextBox";
          this.NicbotActualFrontDrillSpeedTextBox.ReadOnly = true;
@@ -5308,7 +5188,7 @@
          // 
          this.NicbotAutoDrillRetractionModePanel.Controls.Add(this.NicbotAutoDrillPositionRetractionRadioButton);
          this.NicbotAutoDrillRetractionModePanel.Controls.Add(this.NicbotAutoDrillDistanceRetractionRadioButton);
-         this.NicbotAutoDrillRetractionModePanel.Location = new System.Drawing.Point(106, 365);
+         this.NicbotAutoDrillRetractionModePanel.Location = new System.Drawing.Point(109, 329);
          this.NicbotAutoDrillRetractionModePanel.Name = "NicbotAutoDrillRetractionModePanel";
          this.NicbotAutoDrillRetractionModePanel.Size = new System.Drawing.Size(77, 46);
          this.NicbotAutoDrillRetractionModePanel.TabIndex = 157;
@@ -5339,7 +5219,7 @@
          // 
          this.NicbotAutoDrillModePanel.Controls.Add(this.NicbotAutoDrillPeckModeRadioButton);
          this.NicbotAutoDrillModePanel.Controls.Add(this.NicbotAutoDrillContinuousModeRadioButton);
-         this.NicbotAutoDrillModePanel.Location = new System.Drawing.Point(4, 365);
+         this.NicbotAutoDrillModePanel.Location = new System.Drawing.Point(7, 329);
          this.NicbotAutoDrillModePanel.Name = "NicbotAutoDrillModePanel";
          this.NicbotAutoDrillModePanel.Size = new System.Drawing.Size(98, 46);
          this.NicbotAutoDrillModePanel.TabIndex = 156;
@@ -5368,7 +5248,7 @@
          // 
          // SetNicbotAutoActivityButton
          // 
-         this.SetNicbotAutoActivityButton.Location = new System.Drawing.Point(390, 420);
+         this.SetNicbotAutoActivityButton.Location = new System.Drawing.Point(393, 384);
          this.SetNicbotAutoActivityButton.Name = "SetNicbotAutoActivityButton";
          this.SetNicbotAutoActivityButton.Size = new System.Drawing.Size(59, 23);
          this.SetNicbotAutoActivityButton.TabIndex = 148;
@@ -5378,7 +5258,7 @@
          // 
          // SetNicbotAutoStopButton
          // 
-         this.SetNicbotAutoStopButton.Location = new System.Drawing.Point(452, 420);
+         this.SetNicbotAutoStopButton.Location = new System.Drawing.Point(455, 384);
          this.SetNicbotAutoStopButton.Name = "SetNicbotAutoStopButton";
          this.SetNicbotAutoStopButton.Size = new System.Drawing.Size(46, 23);
          this.SetNicbotAutoStopButton.TabIndex = 147;
@@ -5388,7 +5268,7 @@
          // 
          // SetNicbotAutoStartButton
          // 
-         this.SetNicbotAutoStartButton.Location = new System.Drawing.Point(341, 420);
+         this.SetNicbotAutoStartButton.Location = new System.Drawing.Point(344, 384);
          this.SetNicbotAutoStartButton.Name = "SetNicbotAutoStartButton";
          this.SetNicbotAutoStartButton.Size = new System.Drawing.Size(46, 23);
          this.SetNicbotAutoStartButton.TabIndex = 146;
@@ -5399,7 +5279,7 @@
          // label63
          // 
          this.label63.AutoSize = true;
-         this.label63.Location = new System.Drawing.Point(302, 425);
+         this.label63.Location = new System.Drawing.Point(305, 389);
          this.label63.Name = "label63";
          this.label63.Size = new System.Drawing.Size(37, 13);
          this.label63.TabIndex = 145;
@@ -5407,7 +5287,7 @@
          // 
          // SetNicbotOriginHuntOffButton
          // 
-         this.SetNicbotOriginHuntOffButton.Location = new System.Drawing.Point(595, 420);
+         this.SetNicbotOriginHuntOffButton.Location = new System.Drawing.Point(598, 384);
          this.SetNicbotOriginHuntOffButton.Name = "SetNicbotOriginHuntOffButton";
          this.SetNicbotOriginHuntOffButton.Size = new System.Drawing.Size(40, 23);
          this.SetNicbotOriginHuntOffButton.TabIndex = 144;
@@ -5418,7 +5298,7 @@
          // label64
          // 
          this.label64.AutoSize = true;
-         this.label64.Location = new System.Drawing.Point(507, 425);
+         this.label64.Location = new System.Drawing.Point(510, 389);
          this.label64.Name = "label64";
          this.label64.Size = new System.Drawing.Size(45, 13);
          this.label64.TabIndex = 142;
@@ -5426,7 +5306,7 @@
          // 
          // SetNicbotOriginHuntOnButton
          // 
-         this.SetNicbotOriginHuntOnButton.Location = new System.Drawing.Point(554, 420);
+         this.SetNicbotOriginHuntOnButton.Location = new System.Drawing.Point(557, 384);
          this.SetNicbotOriginHuntOnButton.Name = "SetNicbotOriginHuntOnButton";
          this.SetNicbotOriginHuntOnButton.Size = new System.Drawing.Size(40, 23);
          this.SetNicbotOriginHuntOnButton.TabIndex = 143;
@@ -5438,51 +5318,22 @@
          // 
          this.NicbotBodyInspectGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-         this.NicbotBodyInspectGroupBox.Controls.Add(this.NicbotInspectLastCircumfertialLabel);
-         this.NicbotBodyInspectGroupBox.Controls.Add(this.NicbotInspectLastAxialLabel);
          this.NicbotBodyInspectGroupBox.Controls.Add(this.NicbotInspectSensorArmDeployCheckBox);
          this.NicbotBodyInspectGroupBox.Controls.Add(this.NicbotInspectSensorArmStowCheckBox);
-         this.NicbotBodyInspectGroupBox.Controls.Add(this.NicbotInspectWheelLockCheckBox);
          this.NicbotBodyInspectGroupBox.Controls.Add(this.NicbotInspectSensorExtendCheckBox);
          this.NicbotBodyInspectGroupBox.Controls.Add(this.NicbotInspectSensorRetractCheckBox);
-         this.NicbotBodyInspectGroupBox.Controls.Add(this.NicbotInspectWheelAxialCheckBox);
-         this.NicbotBodyInspectGroupBox.Controls.Add(this.NicbotInspectWheelCircumfernceCheckBox);
          this.NicbotBodyInspectGroupBox.Controls.Add(this.NicbotInspectLowerArmsRetractCheckBox);
          this.NicbotBodyInspectGroupBox.Controls.Add(this.NicbotInspectLowerArmsExtendCheckBox);
          this.NicbotBodyInspectGroupBox.Controls.Add(this.NicbotInspectRearArmRetractCheckBox);
          this.NicbotBodyInspectGroupBox.Controls.Add(this.NicbotInspectRearArmExtendCheckBox);
          this.NicbotBodyInspectGroupBox.Controls.Add(this.NicbotInspectFrontArmRetractCheckBox);
          this.NicbotBodyInspectGroupBox.Controls.Add(this.NicbotInspectFrontArmExtendCheckBox);
-         this.NicbotBodyInspectGroupBox.Controls.Add(this.NicbotInspectRearLowerLimitLabel);
-         this.NicbotBodyInspectGroupBox.Controls.Add(this.NicbotInspectRearUpperLimitLabel);
-         this.NicbotBodyInspectGroupBox.Controls.Add(this.NicbotInspectFrontLowerLimitLabel);
-         this.NicbotBodyInspectGroupBox.Controls.Add(this.NicbotInspectFrontUpperLimitLabel);
-         this.NicbotBodyInspectGroupBox.Location = new System.Drawing.Point(3, 574);
+         this.NicbotBodyInspectGroupBox.Location = new System.Drawing.Point(0, 509);
          this.NicbotBodyInspectGroupBox.Name = "NicbotBodyInspectGroupBox";
-         this.NicbotBodyInspectGroupBox.Size = new System.Drawing.Size(588, 102);
+         this.NicbotBodyInspectGroupBox.Size = new System.Drawing.Size(700, 79);
          this.NicbotBodyInspectGroupBox.TabIndex = 230;
          this.NicbotBodyInspectGroupBox.TabStop = false;
          this.NicbotBodyInspectGroupBox.Text = "INSPECT";
-         // 
-         // NicbotInspectLastCircumfertialLabel
-         // 
-         this.NicbotInspectLastCircumfertialLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-         this.NicbotInspectLastCircumfertialLabel.Location = new System.Drawing.Point(425, 75);
-         this.NicbotInspectLastCircumfertialLabel.Name = "NicbotInspectLastCircumfertialLabel";
-         this.NicbotInspectLastCircumfertialLabel.Size = new System.Drawing.Size(54, 18);
-         this.NicbotInspectLastCircumfertialLabel.TabIndex = 284;
-         this.NicbotInspectLastCircumfertialLabel.Text = "LAST-C";
-         this.NicbotInspectLastCircumfertialLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         // 
-         // NicbotInspectLastAxialLabel
-         // 
-         this.NicbotInspectLastAxialLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-         this.NicbotInspectLastAxialLabel.Location = new System.Drawing.Point(485, 75);
-         this.NicbotInspectLastAxialLabel.Name = "NicbotInspectLastAxialLabel";
-         this.NicbotInspectLastAxialLabel.Size = new System.Drawing.Size(54, 18);
-         this.NicbotInspectLastAxialLabel.TabIndex = 283;
-         this.NicbotInspectLastAxialLabel.Text = "LAST-A";
-         this.NicbotInspectLastAxialLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
          // 
          // NicbotInspectSensorArmDeployCheckBox
          // 
@@ -5506,17 +5357,6 @@
          this.NicbotInspectSensorArmStowCheckBox.UseVisualStyleBackColor = true;
          this.NicbotInspectSensorArmStowCheckBox.CheckedChanged += new System.EventHandler(this.NicbotInspectSensorArmStowCheckBox_CheckedChanged);
          // 
-         // NicbotInspectWheelLockCheckBox
-         // 
-         this.NicbotInspectWheelLockCheckBox.AutoSize = true;
-         this.NicbotInspectWheelLockCheckBox.Location = new System.Drawing.Point(25, 73);
-         this.NicbotInspectWheelLockCheckBox.Name = "NicbotInspectWheelLockCheckBox";
-         this.NicbotInspectWheelLockCheckBox.Size = new System.Drawing.Size(96, 17);
-         this.NicbotInspectWheelLockCheckBox.TabIndex = 282;
-         this.NicbotInspectWheelLockCheckBox.Text = "WHEEL LOCK";
-         this.NicbotInspectWheelLockCheckBox.UseVisualStyleBackColor = true;
-         this.NicbotInspectWheelLockCheckBox.CheckedChanged += new System.EventHandler(this.NicbotInspectWheelLockCheckBox_CheckedChanged);
-         // 
          // NicbotInspectSensorExtendCheckBox
          // 
          this.NicbotInspectSensorExtendCheckBox.AutoSize = true;
@@ -5538,28 +5378,6 @@
          this.NicbotInspectSensorRetractCheckBox.Text = "SENSOR RETRACT";
          this.NicbotInspectSensorRetractCheckBox.UseVisualStyleBackColor = true;
          this.NicbotInspectSensorRetractCheckBox.CheckedChanged += new System.EventHandler(this.NicbotInspectSensorRetractCheckBox_CheckedChanged);
-         // 
-         // NicbotInspectWheelAxialCheckBox
-         // 
-         this.NicbotInspectWheelAxialCheckBox.AutoSize = true;
-         this.NicbotInspectWheelAxialCheckBox.Location = new System.Drawing.Point(505, 55);
-         this.NicbotInspectWheelAxialCheckBox.Name = "NicbotInspectWheelAxialCheckBox";
-         this.NicbotInspectWheelAxialCheckBox.Size = new System.Drawing.Size(98, 17);
-         this.NicbotInspectWheelAxialCheckBox.TabIndex = 277;
-         this.NicbotInspectWheelAxialCheckBox.Text = "WHEEL AXIAL";
-         this.NicbotInspectWheelAxialCheckBox.UseVisualStyleBackColor = true;
-         this.NicbotInspectWheelAxialCheckBox.CheckedChanged += new System.EventHandler(this.NicbotInspectWheelAxialCheckBox_CheckedChanged);
-         // 
-         // NicbotInspectWheelCircumfernceCheckBox
-         // 
-         this.NicbotInspectWheelCircumfernceCheckBox.AutoSize = true;
-         this.NicbotInspectWheelCircumfernceCheckBox.Location = new System.Drawing.Point(345, 55);
-         this.NicbotInspectWheelCircumfernceCheckBox.Name = "NicbotInspectWheelCircumfernceCheckBox";
-         this.NicbotInspectWheelCircumfernceCheckBox.Size = new System.Drawing.Size(93, 17);
-         this.NicbotInspectWheelCircumfernceCheckBox.TabIndex = 276;
-         this.NicbotInspectWheelCircumfernceCheckBox.Text = "WHEEL CIRC";
-         this.NicbotInspectWheelCircumfernceCheckBox.UseVisualStyleBackColor = true;
-         this.NicbotInspectWheelCircumfernceCheckBox.CheckedChanged += new System.EventHandler(this.NicbotInspectWheelCircumfernceCheckBox_CheckedChanged);
          // 
          // NicbotInspectLowerArmsRetractCheckBox
          // 
@@ -5626,46 +5444,6 @@
          this.NicbotInspectFrontArmExtendCheckBox.Text = "FRONT ARM EXTEND";
          this.NicbotInspectFrontArmExtendCheckBox.UseVisualStyleBackColor = true;
          this.NicbotInspectFrontArmExtendCheckBox.CheckedChanged += new System.EventHandler(this.NicbotInspectFrontArmExtendCheckBox_CheckedChanged);
-         // 
-         // NicbotInspectRearLowerLimitLabel
-         // 
-         this.NicbotInspectRearLowerLimitLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-         this.NicbotInspectRearLowerLimitLabel.Location = new System.Drawing.Point(245, 75);
-         this.NicbotInspectRearLowerLimitLabel.Name = "NicbotInspectRearLowerLimitLabel";
-         this.NicbotInspectRearLowerLimitLabel.Size = new System.Drawing.Size(54, 18);
-         this.NicbotInspectRearLowerLimitLabel.TabIndex = 159;
-         this.NicbotInspectRearLowerLimitLabel.Text = "LR";
-         this.NicbotInspectRearLowerLimitLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         // 
-         // NicbotInspectRearUpperLimitLabel
-         // 
-         this.NicbotInspectRearUpperLimitLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-         this.NicbotInspectRearUpperLimitLabel.Location = new System.Drawing.Point(305, 75);
-         this.NicbotInspectRearUpperLimitLabel.Name = "NicbotInspectRearUpperLimitLabel";
-         this.NicbotInspectRearUpperLimitLabel.Size = new System.Drawing.Size(54, 18);
-         this.NicbotInspectRearUpperLimitLabel.TabIndex = 158;
-         this.NicbotInspectRearUpperLimitLabel.Text = "UR";
-         this.NicbotInspectRearUpperLimitLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         // 
-         // NicbotInspectFrontLowerLimitLabel
-         // 
-         this.NicbotInspectFrontLowerLimitLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-         this.NicbotInspectFrontLowerLimitLabel.Location = new System.Drawing.Point(185, 75);
-         this.NicbotInspectFrontLowerLimitLabel.Name = "NicbotInspectFrontLowerLimitLabel";
-         this.NicbotInspectFrontLowerLimitLabel.Size = new System.Drawing.Size(54, 18);
-         this.NicbotInspectFrontLowerLimitLabel.TabIndex = 157;
-         this.NicbotInspectFrontLowerLimitLabel.Text = "LF";
-         this.NicbotInspectFrontLowerLimitLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         // 
-         // NicbotInspectFrontUpperLimitLabel
-         // 
-         this.NicbotInspectFrontUpperLimitLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-         this.NicbotInspectFrontUpperLimitLabel.Location = new System.Drawing.Point(365, 75);
-         this.NicbotInspectFrontUpperLimitLabel.Name = "NicbotInspectFrontUpperLimitLabel";
-         this.NicbotInspectFrontUpperLimitLabel.Size = new System.Drawing.Size(54, 18);
-         this.NicbotInspectFrontUpperLimitLabel.TabIndex = 156;
-         this.NicbotInspectFrontUpperLimitLabel.Text = "UF";
-         this.NicbotInspectFrontUpperLimitLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
          // 
          // SetNicbotLightLevelButton
          // 
@@ -7298,10 +7076,6 @@
       private System.Windows.Forms.TextBox NicbotWheelTemperatureTextBox;
       private System.Windows.Forms.Label label130;
       private System.Windows.Forms.Label label124;
-      private System.Windows.Forms.Label NicbotInspectRearLowerLimitLabel;
-      private System.Windows.Forms.Label NicbotInspectRearUpperLimitLabel;
-      private System.Windows.Forms.Label NicbotInspectFrontLowerLimitLabel;
-      private System.Windows.Forms.Label NicbotInspectFrontUpperLimitLabel;
       private System.Windows.Forms.Button Rs232CommandSampleButton;
       private System.Windows.Forms.TextBox NicbotProducerHeartbeatTimeTextBox;
       private System.Windows.Forms.Button SetNicbotProducerHeartbeatButton;
@@ -7323,11 +7097,8 @@
       private System.Windows.Forms.Label label134;
       private System.Windows.Forms.CheckBox NicbotInspectSensorArmDeployCheckBox;
       private System.Windows.Forms.CheckBox NicbotInspectSensorArmStowCheckBox;
-      private System.Windows.Forms.CheckBox NicbotInspectWheelLockCheckBox;
       private System.Windows.Forms.CheckBox NicbotInspectSensorExtendCheckBox;
       private System.Windows.Forms.CheckBox NicbotInspectSensorRetractCheckBox;
-      private System.Windows.Forms.CheckBox NicbotInspectWheelAxialCheckBox;
-      private System.Windows.Forms.CheckBox NicbotInspectWheelCircumfernceCheckBox;
       private System.Windows.Forms.CheckBox NicbotInspectLowerArmsRetractCheckBox;
       private System.Windows.Forms.CheckBox NicbotInspectLowerArmsExtendCheckBox;
       private System.Windows.Forms.CheckBox NicbotInspectRearArmRetractCheckBox;
@@ -7339,23 +7110,12 @@
       private System.Windows.Forms.Button DecreaseNicbotLightLevelButton;
       private System.Windows.Forms.Button SetNicbotLightOffButton;
       private System.Windows.Forms.Button SetNicbotLightOnButton;
-      private System.Windows.Forms.CheckBox NicbotRepairWheelLockCheckBox;
-      private System.Windows.Forms.CheckBox NicbotRepairWheelAxialCheckBox;
-      private System.Windows.Forms.CheckBox NicbotRepairWheelCircumfernceCheckBox;
       private System.Windows.Forms.CheckBox NicbotRepairLowerArmRetractCheckBox;
       private System.Windows.Forms.CheckBox NicbotRepairLowerArmExtendCheckBox;
       private System.Windows.Forms.CheckBox NicbotRepairRearArmRetractCheckBox;
       private System.Windows.Forms.CheckBox NicbotRepairRearArmExtendCheckBox;
       private System.Windows.Forms.CheckBox NicbotRepairFrontArmRetractCheckBox;
       private System.Windows.Forms.CheckBox NicbotRepairFrontArmExtendCheckBox;
-      private System.Windows.Forms.Label NicbotInspectLastAxialLabel;
-      private System.Windows.Forms.Label NicbotInspectLastCircumfertialLabel;
-      private System.Windows.Forms.Label NicbotRepairLastCircumfertialLabel;
-      private System.Windows.Forms.Label NicbotRepairLastAxialLabel;
-      private System.Windows.Forms.Label NicbotRepairRearLowerLimitLabel;
-      private System.Windows.Forms.Label NicbotRepairRearUpperLimitLabel;
-      private System.Windows.Forms.Label NicbotRepairFrontLowerLimitLabel;
-      private System.Windows.Forms.Label NicbotRepairFrontUpperLimitLabel;
       private System.Windows.Forms.Button NicbotRepairRearLaserOnButton;
       private System.Windows.Forms.Label label144;
       private System.Windows.Forms.Button NicbotRepairRearLaserOffButton;

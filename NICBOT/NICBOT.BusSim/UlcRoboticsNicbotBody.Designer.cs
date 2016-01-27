@@ -53,13 +53,11 @@
          this.RearDrillIndexLabel = new System.Windows.Forms.Label();
          this.SensorIndexTextBox = new System.Windows.Forms.TextBox();
          this.SensorIndexLabel = new System.Windows.Forms.Label();
-         this.Solenoid12SolenoidControl = new NICBOT.BusSim.NicBotSolenoidControl();
          this.Solenoid10SolenoidControl = new NICBOT.BusSim.NicBotSolenoidControl();
          this.Solenoid8SolenoidControl = new NICBOT.BusSim.NicBotSolenoidControl();
          this.Solenoid6SolenoidControl = new NICBOT.BusSim.NicBotSolenoidControl();
          this.Solenoid4SolenoidControl = new NICBOT.BusSim.NicBotSolenoidControl();
          this.Solenoid2SolenoidControl = new NICBOT.BusSim.NicBotSolenoidControl();
-         this.Solenoid11SolenoidControl = new NICBOT.BusSim.NicBotSolenoidControl();
          this.Solenoid9SolenoidControl = new NICBOT.BusSim.NicBotSolenoidControl();
          this.Solenoid7SolenoidControl = new NICBOT.BusSim.NicBotSolenoidControl();
          this.Solenoid5SolenoidControl = new NICBOT.BusSim.NicBotSolenoidControl();
@@ -122,15 +120,8 @@
          this.AccelerometerYTextBox = new System.Windows.Forms.TextBox();
          this.AccelerometerXTextBox = new System.Windows.Forms.TextBox();
          this.SetAccelerometerButton = new System.Windows.Forms.Button();
-         this.Solenoid13SolenoidControl = new NICBOT.BusSim.NicBotSolenoidControl();
-         this.TopFrontReadyToLockCheckBox = new System.Windows.Forms.CheckBox();
-         this.BottomFrontReadyToLockCheckBox = new System.Windows.Forms.CheckBox();
-         this.TopRearReadyToLockCheckBox = new System.Windows.Forms.CheckBox();
-         this.BottomRearReadyToLockCheckBox = new System.Windows.Forms.CheckBox();
          this.RearDrillRetractLimitCheckBox = new System.Windows.Forms.CheckBox();
          this.RearDrillExtendLimitCheckBox = new System.Windows.Forms.CheckBox();
-         this.SensorCcwLimitCheckBox = new System.Windows.Forms.CheckBox();
-         this.SensorCwLimitCheckBox = new System.Windows.Forms.CheckBox();
          this.FrontDrillRetractLimitCheckBox = new System.Windows.Forms.CheckBox();
          this.FrontDrillExtendLimitCheckBox = new System.Windows.Forms.CheckBox();
          this.Servo0UserControl = new NICBOT.BusSim.NicbotBodyServoUserControl();
@@ -294,7 +285,7 @@
          // 
          // FrontDrillSpeedTextBox
          // 
-         this.FrontDrillSpeedTextBox.Location = new System.Drawing.Point(151, 291);
+         this.FrontDrillSpeedTextBox.Location = new System.Drawing.Point(151, 258);
          this.FrontDrillSpeedTextBox.MaxLength = 3;
          this.FrontDrillSpeedTextBox.Name = "FrontDrillSpeedTextBox";
          this.FrontDrillSpeedTextBox.ReadOnly = true;
@@ -306,7 +297,7 @@
          // FrontDrillSpeedLabel
          // 
          this.FrontDrillSpeedLabel.AutoSize = true;
-         this.FrontDrillSpeedLabel.Location = new System.Drawing.Point(32, 294);
+         this.FrontDrillSpeedLabel.Location = new System.Drawing.Point(32, 261);
          this.FrontDrillSpeedLabel.Name = "FrontDrillSpeedLabel";
          this.FrontDrillSpeedLabel.Size = new System.Drawing.Size(117, 13);
          this.FrontDrillSpeedLabel.TabIndex = 170;
@@ -315,7 +306,7 @@
          // 
          // RearDrillSpeedTextBox
          // 
-         this.RearDrillSpeedTextBox.Location = new System.Drawing.Point(414, 291);
+         this.RearDrillSpeedTextBox.Location = new System.Drawing.Point(414, 258);
          this.RearDrillSpeedTextBox.MaxLength = 3;
          this.RearDrillSpeedTextBox.Name = "RearDrillSpeedTextBox";
          this.RearDrillSpeedTextBox.ReadOnly = true;
@@ -327,7 +318,7 @@
          // RearDrillSpeedLabel
          // 
          this.RearDrillSpeedLabel.AutoSize = true;
-         this.RearDrillSpeedLabel.Location = new System.Drawing.Point(302, 294);
+         this.RearDrillSpeedLabel.Location = new System.Drawing.Point(302, 261);
          this.RearDrillSpeedLabel.Name = "RearDrillSpeedLabel";
          this.RearDrillSpeedLabel.Size = new System.Drawing.Size(110, 13);
          this.RearDrillSpeedLabel.TabIndex = 172;
@@ -336,7 +327,7 @@
          // 
          // FrontDrillIndexTextBox
          // 
-         this.FrontDrillIndexTextBox.Location = new System.Drawing.Point(151, 314);
+         this.FrontDrillIndexTextBox.Location = new System.Drawing.Point(151, 281);
          this.FrontDrillIndexTextBox.MaxLength = 3;
          this.FrontDrillIndexTextBox.Name = "FrontDrillIndexTextBox";
          this.FrontDrillIndexTextBox.ReadOnly = true;
@@ -348,7 +339,7 @@
          // FrontDrillIndexLabel
          // 
          this.FrontDrillIndexLabel.AutoSize = true;
-         this.FrontDrillIndexLabel.Location = new System.Drawing.Point(35, 317);
+         this.FrontDrillIndexLabel.Location = new System.Drawing.Point(35, 284);
          this.FrontDrillIndexLabel.Name = "FrontDrillIndexLabel";
          this.FrontDrillIndexLabel.Size = new System.Drawing.Size(114, 13);
          this.FrontDrillIndexLabel.TabIndex = 174;
@@ -357,7 +348,7 @@
          // 
          // RearDrillIndexTextBox
          // 
-         this.RearDrillIndexTextBox.Location = new System.Drawing.Point(414, 314);
+         this.RearDrillIndexTextBox.Location = new System.Drawing.Point(414, 281);
          this.RearDrillIndexTextBox.MaxLength = 3;
          this.RearDrillIndexTextBox.Name = "RearDrillIndexTextBox";
          this.RearDrillIndexTextBox.ReadOnly = true;
@@ -369,7 +360,7 @@
          // RearDrillIndexLabel
          // 
          this.RearDrillIndexLabel.AutoSize = true;
-         this.RearDrillIndexLabel.Location = new System.Drawing.Point(305, 317);
+         this.RearDrillIndexLabel.Location = new System.Drawing.Point(305, 284);
          this.RearDrillIndexLabel.Name = "RearDrillIndexLabel";
          this.RearDrillIndexLabel.Size = new System.Drawing.Size(107, 13);
          this.RearDrillIndexLabel.TabIndex = 176;
@@ -378,7 +369,7 @@
          // 
          // SensorIndexTextBox
          // 
-         this.SensorIndexTextBox.Location = new System.Drawing.Point(652, 314);
+         this.SensorIndexTextBox.Location = new System.Drawing.Point(652, 281);
          this.SensorIndexTextBox.MaxLength = 3;
          this.SensorIndexTextBox.Name = "SensorIndexTextBox";
          this.SensorIndexTextBox.ReadOnly = true;
@@ -390,25 +381,12 @@
          // SensorIndexLabel
          // 
          this.SensorIndexLabel.AutoSize = true;
-         this.SensorIndexLabel.Location = new System.Drawing.Point(562, 317);
+         this.SensorIndexLabel.Location = new System.Drawing.Point(562, 284);
          this.SensorIndexLabel.Name = "SensorIndexLabel";
          this.SensorIndexLabel.Size = new System.Drawing.Size(88, 13);
          this.SensorIndexLabel.TabIndex = 178;
          this.SensorIndexLabel.Text = "SENSOR INDEX";
          this.SensorIndexLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-         // 
-         // Solenoid12SolenoidControl
-         // 
-         this.Solenoid12SolenoidControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-         this.Solenoid12SolenoidControl.Location = new System.Drawing.Point(563, 221);
-         this.Solenoid12SolenoidControl.MaximumSize = new System.Drawing.Size(181, 31);
-         this.Solenoid12SolenoidControl.MinimumSize = new System.Drawing.Size(181, 31);
-         this.Solenoid12SolenoidControl.Name = "Solenoid12SolenoidControl";
-         this.Solenoid12SolenoidControl.Running = false;
-         this.Solenoid12SolenoidControl.Size = new System.Drawing.Size(181, 31);
-         this.Solenoid12SolenoidControl.SolenoidOn = false;
-         this.Solenoid12SolenoidControl.TabIndex = 165;
-         this.Solenoid12SolenoidControl.Title = "WHEEL AXIAL";
          // 
          // Solenoid10SolenoidControl
          // 
@@ -474,19 +452,6 @@
          this.Solenoid2SolenoidControl.SolenoidOn = false;
          this.Solenoid2SolenoidControl.TabIndex = 160;
          this.Solenoid2SolenoidControl.Title = "FRONT NOZZLE";
-         // 
-         // Solenoid11SolenoidControl
-         // 
-         this.Solenoid11SolenoidControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-         this.Solenoid11SolenoidControl.Location = new System.Drawing.Point(380, 221);
-         this.Solenoid11SolenoidControl.MaximumSize = new System.Drawing.Size(181, 31);
-         this.Solenoid11SolenoidControl.MinimumSize = new System.Drawing.Size(181, 31);
-         this.Solenoid11SolenoidControl.Name = "Solenoid11SolenoidControl";
-         this.Solenoid11SolenoidControl.Running = false;
-         this.Solenoid11SolenoidControl.Size = new System.Drawing.Size(181, 31);
-         this.Solenoid11SolenoidControl.SolenoidOn = false;
-         this.Solenoid11SolenoidControl.TabIndex = 159;
-         this.Solenoid11SolenoidControl.Title = "WHEEL CIRC";
          // 
          // Solenoid9SolenoidControl
          // 
@@ -723,7 +688,7 @@
          // 
          // ActualSensorIndexTextBox
          // 
-         this.ActualSensorIndexTextBox.Location = new System.Drawing.Point(698, 314);
+         this.ActualSensorIndexTextBox.Location = new System.Drawing.Point(698, 281);
          this.ActualSensorIndexTextBox.MaxLength = 3;
          this.ActualSensorIndexTextBox.Name = "ActualSensorIndexTextBox";
          this.ActualSensorIndexTextBox.ReadOnly = true;
@@ -734,7 +699,7 @@
          // 
          // ActualRearDrillSpeedTextBox
          // 
-         this.ActualRearDrillSpeedTextBox.Location = new System.Drawing.Point(460, 291);
+         this.ActualRearDrillSpeedTextBox.Location = new System.Drawing.Point(460, 258);
          this.ActualRearDrillSpeedTextBox.MaxLength = 3;
          this.ActualRearDrillSpeedTextBox.Name = "ActualRearDrillSpeedTextBox";
          this.ActualRearDrillSpeedTextBox.ReadOnly = true;
@@ -745,7 +710,7 @@
          // 
          // ActualRearDrillIndexTextBox
          // 
-         this.ActualRearDrillIndexTextBox.Location = new System.Drawing.Point(460, 314);
+         this.ActualRearDrillIndexTextBox.Location = new System.Drawing.Point(460, 281);
          this.ActualRearDrillIndexTextBox.MaxLength = 3;
          this.ActualRearDrillIndexTextBox.Name = "ActualRearDrillIndexTextBox";
          this.ActualRearDrillIndexTextBox.ReadOnly = true;
@@ -756,7 +721,7 @@
          // 
          // ActualFrontDrillSpeedTextBox
          // 
-         this.ActualFrontDrillSpeedTextBox.Location = new System.Drawing.Point(197, 291);
+         this.ActualFrontDrillSpeedTextBox.Location = new System.Drawing.Point(197, 258);
          this.ActualFrontDrillSpeedTextBox.MaxLength = 3;
          this.ActualFrontDrillSpeedTextBox.Name = "ActualFrontDrillSpeedTextBox";
          this.ActualFrontDrillSpeedTextBox.ReadOnly = true;
@@ -767,7 +732,7 @@
          // 
          // ActualFrontDrillIndexTextBox
          // 
-         this.ActualFrontDrillIndexTextBox.Location = new System.Drawing.Point(197, 314);
+         this.ActualFrontDrillIndexTextBox.Location = new System.Drawing.Point(197, 281);
          this.ActualFrontDrillIndexTextBox.MaxLength = 3;
          this.ActualFrontDrillIndexTextBox.Name = "ActualFrontDrillIndexTextBox";
          this.ActualFrontDrillIndexTextBox.ReadOnly = true;
@@ -822,7 +787,7 @@
          // 
          this.FrontLaserOnOffLabel.BackColor = System.Drawing.Color.DarkSlateGray;
          this.FrontLaserOnOffLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-         this.FrontLaserOnOffLabel.Location = new System.Drawing.Point(243, 291);
+         this.FrontLaserOnOffLabel.Location = new System.Drawing.Point(243, 258);
          this.FrontLaserOnOffLabel.Name = "FrontLaserOnOffLabel";
          this.FrontLaserOnOffLabel.Size = new System.Drawing.Size(26, 20);
          this.FrontLaserOnOffLabel.TabIndex = 189;
@@ -833,7 +798,7 @@
          // 
          this.RearLaserOnOffLabel.BackColor = System.Drawing.Color.DarkSlateGray;
          this.RearLaserOnOffLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-         this.RearLaserOnOffLabel.Location = new System.Drawing.Point(506, 291);
+         this.RearLaserOnOffLabel.Location = new System.Drawing.Point(506, 258);
          this.RearLaserOnOffLabel.Name = "RearLaserOnOffLabel";
          this.RearLaserOnOffLabel.Size = new System.Drawing.Size(26, 20);
          this.RearLaserOnOffLabel.TabIndex = 191;
@@ -842,7 +807,7 @@
          // 
          // FrontDrillIndexOriginTextBox
          // 
-         this.FrontDrillIndexOriginTextBox.Location = new System.Drawing.Point(243, 314);
+         this.FrontDrillIndexOriginTextBox.Location = new System.Drawing.Point(243, 281);
          this.FrontDrillIndexOriginTextBox.MaxLength = 3;
          this.FrontDrillIndexOriginTextBox.Name = "FrontDrillIndexOriginTextBox";
          this.FrontDrillIndexOriginTextBox.Size = new System.Drawing.Size(40, 20);
@@ -852,7 +817,7 @@
          // 
          // RearDrillIndexOriginTextBox
          // 
-         this.RearDrillIndexOriginTextBox.Location = new System.Drawing.Point(506, 314);
+         this.RearDrillIndexOriginTextBox.Location = new System.Drawing.Point(506, 281);
          this.RearDrillIndexOriginTextBox.MaxLength = 3;
          this.RearDrillIndexOriginTextBox.Name = "RearDrillIndexOriginTextBox";
          this.RearDrillIndexOriginTextBox.Size = new System.Drawing.Size(40, 20);
@@ -946,7 +911,7 @@
          this.DrillAutoGroupBox.Controls.Add(this.AutoDrillControlTextBox);
          this.DrillAutoGroupBox.Controls.Add(this.label9);
          this.DrillAutoGroupBox.Controls.Add(this.label8);
-         this.DrillAutoGroupBox.Location = new System.Drawing.Point(10, 456);
+         this.DrillAutoGroupBox.Location = new System.Drawing.Point(10, 386);
          this.DrillAutoGroupBox.Name = "DrillAutoGroupBox";
          this.DrillAutoGroupBox.Size = new System.Drawing.Size(728, 87);
          this.DrillAutoGroupBox.TabIndex = 200;
@@ -1115,7 +1080,7 @@
          // label17
          // 
          this.label17.AutoSize = true;
-         this.label17.Location = new System.Drawing.Point(43, 550);
+         this.label17.Location = new System.Drawing.Point(43, 480);
          this.label17.Name = "label17";
          this.label17.Size = new System.Drawing.Size(112, 13);
          this.label17.TabIndex = 201;
@@ -1124,7 +1089,7 @@
          // 
          // AccelerometerXSetpointTextBox
          // 
-         this.AccelerometerXSetpointTextBox.Location = new System.Drawing.Point(203, 547);
+         this.AccelerometerXSetpointTextBox.Location = new System.Drawing.Point(203, 477);
          this.AccelerometerXSetpointTextBox.MaxLength = 3;
          this.AccelerometerXSetpointTextBox.Name = "AccelerometerXSetpointTextBox";
          this.AccelerometerXSetpointTextBox.Size = new System.Drawing.Size(40, 20);
@@ -1135,7 +1100,7 @@
          // label18
          // 
          this.label18.AutoSize = true;
-         this.label18.Location = new System.Drawing.Point(249, 550);
+         this.label18.Location = new System.Drawing.Point(249, 480);
          this.label18.Name = "label18";
          this.label18.Size = new System.Drawing.Size(112, 13);
          this.label18.TabIndex = 203;
@@ -1145,7 +1110,7 @@
          // label19
          // 
          this.label19.AutoSize = true;
-         this.label19.Location = new System.Drawing.Point(456, 550);
+         this.label19.Location = new System.Drawing.Point(456, 480);
          this.label19.Name = "label19";
          this.label19.Size = new System.Drawing.Size(112, 13);
          this.label19.TabIndex = 204;
@@ -1154,7 +1119,7 @@
          // 
          // AccelerometerYSetpointTextBox
          // 
-         this.AccelerometerYSetpointTextBox.Location = new System.Drawing.Point(410, 547);
+         this.AccelerometerYSetpointTextBox.Location = new System.Drawing.Point(410, 477);
          this.AccelerometerYSetpointTextBox.MaxLength = 3;
          this.AccelerometerYSetpointTextBox.Name = "AccelerometerYSetpointTextBox";
          this.AccelerometerYSetpointTextBox.Size = new System.Drawing.Size(40, 20);
@@ -1164,7 +1129,7 @@
          // 
          // AccelerometerZSetpointTextBox
          // 
-         this.AccelerometerZSetpointTextBox.Location = new System.Drawing.Point(616, 547);
+         this.AccelerometerZSetpointTextBox.Location = new System.Drawing.Point(616, 477);
          this.AccelerometerZSetpointTextBox.MaxLength = 3;
          this.AccelerometerZSetpointTextBox.Name = "AccelerometerZSetpointTextBox";
          this.AccelerometerZSetpointTextBox.Size = new System.Drawing.Size(40, 20);
@@ -1174,7 +1139,7 @@
          // 
          // AccelerometerZTextBox
          // 
-         this.AccelerometerZTextBox.Location = new System.Drawing.Point(570, 547);
+         this.AccelerometerZTextBox.Location = new System.Drawing.Point(570, 477);
          this.AccelerometerZTextBox.MaxLength = 3;
          this.AccelerometerZTextBox.Name = "AccelerometerZTextBox";
          this.AccelerometerZTextBox.ReadOnly = true;
@@ -1185,7 +1150,7 @@
          // 
          // AccelerometerYTextBox
          // 
-         this.AccelerometerYTextBox.Location = new System.Drawing.Point(364, 547);
+         this.AccelerometerYTextBox.Location = new System.Drawing.Point(364, 477);
          this.AccelerometerYTextBox.MaxLength = 3;
          this.AccelerometerYTextBox.Name = "AccelerometerYTextBox";
          this.AccelerometerYTextBox.ReadOnly = true;
@@ -1196,7 +1161,7 @@
          // 
          // AccelerometerXTextBox
          // 
-         this.AccelerometerXTextBox.Location = new System.Drawing.Point(157, 547);
+         this.AccelerometerXTextBox.Location = new System.Drawing.Point(157, 477);
          this.AccelerometerXTextBox.MaxLength = 3;
          this.AccelerometerXTextBox.Name = "AccelerometerXTextBox";
          this.AccelerometerXTextBox.ReadOnly = true;
@@ -1207,7 +1172,7 @@
          // 
          // SetAccelerometerButton
          // 
-         this.SetAccelerometerButton.Location = new System.Drawing.Point(662, 545);
+         this.SetAccelerometerButton.Location = new System.Drawing.Point(662, 475);
          this.SetAccelerometerButton.Name = "SetAccelerometerButton";
          this.SetAccelerometerButton.Size = new System.Drawing.Size(48, 23);
          this.SetAccelerometerButton.TabIndex = 211;
@@ -1215,63 +1180,10 @@
          this.SetAccelerometerButton.UseVisualStyleBackColor = true;
          this.SetAccelerometerButton.Click += new System.EventHandler(this.SetAccelerometerButton_Click);
          // 
-         // Solenoid13SolenoidControl
-         // 
-         this.Solenoid13SolenoidControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-         this.Solenoid13SolenoidControl.Location = new System.Drawing.Point(380, 254);
-         this.Solenoid13SolenoidControl.MaximumSize = new System.Drawing.Size(181, 31);
-         this.Solenoid13SolenoidControl.MinimumSize = new System.Drawing.Size(181, 31);
-         this.Solenoid13SolenoidControl.Name = "Solenoid13SolenoidControl";
-         this.Solenoid13SolenoidControl.Running = false;
-         this.Solenoid13SolenoidControl.Size = new System.Drawing.Size(181, 31);
-         this.Solenoid13SolenoidControl.SolenoidOn = false;
-         this.Solenoid13SolenoidControl.TabIndex = 212;
-         this.Solenoid13SolenoidControl.Title = "WHEEL LOCK";
-         // 
-         // TopFrontReadyToLockCheckBox
-         // 
-         this.TopFrontReadyToLockCheckBox.AutoSize = true;
-         this.TopFrontReadyToLockCheckBox.Location = new System.Drawing.Point(569, 262);
-         this.TopFrontReadyToLockCheckBox.Name = "TopFrontReadyToLockCheckBox";
-         this.TopFrontReadyToLockCheckBox.Size = new System.Drawing.Size(40, 17);
-         this.TopFrontReadyToLockCheckBox.TabIndex = 213;
-         this.TopFrontReadyToLockCheckBox.Text = "UF";
-         this.TopFrontReadyToLockCheckBox.UseVisualStyleBackColor = true;
-         // 
-         // BottomFrontReadyToLockCheckBox
-         // 
-         this.BottomFrontReadyToLockCheckBox.AutoSize = true;
-         this.BottomFrontReadyToLockCheckBox.Location = new System.Drawing.Point(655, 262);
-         this.BottomFrontReadyToLockCheckBox.Name = "BottomFrontReadyToLockCheckBox";
-         this.BottomFrontReadyToLockCheckBox.Size = new System.Drawing.Size(38, 17);
-         this.BottomFrontReadyToLockCheckBox.TabIndex = 214;
-         this.BottomFrontReadyToLockCheckBox.Text = "LF";
-         this.BottomFrontReadyToLockCheckBox.UseVisualStyleBackColor = true;
-         // 
-         // TopRearReadyToLockCheckBox
-         // 
-         this.TopRearReadyToLockCheckBox.AutoSize = true;
-         this.TopRearReadyToLockCheckBox.Location = new System.Drawing.Point(611, 262);
-         this.TopRearReadyToLockCheckBox.Name = "TopRearReadyToLockCheckBox";
-         this.TopRearReadyToLockCheckBox.Size = new System.Drawing.Size(42, 17);
-         this.TopRearReadyToLockCheckBox.TabIndex = 215;
-         this.TopRearReadyToLockCheckBox.Text = "UR";
-         this.TopRearReadyToLockCheckBox.UseVisualStyleBackColor = true;
-         // 
-         // BottomRearReadyToLockCheckBox
-         // 
-         this.BottomRearReadyToLockCheckBox.AutoSize = true;
-         this.BottomRearReadyToLockCheckBox.Location = new System.Drawing.Point(695, 262);
-         this.BottomRearReadyToLockCheckBox.Name = "BottomRearReadyToLockCheckBox";
-         this.BottomRearReadyToLockCheckBox.Size = new System.Drawing.Size(40, 17);
-         this.BottomRearReadyToLockCheckBox.TabIndex = 216;
-         this.BottomRearReadyToLockCheckBox.Text = "LR";
-         this.BottomRearReadyToLockCheckBox.UseVisualStyleBackColor = true;
-         // 
          // RearDrillRetractLimitCheckBox
          // 
          this.RearDrillRetractLimitCheckBox.AutoSize = true;
-         this.RearDrillRetractLimitCheckBox.Location = new System.Drawing.Point(482, 336);
+         this.RearDrillRetractLimitCheckBox.Location = new System.Drawing.Point(482, 303);
          this.RearDrillRetractLimitCheckBox.Name = "RearDrillRetractLimitCheckBox";
          this.RearDrillRetractLimitCheckBox.Size = new System.Drawing.Size(77, 17);
          this.RearDrillRetractLimitCheckBox.TabIndex = 218;
@@ -1281,37 +1193,17 @@
          // RearDrillExtendLimitCheckBox
          // 
          this.RearDrillExtendLimitCheckBox.AutoSize = true;
-         this.RearDrillExtendLimitCheckBox.Location = new System.Drawing.Point(414, 336);
+         this.RearDrillExtendLimitCheckBox.Location = new System.Drawing.Point(414, 303);
          this.RearDrillExtendLimitCheckBox.Name = "RearDrillExtendLimitCheckBox";
          this.RearDrillExtendLimitCheckBox.Size = new System.Drawing.Size(70, 17);
          this.RearDrillExtendLimitCheckBox.TabIndex = 217;
          this.RearDrillExtendLimitCheckBox.Text = "EXTEND";
          this.RearDrillExtendLimitCheckBox.UseVisualStyleBackColor = true;
          // 
-         // SensorCcwLimitCheckBox
-         // 
-         this.SensorCcwLimitCheckBox.AutoSize = true;
-         this.SensorCcwLimitCheckBox.Location = new System.Drawing.Point(702, 336);
-         this.SensorCcwLimitCheckBox.Name = "SensorCcwLimitCheckBox";
-         this.SensorCcwLimitCheckBox.Size = new System.Drawing.Size(51, 17);
-         this.SensorCcwLimitCheckBox.TabIndex = 220;
-         this.SensorCcwLimitCheckBox.Text = "CCW";
-         this.SensorCcwLimitCheckBox.UseVisualStyleBackColor = true;
-         // 
-         // SensorCwLimitCheckBox
-         // 
-         this.SensorCwLimitCheckBox.AutoSize = true;
-         this.SensorCwLimitCheckBox.Location = new System.Drawing.Point(652, 336);
-         this.SensorCwLimitCheckBox.Name = "SensorCwLimitCheckBox";
-         this.SensorCwLimitCheckBox.Size = new System.Drawing.Size(44, 17);
-         this.SensorCwLimitCheckBox.TabIndex = 219;
-         this.SensorCwLimitCheckBox.Text = "CW";
-         this.SensorCwLimitCheckBox.UseVisualStyleBackColor = true;
-         // 
          // FrontDrillRetractLimitCheckBox
          // 
          this.FrontDrillRetractLimitCheckBox.AutoSize = true;
-         this.FrontDrillRetractLimitCheckBox.Location = new System.Drawing.Point(219, 336);
+         this.FrontDrillRetractLimitCheckBox.Location = new System.Drawing.Point(219, 303);
          this.FrontDrillRetractLimitCheckBox.Name = "FrontDrillRetractLimitCheckBox";
          this.FrontDrillRetractLimitCheckBox.Size = new System.Drawing.Size(77, 17);
          this.FrontDrillRetractLimitCheckBox.TabIndex = 222;
@@ -1321,7 +1213,7 @@
          // FrontDrillExtendLimitCheckBox
          // 
          this.FrontDrillExtendLimitCheckBox.AutoSize = true;
-         this.FrontDrillExtendLimitCheckBox.Location = new System.Drawing.Point(151, 336);
+         this.FrontDrillExtendLimitCheckBox.Location = new System.Drawing.Point(151, 303);
          this.FrontDrillExtendLimitCheckBox.Name = "FrontDrillExtendLimitCheckBox";
          this.FrontDrillExtendLimitCheckBox.Size = new System.Drawing.Size(70, 17);
          this.FrontDrillExtendLimitCheckBox.TabIndex = 221;
@@ -1332,7 +1224,7 @@
          // 
          this.Servo0UserControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
          this.Servo0UserControl.DisplayName = "SERVO 0";
-         this.Servo0UserControl.Location = new System.Drawing.Point(3, 359);
+         this.Servo0UserControl.Location = new System.Drawing.Point(3, 326);
          this.Servo0UserControl.Name = "Servo0UserControl";
          this.Servo0UserControl.Size = new System.Drawing.Size(741, 26);
          this.Servo0UserControl.TabIndex = 223;
@@ -1341,7 +1233,7 @@
          // 
          this.Servo1UserControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
          this.Servo1UserControl.DisplayName = "SERVO 1";
-         this.Servo1UserControl.Location = new System.Drawing.Point(3, 387);
+         this.Servo1UserControl.Location = new System.Drawing.Point(3, 354);
          this.Servo1UserControl.Name = "Servo1UserControl";
          this.Servo1UserControl.Size = new System.Drawing.Size(741, 26);
          this.Servo1UserControl.TabIndex = 224;
@@ -1355,15 +1247,8 @@
          this.Controls.Add(this.Servo0UserControl);
          this.Controls.Add(this.FrontDrillRetractLimitCheckBox);
          this.Controls.Add(this.FrontDrillExtendLimitCheckBox);
-         this.Controls.Add(this.SensorCcwLimitCheckBox);
-         this.Controls.Add(this.SensorCwLimitCheckBox);
          this.Controls.Add(this.RearDrillRetractLimitCheckBox);
          this.Controls.Add(this.RearDrillExtendLimitCheckBox);
-         this.Controls.Add(this.BottomRearReadyToLockCheckBox);
-         this.Controls.Add(this.TopRearReadyToLockCheckBox);
-         this.Controls.Add(this.BottomFrontReadyToLockCheckBox);
-         this.Controls.Add(this.TopFrontReadyToLockCheckBox);
-         this.Controls.Add(this.Solenoid13SolenoidControl);
          this.Controls.Add(this.SetAccelerometerButton);
          this.Controls.Add(this.AccelerometerZTextBox);
          this.Controls.Add(this.AccelerometerYTextBox);
@@ -1402,13 +1287,11 @@
          this.Controls.Add(this.label5);
          this.Controls.Add(this.SolenoidControlTextBox);
          this.Controls.Add(this.label4);
-         this.Controls.Add(this.Solenoid12SolenoidControl);
          this.Controls.Add(this.Solenoid10SolenoidControl);
          this.Controls.Add(this.Solenoid8SolenoidControl);
          this.Controls.Add(this.Solenoid6SolenoidControl);
          this.Controls.Add(this.Solenoid4SolenoidControl);
          this.Controls.Add(this.Solenoid2SolenoidControl);
-         this.Controls.Add(this.Solenoid11SolenoidControl);
          this.Controls.Add(this.Solenoid9SolenoidControl);
          this.Controls.Add(this.Solenoid7SolenoidControl);
          this.Controls.Add(this.Solenoid5SolenoidControl);
@@ -1438,7 +1321,7 @@
          this.Controls.Add(this.NodeIdTextBox);
          this.Controls.Add(this.label1);
          this.Name = "UlcRoboticsNicbotBody";
-         this.Size = new System.Drawing.Size(754, 595);
+         this.Size = new System.Drawing.Size(754, 507);
          this.DrillAutoGroupBox.ResumeLayout(false);
          this.DrillAutoGroupBox.PerformLayout();
          this.ResumeLayout(false);
@@ -1475,9 +1358,7 @@
       private NicBotSolenoidControl Solenoid3SolenoidControl;
       private NicBotSolenoidControl Solenoid7SolenoidControl;
       private NicBotSolenoidControl Solenoid5SolenoidControl;
-      private NicBotSolenoidControl Solenoid11SolenoidControl;
       private NicBotSolenoidControl Solenoid9SolenoidControl;
-      private NicBotSolenoidControl Solenoid12SolenoidControl;
       private NicBotSolenoidControl Solenoid10SolenoidControl;
       private NicBotSolenoidControl Solenoid8SolenoidControl;
       private NicBotSolenoidControl Solenoid6SolenoidControl;
@@ -1542,15 +1423,8 @@
       private System.Windows.Forms.TextBox AccelerometerYTextBox;
       private System.Windows.Forms.TextBox AccelerometerXTextBox;
       private System.Windows.Forms.Button SetAccelerometerButton;
-      private NicBotSolenoidControl Solenoid13SolenoidControl;
-      private System.Windows.Forms.CheckBox TopFrontReadyToLockCheckBox;
-      private System.Windows.Forms.CheckBox BottomFrontReadyToLockCheckBox;
-      private System.Windows.Forms.CheckBox TopRearReadyToLockCheckBox;
-      private System.Windows.Forms.CheckBox BottomRearReadyToLockCheckBox;
       private System.Windows.Forms.CheckBox RearDrillRetractLimitCheckBox;
       private System.Windows.Forms.CheckBox RearDrillExtendLimitCheckBox;
-      private System.Windows.Forms.CheckBox SensorCcwLimitCheckBox;
-      private System.Windows.Forms.CheckBox SensorCwLimitCheckBox;
       private System.Windows.Forms.CheckBox FrontDrillRetractLimitCheckBox;
       private System.Windows.Forms.CheckBox FrontDrillExtendLimitCheckBox;
       private NicbotBodyServoUserControl Servo0UserControl;

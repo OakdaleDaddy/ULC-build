@@ -22,10 +22,6 @@ namespace NICBOT.GUI
       lowerArmExtend,
       lowerArmRetract,
 
-      wheelCircumferential,
-      wheelAxial,
-      wheelLock,
-
       sensorExtend,
       sensorRetract,
 

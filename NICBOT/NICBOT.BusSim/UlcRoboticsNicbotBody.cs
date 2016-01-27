@@ -105,7 +105,6 @@ namespace NICBOT.BusSim
       //private bool controlPauseAuto;
       
       private UInt16 statusWord;
-      private UInt16 lastWheelSelect;
       //private bool statusAutoDrillOriginFound;
       //private bool statusAutoDrillCutComplete;
       //private bool statusAutoDrillOriginHunting;
@@ -799,16 +798,8 @@ namespace NICBOT.BusSim
          }
          else if (1 == this.Mode)
          {
-            result |= (UInt16)((false != this.SensorCcwLimitCheckBox.Checked) ? 0x0400 : 0);
-            result |= (UInt16)((false != this.SensorCwLimitCheckBox.Checked) ? 0x0800 : 0);
          }
 
-         result |= lastWheelSelect;
-         result |= (UInt16)((false != this.TopFrontReadyToLockCheckBox.Checked) ? 0x8000 : 0);
-         result |= (UInt16)((false != this.BottomRearReadyToLockCheckBox.Checked) ? 0x4000 : 0);
-         result |= (UInt16)((false != this.TopRearReadyToLockCheckBox.Checked) ? 0x2000 : 0);
-         result |= (UInt16)((false != this.BottomFrontReadyToLockCheckBox.Checked) ? 0x1000 : 0);
-         
          return (result);
       }
       
@@ -879,15 +870,11 @@ namespace NICBOT.BusSim
                this.Solenoid8SolenoidControl.SolenoidOn = ((this.solenoidControl & 0x0080) != 0) ? true : false;
                this.Solenoid9SolenoidControl.SolenoidOn = ((this.solenoidControl & 0x0001) != 0) ? true : false;
                this.Solenoid10SolenoidControl.SolenoidOn = ((this.solenoidControl & 0x0002) != 0) ? true : false;
-               this.Solenoid11SolenoidControl.SolenoidOn = ((this.solenoidControl & 0x0010) != 0) ? true : false;
-               this.Solenoid12SolenoidControl.SolenoidOn = ((this.solenoidControl & 0x0020) != 0) ? true : false;
-               this.Solenoid13SolenoidControl.SolenoidOn = ((this.solenoidControl & 0x0800) != 0) ? true : false;
 
                UInt16 wheelModeSelectValue = (UInt16)(value & 0x0030);
 
                if (0 != wheelModeSelectValue)
                {
-                  this.lastWheelSelect = (UInt16)(wheelModeSelectValue << 2);
                }
             }
             else if (1 == this.Mode)
@@ -902,15 +889,11 @@ namespace NICBOT.BusSim
                this.Solenoid8SolenoidControl.SolenoidOn = ((this.solenoidControl & 0x2000) != 0) ? true : false;
                this.Solenoid9SolenoidControl.SolenoidOn = ((this.solenoidControl & 0x0020) != 0) ? true : false;
                this.Solenoid10SolenoidControl.SolenoidOn = ((this.solenoidControl & 0x0010) != 0) ? true : false;
-               this.Solenoid11SolenoidControl.SolenoidOn = ((this.solenoidControl & 0x0040) != 0) ? true : false;
-               this.Solenoid12SolenoidControl.SolenoidOn = ((this.solenoidControl & 0x0080) != 0) ? true : false;
-               this.Solenoid13SolenoidControl.SolenoidOn = ((this.solenoidControl & 0x0800) != 0) ? true : false;
 
                UInt16 wheelModeSelectValue = (UInt16)(value & 0x00C0);
 
                if (0 != wheelModeSelectValue)
                {
-                  this.lastWheelSelect = wheelModeSelectValue;
                }
             }
          }
@@ -1599,9 +1582,6 @@ namespace NICBOT.BusSim
             this.Solenoid8SolenoidControl.Running = false;
             this.Solenoid9SolenoidControl.Running = false;
             this.Solenoid10SolenoidControl.Running = false;
-            this.Solenoid11SolenoidControl.Running = false;
-            this.Solenoid12SolenoidControl.Running = false;
-            this.Solenoid13SolenoidControl.Running = false;
          }
 
          this.Mode = this.nvMode;
@@ -1840,9 +1820,6 @@ namespace NICBOT.BusSim
          this.Solenoid8SolenoidControl.Running = true;
          this.Solenoid9SolenoidControl.Running = true;
          this.Solenoid10SolenoidControl.Running = true;
-         this.Solenoid11SolenoidControl.Running = true;
-         this.Solenoid12SolenoidControl.Running = true;
-         this.Solenoid13SolenoidControl.Running = true;
 
          this.DeviceStateLabel.Text = "RUNNING";
 
@@ -1899,9 +1876,6 @@ namespace NICBOT.BusSim
          this.Solenoid8SolenoidControl.Running = false;
          this.Solenoid9SolenoidControl.Running = false;
          this.Solenoid10SolenoidControl.Running = false;
-         this.Solenoid11SolenoidControl.Running = false;
-         this.Solenoid12SolenoidControl.Running = false;
-         this.Solenoid13SolenoidControl.Running = false;
          
          this.DeviceStateLabel.Text = "STOPPED";
       }
@@ -2999,7 +2973,6 @@ namespace NICBOT.BusSim
          this.NodeIdTextBox.Enabled = false;
 
          this.active = this.EnabledCheckBox.Checked;
-         this.lastWheelSelect = 0;
          this.Reset(true);
 
          if (false == this.active)

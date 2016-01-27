@@ -14,48 +14,9 @@ namespace NICBOT.GUI
    {
       #region Fields
 
-      private bool wheelLocked;
-      private bool wheelChanging;
-      private bool topFrontWheelNotReadyToLock;
-      private bool topRearWheelNotReadyToLock;
-      private bool bottomFrontWheelNotReadyToLock;
-      private bool bottomRearWheelNotReadyToLock;
-
       #endregion
 
       #region Helper Functions
-
-      private void UpdateWheelStatus(TextBox statusBox, bool readyToLock, ref bool notReadyToLock, ref int count)
-      {
-         if (false != this.wheelChanging)
-         {
-            if (false == readyToLock)
-            {
-               notReadyToLock = true;
-            }
-
-            if (false != readyToLock)
-            {
-               if (false == notReadyToLock)
-               {
-                  statusBox.BackColor = Color.Red;
-               }
-               else
-               {
-                  statusBox.BackColor = Color.Green;
-                  count++;
-               }
-            }
-            else
-            {
-               statusBox.BackColor = Color.Black;
-            }
-         }
-         else
-         {
-            statusBox.BackColor = (false != readyToLock) ? Color.LimeGreen : Color.Black;
-         }
-      }
 
       private void UpdateDisplay()
       {
@@ -146,9 +107,6 @@ namespace NICBOT.GUI
          this.RearArmRetractButton.OptionASelected = NicBotComm.Instance.GetSolenoidActive(Solenoids.rearArmRetract);
          this.LowerArmsExtendButton.OptionASelected = NicBotComm.Instance.GetSolenoidActive(Solenoids.lowerArmExtend);
          this.LowerArmsRetractButton.OptionASelected = NicBotComm.Instance.GetSolenoidActive(Solenoids.lowerArmRetract);
-         this.WheelsCircumferenceButton.OptionASelected = NicBotComm.Instance.GetSolenoidActive(Solenoids.wheelCircumferential);
-         this.WheelsAxialButton.OptionASelected = NicBotComm.Instance.GetSolenoidActive(Solenoids.wheelAxial);
-         this.WheelLockButton.OptionASelected = NicBotComm.Instance.GetSolenoidActive(Solenoids.wheelLock);
       }
 
       #endregion
@@ -267,50 +225,6 @@ namespace NICBOT.GUI
          this.UpdateDisplay();
       }
 
-      private void WheelsCircumferenceButton_Click(object sender, EventArgs e)
-      {
-         bool request = !this.WheelsCircumferenceButton.OptionASelected;
-
-         if ((false != request) && (false == this.wheelLocked))
-         {
-            this.wheelChanging = true;
-
-            this.topFrontWheelNotReadyToLock = !NicBotComm.Instance.GetTopFrontReadyToLock();
-            this.topRearWheelNotReadyToLock = !NicBotComm.Instance.GetTopRearReadyToLock();
-            this.bottomFrontWheelNotReadyToLock = !NicBotComm.Instance.GetBottomFrontReadyToLock();
-            this.bottomRearWheelNotReadyToLock = !NicBotComm.Instance.GetBottomRearReadyToLock();
-         }
-
-         NicBotComm.Instance.SetSolenoid(Solenoids.wheelCircumferential, request);
-         this.UpdateDisplay();
-      }
-
-      private void WheelsAxialButton_Click(object sender, EventArgs e)
-      {
-         bool request = !this.WheelsAxialButton.OptionASelected;
-
-         if ((false != request) && (false == this.wheelLocked))
-         {
-            this.wheelChanging = true;
-
-            this.topFrontWheelNotReadyToLock = !NicBotComm.Instance.GetTopFrontReadyToLock();
-            this.topRearWheelNotReadyToLock = !NicBotComm.Instance.GetTopRearReadyToLock();
-            this.bottomFrontWheelNotReadyToLock = !NicBotComm.Instance.GetBottomFrontReadyToLock();
-            this.bottomRearWheelNotReadyToLock = !NicBotComm.Instance.GetBottomRearReadyToLock();
-         }
-
-         NicBotComm.Instance.SetSolenoid(Solenoids.wheelAxial, request);
-         this.UpdateDisplay();
-      }
-
-      private void WheelLockButton_Click(object sender, EventArgs e)
-      {
-         bool request = !this.WheelLockButton.OptionASelected;
-         this.wheelLocked = request;
-         NicBotComm.Instance.SetSolenoid(Solenoids.wheelLock, request);
-         this.UpdateDisplay();
-      }
-
       #endregion
 
       private void BackButton_Click(object sender, EventArgs e)
@@ -324,30 +238,7 @@ namespace NICBOT.GUI
 
       private void BodySetupForm_Shown(object sender, EventArgs e)
       {
-         //this.FrontNozzleButton.Enabled = NicBotComm.Instance.DrillAtRetractionLimit(ToolLocations.front);
-         //this.RearNozzleButton.Enabled = NicBotComm.Instance.DrillAtRetractionLimit(ToolLocations.rear);
-
-         this.wheelLocked = NicBotComm.Instance.GetSolenoidActive(Solenoids.wheelLock);
-         this.wheelChanging = false;
-         // todo interlock on wheel controls and changing by user
-
          this.UpdateDisplay();
-         this.UpdateTimer.Enabled = true;
-      }
-
-      private void UpdateTimer_Tick(object sender, EventArgs e)
-      {
-         int count = 0;
-
-         this.UpdateWheelStatus(this.TopFrontWheelIndicatorTextBox, NicBotComm.Instance.GetTopFrontReadyToLock(), ref this.topFrontWheelNotReadyToLock, ref count);
-         this.UpdateWheelStatus(this.TopRearWheelIndicatorTextBox, NicBotComm.Instance.GetTopRearReadyToLock(), ref this.topRearWheelNotReadyToLock, ref count);
-         this.UpdateWheelStatus(this.BottomFrontWheelIndicatorTextBox, NicBotComm.Instance.GetBottomFrontReadyToLock(), ref this.bottomFrontWheelNotReadyToLock, ref count);
-         this.UpdateWheelStatus(this.BottomRearWheelIndicatorTextBox, NicBotComm.Instance.GetBottomRearReadyToLock(), ref this.bottomRearWheelNotReadyToLock, ref count);
-
-         if ((false != this.wheelChanging) && (4 == count))
-         {
-            this.wheelChanging = false;
-         }
       }
 
       #endregion

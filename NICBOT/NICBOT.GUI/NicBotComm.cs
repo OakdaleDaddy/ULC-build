@@ -591,11 +591,6 @@ namespace NICBOT.GUI
          RobotCommBus.Instance.SetSolenoid(solenoid, activate);
       }
 
-      public void SetMovementWheelModes(MovementWheelModes mode)
-      {
-         RobotCommBus.Instance.SetMovementWheelModes(mode);
-      }
-
       public void SetBodyPosition(BodyPositions bodyPosition)
       {
          RobotCommBus.Instance.SetBodyPosition(bodyPosition);

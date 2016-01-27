@@ -3165,9 +3165,6 @@ namespace NICBOT.DeviceTest
                   this.NicbotInspectRearArmRetractCheckBox.Checked = ((solenoidCache & 0x2000) != 0) ? true : false;
                   this.NicbotInspectLowerArmsRetractCheckBox.Checked = ((solenoidCache & 0x0010) != 0) ? true : false;
                   this.NicbotInspectLowerArmsExtendCheckBox.Checked = ((solenoidCache & 0x0020) != 0) ? true : false;
-                  this.NicbotInspectWheelCircumfernceCheckBox.Checked = ((solenoidCache & 0x0040) != 0) ? true : false;
-                  this.NicbotInspectWheelAxialCheckBox.Checked = ((solenoidCache & 0x0080) != 0) ? true : false;
-                  this.NicbotInspectWheelLockCheckBox.Checked = ((solenoidCache & 0x0800) != 0) ? true : false;
                   this.nicbotBodyAssigningSolenoidValues = false;
                }
                else
@@ -3735,21 +3732,6 @@ namespace NICBOT.DeviceTest
       private void NicbotRepairLowerArmRetractCheckBox_CheckedChanged(object sender, EventArgs e)
       {
          this.UpdateNicbotSolenoidSelect(1, this.NicbotRepairLowerArmRetractCheckBox.Checked);
-      }
-
-      private void NicbotRepairWheelCircumfernceCheckBox_CheckedChanged(object sender, EventArgs e)
-      {
-         this.UpdateNicbotSolenoidSelect(4, this.NicbotRepairWheelCircumfernceCheckBox.Checked);
-      }
-
-      private void NicbotRepairWheelAxialCheckBox_CheckedChanged(object sender, EventArgs e)
-      {
-         this.UpdateNicbotSolenoidSelect(5, this.NicbotRepairWheelAxialCheckBox.Checked);
-      }
-
-      private void NicbotRepairWheelLockCheckBox_CheckedChanged(object sender, EventArgs e)
-      {
-         this.UpdateNicbotSolenoidSelect(11, this.NicbotRepairWheelLockCheckBox.Checked);
       }
 
       #endregion
@@ -4861,21 +4843,6 @@ namespace NICBOT.DeviceTest
          this.UpdateNicbotSolenoidSelect(4, this.NicbotInspectLowerArmsRetractCheckBox.Checked);
       }
 
-      private void NicbotInspectWheelCircumfernceCheckBox_CheckedChanged(object sender, EventArgs e)
-      {
-         this.UpdateNicbotSolenoidSelect(6, this.NicbotInspectWheelCircumfernceCheckBox.Checked);
-      }
-
-      private void NicbotInspectWheelAxialCheckBox_CheckedChanged(object sender, EventArgs e)
-      {
-         this.UpdateNicbotSolenoidSelect(7, this.NicbotInspectWheelAxialCheckBox.Checked);
-      }
-
-      private void NicbotInspectWheelLockCheckBox_CheckedChanged(object sender, EventArgs e)
-      {
-         this.UpdateNicbotSolenoidSelect(11, this.NicbotInspectWheelLockCheckBox.Checked);
-      }
-
       #endregion
 
       #endregion
@@ -5860,25 +5827,10 @@ namespace NICBOT.DeviceTest
             this.NicbotRepairFrontDrillRetractLabel.BackColor = (false != this.nicbotBody.FrontDrillAtRetractionLimit) ? Color.Yellow : Color.DarkSlateGray;
             this.NicbotRepairRearDrillExtendLabel.BackColor = (false != this.nicbotBody.RearDrillAtExtensionLimit) ? Color.Yellow : Color.DarkSlateGray;
             this.NicbotRepairRearDrillRetractLabel.BackColor = (false != this.nicbotBody.RearDrillAtRetractionLimit) ? Color.Yellow : Color.DarkSlateGray;
-
-            this.NicbotRepairFrontUpperLimitLabel.BackColor = (false != this.nicbotBody.TopFrontReadyToLock) ? Color.Green : Color.DarkSlateGray;
-            this.NicbotRepairFrontLowerLimitLabel.BackColor = (false != this.nicbotBody.BottomFrontReadyToLock) ? Color.Green : Color.DarkSlateGray;
-            this.NicbotRepairRearUpperLimitLabel.BackColor = (false != this.nicbotBody.TopRearReadyToLock) ? Color.Green : Color.DarkSlateGray;
-            this.NicbotRepairRearLowerLimitLabel.BackColor = (false != this.nicbotBody.BottomRearReadyToLock) ? Color.Green : Color.DarkSlateGray;
-
-            this.NicbotRepairLastAxialLabel.BackColor = (false != this.nicbotBody.LastAxial) ? Color.Green : Color.DarkSlateGray;
-            this.NicbotRepairLastCircumfertialLabel.BackColor = (false != this.nicbotBody.LastCircumferential) ? Color.Green : Color.DarkSlateGray;
          }
 
          if (UlcRoboticsNicbotBody.Modes.inspect == this.nicbotBody.Mode)
          {
-            this.NicbotInspectFrontUpperLimitLabel.BackColor = (false != this.nicbotBody.TopFrontReadyToLock) ? Color.Green : Color.DarkSlateGray;
-            this.NicbotInspectFrontLowerLimitLabel.BackColor = (false != this.nicbotBody.BottomFrontReadyToLock) ? Color.Green : Color.DarkSlateGray;
-            this.NicbotInspectRearUpperLimitLabel.BackColor = (false != this.nicbotBody.TopRearReadyToLock) ? Color.Green : Color.DarkSlateGray;
-            this.NicbotInspectRearLowerLimitLabel.BackColor = (false != this.nicbotBody.BottomRearReadyToLock) ? Color.Green : Color.DarkSlateGray;
-
-            this.NicbotInspectLastAxialLabel.BackColor = (false != this.nicbotBody.LastAxial) ? Color.Green : Color.DarkSlateGray;
-            this.NicbotInspectLastCircumfertialLabel.BackColor = (false != this.nicbotBody.LastCircumferential) ? Color.Green : Color.DarkSlateGray;
          }
 
          #endregion

@@ -29,19 +29,6 @@ namespace NICBOT.GUI
          RobotBottomRearWheel,
       }
 
-      private enum MovementWheelModeChangeStates
-      {
-         idle,
-         waitLastRequest,
-         unlockWheels,
-         waitForWheelUnlock,
-         waitForLastRequestClear,
-         setNewRequest,
-         waitForNewRequestSet,
-         waitForWheelLock,
-      };
-
-
       #endregion
 
       #region Fields
@@ -84,13 +71,6 @@ namespace NICBOT.GUI
 
       private MovementWheelModes movementWheelModeChangeRequest;
       private MovementWheelModes movementWheelModeActual;
-      private DateTime movementWheelModeTimeLimit;
-      private MovementWheelModeChangeStates movementWheelModeChangeState;
-      private MovementWheelModes movementWheelModeProcessing;
-      private bool movementWheelModeChangeTopFrontNotReadyToLock;
-      private bool movementWheelModeChangeTopRearNotReadyToLock;
-      private bool movementWheelModeChangeBottomFrontNotReadyToLock;
-      private bool movementWheelModeChangeBottomRearNotReadyToLock;
 
       private double movementRequest;
       private double movementManualVelocity;
@@ -180,18 +160,6 @@ namespace NICBOT.GUI
             {
                result = 0x0001;
             }
-            else if (Solenoids.wheelCircumferential == solenoid)
-            {
-               result = 0x0010;
-            }
-            else if (Solenoids.wheelAxial == solenoid)
-            {
-               result = 0x0020;
-            }
-            else if (Solenoids.wheelLock == solenoid)
-            {
-               result = 0x0800;
-            }
             else if (Solenoids.rearArmExtend == solenoid)
             {
                result = 0x0040;
@@ -234,18 +202,6 @@ namespace NICBOT.GUI
             else if (Solenoids.lowerArmExtend == solenoid)
             {
                result = 0x0020;
-            }
-            else if (Solenoids.wheelCircumferential == solenoid)
-            {
-               result = 0x0040;
-            }
-            else if (Solenoids.wheelAxial == solenoid)
-            {
-               result = 0x0080;
-            }
-            else if (Solenoids.wheelLock == solenoid)
-            {
-               result = 0x0800;
             }
             else if (Solenoids.rearArmExtend == solenoid)
             {
@@ -636,12 +592,6 @@ namespace NICBOT.GUI
 
       }
 
-      private void SetRobotWheelModeChangeState(MovementWheelModeChangeStates newState)
-      {
-         Tracer.WriteHigh(TraceGroup.RBUS, "", "wheel mode change {0}", newState);
-         this.movementWheelModeChangeState = newState;
-      }
-
       private void StartRobotBody()
       {
          this.robotBody.SetConsumerHeartbeat((UInt16)ParameterAccessor.Instance.RobotBus.ConsumerHeartbeatRate, (byte)ParameterAccessor.Instance.RobotBus.ControllerBusId);
@@ -675,7 +625,6 @@ namespace NICBOT.GUI
 
          this.movementWheelModeChangeRequest = startWheelMode;
          this.movementWheelModeActual = startWheelMode;
-         this.SetRobotWheelModeChangeState(MovementWheelModeChangeStates.idle);
 
          Thread.Sleep(50);
 
@@ -683,187 +632,6 @@ namespace NICBOT.GUI
          {
             this.drillFrontConfigurationNeeded = true;
             this.drillRearConfigurationNeeded = true;
-         }
-      }
-
-      private void UpdateRobotWheelMode()
-      {
-         if (MovementWheelModeChangeStates.idle == this.movementWheelModeChangeState)
-         {
-            if (this.movementWheelModeChangeRequest != this.movementWheelModeActual)
-            {
-               this.movementWheelModeProcessing = this.movementWheelModeChangeRequest;
-               this.movementWheelModeChangeTopFrontNotReadyToLock = false;
-               this.movementWheelModeChangeTopRearNotReadyToLock = false;
-               this.movementWheelModeChangeBottomFrontNotReadyToLock = false;
-               this.movementWheelModeChangeBottomRearNotReadyToLock = false;
-
-               if (MovementWheelModes.neither != this.movementWheelModeActual)
-               {
-                  if (MovementWheelModes.axial == this.movementWheelModeActual)
-                  {
-                     this.SetSolenoid(Solenoids.wheelAxial, true);
-                  }
-                  else
-                  {
-                     this.SetSolenoid(Solenoids.wheelCircumferential, true);
-                  }
-
-                  this.movementWheelModeTimeLimit = DateTime.Now.AddMilliseconds(500);
-                  this.SetRobotWheelModeChangeState(MovementWheelModeChangeStates.waitLastRequest);
-               }
-               else
-               {
-                  this.SetRobotWheelModeChangeState(MovementWheelModeChangeStates.unlockWheels);
-               }
-            }
-         }
-         else if (MovementWheelModeChangeStates.waitLastRequest == this.movementWheelModeChangeState)
-         {
-            if (DateTime.Now > this.movementWheelModeTimeLimit)
-            {
-               this.SetRobotWheelModeChangeState(MovementWheelModeChangeStates.unlockWheels);
-            }
-         }
-         else if (MovementWheelModeChangeStates.unlockWheels == this.movementWheelModeChangeState)
-         {
-            this.SetSolenoid(Solenoids.wheelLock, false);
-            this.movementWheelModeTimeLimit = DateTime.Now.AddMilliseconds(500);
-            this.SetRobotWheelModeChangeState(MovementWheelModeChangeStates.waitForWheelUnlock);
-         }
-         else if (MovementWheelModeChangeStates.waitForWheelUnlock == this.movementWheelModeChangeState)
-         {
-            if (DateTime.Now > this.movementWheelModeTimeLimit)
-            {
-               if (MovementWheelModes.neither != this.movementWheelModeActual)
-               {
-                  if (MovementWheelModes.axial == this.movementWheelModeActual)
-                  {
-                     this.SetSolenoid(Solenoids.wheelAxial, false);
-                  }
-                  else
-                  {
-                     this.SetSolenoid(Solenoids.wheelCircumferential, false);
-                  }
-
-                  this.movementWheelModeTimeLimit = DateTime.Now.AddMilliseconds(100);
-                  this.SetRobotWheelModeChangeState(MovementWheelModeChangeStates.waitForLastRequestClear);
-               }
-               else
-               {
-                  this.SetRobotWheelModeChangeState(MovementWheelModeChangeStates.setNewRequest);
-               }
-            }
-         }
-         else if (MovementWheelModeChangeStates.waitForLastRequestClear == this.movementWheelModeChangeState)
-         {
-            if (DateTime.Now > this.movementWheelModeTimeLimit)
-            {
-               this.SetRobotWheelModeChangeState(MovementWheelModeChangeStates.setNewRequest);
-            }
-         }
-         else if (MovementWheelModeChangeStates.setNewRequest == this.movementWheelModeChangeState)
-         {
-            if (MovementWheelModes.axial == this.movementWheelModeProcessing)
-            {
-               this.SetSolenoid(Solenoids.wheelAxial, true);
-            }
-            else
-            {
-               this.SetSolenoid(Solenoids.wheelCircumferential, true);
-            }
-
-            this.movementWheelModeTimeLimit = DateTime.Now.AddMilliseconds(2000);
-            this.SetRobotWheelModeChangeState(MovementWheelModeChangeStates.waitForNewRequestSet);
-         }
-         else if (MovementWheelModeChangeStates.waitForNewRequestSet == this.movementWheelModeChangeState)
-         {
-            if ((false == this.movementWheelModeChangeTopFrontNotReadyToLock) &&
-                (false == this.robotBody.TopFrontReadyToLock))
-            {
-               Tracer.WriteHigh(TraceGroup.RBUS, "", "wheel mode change, top front out of position");
-               this.movementWheelModeChangeTopFrontNotReadyToLock = true;
-            }
-
-            if ((false == this.movementWheelModeChangeTopRearNotReadyToLock) &&
-                (false == this.robotBody.TopRearReadyToLock))
-            {
-               Tracer.WriteHigh(TraceGroup.RBUS, "", "wheel mode change, top rear out of position");
-               this.movementWheelModeChangeTopRearNotReadyToLock = true;
-            }
-
-            if ((false == this.movementWheelModeChangeBottomFrontNotReadyToLock) &&
-                (false == this.robotBody.BottomFrontReadyToLock))
-            {
-               Tracer.WriteHigh(TraceGroup.RBUS, "", "wheel mode change, bottom front out of position");
-               this.movementWheelModeChangeBottomFrontNotReadyToLock = true;
-            }
-
-            if ((false == this.movementWheelModeChangeBottomRearNotReadyToLock) &&
-                (false == this.robotBody.BottomRearReadyToLock))
-            {
-               Tracer.WriteHigh(TraceGroup.RBUS, "", "wheel mode change, bottom rear out of position");
-               this.movementWheelModeChangeBottomRearNotReadyToLock = true;
-            }
-
-            if ((MovementWheelModes.neither == this.movementWheelModeActual) &&
-                (false == this.movementWheelModeChangeTopRearNotReadyToLock) &&
-                (false == this.movementWheelModeChangeTopRearNotReadyToLock) &&
-                (false == this.movementWheelModeChangeBottomFrontNotReadyToLock) &&
-                (false == this.movementWheelModeChangeBottomRearNotReadyToLock) &&
-                (DateTime.Now > this.movementWheelModeTimeLimit))
-            {
-               this.SetSolenoid(Solenoids.wheelLock, true);
-               this.movementWheelModeTimeLimit = DateTime.Now.AddMilliseconds(500);
-               this.SetRobotWheelModeChangeState(MovementWheelModeChangeStates.waitForWheelLock);
-            }
-            else if ((false != this.robotBody.TopFrontReadyToLock) &&
-                     (false != this.robotBody.TopRearReadyToLock) &&
-                     (false != this.robotBody.BottomFrontReadyToLock) &&
-                     (false != this.robotBody.BottomRearReadyToLock) &&
-                     (false != this.movementWheelModeChangeTopRearNotReadyToLock) &&                     
-                     (false != this.movementWheelModeChangeTopRearNotReadyToLock) &&                     
-                     (false != this.movementWheelModeChangeBottomFrontNotReadyToLock) &&                     
-                     (false != this.movementWheelModeChangeBottomRearNotReadyToLock))
-            {
-               this.SetSolenoid(Solenoids.wheelLock, true);
-               this.movementWheelModeTimeLimit = DateTime.Now.AddMilliseconds(500);
-               this.SetRobotWheelModeChangeState(MovementWheelModeChangeStates.waitForWheelLock);
-            }
-         }
-         else if (MovementWheelModeChangeStates.waitForWheelLock == this.movementWheelModeChangeState)
-         {
-            if (DateTime.Now > this.movementWheelModeTimeLimit)
-            {
-               if (MovementWheelModes.axial == this.movementWheelModeProcessing)
-               {
-                  this.SetSolenoid(Solenoids.wheelAxial, false);
-               }
-               else
-               {
-                  this.SetSolenoid(Solenoids.wheelCircumferential, false);
-               }
-
-               this.movementWheelModeActual = this.movementWheelModeProcessing;
-               MovementForwardModes movementForwardMode = this.GetMovementForwardMode();
-
-               if (MovementWheelModes.axial == this.movementWheelModeActual)
-               {
-                  if (MovementForwardModes.circumferential == movementForwardMode)
-                  {
-                     this.SetMovementForwardMode(MovementForwardModes.normalAxial);
-                  }
-               }
-               else
-               {
-                  if (MovementForwardModes.circumferential != movementForwardMode)
-                  {
-                     this.SetMovementForwardMode(MovementForwardModes.circumferential);
-                  }
-               }
-
-               this.SetRobotWheelModeChangeState(MovementWheelModeChangeStates.idle);
-            }
          }
       }
 
@@ -895,7 +663,7 @@ namespace NICBOT.GUI
             }
          }
 
-         this.UpdateRobotWheelMode();
+         this.movementWheelModeActual = this.movementWheelModeChangeRequest;
 
          lock (this)
          {
@@ -1811,33 +1579,6 @@ namespace NICBOT.GUI
          this.UpdateSolenoidSetPoint(adjustedSolenoidStatus);
       }
 
-      public void SetMovementWheelModes(MovementWheelModes mode)
-      {
-         UInt16 adjustedSolenoidStatus = this.robotSolenoidSetPoint;
-
-         if (MovementWheelModes.neither == mode)
-         {
-            adjustedSolenoidStatus &= (UInt16)(~(this.GetSolenoidMask(Solenoids.wheelAxial) | this.GetSolenoidMask(Solenoids.wheelCircumferential)));
-         }
-         else if (MovementWheelModes.circumferential == mode)
-         {
-            adjustedSolenoidStatus &= (UInt16)~(this.GetSolenoidMask(Solenoids.wheelAxial));
-            adjustedSolenoidStatus |= this.GetSolenoidMask(Solenoids.wheelCircumferential);
-         }
-         else if (MovementWheelModes.axial == mode)
-         {
-            adjustedSolenoidStatus &= (UInt16)~(this.GetSolenoidMask(Solenoids.wheelCircumferential));
-            adjustedSolenoidStatus |= this.GetSolenoidMask(Solenoids.wheelAxial);
-         }
-         else if (MovementWheelModes.both == mode)
-         {
-            adjustedSolenoidStatus |= this.GetSolenoidMask(Solenoids.wheelCircumferential);
-            adjustedSolenoidStatus |= this.GetSolenoidMask(Solenoids.wheelAxial);
-         }
-
-         this.UpdateSolenoidSetPoint(adjustedSolenoidStatus);
-      }
-
       public void SetBodyPosition(BodyPositions bodyPosition)
       {
          UInt16 adjustedSolenoidStatus = this.robotSolenoidSetPoint;
@@ -1858,8 +1599,6 @@ namespace NICBOT.GUI
             adjustedSolenoidStatus |= this.GetSolenoidMask(Solenoids.frontArmRetract);
             adjustedSolenoidStatus |= this.GetSolenoidMask(Solenoids.rearArmRetract);
             adjustedSolenoidStatus |= this.GetSolenoidMask(Solenoids.lowerArmRetract);
-            adjustedSolenoidStatus |= this.GetSolenoidMask(Solenoids.wheelAxial);
-            adjustedSolenoidStatus &= (UInt16)~(this.GetSolenoidMask(Solenoids.wheelCircumferential));
          }
          else if (BodyPositions.opened == bodyPosition)
          {
@@ -1958,10 +1697,6 @@ namespace NICBOT.GUI
          bool rearArmRetracted = this.GetSolenoidActive(Solenoids.rearArmRetract);
          bool lowerArmRetracted = this.GetSolenoidActive(Solenoids.lowerArmRetract);
 
-         bool wheelAxial = this.GetSolenoidActive(Solenoids.wheelAxial);
-         bool wheelCircumferential = this.GetSolenoidActive(Solenoids.wheelCircumferential);
-         bool wheelLock = this.GetSolenoidActive(Solenoids.wheelLock);
-
          BodyPositions result = BodyPositions.manual;
 
          if ((false == frontDrillOpen) &&
@@ -1973,10 +1708,7 @@ namespace NICBOT.GUI
              (false == lowerArmExtended) &&
              (false == frontArmRetracted) &&
              (false == rearArmRetracted) &&
-             (false == lowerArmRetracted) &&
-             (false == wheelAxial) &&
-             (false == wheelCircumferential) &&
-             (false == wheelLock))
+             (false == lowerArmRetracted))
          {
             result = BodyPositions.off;
          }
@@ -1989,8 +1721,7 @@ namespace NICBOT.GUI
                   (false == lowerArmExtended) &&
                   (false != frontArmRetracted) &&
                   (false != rearArmRetracted) &&
-                  (false != lowerArmRetracted) &&
-                  (false != wheelLock))
+                  (false != lowerArmRetracted))
          {
             result = BodyPositions.closed;
          }
@@ -2148,12 +1879,10 @@ namespace NICBOT.GUI
          if (mode == MovementForwardModes.circumferential)
          {
             this.movementWheelModeChangeRequest = MovementWheelModes.circumferential;
-            //this.SetMovementWheelModes(MovementWheelModes.circumferential);
          }
          else
          {
             this.movementWheelModeChangeRequest = MovementWheelModes.axial;
-            //this.SetMovementWheelModes(MovementWheelModes.axial);
          }
 
          this.movementForwardMode = mode;
