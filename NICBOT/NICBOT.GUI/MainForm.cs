@@ -311,35 +311,71 @@ namespace NICBOT.GUI
          }
       }
 
-      private void IncrementReelManualCurrent()
+      private void IncrementReelManualValue()
       {
-         double limit = ParameterAccessor.Instance.ReelManualCurrent.MaximumValue - ParameterAccessor.Instance.ReelManualCurrent.StepValue;
-
-         if (ParameterAccessor.Instance.ReelManualCurrent.OperationalValue <= limit)
+         if (MovementForwardControls.current == ParameterAccessor.Instance.ReelMotionMode)
          {
-            ParameterAccessor.Instance.ReelManualCurrent.OperationalValue += ParameterAccessor.Instance.ReelManualCurrent.StepValue;
+            double limit = ParameterAccessor.Instance.ReelManualCurrent.MaximumValue - ParameterAccessor.Instance.ReelManualCurrent.StepValue;
 
-            this.ReelManualCurrentTextPanel.ValueText = this.GetValueText(ParameterAccessor.Instance.ReelManualCurrent);
+            if (ParameterAccessor.Instance.ReelManualCurrent.OperationalValue <= limit)
+            {
+               ParameterAccessor.Instance.ReelManualCurrent.OperationalValue += ParameterAccessor.Instance.ReelManualCurrent.StepValue;
 
-            double directionalModifier = (false != this.ReelManualTorqueDirectionToggleButton.OptionASelected) ? 1 : -1;
-            double manualCurrent = ParameterAccessor.Instance.ReelManualCurrent.OperationalValue * directionalModifier;
-            NicBotComm.Instance.SetReelManualCurrent(manualCurrent);
+               this.ReelManualValueTextPanel.ValueText = this.GetValueText(ParameterAccessor.Instance.ReelManualCurrent);
+
+               double directionalModifier = (false != this.ReelManualDirectionToggleButton.OptionASelected) ? 1 : -1;
+               double manualCurrent = ParameterAccessor.Instance.ReelManualCurrent.OperationalValue * directionalModifier;
+               NicBotComm.Instance.SetReelManualCurrent(manualCurrent);
+            }
+         }
+         else
+         {
+            double limit = ParameterAccessor.Instance.ReelManualSpeed.MaximumValue - ParameterAccessor.Instance.ReelManualSpeed.StepValue;
+
+            if (ParameterAccessor.Instance.ReelManualSpeed.OperationalValue <= limit)
+            {
+               ParameterAccessor.Instance.ReelManualSpeed.OperationalValue += ParameterAccessor.Instance.ReelManualSpeed.StepValue;
+
+               this.ReelManualValueTextPanel.ValueText = this.GetValueText(ParameterAccessor.Instance.ReelManualSpeed);
+
+               double directionalModifier = (false != this.ReelManualDirectionToggleButton.OptionASelected) ? 1 : -1;
+               double manualSpeed = ParameterAccessor.Instance.ReelManualSpeed.OperationalValue * directionalModifier;
+               NicBotComm.Instance.SetReelManualSpeed(manualSpeed);
+            }
          }
       }
 
-      private void DecrementReelManualCurrent()
+      private void DecrementReelManualValue()
       {
-         double limit = ParameterAccessor.Instance.ReelManualCurrent.MinimumValue + ParameterAccessor.Instance.ReelManualCurrent.StepValue;
-
-         if (ParameterAccessor.Instance.ReelManualCurrent.OperationalValue >= limit)
+         if (MovementForwardControls.current == ParameterAccessor.Instance.ReelMotionMode)
          {
-            ParameterAccessor.Instance.ReelManualCurrent.OperationalValue -= ParameterAccessor.Instance.ReelManualCurrent.StepValue;
+            double limit = ParameterAccessor.Instance.ReelManualCurrent.MinimumValue + ParameterAccessor.Instance.ReelManualCurrent.StepValue;
 
-            this.ReelManualCurrentTextPanel.ValueText = this.GetValueText(ParameterAccessor.Instance.ReelManualCurrent);
+            if (ParameterAccessor.Instance.ReelManualCurrent.OperationalValue >= limit)
+            {
+               ParameterAccessor.Instance.ReelManualCurrent.OperationalValue -= ParameterAccessor.Instance.ReelManualCurrent.StepValue;
 
-            double directionalModifier = (false != this.ReelManualTorqueDirectionToggleButton.OptionASelected) ? 1 : -1;
-            double manualCurrent = ParameterAccessor.Instance.ReelManualCurrent.OperationalValue * directionalModifier;
-            NicBotComm.Instance.SetReelManualCurrent(manualCurrent);
+               this.ReelManualValueTextPanel.ValueText = this.GetValueText(ParameterAccessor.Instance.ReelManualCurrent);
+
+               double directionalModifier = (false != this.ReelManualDirectionToggleButton.OptionASelected) ? 1 : -1;
+               double manualCurrent = ParameterAccessor.Instance.ReelManualCurrent.OperationalValue * directionalModifier;
+               NicBotComm.Instance.SetReelManualCurrent(manualCurrent);
+            }
+         }
+         else
+         {
+            double limit = ParameterAccessor.Instance.ReelManualSpeed.MinimumValue + ParameterAccessor.Instance.ReelManualSpeed.StepValue;
+
+            if (ParameterAccessor.Instance.ReelManualSpeed.OperationalValue >= limit)
+            {
+               ParameterAccessor.Instance.ReelManualSpeed.OperationalValue -= ParameterAccessor.Instance.ReelManualSpeed.StepValue;
+
+               this.ReelManualValueTextPanel.ValueText = this.GetValueText(ParameterAccessor.Instance.ReelManualSpeed);
+
+               double directionalModifier = (false != this.ReelManualDirectionToggleButton.OptionASelected) ? 1 : -1;
+               double manualSpeed = ParameterAccessor.Instance.ReelManualSpeed.OperationalValue * directionalModifier;
+               NicBotComm.Instance.SetReelManualSpeed(manualSpeed);
+            }
          }
       }
 
@@ -1376,13 +1412,24 @@ namespace NICBOT.GUI
          this.ReelManualCalibrateToButton.ValueText = this.GetValueText(ParameterAccessor.Instance.ReelCalibrationDistance);
          this.ReelCalibrateToButton.Enabled = false;
          this.ReelShowManualButton.Enabled = true;
-         this.ReelManualTorqueDirectionToggleButton.OptionASelected = true;
-         this.ReelManualTorqueDirectionToggleButton.Enabled = true;
+         this.ReelManualDirectionToggleButton.OptionASelected = true;
+         this.ReelManualDirectionToggleButton.Enabled = true;
          this.UpdateReelControls();
 
          this.ReelManualPanel.Visible = false;
-         this.ReelManualCurrentTextPanel.ValueText = this.GetValueText(ParameterAccessor.Instance.ReelManualCurrent);
-
+         
+         if (MovementForwardControls.current == ParameterAccessor.Instance.ReelMotionMode)
+         {
+            this.ReelManualValueTextPanel.ValueText = this.GetValueText(ParameterAccessor.Instance.ReelManualCurrent);
+            this.ReelManualDirectionToggleButton.Text = "TORQUE DIRECTION";
+            this.ReelValuePromptLabel.Text = "SET CURRENT";
+         }
+         else
+         {
+            this.ReelManualValueTextPanel.ValueText = this.GetValueText(ParameterAccessor.Instance.ReelManualSpeed);
+            this.ReelManualDirectionToggleButton.Text = "SPEED DIRECTION";
+            this.ReelValuePromptLabel.Text = "SET SPEED";
+         }
 
          this.movementFastSelected = true;
          this.movementNonManualMode = MovementModes.off;
@@ -1670,23 +1717,54 @@ namespace NICBOT.GUI
 
          #region Reel
 
-         double reelCurrent = NicBotComm.Instance.GetReelCurrent();
+         string reelActualValueText = "";
+         DirectionalValuePanel.Directions reelActualDirection = DirectionalValuePanel.Directions.Idle;
 
-         if (0 == reelCurrent)
+         bool displayReelCurrent = NicBotComm.Instance.ReelInCurrentMode();
+
+         if (false != displayReelCurrent)
          {
-            this.ReelActualValuePanel.Direction = DirectionalValuePanel.Directions.Idle;
+            double reelCurrent = NicBotComm.Instance.GetReelCurrent();
+
+            if (0 == reelCurrent)
+            {
+               reelActualDirection = DirectionalValuePanel.Directions.Idle;
+            }
+            else if (reelCurrent > 0)
+            {
+               reelActualDirection = DirectionalValuePanel.Directions.Forward;
+            }
+            else if (reelCurrent < 0)
+            {
+               reelActualDirection = DirectionalValuePanel.Directions.Reverse;
+            }
+
+            double reelDisplayCurrent = Math.Abs(reelCurrent);
+            reelActualValueText = this.GetValueText(reelDisplayCurrent, ParameterAccessor.Instance.ReelReverseCurrent);
          }
-         else if (reelCurrent > 0)
+         else
          {
-            this.ReelActualValuePanel.Direction = DirectionalValuePanel.Directions.Forward;
-         }
-         else if (reelCurrent < 0)
-         {
-            this.ReelActualValuePanel.Direction = DirectionalValuePanel.Directions.Reverse;
+            double reelSpeed = NicBotComm.Instance.GetReelSpeed();
+
+            if (0 == reelSpeed)
+            {
+               reelActualDirection = DirectionalValuePanel.Directions.Idle;
+            }
+            else if (reelSpeed > 0)
+            {
+               reelActualDirection = DirectionalValuePanel.Directions.Forward;
+            }
+            else if (reelSpeed < 0)
+            {
+               reelActualDirection = DirectionalValuePanel.Directions.Reverse;
+            }
+
+            double reelDisplaySpeed = Math.Abs(reelSpeed);
+            reelActualValueText = this.GetValueText(reelDisplaySpeed, ParameterAccessor.Instance.ReelReverseSpeed);
          }
 
-         double reelDisplayCurrent = Math.Abs(reelCurrent);
-         this.ReelActualValuePanel.ValueText = this.GetValueText(reelDisplayCurrent, ParameterAccessor.Instance.ReelReverseCurrent);
+         this.ReelActualValuePanel.Direction = reelActualDirection;
+         this.ReelActualValuePanel.ValueText = reelActualValueText;
 
          double reelTotalDistance = NicBotComm.Instance.GetReelTotalDistance();
          string reelTotalText = this.GetValueText(reelTotalDistance, ParameterAccessor.Instance.ReelDistance);
@@ -2356,20 +2434,15 @@ namespace NICBOT.GUI
          ReelSetupForm reelSetupForm = new ReelSetupForm();
          this.SetDialogLocation(this.ReelSetupButton, reelSetupForm);
 
-         reelSetupForm.ReverseCurrent = ParameterAccessor.Instance.ReelReverseCurrent;
-         reelSetupForm.LockCurrent = ParameterAccessor.Instance.ReelLockCurrent;
-         reelSetupForm.CalibrationDistance = ParameterAccessor.Instance.ReelCalibrationDistance;
-
          this.DimBackground();
          reelSetupForm.ShowDialog();
          this.LightBackground();
 
-         ParameterAccessor.Instance.ReelReverseCurrent = reelSetupForm.ReverseCurrent;
-         ParameterAccessor.Instance.ReelLockCurrent = reelSetupForm.LockCurrent;
-         ParameterAccessor.Instance.ReelCalibrationDistance = reelSetupForm.CalibrationDistance;
-
          this.ReelCalibrateToButton.ValueText = this.GetValueText(ParameterAccessor.Instance.ReelCalibrationDistance);
          this.ReelManualCalibrateToButton.ValueText = this.GetValueText(ParameterAccessor.Instance.ReelCalibrationDistance);
+         this.ReelManualValueTextPanel.ValueText = (MovementForwardControls.current == ParameterAccessor.Instance.ReelMotionMode) ? this.GetValueText(ParameterAccessor.Instance.ReelManualCurrent) : this.GetValueText(ParameterAccessor.Instance.ReelManualSpeed);
+         this.ReelManualDirectionToggleButton.Text = (MovementForwardControls.current == ParameterAccessor.Instance.ReelMotionMode) ? "TORQUE DIRECTION" : "SPEED DIRECTION";
+         this.ReelValuePromptLabel.Text = (MovementForwardControls.current == ParameterAccessor.Instance.ReelMotionMode) ? "SET CURRENT" : "SET SPEED";
 
          e.Handled = true;
       }
@@ -2383,7 +2456,6 @@ namespace NICBOT.GUI
          this.ReelManualPanel.Visible = true;
       }
 
-
       private void ReelManualOnOffToggleButton_MouseClick(object sender, MouseEventArgs e)
       {
          bool requested = !this.ReelManualOnOffToggleButton.OptionASelected;
@@ -2392,7 +2464,7 @@ namespace NICBOT.GUI
          {
             NicBotComm.Instance.SetReelManualMode(false);
             this.ReelManualHideButton.Enabled = true;
-            this.ReelManualTorqueDirectionToggleButton.Enabled = true;
+            this.ReelManualDirectionToggleButton.Enabled = true;
 
             this.ReelManualOnOffToggleButton.OptionASelected = requested;
          }
@@ -2404,13 +2476,13 @@ namespace NICBOT.GUI
 
          if (false != requested)
          {
-            double directionalModifier = (false != this.ReelManualTorqueDirectionToggleButton.OptionASelected) ? 1 : -1;
+            double directionalModifier = (false != this.ReelManualDirectionToggleButton.OptionASelected) ? 1 : -1;
             double manualCurrent = ParameterAccessor.Instance.ReelManualCurrent.OperationalValue * directionalModifier;
             NicBotComm.Instance.SetReelManualCurrent(manualCurrent);
 
             NicBotComm.Instance.SetReelManualMode(true);
             this.ReelManualHideButton.Enabled = false;
-            this.ReelManualTorqueDirectionToggleButton.Enabled = false;
+            this.ReelManualDirectionToggleButton.Enabled = false;
 
             this.ReelManualOnOffToggleButton.OptionASelected = requested;
          }
@@ -2418,51 +2490,67 @@ namespace NICBOT.GUI
          {
             NicBotComm.Instance.SetReelManualMode(false);
             this.ReelManualHideButton.Enabled = true;
-            this.ReelManualTorqueDirectionToggleButton.Enabled = true;
+            this.ReelManualDirectionToggleButton.Enabled = true;
 
             this.ReelManualOnOffToggleButton.OptionASelected = requested;
          }
       }
 
-      private void ReelManualCurrentTextPanel_HoldTimeout(object sender, HoldTimeoutEventArgs e)
+      private void ReelManualValueTextPanel_HoldTimeout(object sender, HoldTimeoutEventArgs e)
       {
-         DialogResult result = this.LaunchNumberEdit(this.ReelManualCurrentTextPanel, "REEL CURRENT", ParameterAccessor.Instance.ReelManualCurrent);
-
-         if (result == System.Windows.Forms.DialogResult.OK)
+         if (MovementForwardControls.current == ParameterAccessor.Instance.ReelMotionMode)
          {
-            this.ReelManualCurrentTextPanel.ValueText = this.GetValueText(ParameterAccessor.Instance.ReelManualCurrent);
+            DialogResult result = this.LaunchNumberEdit(this.ReelManualValueTextPanel, "REEL CURRENT", ParameterAccessor.Instance.ReelManualCurrent);
 
-            double directionalModifier = (false != this.ReelManualTorqueDirectionToggleButton.OptionASelected) ? 1 : -1;
-            double manualCurrent = ParameterAccessor.Instance.ReelManualCurrent.OperationalValue * directionalModifier;
-            NicBotComm.Instance.SetReelManualCurrent(manualCurrent);
+            if (result == System.Windows.Forms.DialogResult.OK)
+            {
+               this.ReelManualValueTextPanel.ValueText = this.GetValueText(ParameterAccessor.Instance.ReelManualCurrent);
+
+               double directionalModifier = (false != this.ReelManualDirectionToggleButton.OptionASelected) ? 1 : -1;
+               double manualCurrent = ParameterAccessor.Instance.ReelManualCurrent.OperationalValue * directionalModifier;
+               NicBotComm.Instance.SetReelManualCurrent(manualCurrent);
+            }
+         }
+         else
+         {
+            DialogResult result = this.LaunchNumberEdit(this.ReelManualValueTextPanel, "REEL SPEED", ParameterAccessor.Instance.ReelManualSpeed);
+
+            if (result == System.Windows.Forms.DialogResult.OK)
+            {
+               this.ReelManualValueTextPanel.ValueText = this.GetValueText(ParameterAccessor.Instance.ReelManualSpeed);
+
+               double directionalModifier = (false != this.ReelManualDirectionToggleButton.OptionASelected) ? 1 : -1;
+               double manualSpeed = ParameterAccessor.Instance.ReelManualSpeed.OperationalValue * directionalModifier;
+               NicBotComm.Instance.SetReelManualSpeed(manualSpeed);
+            }
          }
       }
 
-      private void ReelManualCurrentUpButton_Click(object sender, EventArgs e)
+      private void ReelManualValueUpButton_Click(object sender, EventArgs e)
       {
-         this.IncrementReelManualCurrent();
+         this.IncrementReelManualValue();
       }
 
-      private void ReelManualCurrentUpButton_HoldTimeout(object sender, HoldTimeoutEventArgs e)
+      private void ReelManualValueUpButton_HoldTimeout(object sender, HoldTimeoutEventArgs e)
       {
-         this.IncrementReelManualCurrent();
+         this.IncrementReelManualValue();
       }
 
-      private void ReelManualCurrentDownButton_Click(object sender, EventArgs e)
+      private void ReelManualValueDownButton_Click(object sender, EventArgs e)
       {
-         this.DecrementReelManualCurrent();
+         this.DecrementReelManualValue();
       }
 
-      private void ReelManualCurrentDownButton_HoldTimeout(object sender, HoldTimeoutEventArgs e)
+      private void ReelManualValueDownButton_HoldTimeout(object sender, HoldTimeoutEventArgs e)
       {
-         this.DecrementReelManualCurrent();
+         this.DecrementReelManualValue();
       }
 
-      private void ReelManualTorqueDirectionToggleButton_Click(object sender, EventArgs e)
+      private void ReelManualDirectionToggleButton_Click(object sender, EventArgs e)
       {
-         this.ReelManualTorqueDirectionToggleButton.OptionASelected = !this.ReelManualTorqueDirectionToggleButton.OptionASelected;
+         this.ReelManualDirectionToggleButton.OptionASelected = !this.ReelManualDirectionToggleButton.OptionASelected;
 
-         double directionalModifier = (false != this.ReelManualTorqueDirectionToggleButton.OptionASelected) ? 1 : -1;
+         double directionalModifier = (false != this.ReelManualDirectionToggleButton.OptionASelected) ? 1 : -1;
          double manualCurrent = ParameterAccessor.Instance.ReelManualCurrent.OperationalValue * directionalModifier;
          NicBotComm.Instance.SetReelManualCurrent(manualCurrent);
       }
@@ -3854,11 +3942,6 @@ namespace NICBOT.GUI
       }
 
       #endregion      
-
-      private void holdButton1_Click(object sender, EventArgs e)
-      {
-
-      }
 
    }
 }

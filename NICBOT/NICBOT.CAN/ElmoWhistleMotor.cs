@@ -11,8 +11,8 @@ namespace NICBOT.CAN
 
       public enum ControlModes
       {
-         MicroStepper,
-         SingleLoopPosition,
+         microStepper,
+         singleLoopPosition,
       }
 
       public enum Modes
@@ -265,11 +265,11 @@ namespace NICBOT.CAN
          int modeValue = -1;
          bool result = false;
 
-         if (ControlModes.MicroStepper == mode)
+         if (ControlModes.microStepper == mode)
          {
             modeValue = 3;
          }
-         else if (ControlModes.SingleLoopPosition == mode)
+         else if (ControlModes.singleLoopPosition == mode)
          {
             modeValue = 5;
          }

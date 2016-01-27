@@ -18,14 +18,6 @@ namespace NICBOT.GUI
 
       #endregion
 
-      #region Properties
-
-      public ValueParameter ReverseCurrent { set; get; }
-      public ValueParameter LockCurrent { set; get; }
-      public ValueParameter CalibrationDistance { set; get; }
-
-      #endregion
-
       #region Helper Functions
 
       private string GetValueText(ValueParameter parameter)
@@ -136,25 +128,39 @@ namespace NICBOT.GUI
 
       #region User Events
 
+      private void MotionControllModeToggleButton_Click(object sender, EventArgs e)
+      {
+         bool selectedOption = !this.MotionControllModeToggleButton.OptionASelected;
+         ParameterAccessor.Instance.ReelMotionMode = (false != selectedOption) ? MovementForwardControls.velocity : MovementForwardControls.current; 
+         this.MotionControllModeToggleButton.OptionASelected = selectedOption;
+      }
+
       private void ReverseCurrentValueButton_Click(object sender, EventArgs e)
       {
          ValueButton valueButton = (ValueButton)sender;
-         this.LaunchNumberEdit(valueButton, this.ReverseCurrent);
-         this.ReverseCurrentValueButton.ValueText = this.GetValueText(this.ReverseCurrent);
+         this.LaunchNumberEdit(valueButton, ParameterAccessor.Instance.ReelReverseCurrent);
+         this.ReverseCurrentValueButton.ValueText = this.GetValueText(ParameterAccessor.Instance.ReelReverseCurrent);
       }
+
+      private void ReverseSpeedValueButton_Click(object sender, EventArgs e)
+      {
+         ValueButton valueButton = (ValueButton)sender;
+         this.LaunchNumberEdit(valueButton, ParameterAccessor.Instance.ReelReverseSpeed);
+         this.ReverseSpeedValueButton.ValueText = this.GetValueText(ParameterAccessor.Instance.ReelReverseSpeed);
+      }      
 
       private void LockCurrentValueButton_Click(object sender, EventArgs e)
       {
          ValueButton valueButton = (ValueButton)sender;
-         this.LaunchNumberEdit(valueButton, this.LockCurrent);
-         this.LockCurrentValueButton.ValueText = this.GetValueText(this.LockCurrent);
+         this.LaunchNumberEdit(valueButton, ParameterAccessor.Instance.ReelLockCurrent);
+         this.LockCurrentValueButton.ValueText = this.GetValueText(ParameterAccessor.Instance.ReelLockCurrent);
       }
 
       private void CalibrationDistanceValueButton_Click(object sender, EventArgs e)
       {
          ValueButton valueButton = (ValueButton)sender;
-         this.LaunchNumberEdit(valueButton, this.CalibrationDistance);
-         this.CalibrationDistanceValueButton.ValueText = this.GetValueText(this.CalibrationDistance);
+         this.LaunchNumberEdit(valueButton, ParameterAccessor.Instance.ReelCalibrationDistance);
+         this.CalibrationDistanceValueButton.ValueText = this.GetValueText(ParameterAccessor.Instance.ReelCalibrationDistance);
       }
 
       private void BackButton_Click(object sender, EventArgs e)
@@ -168,24 +174,23 @@ namespace NICBOT.GUI
 
       private void TetherSetupForm_Shown(object sender, EventArgs e)
       {
-         if (null == this.ReverseCurrent)
+         bool axialOption;
+
+         if (MovementForwardControls.velocity == ParameterAccessor.Instance.ReelMotionMode)
          {
-            this.ReverseCurrent = new ValueParameter();
+            axialOption = true;
+         }
+         else
+         {
+            axialOption = false;
          }
 
-         if (null == this.LockCurrent)
-         {
-            this.LockCurrent = new ValueParameter();
-         }
+         this.MotionControllModeToggleButton.OptionASelected = axialOption;
 
-         if (null == this.CalibrationDistance)
-         {
-            this.CalibrationDistance = new ValueParameter();
-         }
-
-         this.ReverseCurrentValueButton.ValueText = this.GetValueText(this.ReverseCurrent);
-         this.LockCurrentValueButton.ValueText = this.GetValueText(this.LockCurrent);
-         this.CalibrationDistanceValueButton.ValueText = this.GetValueText(this.CalibrationDistance);
+         this.ReverseCurrentValueButton.ValueText = this.GetValueText(ParameterAccessor.Instance.ReelReverseCurrent);
+         this.ReverseSpeedValueButton.ValueText = this.GetValueText(ParameterAccessor.Instance.ReelReverseSpeed);
+         this.LockCurrentValueButton.ValueText = this.GetValueText(ParameterAccessor.Instance.ReelLockCurrent);
+         this.CalibrationDistanceValueButton.ValueText = this.GetValueText(ParameterAccessor.Instance.ReelCalibrationDistance);
       }
 
       #endregion

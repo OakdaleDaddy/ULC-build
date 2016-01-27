@@ -51,10 +51,13 @@ namespace NICBOT.GUI
 
       public ValueParameter ReelDistance;
       public ValueParameter ReelDistanceScale;
+      public MovementForwardControls ReelMotionMode;
       public ValueParameter ReelReverseCurrent;
+      public ValueParameter ReelReverseSpeed;      
       public ValueParameter ReelLockCurrent;
       public ValueParameter ReelCalibrationDistance;
       public ValueParameter ReelManualCurrent;
+      public ValueParameter ReelManualSpeed;
       
       public bool FeederAutomaticTracking;
       public double FeederVelocityToRpm;
@@ -325,10 +328,13 @@ namespace NICBOT.GUI
 
          this.ReelDistance = new ValueParameter("ReelDistance", "m", 0, 0, 0, 0, 0, 0);
          this.ReelDistanceScale = new ValueParameter("ReelDistanceScale", "m", 6, 0, 1000, 0, 1, 1);
+         this.ReelMotionMode = MovementForwardControls.current;
          this.ReelReverseCurrent = new ValueParameter("ReelReverseCurrent", "A", 1, 0.0, 6.5, 0.1, 5.0, 5.0);
+         this.ReelReverseSpeed = new ValueParameter("ReelReverseSpeed", "RPM", 0, 0, 4500, 100, 500, 500);
          this.ReelLockCurrent = new ValueParameter("ReelLockCurrent", "A", 1, 0.0, 6.5, 0.1, 3.0, 3.0);
          this.ReelCalibrationDistance = new ValueParameter("ReelCalibrationDistance", "m", 0, 1, 100, 1, 1, 1);
          this.ReelManualCurrent = new ValueParameter("ReelManualCurrent", "A", 1, 0.0, 6.5, 0.1, 5.0, 5.0);
+         this.ReelManualSpeed = new ValueParameter("ReelManualSpeed", "RPM", 0, 0, 4500, 100, 500, 500);
 
          this.FeederAutomaticTracking = false;
          this.FeederVelocityToRpm = (4000/12.05992); // 12.05992 m/MIN at 4000 RPM
@@ -2162,6 +2168,11 @@ namespace NICBOT.GUI
                                        this.ReelReverseCurrent = valueParameter;
                                        break;
                                     }
+                                    case "ReelReverseSpeed":
+                                    {
+                                       this.ReelReverseSpeed = valueParameter;
+                                       break;
+                                    }
                                     case "ReelLockCurrent":
                                     {
                                        this.ReelLockCurrent = valueParameter;
@@ -2177,6 +2188,11 @@ namespace NICBOT.GUI
                                        this.ReelManualCurrent = valueParameter;
                                        break;
                                     }
+                                    case "ReelManualSpeed":
+                                    {
+                                       this.ReelManualSpeed = valueParameter;
+                                       break;
+                                    }                                       
                                     case "FeederTrackingCalibration":
                                     {
                                        this.FeederTrackingCalibration = valueParameter;
@@ -2270,6 +2286,11 @@ namespace NICBOT.GUI
                            case "GuideMomentaryButtonAction":
                            {
                               this.ReadElement(reader, ref this.GuideMomentaryButtonAction);
+                              break;
+                           }
+                           case "ReelMotionMode":
+                           {
+                              this.ReelMotionMode = this.ReadMotorForwardControl(reader);
                               break;
                            }
                            case "FeederAutomaticTracking":
@@ -2793,10 +2814,13 @@ namespace NICBOT.GUI
 
             this.WriteValueParameters(writer, this.ReelDistance);
             this.WriteValueParameters(writer, this.ReelDistanceScale);
+            this.WriteElement(writer, "ReelMotionMode", this.ReelMotionMode.ToString());
             this.WriteValueParameters(writer, this.ReelReverseCurrent);
+            this.WriteValueParameters(writer, this.ReelReverseSpeed);
             this.WriteValueParameters(writer, this.ReelLockCurrent);
             this.WriteValueParameters(writer, this.ReelCalibrationDistance);
             this.WriteValueParameters(writer, this.ReelManualCurrent);
+            this.WriteValueParameters(writer, this.ReelManualSpeed);            
 
 
             this.WriteElement(writer, "FeederAutomaticTracking", this.FeederAutomaticTracking);

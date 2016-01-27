@@ -381,10 +381,15 @@ namespace NICBOT.GUI
          TruckCommBus.Instance.SetReelManualMode(enable);
       }
 
-      public void SetReelManualCurrent(double current)
+      public void SetReelManualCurrent(double setPoint)
       {
-         TruckCommBus.Instance.SetReelManualCurrent(current);
+         TruckCommBus.Instance.SetReelManualCurrent(setPoint);
       }
+
+      public void SetReelManualSpeed(double setPoint)
+      {
+         TruckCommBus.Instance.SetReelManualSpeed(setPoint);
+      }      
 
       public void SetReelTotalDistance(double distance)
       {
@@ -421,10 +426,20 @@ namespace NICBOT.GUI
          return (TruckCommBus.Instance.GetReelMode());
       }
 
+      public bool ReelInCurrentMode()
+      {
+         return (TruckCommBus.Instance.ReelInCurrentMode());
+      }
+
       public double GetReelCurrent()
       {
          return (TruckCommBus.Instance.GetReelCurrent());
       }
+
+      public double GetReelSpeed()
+      {
+         return (TruckCommBus.Instance.GetReelSpeed());
+      }      
 
       public double GetReelTotalDistance()
       {

@@ -56,6 +56,9 @@ namespace NICBOT.BusSim
       private TPDOMapping[] tpdoMapping;
       private RPDOMapping[] rpdoMapping;
 
+      private int userMode;
+      private int motorState;
+
       private UInt16 controlWord;
       private UInt16 statusWord;
       private byte mode;
@@ -493,6 +496,34 @@ namespace NICBOT.BusSim
          }
       }
 
+      private int UserMode
+      {
+         set
+         {
+            this.userMode = value;
+            this.UserModeLabel.Text = this.userMode.ToString();
+         }
+
+         get
+         {
+            return (this.userMode);
+         }
+      }
+
+      private int MotorState
+      {
+         set
+         {
+            this.motorState = value;
+            this.MotorStateLabel.Text = this.motorState.ToString();
+         }
+
+         get
+         {
+            return (this.motorState);
+         }
+      }     
+
       private UInt64 ErrorCode
       {
          set
@@ -735,6 +766,9 @@ namespace NICBOT.BusSim
             this.tpdoMapping[i].Reset(i, this.nodeId);
             this.rpdoMapping[i].Reset(i, this.nodeId);
          }
+
+         this.UserMode = 5;
+         this.MotorState = 0;
 
          this.ErrorCode = 0;
          this.ConsumerHeartbeatTime = 0;
@@ -1338,8 +1372,11 @@ namespace NICBOT.BusSim
 
       private void ProcessPdo2Message(byte[] frame)
       {
-         this.rpdoMapping[1].StoreFrameData(frame);
 #if false
+         this.rpdoMapping[1].StoreFrameData(frame);
+#endif
+
+#if true
          // binary interpretor
 
          if (4 == frame.Length)
@@ -1351,6 +1388,7 @@ namespace NICBOT.BusSim
             bool error = false;
             int responseCode = 0;
 
+#if false
             if (('B' == firstCommandChar) && ('G' == secondCommandChar))
             {
                if (2 == this.userMode)
@@ -1364,6 +1402,7 @@ namespace NICBOT.BusSim
                }
             }
             else
+#endif
             {
                error = true;
                responseCode = 2;
@@ -1399,28 +1438,17 @@ namespace NICBOT.BusSim
                if (0 == index)
                {
                   int motorState = BitConverter.ToInt32(frame, 4);
-                  responseCode = motorState;
 
-                  if (0 == motorState)
+                  if ((0 == motorState) || (1 == motorState))
                   {
-                     this.UserModeLabel.Text = "";
-                     this.MotorStateLabel.Text = "OFF";
+                     this.MotorState = motorState;
+                     responseCode = motorState;
                   }
                   else
                   {
-                     if (1 == this.userMode)
-                     {
-                        this.UserModeLabel.Text = "CURRENT";
-                     }
-                     else if (2 == this.userMode)
-                     {
-                        this.UserModeLabel.Text = "VELOCITY";
-                     }
-
-                     this.MotorStateLabel.Text = "ON";
+                     error = true;
+                     responseCode = 3;
                   }
-
-                  this.motorState = motorState;
                }
                else
                {
@@ -1441,17 +1469,10 @@ namespace NICBOT.BusSim
                   {
                      int userMode = BitConverter.ToInt32(frame, 4);
 
-                     if (1 == userMode)
+                     if ((userMode >= 1) && (userMode <= 5))
                      {
                         responseCode = userMode;
-                        this.userMode = userMode;
-                        this.userValue = 0;
-                     }
-                     else if (2 == userMode)
-                     {
-                        responseCode = userMode;
-                        this.userMode = userMode;
-                        this.userValue = 0;
+                        this.UserMode = userMode;
                      }
                      else
                      {
@@ -1466,6 +1487,7 @@ namespace NICBOT.BusSim
                   responseCode = 3;
                }
             }
+#if false
             else if (('J' == firstCommandChar) && ('V' == secondCommandChar))
             {
                if (0 == index)
@@ -1511,16 +1533,17 @@ namespace NICBOT.BusSim
                   responseCode = 3;
                }
             }
+#endif
             else if (('T' == firstCommandChar) && ('C' == secondCommandChar))
             {
                if (0 == index)
                {
-                  if (1 == this.userMode)
+                  if (3 == this.userMode)
                   {
                      float current = BitConverter.ToSingle(frame, 4);
                      responseCode = BitConverter.ToInt32(frame, 4);
-                     this.userValue = current;
-                     this.UserValueLabel.Text = this.userValue.ToString("0.00");
+                     Int16 torqueCounts = (Int16)(current * 1000000 / this.MotorRatedCurrent);
+                     this.TorqueTarget = torqueCounts;
                   }
                   else
                   {
@@ -1936,21 +1959,29 @@ namespace NICBOT.BusSim
                double elapsedSeconds = ts.TotalSeconds;
                this.updateTime = now.AddMilliseconds(100);
 
-               if (States.operationalEnable == this.state)
+               if (5 == this.UserMode)
                {
-                  if (3 == this.DisplayMode)
+                  if (States.operationalEnable == this.state)
                   {
-                     this.UpdateVelocity(this.VelocityTarget, elapsedSeconds);
+                     if (3 == this.DisplayMode)
+                     {
+                        this.UpdateVelocity(this.VelocityTarget, elapsedSeconds);
+                     }
+                     else if (4 == this.DisplayMode)
+                     {
+                        this.UpdateTorque(this.TorqueTarget, elapsedSeconds);
+                     }
                   }
-                  else if (4 == this.DisplayMode)
+                  else
                   {
-                     this.UpdateTorque(this.TorqueTarget, elapsedSeconds);
+                     this.VelocityActual = 0;
+                     this.TorqueActual = 0;
                   }
                }
-               else
+               else if (3 == this.UserMode)
                {
+                  this.UpdateTorque(this.TorqueTarget, elapsedSeconds);
                   this.VelocityActual = 0;
-                  this.TorqueActual = 0;
                }
             }
 

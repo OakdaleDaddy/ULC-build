@@ -185,6 +185,13 @@
          this.DrillIndexUpButton = new NICBOT.GUI.UpDownButton();
          this.DrillIndexDownButton = new NICBOT.GUI.UpDownButton();
          this.panel1 = new System.Windows.Forms.Panel();
+         this.borderedPanel3 = new NICBOT.GUI.BorderedPanel();
+         this.label22 = new System.Windows.Forms.Label();
+         this.lineControl4 = new NICBOT.GUI.LineControl();
+         this.RobotTotalCurrentTextPanel = new NICBOT.GUI.TextPanel();
+         this.LaunchTotalCurrentTextPanel = new NICBOT.GUI.TextPanel();
+         this.label31 = new System.Windows.Forms.Label();
+         this.label34 = new System.Windows.Forms.Label();
          this.RearSealantReserviorPanel = new NICBOT.GUI.BorderedPanel();
          this.lineControl6 = new NICBOT.GUI.LineControl();
          this.label11 = new System.Windows.Forms.Label();
@@ -227,11 +234,11 @@
          this.ReelManualResetTotalButton = new NICBOT.GUI.HoldButton();
          this.ReelManualResetTripButton = new NICBOT.GUI.HoldButton();
          this.ReelManualCalibrateToButton = new NICBOT.GUI.ValueButton();
-         this.ReelManualCurrentTextPanel = new NICBOT.GUI.TextPanel();
-         this.label6 = new System.Windows.Forms.Label();
-         this.ReelManualCurrentUpButton = new NICBOT.GUI.UpDownButton();
-         this.ReelManualCurrentDownButton = new NICBOT.GUI.UpDownButton();
-         this.ReelManualTorqueDirectionToggleButton = new NICBOT.GUI.ValueToggleButton();
+         this.ReelManualValueTextPanel = new NICBOT.GUI.TextPanel();
+         this.ReelValuePromptLabel = new System.Windows.Forms.Label();
+         this.ReelManualValueUpButton = new NICBOT.GUI.UpDownButton();
+         this.ReelManualValueDownButton = new NICBOT.GUI.UpDownButton();
+         this.ReelManualDirectionToggleButton = new NICBOT.GUI.ValueToggleButton();
          this.ReelManualOnOffToggleButton = new NICBOT.GUI.ValueToggleButton();
          this.GuidePanel = new System.Windows.Forms.Panel();
          this.label7 = new System.Windows.Forms.Label();
@@ -285,13 +292,6 @@
          this.VersionLabel = new System.Windows.Forms.Label();
          this.RobotCrossSectionView = new NICBOT.Controls.CrossSectionView();
          this.BotSideView = new NICBOT.GUI.NicBotSideView();
-         this.borderedPanel3 = new NICBOT.GUI.BorderedPanel();
-         this.label22 = new System.Windows.Forms.Label();
-         this.lineControl4 = new NICBOT.GUI.LineControl();
-         this.RobotTotalCurrentTextPanel = new NICBOT.GUI.TextPanel();
-         this.LaunchTotalCurrentTextPanel = new NICBOT.GUI.TextPanel();
-         this.label31 = new System.Windows.Forms.Label();
-         this.label34 = new System.Windows.Forms.Label();
          this.ControlPanel.SuspendLayout();
          this.panel12.SuspendLayout();
          this.panel23.SuspendLayout();
@@ -311,6 +311,7 @@
          this.DrillManualPanel.SuspendLayout();
          this.borderedPanel1.SuspendLayout();
          this.panel1.SuspendLayout();
+         this.borderedPanel3.SuspendLayout();
          this.RearSealantReserviorPanel.SuspendLayout();
          this.FrontSealantReserviorPanel.SuspendLayout();
          this.borderedPanel2.SuspendLayout();
@@ -322,7 +323,6 @@
          this.InspectionPanel.SuspendLayout();
          this.borderedPanel6.SuspendLayout();
          this.borderedPanel5.SuspendLayout();
-         this.borderedPanel3.SuspendLayout();
          this.SuspendLayout();
          // 
          // TitleLabel
@@ -3054,6 +3054,97 @@
          this.panel1.Size = new System.Drawing.Size(262, 318);
          this.panel1.TabIndex = 41;
          // 
+         // borderedPanel3
+         // 
+         this.borderedPanel3.BackColor = System.Drawing.Color.Olive;
+         this.borderedPanel3.Controls.Add(this.label22);
+         this.borderedPanel3.Controls.Add(this.lineControl4);
+         this.borderedPanel3.Controls.Add(this.RobotTotalCurrentTextPanel);
+         this.borderedPanel3.Controls.Add(this.LaunchTotalCurrentTextPanel);
+         this.borderedPanel3.Controls.Add(this.label31);
+         this.borderedPanel3.Controls.Add(this.label34);
+         this.borderedPanel3.EdgeWeight = 2;
+         this.borderedPanel3.Location = new System.Drawing.Point(135, 8);
+         this.borderedPanel3.Name = "borderedPanel3";
+         this.borderedPanel3.Size = new System.Drawing.Size(119, 147);
+         this.borderedPanel3.TabIndex = 182;
+         // 
+         // label22
+         // 
+         this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.label22.Location = new System.Drawing.Point(12, 23);
+         this.label22.Name = "label22";
+         this.label22.Size = new System.Drawing.Size(94, 15);
+         this.label22.TabIndex = 171;
+         this.label22.Text = "ROBOT";
+         this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         // 
+         // lineControl4
+         // 
+         this.lineControl4.BackColor = System.Drawing.Color.Transparent;
+         this.lineControl4.EdgeColor = System.Drawing.Color.Black;
+         this.lineControl4.LineType = NICBOT.GUI.LineControl.LineDrawType.Top;
+         this.lineControl4.LineWeight = 1;
+         this.lineControl4.Location = new System.Drawing.Point(2, 22);
+         this.lineControl4.Name = "lineControl4";
+         this.lineControl4.Opacity = 100;
+         this.lineControl4.ShowBackground = false;
+         this.lineControl4.ShowEdge = false;
+         this.lineControl4.Size = new System.Drawing.Size(115, 8);
+         this.lineControl4.TabIndex = 170;
+         this.lineControl4.Text = "lineControl4";
+         // 
+         // RobotTotalCurrentTextPanel
+         // 
+         this.RobotTotalCurrentTextPanel.BackColor = System.Drawing.Color.Black;
+         this.RobotTotalCurrentTextPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+         this.RobotTotalCurrentTextPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.RobotTotalCurrentTextPanel.ForeColor = System.Drawing.Color.White;
+         this.RobotTotalCurrentTextPanel.HoldTimeoutEnable = false;
+         this.RobotTotalCurrentTextPanel.HoldTimeoutInterval = 100;
+         this.RobotTotalCurrentTextPanel.Location = new System.Drawing.Point(10, 38);
+         this.RobotTotalCurrentTextPanel.Name = "RobotTotalCurrentTextPanel";
+         this.RobotTotalCurrentTextPanel.Size = new System.Drawing.Size(99, 42);
+         this.RobotTotalCurrentTextPanel.TabIndex = 169;
+         this.RobotTotalCurrentTextPanel.ValueText = "#.## A";
+         this.RobotTotalCurrentTextPanel.ValueTextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         // 
+         // LaunchTotalCurrentTextPanel
+         // 
+         this.LaunchTotalCurrentTextPanel.BackColor = System.Drawing.Color.Black;
+         this.LaunchTotalCurrentTextPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+         this.LaunchTotalCurrentTextPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.LaunchTotalCurrentTextPanel.ForeColor = System.Drawing.Color.White;
+         this.LaunchTotalCurrentTextPanel.HoldTimeoutEnable = false;
+         this.LaunchTotalCurrentTextPanel.HoldTimeoutInterval = 100;
+         this.LaunchTotalCurrentTextPanel.Location = new System.Drawing.Point(10, 95);
+         this.LaunchTotalCurrentTextPanel.Name = "LaunchTotalCurrentTextPanel";
+         this.LaunchTotalCurrentTextPanel.Size = new System.Drawing.Size(99, 42);
+         this.LaunchTotalCurrentTextPanel.TabIndex = 142;
+         this.LaunchTotalCurrentTextPanel.ValueText = "#.## A";
+         this.LaunchTotalCurrentTextPanel.ValueTextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         // 
+         // label31
+         // 
+         this.label31.BackColor = System.Drawing.Color.PaleGoldenrod;
+         this.label31.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.label31.Location = new System.Drawing.Point(2, 2);
+         this.label31.Name = "label31";
+         this.label31.Size = new System.Drawing.Size(115, 20);
+         this.label31.TabIndex = 168;
+         this.label31.Text = "CURRENT";
+         this.label31.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         // 
+         // label34
+         // 
+         this.label34.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.label34.Location = new System.Drawing.Point(12, 80);
+         this.label34.Name = "label34";
+         this.label34.Size = new System.Drawing.Size(94, 15);
+         this.label34.TabIndex = 141;
+         this.label34.Text = "LAUNCH";
+         this.label34.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         // 
          // RearSealantReserviorPanel
          // 
          this.RearSealantReserviorPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -3596,11 +3687,11 @@
          this.ReelManualPanel.Controls.Add(this.ReelManualResetTotalButton);
          this.ReelManualPanel.Controls.Add(this.ReelManualResetTripButton);
          this.ReelManualPanel.Controls.Add(this.ReelManualCalibrateToButton);
-         this.ReelManualPanel.Controls.Add(this.ReelManualCurrentTextPanel);
-         this.ReelManualPanel.Controls.Add(this.label6);
-         this.ReelManualPanel.Controls.Add(this.ReelManualCurrentUpButton);
-         this.ReelManualPanel.Controls.Add(this.ReelManualCurrentDownButton);
-         this.ReelManualPanel.Controls.Add(this.ReelManualTorqueDirectionToggleButton);
+         this.ReelManualPanel.Controls.Add(this.ReelManualValueTextPanel);
+         this.ReelManualPanel.Controls.Add(this.ReelValuePromptLabel);
+         this.ReelManualPanel.Controls.Add(this.ReelManualValueUpButton);
+         this.ReelManualPanel.Controls.Add(this.ReelManualValueDownButton);
+         this.ReelManualPanel.Controls.Add(this.ReelManualDirectionToggleButton);
          this.ReelManualPanel.Controls.Add(this.ReelManualOnOffToggleButton);
          this.ReelManualPanel.Location = new System.Drawing.Point(1938, 162);
          this.ReelManualPanel.Name = "ReelManualPanel";
@@ -3698,120 +3789,120 @@
          this.ReelManualCalibrateToButton.ValueWidth = 80;
          this.ReelManualCalibrateToButton.HoldTimeout += new NICBOT.GUI.ValueButton.HoldTimeoutHandler(this.ReelManualCalibrateToButton_HoldTimeout);
          // 
-         // ReelManualCurrentTextPanel
+         // ReelManualValueTextPanel
          // 
-         this.ReelManualCurrentTextPanel.BackColor = System.Drawing.Color.Black;
-         this.ReelManualCurrentTextPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-         this.ReelManualCurrentTextPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.ReelManualCurrentTextPanel.ForeColor = System.Drawing.Color.White;
-         this.ReelManualCurrentTextPanel.HoldTimeoutEnable = true;
-         this.ReelManualCurrentTextPanel.HoldTimeoutInterval = 100;
-         this.ReelManualCurrentTextPanel.Location = new System.Drawing.Point(143, 56);
-         this.ReelManualCurrentTextPanel.Name = "ReelManualCurrentTextPanel";
-         this.ReelManualCurrentTextPanel.Size = new System.Drawing.Size(99, 42);
-         this.ReelManualCurrentTextPanel.TabIndex = 129;
-         this.ReelManualCurrentTextPanel.ValueText = "#.# A";
-         this.ReelManualCurrentTextPanel.ValueTextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         this.ReelManualCurrentTextPanel.HoldTimeout += new NICBOT.GUI.TextPanel.HoldTimeoutHandler2(this.ReelManualCurrentTextPanel_HoldTimeout);
+         this.ReelManualValueTextPanel.BackColor = System.Drawing.Color.Black;
+         this.ReelManualValueTextPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+         this.ReelManualValueTextPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.ReelManualValueTextPanel.ForeColor = System.Drawing.Color.White;
+         this.ReelManualValueTextPanel.HoldTimeoutEnable = true;
+         this.ReelManualValueTextPanel.HoldTimeoutInterval = 100;
+         this.ReelManualValueTextPanel.Location = new System.Drawing.Point(143, 56);
+         this.ReelManualValueTextPanel.Name = "ReelManualValueTextPanel";
+         this.ReelManualValueTextPanel.Size = new System.Drawing.Size(99, 42);
+         this.ReelManualValueTextPanel.TabIndex = 129;
+         this.ReelManualValueTextPanel.ValueText = "#.# A";
+         this.ReelManualValueTextPanel.ValueTextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         this.ReelManualValueTextPanel.HoldTimeout += new NICBOT.GUI.TextPanel.HoldTimeoutHandler2(this.ReelManualValueTextPanel_HoldTimeout);
          // 
-         // label6
+         // ReelValuePromptLabel
          // 
-         this.label6.AutoSize = true;
-         this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-         this.label6.Location = new System.Drawing.Point(263, 69);
-         this.label6.Name = "label6";
-         this.label6.Size = new System.Drawing.Size(105, 16);
-         this.label6.TabIndex = 128;
-         this.label6.Text = "SET CURRENT";
+         this.ReelValuePromptLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.ReelValuePromptLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+         this.ReelValuePromptLabel.Location = new System.Drawing.Point(263, 69);
+         this.ReelValuePromptLabel.Name = "ReelValuePromptLabel";
+         this.ReelValuePromptLabel.Size = new System.Drawing.Size(105, 16);
+         this.ReelValuePromptLabel.TabIndex = 128;
+         this.ReelValuePromptLabel.Text = "SET CURRENT";
+         this.ReelValuePromptLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
          // 
-         // ReelManualCurrentUpButton
+         // ReelManualValueUpButton
          // 
-         this.ReelManualCurrentUpButton.ArrowColor = System.Drawing.Color.Black;
-         this.ReelManualCurrentUpButton.ArrowHighlightColor = System.Drawing.Color.DarkGray;
-         this.ReelManualCurrentUpButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.ReelManualCurrentUpButton.DisabledArrowColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-         this.ReelManualCurrentUpButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
-         this.ReelManualCurrentUpButton.DisabledForeColor = System.Drawing.Color.Silver;
-         this.ReelManualCurrentUpButton.EdgeSpace = 8;
-         this.ReelManualCurrentUpButton.ForeColor = System.Drawing.SystemColors.HighlightText;
-         this.ReelManualCurrentUpButton.HighLightOffset = 7;
-         this.ReelManualCurrentUpButton.HighlightVisible = true;
-         this.ReelManualCurrentUpButton.HighLightWeight = 2;
-         this.ReelManualCurrentUpButton.HoldRepeat = true;
-         this.ReelManualCurrentUpButton.HoldRepeatInterval = 100;
-         this.ReelManualCurrentUpButton.HoldTimeoutInterval = 500;
-         this.ReelManualCurrentUpButton.Location = new System.Drawing.Point(262, 0);
-         this.ReelManualCurrentUpButton.Name = "ReelManualCurrentUpButton";
-         this.ReelManualCurrentUpButton.Size = new System.Drawing.Size(107, 67);
-         this.ReelManualCurrentUpButton.TabIndex = 126;
-         this.ReelManualCurrentUpButton.Text = "INCREASE";
-         this.ReelManualCurrentUpButton.TextOffset = 0;
-         this.ReelManualCurrentUpButton.TextVisible = false;
-         this.ReelManualCurrentUpButton.UpDown = true;
-         this.ReelManualCurrentUpButton.UseVisualStyleBackColor = false;
-         this.ReelManualCurrentUpButton.HoldTimeout += new NICBOT.GUI.UpDownButton.HoldTimeoutHandler(this.ReelManualCurrentUpButton_HoldTimeout);
-         this.ReelManualCurrentUpButton.Click += new System.EventHandler(this.ReelManualCurrentUpButton_Click);
+         this.ReelManualValueUpButton.ArrowColor = System.Drawing.Color.Black;
+         this.ReelManualValueUpButton.ArrowHighlightColor = System.Drawing.Color.DarkGray;
+         this.ReelManualValueUpButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.ReelManualValueUpButton.DisabledArrowColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+         this.ReelManualValueUpButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
+         this.ReelManualValueUpButton.DisabledForeColor = System.Drawing.Color.Silver;
+         this.ReelManualValueUpButton.EdgeSpace = 8;
+         this.ReelManualValueUpButton.ForeColor = System.Drawing.SystemColors.HighlightText;
+         this.ReelManualValueUpButton.HighLightOffset = 7;
+         this.ReelManualValueUpButton.HighlightVisible = true;
+         this.ReelManualValueUpButton.HighLightWeight = 2;
+         this.ReelManualValueUpButton.HoldRepeat = true;
+         this.ReelManualValueUpButton.HoldRepeatInterval = 100;
+         this.ReelManualValueUpButton.HoldTimeoutInterval = 500;
+         this.ReelManualValueUpButton.Location = new System.Drawing.Point(262, 0);
+         this.ReelManualValueUpButton.Name = "ReelManualValueUpButton";
+         this.ReelManualValueUpButton.Size = new System.Drawing.Size(107, 67);
+         this.ReelManualValueUpButton.TabIndex = 126;
+         this.ReelManualValueUpButton.Text = "INCREASE";
+         this.ReelManualValueUpButton.TextOffset = 0;
+         this.ReelManualValueUpButton.TextVisible = false;
+         this.ReelManualValueUpButton.UpDown = true;
+         this.ReelManualValueUpButton.UseVisualStyleBackColor = false;
+         this.ReelManualValueUpButton.HoldTimeout += new NICBOT.GUI.UpDownButton.HoldTimeoutHandler(this.ReelManualValueUpButton_HoldTimeout);
+         this.ReelManualValueUpButton.Click += new System.EventHandler(this.ReelManualValueUpButton_Click);
          // 
-         // ReelManualCurrentDownButton
+         // ReelManualValueDownButton
          // 
-         this.ReelManualCurrentDownButton.ArrowColor = System.Drawing.Color.Black;
-         this.ReelManualCurrentDownButton.ArrowHighlightColor = System.Drawing.Color.DarkGray;
-         this.ReelManualCurrentDownButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.ReelManualCurrentDownButton.DisabledArrowColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-         this.ReelManualCurrentDownButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
-         this.ReelManualCurrentDownButton.DisabledForeColor = System.Drawing.Color.Silver;
-         this.ReelManualCurrentDownButton.EdgeSpace = 8;
-         this.ReelManualCurrentDownButton.ForeColor = System.Drawing.SystemColors.HighlightText;
-         this.ReelManualCurrentDownButton.HighLightOffset = 7;
-         this.ReelManualCurrentDownButton.HighlightVisible = true;
-         this.ReelManualCurrentDownButton.HighLightWeight = 2;
-         this.ReelManualCurrentDownButton.HoldRepeat = true;
-         this.ReelManualCurrentDownButton.HoldRepeatInterval = 100;
-         this.ReelManualCurrentDownButton.HoldTimeoutInterval = 500;
-         this.ReelManualCurrentDownButton.Location = new System.Drawing.Point(262, 88);
-         this.ReelManualCurrentDownButton.Name = "ReelManualCurrentDownButton";
-         this.ReelManualCurrentDownButton.Size = new System.Drawing.Size(107, 67);
-         this.ReelManualCurrentDownButton.TabIndex = 127;
-         this.ReelManualCurrentDownButton.Text = "DECREASE";
-         this.ReelManualCurrentDownButton.TextOffset = 0;
-         this.ReelManualCurrentDownButton.TextVisible = false;
-         this.ReelManualCurrentDownButton.UpDown = false;
-         this.ReelManualCurrentDownButton.UseVisualStyleBackColor = false;
-         this.ReelManualCurrentDownButton.HoldTimeout += new NICBOT.GUI.UpDownButton.HoldTimeoutHandler(this.ReelManualCurrentDownButton_HoldTimeout);
-         this.ReelManualCurrentDownButton.Click += new System.EventHandler(this.ReelManualCurrentDownButton_Click);
+         this.ReelManualValueDownButton.ArrowColor = System.Drawing.Color.Black;
+         this.ReelManualValueDownButton.ArrowHighlightColor = System.Drawing.Color.DarkGray;
+         this.ReelManualValueDownButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.ReelManualValueDownButton.DisabledArrowColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+         this.ReelManualValueDownButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
+         this.ReelManualValueDownButton.DisabledForeColor = System.Drawing.Color.Silver;
+         this.ReelManualValueDownButton.EdgeSpace = 8;
+         this.ReelManualValueDownButton.ForeColor = System.Drawing.SystemColors.HighlightText;
+         this.ReelManualValueDownButton.HighLightOffset = 7;
+         this.ReelManualValueDownButton.HighlightVisible = true;
+         this.ReelManualValueDownButton.HighLightWeight = 2;
+         this.ReelManualValueDownButton.HoldRepeat = true;
+         this.ReelManualValueDownButton.HoldRepeatInterval = 100;
+         this.ReelManualValueDownButton.HoldTimeoutInterval = 500;
+         this.ReelManualValueDownButton.Location = new System.Drawing.Point(262, 88);
+         this.ReelManualValueDownButton.Name = "ReelManualValueDownButton";
+         this.ReelManualValueDownButton.Size = new System.Drawing.Size(107, 67);
+         this.ReelManualValueDownButton.TabIndex = 127;
+         this.ReelManualValueDownButton.Text = "DECREASE";
+         this.ReelManualValueDownButton.TextOffset = 0;
+         this.ReelManualValueDownButton.TextVisible = false;
+         this.ReelManualValueDownButton.UpDown = false;
+         this.ReelManualValueDownButton.UseVisualStyleBackColor = false;
+         this.ReelManualValueDownButton.HoldTimeout += new NICBOT.GUI.UpDownButton.HoldTimeoutHandler(this.ReelManualValueDownButton_HoldTimeout);
+         this.ReelManualValueDownButton.Click += new System.EventHandler(this.ReelManualValueDownButton_Click);
          // 
-         // ReelManualTorqueDirectionToggleButton
+         // ReelManualDirectionToggleButton
          // 
-         this.ReelManualTorqueDirectionToggleButton.AutomaticToggle = true;
-         this.ReelManualTorqueDirectionToggleButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.ReelManualTorqueDirectionToggleButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
-         this.ReelManualTorqueDirectionToggleButton.DisabledForeColor = System.Drawing.Color.Silver;
-         this.ReelManualTorqueDirectionToggleButton.DisabledOptionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-         this.ReelManualTorqueDirectionToggleButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.ReelManualTorqueDirectionToggleButton.HoldEnable = false;
-         this.ReelManualTorqueDirectionToggleButton.HoldTimeoutInterval = 0;
-         this.ReelManualTorqueDirectionToggleButton.Location = new System.Drawing.Point(16, 98);
-         this.ReelManualTorqueDirectionToggleButton.Name = "ReelManualTorqueDirectionToggleButton";
-         this.ReelManualTorqueDirectionToggleButton.OptionASelected = true;
-         this.ReelManualTorqueDirectionToggleButton.OptionAText = "FWD";
-         this.ReelManualTorqueDirectionToggleButton.OptionBSelected = false;
-         this.ReelManualTorqueDirectionToggleButton.OptionBText = "REV";
-         this.ReelManualTorqueDirectionToggleButton.OptionCenterWidth = 2;
-         this.ReelManualTorqueDirectionToggleButton.OptionEdgeHeight = 8;
-         this.ReelManualTorqueDirectionToggleButton.OptionHeight = 22;
-         this.ReelManualTorqueDirectionToggleButton.OptionNonSelectedBackColor = System.Drawing.Color.Black;
-         this.ReelManualTorqueDirectionToggleButton.OptionNonSelectedFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-         this.ReelManualTorqueDirectionToggleButton.OptionNonSelectedForeColor = System.Drawing.SystemColors.ControlDark;
-         this.ReelManualTorqueDirectionToggleButton.OptionSelectedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
-         this.ReelManualTorqueDirectionToggleButton.OptionSelectedFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.ReelManualTorqueDirectionToggleButton.OptionSelectedForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-         this.ReelManualTorqueDirectionToggleButton.OptionWidth = 45;
-         this.ReelManualTorqueDirectionToggleButton.Size = new System.Drawing.Size(107, 90);
-         this.ReelManualTorqueDirectionToggleButton.TabIndex = 125;
-         this.ReelManualTorqueDirectionToggleButton.Text = "TORQUE DIRECTION";
-         this.ReelManualTorqueDirectionToggleButton.UseVisualStyleBackColor = false;
-         this.ReelManualTorqueDirectionToggleButton.Click += new System.EventHandler(this.ReelManualTorqueDirectionToggleButton_Click);
+         this.ReelManualDirectionToggleButton.AutomaticToggle = true;
+         this.ReelManualDirectionToggleButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.ReelManualDirectionToggleButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
+         this.ReelManualDirectionToggleButton.DisabledForeColor = System.Drawing.Color.Silver;
+         this.ReelManualDirectionToggleButton.DisabledOptionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+         this.ReelManualDirectionToggleButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.ReelManualDirectionToggleButton.HoldEnable = false;
+         this.ReelManualDirectionToggleButton.HoldTimeoutInterval = 0;
+         this.ReelManualDirectionToggleButton.Location = new System.Drawing.Point(16, 98);
+         this.ReelManualDirectionToggleButton.Name = "ReelManualDirectionToggleButton";
+         this.ReelManualDirectionToggleButton.OptionASelected = true;
+         this.ReelManualDirectionToggleButton.OptionAText = "FWD";
+         this.ReelManualDirectionToggleButton.OptionBSelected = false;
+         this.ReelManualDirectionToggleButton.OptionBText = "REV";
+         this.ReelManualDirectionToggleButton.OptionCenterWidth = 2;
+         this.ReelManualDirectionToggleButton.OptionEdgeHeight = 8;
+         this.ReelManualDirectionToggleButton.OptionHeight = 22;
+         this.ReelManualDirectionToggleButton.OptionNonSelectedBackColor = System.Drawing.Color.Black;
+         this.ReelManualDirectionToggleButton.OptionNonSelectedFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+         this.ReelManualDirectionToggleButton.OptionNonSelectedForeColor = System.Drawing.SystemColors.ControlDark;
+         this.ReelManualDirectionToggleButton.OptionSelectedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
+         this.ReelManualDirectionToggleButton.OptionSelectedFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.ReelManualDirectionToggleButton.OptionSelectedForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+         this.ReelManualDirectionToggleButton.OptionWidth = 45;
+         this.ReelManualDirectionToggleButton.Size = new System.Drawing.Size(107, 90);
+         this.ReelManualDirectionToggleButton.TabIndex = 125;
+         this.ReelManualDirectionToggleButton.Text = "TORQUE DIRECTION";
+         this.ReelManualDirectionToggleButton.UseVisualStyleBackColor = false;
+         this.ReelManualDirectionToggleButton.Click += new System.EventHandler(this.ReelManualDirectionToggleButton_Click);
          // 
          // ReelManualOnOffToggleButton
          // 
@@ -4852,97 +4943,6 @@
          this.BotSideView.TabIndex = 37;
          this.BotSideView.VerticalEdge = 6;
          // 
-         // borderedPanel3
-         // 
-         this.borderedPanel3.BackColor = System.Drawing.Color.Olive;
-         this.borderedPanel3.Controls.Add(this.label22);
-         this.borderedPanel3.Controls.Add(this.lineControl4);
-         this.borderedPanel3.Controls.Add(this.RobotTotalCurrentTextPanel);
-         this.borderedPanel3.Controls.Add(this.LaunchTotalCurrentTextPanel);
-         this.borderedPanel3.Controls.Add(this.label31);
-         this.borderedPanel3.Controls.Add(this.label34);
-         this.borderedPanel3.EdgeWeight = 2;
-         this.borderedPanel3.Location = new System.Drawing.Point(135, 8);
-         this.borderedPanel3.Name = "borderedPanel3";
-         this.borderedPanel3.Size = new System.Drawing.Size(119, 147);
-         this.borderedPanel3.TabIndex = 182;
-         // 
-         // label22
-         // 
-         this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.label22.Location = new System.Drawing.Point(12, 23);
-         this.label22.Name = "label22";
-         this.label22.Size = new System.Drawing.Size(94, 15);
-         this.label22.TabIndex = 171;
-         this.label22.Text = "ROBOT";
-         this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         // 
-         // lineControl4
-         // 
-         this.lineControl4.BackColor = System.Drawing.Color.Transparent;
-         this.lineControl4.EdgeColor = System.Drawing.Color.Black;
-         this.lineControl4.LineType = NICBOT.GUI.LineControl.LineDrawType.Top;
-         this.lineControl4.LineWeight = 1;
-         this.lineControl4.Location = new System.Drawing.Point(2, 22);
-         this.lineControl4.Name = "lineControl4";
-         this.lineControl4.Opacity = 100;
-         this.lineControl4.ShowBackground = false;
-         this.lineControl4.ShowEdge = false;
-         this.lineControl4.Size = new System.Drawing.Size(115, 8);
-         this.lineControl4.TabIndex = 170;
-         this.lineControl4.Text = "lineControl4";
-         // 
-         // RobotTotalCurrentTextPanel
-         // 
-         this.RobotTotalCurrentTextPanel.BackColor = System.Drawing.Color.Black;
-         this.RobotTotalCurrentTextPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-         this.RobotTotalCurrentTextPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.RobotTotalCurrentTextPanel.ForeColor = System.Drawing.Color.White;
-         this.RobotTotalCurrentTextPanel.HoldTimeoutEnable = false;
-         this.RobotTotalCurrentTextPanel.HoldTimeoutInterval = 100;
-         this.RobotTotalCurrentTextPanel.Location = new System.Drawing.Point(10, 38);
-         this.RobotTotalCurrentTextPanel.Name = "RobotTotalCurrentTextPanel";
-         this.RobotTotalCurrentTextPanel.Size = new System.Drawing.Size(99, 42);
-         this.RobotTotalCurrentTextPanel.TabIndex = 169;
-         this.RobotTotalCurrentTextPanel.ValueText = "#.## A";
-         this.RobotTotalCurrentTextPanel.ValueTextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         // 
-         // LaunchTotalCurrentTextPanel
-         // 
-         this.LaunchTotalCurrentTextPanel.BackColor = System.Drawing.Color.Black;
-         this.LaunchTotalCurrentTextPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-         this.LaunchTotalCurrentTextPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.LaunchTotalCurrentTextPanel.ForeColor = System.Drawing.Color.White;
-         this.LaunchTotalCurrentTextPanel.HoldTimeoutEnable = false;
-         this.LaunchTotalCurrentTextPanel.HoldTimeoutInterval = 100;
-         this.LaunchTotalCurrentTextPanel.Location = new System.Drawing.Point(10, 95);
-         this.LaunchTotalCurrentTextPanel.Name = "LaunchTotalCurrentTextPanel";
-         this.LaunchTotalCurrentTextPanel.Size = new System.Drawing.Size(99, 42);
-         this.LaunchTotalCurrentTextPanel.TabIndex = 142;
-         this.LaunchTotalCurrentTextPanel.ValueText = "#.## A";
-         this.LaunchTotalCurrentTextPanel.ValueTextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         // 
-         // label31
-         // 
-         this.label31.BackColor = System.Drawing.Color.PaleGoldenrod;
-         this.label31.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.label31.Location = new System.Drawing.Point(2, 2);
-         this.label31.Name = "label31";
-         this.label31.Size = new System.Drawing.Size(115, 20);
-         this.label31.TabIndex = 168;
-         this.label31.Text = "CURRENT";
-         this.label31.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         // 
-         // label34
-         // 
-         this.label34.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.label34.Location = new System.Drawing.Point(12, 80);
-         this.label34.Name = "label34";
-         this.label34.Size = new System.Drawing.Size(94, 15);
-         this.label34.TabIndex = 141;
-         this.label34.Text = "LAUNCH";
-         this.label34.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         // 
          // MainForm
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -5003,6 +5003,7 @@
          this.borderedPanel1.ResumeLayout(false);
          this.borderedPanel1.PerformLayout();
          this.panel1.ResumeLayout(false);
+         this.borderedPanel3.ResumeLayout(false);
          this.RearSealantReserviorPanel.ResumeLayout(false);
          this.RearSealantReserviorPanel.PerformLayout();
          this.FrontSealantReserviorPanel.ResumeLayout(false);
@@ -5012,7 +5013,6 @@
          this.ReelMainPanel.ResumeLayout(false);
          this.ReelMainPanel.PerformLayout();
          this.ReelManualPanel.ResumeLayout(false);
-         this.ReelManualPanel.PerformLayout();
          this.GuidePanel.ResumeLayout(false);
          this.SealantManualPanel.ResumeLayout(false);
          this.SealantManualPanel.PerformLayout();
@@ -5020,7 +5020,6 @@
          this.InspectionPanel.ResumeLayout(false);
          this.borderedPanel6.ResumeLayout(false);
          this.borderedPanel5.ResumeLayout(false);
-         this.borderedPanel3.ResumeLayout(false);
          this.ResumeLayout(false);
 
       }
@@ -5134,11 +5133,11 @@
       private DirectionalValuePanel ReelActualValuePanel;
       private ValueToggleButton ReelManualOnOffToggleButton;
       private System.Windows.Forms.Panel ReelManualPanel;
-      private TextPanel ReelManualCurrentTextPanel;
-      private System.Windows.Forms.Label label6;
-      private UpDownButton ReelManualCurrentUpButton;
-      private UpDownButton ReelManualCurrentDownButton;
-      private ValueToggleButton ReelManualTorqueDirectionToggleButton;
+      private TextPanel ReelManualValueTextPanel;
+      private System.Windows.Forms.Label ReelValuePromptLabel;
+      private UpDownButton ReelManualValueUpButton;
+      private UpDownButton ReelManualValueDownButton;
+      private ValueToggleButton ReelManualDirectionToggleButton;
       private System.Windows.Forms.Panel GuidePanel;
       private System.Windows.Forms.Label label7;
       private HoldButton GuideSetupButton;

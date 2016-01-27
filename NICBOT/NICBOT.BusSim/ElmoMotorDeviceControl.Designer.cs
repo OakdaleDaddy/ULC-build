@@ -84,6 +84,10 @@
          this.VelocityTargetTextBox = new System.Windows.Forms.TextBox();
          this.label25 = new System.Windows.Forms.Label();
          this.ConsumerHeartbeatModeTextBox = new System.Windows.Forms.TextBox();
+         this.UserModeLabel = new System.Windows.Forms.Label();
+         this.label27 = new System.Windows.Forms.Label();
+         this.MotorStateLabel = new System.Windows.Forms.Label();
+         this.label28 = new System.Windows.Forms.Label();
          this.SuspendLayout();
          // 
          // NodeIdTextBox
@@ -644,11 +648,55 @@
          this.ConsumerHeartbeatModeTextBox.TabIndex = 207;
          this.ConsumerHeartbeatModeTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
          // 
+         // UserModeLabel
+         // 
+         this.UserModeLabel.BackColor = System.Drawing.SystemColors.Control;
+         this.UserModeLabel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+         this.UserModeLabel.Location = new System.Drawing.Point(843, 4);
+         this.UserModeLabel.Name = "UserModeLabel";
+         this.UserModeLabel.Size = new System.Drawing.Size(21, 20);
+         this.UserModeLabel.TabIndex = 208;
+         this.UserModeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         // 
+         // label27
+         // 
+         this.label27.AutoSize = true;
+         this.label27.Location = new System.Drawing.Point(817, 8);
+         this.label27.Name = "label27";
+         this.label27.Size = new System.Drawing.Size(24, 13);
+         this.label27.TabIndex = 209;
+         this.label27.Text = "UM";
+         this.label27.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+         // 
+         // MotorStateLabel
+         // 
+         this.MotorStateLabel.BackColor = System.Drawing.SystemColors.Control;
+         this.MotorStateLabel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+         this.MotorStateLabel.Location = new System.Drawing.Point(843, 27);
+         this.MotorStateLabel.Name = "MotorStateLabel";
+         this.MotorStateLabel.Size = new System.Drawing.Size(21, 20);
+         this.MotorStateLabel.TabIndex = 210;
+         this.MotorStateLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         // 
+         // label28
+         // 
+         this.label28.AutoSize = true;
+         this.label28.Location = new System.Drawing.Point(794, 30);
+         this.label28.Name = "label28";
+         this.label28.Size = new System.Drawing.Size(47, 13);
+         this.label28.TabIndex = 211;
+         this.label28.Text = "MOTOR";
+         this.label28.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+         // 
          // ElmoMotorDeviceControl
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
          this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+         this.Controls.Add(this.label28);
+         this.Controls.Add(this.MotorStateLabel);
+         this.Controls.Add(this.label27);
+         this.Controls.Add(this.UserModeLabel);
          this.Controls.Add(this.ConsumerHeartbeatModeTextBox);
          this.Controls.Add(this.VelocityDecelerationTextBox);
          this.Controls.Add(this.label22);
@@ -770,5 +818,9 @@
       private System.Windows.Forms.TextBox VelocityTargetTextBox;
       private System.Windows.Forms.Label label25;
       private System.Windows.Forms.TextBox ConsumerHeartbeatModeTextBox;
+      private System.Windows.Forms.Label UserModeLabel;
+      private System.Windows.Forms.Label label27;
+      private System.Windows.Forms.Label MotorStateLabel;
+      private System.Windows.Forms.Label label28;
    }
 }

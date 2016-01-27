@@ -115,8 +115,11 @@ namespace NICBOT.GUI
       private ReelModes reelModeSetPoint;
       private ReelModes reelNonManualModeSetPoint;
       private ElmoWhistleMotor.ControlModes reelRequestedControlMode;
+      private ElmoWhistleMotor.Modes reelRequestedMode;
       private double reelManualCurrentSetPoint;
+      private double reelManualSpeedSetPoint;
       private double reelRequestedCurrent;
+      private double reelRequestedSpeed;
       private double reelTotalStart;
       private double reelTripStart;
       private double reelCalibrationStart;
@@ -403,8 +406,10 @@ namespace NICBOT.GUI
       private void InitializeReelMotor()
       {
          this.reelMotor.Initialize();
-         this.reelRequestedControlMode = ElmoWhistleMotor.ControlModes.SingleLoopPosition;
+         this.reelRequestedControlMode = ElmoWhistleMotor.ControlModes.singleLoopPosition;
+         this.reelRequestedMode = ElmoWhistleMotor.Modes.undefined;
          this.reelRequestedCurrent = 0;
+         this.reelRequestedSpeed = 0;
       }
 
       private void StartReelMotor()
@@ -419,6 +424,146 @@ namespace NICBOT.GUI
             this.reelMotor.SetMode(ElmoWhistleMotor.Modes.current);
 
             Tracer.WriteMedium(TraceGroup.TBUS, null, "{0} started", this.reelMotor.Name);
+         }
+      }
+
+      private void UpdateReelMotor()
+      {
+         if (null == this.reelMotor.FaultReason)
+         {
+            ElmoWhistleMotor.ControlModes neededControlMode = ElmoWhistleMotor.ControlModes.singleLoopPosition;
+            ElmoWhistleMotor.Modes neededMode = ElmoWhistleMotor.Modes.current;
+            double neededValue = 0;
+            bool modeChange = false;
+
+            if (ReelModes.off == this.reelModeSetPoint)
+            {
+               neededControlMode = ElmoWhistleMotor.ControlModes.singleLoopPosition;
+               neededMode = ElmoWhistleMotor.Modes.off;
+               neededValue = 0;
+            }
+            else if (ReelModes.reverse == this.reelModeSetPoint)
+            {
+               if (MovementForwardControls.current == ParameterAccessor.Instance.ReelMotionMode)
+               {
+                  neededControlMode = ElmoWhistleMotor.ControlModes.singleLoopPosition;
+                  neededMode = ElmoWhistleMotor.Modes.current;
+                  neededValue = ParameterAccessor.Instance.ReelReverseCurrent.OperationalValue;
+               }
+               else
+               {
+                  neededControlMode = ElmoWhistleMotor.ControlModes.singleLoopPosition;
+                  neededMode = ElmoWhistleMotor.Modes.velocity;
+                  neededValue = ParameterAccessor.Instance.ReelReverseSpeed.OperationalValue;
+               }
+            }
+            else if (ReelModes.locked == this.reelModeSetPoint)
+            {
+               neededControlMode = ElmoWhistleMotor.ControlModes.microStepper;
+               neededValue = ParameterAccessor.Instance.ReelLockCurrent.OperationalValue;
+            }
+            else if (ReelModes.manual == this.reelModeSetPoint)
+            {
+               if (MovementForwardControls.current == ParameterAccessor.Instance.ReelMotionMode)
+               {
+                  neededControlMode = ElmoWhistleMotor.ControlModes.singleLoopPosition;
+                  neededMode = ElmoWhistleMotor.Modes.current;
+                  neededValue = reelManualCurrentSetPoint * -1;
+               }
+               else
+               {
+                  neededControlMode = ElmoWhistleMotor.ControlModes.singleLoopPosition;
+                  neededMode = ElmoWhistleMotor.Modes.velocity;
+                  neededValue = reelManualSpeedSetPoint * -1;
+               }
+            }
+
+            if ((neededControlMode != this.reelRequestedControlMode) ||
+                (neededMode != this.reelRequestedMode))
+            {
+               bool requestedZero = false;
+               bool atZero = false;
+
+               if (((ElmoWhistleMotor.ControlModes.microStepper == this.reelRequestedControlMode) && (0 == this.reelRequestedCurrent)) ||
+                   ((ElmoWhistleMotor.ControlModes.singleLoopPosition == this.reelRequestedControlMode) && (ElmoWhistleMotor.Modes.undefined == this.reelRequestedMode)) ||
+                   ((ElmoWhistleMotor.ControlModes.singleLoopPosition == this.reelRequestedControlMode) && (ElmoWhistleMotor.Modes.off == this.reelRequestedMode)) ||
+                   ((ElmoWhistleMotor.ControlModes.singleLoopPosition == this.reelRequestedControlMode) && (ElmoWhistleMotor.Modes.current == this.reelRequestedMode) && (0 == this.reelRequestedCurrent)) ||
+                   ((ElmoWhistleMotor.ControlModes.singleLoopPosition == this.reelRequestedControlMode) && (ElmoWhistleMotor.Modes.velocity == this.reelRequestedMode) && (0 == this.reelRequestedSpeed)))
+               {
+                  requestedZero = true;
+               }
+
+               if (((ElmoWhistleMotor.ControlModes.microStepper == this.reelRequestedControlMode) && (0 == this.reelMotor.Torque)) ||
+                   ((ElmoWhistleMotor.ControlModes.singleLoopPosition == this.reelRequestedControlMode) && (ElmoWhistleMotor.Modes.undefined == this.reelRequestedMode)) ||
+                   ((ElmoWhistleMotor.ControlModes.singleLoopPosition == this.reelRequestedControlMode) && (ElmoWhistleMotor.Modes.off == this.reelRequestedMode)) ||
+                   ((ElmoWhistleMotor.ControlModes.singleLoopPosition == this.reelRequestedControlMode) && (ElmoWhistleMotor.Modes.current == this.reelRequestedMode) && (0 == this.reelMotor.Torque)) ||
+                   ((ElmoWhistleMotor.ControlModes.singleLoopPosition == this.reelRequestedControlMode) && (ElmoWhistleMotor.Modes.velocity == this.reelRequestedMode) && (0 == this.reelMotor.RPM)))
+               {
+                  atZero = true;
+               }
+
+               if ((false == requestedZero) || (false == atZero))
+               {
+                  neededValue = 0;
+               }
+               else
+               {
+                  this.reelMotor.SetControlMode(neededControlMode);
+                  this.reelRequestedControlMode = neededControlMode;
+
+                  if (ElmoWhistleMotor.ControlModes.singleLoopPosition == this.reelRequestedControlMode)
+                  {
+                     this.reelMotor.SetMode(neededMode);
+                     this.reelRequestedMode = neededMode;
+                  }
+                  else
+                  {
+                     // mode assignment not needed for Micro Stepper mode
+                     this.reelRequestedMode = neededMode;
+                  }
+
+                  Tracer.WriteMedium(TraceGroup.TBUS, null, "{0} control={1} mode={2}", this.reelMotor.Name, this.reelRequestedControlMode, this.reelRequestedMode);
+                  modeChange = true;
+               }
+            }
+
+            if (((neededControlMode == this.reelRequestedControlMode) && (neededMode == this.reelRequestedMode)) ||
+                (0 == neededValue))
+            {
+               if (ElmoWhistleMotor.ControlModes.singleLoopPosition == this.reelRequestedControlMode)
+               {
+                  if (ElmoWhistleMotor.Modes.current == this.reelRequestedMode)
+                  {
+                     if ((neededValue != this.reelRequestedCurrent) || (false != modeChange))
+                     {
+                        float torqueCurrent = (float)neededValue;
+                        this.reelMotor.SetTorque(torqueCurrent);
+                        this.reelRequestedCurrent = neededValue;
+                        Tracer.WriteMedium(TraceGroup.TBUS, null, "{0} current {1}", this.reelMotor.Name, neededValue);
+                     }
+                  }
+                  else if (ElmoWhistleMotor.Modes.velocity == this.reelRequestedMode)
+                  {
+                     if ((neededValue != this.reelRequestedSpeed) || (false != modeChange))
+                     {
+                        int velocity = (int)neededValue;
+                        this.reelMotor.SetVelocity(velocity);
+                        this.reelRequestedSpeed = neededValue;
+                        Tracer.WriteMedium(TraceGroup.TBUS, null, "{0} speed {1}", this.reelMotor.Name, neededValue);
+                     }
+                  }
+               }
+               else if (ElmoWhistleMotor.ControlModes.microStepper == this.reelRequestedControlMode)
+               {
+                  if ((neededValue != this.reelRequestedCurrent) || (false != modeChange))
+                  {
+                     float torqueCurrent = (float)neededValue;
+                     this.reelMotor.SetStepperCurrent(torqueCurrent);
+                     this.reelRequestedCurrent = neededValue;
+                     Tracer.WriteMedium(TraceGroup.TBUS, null, "{0} lock current {1}", this.reelMotor.Name, neededValue);
+                  }
+               }
+            }
          }
       }
 
@@ -438,130 +583,8 @@ namespace NICBOT.GUI
          this.reelDigitalIo.Start();
       }
 
-      #endregion
-
-      #region Reel Analog IO Functions
-
-      private void InitilizeReelAnalogIo()
+      private void UpdateReelDigitalIo()
       {
-         this.reelAnalogIo.Initialize();
-         this.nitrogenPressureReading1 = double.NaN;
-         this.nitrogenPressureReading2 = double.NaN;
-         this.robotTotalCurrentReading = double.NaN;
-         this.launchTotalCurrentReading = double.NaN;
-         this.frontPumpPressureReading = double.NaN;
-         this.rearPumpPressureReading = double.NaN;
-      }
-
-      private void StartReelAnalogIo()
-      {
-         this.reelAnalogIo.Configure();
-         this.reelAnalogIo.Start();
-      }
-
-      #endregion
-
-      #region Reel Encoder Functions
-      
-      private void InitializeReelEncoder()
-      {
-         this.reelEncoder.Initialize();
-         this.reelCalibrationStart = 0;
-         this.reelCalibrationEnabled = false;
-      }
-
-      private void StartReelEncoder()
-      {
-         this.reelEncoder.Start();
-      }
-
-      #endregion
-
-      private void InitializeReel()
-      {
-         this.InitializeReelMotor();
-         this.InitilizeReelDigitalIo();
-         this.InitilizeReelAnalogIo();
-         this.InitializeReelEncoder();
-      }
-
-      private void StartReel()
-      {
-         this.StartReelMotor();
-         this.StartReelDigitalIo();
-         this.StartReelAnalogIo();
-         this.StartReelEncoder();
-      }
-
-      private void UpdateReel()
-      {
-         #region Reel Motor
-
-         if (null == this.reelMotor.FaultReason)
-         {
-            ElmoWhistleMotor.ControlModes neededControlMode = ElmoWhistleMotor.ControlModes.SingleLoopPosition;
-            double neededValue = 0;
-
-            if (ReelModes.off == this.reelModeSetPoint)
-            {
-               neededControlMode = ElmoWhistleMotor.ControlModes.SingleLoopPosition;
-               neededValue = 0;
-            }
-            else if (ReelModes.reverse == this.reelModeSetPoint)
-            {
-               neededControlMode = ElmoWhistleMotor.ControlModes.SingleLoopPosition;
-               neededValue = ParameterAccessor.Instance.ReelReverseCurrent.OperationalValue;
-            }
-            else if (ReelModes.locked == this.reelModeSetPoint)
-            {
-               neededControlMode = ElmoWhistleMotor.ControlModes.MicroStepper;
-               neededValue = ParameterAccessor.Instance.ReelLockCurrent.OperationalValue;
-            }
-            else if (ReelModes.manual == this.reelModeSetPoint)
-            {
-               neededControlMode = ElmoWhistleMotor.ControlModes.SingleLoopPosition;
-               neededValue = reelManualCurrentSetPoint * -1;
-            }
-
-            if (ElmoWhistleMotor.ControlModes.SingleLoopPosition == neededControlMode)
-            {
-               if (neededControlMode != this.reelRequestedControlMode)
-               {
-                  this.reelMotor.SetTorque(0);
-                  this.reelMotor.SetControlMode(neededControlMode);
-                  this.reelRequestedControlMode = neededControlMode;
-               }
-
-               if (neededValue != this.reelRequestedCurrent)
-               {
-                  float torqueCurrent = (float)neededValue;
-                  this.reelMotor.SetTorque(torqueCurrent);
-                  this.reelRequestedCurrent = neededValue;
-                  Tracer.WriteMedium(TraceGroup.TBUS, null, "{0} current {1}", this.reelMotor.Name, neededValue);
-               }
-            }
-            else if (ElmoWhistleMotor.ControlModes.MicroStepper == neededControlMode)
-            {
-               if (neededControlMode != this.reelRequestedControlMode)
-               {
-                  this.reelMotor.SetStepperCurrent(0);
-                  this.reelMotor.SetControlMode(neededControlMode);
-                  this.reelRequestedControlMode = neededControlMode;
-               }
-
-               if (neededValue != this.reelRequestedCurrent)
-               {
-                  float torqueCurrent = (float)neededValue;
-                  this.reelMotor.SetStepperCurrent(torqueCurrent);
-                  this.reelRequestedCurrent = neededValue;
-               }
-            }
-         }
-
-         #endregion
-
-         #region Reel Digital IO
-
          byte neededOutValue = 0;
 
          if (RobotApplications.repair == ParameterAccessor.Instance.RobotApplication)
@@ -595,11 +618,31 @@ namespace NICBOT.GUI
             this.reelDigitalOutRequested = neededOutValue;
             Tracer.WriteMedium(TraceGroup.TBUS, null, "reel digital out {0:X2}", neededOutValue);
          }
+      }
 
-         #endregion
+      #endregion
 
-         #region Reel Analog IO
+      #region Reel Analog IO Functions
 
+      private void InitilizeReelAnalogIo()
+      {
+         this.reelAnalogIo.Initialize();
+         this.nitrogenPressureReading1 = double.NaN;
+         this.nitrogenPressureReading2 = double.NaN;
+         this.robotTotalCurrentReading = double.NaN;
+         this.launchTotalCurrentReading = double.NaN;
+         this.frontPumpPressureReading = double.NaN;
+         this.rearPumpPressureReading = double.NaN;
+      }
+
+      private void StartReelAnalogIo()
+      {
+         this.reelAnalogIo.Configure();
+         this.reelAnalogIo.Start();
+      }
+
+      private void UpdateReelAnalogIo()
+      {
          if (RobotApplications.repair == ParameterAccessor.Instance.RobotApplication)
          {
 #if false
@@ -721,12 +764,52 @@ namespace NICBOT.GUI
             this.robotTotalCurrentReading = double.NaN;
             this.launchTotalCurrentFault = "disconnected";
          }
+      }
 
-         #endregion
+      #endregion
 
-         #region Reel Encoder
+      #region Reel Encoder Functions
+      
+      private void InitializeReelEncoder()
+      {
+         this.reelEncoder.Initialize();
+         this.reelCalibrationStart = 0;
+         this.reelCalibrationEnabled = false;
+      }
 
-         #endregion
+      private void StartReelEncoder()
+      {
+         this.reelEncoder.Start();
+      }
+
+      private void UpdateReelEncoder()
+      {
+      }
+
+      #endregion
+
+      private void InitializeReel()
+      {
+         this.InitializeReelMotor();
+         this.InitilizeReelDigitalIo();
+         this.InitilizeReelAnalogIo();
+         this.InitializeReelEncoder();
+      }
+
+      private void StartReel()
+      {
+         this.StartReelMotor();
+         this.StartReelDigitalIo();
+         this.StartReelAnalogIo();
+         this.StartReelEncoder();
+      }
+
+      private void UpdateReel()
+      {
+         this.UpdateReelMotor();
+         this.UpdateReelDigitalIo();
+         this.UpdateReelAnalogIo();
+         this.UpdateReelEncoder();
       }
 
       #endregion
@@ -2689,6 +2772,11 @@ namespace NICBOT.GUI
       {
          this.reelManualCurrentSetPoint = current;
       }
+      
+      public void SetReelManualSpeed(double speed)
+      {
+         this.reelManualSpeedSetPoint = speed;
+      }      
 
       public void SetReelTotalDistance(double distance)
       {
@@ -2739,10 +2827,32 @@ namespace NICBOT.GUI
          return (this.reelModeSetPoint);
       }
 
+      public bool ReelInCurrentMode()
+      {
+         bool result = false;
+
+         if ((ElmoWhistleMotor.Modes.off == this.reelRequestedMode) ||
+             (ElmoWhistleMotor.Modes.undefined == this.reelRequestedMode))
+         {
+            result = (MovementForwardControls.current == ParameterAccessor.Instance.ReelMotionMode) ? true : false;
+         }
+         else if (ElmoWhistleMotor.Modes.current == this.reelRequestedMode)
+         {
+            result = true;
+         }
+
+         return (result);
+      }
+
       public double GetReelCurrent()
       {
          return (this.reelMotor.Torque * -1);
       }
+
+      public double GetReelSpeed()
+      {
+         return (this.reelMotor.RPM * -1);
+      }      
 
       public double GetReelTotalDistance()
       {

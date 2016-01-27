@@ -34,12 +34,16 @@
          this.LockCurrentValueButton = new NICBOT.GUI.ValueButton();
          this.ReverseCurrentValueButton = new NICBOT.GUI.ValueButton();
          this.TitleLabel = new System.Windows.Forms.Label();
+         this.MotionControllModeToggleButton = new NICBOT.GUI.ValueToggleButton();
+         this.ReverseSpeedValueButton = new NICBOT.GUI.ValueButton();
          this.MainPanel.SuspendLayout();
          this.SuspendLayout();
          // 
          // MainPanel
          // 
          this.MainPanel.BackColor = System.Drawing.Color.Olive;
+         this.MainPanel.Controls.Add(this.ReverseSpeedValueButton);
+         this.MainPanel.Controls.Add(this.MotionControllModeToggleButton);
          this.MainPanel.Controls.Add(this.BackButton);
          this.MainPanel.Controls.Add(this.CalibrationDistanceValueButton);
          this.MainPanel.Controls.Add(this.LockCurrentValueButton);
@@ -48,7 +52,7 @@
          this.MainPanel.EdgeWeight = 3;
          this.MainPanel.Location = new System.Drawing.Point(0, 0);
          this.MainPanel.Name = "MainPanel";
-         this.MainPanel.Size = new System.Drawing.Size(385, 257);
+         this.MainPanel.Size = new System.Drawing.Size(385, 355);
          this.MainPanel.TabIndex = 1;
          // 
          // BackButton
@@ -57,7 +61,7 @@
          this.BackButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
          this.BackButton.DisabledForeColor = System.Drawing.Color.Silver;
          this.BackButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold);
-         this.BackButton.Location = new System.Drawing.Point(139, 173);
+         this.BackButton.Location = new System.Drawing.Point(254, 271);
          this.BackButton.Name = "BackButton";
          this.BackButton.Size = new System.Drawing.Size(107, 67);
          this.BackButton.TabIndex = 166;
@@ -76,7 +80,7 @@
          this.CalibrationDistanceValueButton.HoldTimeoutInterval = 0;
          this.CalibrationDistanceValueButton.LeftArrowBackColor = System.Drawing.Color.Black;
          this.CalibrationDistanceValueButton.LeftArrowVisible = false;
-         this.CalibrationDistanceValueButton.Location = new System.Drawing.Point(254, 68);
+         this.CalibrationDistanceValueButton.Location = new System.Drawing.Point(139, 166);
          this.CalibrationDistanceValueButton.Name = "CalibrationDistanceValueButton";
          this.CalibrationDistanceValueButton.RightArrowBackColor = System.Drawing.Color.Black;
          this.CalibrationDistanceValueButton.RightArrowVisible = false;
@@ -104,7 +108,7 @@
          this.LockCurrentValueButton.HoldTimeoutInterval = 0;
          this.LockCurrentValueButton.LeftArrowBackColor = System.Drawing.Color.Black;
          this.LockCurrentValueButton.LeftArrowVisible = false;
-         this.LockCurrentValueButton.Location = new System.Drawing.Point(139, 68);
+         this.LockCurrentValueButton.Location = new System.Drawing.Point(24, 166);
          this.LockCurrentValueButton.Name = "LockCurrentValueButton";
          this.LockCurrentValueButton.RightArrowBackColor = System.Drawing.Color.Black;
          this.LockCurrentValueButton.RightArrowVisible = false;
@@ -132,7 +136,7 @@
          this.ReverseCurrentValueButton.HoldTimeoutInterval = 0;
          this.ReverseCurrentValueButton.LeftArrowBackColor = System.Drawing.Color.Black;
          this.ReverseCurrentValueButton.LeftArrowVisible = false;
-         this.ReverseCurrentValueButton.Location = new System.Drawing.Point(24, 68);
+         this.ReverseCurrentValueButton.Location = new System.Drawing.Point(139, 68);
          this.ReverseCurrentValueButton.Name = "ReverseCurrentValueButton";
          this.ReverseCurrentValueButton.RightArrowBackColor = System.Drawing.Color.Black;
          this.ReverseCurrentValueButton.RightArrowVisible = false;
@@ -162,11 +166,72 @@
          this.TitleLabel.Text = "TETHER REEL SETUP";
          this.TitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
          // 
+         // MotionControllModeToggleButton
+         // 
+         this.MotionControllModeToggleButton.AutomaticToggle = true;
+         this.MotionControllModeToggleButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.MotionControllModeToggleButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
+         this.MotionControllModeToggleButton.DisabledForeColor = System.Drawing.Color.Silver;
+         this.MotionControllModeToggleButton.DisabledOptionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+         this.MotionControllModeToggleButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.MotionControllModeToggleButton.ForeColor = System.Drawing.Color.Black;
+         this.MotionControllModeToggleButton.HoldEnable = false;
+         this.MotionControllModeToggleButton.HoldTimeoutInterval = 0;
+         this.MotionControllModeToggleButton.Location = new System.Drawing.Point(24, 68);
+         this.MotionControllModeToggleButton.Name = "MotionControllModeToggleButton";
+         this.MotionControllModeToggleButton.OptionASelected = false;
+         this.MotionControllModeToggleButton.OptionAText = "SPEED";
+         this.MotionControllModeToggleButton.OptionBSelected = true;
+         this.MotionControllModeToggleButton.OptionBText = "CURRENT";
+         this.MotionControllModeToggleButton.OptionCenterWidth = 0;
+         this.MotionControllModeToggleButton.OptionEdgeHeight = 8;
+         this.MotionControllModeToggleButton.OptionHeight = 22;
+         this.MotionControllModeToggleButton.OptionNonSelectedBackColor = System.Drawing.Color.Black;
+         this.MotionControllModeToggleButton.OptionNonSelectedFont = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.MotionControllModeToggleButton.OptionNonSelectedForeColor = System.Drawing.SystemColors.ControlDarkDark;
+         this.MotionControllModeToggleButton.OptionSelectedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
+         this.MotionControllModeToggleButton.OptionSelectedFont = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.MotionControllModeToggleButton.OptionSelectedForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+         this.MotionControllModeToggleButton.OptionWidth = 50;
+         this.MotionControllModeToggleButton.Size = new System.Drawing.Size(107, 90);
+         this.MotionControllModeToggleButton.TabIndex = 167;
+         this.MotionControllModeToggleButton.Text = "MOTION CONTROL";
+         this.MotionControllModeToggleButton.UseVisualStyleBackColor = false;
+         this.MotionControllModeToggleButton.Click += new System.EventHandler(this.MotionControllModeToggleButton_Click);
+         // 
+         // ReverseSpeedValueButton
+         // 
+         this.ReverseSpeedValueButton.ArrowWidth = 0;
+         this.ReverseSpeedValueButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.ReverseSpeedValueButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
+         this.ReverseSpeedValueButton.DisabledForeColor = System.Drawing.Color.Silver;
+         this.ReverseSpeedValueButton.DisabledValueBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+         this.ReverseSpeedValueButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.ReverseSpeedValueButton.HoldTimeoutInterval = 0;
+         this.ReverseSpeedValueButton.LeftArrowBackColor = System.Drawing.Color.Black;
+         this.ReverseSpeedValueButton.LeftArrowVisible = false;
+         this.ReverseSpeedValueButton.Location = new System.Drawing.Point(254, 68);
+         this.ReverseSpeedValueButton.Name = "ReverseSpeedValueButton";
+         this.ReverseSpeedValueButton.RightArrowBackColor = System.Drawing.Color.Black;
+         this.ReverseSpeedValueButton.RightArrowVisible = false;
+         this.ReverseSpeedValueButton.Size = new System.Drawing.Size(107, 90);
+         this.ReverseSpeedValueButton.TabIndex = 168;
+         this.ReverseSpeedValueButton.Text = "REVERSE SPEED";
+         this.ReverseSpeedValueButton.UseVisualStyleBackColor = false;
+         this.ReverseSpeedValueButton.ValueBackColor = System.Drawing.Color.Black;
+         this.ReverseSpeedValueButton.ValueEdgeHeight = 8;
+         this.ReverseSpeedValueButton.ValueFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+         this.ReverseSpeedValueButton.ValueForeColor = System.Drawing.Color.White;
+         this.ReverseSpeedValueButton.ValueHeight = 22;
+         this.ReverseSpeedValueButton.ValueText = "#.# A";
+         this.ReverseSpeedValueButton.ValueWidth = 80;
+         this.ReverseSpeedValueButton.Click += new System.EventHandler(this.ReverseSpeedValueButton_Click);
+         // 
          // ReelSetupForm
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-         this.ClientSize = new System.Drawing.Size(385, 257);
+         this.ClientSize = new System.Drawing.Size(385, 355);
          this.Controls.Add(this.MainPanel);
          this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
          this.Name = "ReelSetupForm";
@@ -186,5 +251,7 @@
       private ValueButton ReverseCurrentValueButton;
       private ValueButton CalibrationDistanceValueButton;
       private NicBotButton BackButton;
+      private ValueToggleButton MotionControllModeToggleButton;
+      private ValueButton ReverseSpeedValueButton;
    }
 }
