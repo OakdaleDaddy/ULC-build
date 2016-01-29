@@ -1968,6 +1968,46 @@ namespace NICBOT.GUI
          return (result);
       }
 
+      public double GetTopFrontMovementCurrent()
+      {
+         return (this.robotTopFrontWheel.Torque);
+      }
+
+      public double GetTopRearMovementCurrent()
+      {
+         return (this.robotTopRearWheel.Torque);
+      }
+
+      public double GetBottomFrontMovementCurrent()
+      {
+         return (this.robotBottomFrontWheel.Torque);
+      }
+
+      public double GetBottomRearMovementCurrent()
+      {
+         return (this.robotBottomRearWheel.Torque);
+      }
+
+      public double GetTopFrontMovementTemperature()
+      {
+         return (this.robotTopFrontWheel.Temperature);
+      }
+
+      public double GetTopRearMovementTemperature()
+      {
+         return (this.robotTopRearWheel.Temperature);
+      }
+
+      public double GetBottomFrontMovementTemperature()
+      {
+         return (this.robotBottomFrontWheel.Temperature);
+      }
+
+      public double GetBottomRearMovementTemperature()
+      {
+         return (this.robotBottomRearWheel.Temperature);
+      }
+
       #endregion
 
       #region Drill Functions

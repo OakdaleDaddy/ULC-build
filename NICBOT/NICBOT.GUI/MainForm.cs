@@ -111,7 +111,7 @@ namespace NICBOT.GUI
          return (result);
       }
 
-      private void SetCautionPanel(double reading, CautionParameter cautionParameter, TextPanel panel)
+      private void SetCautionPanel(double reading, CautionParameter cautionParameter, Control panel)
       {
          Color backColor = Color.Black;
          Color foreColor = Color.White;
@@ -1292,9 +1292,24 @@ namespace NICBOT.GUI
 
          this.FeederActualValuePanel.ValueText = "";
          this.FeederMoveButton.ValueText = "";
+         this.FeederCurrentIndicatorTextBox.BackColor = Color.Black;
+         this.TopFrontFeederCurrentTextPanel.ValueText = "";
+         this.TopRearFeederCurrentTextPanel.ValueText = "";
+         this.BottomFrontFeederCurrentTextPanel.ValueText = "";
+         this.BottomRearFeederCurrentTextPanel.ValueText = "";
 
          this.MotorStatusDirectionalValuePanel.ValueText = "";
          this.MovementMoveButton.ValueText = "";
+         this.TopFrontMovementMotorCurrentTextPanel.ValueText = "";
+         this.MovementCurrentIndciatorTextBox.BackColor = Color.Black;
+         this.MovementTemperatureIndicatorTextBox.BackColor = Color.Black;
+         this.TopRearMovementMotorCurrentTextPanel.ValueText = "";
+         this.BottomFrontMovementMotorCurrentTextPanel.ValueText = "";
+         this.BottomRearMovementMotorCurrentTextPanel.ValueText = "";
+         this.TopFrontMovementMotorTemperatureTextPanel.ValueText = "";
+         this.TopRearMovementMotorTemperatureTextPanel.ValueText = "";
+         this.BottomFrontMovementMotorTemperatureTextPanel.ValueText = "";
+         this.BottomRearMovementMotorTemperatureTextPanel.ValueText = "";
 
          this.DrillExtendedActualValuePanel.ValueText = "";
          this.DrillExtendedSetPointValuePanel.ValueText = "";
@@ -1822,6 +1837,27 @@ namespace NICBOT.GUI
 
          this.FeederClampSetupButton.Text = feederClampStatus;
 
+         double maximumFeederCurrent = 0.0;
+         double feederCurrent = 0;
+
+         feederCurrent = NicBotComm.Instance.GetTopFrontFeederCurrent();
+         maximumFeederCurrent = (feederCurrent > maximumFeederCurrent) ? feederCurrent : maximumFeederCurrent;
+         this.TopFrontFeederCurrentTextPanel.ValueText = this.GetValueText(feederCurrent, "N2", "A");
+
+         feederCurrent = NicBotComm.Instance.GetTopRearFeederCurrent();
+         maximumFeederCurrent = (feederCurrent > maximumFeederCurrent) ? feederCurrent : maximumFeederCurrent;
+         this.TopRearFeederCurrentTextPanel.ValueText = this.GetValueText(feederCurrent, "N2", "A");
+
+         feederCurrent = NicBotComm.Instance.GetBottomFrontFeederCurrent();
+         maximumFeederCurrent = (feederCurrent > maximumFeederCurrent) ? feederCurrent : maximumFeederCurrent;
+         this.BottomFrontFeederCurrentTextPanel.ValueText = this.GetValueText(feederCurrent, "N2", "A");
+
+         feederCurrent = NicBotComm.Instance.GetBottomRearFeederCurrent();
+         maximumFeederCurrent = (feederCurrent > maximumFeederCurrent) ? feederCurrent : maximumFeederCurrent;
+         this.BottomRearFeederCurrentTextPanel.ValueText = this.GetValueText(feederCurrent, "N2", "A");
+
+         this.SetCautionPanel(maximumFeederCurrent, ParameterAccessor.Instance.FeederCurrentCaution, this.FeederCurrentIndicatorTextBox);
+
          #endregion
 
          #region Guide
@@ -1882,7 +1918,7 @@ namespace NICBOT.GUI
 
          #endregion
 
-         #region Joystick
+         #region Joystick and Movement
 
          Joystick.Instance.Update();
 
@@ -2041,6 +2077,49 @@ namespace NICBOT.GUI
 
             #endregion
          }
+
+         double maximumMovementCurrent = 0;
+         double movementCurrent = 0;
+
+         movementCurrent = NicBotComm.Instance.GetTopFrontMovementCurrent();
+         maximumFeederCurrent = (movementCurrent > maximumMovementCurrent) ? movementCurrent : maximumMovementCurrent;
+         this.TopFrontMovementMotorCurrentTextPanel.ValueText = this.GetValueText(movementCurrent, "N2", "A");
+
+         movementCurrent = NicBotComm.Instance.GetTopRearMovementCurrent();
+         maximumMovementCurrent = (movementCurrent > maximumMovementCurrent) ? movementCurrent : maximumMovementCurrent;
+         this.TopRearMovementMotorCurrentTextPanel.ValueText = this.GetValueText(movementCurrent, "N2", "A");
+
+         movementCurrent = NicBotComm.Instance.GetBottomFrontMovementCurrent();
+         maximumMovementCurrent = (movementCurrent > maximumMovementCurrent) ? movementCurrent : maximumMovementCurrent;
+         this.BottomFrontMovementMotorCurrentTextPanel.ValueText = this.GetValueText(movementCurrent, "N2", "A");
+
+         movementCurrent = NicBotComm.Instance.GetBottomRearMovementCurrent();
+         maximumMovementCurrent = (movementCurrent > maximumMovementCurrent) ? movementCurrent : maximumMovementCurrent;
+         this.BottomRearMovementMotorCurrentTextPanel.ValueText = this.GetValueText(movementCurrent, "N2", "A");
+
+         this.SetCautionPanel(maximumMovementCurrent, ParameterAccessor.Instance.MovementCurrentCaution, this.MovementCurrentIndciatorTextBox);
+
+
+         double maximumMovementTemperature = 0;
+         double movementTemperature = 0;
+
+         movementTemperature = NicBotComm.Instance.GetTopFrontMovementTemperature();
+         maximumMovementTemperature = (movementTemperature > maximumMovementTemperature) ? movementTemperature : maximumMovementTemperature;
+         this.TopFrontMovementMotorTemperatureTextPanel.ValueText = this.GetValueText(movementTemperature, "N1", "°C");
+
+         movementTemperature = NicBotComm.Instance.GetTopRearMovementTemperature();
+         maximumMovementTemperature = (movementTemperature > maximumMovementTemperature) ? movementTemperature : maximumMovementTemperature;
+         this.TopRearMovementMotorTemperatureTextPanel.ValueText = this.GetValueText(movementTemperature, "N1", "°C");
+
+         movementTemperature = NicBotComm.Instance.GetBottomFrontMovementTemperature();
+         maximumMovementTemperature = (movementTemperature > maximumMovementTemperature) ? movementTemperature : maximumMovementTemperature;
+         this.BottomFrontMovementMotorTemperatureTextPanel.ValueText = this.GetValueText(movementTemperature, "N1", "°C");
+
+         movementTemperature = NicBotComm.Instance.GetBottomRearMovementTemperature();
+         maximumMovementTemperature = (movementTemperature > maximumMovementTemperature) ? movementTemperature : maximumMovementTemperature;
+         this.BottomRearMovementMotorTemperatureTextPanel.ValueText = this.GetValueText(movementTemperature, "N1", "°C");
+
+         this.SetCautionPanel(maximumMovementTemperature, ParameterAccessor.Instance.MovementTemperatureCaution, this.MovementTemperatureIndicatorTextBox);
 
          #endregion
 
@@ -3027,46 +3106,30 @@ namespace NICBOT.GUI
 
       private void MovementManaulDisplayButton_Click(object sender, EventArgs e)
       {
-         if (false == this.MovementManulPanel.Visible)
+         this.movementNonManualMode = NicBotComm.Instance.GetMovementMode();
+         this.movementNonManualForwardMode = NicBotComm.Instance.GetMovementForwardMode();
+
+         if (MovementForwardModes.normalAxial == this.movementNonManualForwardMode)
          {
-            this.movementNonManualMode = NicBotComm.Instance.GetMovementMode();
-            this.movementNonManualForwardMode = NicBotComm.Instance.GetMovementForwardMode();
-
-            if (MovementForwardModes.normalAxial == this.movementNonManualForwardMode)
-            {
-               NicBotComm.Instance.SetMovementForwardMode(MovementForwardModes.normalAxial);
-            }
-            else
-            {
-               NicBotComm.Instance.SetMovementForwardMode(MovementForwardModes.circumferential);
-            }
-
-            NicBotComm.Instance.SetMovementMode(MovementModes.move);
-            
-            this.MovementManulPanel.Left = this.MovementMainPanel.Left;
-            this.MovementManulPanel.Top = this.GetAbsoluteTop(this.MovementOffButton);
-            this.MovementManulPanel.Visible = true;
-
-            this.MovementSpeedToggleButton.Visible = false;
-
-            this.MovementManaulDisplayButton.Text = "HIDE MANUAL";
+            NicBotComm.Instance.SetMovementForwardMode(MovementForwardModes.normalAxial);
          }
          else
          {
-            NicBotComm.Instance.SetMovementMode(this.movementNonManualMode);
-            NicBotComm.Instance.SetMovementForwardMode(this.movementNonManualForwardMode);
-
-            this.MovementSpeedToggleButton.Visible = true;
-            this.MovementManulPanel.Visible = false;
-            this.MovementManaulDisplayButton.Text = "SHOW MANUAL";
+            NicBotComm.Instance.SetMovementForwardMode(MovementForwardModes.circumferential);
          }
+
+         NicBotComm.Instance.SetMovementMode(MovementModes.move);
+            
+         this.MovementManulPanel.Left = this.MovementMainPanel.Left;
+         this.MovementManulPanel.Top = this.GetAbsoluteTop(this.MovementOffButton);
+         this.MovementManulPanel.Visible = true;
 
          this.UpdateMovementControls();
       }
 
       #endregion
 
-      #region Motor Manual Event Process
+      #region Movement Manual Event Process
 
       private void MotorManualJogReverseButton_Click(object sender, EventArgs e)
       {
@@ -3116,6 +3179,22 @@ namespace NICBOT.GUI
       private void MotorManualMoveForwardButton_MouseUp(object sender, MouseEventArgs e)
       {
          NicBotComm.Instance.SetMovementManualVelocity(0);
+      }
+
+      private void MovementManualSetupButton_HoldTimeout(object sender, HoldTimeoutEventArgs e)
+      {
+         this.MovementSetupButton_HoldTimeout(sender, e);
+      }
+
+      private void MovementHideManualButton_Click(object sender, EventArgs e)
+      {
+         NicBotComm.Instance.SetMovementMode(this.movementNonManualMode);
+         NicBotComm.Instance.SetMovementForwardMode(this.movementNonManualForwardMode);
+
+         this.MovementSpeedToggleButton.Visible = true;
+         this.MovementManulPanel.Visible = false;
+
+         this.UpdateMovementControls();
       }
 
       #endregion

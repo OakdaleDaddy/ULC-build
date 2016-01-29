@@ -543,6 +543,26 @@ namespace NICBOT.GUI
          return ( TruckCommBus.Instance.GetFeederVelocity() );
       }
 
+      public double GetTopFrontFeederCurrent()
+      {
+         return (TruckCommBus.Instance.GetTopFrontFeederCurrent());
+      }
+
+      public double GetTopRearFeederCurrent()
+      {
+         return (TruckCommBus.Instance.GetTopRearFeederCurrent());
+      }
+
+      public double GetBottomFrontFeederCurrent()
+      {
+         return (TruckCommBus.Instance.GetBottomFrontFeederCurrent());
+      }
+
+      public double GetBottomRearFeederCurrent()
+      {
+         return (TruckCommBus.Instance.GetBottomRearFeederCurrent());
+      }
+
       public bool GetFeederClampSetPoint()
       {
          return (TruckCommBus.Instance.GetFeederClampSetPoint());
@@ -708,6 +728,46 @@ namespace NICBOT.GUI
       public double GetMovementValue()
       {
          return (RobotCommBus.Instance.GetMovementValue());
+      }
+
+      public double GetTopFrontMovementCurrent()
+      {
+         return (RobotCommBus.Instance.GetTopFrontMovementCurrent());
+      }
+
+      public double GetTopRearMovementCurrent()
+      {
+         return (RobotCommBus.Instance.GetTopRearMovementCurrent());
+      }
+
+      public double GetBottomFrontMovementCurrent()
+      {
+         return (RobotCommBus.Instance.GetBottomFrontMovementCurrent());
+      }
+         
+      public double GetBottomRearMovementCurrent()
+      {
+         return (RobotCommBus.Instance.GetBottomRearMovementCurrent());
+      }
+      
+      public double GetTopFrontMovementTemperature()
+      {
+         return (RobotCommBus.Instance.GetTopFrontMovementTemperature());
+      }
+
+      public double GetTopRearMovementTemperature()
+      {
+         return (RobotCommBus.Instance.GetTopRearMovementTemperature());
+      }
+
+      public double GetBottomFrontMovementTemperature()
+      {
+         return (RobotCommBus.Instance.GetBottomFrontMovementTemperature());
+      }
+
+      public double GetBottomRearMovementTemperature()
+      {
+         return (RobotCommBus.Instance.GetBottomRearMovementTemperature());
       }
 
       #endregion

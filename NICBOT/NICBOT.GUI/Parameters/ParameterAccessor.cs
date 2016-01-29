@@ -67,6 +67,7 @@ namespace NICBOT.GUI
       public ValueParameter FeederLockCurrent;
       public ValueParameter FeederCurrentPer1kRPM;
       public ValueParameter FeederManualSpeed;
+      public CautionParameter FeederCurrentCaution;
 
       public FeederMotorParameters TopFrontFeederMotor;
       public FeederMotorParameters TopRearFeederMotor;
@@ -86,6 +87,8 @@ namespace NICBOT.GUI
       public MovementMotorParameters TopRearMovementMotor;
       public MovementMotorParameters BottomFrontMovementMotor;
       public MovementMotorParameters BottomRearMovementMotor;
+      public CautionParameter MovementCurrentCaution;
+      public CautionParameter MovementTemperatureCaution;
 
       public bool FrontToolSelected;
 
@@ -344,7 +347,7 @@ namespace NICBOT.GUI
          this.FeederLockCurrent = new ValueParameter("FeederLockCurrent", "A", 2, 0.01, 0.5, 0.0, 0.10, 0.10);
          this.FeederCurrentPer1kRPM = new ValueParameter("FeederCurrentPer1kRPM", "A", 1, 0.1, 3.0, 0.1, 0.8, 0.8);
          this.FeederManualSpeed = new ValueParameter("FeederManualSpeed", "m/MIN", 2, 0, 12.05992, 1, 7, 7);
-
+         this.FeederCurrentCaution = new CautionParameter("FeederCurrentCaution", 5.0, 3.0, 0.0, 0.0);
 
          this.TopFrontFeederMotor = new FeederMotorParameters();
          this.SetFeederMotorDefaults(ref this.TopFrontFeederMotor, "TopFront", false, false);
@@ -380,6 +383,8 @@ namespace NICBOT.GUI
          this.BottomRearMovementMotor = new MovementMotorParameters();
          this.SetMovementMotorDefaults(ref this.BottomRearMovementMotor, "BottomRear", MovementForwardControls.velocity, MovementForwardControls.velocity, MovementForwardControls.current, MovementForwardControls.current);
 
+         this.MovementCurrentCaution = new CautionParameter("MovementCurrentCaution", 5.0, 3.0, 0.0, 0.0);
+         this.MovementTemperatureCaution = new CautionParameter("MovementTemperatureCaution", 50.0, 40.0, 0.0, 0.0);
 
          this.FrontToolSelected = true;
 
@@ -2105,6 +2110,21 @@ namespace NICBOT.GUI
                                        this.NitrogenPressureCaution = cautionParameter;
                                        break;
                                     }
+                                    case "FeederCurrentCaution":
+                                    {
+                                       this.FeederCurrentCaution = cautionParameter;
+                                       break;
+                                    }
+                                    case "MovementCurrentCaution":
+                                    {
+                                       this.MovementCurrentCaution = cautionParameter;
+                                       break;
+                                    }
+                                    case "MovementTemperatureCaution":
+                                    {
+                                       this.MovementTemperatureCaution = cautionParameter;
+                                       break;
+                                    }
                                  }
                               }
 
@@ -2831,7 +2851,9 @@ namespace NICBOT.GUI
             this.WriteValueParameters(writer, this.FeederLockCurrent);
             this.WriteValueParameters(writer, this.FeederCurrentPer1kRPM);
             this.WriteValueParameters(writer, this.FeederManualSpeed);
+            this.WriteCautionParameters(writer, this.FeederCurrentCaution);
 
+            
             this.WriteFeederMotorParameters(writer, this.TopFrontFeederMotor);
             this.WriteFeederMotorParameters(writer, this.TopRearFeederMotor);
             this.WriteFeederMotorParameters(writer, this.BottomFrontFeederMotor);
@@ -2852,6 +2874,8 @@ namespace NICBOT.GUI
             this.WriteMovementMotorParameters(writer, this.TopRearMovementMotor);
             this.WriteMovementMotorParameters(writer, this.BottomFrontMovementMotor);
             this.WriteMovementMotorParameters(writer, this.BottomRearMovementMotor);
+            this.WriteCautionParameters(writer, this.MovementCurrentCaution);
+            this.WriteCautionParameters(writer, this.MovementTemperatureCaution);
 
             
             this.WriteElement(writer, "FrontToolSelected", this.FrontToolSelected);

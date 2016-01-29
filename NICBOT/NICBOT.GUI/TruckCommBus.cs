@@ -2920,6 +2920,26 @@ namespace NICBOT.GUI
          return (result);
       }
 
+      public double GetTopFrontFeederCurrent()
+      {
+         return (this.feederTopFrontMotor.Torque);
+      }
+
+      public double GetTopRearFeederCurrent()
+      {
+         return (this.feederTopRearMotor.Torque);
+      }
+
+      public double GetBottomFrontFeederCurrent()
+      {
+         return (this.feederBottomFrontMotor.Torque);
+      }
+
+      public double GetBottomRearFeederCurrent()
+      {
+         return (this.feederBottomRearMotor.Torque);
+      }
+
       public bool GetFeederClampSetPoint()
       {
          return (false);
