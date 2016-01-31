@@ -23,3 +23,13 @@ NICBOT/NICBOT.TraceListener/obj/
 NICBOT/NICBOT.Utilities/bin/
 NICBOT/NICBOT.Utilities/obj/
 NICBOT/NICBOT.v11.suo
+
+DYNO/DYNO.GUI/bin/
+DYNO/DYNO.GUI/obj/
+DYNO/DYNO.GUI.v11.suo
+DYNO/DYNO.Utilities/bin/
+DYNO/DYNO.Utilities/obj/
+DYNO/DYNO.PCANLight/bin/
+DYNO/DYNO.PCANLight/obj/
+DYNO/DYNO.CAN/bin/
+DYNO/DYNO.CAN/obj/

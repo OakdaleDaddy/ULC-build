@@ -4118,7 +4118,7 @@
          this.NicbotBodyRepairGroupBox.Controls.Add(this.SetNicbotOriginHuntOnButton);
          this.NicbotBodyRepairGroupBox.Location = new System.Drawing.Point(3, 85);
          this.NicbotBodyRepairGroupBox.Name = "NicbotBodyRepairGroupBox";
-         this.NicbotBodyRepairGroupBox.Size = new System.Drawing.Size(700, 418);
+         this.NicbotBodyRepairGroupBox.Size = new System.Drawing.Size(684, 418);
          this.NicbotBodyRepairGroupBox.TabIndex = 231;
          this.NicbotBodyRepairGroupBox.TabStop = false;
          this.NicbotBodyRepairGroupBox.Text = "REPAIR";
@@ -5330,7 +5330,7 @@
          this.NicbotBodyInspectGroupBox.Controls.Add(this.NicbotInspectFrontArmExtendCheckBox);
          this.NicbotBodyInspectGroupBox.Location = new System.Drawing.Point(0, 509);
          this.NicbotBodyInspectGroupBox.Name = "NicbotBodyInspectGroupBox";
-         this.NicbotBodyInspectGroupBox.Size = new System.Drawing.Size(700, 79);
+         this.NicbotBodyInspectGroupBox.Size = new System.Drawing.Size(684, 79);
          this.NicbotBodyInspectGroupBox.TabIndex = 230;
          this.NicbotBodyInspectGroupBox.TabStop = false;
          this.NicbotBodyInspectGroupBox.Text = "INSPECT";
