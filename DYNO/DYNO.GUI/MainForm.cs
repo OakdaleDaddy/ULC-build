@@ -913,6 +913,13 @@ namespace DYNO.GUI
 
          this.active = false;
 
+         FileTraceListener fileTraceListener;
+         fileTraceListener = new FileTraceListener();
+         fileTraceListener.LogFilePath = @"C:\LOGS\DYNO";
+         fileTraceListener.Prefix = "DYNO_";
+         fileTraceListener.MaximumLines = 10000;
+         Trace.Listeners.Add(fileTraceListener);
+
          this.traceQueue = new Queue();
          QueuedTraceListener queuedTraceListener = new QueuedTraceListener(this.traceQueue);
          Trace.Listeners.Add(queuedTraceListener);

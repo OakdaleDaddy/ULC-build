@@ -276,7 +276,7 @@
          if (Tracer.Active(groupId, TraceLevel.low) != false)
          {
             string prefix = TracePrefix.Value(groupId);
-            string id = (null != identifier) ? (identifier + " ") : string.Empty;
+            string id = ((null != identifier) && ("" != identifier)) ? (identifier + " ") : string.Empty;
             Tracer.Write(id + prefix + formatString, args);
          }
       }
@@ -286,7 +286,7 @@
          if (Tracer.Active(groupId, TraceLevel.medium) != false)
          {
             string prefix = TracePrefix.Value(groupId);
-            string id = (null != identifier) ? (identifier + " ") : string.Empty;
+            string id = ((null != identifier) && ("" != identifier)) ? (identifier + " ") : string.Empty;
             Tracer.Write(id + prefix + formatString, args);
          }
       }
@@ -296,7 +296,7 @@
          if (Tracer.Active(groupId, TraceLevel.high) != false)
          {
             string prefix = TracePrefix.Value(groupId);
-            string id = (null != identifier) ? (identifier + " ") : string.Empty;
+            string id = ((null != identifier) && ("" != identifier)) ? (identifier + " ") : string.Empty;
             Tracer.Write(id + prefix + formatString, args);
          }
       }
@@ -306,7 +306,7 @@
          if (Tracer.Active(groupId, TraceLevel.error) != false)
          {
             string prefix = TracePrefix.Value(groupId);
-            string id = (null != identifier) ? (identifier + " ") : string.Empty;
+            string id = ((null != identifier) && ("" != identifier)) ? (identifier + " ") : string.Empty;
             Tracer.Write(id + prefix + formatString, args);
          }
       }
@@ -454,7 +454,7 @@
                this.writer.Flush();
                this.lineCount++;
 
-               if (this.lineCount > this.MaximumLines)
+               if ((0 != this.MaximumLines) && (this.lineCount > this.MaximumLines))
                {
                   this.CreateNextWriter();
                }
