@@ -57,9 +57,10 @@
          this.label13 = new System.Windows.Forms.Label();
          this.MainTabControl = new System.Windows.Forms.TabControl();
          this.ControlTabPage = new System.Windows.Forms.TabPage();
+         this.ClearActivityLogButton = new System.Windows.Forms.Button();
          this.SaveParametersButton = new System.Windows.Forms.Button();
          this.LoadParametersButton = new System.Windows.Forms.Button();
-         this.CanBusTabPage = new System.Windows.Forms.TabPage();
+         this.SetupTabPage = new System.Windows.Forms.TabPage();
          this.DigitalIoIdTextBox = new System.Windows.Forms.TextBox();
          this.AnalogIoIdTextBox = new System.Windows.Forms.TextBox();
          this.EncoderIdTextBox = new System.Windows.Forms.TextBox();
@@ -71,28 +72,27 @@
          this.label14 = new System.Windows.Forms.Label();
          this.BusInterfaceComboBox = new System.Windows.Forms.ComboBox();
          this.BaudComboBox = new System.Windows.Forms.ComboBox();
-         this.MainControlSplitter = new System.Windows.Forms.Splitter();
-         this.MainActivityPanel = new System.Windows.Forms.Panel();
-         this.ActivityRichTextBox = new System.Windows.Forms.RichTextBox();
-         this.UpdateTimer = new System.Windows.Forms.Timer(this.components);
          this.TraceActivityTabPage = new System.Windows.Forms.TabPage();
+         this.label21 = new System.Windows.Forms.Label();
+         this.label22 = new System.Windows.Forms.Label();
+         this.DeviceTraceComboBox = new System.Windows.Forms.ComboBox();
+         this.LogTraceComboBox = new System.Windows.Forms.ComboBox();
          this.CanTraceLabel = new System.Windows.Forms.Label();
          this.label19 = new System.Windows.Forms.Label();
          this.TestTraceComboBox = new System.Windows.Forms.ComboBox();
          this.label20 = new System.Windows.Forms.Label();
          this.TraceMaskTextBox = new System.Windows.Forms.TextBox();
          this.CanTraceComboBox = new System.Windows.Forms.ComboBox();
-         this.label21 = new System.Windows.Forms.Label();
-         this.label22 = new System.Windows.Forms.Label();
-         this.DeviceTraceComboBox = new System.Windows.Forms.ComboBox();
-         this.LogTraceComboBox = new System.Windows.Forms.ComboBox();
-         this.ClearActivityLogButton = new System.Windows.Forms.Button();
+         this.MainControlSplitter = new System.Windows.Forms.Splitter();
+         this.MainActivityPanel = new System.Windows.Forms.Panel();
+         this.ActivityRichTextBox = new System.Windows.Forms.RichTextBox();
+         this.UpdateTimer = new System.Windows.Forms.Timer(this.components);
          this.MainStatusStrip.SuspendLayout();
          this.MainTabControl.SuspendLayout();
          this.ControlTabPage.SuspendLayout();
-         this.CanBusTabPage.SuspendLayout();
-         this.MainActivityPanel.SuspendLayout();
+         this.SetupTabPage.SuspendLayout();
          this.TraceActivityTabPage.SuspendLayout();
+         this.MainActivityPanel.SuspendLayout();
          this.SuspendLayout();
          // 
          // ActivityButton
@@ -341,7 +341,7 @@
          // MainTabControl
          // 
          this.MainTabControl.Controls.Add(this.ControlTabPage);
-         this.MainTabControl.Controls.Add(this.CanBusTabPage);
+         this.MainTabControl.Controls.Add(this.SetupTabPage);
          this.MainTabControl.Controls.Add(this.TraceActivityTabPage);
          this.MainTabControl.Dock = System.Windows.Forms.DockStyle.Bottom;
          this.MainTabControl.Location = new System.Drawing.Point(0, 179);
@@ -386,6 +386,16 @@
          this.ControlTabPage.Text = "Control";
          this.ControlTabPage.UseVisualStyleBackColor = true;
          // 
+         // ClearActivityLogButton
+         // 
+         this.ClearActivityLogButton.Location = new System.Drawing.Point(537, 8);
+         this.ClearActivityLogButton.Name = "ClearActivityLogButton";
+         this.ClearActivityLogButton.Size = new System.Drawing.Size(59, 23);
+         this.ClearActivityLogButton.TabIndex = 190;
+         this.ClearActivityLogButton.Text = "Clear";
+         this.ClearActivityLogButton.UseVisualStyleBackColor = true;
+         this.ClearActivityLogButton.Click += new System.EventHandler(this.ClearActivityLogButton_Click);
+         // 
          // SaveParametersButton
          // 
          this.SaveParametersButton.Location = new System.Drawing.Point(437, 8);
@@ -406,30 +416,30 @@
          this.LoadParametersButton.UseVisualStyleBackColor = true;
          this.LoadParametersButton.Click += new System.EventHandler(this.LoadParametersButton_Click);
          // 
-         // CanBusTabPage
+         // SetupTabPage
          // 
-         this.CanBusTabPage.Controls.Add(this.DigitalIoIdTextBox);
-         this.CanBusTabPage.Controls.Add(this.AnalogIoIdTextBox);
-         this.CanBusTabPage.Controls.Add(this.EncoderIdTextBox);
-         this.CanBusTabPage.Controls.Add(this.label18);
-         this.CanBusTabPage.Controls.Add(this.label17);
-         this.CanBusTabPage.Controls.Add(this.label16);
-         this.CanBusTabPage.Controls.Add(this.UutIdTextBox);
-         this.CanBusTabPage.Controls.Add(this.label15);
-         this.CanBusTabPage.Controls.Add(this.label14);
-         this.CanBusTabPage.Controls.Add(this.BusInterfaceComboBox);
-         this.CanBusTabPage.Controls.Add(this.BaudComboBox);
-         this.CanBusTabPage.Location = new System.Drawing.Point(4, 22);
-         this.CanBusTabPage.Name = "CanBusTabPage";
-         this.CanBusTabPage.Padding = new System.Windows.Forms.Padding(3);
-         this.CanBusTabPage.Size = new System.Drawing.Size(604, 121);
-         this.CanBusTabPage.TabIndex = 1;
-         this.CanBusTabPage.Text = "CAN BUS";
-         this.CanBusTabPage.UseVisualStyleBackColor = true;
+         this.SetupTabPage.Controls.Add(this.DigitalIoIdTextBox);
+         this.SetupTabPage.Controls.Add(this.AnalogIoIdTextBox);
+         this.SetupTabPage.Controls.Add(this.EncoderIdTextBox);
+         this.SetupTabPage.Controls.Add(this.label18);
+         this.SetupTabPage.Controls.Add(this.label17);
+         this.SetupTabPage.Controls.Add(this.label16);
+         this.SetupTabPage.Controls.Add(this.UutIdTextBox);
+         this.SetupTabPage.Controls.Add(this.label15);
+         this.SetupTabPage.Controls.Add(this.label14);
+         this.SetupTabPage.Controls.Add(this.BusInterfaceComboBox);
+         this.SetupTabPage.Controls.Add(this.BaudComboBox);
+         this.SetupTabPage.Location = new System.Drawing.Point(4, 22);
+         this.SetupTabPage.Name = "SetupTabPage";
+         this.SetupTabPage.Padding = new System.Windows.Forms.Padding(3);
+         this.SetupTabPage.Size = new System.Drawing.Size(604, 121);
+         this.SetupTabPage.TabIndex = 1;
+         this.SetupTabPage.Text = "Setup";
+         this.SetupTabPage.UseVisualStyleBackColor = true;
          // 
          // DigitalIoIdTextBox
          // 
-         this.DigitalIoIdTextBox.Location = new System.Drawing.Point(375, 59);
+         this.DigitalIoIdTextBox.Location = new System.Drawing.Point(253, 84);
          this.DigitalIoIdTextBox.Name = "DigitalIoIdTextBox";
          this.DigitalIoIdTextBox.Size = new System.Drawing.Size(62, 20);
          this.DigitalIoIdTextBox.TabIndex = 186;
@@ -437,7 +447,7 @@
          // 
          // AnalogIoIdTextBox
          // 
-         this.AnalogIoIdTextBox.Location = new System.Drawing.Point(375, 33);
+         this.AnalogIoIdTextBox.Location = new System.Drawing.Point(253, 58);
          this.AnalogIoIdTextBox.Name = "AnalogIoIdTextBox";
          this.AnalogIoIdTextBox.Size = new System.Drawing.Size(62, 20);
          this.AnalogIoIdTextBox.TabIndex = 185;
@@ -445,7 +455,7 @@
          // 
          // EncoderIdTextBox
          // 
-         this.EncoderIdTextBox.Location = new System.Drawing.Point(375, 7);
+         this.EncoderIdTextBox.Location = new System.Drawing.Point(253, 32);
          this.EncoderIdTextBox.Name = "EncoderIdTextBox";
          this.EncoderIdTextBox.Size = new System.Drawing.Size(62, 20);
          this.EncoderIdTextBox.TabIndex = 184;
@@ -454,7 +464,7 @@
          // label18
          // 
          this.label18.AutoSize = true;
-         this.label18.Location = new System.Drawing.Point(312, 62);
+         this.label18.Location = new System.Drawing.Point(190, 87);
          this.label18.Name = "label18";
          this.label18.Size = new System.Drawing.Size(61, 13);
          this.label18.TabIndex = 183;
@@ -463,7 +473,7 @@
          // label17
          // 
          this.label17.AutoSize = true;
-         this.label17.Location = new System.Drawing.Point(312, 10);
+         this.label17.Location = new System.Drawing.Point(190, 35);
          this.label17.Name = "label17";
          this.label17.Size = new System.Drawing.Size(61, 13);
          this.label17.TabIndex = 182;
@@ -472,7 +482,7 @@
          // label16
          // 
          this.label16.AutoSize = true;
-         this.label16.Location = new System.Drawing.Point(308, 36);
+         this.label16.Location = new System.Drawing.Point(186, 61);
          this.label16.Name = "label16";
          this.label16.Size = new System.Drawing.Size(65, 13);
          this.label16.TabIndex = 181;
@@ -480,7 +490,7 @@
          // 
          // UutIdTextBox
          // 
-         this.UutIdTextBox.Location = new System.Drawing.Point(234, 7);
+         this.UutIdTextBox.Location = new System.Drawing.Point(253, 6);
          this.UutIdTextBox.Name = "UutIdTextBox";
          this.UutIdTextBox.Size = new System.Drawing.Size(62, 20);
          this.UutIdTextBox.TabIndex = 180;
@@ -489,7 +499,7 @@
          // label15
          // 
          this.label15.AutoSize = true;
-         this.label15.Location = new System.Drawing.Point(188, 10);
+         this.label15.Location = new System.Drawing.Point(207, 9);
          this.label15.Name = "label15";
          this.label15.Size = new System.Drawing.Size(44, 13);
          this.label15.TabIndex = 179;
@@ -522,39 +532,6 @@
          this.BaudComboBox.TabIndex = 15;
          this.BaudComboBox.Enter += new System.EventHandler(this.ParsedEntryControl_Enter);
          // 
-         // MainControlSplitter
-         // 
-         this.MainControlSplitter.Dock = System.Windows.Forms.DockStyle.Bottom;
-         this.MainControlSplitter.Location = new System.Drawing.Point(0, 176);
-         this.MainControlSplitter.Name = "MainControlSplitter";
-         this.MainControlSplitter.Size = new System.Drawing.Size(612, 3);
-         this.MainControlSplitter.TabIndex = 189;
-         this.MainControlSplitter.TabStop = false;
-         // 
-         // MainActivityPanel
-         // 
-         this.MainActivityPanel.Controls.Add(this.ActivityRichTextBox);
-         this.MainActivityPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.MainActivityPanel.Location = new System.Drawing.Point(0, 0);
-         this.MainActivityPanel.Name = "MainActivityPanel";
-         this.MainActivityPanel.Size = new System.Drawing.Size(612, 176);
-         this.MainActivityPanel.TabIndex = 190;
-         // 
-         // ActivityRichTextBox
-         // 
-         this.ActivityRichTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.ActivityRichTextBox.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.ActivityRichTextBox.Location = new System.Drawing.Point(0, 0);
-         this.ActivityRichTextBox.Name = "ActivityRichTextBox";
-         this.ActivityRichTextBox.Size = new System.Drawing.Size(612, 176);
-         this.ActivityRichTextBox.TabIndex = 0;
-         this.ActivityRichTextBox.Text = "";
-         this.ActivityRichTextBox.WordWrap = false;
-         // 
-         // UpdateTimer
-         // 
-         this.UpdateTimer.Tick += new System.EventHandler(this.UpdateTimer_Tick);
-         // 
          // TraceActivityTabPage
          // 
          this.TraceActivityTabPage.Controls.Add(this.label21);
@@ -574,6 +551,53 @@
          this.TraceActivityTabPage.TabIndex = 2;
          this.TraceActivityTabPage.Text = "Activity";
          this.TraceActivityTabPage.UseVisualStyleBackColor = true;
+         // 
+         // label21
+         // 
+         this.label21.AutoSize = true;
+         this.label21.Location = new System.Drawing.Point(12, 46);
+         this.label21.Name = "label21";
+         this.label21.Size = new System.Drawing.Size(29, 13);
+         this.label21.TabIndex = 101;
+         this.label21.Text = "LOG";
+         // 
+         // label22
+         // 
+         this.label22.AutoSize = true;
+         this.label22.Location = new System.Drawing.Point(121, 46);
+         this.label22.Name = "label22";
+         this.label22.Size = new System.Drawing.Size(46, 13);
+         this.label22.TabIndex = 100;
+         this.label22.Text = "DEVICE";
+         this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+         // 
+         // DeviceTraceComboBox
+         // 
+         this.DeviceTraceComboBox.FormattingEnabled = true;
+         this.DeviceTraceComboBox.Items.AddRange(new object[] {
+            "error",
+            "high",
+            "medium",
+            "low"});
+         this.DeviceTraceComboBox.Location = new System.Drawing.Point(169, 43);
+         this.DeviceTraceComboBox.Name = "DeviceTraceComboBox";
+         this.DeviceTraceComboBox.Size = new System.Drawing.Size(75, 21);
+         this.DeviceTraceComboBox.TabIndex = 99;
+         this.DeviceTraceComboBox.SelectedIndexChanged += new System.EventHandler(this.DeviceTraceComboBox_SelectedIndexChanged);
+         // 
+         // LogTraceComboBox
+         // 
+         this.LogTraceComboBox.FormattingEnabled = true;
+         this.LogTraceComboBox.Items.AddRange(new object[] {
+            "error",
+            "high",
+            "medium",
+            "low"});
+         this.LogTraceComboBox.Location = new System.Drawing.Point(43, 43);
+         this.LogTraceComboBox.Name = "LogTraceComboBox";
+         this.LogTraceComboBox.Size = new System.Drawing.Size(75, 21);
+         this.LogTraceComboBox.TabIndex = 98;
+         this.LogTraceComboBox.SelectedIndexChanged += new System.EventHandler(this.LogTraceComboBox_SelectedIndexChanged);
          // 
          // CanTraceLabel
          // 
@@ -639,62 +663,38 @@
          this.CanTraceComboBox.TabIndex = 92;
          this.CanTraceComboBox.SelectedIndexChanged += new System.EventHandler(this.CanTraceComboBox_SelectedIndexChanged);
          // 
-         // label21
+         // MainControlSplitter
          // 
-         this.label21.AutoSize = true;
-         this.label21.Location = new System.Drawing.Point(12, 46);
-         this.label21.Name = "label21";
-         this.label21.Size = new System.Drawing.Size(29, 13);
-         this.label21.TabIndex = 101;
-         this.label21.Text = "LOG";
+         this.MainControlSplitter.Dock = System.Windows.Forms.DockStyle.Bottom;
+         this.MainControlSplitter.Location = new System.Drawing.Point(0, 176);
+         this.MainControlSplitter.Name = "MainControlSplitter";
+         this.MainControlSplitter.Size = new System.Drawing.Size(612, 3);
+         this.MainControlSplitter.TabIndex = 189;
+         this.MainControlSplitter.TabStop = false;
          // 
-         // label22
+         // MainActivityPanel
          // 
-         this.label22.AutoSize = true;
-         this.label22.Location = new System.Drawing.Point(121, 46);
-         this.label22.Name = "label22";
-         this.label22.Size = new System.Drawing.Size(46, 13);
-         this.label22.TabIndex = 100;
-         this.label22.Text = "DEVICE";
-         this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+         this.MainActivityPanel.Controls.Add(this.ActivityRichTextBox);
+         this.MainActivityPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+         this.MainActivityPanel.Location = new System.Drawing.Point(0, 0);
+         this.MainActivityPanel.Name = "MainActivityPanel";
+         this.MainActivityPanel.Size = new System.Drawing.Size(612, 176);
+         this.MainActivityPanel.TabIndex = 190;
          // 
-         // DeviceTraceComboBox
+         // ActivityRichTextBox
          // 
-         this.DeviceTraceComboBox.FormattingEnabled = true;
-         this.DeviceTraceComboBox.Items.AddRange(new object[] {
-            "error",
-            "high",
-            "medium",
-            "low"});
-         this.DeviceTraceComboBox.Location = new System.Drawing.Point(169, 43);
-         this.DeviceTraceComboBox.Name = "DeviceTraceComboBox";
-         this.DeviceTraceComboBox.Size = new System.Drawing.Size(75, 21);
-         this.DeviceTraceComboBox.TabIndex = 99;
-         this.DeviceTraceComboBox.SelectedIndexChanged += new System.EventHandler(this.DeviceTraceComboBox_SelectedIndexChanged);
+         this.ActivityRichTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+         this.ActivityRichTextBox.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.ActivityRichTextBox.Location = new System.Drawing.Point(0, 0);
+         this.ActivityRichTextBox.Name = "ActivityRichTextBox";
+         this.ActivityRichTextBox.Size = new System.Drawing.Size(612, 176);
+         this.ActivityRichTextBox.TabIndex = 0;
+         this.ActivityRichTextBox.Text = "";
+         this.ActivityRichTextBox.WordWrap = false;
          // 
-         // LogTraceComboBox
+         // UpdateTimer
          // 
-         this.LogTraceComboBox.FormattingEnabled = true;
-         this.LogTraceComboBox.Items.AddRange(new object[] {
-            "error",
-            "high",
-            "medium",
-            "low"});
-         this.LogTraceComboBox.Location = new System.Drawing.Point(43, 43);
-         this.LogTraceComboBox.Name = "LogTraceComboBox";
-         this.LogTraceComboBox.Size = new System.Drawing.Size(75, 21);
-         this.LogTraceComboBox.TabIndex = 98;
-         this.LogTraceComboBox.SelectedIndexChanged += new System.EventHandler(this.LogTraceComboBox_SelectedIndexChanged);
-         // 
-         // ClearActivityLogButton
-         // 
-         this.ClearActivityLogButton.Location = new System.Drawing.Point(537, 8);
-         this.ClearActivityLogButton.Name = "ClearActivityLogButton";
-         this.ClearActivityLogButton.Size = new System.Drawing.Size(59, 23);
-         this.ClearActivityLogButton.TabIndex = 190;
-         this.ClearActivityLogButton.Text = "Clear";
-         this.ClearActivityLogButton.UseVisualStyleBackColor = true;
-         this.ClearActivityLogButton.Click += new System.EventHandler(this.ClearActivityLogButton_Click);
+         this.UpdateTimer.Tick += new System.EventHandler(this.UpdateTimer_Tick);
          // 
          // MainForm
          // 
@@ -717,11 +717,11 @@
          this.MainTabControl.ResumeLayout(false);
          this.ControlTabPage.ResumeLayout(false);
          this.ControlTabPage.PerformLayout();
-         this.CanBusTabPage.ResumeLayout(false);
-         this.CanBusTabPage.PerformLayout();
-         this.MainActivityPanel.ResumeLayout(false);
+         this.SetupTabPage.ResumeLayout(false);
+         this.SetupTabPage.PerformLayout();
          this.TraceActivityTabPage.ResumeLayout(false);
          this.TraceActivityTabPage.PerformLayout();
+         this.MainActivityPanel.ResumeLayout(false);
          this.ResumeLayout(false);
          this.PerformLayout();
 
@@ -763,7 +763,7 @@
       private System.Windows.Forms.Button SaveParametersButton;
       private System.Windows.Forms.Button LoadParametersButton;
       private System.Windows.Forms.Timer UpdateTimer;
-      private System.Windows.Forms.TabPage CanBusTabPage;
+      private System.Windows.Forms.TabPage SetupTabPage;
       private System.Windows.Forms.Label label18;
       private System.Windows.Forms.Label label17;
       private System.Windows.Forms.Label label16;

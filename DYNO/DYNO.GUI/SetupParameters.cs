@@ -4,7 +4,7 @@
 
    using DYNO.PCANLight;
 
-   public class BusParameters
+   public class SetupParameters
    {
       #region Properties
 
@@ -15,6 +15,10 @@
       public int AnalogIoId { set; get; }
       public int DigialIoId { set; get; }
 
+      public double VoltsPerPounds { set; get; }
+      public double UutSpeedToRpm { set; get; }
+      public double SupplyVoltageToAmps { set; get; }
+      public double BodySpeedToRpm { set; get; }
 
       #endregion
 
@@ -28,13 +32,18 @@
          this.EncoderId = 2;
          this.AnalogIoId = 3;
          this.DigialIoId = 4;
+
+         this.VoltsPerPounds = 1.0;
+         this.UutSpeedToRpm = 1.0;
+         this.SupplyVoltageToAmps = 1.0;
+         this.BodySpeedToRpm = 1.0;
       }
 
       #endregion
 
       #region Constructor
 
-      public BusParameters()
+      public SetupParameters()
       {
          this.SetDefaults();
       }

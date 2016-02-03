@@ -9,31 +9,6 @@
    using DYNO.PCANLight;
    using DYNO.CAN;
    using DYNO.Utilities;
-   /*
-Test Process:12 hours
- - uses separate device thread for CAN communications
- - uses separate thread for test control and logging.
- - communicates to 3 CAN devices
- - uses CAN interface to communicate to UUT (motor)
- - writes UUT for wheel speed and direction
- - reads UUT for motor speed and direction
- - reads UUT for motor current
- - reads UUT for temperature
- - uses CAN interface to communicate to Encoder
- - reads Encoder for distance
- - reads Encoder for speed
- - uses CAN interface to communicate to AnalogIO
- - reads AnalogIO for motor current
- - writes AnalogIO for wheel load
- - log stores values every second with relative time on one line separated by commas
- - log stores retrieved UUT speed and direction
- - log stores retrieved UUT current
- - log stores retrieved UUT temperature
- - log stores retrieved Encoder distance
- - log stores retrieved Encoder speed
- - log stores retrieved AnalogIO motor current
- - log stores set AnalogIO wheel load
-    * */
 
    public class DynoTest
    {
@@ -46,7 +21,7 @@ Test Process:12 hours
 
       #region Fields
 
-      private BusParameters busParameters;
+      private SetupParameters busParameters;
       private TestParameters testParameters;
 
       private bool completeEarly;
@@ -65,9 +40,17 @@ Test Process:12 hours
       private Queue busReceiveQueue;
 
       private TextWriter logWriter;
+      private DateTime stateTimeLimit;
       private DateTime startTime;
-      private DateTime lastDataTime;
+      private DateTime currentTime;
       private string completionCause;
+
+      private double wheelLoad;
+      private double loadChangePerSecond;
+      private double secondLimit;
+
+      private double lastEncoderRotations;
+      private DateTime lastEncoderTime;
 
       #endregion
 
@@ -122,21 +105,8 @@ Test Process:12 hours
 
       private bool DeviceTransmit(int id, byte[] data)
       {
-         StringBuilder sb = new StringBuilder();
-
-         for (int i = 0; i < data.Length; i++)
-         {
-            sb.AppendFormat("{0:X2}", data[i]);
-         }
-
          CANResult transmitResult = PCANLight.Send(this.busParameters.BusInterface, id, data);
          bool result = (transmitResult == CANResult.ERR_OK) ? true : false;
-
-         if (false != result)
-         {
-            Tracer.WriteMedium(TraceGroup.TEST, "", "tx {0:X3} {1}", id, sb.ToString());
-         }
-
          return (result);
       }
 
@@ -208,13 +178,79 @@ Test Process:12 hours
 
          if (null != this.logWriter)
          {
-            DateTime dt = DateTime.Now;
-            string timeString = string.Format("{0:D2}/{1:D2}/{2:D2} {3:D2}:{4:D2}:{5:D2}.{6:D3} ", dt.Month, dt.Day, (dt.Year % 100), dt.Hour, dt.Minute, dt.Second, dt.Millisecond);
-            string traceString = timeString + logString;
-
-            this.logWriter.WriteLine(traceString);
+            this.logWriter.WriteLine(logString);
             this.logWriter.Flush();
          }
+      }
+
+      public void LogData()
+      {
+         TimeSpan intervalTimeSpan = this.currentTime - this.startTime;
+
+         double elapsedTime = intervalTimeSpan.TotalSeconds;
+         double intervalLoad = this.wheelLoad;
+         double uutSpeed = ((double)this.uut.RPM) / this.busParameters.UutSpeedToRpm;
+         double uutCurrent = (double)this.uut.Torque;
+         double uutTemperature = (double)this.uut.Temperature;
+
+         double supplyCurrentVoltage = ((double)this.analogIo.AnalogIn0 * 10) / 32767;
+         double supplyCurrent = supplyCurrentVoltage * this.busParameters.SupplyVoltageToAmps;
+
+         TimeSpan encoderTimeSpan = this.currentTime - this.lastEncoderTime;
+         this.lastEncoderTime = this.currentTime;
+         double currentEncodeRotations = this.encoder.Rotations;
+         double rotationsPerInterval = currentEncodeRotations - this.lastEncoderRotations;
+         double encoderRpm = (rotationsPerInterval / encoderTimeSpan.TotalSeconds) * 60;
+         double bodySpeed = encoderRpm / this.busParameters.BodySpeedToRpm;
+
+         string slippageString = "---";
+         double slippageLimit = 0;
+
+         if (0 != uutSpeed)
+         {
+            double slippage = double.NaN;
+            slippage = ((uutSpeed - bodySpeed) / uutSpeed) * 100;
+            slippageString = string.Format("{0:0}%", slippage);
+
+            slippageLimit = uutSpeed * (100 - this.testParameters.SlippageLimit);
+         }
+
+         // this.Log("TIME, LOAD, UUT-SPEED, UUT-CURRENT, UUT-TEMPERATURE, SUPPLY-CURRENT, BODY-SPEED, SLIPPAGE");
+         this.Log("{0,9:0.0}, {1,8:0.0}, {2,15:0.0}, {3,15:0.0}, {4,15:0.0}, {5,15:0.0}, {6,15:0.0}, {7,15}", elapsedTime, intervalLoad, uutSpeed, uutCurrent, uutTemperature, supplyCurrent, bodySpeed, slippageString);
+
+         if (uutTemperature > this.testParameters.ThermalLimit)
+         {
+            this.completionCause = "uut temperature exceeded limit";
+         }
+         else if (uutCurrent > this.testParameters.CurrentLimit)
+         {
+            this.completionCause = "uut current exceeded limit";
+         }
+         else if (supplyCurrent > this.testParameters.CurrentLimit)
+         {
+            this.completionCause = "supply current exceeded limit";
+         }
+         else if (bodySpeed < slippageLimit)
+         {
+            this.completionCause = "slippage exceeded limit";
+         }
+      }
+
+      public void RampLoad()
+      {
+         TimeSpan testTimeSpan = this.currentTime - this.startTime;
+         this.wheelLoad = this.testParameters.WheelStartLoad + (this.loadChangePerSecond * testTimeSpan.TotalSeconds);
+
+         double loadVoltage = (this.wheelLoad * this.busParameters.VoltsPerPounds);
+
+         if (loadVoltage > 10)
+         {
+            loadVoltage = 10;
+         }
+
+         UInt16 loadSetPoint = (UInt16)(loadVoltage * 4095.0 / 10.0);
+         Tracer.WriteMedium(TraceGroup.TEST, "", "load lb={0:0.0}, set={1}", this.wheelLoad, loadSetPoint);
+         this.analogIo.SetOutput(0, loadSetPoint);
       }
 
       #endregion
@@ -396,8 +432,16 @@ Test Process:12 hours
 
          Tracer.WriteMedium(TraceGroup.TEST, "", "test start");
          this.completionCause = null;
-         this.startTime = DateTime.Now;
-         this.lastDataTime = this.startTime;
+         this.startTime = DateTime.Now; // set to give valid start time
+
+         if (this.testParameters.RunTime > 1)
+         {
+            this.loadChangePerSecond = (this.testParameters.WheelStopLoad - this.testParameters.WheelStartLoad) / (this.testParameters.RunTime - 1);
+         }
+         else
+         {
+            this.loadChangePerSecond = 0;
+         }
 
          if (false != result)
          {
@@ -409,26 +453,24 @@ Test Process:12 hours
             }
          }
 
-         this.Log("DYNO TEST");
-         this.Log(" - date = {0:D2}-{1:D2}-{2:D2}", this.startTime.Month, this.startTime.Day, this.startTime.Year);
-         this.Log(" - time = {0:D2}:{1:D2}:{2:D2}", this.startTime.Hour, this.startTime.Minute, this.startTime.Second);
-         this.Log(" - wheel speed = {0}", this.testParameters.WheelSpeed);
-         this.Log(" - wheel start load = {0}", this.testParameters.WheelStartLoad);
-         this.Log(" - wheel end load = {0}", this.testParameters.WheelStopLoad);
-         this.Log(" - time limit = {0}", this.testParameters.RunTime);
-         this.Log(" - current limit = {0}", this.testParameters.CurrentLimit);
-         this.Log(" - thermal limit = {0}", this.testParameters.ThermalLimit);
-         this.Log(" - slippage limit = {0}", this.testParameters.SlippageLimit);
-         this.Log("BEGIN");
-
          if (false != result)
          {
-            result = this.StartBus();
-         }
+            this.Log("DYNO TEST");
+            this.Log(" - wheel start load = {0}", this.testParameters.WheelStartLoad);
+            this.Log(" - wheel end load = {0}", this.testParameters.WheelStopLoad);
+            this.Log(" - wheel speed = {0}", this.testParameters.WheelSpeed);
+            this.Log(" - time limit = {0}", this.testParameters.RunTime);
+            this.Log(" - current limit = {0}", this.testParameters.CurrentLimit);
+            this.Log(" - thermal limit = {0}", this.testParameters.ThermalLimit);
+            this.Log(" - slippage limit = {0}", this.testParameters.SlippageLimit);
 
-         if (false != result)
-         {
-            this.Process = this.RunTest;
+            Tracer.WriteMedium(TraceGroup.TEST, "", "enable setup voltage");
+            this.digitalIo.SetOutput(0x01);
+
+            double powerUpDelay = 3;
+            Tracer.WriteMedium(TraceGroup.TEST, "", "wait {0} seconds", powerUpDelay);
+            this.stateTimeLimit = this.currentTime.AddSeconds(powerUpDelay);
+            this.Process = this.WaitSetupPowerUp;
          }
          else
          {
@@ -436,19 +478,66 @@ Test Process:12 hours
          }
       }
 
+      private void WaitSetupPowerUp()
+      {
+         if (this.currentTime > this.stateTimeLimit)
+         {
+            bool result = this.StartBus();
+
+            if (false != result)
+            {
+               this.startTime = this.currentTime;
+               this.RampLoad();
+
+               int requestedRpm = (int)(this.testParameters.WheelSpeed * this.busParameters.UutSpeedToRpm);
+               Tracer.WriteMedium(TraceGroup.TEST, "", "uut speed={0}, rpm={1}", this.testParameters.WheelSpeed, requestedRpm);
+               this.uut.SetVelocity(requestedRpm);
+
+               this.startTime = DateTime.Now;
+               this.secondLimit = 1.0;
+
+               this.lastEncoderTime = this.startTime;
+               this.lastEncoderRotations = this.encoder.Rotations;
+
+               this.Log(" - UUT version = \"{0}\"", this.uut.DeviceVersion);
+               this.Log(" - start = {0:D2}-{1:D2}-{2:D2} {3:D2}:{4:D2}:{5:D2}", this.startTime.Month, this.startTime.Day, this.startTime.Year, this.startTime.Hour, this.startTime.Minute, this.startTime.Second);
+               this.Log("{0,9}, {1,8}, {2,15}, {3,15}, {4,15}, {5,15}, {6,15}, {7,15}", "TIME", "LOAD", "MOTOR-SPEED", "MOTOR-CURRENT", "TEMPERATURE", "EXT-CURRENT", "BODY-SPEED", "SLIPPAGE");
+
+               this.Process = this.RunTest;
+            }
+            else
+            {
+               this.Process = this.CompleteTest;
+            }
+         }
+         else if (false != completeEarly)
+         {
+            this.Process = this.CompleteTest;
+            this.completionCause = "user abort";
+         }           
+      }
+
       private void RunTest()
       {
-         DateTime currentTime = DateTime.Now;
          TimeSpan totalRunSpan = currentTime - this.startTime;
-         TimeSpan dataRunSpan = currentTime - this.lastDataTime;
 
-         if (dataRunSpan.TotalMilliseconds >= 1000)
+         if (totalRunSpan.TotalSeconds >= this.secondLimit)
          {
-            this.lastDataTime = currentTime;
-            this.Log("data");
+            this.LogData();
+
+            if (this.secondLimit < this.testParameters.RunTime)
+            {
+               this.RampLoad();
+            }
+
+            this.secondLimit += 1.0;
          }
 
-         if (false != completeEarly)
+         if (null != this.completionCause)
+         {
+            this.Process = this.CompleteTest;
+         }
+         else if (false != completeEarly)
          {
             this.Process = this.CompleteTest;
             this.completionCause = "user abort";
@@ -462,10 +551,13 @@ Test Process:12 hours
 
       private void CompleteTest()
       {
+         Tracer.WriteMedium(TraceGroup.TEST, "", "disable setup voltage");
+         this.digitalIo.SetOutput(0x00);
+
          this.Log("END");
          TimeSpan ts = DateTime.Now - this.startTime;
          this.Log(" - completion cause = {0}", this.completionCause);
-         this.Log(" - runtime = {0}", ts.TotalSeconds);
+         this.Log(" - runtime = {0:0.0}", ts.TotalSeconds);
 
          Tracer.WriteMedium(TraceGroup.TEST, "", "test complete");
          this.execute = false;
@@ -483,6 +575,7 @@ Test Process:12 hours
 
          for (; execute; )
          {
+            this.currentTime = DateTime.Now;
             this.Process();
             Thread.Sleep(1);
          }
@@ -525,7 +618,7 @@ Test Process:12 hours
 
       #region Access Methods
 
-      public void Start(BusParameters busParameters, TestParameters testParameters, ref string result)
+      public void Start(SetupParameters busParameters, TestParameters testParameters, ref string result)
       {
          if (null == result)
          {

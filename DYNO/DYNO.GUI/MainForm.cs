@@ -270,7 +270,7 @@ namespace DYNO.GUI
          this.DigitalIoIdTextBox.Enabled = false;
       }
 
-      private string ExtractBusParameters(BusParameters busParameters)
+      private string ExtractBusParameters(SetupParameters busParameters)
       {
          string result = null;
 
@@ -678,7 +678,7 @@ namespace DYNO.GUI
          if (false == this.active)
          {
             string result = null;
-            BusParameters busParameters = new BusParameters();
+            SetupParameters busParameters = new SetupParameters();
             TestParameters testParameters = new TestParameters();
 
             if (null == result)
@@ -687,7 +687,7 @@ namespace DYNO.GUI
 
                if (null != result)
                {
-                  this.MainTabControl.SelectedTab = this.CanBusTabPage;
+                  this.MainTabControl.SelectedTab = this.SetupTabPage;
                }
             }
 
