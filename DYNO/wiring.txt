@@ -1,0 +1,3 @@
+analog IO output 1: wheel voltage 0 to 10 volts for wheel load
+analog IO input 0: supply current
+digital IO output 0: setup voltage enable

@@ -14,6 +14,7 @@
    {
       #region Definitions
 
+      public delegate void SetTitleHandler(string title);
       public delegate void CompleteHandler();
       private delegate void ProcessHandler();
 
@@ -21,7 +22,7 @@
 
       #region Fields
 
-      private SetupParameters busParameters;
+      private SetupParameters setupParameters;
       private TestParameters testParameters;
 
       private bool completeEarly;
@@ -47,21 +48,34 @@
 
       private double wheelLoad;
       private double loadChangePerSecond;
+      private UInt16 lastLoadSetPoint;
+
       private double secondLimit;
 
       private double lastEncoderRotations;
       private DateTime lastEncoderTime;
 
+      private DateTime controllerHeartbeatLimit;
+
       #endregion
 
       #region Properties
 
-      public CompleteHandler OnComplete;
+      public SetTitleHandler OnSetTitle { set; get; }
+      public CompleteHandler OnComplete { set; get; }
       private ProcessHandler Process { set; get; }
 
       #endregion
 
       #region Delegates
+
+      private void SetTitle(string title)
+      {
+         if (null != this.OnSetTitle)
+         {
+            this.OnSetTitle(title);
+         }
+      }
 
       private void Complete()
       {
@@ -105,7 +119,7 @@
 
       private bool DeviceTransmit(int id, byte[] data)
       {
-         CANResult transmitResult = PCANLight.Send(this.busParameters.BusInterface, id, data);
+         CANResult transmitResult = PCANLight.Send(this.setupParameters.BusInterface, id, data);
          bool result = (transmitResult == CANResult.ERR_OK) ? true : false;
          return (result);
       }
@@ -189,19 +203,21 @@
 
          double elapsedTime = intervalTimeSpan.TotalSeconds;
          double intervalLoad = this.wheelLoad;
-         double uutSpeed = ((double)this.uut.RPM) / this.busParameters.UutSpeedToRpm;
+         double uutSpeed = ((double)this.uut.RPM) / this.setupParameters.UutRpmToSpeed;
          double uutCurrent = (double)this.uut.Torque;
          double uutTemperature = (double)this.uut.Temperature;
 
          double supplyCurrentVoltage = ((double)this.analogIo.AnalogIn0 * 10) / 32767;
-         double supplyCurrent = supplyCurrentVoltage * this.busParameters.SupplyVoltageToAmps;
+         double supplyCurrent = supplyCurrentVoltage / this.setupParameters.AnalogIoVoltsToSupplyAmps;
 
          TimeSpan encoderTimeSpan = this.currentTime - this.lastEncoderTime;
          this.lastEncoderTime = this.currentTime;
          double currentEncodeRotations = this.encoder.Rotations;
          double rotationsPerInterval = currentEncodeRotations - this.lastEncoderRotations;
          double encoderRpm = (rotationsPerInterval / encoderTimeSpan.TotalSeconds) * 60;
-         double bodySpeed = encoderRpm / this.busParameters.BodySpeedToRpm;
+         double bodySpeed = encoderRpm / this.setupParameters.BodyRpmToSpeed;
+         this.lastEncoderRotations = currentEncodeRotations;
+         Tracer.WriteLow(TraceGroup.TEST, "", "encoder speed {0:0.000} {1}", this.encoder.Rotations, this.encoder.Speed);
 
          string slippageString = "---";
          double slippageLimit = 0;
@@ -216,7 +232,7 @@
          }
 
          // this.Log("TIME, LOAD, UUT-SPEED, UUT-CURRENT, UUT-TEMPERATURE, SUPPLY-CURRENT, BODY-SPEED, SLIPPAGE");
-         this.Log("{0,9:0.0}, {1,8:0.0}, {2,15:0.0}, {3,15:0.0}, {4,15:0.0}, {5,15:0.0}, {6,15:0.0}, {7,15}", elapsedTime, intervalLoad, uutSpeed, uutCurrent, uutTemperature, supplyCurrent, bodySpeed, slippageString);
+         this.Log("{0,12:0.0}, {1,12:0.0}, {2,12:0.0}, {3,14:0.0}, {4,12:0.0}, {5,12:0.0}, {6,11:0.0}, {7,9}", elapsedTime, intervalLoad, uutSpeed, uutCurrent, uutTemperature, supplyCurrent, bodySpeed, slippageString);
 
          if (uutTemperature > this.testParameters.ThermalLimit)
          {
@@ -230,7 +246,7 @@
          {
             this.completionCause = "supply current exceeded limit";
          }
-         else if (bodySpeed < slippageLimit)
+         else if ((bodySpeed > 0) && (bodySpeed < slippageLimit))
          {
             this.completionCause = "slippage exceeded limit";
          }
@@ -241,21 +257,47 @@
          TimeSpan testTimeSpan = this.currentTime - this.startTime;
          this.wheelLoad = this.testParameters.WheelStartLoad + (this.loadChangePerSecond * testTimeSpan.TotalSeconds);
 
-         double loadVoltage = (this.wheelLoad * this.busParameters.VoltsPerPounds);
+         double loadVoltage = (this.wheelLoad * this.setupParameters.AnalogIoVoltsToLoadPounds);
 
          if (loadVoltage > 10)
          {
             loadVoltage = 10;
          }
 
-         UInt16 loadSetPoint = (UInt16)(loadVoltage * 4095.0 / 10.0);
-         Tracer.WriteMedium(TraceGroup.TEST, "", "load lb={0:0.0}, set={1}", this.wheelLoad, loadSetPoint);
-         this.analogIo.SetOutput(0, loadSetPoint);
+         UInt16 requestSetPoint = (UInt16)(loadVoltage * 4095.0 / 10.0);
+
+         if (requestSetPoint != this.lastLoadSetPoint)
+         {
+            Tracer.WriteMedium(TraceGroup.TEST, "", "load lb={0:0.0}, set={1}", this.wheelLoad, requestSetPoint);
+            this.analogIo.SetOutput(0, requestSetPoint);
+            this.lastLoadSetPoint = requestSetPoint;
+         }
+      }
+
+      private void SendControllerHeartBeat()
+      {
+         int cobId = (int)(((int)COBTypes.ERROR << 7) | (this.setupParameters.ConsumerHeartbeatNodeId & 0x7F));
+         byte[] heartbeatMsg = new byte[1];
+
+         heartbeatMsg[0] = 5;
+
+         this.DeviceTransmit(cobId, heartbeatMsg);
       }
 
       #endregion
 
       #region Device Process 
+
+      private void UpdateControllerHeartbeat()
+      {
+         if ((0 != this.setupParameters.ProducerHeartbeatTime) &&
+             (DateTime.Now > this.controllerHeartbeatLimit))
+         {
+            this.SendControllerHeartBeat();
+            this.controllerHeartbeatLimit = this.controllerHeartbeatLimit.AddMilliseconds(this.setupParameters.ProducerHeartbeatTime);
+            Tracer.WriteLow(TraceGroup.DEVICE, "", "producer heartbeat");
+         }
+      }
 
       private void ProcessCommFrames()
       {
@@ -296,10 +338,10 @@
 
       private void DeviceProcess()
       {
-         this.uut.NodeId = (byte)this.busParameters.UutId;
-         this.encoder.NodeId = (byte)this.busParameters.EncoderId;
-         this.analogIo.NodeId = (byte)this.busParameters.AnalogIoId;
-         this.digitalIo.NodeId = (byte)this.busParameters.DigialIoId;
+         this.uut.NodeId = (byte)this.setupParameters.UutId;
+         this.encoder.NodeId = (byte)this.setupParameters.EncoderId;
+         this.analogIo.NodeId = (byte)this.setupParameters.AnalogIoId;
+         this.digitalIo.NodeId = (byte)this.setupParameters.DigialIoId;
 
          this.uut.TraceMask = 0xFF;
          this.encoder.TraceMask = 0xFF;
@@ -311,8 +353,11 @@
             device.Initialize();
          }
 
+         this.controllerHeartbeatLimit = DateTime.Now.AddMilliseconds(-1);
+
          for (; this.executeDevice; )
          {
+            this.UpdateControllerHeartbeat();
             this.ProcessCommFrames();
 
             foreach (Device device in this.deviceList)
@@ -336,7 +381,7 @@
 
          if (false != result)
          {
-            CANResult startResult = PCANLight.Start(this.busParameters.BusInterface, this.busParameters.BitRate, FramesType.INIT_TYPE_ST, TraceGroup.CANBUS, this.BusReceiveHandler);
+            CANResult startResult = PCANLight.Start(this.setupParameters.BusInterface, this.setupParameters.BitRate, FramesType.INIT_TYPE_ST, TraceGroup.CANBUS, this.BusReceiveHandler);
 
             if (CANResult.ERR_OK != startResult)
             {
@@ -347,7 +392,7 @@
 
          if (false != result)
          {
-            PCANLight.ResetBus(this.busParameters.BusInterface);
+            PCANLight.ResetBus(this.setupParameters.BusInterface);
 
             DateTime busStartLimit = DateTime.Now.AddMilliseconds(2000);
 
@@ -391,15 +436,23 @@
          if (false != result)
          {
             this.uut.Configure();
+            this.uut.SetConsumerHeartbeat((UInt16)this.setupParameters.ConsumerHeartbeatTime, (byte)this.setupParameters.ConsumerHeartbeatNodeId);
+            this.uut.SetProducerHeartbeat((UInt16)this.setupParameters.ProducerHeartbeatTime);
             this.uut.Start();
 
             this.encoder.Configure();
+            this.encoder.SetConsumerHeartbeat((UInt16)this.setupParameters.ConsumerHeartbeatTime, (byte)this.setupParameters.ConsumerHeartbeatNodeId);
+            this.encoder.SetProducerHeartbeat((UInt16)this.setupParameters.ProducerHeartbeatTime);
             this.encoder.Start();
 
             this.analogIo.Configure();
+            this.analogIo.SetConsumerHeartbeat((UInt16)this.setupParameters.ConsumerHeartbeatTime, (byte)this.setupParameters.ConsumerHeartbeatNodeId);
+            this.analogIo.SetProducerHeartbeat((UInt16)this.setupParameters.ProducerHeartbeatTime);
             this.analogIo.Start();
 
             this.digitalIo.Configure();
+            this.digitalIo.SetConsumerHeartbeat((UInt16)this.setupParameters.ConsumerHeartbeatTime, (byte)this.setupParameters.ConsumerHeartbeatNodeId);
+            this.digitalIo.SetProducerHeartbeat((UInt16)this.setupParameters.ProducerHeartbeatTime);
             this.digitalIo.Start();
          }
 
@@ -415,11 +468,14 @@
 
          Thread.Sleep(100); // wait for device to stop
 
-         this.executeDevice = false;
-         this.deviceThread.Join(3000);
-         this.deviceThread = null;
+         if (null != this.deviceThread)
+         {
+            this.executeDevice = false;
+            this.deviceThread.Join(3000);
+            this.deviceThread = null;
+         }
 
-         PCANLight.Stop(this.busParameters.BusInterface);
+         PCANLight.Stop(this.setupParameters.BusInterface);
       }
 
       #endregion
@@ -456,6 +512,12 @@
          if (false != result)
          {
             this.Log("DYNO TEST");
+            this.Log(" - producer heartbeat time = {0}", this.setupParameters.ProducerHeartbeatTime);
+            this.Log(" - consumer heartbeat time = {0}", this.setupParameters.ConsumerHeartbeatTime);
+            this.Log(" - uut RPM to speed = {0:0.000}", this.setupParameters.UutRpmToSpeed);
+            this.Log(" - body RPM to speed = {0:0.000}", this.setupParameters.BodyRpmToSpeed);
+            this.Log(" - analog IO volts to supply current = {0:0.000}", this.setupParameters.AnalogIoVoltsToSupplyAmps);
+            this.Log(" - analog IO volts to load pounds = {0:0.000}", this.setupParameters.AnalogIoVoltsToLoadPounds);
             this.Log(" - wheel start load = {0}", this.testParameters.WheelStartLoad);
             this.Log(" - wheel end load = {0}", this.testParameters.WheelStopLoad);
             this.Log(" - wheel speed = {0}", this.testParameters.WheelSpeed);
@@ -464,11 +526,16 @@
             this.Log(" - thermal limit = {0}", this.testParameters.ThermalLimit);
             this.Log(" - slippage limit = {0}", this.testParameters.SlippageLimit);
 
+            result = this.StartBus();
+         }
+
+         if (false != result)
+         {
             Tracer.WriteMedium(TraceGroup.TEST, "", "enable setup voltage");
             this.digitalIo.SetOutput(0x01);
 
             double powerUpDelay = 3;
-            Tracer.WriteMedium(TraceGroup.TEST, "", "wait {0} seconds", powerUpDelay);
+            Tracer.WriteHigh(TraceGroup.TEST, "", "wait {0} seconds", powerUpDelay);
             this.stateTimeLimit = this.currentTime.AddSeconds(powerUpDelay);
             this.Process = this.WaitSetupPowerUp;
          }
@@ -482,33 +549,29 @@
       {
          if (this.currentTime > this.stateTimeLimit)
          {
-            bool result = this.StartBus();
+            this.startTime = this.currentTime;
+            this.RampLoad();
 
-            if (false != result)
-            {
-               this.startTime = this.currentTime;
-               this.RampLoad();
+            int requestedRpm = (int)(this.testParameters.WheelSpeed * this.setupParameters.UutRpmToSpeed);
+            Tracer.WriteMedium(TraceGroup.TEST, "", "uut speed={0}, rpm={1}", this.testParameters.WheelSpeed, requestedRpm);
+            this.uut.SetVelocity(requestedRpm);
 
-               int requestedRpm = (int)(this.testParameters.WheelSpeed * this.busParameters.UutSpeedToRpm);
-               Tracer.WriteMedium(TraceGroup.TEST, "", "uut speed={0}, rpm={1}", this.testParameters.WheelSpeed, requestedRpm);
-               this.uut.SetVelocity(requestedRpm);
+            this.startTime = DateTime.Now;
+            this.secondLimit = 1.0;
 
-               this.startTime = DateTime.Now;
-               this.secondLimit = 1.0;
+            this.lastLoadSetPoint = 0;
+            this.lastEncoderTime = this.startTime;
+            this.lastEncoderRotations = this.encoder.Rotations;
 
-               this.lastEncoderTime = this.startTime;
-               this.lastEncoderRotations = this.encoder.Rotations;
+            this.Log(" - UUT name = \"{0}\"", this.uut.DeviceName);
+            this.Log(" - UUT version = \"{0}\"", this.uut.DeviceVersion);
+            this.Log(" - start = {0:D2}-{1:D2}-{2:D2} {3:D2}:{4:D2}:{5:D2}", this.startTime.Month, this.startTime.Day, this.startTime.Year, this.startTime.Hour, this.startTime.Minute, this.startTime.Second);
 
-               this.Log(" - UUT version = \"{0}\"", this.uut.DeviceVersion);
-               this.Log(" - start = {0:D2}-{1:D2}-{2:D2} {3:D2}:{4:D2}:{5:D2}", this.startTime.Month, this.startTime.Day, this.startTime.Year, this.startTime.Hour, this.startTime.Minute, this.startTime.Second);
-               this.Log("{0,9}, {1,8}, {2,15}, {3,15}, {4,15}, {5,15}, {6,15}, {7,15}", "TIME", "LOAD", "MOTOR-SPEED", "MOTOR-CURRENT", "TEMPERATURE", "EXT-CURRENT", "BODY-SPEED", "SLIPPAGE");
+            string title = string.Format("{0,12}, {1,12}, {2,12}, {3,14}, {4,12}, {5,12}, {6,11}, {7,9}", "TIME", "LOAD", "MOTOR-SPEED", "MOTOR-CURRENT", "TEMPERATURE", "EXT-CURRENT", "BODY-SPEED", "SLIPPAGE");
+            this.Log(title);
+            this.SetTitle("                           " + title);
 
-               this.Process = this.RunTest;
-            }
-            else
-            {
-               this.Process = this.CompleteTest;
-            }
+            this.Process = this.RunTest;
          }
          else if (false != completeEarly)
          {
@@ -533,6 +596,26 @@
             this.secondLimit += 1.0;
          }
 
+         if (null == this.completionCause)
+         {
+            if (null != this.uut.FaultReason)
+            {
+               this.completionCause = "uut " + this.uut.FaultReason;
+            }
+            else if (null != this.encoder.FaultReason)
+            {
+               this.completionCause = this.encoder.Name + " " + this.encoder.FaultReason;
+            }
+            else if (null != this.digitalIo.FaultReason)
+            {
+               this.completionCause = this.digitalIo.Name + " " + this.digitalIo.FaultReason;
+            }
+            else if (null != this.analogIo.FaultReason)
+            {
+               this.completionCause = this.analogIo.Name + " " + this.analogIo.FaultReason;
+            }
+         }
+
          if (null != this.completionCause)
          {
             this.Process = this.CompleteTest;
@@ -551,6 +634,10 @@
 
       private void CompleteTest()
       {
+         Tracer.WriteMedium(TraceGroup.TEST, "", "stop uut");
+         this.uut.SetVelocity(0);
+         Tracer.WriteMedium(TraceGroup.TEST, "", "disable load voltage");
+         this.analogIo.SetOutput(0, 0);
          Tracer.WriteMedium(TraceGroup.TEST, "", "disable setup voltage");
          this.digitalIo.SetOutput(0x00);
 
@@ -626,7 +713,7 @@
             this.thread.IsBackground = true;
             this.thread.Name = "Test Process";
 
-            this.busParameters = busParameters;
+            this.setupParameters = busParameters;
             this.testParameters = testParameters;
 
             this.completeEarly = false;

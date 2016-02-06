@@ -30,6 +30,8 @@ namespace DYNO.GUI
 
       private bool settingTraceMask;
 
+      private string titleString;
+
       #endregion
 
       #region Registry Functions
@@ -128,6 +130,10 @@ namespace DYNO.GUI
 
          #region Session Information
 
+         keyValue = appKey.GetValue("MainControlHeight");
+         int defaultMainControlHeight = this.MainTabControl.Height;
+         this.MainTabControl.Height = (null != keyValue) ? (int.TryParse(keyValue.ToString(), out parsedValue) ? parsedValue : defaultMainControlHeight) : defaultMainControlHeight;
+         
          keyValue = appKey.GetValue("RunTime");
          this.RunTimeTextBox.Text = (null != keyValue) ? keyValue.ToString() : "0/0/15";
 
@@ -156,6 +162,15 @@ namespace DYNO.GUI
          keyValue = appKey.GetValue("BaudRate");
          this.BaudComboBox.SelectedIndex = (null != keyValue) ? (int.TryParse(keyValue.ToString(), out parsedValue) ? parsedValue : 6) : 6;
 
+         keyValue = appKey.GetValue("ConsumerHeartbeatNodeId");
+         this.ConsumerHeartbeatNodeIdTextBox.Text = (null != keyValue) ? keyValue.ToString() : "80";
+
+         keyValue = appKey.GetValue("ConsumerHeartbeatTime");
+         this.ConsumerHeartbeatTimeTextBox.Text = (null != keyValue) ? keyValue.ToString() : "3000";
+
+         keyValue = appKey.GetValue("ProducerHeartbeatTime");
+         this.ProducerHeartbeatTimeTextBox.Text = (null != keyValue) ? keyValue.ToString() : "1000";
+
          keyValue = appKey.GetValue("UutId");
          this.UutIdTextBox.Text = (null != keyValue) ? keyValue.ToString() : "49";
 
@@ -169,8 +184,25 @@ namespace DYNO.GUI
          this.DigitalIoIdTextBox.Text = (null != keyValue) ? keyValue.ToString() : "23";
 
 
+         keyValue = appKey.GetValue("UutSpeedToRpm");
+         this.UutRpmToSpeedTextBox.Text = (null != keyValue) ? keyValue.ToString() : "1.0";
+
+         keyValue = appKey.GetValue("BodySpeedToRpm");
+         this.BodyRpmToSpeedTextBox.Text = (null != keyValue) ? keyValue.ToString() : "1.0";
+
+         keyValue = appKey.GetValue("AnalogIoVoltsToSupplyAmps");
+         this.AnalogIoVoltsToSupplyAmpsTextBox.Text = (null != keyValue) ? keyValue.ToString() : "1.0";
+
+         keyValue = appKey.GetValue("AnalogIoVoltsToLoadPounds");
+         this.AnalogIoVoltsToLoadPoundsTextBox.Text = (null != keyValue) ? keyValue.ToString() : "1.0";
+
+
          keyValue = appKey.GetValue("TraceMask");
          this.TraceMaskTextBox.Text = (null != keyValue) ? keyValue.ToString() : "0";
+
+
+         keyValue = appKey.GetValue("AutoScroll");
+         this.AutoScrollCheckBox.Checked = ("0" != (string)((null != keyValue) ? keyValue.ToString() : "0")) ? true : false;
 
          #endregion
       }
@@ -197,6 +229,8 @@ namespace DYNO.GUI
 
          #region Session Information
 
+         appKey.SetValue("MainControlHeight", this.MainTabControl.Height);
+
          appKey.SetValue("RunTime", this.RunTimeTextBox.Text);
          appKey.SetValue("WheelSpeed", this.WheelSpeedTextBox.Text);
          appKey.SetValue("WheelStartLoad", this.WheelStartLoadTextBox.Text);
@@ -207,12 +241,22 @@ namespace DYNO.GUI
          
          appKey.SetValue("BusInterface", this.BusInterfaceComboBox.SelectedIndex);
          appKey.SetValue("BaudRate", this.BaudComboBox.SelectedIndex);
+         appKey.SetValue("ConsumerHeartbeatNodeId", this.ConsumerHeartbeatNodeIdTextBox.Text);
+         appKey.SetValue("ConsumerHeartbeatTime", this.ConsumerHeartbeatTimeTextBox.Text);
+         appKey.SetValue("ProducerHeartbeatTime", this.ProducerHeartbeatTimeTextBox.Text);
          appKey.SetValue("UutId", this.UutIdTextBox.Text);
          appKey.SetValue("EncoderId", this.EncoderIdTextBox.Text);
          appKey.SetValue("AnalogIoId", this.AnalogIoIdTextBox.Text);
          appKey.SetValue("DigitalIoId", this.DigitalIoIdTextBox.Text);
 
+         appKey.SetValue("UutSpeedToRpm", this.UutRpmToSpeedTextBox.Text);
+         appKey.SetValue("BodySpeedToRpm", this.BodyRpmToSpeedTextBox.Text);
+         appKey.SetValue("AnalogIoVoltsToSupplyAmps", this.AnalogIoVoltsToSupplyAmpsTextBox.Text);
+         appKey.SetValue("AnalogIoVoltsToLoadPounds", this.AnalogIoVoltsToLoadPoundsTextBox.Text);
+
          appKey.SetValue("TraceMask", this.TraceMaskTextBox.Text);
+
+         appKey.SetValue("AutoScroll", this.AutoScrollCheckBox.Checked ? "1" : "0");
 
          #endregion
       }
@@ -220,6 +264,11 @@ namespace DYNO.GUI
       #endregion
 
       #region Delegates
+
+      private void OnSetTitle(string title)
+      {
+         this.titleString = title;
+      }
 
       private void OnTestComplete()
       {
@@ -244,10 +293,21 @@ namespace DYNO.GUI
 
          this.BaudComboBox.Enabled = true;
          this.BusInterfaceComboBox.Enabled = true;
+         this.ConsumerHeartbeatNodeIdTextBox.Enabled = true;
+         this.ConsumerHeartbeatTimeTextBox.Enabled = true;
+         this.ProducerHeartbeatTimeTextBox.Enabled = true;
          this.UutIdTextBox.Enabled = true;
          this.EncoderIdTextBox.Enabled = true;
          this.AnalogIoIdTextBox.Enabled = true;
          this.DigitalIoIdTextBox.Enabled = true;
+
+         this.UutRpmToSpeedTextBox.Enabled = true;
+         this.BodyRpmToSpeedTextBox.Enabled = true;
+         this.AnalogIoVoltsToSupplyAmpsTextBox.Enabled = true;
+         this.AnalogIoVoltsToLoadPoundsTextBox.Enabled = true;
+
+         this.LoadParametersButton.Enabled = true;
+         this.SaveParametersButton.Enabled = true;
       }
 
       private void LockForRun()
@@ -264,19 +324,30 @@ namespace DYNO.GUI
 
          this.BaudComboBox.Enabled = false;
          this.BusInterfaceComboBox.Enabled = false;
+         this.ConsumerHeartbeatNodeIdTextBox.Enabled = false;
+         this.ConsumerHeartbeatTimeTextBox.Enabled = false;
+         this.ProducerHeartbeatTimeTextBox.Enabled = false;
          this.UutIdTextBox.Enabled = false;
          this.EncoderIdTextBox.Enabled = false;
          this.AnalogIoIdTextBox.Enabled = false;
          this.DigitalIoIdTextBox.Enabled = false;
+
+         this.UutRpmToSpeedTextBox.Enabled = false;
+         this.BodyRpmToSpeedTextBox.Enabled = false;
+         this.AnalogIoVoltsToSupplyAmpsTextBox.Enabled = false;
+         this.AnalogIoVoltsToLoadPoundsTextBox.Enabled = false;
+
+         this.LoadParametersButton.Enabled = false;
+         this.SaveParametersButton.Enabled = false;
       }
 
-      private string ExtractBusParameters(SetupParameters busParameters)
+      private string ExtractBusParameters(SetupParameters setupParameters)
       {
          string result = null;
 
          #region Bus Interface Parsing
 
-         busParameters.BusInterface = (BusInterfaces)this.BusInterfaceComboBox.SelectedItem;
+         setupParameters.BusInterface = (BusInterfaces)this.BusInterfaceComboBox.SelectedItem;
 
          #endregion
 
@@ -290,12 +361,75 @@ namespace DYNO.GUI
 
             if (int.TryParse(wheelSpeedString, out interfaceRate) != false)
             {
-               busParameters.BitRate = interfaceRate;
+               setupParameters.BitRate = interfaceRate;
             }
             else
             {
                result = "invalid entry";
                this.BaudComboBox.BackColor = Color.Red;
+            }
+         }
+
+         #endregion
+
+         #region Consumer Heartbeat Node ID Parsing
+
+         string consumerHeartbeatNodeIdString = this.ConsumerHeartbeatNodeIdTextBox.Text;
+
+         if (null != consumerHeartbeatNodeIdString)
+         {
+            int consumerHeartbeatNodeId = 0;
+
+            if (int.TryParse(consumerHeartbeatNodeIdString, out consumerHeartbeatNodeId) != false)
+            {
+               setupParameters.ConsumerHeartbeatNodeId = consumerHeartbeatNodeId;
+            }
+            else
+            {
+               result = "invalid entry";
+               this.ConsumerHeartbeatNodeIdTextBox.BackColor = Color.Red;
+            }
+         }
+
+         #endregion
+
+         #region Consumer Heartbeat Time Parsing
+
+         string consumerHeartbeatTimeString = this.ConsumerHeartbeatTimeTextBox.Text;
+
+         if (null != consumerHeartbeatNodeIdString)
+         {
+            int consumerHeartbeatTime = 0;
+
+            if (int.TryParse(consumerHeartbeatTimeString, out consumerHeartbeatTime) != false)
+            {
+               setupParameters.ConsumerHeartbeatTime = consumerHeartbeatTime;
+            }
+            else
+            {
+               result = "invalid entry";
+               this.ConsumerHeartbeatTimeTextBox.BackColor = Color.Red;
+            }
+         }
+
+         #endregion
+
+         #region Consumer Heartbeat Time Parsing
+
+         string producerHeartbeatTimeString = this.ProducerHeartbeatTimeTextBox.Text;
+
+         if (null != producerHeartbeatTimeString)
+         {
+            int producerHeartbeatTime = 0;
+
+            if (int.TryParse(producerHeartbeatTimeString, out producerHeartbeatTime) != false)
+            {
+               setupParameters.ProducerHeartbeatTime = producerHeartbeatTime;
+            }
+            else
+            {
+               result = "invalid entry";
+               this.ProducerHeartbeatTimeTextBox.BackColor = Color.Red;
             }
          }
 
@@ -311,7 +445,7 @@ namespace DYNO.GUI
 
             if (int.TryParse(uutIdString, out uutId) != false)
             {
-               busParameters.UutId = uutId;
+               setupParameters.UutId = uutId;
             }
             else
             {
@@ -332,7 +466,7 @@ namespace DYNO.GUI
 
             if (int.TryParse(encoderIdString, out encoderId) != false)
             {
-               busParameters.EncoderId = encoderId;
+               setupParameters.EncoderId = encoderId;
             }
             else
             {
@@ -353,7 +487,7 @@ namespace DYNO.GUI
 
             if (int.TryParse(analogIoIdString, out analogIoId) != false)
             {
-               busParameters.AnalogIoId = analogIoId;
+               setupParameters.AnalogIoId = analogIoId;
             }
             else
             {
@@ -374,12 +508,100 @@ namespace DYNO.GUI
 
             if (int.TryParse(digitalIoIdString, out digitalIoId) != false)
             {
-               busParameters.DigialIoId = digitalIoId;
+               setupParameters.DigialIoId = digitalIoId;
             }
             else
             {
                result = "invalid entry";
                this.DigitalIoIdTextBox.BackColor = Color.Red;
+            }
+         }
+
+         #endregion
+
+         #region UUT RPM to Speed Parsing
+
+         string uutRpmToSpeedString = this.UutRpmToSpeedTextBox.Text;
+
+         if (null != uutRpmToSpeedString)
+         {
+            double uutRpmToSpeed = 0.0;
+
+            if ((double.TryParse(uutRpmToSpeedString, out uutRpmToSpeed) != false) &&
+                (0 != uutRpmToSpeed))
+            {
+               setupParameters.UutRpmToSpeed = uutRpmToSpeed;
+            }
+            else
+            {
+               result = "invalid entry";
+               this.UutRpmToSpeedTextBox.BackColor = Color.Red;
+            }
+         }
+
+         #endregion
+
+         #region Body RPM to Speed Parsing
+
+         string bodyRpmToSpeedString = this.BodyRpmToSpeedTextBox.Text;
+
+         if (null != bodyRpmToSpeedString)
+         {
+            double bodyRpmToSpeed = 0.0;
+
+            if ((double.TryParse(bodyRpmToSpeedString, out bodyRpmToSpeed) != false) &&
+                (0 != bodyRpmToSpeed))
+            {
+               setupParameters.BodyRpmToSpeed = bodyRpmToSpeed;
+            }
+            else
+            {
+               result = "invalid entry";
+               this.BodyRpmToSpeedTextBox.BackColor = Color.Red;
+            }
+         }
+
+         #endregion
+
+         #region Analog IO Volts to Supply Amps Parsing
+
+         string analogIoVoltsToSupplyAmpsString = this.AnalogIoVoltsToSupplyAmpsTextBox.Text;
+
+         if (null != analogIoVoltsToSupplyAmpsString)
+         {
+            double analogIoVoltsToSupplyAmps = 0.0;
+
+            if ((double.TryParse(analogIoVoltsToSupplyAmpsString, out analogIoVoltsToSupplyAmps) != false) &&
+                (0 != analogIoVoltsToSupplyAmps))
+            {
+               setupParameters.AnalogIoVoltsToSupplyAmps = analogIoVoltsToSupplyAmps;
+            }
+            else
+            {
+               result = "invalid entry";
+               this.AnalogIoVoltsToSupplyAmpsTextBox.BackColor = Color.Red;
+            }
+         }
+
+         #endregion
+
+         #region Analog IO Volts to Supply Amps Parsing
+
+         string analogIoVoltsToLoadPoundsString = this.AnalogIoVoltsToLoadPoundsTextBox.Text;
+
+         if (null != analogIoVoltsToLoadPoundsString)
+         {
+            double analogIoVoltsToLoadPounds = 0.0;
+
+            if ((double.TryParse(analogIoVoltsToLoadPoundsString, out analogIoVoltsToLoadPounds) != false) &&
+                (0 != analogIoVoltsToLoadPounds))
+            {
+               setupParameters.AnalogIoVoltsToLoadPounds = analogIoVoltsToLoadPounds;
+            }
+            else
+            {
+               result = "invalid entry";
+               this.AnalogIoVoltsToLoadPoundsTextBox.BackColor = Color.Red;
             }
          }
 
@@ -493,6 +715,7 @@ namespace DYNO.GUI
                double hours = 0;
                double minutes = 0;
                double seconds = 0;
+               double totalTime = 0;
 
                if (double.TryParse(timeValues[0], out hours) == false)
                {
@@ -511,7 +734,17 @@ namespace DYNO.GUI
 
                if (false != validTime)
                {
-                  testParameters.RunTime = (hours * 3600.0) + (minutes * 60.0) + seconds;
+                  totalTime = (hours * 3600.0) + (minutes * 60.0) + seconds;
+
+                  if (0 == totalTime)
+                  {
+                     validTime = false;
+                  }
+               }
+
+               if (false != validTime)
+               {
+                  testParameters.RunTime = totalTime;
                }
                else
                {
@@ -697,7 +930,7 @@ namespace DYNO.GUI
 
                if (null != result)
                {
-                  this.MainTabControl.SelectedTab = this.ControlTabPage;
+                  this.MainTabControl.SelectedTab = this.TestTabPage;
                }
             }
 
@@ -813,7 +1046,11 @@ namespace DYNO.GUI
       private void ParsedEntryControl_Enter(object sender, EventArgs e)
       {
          Control control = (Control)sender;
-         control.BackColor = Color.FromKnownColor(KnownColor.Window);
+
+         if (Color.Red == control.BackColor)
+         {
+            control.BackColor = Color.FromKnownColor(KnownColor.Window);
+         }
       }
 
       private void TraceMaskTextBox_TextChanged(object sender, EventArgs e)
@@ -876,10 +1113,23 @@ namespace DYNO.GUI
 
          #region Trace Activity Update
 
+         if ((null != this.titleString) && (this.titleString != this.ActivityTitleRichTextBox.Text))
+         {
+            this.ActivityTitleRichTextBox.Text = titleString;
+         }
+
+         bool inserted = false;
+
          while (0 != this.traceQueue.Count)
          {
             string activityString = (string)this.traceQueue.Dequeue();
             this.ActivityRichTextBox.AppendText(activityString + "\n");
+            inserted = true;
+         }
+
+         if ((false != inserted) && (false != this.AutoScrollCheckBox.Checked))
+         {
+            this.ActivityRichTextBox.ScrollToCaret();
          }
 
          #endregion
@@ -926,6 +1176,7 @@ namespace DYNO.GUI
          settingTraceMask = false;
 
          this.dynoTest = new DynoTest();
+         this.dynoTest.OnSetTitle = new DynoTest.SetTitleHandler(this.OnSetTitle);
          this.dynoTest.OnComplete = new DynoTest.CompleteHandler(this.OnTestComplete);         
 
          Array interfaces = Enum.GetValues(typeof(BusInterfaces));

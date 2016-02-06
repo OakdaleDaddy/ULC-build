@@ -10,15 +10,18 @@
 
       public BusInterfaces BusInterface { set; get; }
       public int BitRate { set; get; }
+      public int ConsumerHeartbeatNodeId { set; get; }
+      public int ConsumerHeartbeatTime { set; get; }
+      public int ProducerHeartbeatTime { set; get; }
       public int UutId { set; get; }
       public int EncoderId { set; get; }
       public int AnalogIoId { set; get; }
       public int DigialIoId { set; get; }
 
-      public double VoltsPerPounds { set; get; }
-      public double UutSpeedToRpm { set; get; }
-      public double SupplyVoltageToAmps { set; get; }
-      public double BodySpeedToRpm { set; get; }
+      public double UutRpmToSpeed { set; get; }
+      public double BodyRpmToSpeed { set; get; }
+      public double AnalogIoVoltsToLoadPounds { set; get; }
+      public double AnalogIoVoltsToSupplyAmps { set; get; }
 
       #endregion
 
@@ -28,15 +31,18 @@
       {
          this.BusInterface = BusInterfaces.USBA;
          this.BitRate = 50000;
+         this.ConsumerHeartbeatNodeId = 80;
+         this.ConsumerHeartbeatTime = 3000;
+         this.ProducerHeartbeatTime = 1000;
          this.UutId = 1;
          this.EncoderId = 2;
          this.AnalogIoId = 3;
          this.DigialIoId = 4;
 
-         this.VoltsPerPounds = 1.0;
-         this.UutSpeedToRpm = 1.0;
-         this.SupplyVoltageToAmps = 1.0;
-         this.BodySpeedToRpm = 1.0;
+         this.UutRpmToSpeed = 1.0;
+         this.BodyRpmToSpeed = 1.0;
+         this.AnalogIoVoltsToLoadPounds = 1.0;
+         this.AnalogIoVoltsToSupplyAmps = 1.0;
       }
 
       #endregion
