@@ -1429,6 +1429,9 @@ namespace NICBOT.GUI
          this.ReelShowManualButton.Enabled = true;
          this.ReelManualDirectionToggleButton.OptionASelected = true;
          this.ReelManualDirectionToggleButton.Enabled = true;
+         this.ReelSetupButton.Enabled = true;
+         this.ReelManualSetupButton.Enabled = true;
+         this.ReelManualHideButton.Enabled = true;
          this.UpdateReelControls();
 
          this.ReelManualPanel.Visible = false;
@@ -2465,6 +2468,7 @@ namespace NICBOT.GUI
       private void ReelOffButton_HoldTimeout(object sender, HoldTimeoutEventArgs e)
       {
          NicBotComm.Instance.SetReelMode(ReelModes.off);
+         this.ReelSetupButton.Enabled = true;
          this.UpdateReelControls();
 
          e.Handled = true;
@@ -2473,6 +2477,7 @@ namespace NICBOT.GUI
       private void ReelReverseButton_HoldTimeout(object sender, HoldTimeoutEventArgs e)
       {
          NicBotComm.Instance.SetReelMode(ReelModes.reverse);
+         this.ReelSetupButton.Enabled = false;
          this.UpdateReelControls();
 
          e.Handled = true;
@@ -2481,6 +2486,7 @@ namespace NICBOT.GUI
       private void ReelLockButton_HoldTimeout(object sender, HoldTimeoutEventArgs e)
       {
          NicBotComm.Instance.SetReelMode(ReelModes.locked);
+         this.ReelSetupButton.Enabled = false;
          this.UpdateReelControls();
 
          e.Handled = true;
@@ -2544,6 +2550,7 @@ namespace NICBOT.GUI
             NicBotComm.Instance.SetReelManualMode(false);
             this.ReelManualHideButton.Enabled = true;
             this.ReelManualDirectionToggleButton.Enabled = true;
+            this.ReelManualSetupButton.Enabled = true;
 
             this.ReelManualOnOffToggleButton.OptionASelected = requested;
          }
@@ -2562,6 +2569,7 @@ namespace NICBOT.GUI
             NicBotComm.Instance.SetReelManualMode(true);
             this.ReelManualHideButton.Enabled = false;
             this.ReelManualDirectionToggleButton.Enabled = false;
+            this.ReelManualSetupButton.Enabled = false;
 
             this.ReelManualOnOffToggleButton.OptionASelected = requested;
          }
@@ -2570,6 +2578,7 @@ namespace NICBOT.GUI
             NicBotComm.Instance.SetReelManualMode(false);
             this.ReelManualHideButton.Enabled = true;
             this.ReelManualDirectionToggleButton.Enabled = true;
+            this.ReelManualSetupButton.Enabled = true;
 
             this.ReelManualOnOffToggleButton.OptionASelected = requested;
          }

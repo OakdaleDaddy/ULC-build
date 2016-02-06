@@ -1921,6 +1921,7 @@ namespace NICBOT.GUI
             }
 
             VideoStampOsd.Instance.Stop();
+            this.InitializeValues(); // clears previous session requests for next session
          }
          catch (Exception postException)
          {
