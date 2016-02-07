@@ -811,7 +811,13 @@ namespace NICBOT.CAN
          COBTypes frameType = (COBTypes)((cobId >> 7) & 0xF);
          bool trace = false;
 
-         if (COBTypes.RSDO == frameType)
+         if ((COBTypes.NMT == frameType) ||
+             (COBTypes.EMGY == frameType) ||
+             (COBTypes.TS == frameType))
+         {
+            trace = true;
+         }
+         else if (COBTypes.RSDO == frameType)
          {
             trace = this.TraceSDO;
          }

@@ -335,7 +335,7 @@ namespace NICBOT.GUI
             if (ParameterAccessor.Instance.ReelManualSpeed.OperationalValue <= limit)
             {
                ParameterAccessor.Instance.ReelManualSpeed.OperationalValue += ParameterAccessor.Instance.ReelManualSpeed.StepValue;
-
+               
                this.ReelManualValueTextPanel.ValueText = this.GetValueText(ParameterAccessor.Instance.ReelManualSpeed);
 
                double directionalModifier = (false != this.ReelManualDirectionToggleButton.OptionASelected) ? 1 : -1;
@@ -1738,13 +1738,21 @@ namespace NICBOT.GUI
          string reelActualValueText = "";
          DirectionalValuePanel.Directions reelActualDirection = DirectionalValuePanel.Directions.Idle;
 
+         bool displayLockIndicators = NicBotComm.Instance.ReelInLockMode();
          bool displayReelCurrent = NicBotComm.Instance.ReelInCurrentMode();
 
          if (false != displayReelCurrent)
          {
             double reelCurrent = NicBotComm.Instance.GetReelCurrent();
+            double reelDisplayCurrent = Math.Abs(reelCurrent);
 
-            if (0 == reelCurrent)
+            if (reelDisplayCurrent < ParameterAccessor.Instance.ReelReverseCurrent.StepValue)
+            {
+               reelCurrent = 0;
+               reelDisplayCurrent = 0;
+            }
+
+            if ((0 == reelCurrent) || (false != displayLockIndicators))
             {
                reelActualDirection = DirectionalValuePanel.Directions.Idle;
             }
@@ -1757,14 +1765,20 @@ namespace NICBOT.GUI
                reelActualDirection = DirectionalValuePanel.Directions.Reverse;
             }
 
-            double reelDisplayCurrent = Math.Abs(reelCurrent);
             reelActualValueText = this.GetValueText(reelDisplayCurrent, ParameterAccessor.Instance.ReelReverseCurrent);
          }
          else
          {
             double reelSpeed = NicBotComm.Instance.GetReelSpeed();
+            double reelDisplaySpeed = Math.Abs(reelSpeed);
 
-            if (0 == reelSpeed)
+            if (reelDisplaySpeed < ParameterAccessor.Instance.ReelReverseSpeed.StepValue)
+            {
+               reelSpeed = 0;
+               reelDisplaySpeed = 0;
+            }
+
+            if ((0 == reelSpeed) || (false != displayLockIndicators))
             {
                reelActualDirection = DirectionalValuePanel.Directions.Idle;
             }
@@ -1777,7 +1791,6 @@ namespace NICBOT.GUI
                reelActualDirection = DirectionalValuePanel.Directions.Reverse;
             }
 
-            double reelDisplaySpeed = Math.Abs(reelSpeed);
             reelActualValueText = this.GetValueText(reelDisplaySpeed, ParameterAccessor.Instance.ReelReverseSpeed);
          }
 
@@ -2562,9 +2575,18 @@ namespace NICBOT.GUI
 
          if (false != requested)
          {
-            double directionalModifier = (false != this.ReelManualDirectionToggleButton.OptionASelected) ? 1 : -1;
-            double manualCurrent = ParameterAccessor.Instance.ReelManualCurrent.OperationalValue * directionalModifier;
-            NicBotComm.Instance.SetReelManualCurrent(manualCurrent);
+            if (MovementForwardControls.current == ParameterAccessor.Instance.ReelMotionMode)
+            {
+               double directionalModifier = (false != this.ReelManualDirectionToggleButton.OptionASelected) ? 1 : -1;
+               double manualCurrent = ParameterAccessor.Instance.ReelManualCurrent.OperationalValue * directionalModifier;
+               NicBotComm.Instance.SetReelManualCurrent(manualCurrent);
+            }
+            else
+            {
+               double directionalModifier = (false != this.ReelManualDirectionToggleButton.OptionASelected) ? 1 : -1;
+               double manualSpeed = ParameterAccessor.Instance.ReelManualSpeed.OperationalValue * directionalModifier;
+               NicBotComm.Instance.SetReelManualSpeed(manualSpeed);
+            }
 
             NicBotComm.Instance.SetReelManualMode(true);
             this.ReelManualHideButton.Enabled = false;

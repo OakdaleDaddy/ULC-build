@@ -426,6 +426,11 @@ namespace NICBOT.GUI
          return (TruckCommBus.Instance.GetReelMode());
       }
 
+      public bool ReelInLockMode()
+      {
+         return (TruckCommBus.Instance.ReelInLockMode());
+      }
+
       public bool ReelInCurrentMode()
       {
          return (TruckCommBus.Instance.ReelInCurrentMode());

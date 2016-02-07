@@ -1069,6 +1069,7 @@ namespace NICBOT.GUI
          {
             if (false != device.ReceiveBootupHeartbeat)
             {
+               Thread.Sleep(250);
                break;
             }
             else if (DateTime.Now > limit)
@@ -1199,6 +1200,7 @@ namespace NICBOT.GUI
          {
             lock (this)
             {
+               request = null;
                receiveCount = this.deviceResetQueue.Count;
 
                if (receiveCount > 0)

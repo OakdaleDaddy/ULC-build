@@ -456,7 +456,7 @@ namespace NICBOT.GUI
                {
                   neededControlMode = ElmoWhistleMotor.ControlModes.singleLoopPosition;
                   neededMode = ElmoWhistleMotor.Modes.velocity;
-                  neededValue = ParameterAccessor.Instance.ReelReverseSpeed.OperationalValue;
+                  neededValue = ParameterAccessor.Instance.ReelReverseSpeed.OperationalValue * ParameterAccessor.Instance.ReelVelocityToRpm;
                }
             }
             else if (ReelModes.locked == this.reelModeSetPoint)
@@ -470,13 +470,13 @@ namespace NICBOT.GUI
                {
                   neededControlMode = ElmoWhistleMotor.ControlModes.singleLoopPosition;
                   neededMode = ElmoWhistleMotor.Modes.current;
-                  neededValue = reelManualCurrentSetPoint * -1;
+                  neededValue = this.reelManualCurrentSetPoint * -1;
                }
                else
                {
                   neededControlMode = ElmoWhistleMotor.ControlModes.singleLoopPosition;
                   neededMode = ElmoWhistleMotor.Modes.velocity;
-                  neededValue = reelManualSpeedSetPoint * -1;
+                  neededValue = this.reelManualSpeedSetPoint * -1 * ParameterAccessor.Instance.ReelVelocityToRpm;
                }
             }
 
@@ -548,10 +548,10 @@ namespace NICBOT.GUI
                   {
                      if ((neededValue != this.reelRequestedSpeed) || (false != modeChange))
                      {
-                        int velocity = (int)neededValue;
+                        int velocity = (int)((neededValue > 0) ? (neededValue + 0.55) : (neededValue - 0.55));
                         this.reelMotor.SetVelocity(velocity);
                         this.reelRequestedSpeed = neededValue;
-                        Tracer.WriteMedium(TraceGroup.TBUS, null, "{0} speed {1}", this.reelMotor.Name, neededValue);
+                        Tracer.WriteMedium(TraceGroup.TBUS, null, "{0} speed {1:0.000} {2}", this.reelMotor.Name, neededValue, velocity);
                      }
                   }
                }
@@ -1430,6 +1430,7 @@ namespace NICBOT.GUI
          {
             if (false != device.ReceiveBootupHeartbeat)
             {
+               Thread.Sleep(250);
                break;
             }
             else if (DateTime.Now > limit)
@@ -1593,6 +1594,7 @@ namespace NICBOT.GUI
          {
             lock (this)
             {
+               request = null;
                receiveCount = this.deviceResetQueue.Count;
 
                if (receiveCount > 0)
@@ -2830,6 +2832,12 @@ namespace NICBOT.GUI
          return (this.reelModeSetPoint);
       }
 
+      public bool ReelInLockMode()
+      {
+         bool result = (ElmoWhistleMotor.ControlModes.microStepper == this.reelRequestedControlMode) ? true : false;
+         return (result);
+      }
+      
       public bool ReelInCurrentMode()
       {
          bool result = false;
@@ -2854,7 +2862,8 @@ namespace NICBOT.GUI
 
       public double GetReelSpeed()
       {
-         return (this.reelMotor.RPM * -1);
+         double reelSpeed = this.reelMotor.RPM / ParameterAccessor.Instance.ReelVelocityToRpm * -1;
+         return (reelSpeed);
       }      
 
       public double GetReelTotalDistance()
