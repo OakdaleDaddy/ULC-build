@@ -1106,6 +1106,8 @@ namespace NICBOT.GUI
 
          this.movementMode = MovementModes.off;
          this.movementForwardMode = MovementForwardModes.normalAxial;
+         this.movementWheelModeChangeRequest = MovementWheelModes.neither;
+         this.movementWheelModeActual = MovementWheelModes.neither;
          this.movementTopFrontWheelStatus.Initialize();
          this.movementTopRearWheelStatus.Initialize();
          this.movementBottomFrontWheelStatus.Initialize();
@@ -1328,6 +1330,8 @@ namespace NICBOT.GUI
 
             this.deviceThread.Join(3000);
             this.deviceThread = null;
+
+            this.InitializeValues(); // clears previous session requests for next session
          }
          catch (Exception postException)
          {

@@ -634,6 +634,8 @@ namespace NICBOT.GUI
 
             this.MovementAxialToggleButton.OptionASelected = (MovementWheelModes.both == movementWheelMode);
             this.MovementAxialToggleButton.OptionBSelected = (MovementWheelModes.both == movementWheelMode);
+            this.MovementManualAxialToggleButton.OptionASelected = (MovementWheelModes.both == movementWheelMode);
+            this.MovementManualAxialToggleButton.OptionBSelected = (MovementWheelModes.both == movementWheelMode);
             this.MovementLaunchModeToggleButton.OptionASelected = false;
             this.MovementCornerModeToggleButton.OptionASelected = false;
 
@@ -655,6 +657,8 @@ namespace NICBOT.GUI
             {
                this.MovementAxialToggleButton.OptionASelected = false;
                this.MovementAxialToggleButton.OptionBSelected = true;
+               this.MovementManualAxialToggleButton.OptionASelected = false;
+               this.MovementManualAxialToggleButton.OptionBSelected = true;
                this.MovementLaunchModeToggleButton.OptionASelected = false;
                this.MovementCornerModeToggleButton.OptionASelected = false;
 
@@ -672,6 +676,8 @@ namespace NICBOT.GUI
             {
                this.MovementAxialToggleButton.OptionASelected = true;
                this.MovementAxialToggleButton.OptionBSelected = false;
+               this.MovementManualAxialToggleButton.OptionASelected = true;
+               this.MovementManualAxialToggleButton.OptionBSelected = false;
 
                this.MotorTitleLabel.Text = "WHEEL MOTORS - AXIAL MOTION";
                this.MotorTitleLabel.Font = new Font(this.MotorTitleLabel.Font.Name, 12.75f, this.MotorTitleLabel.Font.Style);
@@ -710,6 +716,7 @@ namespace NICBOT.GUI
             this.MovementLockButton.ForeColor = Color.Black;
 
             this.MovementAxialToggleButton.Enabled = true;
+            this.MovementManualAxialToggleButton.Enabled = true;
             this.MovementLaunchModeToggleButton.Enabled = true;
             this.MovementCornerModeToggleButton.Enabled = true;
 
@@ -724,6 +731,7 @@ namespace NICBOT.GUI
             this.MovementLockButton.ForeColor = Color.Black;
 
             this.MovementAxialToggleButton.Enabled = false;
+            this.MovementManualAxialToggleButton.Enabled = this.MovementManulPanel.Visible;
             this.MovementLaunchModeToggleButton.Enabled = false;
             this.MovementCornerModeToggleButton.Enabled = false;
 
@@ -738,6 +746,7 @@ namespace NICBOT.GUI
             this.MovementMoveButton.ForeColor = Color.Black;
 
             this.MovementAxialToggleButton.Enabled = true;
+            this.MovementManualAxialToggleButton.Enabled = true;
             this.MovementLaunchModeToggleButton.Enabled = true;
             this.MovementCornerModeToggleButton.Enabled = true;
 
@@ -1458,6 +1467,7 @@ namespace NICBOT.GUI
          this.MovementManulPanel.Visible = false;
          this.MovementManaulDisplayButton.Text = "SHOW MANUAL";
          this.MovementSpeedToggleButton.Visible = true;
+         this.UpdateMovementControls();
 
          #region Drill/Sealant Controls
 
@@ -3080,21 +3090,11 @@ namespace NICBOT.GUI
          this.UpdateMovementControls();
       }
 
-      private void MovementAxialToggleButton_HoldTimeout(object sender, HoldTimeoutEventArgs e)
+      private void MovementSpeedToggleButton_Click(object sender, EventArgs e)
       {
-         bool selectionA = this.MovementAxialToggleButton.OptionASelected;
-         bool selectionB = this.MovementAxialToggleButton.OptionBSelected;
-         bool selection = !selectionA;
-
-         if (selectionA == selectionB)
-         {
-            selection = true;
-         }
-
-         MovementForwardModes mode = (false != selection) ? MovementForwardModes.normalAxial : MovementForwardModes.circumferential;
-         NicBotComm.Instance.SetMovementForwardMode(mode);
-
-         this.UpdateMovementControls();
+         bool selection = !this.MovementSpeedToggleButton.OptionASelected;
+         this.movementFastSelected = selection;
+         this.MovementSpeedToggleButton.OptionASelected = selection;
       }
 
       private void MovementLaunchModeToggleButton_HoldTimeout(object sender, HoldTimeoutEventArgs e)
@@ -3128,11 +3128,21 @@ namespace NICBOT.GUI
          e.Handled = true;
       }
 
-      private void MovementSpeedToggleButton_Click(object sender, EventArgs e)
+      private void MovementAxialToggleButton_HoldTimeout(object sender, HoldTimeoutEventArgs e)
       {
-         bool selection = !this.MovementSpeedToggleButton.OptionASelected;
-         this.movementFastSelected = selection;
-         this.MovementSpeedToggleButton.OptionASelected = selection;
+         bool selectionA = this.MovementAxialToggleButton.OptionASelected;
+         bool selectionB = this.MovementAxialToggleButton.OptionBSelected;
+         bool selection = !selectionA;
+
+         if (selectionA == selectionB)
+         {
+            selection = true;
+         }
+
+         MovementForwardModes mode = (false != selection) ? MovementForwardModes.normalAxial : MovementForwardModes.circumferential;
+         NicBotComm.Instance.SetMovementForwardMode(mode);
+
+         this.UpdateMovementControls();
       }
 
       private void MovementManaulDisplayButton_Click(object sender, EventArgs e)
@@ -3215,6 +3225,11 @@ namespace NICBOT.GUI
       private void MovementManualSetupButton_HoldTimeout(object sender, HoldTimeoutEventArgs e)
       {
          this.MovementSetupButton_HoldTimeout(sender, e);
+      }
+
+      private void MovementManualAxialToggleButton_HoldTimeout(object sender, HoldTimeoutEventArgs e)
+      {
+         this.MovementAxialToggleButton_HoldTimeout(sender, e);
       }
 
       private void MovementHideManualButton_Click(object sender, EventArgs e)
