@@ -74,6 +74,10 @@
          this.ReelEncoderLabel = new System.Windows.Forms.Label();
          this.FeederBottomFrontMotorStatusTextBox = new System.Windows.Forms.TextBox();
          this.DeviceStatusAPanel = new NICBOT.GUI.BorderedPanel();
+         this.label3 = new System.Windows.Forms.Label();
+         this.LaunchTotalCurrentSensorStatusTextBox = new System.Windows.Forms.TextBox();
+         this.label2 = new System.Windows.Forms.Label();
+         this.RobotTotalCurrentSensorStatusTextBox = new System.Windows.Forms.TextBox();
          this.label39 = new System.Windows.Forms.Label();
          this.RearPressureSensorStatusTextBox = new System.Windows.Forms.TextBox();
          this.label38 = new System.Windows.Forms.Label();
@@ -120,10 +124,6 @@
          this.LoggingPortValueButton = new NICBOT.GUI.ValueButton();
          this.LoggingAddressValueButton = new NICBOT.GUI.ValueButton();
          this.BackButton = new NICBOT.GUI.NicBotButton();
-         this.label2 = new System.Windows.Forms.Label();
-         this.RobotTotalCurrentSensorStatusTextBox = new System.Windows.Forms.TextBox();
-         this.label3 = new System.Windows.Forms.Label();
-         this.LaunchTotalCurrentSensorStatusTextBox = new System.Windows.Forms.TextBox();
          this.MainPanel.SuspendLayout();
          this.LocationPanel.SuspendLayout();
          this.DeviceStatusPanel.SuspendLayout();
@@ -790,6 +790,58 @@
          this.DeviceStatusAPanel.Size = new System.Drawing.Size(705, 616);
          this.DeviceStatusAPanel.TabIndex = 202;
          // 
+         // label3
+         // 
+         this.label3.BackColor = System.Drawing.Color.Teal;
+         this.label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+         this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.label3.ForeColor = System.Drawing.Color.Gainsboro;
+         this.label3.Location = new System.Drawing.Point(8, 328);
+         this.label3.Name = "label3";
+         this.label3.Size = new System.Drawing.Size(301, 23);
+         this.label3.TabIndex = 244;
+         this.label3.Text = "LAUNCH TOTAL CURRENT";
+         this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         // 
+         // LaunchTotalCurrentSensorStatusTextBox
+         // 
+         this.LaunchTotalCurrentSensorStatusTextBox.BackColor = System.Drawing.Color.Red;
+         this.LaunchTotalCurrentSensorStatusTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+         this.LaunchTotalCurrentSensorStatusTextBox.ForeColor = System.Drawing.Color.Black;
+         this.LaunchTotalCurrentSensorStatusTextBox.Location = new System.Drawing.Point(317, 326);
+         this.LaunchTotalCurrentSensorStatusTextBox.Name = "LaunchTotalCurrentSensorStatusTextBox";
+         this.LaunchTotalCurrentSensorStatusTextBox.ReadOnly = true;
+         this.LaunchTotalCurrentSensorStatusTextBox.Size = new System.Drawing.Size(380, 26);
+         this.LaunchTotalCurrentSensorStatusTextBox.TabIndex = 243;
+         this.LaunchTotalCurrentSensorStatusTextBox.Text = "not connected";
+         this.LaunchTotalCurrentSensorStatusTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+         // 
+         // label2
+         // 
+         this.label2.BackColor = System.Drawing.Color.Teal;
+         this.label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+         this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.label2.ForeColor = System.Drawing.Color.Gainsboro;
+         this.label2.Location = new System.Drawing.Point(8, 296);
+         this.label2.Name = "label2";
+         this.label2.Size = new System.Drawing.Size(301, 23);
+         this.label2.TabIndex = 242;
+         this.label2.Text = "ROBOT TOTAL CURRENT";
+         this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         // 
+         // RobotTotalCurrentSensorStatusTextBox
+         // 
+         this.RobotTotalCurrentSensorStatusTextBox.BackColor = System.Drawing.Color.Red;
+         this.RobotTotalCurrentSensorStatusTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+         this.RobotTotalCurrentSensorStatusTextBox.ForeColor = System.Drawing.Color.Black;
+         this.RobotTotalCurrentSensorStatusTextBox.Location = new System.Drawing.Point(317, 294);
+         this.RobotTotalCurrentSensorStatusTextBox.Name = "RobotTotalCurrentSensorStatusTextBox";
+         this.RobotTotalCurrentSensorStatusTextBox.ReadOnly = true;
+         this.RobotTotalCurrentSensorStatusTextBox.Size = new System.Drawing.Size(380, 26);
+         this.RobotTotalCurrentSensorStatusTextBox.TabIndex = 241;
+         this.RobotTotalCurrentSensorStatusTextBox.Text = "not connected";
+         this.RobotTotalCurrentSensorStatusTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+         // 
          // label39
          // 
          this.label39.BackColor = System.Drawing.Color.Teal;
@@ -1286,6 +1338,7 @@
          this.TriggerDefaultsButton.DisabledForeColor = System.Drawing.Color.Silver;
          this.TriggerDefaultsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
          this.TriggerDefaultsButton.ForeColor = System.Drawing.Color.Black;
+         this.TriggerDefaultsButton.HoldArrorColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
          this.TriggerDefaultsButton.HoldTimeoutEnable = true;
          this.TriggerDefaultsButton.HoldTimeoutInterval = 100;
          this.TriggerDefaultsButton.Location = new System.Drawing.Point(27, 47);
@@ -1303,6 +1356,7 @@
          this.SystemResetButton.DisabledForeColor = System.Drawing.Color.Silver;
          this.SystemResetButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
          this.SystemResetButton.ForeColor = System.Drawing.Color.Black;
+         this.SystemResetButton.HoldArrorColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
          this.SystemResetButton.HoldTimeoutEnable = true;
          this.SystemResetButton.HoldTimeoutInterval = 100;
          this.SystemResetButton.Location = new System.Drawing.Point(142, 47);
@@ -1334,6 +1388,7 @@
          this.RobotBusHeartbeatButton.DisabledForeColor = System.Drawing.Color.Silver;
          this.RobotBusHeartbeatButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
          this.RobotBusHeartbeatButton.ForeColor = System.Drawing.Color.Black;
+         this.RobotBusHeartbeatButton.HoldArrorColor = System.Drawing.Color.Gray;
          this.RobotBusHeartbeatButton.HoldTimeoutEnable = false;
          this.RobotBusHeartbeatButton.HoldTimeoutInterval = 0;
          this.RobotBusHeartbeatButton.Location = new System.Drawing.Point(27, 122);
@@ -1350,6 +1405,7 @@
          this.TruckBusHeartbeatButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
          this.TruckBusHeartbeatButton.DisabledForeColor = System.Drawing.Color.Silver;
          this.TruckBusHeartbeatButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.TruckBusHeartbeatButton.HoldArrorColor = System.Drawing.Color.Gray;
          this.TruckBusHeartbeatButton.Location = new System.Drawing.Point(142, 122);
          this.TruckBusHeartbeatButton.Name = "TruckBusHeartbeatButton";
          this.TruckBusHeartbeatButton.Size = new System.Drawing.Size(107, 67);
@@ -1379,6 +1435,7 @@
          this.LoggingPortValueButton.DisabledForeColor = System.Drawing.Color.Silver;
          this.LoggingPortValueButton.DisabledValueBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
          this.LoggingPortValueButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
+         this.LoggingPortValueButton.HoldArrorColor = System.Drawing.Color.Gray;
          this.LoggingPortValueButton.HoldTimeoutInterval = 0;
          this.LoggingPortValueButton.LeftArrowBackColor = System.Drawing.Color.Black;
          this.LoggingPortValueButton.LeftArrowVisible = false;
@@ -1407,6 +1464,7 @@
          this.LoggingAddressValueButton.DisabledForeColor = System.Drawing.Color.Silver;
          this.LoggingAddressValueButton.DisabledValueBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
          this.LoggingAddressValueButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
+         this.LoggingAddressValueButton.HoldArrorColor = System.Drawing.Color.Gray;
          this.LoggingAddressValueButton.HoldTimeoutInterval = 0;
          this.LoggingAddressValueButton.LeftArrowBackColor = System.Drawing.Color.Black;
          this.LoggingAddressValueButton.LeftArrowVisible = false;
@@ -1433,6 +1491,7 @@
          this.BackButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
          this.BackButton.DisabledForeColor = System.Drawing.Color.Silver;
          this.BackButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold);
+         this.BackButton.HoldArrorColor = System.Drawing.Color.Gray;
          this.BackButton.Location = new System.Drawing.Point(1574, 612);
          this.BackButton.Name = "BackButton";
          this.BackButton.Size = new System.Drawing.Size(107, 67);
@@ -1440,58 +1499,6 @@
          this.BackButton.Text = "BACK";
          this.BackButton.UseVisualStyleBackColor = false;
          this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
-         // 
-         // label2
-         // 
-         this.label2.BackColor = System.Drawing.Color.Teal;
-         this.label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-         this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.label2.ForeColor = System.Drawing.Color.Gainsboro;
-         this.label2.Location = new System.Drawing.Point(8, 296);
-         this.label2.Name = "label2";
-         this.label2.Size = new System.Drawing.Size(301, 23);
-         this.label2.TabIndex = 242;
-         this.label2.Text = "ROBOT TOTAL CURRENT";
-         this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         // 
-         // RobotTotalCurrentSensorStatusTextBox
-         // 
-         this.RobotTotalCurrentSensorStatusTextBox.BackColor = System.Drawing.Color.Red;
-         this.RobotTotalCurrentSensorStatusTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-         this.RobotTotalCurrentSensorStatusTextBox.ForeColor = System.Drawing.Color.Black;
-         this.RobotTotalCurrentSensorStatusTextBox.Location = new System.Drawing.Point(317, 294);
-         this.RobotTotalCurrentSensorStatusTextBox.Name = "RobotTotalCurrentSensorStatusTextBox";
-         this.RobotTotalCurrentSensorStatusTextBox.ReadOnly = true;
-         this.RobotTotalCurrentSensorStatusTextBox.Size = new System.Drawing.Size(380, 26);
-         this.RobotTotalCurrentSensorStatusTextBox.TabIndex = 241;
-         this.RobotTotalCurrentSensorStatusTextBox.Text = "not connected";
-         this.RobotTotalCurrentSensorStatusTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-         // 
-         // label3
-         // 
-         this.label3.BackColor = System.Drawing.Color.Teal;
-         this.label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-         this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.label3.ForeColor = System.Drawing.Color.Gainsboro;
-         this.label3.Location = new System.Drawing.Point(8, 328);
-         this.label3.Name = "label3";
-         this.label3.Size = new System.Drawing.Size(301, 23);
-         this.label3.TabIndex = 244;
-         this.label3.Text = "LAUNCH TOTAL CURRENT";
-         this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         // 
-         // LaunchTotalCurrentSensorStatusTextBox
-         // 
-         this.LaunchTotalCurrentSensorStatusTextBox.BackColor = System.Drawing.Color.Red;
-         this.LaunchTotalCurrentSensorStatusTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-         this.LaunchTotalCurrentSensorStatusTextBox.ForeColor = System.Drawing.Color.Black;
-         this.LaunchTotalCurrentSensorStatusTextBox.Location = new System.Drawing.Point(317, 326);
-         this.LaunchTotalCurrentSensorStatusTextBox.Name = "LaunchTotalCurrentSensorStatusTextBox";
-         this.LaunchTotalCurrentSensorStatusTextBox.ReadOnly = true;
-         this.LaunchTotalCurrentSensorStatusTextBox.Size = new System.Drawing.Size(380, 26);
-         this.LaunchTotalCurrentSensorStatusTextBox.TabIndex = 243;
-         this.LaunchTotalCurrentSensorStatusTextBox.Text = "not connected";
-         this.LaunchTotalCurrentSensorStatusTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
          // 
          // SystemStatusForm
          // 

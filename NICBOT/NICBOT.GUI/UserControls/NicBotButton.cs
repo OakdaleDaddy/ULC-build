@@ -13,6 +13,7 @@ namespace NICBOT.GUI
       private bool _focused;
       private bool _pressed;
 
+      private Color _holdArrorColor;
       private Color _disabledBackColor;
       private Color _disabledForeColor;
 
@@ -21,6 +22,20 @@ namespace NICBOT.GUI
       #region Properties
 
       protected bool ShowHold { set; get; }
+
+      public Color HoldArrorColor
+      {
+         set
+         {
+            this._holdArrorColor = value;
+            this.Invalidate();
+         }
+
+         get
+         {
+            return (this._holdArrorColor);
+         }
+      }
 
       public Color DisabledBackColor
       {
@@ -149,7 +164,7 @@ namespace NICBOT.GUI
             lowerRightArrow = new Point[3] { new Point(this.ClientRectangle.Width - 11, this.ClientRectangle.Height - 3), new Point(this.ClientRectangle.Width - 3, this.ClientRectangle.Height - 3), new Point(this.ClientRectangle.Width - 3, this.ClientRectangle.Height - 12) };
          }
 
-         SolidBrush arrowBrush = new SolidBrush(Color.Gray);
+         SolidBrush arrowBrush = new SolidBrush(this.HoldArrorColor);
          graphics.FillPolygon(arrowBrush, upperLeftArrow);
          graphics.FillPolygon(arrowBrush, upperRightArrow);
          graphics.FillPolygon(arrowBrush, lowerLeftArrow);
@@ -247,6 +262,7 @@ namespace NICBOT.GUI
          this.MouseDown += NicBotButton_MouseDown;
          this.MouseUp += NicBotButton_MouseUp;
 
+         this.HoldArrorColor = Color.Gray;
          this.DisabledBackColor = Color.FromArgb(151, 151, 151);
          this.DisabledForeColor = Color.Silver;
       }

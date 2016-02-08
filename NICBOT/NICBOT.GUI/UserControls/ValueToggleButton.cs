@@ -40,6 +40,8 @@ namespace NICBOT.GUI
       private string _optionAText;
       private string _optionBText;
 
+      private Color _holdArrorColor;
+
       private Color _disabledBackColor;
       private Color _disabledOptionBackColor;
       private Color _disabledForeColor;
@@ -281,6 +283,20 @@ namespace NICBOT.GUI
          }
       }
 
+      public Color HoldArrorColor
+      {
+         set
+         {
+            this._holdArrorColor = value;
+            this.Invalidate();
+         }
+
+         get
+         {
+            return (this._holdArrorColor);
+         }
+      }
+
       public Color DisabledBackColor
       {
          set 
@@ -368,7 +384,7 @@ namespace NICBOT.GUI
             lowerRightArrow = new Point[3] { new Point(this.ClientRectangle.Width - 11, this.ClientRectangle.Height - 3), new Point(this.ClientRectangle.Width - 3, this.ClientRectangle.Height - 3), new Point(this.ClientRectangle.Width - 3, this.ClientRectangle.Height - 12) };
          }
 
-         SolidBrush arrowBrush = new SolidBrush(Color.Gray);
+         SolidBrush arrowBrush = new SolidBrush(this.HoldArrorColor);
          graphics.FillPolygon(arrowBrush, upperLeftArrow);
          graphics.FillPolygon(arrowBrush, upperRightArrow);
          graphics.FillPolygon(arrowBrush, lowerLeftArrow);
@@ -544,6 +560,8 @@ namespace NICBOT.GUI
          this.MouseDown += ValueToggleButton_MouseDown;
          this.MouseUp += ValueToggleButton_MouseUp;
          base.MouseClick += ValueToggleButton_MouseClick;
+
+         this.HoldArrorColor = Color.Gray;
 
          this.DisabledBackColor = Color.FromArgb(151, 151, 151);
          this.DisabledOptionBackColor = Color.FromArgb(51, 51, 51);

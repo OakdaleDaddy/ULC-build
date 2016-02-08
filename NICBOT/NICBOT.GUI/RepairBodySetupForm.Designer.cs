@@ -73,6 +73,7 @@
          this.BackButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
          this.BackButton.DisabledForeColor = System.Drawing.Color.Silver;
          this.BackButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold);
+         this.BackButton.HoldArrorColor = System.Drawing.Color.Gray;
          this.BackButton.Location = new System.Drawing.Point(559, 387);
          this.BackButton.Name = "BackButton";
          this.BackButton.Size = new System.Drawing.Size(107, 67);
@@ -115,6 +116,7 @@
          this.BodyRearReleaseButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
          this.BodyRearReleaseButton.DisabledForeColor = System.Drawing.Color.Silver;
          this.BodyRearReleaseButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
+         this.BodyRearReleaseButton.HoldArrorColor = System.Drawing.Color.Gray;
          this.BodyRearReleaseButton.Location = new System.Drawing.Point(8, 204);
          this.BodyRearReleaseButton.Name = "BodyRearReleaseButton";
          this.BodyRearReleaseButton.Size = new System.Drawing.Size(107, 90);
@@ -129,6 +131,7 @@
          this.BodyFrontReleaseButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
          this.BodyFrontReleaseButton.DisabledForeColor = System.Drawing.Color.Silver;
          this.BodyFrontReleaseButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
+         this.BodyFrontReleaseButton.HoldArrorColor = System.Drawing.Color.Gray;
          this.BodyFrontReleaseButton.Location = new System.Drawing.Point(123, 204);
          this.BodyFrontReleaseButton.Name = "BodyFrontReleaseButton";
          this.BodyFrontReleaseButton.Size = new System.Drawing.Size(107, 90);
@@ -143,6 +146,7 @@
          this.BodyOpenButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
          this.BodyOpenButton.DisabledForeColor = System.Drawing.Color.Silver;
          this.BodyOpenButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
+         this.BodyOpenButton.HoldArrorColor = System.Drawing.Color.Gray;
          this.BodyOpenButton.Location = new System.Drawing.Point(123, 106);
          this.BodyOpenButton.Name = "BodyOpenButton";
          this.BodyOpenButton.Size = new System.Drawing.Size(107, 90);
@@ -157,6 +161,7 @@
          this.BodyDrillButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
          this.BodyDrillButton.DisabledForeColor = System.Drawing.Color.Silver;
          this.BodyDrillButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
+         this.BodyDrillButton.HoldArrorColor = System.Drawing.Color.Gray;
          this.BodyDrillButton.Location = new System.Drawing.Point(123, 8);
          this.BodyDrillButton.Name = "BodyDrillButton";
          this.BodyDrillButton.Size = new System.Drawing.Size(107, 90);
@@ -172,6 +177,7 @@
          this.BodyClosedButton.DisabledForeColor = System.Drawing.Color.Silver;
          this.BodyClosedButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
          this.BodyClosedButton.ForeColor = System.Drawing.Color.Black;
+         this.BodyClosedButton.HoldArrorColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
          this.BodyClosedButton.HoldTimeoutEnable = true;
          this.BodyClosedButton.HoldTimeoutInterval = 100;
          this.BodyClosedButton.Location = new System.Drawing.Point(8, 106);
@@ -189,6 +195,7 @@
          this.BodyOffButton.DisabledForeColor = System.Drawing.Color.Silver;
          this.BodyOffButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
          this.BodyOffButton.ForeColor = System.Drawing.Color.Black;
+         this.BodyOffButton.HoldArrorColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
          this.BodyOffButton.HoldTimeoutEnable = true;
          this.BodyOffButton.HoldTimeoutInterval = 100;
          this.BodyOffButton.Location = new System.Drawing.Point(8, 8);
@@ -227,6 +234,7 @@
          this.FrontArmExtendButton.DisabledOptionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
          this.FrontArmExtendButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
          this.FrontArmExtendButton.ForeColor = System.Drawing.Color.Black;
+         this.FrontArmExtendButton.HoldArrorColor = System.Drawing.Color.Gray;
          this.FrontArmExtendButton.HoldEnable = false;
          this.FrontArmExtendButton.HoldTimeoutInterval = 0;
          this.FrontArmExtendButton.Location = new System.Drawing.Point(8, 106);
@@ -260,6 +268,7 @@
          this.FrontArmRetractButton.DisabledOptionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
          this.FrontArmRetractButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
          this.FrontArmRetractButton.ForeColor = System.Drawing.Color.Black;
+         this.FrontArmRetractButton.HoldArrorColor = System.Drawing.Color.Gray;
          this.FrontArmRetractButton.HoldEnable = false;
          this.FrontArmRetractButton.HoldTimeoutInterval = 0;
          this.FrontArmRetractButton.Location = new System.Drawing.Point(123, 106);
@@ -293,6 +302,7 @@
          this.LowerArmsRetractButton.DisabledOptionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
          this.LowerArmsRetractButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
          this.LowerArmsRetractButton.ForeColor = System.Drawing.Color.Black;
+         this.LowerArmsRetractButton.HoldArrorColor = System.Drawing.Color.Gray;
          this.LowerArmsRetractButton.HoldEnable = false;
          this.LowerArmsRetractButton.HoldTimeoutInterval = 0;
          this.LowerArmsRetractButton.Location = new System.Drawing.Point(123, 204);
@@ -326,6 +336,7 @@
          this.RearArmExtendButton.DisabledOptionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
          this.RearArmExtendButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
          this.RearArmExtendButton.ForeColor = System.Drawing.Color.Black;
+         this.RearArmExtendButton.HoldArrorColor = System.Drawing.Color.Gray;
          this.RearArmExtendButton.HoldEnable = false;
          this.RearArmExtendButton.HoldTimeoutInterval = 0;
          this.RearArmExtendButton.Location = new System.Drawing.Point(238, 106);
@@ -359,6 +370,7 @@
          this.LowerArmsExtendButton.DisabledOptionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
          this.LowerArmsExtendButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
          this.LowerArmsExtendButton.ForeColor = System.Drawing.Color.Black;
+         this.LowerArmsExtendButton.HoldArrorColor = System.Drawing.Color.Gray;
          this.LowerArmsExtendButton.HoldEnable = false;
          this.LowerArmsExtendButton.HoldTimeoutInterval = 0;
          this.LowerArmsExtendButton.Location = new System.Drawing.Point(8, 204);
@@ -392,6 +404,7 @@
          this.RearArmRetractButton.DisabledOptionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
          this.RearArmRetractButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
          this.RearArmRetractButton.ForeColor = System.Drawing.Color.Black;
+         this.RearArmRetractButton.HoldArrorColor = System.Drawing.Color.Gray;
          this.RearArmRetractButton.HoldEnable = false;
          this.RearArmRetractButton.HoldTimeoutInterval = 0;
          this.RearArmRetractButton.Location = new System.Drawing.Point(353, 106);
@@ -425,6 +438,7 @@
          this.FrontNozzleButton.DisabledOptionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
          this.FrontNozzleButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
          this.FrontNozzleButton.ForeColor = System.Drawing.Color.Black;
+         this.FrontNozzleButton.HoldArrorColor = System.Drawing.Color.Gray;
          this.FrontNozzleButton.HoldEnable = false;
          this.FrontNozzleButton.HoldTimeoutInterval = 0;
          this.FrontNozzleButton.Location = new System.Drawing.Point(123, 8);
@@ -458,6 +472,7 @@
          this.RearNozzleButton.DisabledOptionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
          this.RearNozzleButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
          this.RearNozzleButton.ForeColor = System.Drawing.Color.Black;
+         this.RearNozzleButton.HoldArrorColor = System.Drawing.Color.Gray;
          this.RearNozzleButton.HoldEnable = false;
          this.RearNozzleButton.HoldTimeoutInterval = 0;
          this.RearNozzleButton.Location = new System.Drawing.Point(353, 8);
@@ -491,6 +506,7 @@
          this.FrontDrillCoverButton.DisabledOptionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
          this.FrontDrillCoverButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
          this.FrontDrillCoverButton.ForeColor = System.Drawing.Color.Black;
+         this.FrontDrillCoverButton.HoldArrorColor = System.Drawing.Color.Gray;
          this.FrontDrillCoverButton.HoldEnable = false;
          this.FrontDrillCoverButton.HoldTimeoutInterval = 0;
          this.FrontDrillCoverButton.Location = new System.Drawing.Point(8, 8);
@@ -524,6 +540,7 @@
          this.RearDrillCoverButton.DisabledOptionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
          this.RearDrillCoverButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
          this.RearDrillCoverButton.ForeColor = System.Drawing.Color.Black;
+         this.RearDrillCoverButton.HoldArrorColor = System.Drawing.Color.Gray;
          this.RearDrillCoverButton.HoldEnable = false;
          this.RearDrillCoverButton.HoldTimeoutInterval = 0;
          this.RearDrillCoverButton.Location = new System.Drawing.Point(238, 8);
