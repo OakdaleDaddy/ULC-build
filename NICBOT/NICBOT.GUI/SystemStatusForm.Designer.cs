@@ -104,7 +104,7 @@
          this.RobotBottomRearWheelStatusTextBox = new System.Windows.Forms.TextBox();
          this.RobotBodyLabel = new System.Windows.Forms.Label();
          this.FrontScaleRs232StatusTextBox = new System.Windows.Forms.TextBox();
-         this.MotorTitleLabel = new System.Windows.Forms.Label();
+         this.RobotBusLabel = new System.Windows.Forms.Label();
          this.RobotBottomFrontWheelLabel = new System.Windows.Forms.Label();
          this.JoystickStatusTextBox = new System.Windows.Forms.TextBox();
          this.RobotTopFrontWheelStatusTextBox = new System.Windows.Forms.TextBox();
@@ -775,7 +775,7 @@
          this.DeviceStatusAPanel.Controls.Add(this.RobotBottomRearWheelStatusTextBox);
          this.DeviceStatusAPanel.Controls.Add(this.RobotBodyLabel);
          this.DeviceStatusAPanel.Controls.Add(this.FrontScaleRs232StatusTextBox);
-         this.DeviceStatusAPanel.Controls.Add(this.MotorTitleLabel);
+         this.DeviceStatusAPanel.Controls.Add(this.RobotBusLabel);
          this.DeviceStatusAPanel.Controls.Add(this.RobotBottomFrontWheelLabel);
          this.DeviceStatusAPanel.Controls.Add(this.JoystickStatusTextBox);
          this.DeviceStatusAPanel.Controls.Add(this.RobotTopFrontWheelStatusTextBox);
@@ -1186,18 +1186,19 @@
          this.FrontScaleRs232StatusTextBox.Text = "not connected";
          this.FrontScaleRs232StatusTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
          // 
-         // MotorTitleLabel
+         // RobotBusLabel
          // 
-         this.MotorTitleLabel.BackColor = System.Drawing.Color.Teal;
-         this.MotorTitleLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-         this.MotorTitleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.MotorTitleLabel.ForeColor = System.Drawing.Color.Gainsboro;
-         this.MotorTitleLabel.Location = new System.Drawing.Point(8, 40);
-         this.MotorTitleLabel.Name = "MotorTitleLabel";
-         this.MotorTitleLabel.Size = new System.Drawing.Size(301, 23);
-         this.MotorTitleLabel.TabIndex = 177;
-         this.MotorTitleLabel.Text = "ROBOT BUS";
-         this.MotorTitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         this.RobotBusLabel.BackColor = System.Drawing.Color.Teal;
+         this.RobotBusLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+         this.RobotBusLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.RobotBusLabel.ForeColor = System.Drawing.Color.Gainsboro;
+         this.RobotBusLabel.Location = new System.Drawing.Point(8, 40);
+         this.RobotBusLabel.Name = "RobotBusLabel";
+         this.RobotBusLabel.Size = new System.Drawing.Size(301, 23);
+         this.RobotBusLabel.TabIndex = 177;
+         this.RobotBusLabel.Text = "ROBOT BUS";
+         this.RobotBusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         this.RobotBusLabel.Click += new System.EventHandler(this.RobotBusLabel_Click);
          // 
          // RobotBottomFrontWheelLabel
          // 
@@ -1541,7 +1542,7 @@
       private System.Windows.Forms.TextBox ReelMotorStatusTextBox;
       private System.Windows.Forms.TextBox RobotBusStatusTextBox;
       private System.Windows.Forms.TextBox TruckBusStatusTextBox;
-      private System.Windows.Forms.Label MotorTitleLabel;
+      private System.Windows.Forms.Label RobotBusLabel;
       private System.Windows.Forms.Label label1;
       private System.Windows.Forms.Label ReelMotorLabel;
       private System.Windows.Forms.Label RobotBodyLabel;

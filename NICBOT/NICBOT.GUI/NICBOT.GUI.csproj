@@ -158,6 +158,12 @@
     <Compile Include="Definitions\PumpModes.cs" />
     <Compile Include="Parameters\PumpParameters.cs" />
     <Compile Include="Definitions\ReelModes.cs" />
+    <Compile Include="RobotBusControlForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RobotBusControlForm.Designer.cs">
+      <DependentUpon>RobotBusControlForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="RobotCommBus.cs" />
     <Compile Include="SealantSetupForm.cs">
       <SubType>Form</SubType>
@@ -357,6 +363,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="IpAddressEntryForm.resx">
       <DependentUpon>IpAddressEntryForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RobotBusControlForm.resx">
+      <DependentUpon>RobotBusControlForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SealantSetupForm.resx">
       <DependentUpon>SealantSetupForm.cs</DependentUpon>

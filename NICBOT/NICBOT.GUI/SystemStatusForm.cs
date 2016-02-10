@@ -106,7 +106,15 @@ namespace NICBOT.GUI
          if (null != status)
          {
             control.Text = status;
-            control.BackColor = Color.Red;
+
+            if ("off" == status)
+            {
+               control.BackColor = Color.Gray;
+            }
+            else
+            {
+               control.BackColor = Color.Red;
+            }
          }
          else
          {
@@ -304,6 +312,16 @@ namespace NICBOT.GUI
 
       #region User Event Functions
 
+      private void RobotBusLabel_Click(object sender, EventArgs e)
+      {
+         RobotBusControlForm robotBusControlForm = new RobotBusControlForm();
+         this.SetDialogLocation(this.RobotBusLabel, robotBusControlForm);
+
+         this.DimBackground();
+         robotBusControlForm.ShowDialog();
+         this.LightBackground();
+      }
+      
       private void RobotBodyLabel_Click(object sender, EventArgs e)
       {
          this.LaunchCANDeviceInformationForm(this.RobotBodyLabel, RobotCommBus.BusComponentId.RobotBody, RobotCommBus.Instance.GetDevice, RobotCommBus.Instance.RestartDevice);
@@ -539,6 +557,7 @@ namespace NICBOT.GUI
       }
 
       #endregion
+
 
    }
 }

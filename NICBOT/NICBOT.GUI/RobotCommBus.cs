@@ -432,6 +432,8 @@ namespace NICBOT.GUI
          }
       }
 
+      public bool Running { get { return (this.execute); } }
+
       #endregion
 
       #region Delegates
@@ -1414,10 +1416,13 @@ namespace NICBOT.GUI
 
       public void Stop()
       {
-         this.execute = false;
-         this.thread.Join(3000);
+         if (null != this.thread)
+         {
+            this.execute = false;
+            this.thread.Join(3000);
 
-         this.thread = null;
+            this.thread = null;
+         }
       }
 
       public void Service()
@@ -1475,32 +1480,32 @@ namespace NICBOT.GUI
          {
             case BusComponentId.Bus:
             {
-               result = this.busStatus;
+               result = (false != this.Running) ? this.busStatus : "off";
                break;
             }
             case BusComponentId.RobotBody:
             {
-               result = this.robotBody.FaultReason;
+               result = (false != this.Running) ? this.robotBody.FaultReason : "off";
                break;
             }
             case BusComponentId.RobotTopFrontWheel:
             {
-               result = this.robotTopFrontWheel.FaultReason;
+               result = (false != this.Running) ? this.robotTopFrontWheel.FaultReason : "off";
                break;
             }
             case BusComponentId.RobotTopRearWheel:
             {
-               result = this.robotTopRearWheel.FaultReason;
+               result = (false != this.Running) ? this.robotTopRearWheel.FaultReason : "off";
                break;
             }
             case BusComponentId.RobotBottomFrontWheel:
             {
-               result = this.robotBottomFrontWheel.FaultReason;
+               result = (false != this.Running) ? this.robotBottomFrontWheel.FaultReason : "off";
                break;
             }
             case BusComponentId.RobotBottomRearWheel:
             {
-               result = this.robotBottomRearWheel.FaultReason;
+               result = (false != this.Running) ? this.robotBottomRearWheel.FaultReason : "off";
                break;
             }
          }

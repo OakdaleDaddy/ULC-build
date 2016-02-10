@@ -84,6 +84,8 @@ namespace NICBOT.BusSim
       private DateTime updateTime;
       private DateTime lastUpdateTime;
 
+      private byte temperature;
+
       #endregion
 
       #region Helper Functions
@@ -352,7 +354,8 @@ namespace NICBOT.BusSim
       {
          bool result = false;
 
-         if ((0x6041 == index) ||
+         if ((0x2301 == index) ||
+             (0x6041 == index) ||
              (0x606c == index) ||
              (0x6077 == index))
          {
@@ -709,6 +712,20 @@ namespace NICBOT.BusSim
          }
       }
 
+      private byte Temperature
+      {
+         set
+         {
+            this.temperature = value;
+            this.TemperatureTextBox.Text = value.ToString();
+         }
+
+         get
+         {
+            return (this.temperature);
+         }
+      }
+
       #endregion
 
       #region Device Specific Functions
@@ -886,6 +903,11 @@ namespace NICBOT.BusSim
          else if (0x2105 == index)
          {
             dataLength = this.MoveDeviceData(buffer, 0x65766173);
+            valid = true;
+         }
+         else if (0x2301 == index)
+         {
+            dataLength = this.MoveDeviceData(buffer, this.Temperature);
             valid = true;
          }
          else if (0x6040 == index)
@@ -1249,6 +1271,20 @@ namespace NICBOT.BusSim
 
       #endregion
 
+      #region User Events
+
+      private void SetTemperatureButton_Click(object sender, EventArgs e)
+      {
+         byte temperature = 0;
+
+         if (byte.TryParse(this.TemperatureSetpointTextBox.Text, out temperature) != false)
+         {
+            this.Temperature = temperature;
+         }
+      }
+
+      #endregion
+
       #region Constructor
 
       public UlcRoboticsNicbotWheel()
@@ -1605,5 +1641,6 @@ namespace NICBOT.BusSim
       }
 
       #endregion
+
    }
 }

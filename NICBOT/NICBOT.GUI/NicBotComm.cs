@@ -161,7 +161,11 @@ namespace NICBOT.GUI
             this.InitializeValues();
 
             TruckCommBus.Instance.Start();
-            RobotCommBus.Instance.Start();
+
+            if (false != ParameterAccessor.Instance.EnableRobotBus)
+            {
+               RobotCommBus.Instance.Start();
+            }
 
             this.ExecuteProcessLoop();
          }

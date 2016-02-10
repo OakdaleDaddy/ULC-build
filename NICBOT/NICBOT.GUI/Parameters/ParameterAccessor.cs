@@ -22,6 +22,7 @@ namespace NICBOT.GUI
 
       public TruckBusParameters TruckBus;
       public RobotBusParameters RobotBus;
+      public bool EnableRobotBus;
 
       public int JoystickDeadband;
       public double Latitude;
@@ -307,6 +308,8 @@ namespace NICBOT.GUI
          this.RobotBus.RobotTopRearWheelTraceMask = 1;
          this.RobotBus.RobotBottomFrontWheelTraceMask = 1;
          this.RobotBus.RobotBottomRearWheelTraceMask = 1;
+
+         this.EnableRobotBus = true;
 
          this.FrontScale = new DigitalScaleParameters("FrontScale", 1, 9600);
          this.RearScale = new DigitalScaleParameters("RearScale", 2, 9600);
@@ -2290,6 +2293,11 @@ namespace NICBOT.GUI
                               this.RobotApplication = ReadRobotApplication(reader);
                               break;
                            }
+                           case "EnableRobotBus":
+                           {
+                              this.EnableRobotBus = this.ReadBool(reader);
+                              break;
+                           }
                            case "JoystickDeadband":
                            {
                               this.JoystickDeadband = this.ReadInt(reader);
@@ -2811,6 +2819,7 @@ namespace NICBOT.GUI
 
             this.WriteTruckBusParameters(writer, this.TruckBus);
             this.WriteRobotBusParameters(writer, this.RobotBus);
+            this.WriteElement(writer, "EnableRobotBus", this.EnableRobotBus);
 
             this.WriteElement(writer, "JoystickDeadband", this.JoystickDeadband);
             this.WriteElement(writer, "Latitude", this.Latitude);

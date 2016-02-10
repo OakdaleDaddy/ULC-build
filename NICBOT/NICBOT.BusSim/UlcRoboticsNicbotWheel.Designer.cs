@@ -73,6 +73,10 @@
          this.label19 = new System.Windows.Forms.Label();
          this.MaximumCurrentTextBox = new System.Windows.Forms.TextBox();
          this.label20 = new System.Windows.Forms.Label();
+         this.SetTemperatureButton = new System.Windows.Forms.Button();
+         this.TemperatureTextBox = new System.Windows.Forms.TextBox();
+         this.TemperatureSetpointTextBox = new System.Windows.Forms.TextBox();
+         this.label21 = new System.Windows.Forms.Label();
          this.SuspendLayout();
          // 
          // BusIdTextBox
@@ -524,11 +528,56 @@
          this.label20.Text = "MAX CURRENT";
          this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
          // 
+         // SetTemperatureButton
+         // 
+         this.SetTemperatureButton.Location = new System.Drawing.Point(783, 148);
+         this.SetTemperatureButton.Name = "SetTemperatureButton";
+         this.SetTemperatureButton.Size = new System.Drawing.Size(48, 23);
+         this.SetTemperatureButton.TabIndex = 215;
+         this.SetTemperatureButton.Text = "Set";
+         this.SetTemperatureButton.UseVisualStyleBackColor = true;
+         this.SetTemperatureButton.Click += new System.EventHandler(this.SetTemperatureButton_Click);
+         // 
+         // TemperatureTextBox
+         // 
+         this.TemperatureTextBox.Location = new System.Drawing.Point(691, 150);
+         this.TemperatureTextBox.MaxLength = 3;
+         this.TemperatureTextBox.Name = "TemperatureTextBox";
+         this.TemperatureTextBox.ReadOnly = true;
+         this.TemperatureTextBox.Size = new System.Drawing.Size(40, 20);
+         this.TemperatureTextBox.TabIndex = 214;
+         this.TemperatureTextBox.Text = "0";
+         this.TemperatureTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+         // 
+         // TemperatureSetpointTextBox
+         // 
+         this.TemperatureSetpointTextBox.Location = new System.Drawing.Point(737, 150);
+         this.TemperatureSetpointTextBox.MaxLength = 3;
+         this.TemperatureSetpointTextBox.Name = "TemperatureSetpointTextBox";
+         this.TemperatureSetpointTextBox.Size = new System.Drawing.Size(40, 20);
+         this.TemperatureSetpointTextBox.TabIndex = 213;
+         this.TemperatureSetpointTextBox.Text = "0";
+         this.TemperatureSetpointTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+         // 
+         // label21
+         // 
+         this.label21.AutoSize = true;
+         this.label21.Location = new System.Drawing.Point(600, 153);
+         this.label21.Name = "label21";
+         this.label21.Size = new System.Drawing.Size(89, 13);
+         this.label21.TabIndex = 212;
+         this.label21.Text = "TEMPERATURE";
+         this.label21.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+         // 
          // UlcRoboticsNicbotWheel
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
          this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+         this.Controls.Add(this.SetTemperatureButton);
+         this.Controls.Add(this.TemperatureTextBox);
+         this.Controls.Add(this.TemperatureSetpointTextBox);
+         this.Controls.Add(this.label21);
          this.Controls.Add(this.MaximumTorqueTextBox);
          this.Controls.Add(this.label19);
          this.Controls.Add(this.MaximumCurrentTextBox);
@@ -575,7 +624,7 @@
          this.Controls.Add(this.NodeIdTextBox);
          this.Controls.Add(this.label1);
          this.Name = "UlcRoboticsNicbotWheel";
-         this.Size = new System.Drawing.Size(884, 148);
+         this.Size = new System.Drawing.Size(884, 177);
          this.ResumeLayout(false);
          this.PerformLayout();
 
@@ -628,5 +677,9 @@
       private System.Windows.Forms.Label label19;
       private System.Windows.Forms.TextBox MaximumCurrentTextBox;
       private System.Windows.Forms.Label label20;
+      private System.Windows.Forms.Button SetTemperatureButton;
+      private System.Windows.Forms.TextBox TemperatureTextBox;
+      private System.Windows.Forms.TextBox TemperatureSetpointTextBox;
+      private System.Windows.Forms.Label label21;
    }
 }

@@ -91,7 +91,7 @@ running:
 0x2102: device CAN node offset, u8, RW, default=0x20, {1..124} (adds to input b1/b0 bit mask when 2101 is 0xFF)
 0x2105: device store parameters, u32, RW, default=0x65766173, writing 0x65766173 stores 0x2100, 0x2101 and 0x2102 to non-volatile memory
 
-0x2301: motor temperature, u8, R0
+0x2301: motor temperature, u8, R0 tx mappable
 
 0x2441: accelerometer X value, u16, RO
 0x2442: accelerometer Y value, u16, RO
