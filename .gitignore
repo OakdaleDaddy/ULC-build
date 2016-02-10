@@ -33,3 +33,8 @@ DYNO/DYNO.PCANLight/bin/
 DYNO/DYNO.PCANLight/obj/
 DYNO/DYNO.CAN/bin/
 DYNO/DYNO.CAN/obj/
+
+CAN-RS232/src/.dep
+CAN-RS232/src/.lst
+CAN-RS232/src/.obj
+CAN-RS232/src/.out
