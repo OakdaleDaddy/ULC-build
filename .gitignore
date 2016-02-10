@@ -38,3 +38,8 @@ CAN-RS232/src/.dep
 CAN-RS232/src/.lst
 CAN-RS232/src/.obj
 CAN-RS232/src/.out
+
+CAN-GPS/build/.dep
+CAN-GPS/build/.lst
+CAN-GPS/build/.obj
+CAN-GPS/build/.out

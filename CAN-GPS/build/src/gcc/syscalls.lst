@@ -1,0 +1,713 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"syscalls.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.align	2
+  19              		.global	_read_r
+  20              		.thumb
+  21              		.thumb_func
+  23              	_read_r:
+  24              	.LFB0:
+  25              		.file 1 "src/gcc/syscalls.c"
+   1:src/gcc/syscalls.c **** /***********************************************************************/
+   2:src/gcc/syscalls.c **** /*                                                                     */
+   3:src/gcc/syscalls.c **** /*  SYSCALLS.C:  System Calls Remapping                                */
+   4:src/gcc/syscalls.c **** /*  most of this is from newlib-lpc and a Keil-demo                    */
+   5:src/gcc/syscalls.c **** /*                                                                     */
+   6:src/gcc/syscalls.c **** /*  these are "reentrant functions" as needed by                       */
+   7:src/gcc/syscalls.c **** /*  the WinARM-newlib-config, see newlib-manual                        */
+   8:src/gcc/syscalls.c **** /*  collected and modified by Martin Thomas                            */
+   9:src/gcc/syscalls.c **** /*  TODO: some more work has to be done on this                        */
+  10:src/gcc/syscalls.c **** /***********************************************************************/
+  11:src/gcc/syscalls.c **** 
+  12:src/gcc/syscalls.c **** //
+  13:src/gcc/syscalls.c **** // System header files
+  14:src/gcc/syscalls.c **** //
+  15:src/gcc/syscalls.c **** #include "typedefs.h"
+  16:src/gcc/syscalls.c **** 
+  17:src/gcc/syscalls.c **** //
+  18:src/gcc/syscalls.c **** // Library header files
+  19:src/gcc/syscalls.c **** //
+  20:src/gcc/syscalls.c **** #include "serial.h"
+  21:src/gcc/syscalls.c **** #include <stdlib.h>
+  22:src/gcc/syscalls.c **** #include <reent.h>
+  23:src/gcc/syscalls.c **** #include <sys/stat.h>
+  24:src/gcc/syscalls.c **** 
+  25:src/gcc/syscalls.c **** 
+  26:src/gcc/syscalls.c **** 
+  27:src/gcc/syscalls.c **** int isatty ( int file); /* avoid warning */
+  28:src/gcc/syscalls.c **** 
+  29:src/gcc/syscalls.c **** 
+  30:src/gcc/syscalls.c **** 
+  31:src/gcc/syscalls.c **** 
+  32:src/gcc/syscalls.c **** _ssize_t _read_r ( struct _reent *r, int file, void *ptr, size_t len)
+  33:src/gcc/syscalls.c **** {
+  26              		.loc 1 33 0
+  27              		.cfi_startproc
+  28              		@ args = 0, pretend = 0, frame = 32
+  29              		@ frame_needed = 1, uses_anonymous_args = 0
+  30 0000 80B5     		push	{r7, lr}
+  31              	.LCFI0:
+  32              		.cfi_def_cfa_offset 8
+  33              		.cfi_offset 7, -8
+  34              		.cfi_offset 14, -4
+  35 0002 88B0     		sub	sp, sp, #32
+  36              	.LCFI1:
+  37              		.cfi_def_cfa_offset 40
+  38 0004 00AF     		add	r7, sp, #0
+  39              	.LCFI2:
+  40              		.cfi_def_cfa_register 7
+  41 0006 F860     		str	r0, [r7, #12]
+  42 0008 B960     		str	r1, [r7, #8]
+  43 000a 7A60     		str	r2, [r7, #4]
+  44 000c 3B60     		str	r3, [r7, #0]
+  34:src/gcc/syscalls.c ****   char c;
+  35:src/gcc/syscalls.c ****   int  i;
+  36:src/gcc/syscalls.c **** 	u8_t  rd=0;
+  45              		.loc 1 36 0
+  46 000e 4FF00003 		mov	r3, #0
+  47 0012 BB75     		strb	r3, [r7, #22]
+  37:src/gcc/syscalls.c ****   unsigned char *p;
+  38:src/gcc/syscalls.c **** 
+  39:src/gcc/syscalls.c ****   p = (unsigned char*)ptr;
+  48              		.loc 1 39 0
+  49 0014 7B68     		ldr	r3, [r7, #4]
+  50 0016 BB61     		str	r3, [r7, #24]
+  40:src/gcc/syscalls.c **** 
+  41:src/gcc/syscalls.c ****   for (i = 0; i < len; i++)
+  51              		.loc 1 41 0
+  52 0018 4FF00003 		mov	r3, #0
+  53 001c FB61     		str	r3, [r7, #28]
+  54 001e 29E0     		b	.L2
+  55              	.L7:
+  42:src/gcc/syscalls.c ****   {
+  43:src/gcc/syscalls.c ****     //UART_read(&c,1,0);
+  44:src/gcc/syscalls.c **** 		if(SER_Read(SER_PORT1, &c, 1, &rd) != SER_ERR_OK)
+  56              		.loc 1 44 0
+  57 0020 07F11702 		add	r2, r7, #23
+  58 0024 07F11603 		add	r3, r7, #22
+  59 0028 4FF00000 		mov	r0, #0
+  60 002c 1146     		mov	r1, r2
+  61 002e 4FF00102 		mov	r2, #1
+  62 0032 FFF7FEFF 		bl	SER_Read
+  63 0036 0346     		mov	r3, r0
+  64 0038 002B     		cmp	r3, #0
+  65 003a 20D1     		bne	.L9
+  66              	.L3:
+  45:src/gcc/syscalls.c **** 			break;;
+  46:src/gcc/syscalls.c **** 
+  47:src/gcc/syscalls.c ****     *p++ = c;
+  67              		.loc 1 47 0
+  68 003c FA7D     		ldrb	r2, [r7, #23]	@ zero_extendqisi2
+  69 003e BB69     		ldr	r3, [r7, #24]
+  70 0040 1A70     		strb	r2, [r3, #0]
+  71 0042 BB69     		ldr	r3, [r7, #24]
+  72 0044 03F10103 		add	r3, r3, #1
+  73 0048 BB61     		str	r3, [r7, #24]
+  48:src/gcc/syscalls.c **** 
+  49:src/gcc/syscalls.c ****     if (c == 0x0D && i <= (len - 2))
+  74              		.loc 1 49 0
+  75 004a FB7D     		ldrb	r3, [r7, #23]	@ zero_extendqisi2
+  76 004c 0D2B     		cmp	r3, #13
+  77 004e 0DD1     		bne	.L5
+  78              		.loc 1 49 0 is_stmt 0 discriminator 1
+  79 0050 FA69     		ldr	r2, [r7, #28]
+  80 0052 3B68     		ldr	r3, [r7, #0]
+  81 0054 A3F10203 		sub	r3, r3, #2
+  82 0058 9A42     		cmp	r2, r3
+  83 005a 07D8     		bhi	.L5
+  50:src/gcc/syscalls.c ****     {
+  51:src/gcc/syscalls.c ****       *p = 0x0A;
+  84              		.loc 1 51 0 is_stmt 1
+  85 005c BB69     		ldr	r3, [r7, #24]
+  86 005e 4FF00A02 		mov	r2, #10
+  87 0062 1A70     		strb	r2, [r3, #0]
+  52:src/gcc/syscalls.c ****       return i + 2;
+  88              		.loc 1 52 0
+  89 0064 FB69     		ldr	r3, [r7, #28]
+  90 0066 03F10203 		add	r3, r3, #2
+  91 006a 0AE0     		b	.L8
+  92              	.L5:
+  41:src/gcc/syscalls.c ****   for (i = 0; i < len; i++)
+  93              		.loc 1 41 0
+  94 006c FB69     		ldr	r3, [r7, #28]
+  95 006e 03F10103 		add	r3, r3, #1
+  96 0072 FB61     		str	r3, [r7, #28]
+  97              	.L2:
+  41:src/gcc/syscalls.c ****   for (i = 0; i < len; i++)
+  98              		.loc 1 41 0 is_stmt 0 discriminator 1
+  99 0074 FA69     		ldr	r2, [r7, #28]
+ 100 0076 3B68     		ldr	r3, [r7, #0]
+ 101 0078 9A42     		cmp	r2, r3
+ 102 007a D1D3     		bcc	.L7
+ 103 007c 00E0     		b	.L4
+ 104              	.L9:
+  45:src/gcc/syscalls.c **** 			break;;
+ 105              		.loc 1 45 0 is_stmt 1
+ 106 007e 00BF     		nop
+ 107              	.L4:
+  53:src/gcc/syscalls.c ****     }
+  54:src/gcc/syscalls.c ****   }
+  55:src/gcc/syscalls.c ****   return i;
+ 108              		.loc 1 55 0
+ 109 0080 FB69     		ldr	r3, [r7, #28]
+ 110              	.L8:
+  56:src/gcc/syscalls.c **** }
+ 111              		.loc 1 56 0
+ 112 0082 1846     		mov	r0, r3
+ 113 0084 07F12007 		add	r7, r7, #32
+ 114 0088 BD46     		mov	sp, r7
+ 115 008a 80BD     		pop	{r7, pc}
+ 116              		.cfi_endproc
+ 117              	.LFE0:
+ 119              		.section	.rodata
+ 120              		.align	2
+ 121              	.LC0:
+ 122 0000 0D00     		.ascii	"\015\000"
+ 123 0002 0000     		.text
+ 124              		.align	2
+ 125              		.global	_write_r
+ 126              		.thumb
+ 127              		.thumb_func
+ 129              	_write_r:
+ 130              	.LFB1:
+  57:src/gcc/syscalls.c **** 
+  58:src/gcc/syscalls.c **** 
+  59:src/gcc/syscalls.c **** 
+  60:src/gcc/syscalls.c **** _ssize_t _write_r ( struct _reent *r, int file, const void *ptr, size_t len)
+  61:src/gcc/syscalls.c **** {
+ 131              		.loc 1 61 0
+ 132              		.cfi_startproc
+ 133              		@ args = 0, pretend = 0, frame = 32
+ 134              		@ frame_needed = 1, uses_anonymous_args = 0
+ 135 008c 80B5     		push	{r7, lr}
+ 136              	.LCFI3:
+ 137              		.cfi_def_cfa_offset 8
+ 138              		.cfi_offset 7, -8
+ 139              		.cfi_offset 14, -4
+ 140 008e 88B0     		sub	sp, sp, #32
+ 141              	.LCFI4:
+ 142              		.cfi_def_cfa_offset 40
+ 143 0090 00AF     		add	r7, sp, #0
+ 144              	.LCFI5:
+ 145              		.cfi_def_cfa_register 7
+ 146 0092 F860     		str	r0, [r7, #12]
+ 147 0094 B960     		str	r1, [r7, #8]
+ 148 0096 7A60     		str	r2, [r7, #4]
+ 149 0098 3B60     		str	r3, [r7, #0]
+  62:src/gcc/syscalls.c **** 	int i;
+  63:src/gcc/syscalls.c **** 	const unsigned char *p;
+  64:src/gcc/syscalls.c **** 	u8_t c;
+  65:src/gcc/syscalls.c **** 
+  66:src/gcc/syscalls.c **** 	p = (const unsigned char*) ptr;
+ 150              		.loc 1 66 0
+ 151 009a 7B68     		ldr	r3, [r7, #4]
+ 152 009c BB61     		str	r3, [r7, #24]
+  67:src/gcc/syscalls.c **** 	
+  68:src/gcc/syscalls.c **** 
+  69:src/gcc/syscalls.c **** 	for (i = 0; i < len; i++) {
+ 153              		.loc 1 69 0
+ 154 009e 4FF00003 		mov	r3, #0
+ 155 00a2 FB61     		str	r3, [r7, #28]
+ 156 00a4 21E0     		b	.L11
+ 157              	.L13:
+  70:src/gcc/syscalls.c **** 		if (*p == '\n' ){
+ 158              		.loc 1 70 0
+ 159 00a6 BB69     		ldr	r3, [r7, #24]
+ 160 00a8 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 161 00aa 0A2B     		cmp	r3, #10
+ 162 00ac 09D1     		bne	.L12
+  71:src/gcc/syscalls.c **** 			//UART_write("\r",1,0);
+  72:src/gcc/syscalls.c **** 			SER_Write (SER_PORT1, "\r", 1);
+ 163              		.loc 1 72 0
+ 164 00ae 4FF00000 		mov	r0, #0
+ 165 00b2 40F20001 		movw	r1, #:lower16:.LC0
+ 166 00b6 C0F20001 		movt	r1, #:upper16:.LC0
+ 167 00ba 4FF00102 		mov	r2, #1
+ 168 00be FFF7FEFF 		bl	SER_Write
+ 169              	.L12:
+  73:src/gcc/syscalls.c **** 		}
+  74:src/gcc/syscalls.c **** 		//UART_write(p++,1,0);
+  75:src/gcc/syscalls.c **** 		c = *p++;
+ 170              		.loc 1 75 0
+ 171 00c2 BB69     		ldr	r3, [r7, #24]
+ 172 00c4 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 173 00c6 FB75     		strb	r3, [r7, #23]
+ 174 00c8 BB69     		ldr	r3, [r7, #24]
+ 175 00ca 03F10103 		add	r3, r3, #1
+ 176 00ce BB61     		str	r3, [r7, #24]
+  76:src/gcc/syscalls.c **** 		SER_Write (SER_PORT1, &c, 1);
+ 177              		.loc 1 76 0
+ 178 00d0 07F11703 		add	r3, r7, #23
+ 179 00d4 4FF00000 		mov	r0, #0
+ 180 00d8 1946     		mov	r1, r3
+ 181 00da 4FF00102 		mov	r2, #1
+ 182 00de FFF7FEFF 		bl	SER_Write
+  69:src/gcc/syscalls.c **** 	for (i = 0; i < len; i++) {
+ 183              		.loc 1 69 0
+ 184 00e2 FB69     		ldr	r3, [r7, #28]
+ 185 00e4 03F10103 		add	r3, r3, #1
+ 186 00e8 FB61     		str	r3, [r7, #28]
+ 187              	.L11:
+  69:src/gcc/syscalls.c **** 	for (i = 0; i < len; i++) {
+ 188              		.loc 1 69 0 is_stmt 0 discriminator 1
+ 189 00ea FA69     		ldr	r2, [r7, #28]
+ 190 00ec 3B68     		ldr	r3, [r7, #0]
+ 191 00ee 9A42     		cmp	r2, r3
+ 192 00f0 D9D3     		bcc	.L13
+  77:src/gcc/syscalls.c **** 	}
+  78:src/gcc/syscalls.c **** 
+  79:src/gcc/syscalls.c **** 	return len;
+ 193              		.loc 1 79 0 is_stmt 1
+ 194 00f2 3B68     		ldr	r3, [r7, #0]
+  80:src/gcc/syscalls.c **** }
+ 195              		.loc 1 80 0
+ 196 00f4 1846     		mov	r0, r3
+ 197 00f6 07F12007 		add	r7, r7, #32
+ 198 00fa BD46     		mov	sp, r7
+ 199 00fc 80BD     		pop	{r7, pc}
+ 200              		.cfi_endproc
+ 201              	.LFE1:
+ 203 00fe 00BF     		.align	2
+ 204              		.global	_close_r
+ 205              		.thumb
+ 206              		.thumb_func
+ 208              	_close_r:
+ 209              	.LFB2:
+  81:src/gcc/syscalls.c **** 
+  82:src/gcc/syscalls.c **** 
+  83:src/gcc/syscalls.c **** 
+  84:src/gcc/syscalls.c **** int _close_r ( struct _reent *r, int file)
+  85:src/gcc/syscalls.c **** {
+ 210              		.loc 1 85 0
+ 211              		.cfi_startproc
+ 212              		@ args = 0, pretend = 0, frame = 8
+ 213              		@ frame_needed = 1, uses_anonymous_args = 0
+ 214              		@ link register save eliminated.
+ 215 0100 80B4     		push	{r7}
+ 216              	.LCFI6:
+ 217              		.cfi_def_cfa_offset 4
+ 218              		.cfi_offset 7, -4
+ 219 0102 83B0     		sub	sp, sp, #12
+ 220              	.LCFI7:
+ 221              		.cfi_def_cfa_offset 16
+ 222 0104 00AF     		add	r7, sp, #0
+ 223              	.LCFI8:
+ 224              		.cfi_def_cfa_register 7
+ 225 0106 7860     		str	r0, [r7, #4]
+ 226 0108 3960     		str	r1, [r7, #0]
+  86:src/gcc/syscalls.c **** 
+  87:src/gcc/syscalls.c **** return 0;
+ 227              		.loc 1 87 0
+ 228 010a 4FF00003 		mov	r3, #0
+  88:src/gcc/syscalls.c **** }
+ 229              		.loc 1 88 0
+ 230 010e 1846     		mov	r0, r3
+ 231 0110 07F10C07 		add	r7, r7, #12
+ 232 0114 BD46     		mov	sp, r7
+ 233 0116 80BC     		pop	{r7}
+ 234 0118 7047     		bx	lr
+ 235              		.cfi_endproc
+ 236              	.LFE2:
+ 238 011a 00BF     		.align	2
+ 239              		.global	_lseek_r
+ 240              		.thumb
+ 241              		.thumb_func
+ 243              	_lseek_r:
+ 244              	.LFB3:
+  89:src/gcc/syscalls.c **** 
+  90:src/gcc/syscalls.c **** 
+  91:src/gcc/syscalls.c **** 
+  92:src/gcc/syscalls.c **** _off_t _lseek_r ( struct _reent *r, int file, off_t ptr, int dir)
+  93:src/gcc/syscalls.c **** {
+ 245              		.loc 1 93 0
+ 246              		.cfi_startproc
+ 247              		@ args = 0, pretend = 0, frame = 16
+ 248              		@ frame_needed = 1, uses_anonymous_args = 0
+ 249              		@ link register save eliminated.
+ 250 011c 80B4     		push	{r7}
+ 251              	.LCFI9:
+ 252              		.cfi_def_cfa_offset 4
+ 253              		.cfi_offset 7, -4
+ 254 011e 85B0     		sub	sp, sp, #20
+ 255              	.LCFI10:
+ 256              		.cfi_def_cfa_offset 24
+ 257 0120 00AF     		add	r7, sp, #0
+ 258              	.LCFI11:
+ 259              		.cfi_def_cfa_register 7
+ 260 0122 F860     		str	r0, [r7, #12]
+ 261 0124 B960     		str	r1, [r7, #8]
+ 262 0126 7A60     		str	r2, [r7, #4]
+ 263 0128 3B60     		str	r3, [r7, #0]
+  94:src/gcc/syscalls.c **** 
+  95:src/gcc/syscalls.c **** return (_off_t)0;	/*  Always indicate we are at file beginning.	*/
+ 264              		.loc 1 95 0
+ 265 012a 4FF00003 		mov	r3, #0
+  96:src/gcc/syscalls.c **** }
+ 266              		.loc 1 96 0
+ 267 012e 1846     		mov	r0, r3
+ 268 0130 07F11407 		add	r7, r7, #20
+ 269 0134 BD46     		mov	sp, r7
+ 270 0136 80BC     		pop	{r7}
+ 271 0138 7047     		bx	lr
+ 272              		.cfi_endproc
+ 273              	.LFE3:
+ 275 013a 00BF     		.align	2
+ 276              		.global	_fstat_r
+ 277              		.thumb
+ 278              		.thumb_func
+ 280              	_fstat_r:
+ 281              	.LFB4:
+  97:src/gcc/syscalls.c **** 
+  98:src/gcc/syscalls.c **** 
+  99:src/gcc/syscalls.c **** 
+ 100:src/gcc/syscalls.c **** 
+ 101:src/gcc/syscalls.c **** int _fstat_r ( struct _reent *r, int file, struct stat *st)
+ 102:src/gcc/syscalls.c **** {
+ 282              		.loc 1 102 0
+ 283              		.cfi_startproc
+ 284              		@ args = 0, pretend = 0, frame = 16
+ 285              		@ frame_needed = 1, uses_anonymous_args = 0
+ 286              		@ link register save eliminated.
+ 287 013c 80B4     		push	{r7}
+ 288              	.LCFI12:
+ 289              		.cfi_def_cfa_offset 4
+ 290              		.cfi_offset 7, -4
+ 291 013e 85B0     		sub	sp, sp, #20
+ 292              	.LCFI13:
+ 293              		.cfi_def_cfa_offset 24
+ 294 0140 00AF     		add	r7, sp, #0
+ 295              	.LCFI14:
+ 296              		.cfi_def_cfa_register 7
+ 297 0142 F860     		str	r0, [r7, #12]
+ 298 0144 B960     		str	r1, [r7, #8]
+ 299 0146 7A60     		str	r2, [r7, #4]
+ 103:src/gcc/syscalls.c **** 
+ 104:src/gcc/syscalls.c **** /*  Always set as character device.				*/
+ 105:src/gcc/syscalls.c **** st->st_mode = S_IFCHR;
+ 300              		.loc 1 105 0
+ 301 0148 7B68     		ldr	r3, [r7, #4]
+ 302 014a 4FF40052 		mov	r2, #8192
+ 303 014e 5A60     		str	r2, [r3, #4]
+ 106:src/gcc/syscalls.c **** /* assigned to strong type with implicit 	*/
+ 107:src/gcc/syscalls.c **** /* signed/unsigned conversion.  Required by 	*/
+ 108:src/gcc/syscalls.c **** /* newlib.					*/
+ 109:src/gcc/syscalls.c **** 
+ 110:src/gcc/syscalls.c **** return 0;
+ 304              		.loc 1 110 0
+ 305 0150 4FF00003 		mov	r3, #0
+ 111:src/gcc/syscalls.c **** }
+ 306              		.loc 1 111 0
+ 307 0154 1846     		mov	r0, r3
+ 308 0156 07F11407 		add	r7, r7, #20
+ 309 015a BD46     		mov	sp, r7
+ 310 015c 80BC     		pop	{r7}
+ 311 015e 7047     		bx	lr
+ 312              		.cfi_endproc
+ 313              	.LFE4:
+ 315              		.align	2
+ 316              		.global	isatty
+ 317              		.thumb
+ 318              		.thumb_func
+ 320              	isatty:
+ 321              	.LFB5:
+ 112:src/gcc/syscalls.c **** 
+ 113:src/gcc/syscalls.c **** 
+ 114:src/gcc/syscalls.c **** 
+ 115:src/gcc/syscalls.c **** 
+ 116:src/gcc/syscalls.c **** 
+ 117:src/gcc/syscalls.c **** int isatty(int file)
+ 118:src/gcc/syscalls.c **** {
+ 322              		.loc 1 118 0
+ 323              		.cfi_startproc
+ 324              		@ args = 0, pretend = 0, frame = 8
+ 325              		@ frame_needed = 1, uses_anonymous_args = 0
+ 326              		@ link register save eliminated.
+ 327 0160 80B4     		push	{r7}
+ 328              	.LCFI15:
+ 329              		.cfi_def_cfa_offset 4
+ 330              		.cfi_offset 7, -4
+ 331 0162 83B0     		sub	sp, sp, #12
+ 332              	.LCFI16:
+ 333              		.cfi_def_cfa_offset 16
+ 334 0164 00AF     		add	r7, sp, #0
+ 335              	.LCFI17:
+ 336              		.cfi_def_cfa_register 7
+ 337 0166 7860     		str	r0, [r7, #4]
+ 119:src/gcc/syscalls.c **** 
+ 120:src/gcc/syscalls.c **** return 1;
+ 338              		.loc 1 120 0
+ 339 0168 4FF00103 		mov	r3, #1
+ 121:src/gcc/syscalls.c **** }
+ 340              		.loc 1 121 0
+ 341 016c 1846     		mov	r0, r3
+ 342 016e 07F10C07 		add	r7, r7, #12
+ 343 0172 BD46     		mov	sp, r7
+ 344 0174 80BC     		pop	{r7}
+ 345 0176 7047     		bx	lr
+ 346              		.cfi_endproc
+ 347              	.LFE5:
+ 349              		.align	2
+ 350              		.global	_exit
+ 351              		.thumb
+ 352              		.thumb_func
+ 354              	_exit:
+ 355              	.LFB6:
+ 122:src/gcc/syscalls.c **** 
+ 123:src/gcc/syscalls.c **** 
+ 124:src/gcc/syscalls.c **** 
+ 125:src/gcc/syscalls.c **** 
+ 126:src/gcc/syscalls.c **** void _exit ( int n)
+ 127:src/gcc/syscalls.c **** {
+ 356              		.loc 1 127 0
+ 357              		.cfi_startproc
+ 358              		@ args = 0, pretend = 0, frame = 8
+ 359              		@ frame_needed = 1, uses_anonymous_args = 0
+ 360              		@ link register save eliminated.
+ 361 0178 80B4     		push	{r7}
+ 362              	.LCFI18:
+ 363              		.cfi_def_cfa_offset 4
+ 364              		.cfi_offset 7, -4
+ 365 017a 83B0     		sub	sp, sp, #12
+ 366              	.LCFI19:
+ 367              		.cfi_def_cfa_offset 16
+ 368 017c 00AF     		add	r7, sp, #0
+ 369              	.LCFI20:
+ 370              		.cfi_def_cfa_register 7
+ 371 017e 7860     		str	r0, [r7, #4]
+ 372              	.L24:
+ 128:src/gcc/syscalls.c **** 
+ 129:src/gcc/syscalls.c **** while (1)
+ 130:src/gcc/syscalls.c ****  {}
+ 373              		.loc 1 130 0 discriminator 1
+ 374 0180 FEE7     		b	.L24
+ 375              		.cfi_endproc
+ 376              	.LFE6:
+ 378              		.bss
+ 379              		.align	2
+ 380              	heap_ptr:
+ 381 0000 00000000 		.space	4
+ 382              		.text
+ 383 0182 00BF     		.align	2
+ 384              		.global	_sbrk_r
+ 385              		.thumb
+ 386              		.thumb_func
+ 388              	_sbrk_r:
+ 389              	.LFB7:
+ 131:src/gcc/syscalls.c **** 
+ 132:src/gcc/syscalls.c **** }
+ 133:src/gcc/syscalls.c **** 
+ 134:src/gcc/syscalls.c **** 
+ 135:src/gcc/syscalls.c **** 
+ 136:src/gcc/syscalls.c **** 
+ 137:src/gcc/syscalls.c **** 
+ 138:src/gcc/syscalls.c **** /* "malloc clue function" */
+ 139:src/gcc/syscalls.c **** 
+ 140:src/gcc/syscalls.c **** 	/**** Locally used variables. ****/
+ 141:src/gcc/syscalls.c **** extern char end[];              /*  end is set in the linker command 	*/
+ 142:src/gcc/syscalls.c **** 				/* file and is the end of statically 	*/
+ 143:src/gcc/syscalls.c **** 				/* allocated data (thus start of heap).	*/
+ 144:src/gcc/syscalls.c **** 
+ 145:src/gcc/syscalls.c **** static char *heap_ptr;		/* Points to current end of the heap.	*/
+ 146:src/gcc/syscalls.c **** 
+ 147:src/gcc/syscalls.c **** /************************** _sbrk_r *************************************/
+ 148:src/gcc/syscalls.c **** /*  Support function.  Adjusts end of heap to provide more memory to	*/
+ 149:src/gcc/syscalls.c **** /* memory allocator. Simple and dumb with no sanity checks.		*/
+ 150:src/gcc/syscalls.c **** /*  struct _reent *r	-- re-entrancy structure, used by newlib to 	*/
+ 151:src/gcc/syscalls.c **** /*			support multiple threads of operation.		*/
+ 152:src/gcc/syscalls.c **** /*  ptrdiff_t nbytes	-- number of bytes to add.			*/
+ 153:src/gcc/syscalls.c **** /*  Returns pointer to start of new heap area.				*/
+ 154:src/gcc/syscalls.c **** /*  Note:  This implementation is not thread safe (despite taking a	*/
+ 155:src/gcc/syscalls.c **** /* _reent structure as a parameter).  					*/
+ 156:src/gcc/syscalls.c **** /*  Since _s_r is not used in the current implementation, the following	*/
+ 157:src/gcc/syscalls.c **** /* messages must be suppressed.						*/
+ 158:src/gcc/syscalls.c **** 
+ 159:src/gcc/syscalls.c **** void * _sbrk_r ( struct _reent *_s_r, ptrdiff_t nbytes)
+ 160:src/gcc/syscalls.c **** {
+ 390              		.loc 1 160 0
+ 391              		.cfi_startproc
+ 392              		@ args = 0, pretend = 0, frame = 16
+ 393              		@ frame_needed = 1, uses_anonymous_args = 0
+ 394              		@ link register save eliminated.
+ 395 0184 80B4     		push	{r7}
+ 396              	.LCFI21:
+ 397              		.cfi_def_cfa_offset 4
+ 398              		.cfi_offset 7, -4
+ 399 0186 85B0     		sub	sp, sp, #20
+ 400              	.LCFI22:
+ 401              		.cfi_def_cfa_offset 24
+ 402 0188 00AF     		add	r7, sp, #0
+ 403              	.LCFI23:
+ 404              		.cfi_def_cfa_register 7
+ 405 018a 7860     		str	r0, [r7, #4]
+ 406 018c 3960     		str	r1, [r7, #0]
+ 161:src/gcc/syscalls.c **** 	char  *base;		/*  errno should be set to  ENOMEM on error	*/
+ 162:src/gcc/syscalls.c **** 
+ 163:src/gcc/syscalls.c **** 	if (!heap_ptr) {	/*  Initialize if first time through.		*/
+ 407              		.loc 1 163 0
+ 408 018e 40F20003 		movw	r3, #:lower16:heap_ptr
+ 409 0192 C0F20003 		movt	r3, #:upper16:heap_ptr
+ 410 0196 1B68     		ldr	r3, [r3, #0]
+ 411 0198 002B     		cmp	r3, #0
+ 412 019a 08D1     		bne	.L26
+ 164:src/gcc/syscalls.c **** 		heap_ptr = end;
+ 413              		.loc 1 164 0
+ 414 019c 40F20003 		movw	r3, #:lower16:heap_ptr
+ 415 01a0 C0F20003 		movt	r3, #:upper16:heap_ptr
+ 416 01a4 40F20002 		movw	r2, #:lower16:end
+ 417 01a8 C0F20002 		movt	r2, #:upper16:end
+ 418 01ac 1A60     		str	r2, [r3, #0]
+ 419              	.L26:
+ 165:src/gcc/syscalls.c **** 	}
+ 166:src/gcc/syscalls.c **** 	base = heap_ptr;	/*  Point to end of heap.			*/
+ 420              		.loc 1 166 0
+ 421 01ae 40F20003 		movw	r3, #:lower16:heap_ptr
+ 422 01b2 C0F20003 		movt	r3, #:upper16:heap_ptr
+ 423 01b6 1B68     		ldr	r3, [r3, #0]
+ 424 01b8 FB60     		str	r3, [r7, #12]
+ 167:src/gcc/syscalls.c **** 	heap_ptr += nbytes;	/*  Increase heap.				*/
+ 425              		.loc 1 167 0
+ 426 01ba 40F20003 		movw	r3, #:lower16:heap_ptr
+ 427 01be C0F20003 		movt	r3, #:upper16:heap_ptr
+ 428 01c2 1A68     		ldr	r2, [r3, #0]
+ 429 01c4 3B68     		ldr	r3, [r7, #0]
+ 430 01c6 D218     		adds	r2, r2, r3
+ 431 01c8 40F20003 		movw	r3, #:lower16:heap_ptr
+ 432 01cc C0F20003 		movt	r3, #:upper16:heap_ptr
+ 433 01d0 1A60     		str	r2, [r3, #0]
+ 168:src/gcc/syscalls.c **** 
+ 169:src/gcc/syscalls.c **** 	return base;		/*  Return pointer to start of new heap area.	*/
+ 434              		.loc 1 169 0
+ 435 01d2 FB68     		ldr	r3, [r7, #12]
+ 170:src/gcc/syscalls.c **** }
+ 436              		.loc 1 170 0
+ 437 01d4 1846     		mov	r0, r3
+ 438 01d6 07F11407 		add	r7, r7, #20
+ 439 01da BD46     		mov	sp, r7
+ 440 01dc 80BC     		pop	{r7}
+ 441 01de 7047     		bx	lr
+ 442              		.cfi_endproc
+ 443              	.LFE7:
+ 445              		.align	2
+ 446              		.global	_getpid
+ 447              		.thumb
+ 448              		.thumb_func
+ 450              	_getpid:
+ 451              	.LFB8:
+ 171:src/gcc/syscalls.c **** 
+ 172:src/gcc/syscalls.c **** 
+ 173:src/gcc/syscalls.c **** /*
+ 174:src/gcc/syscalls.c **** * getpid -- only one process, so just return 1.
+ 175:src/gcc/syscalls.c **** */
+ 176:src/gcc/syscalls.c **** #define __MYPID 1
+ 177:src/gcc/syscalls.c **** int _getpid()
+ 178:src/gcc/syscalls.c **** {
+ 452              		.loc 1 178 0
+ 453              		.cfi_startproc
+ 454              		@ args = 0, pretend = 0, frame = 0
+ 455              		@ frame_needed = 1, uses_anonymous_args = 0
+ 456              		@ link register save eliminated.
+ 457 01e0 80B4     		push	{r7}
+ 458              	.LCFI24:
+ 459              		.cfi_def_cfa_offset 4
+ 460              		.cfi_offset 7, -4
+ 461 01e2 00AF     		add	r7, sp, #0
+ 462              	.LCFI25:
+ 463              		.cfi_def_cfa_register 7
+ 179:src/gcc/syscalls.c **** return __MYPID;
+ 464              		.loc 1 179 0
+ 465 01e4 4FF00103 		mov	r3, #1
+ 180:src/gcc/syscalls.c **** }
+ 466              		.loc 1 180 0
+ 467 01e8 1846     		mov	r0, r3
+ 468 01ea BD46     		mov	sp, r7
+ 469 01ec 80BC     		pop	{r7}
+ 470 01ee 7047     		bx	lr
+ 471              		.cfi_endproc
+ 472              	.LFE8:
+ 474              		.align	2
+ 475              		.global	_kill
+ 476              		.thumb
+ 477              		.thumb_func
+ 479              	_kill:
+ 480              	.LFB9:
+ 181:src/gcc/syscalls.c **** 
+ 182:src/gcc/syscalls.c **** /*
+ 183:src/gcc/syscalls.c **** * kill -- go out via exit...
+ 184:src/gcc/syscalls.c **** */
+ 185:src/gcc/syscalls.c **** int _kill(int pid, int sig)
+ 186:src/gcc/syscalls.c **** {
+ 481              		.loc 1 186 0
+ 482              		.cfi_startproc
+ 483              		@ args = 0, pretend = 0, frame = 8
+ 484              		@ frame_needed = 1, uses_anonymous_args = 0
+ 485              		@ link register save eliminated.
+ 486 01f0 80B4     		push	{r7}
+ 487              	.LCFI26:
+ 488              		.cfi_def_cfa_offset 4
+ 489              		.cfi_offset 7, -4
+ 490 01f2 83B0     		sub	sp, sp, #12
+ 491              	.LCFI27:
+ 492              		.cfi_def_cfa_offset 16
+ 493 01f4 00AF     		add	r7, sp, #0
+ 494              	.LCFI28:
+ 495              		.cfi_def_cfa_register 7
+ 496 01f6 7860     		str	r0, [r7, #4]
+ 497 01f8 3960     		str	r1, [r7, #0]
+ 187:src/gcc/syscalls.c **** return -1;
+ 498              		.loc 1 187 0
+ 499 01fa 4FF0FF33 		mov	r3, #-1
+ 188:src/gcc/syscalls.c **** }
+ 500              		.loc 1 188 0
+ 501 01fe 1846     		mov	r0, r3
+ 502 0200 07F10C07 		add	r7, r7, #12
+ 503 0204 BD46     		mov	sp, r7
+ 504 0206 80BC     		pop	{r7}
+ 505 0208 7047     		bx	lr
+ 506              		.cfi_endproc
+ 507              	.LFE9:
+ 509              	.Letext0:
+ 510              		.file 2 "./inc/typedefs.h"
+ 511              		.file 3 "c:\\yagarto-20121222\\bin\\../lib/gcc/arm-none-eabi/4.7.2/include/stddef.h"
+ 512              		.file 4 "c:/yagarto-20121222/lib/gcc/../../arm-none-eabi/sys-include/sys/lock.h"
+ 513              		.file 5 "c:/yagarto-20121222/lib/gcc/../../arm-none-eabi/sys-include/sys/_types.h"
+ 514              		.file 6 "c:/yagarto-20121222/lib/gcc/../../arm-none-eabi/sys-include/sys/reent.h"
+ 515              		.file 7 "c:/yagarto-20121222/lib/gcc/../../arm-none-eabi/sys-include/sys/types.h"
+ 516              		.file 8 "c:/yagarto-20121222/lib/gcc/../../arm-none-eabi/sys-include/sys/stat.h"
+ 517              		.file 9 "c:/yagarto-20121222/lib/gcc/../../arm-none-eabi/sys-include/reent.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 syscalls.c
+C:\Users\GRUSSO~1.TEL\AppData\Local\Temp\ccA6ZfyB.s:18     .text:00000000 $t
+C:\Users\GRUSSO~1.TEL\AppData\Local\Temp\ccA6ZfyB.s:23     .text:00000000 _read_r
+C:\Users\GRUSSO~1.TEL\AppData\Local\Temp\ccA6ZfyB.s:120    .rodata:00000000 $d
+C:\Users\GRUSSO~1.TEL\AppData\Local\Temp\ccA6ZfyB.s:121    .rodata:00000000 .LC0
+C:\Users\GRUSSO~1.TEL\AppData\Local\Temp\ccA6ZfyB.s:129    .text:0000008c _write_r
+C:\Users\GRUSSO~1.TEL\AppData\Local\Temp\ccA6ZfyB.s:208    .text:00000100 _close_r
+C:\Users\GRUSSO~1.TEL\AppData\Local\Temp\ccA6ZfyB.s:243    .text:0000011c _lseek_r
+C:\Users\GRUSSO~1.TEL\AppData\Local\Temp\ccA6ZfyB.s:280    .text:0000013c _fstat_r
+C:\Users\GRUSSO~1.TEL\AppData\Local\Temp\ccA6ZfyB.s:320    .text:00000160 isatty
+C:\Users\GRUSSO~1.TEL\AppData\Local\Temp\ccA6ZfyB.s:354    .text:00000178 _exit
+C:\Users\GRUSSO~1.TEL\AppData\Local\Temp\ccA6ZfyB.s:379    .bss:00000000 $d
+C:\Users\GRUSSO~1.TEL\AppData\Local\Temp\ccA6ZfyB.s:380    .bss:00000000 heap_ptr
+C:\Users\GRUSSO~1.TEL\AppData\Local\Temp\ccA6ZfyB.s:388    .text:00000184 _sbrk_r
+C:\Users\GRUSSO~1.TEL\AppData\Local\Temp\ccA6ZfyB.s:450    .text:000001e0 _getpid
+C:\Users\GRUSSO~1.TEL\AppData\Local\Temp\ccA6ZfyB.s:479    .text:000001f0 _kill
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+SER_Read
+SER_Write
+end
