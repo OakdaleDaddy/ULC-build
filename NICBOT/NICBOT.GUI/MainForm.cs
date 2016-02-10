@@ -1820,6 +1820,13 @@ namespace NICBOT.GUI
          #region Feeder
 
          double feederVelocity = NicBotComm.Instance.GetFeederVelocity();
+         double feederSpeedValue = Math.Abs(feederVelocity);
+
+         if (feederSpeedValue < ParameterAccessor.Instance.FeederMaxSpeed.StepValue)
+         {
+            feederVelocity = 0;
+            feederSpeedValue = 0;
+         }
 
          if (feederVelocity > 0)
          {
@@ -1834,9 +1841,9 @@ namespace NICBOT.GUI
             this.FeederActualValuePanel.Direction = DirectionalValuePanel.Directions.Idle;
          }
 
-         double feederSpeedValue = Math.Abs(feederVelocity);
          this.FeederActualValuePanel.ValueText = this.GetValueText(feederSpeedValue, ParameterAccessor.Instance.FeederMaxSpeed);
 
+#if false // feeder clamp undefined
          bool feederClampRequest = NicBotComm.Instance.GetFeederClampSetPoint();
          bool feederClampActual = NicBotComm.Instance.GetFeederClamp();
          string feederClampStatus = "";
@@ -1862,6 +1869,7 @@ namespace NICBOT.GUI
          }
 
          this.FeederClampSetupButton.Text = feederClampStatus;
+#endif
 
          double maximumFeederCurrent = 0.0;
          double feederCurrent = 0;
@@ -2019,19 +2027,27 @@ namespace NICBOT.GUI
             }
 
             double movementValue = NicBotComm.Instance.GetMovementValue();
-            DirectionalValuePanel.Directions direction = DirectionalValuePanel.Directions.Idle;
+            double movementStatusDisplayValue = Math.Abs(movementValue);
+
+            if (movementStatusDisplayValue < movementParameter.StepValue)
+            {
+               movementValue = 0;
+               movementStatusDisplayValue = 0;
+            }
 
             if (movementValue > 0)
             {
-               direction = DirectionalValuePanel.Directions.Forward;
+               this.MotorStatusDirectionalValuePanel.Direction = DirectionalValuePanel.Directions.Forward;
             }
             else if (movementValue < 0)
             {
-               direction = DirectionalValuePanel.Directions.Reverse;
+               this.MotorStatusDirectionalValuePanel.Direction = DirectionalValuePanel.Directions.Reverse;
+            }
+            else
+            {
+               this.MotorStatusDirectionalValuePanel.Direction = DirectionalValuePanel.Directions.Idle;
             }
 
-            this.MotorStatusDirectionalValuePanel.Direction = direction;
-            double movementStatusDisplayValue = Math.Abs(movementValue);
             this.MotorStatusDirectionalValuePanel.ValueText = this.GetValueText(movementStatusDisplayValue, movementParameter);
 
             #endregion
