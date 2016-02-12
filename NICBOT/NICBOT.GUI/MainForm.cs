@@ -1748,21 +1748,26 @@ namespace NICBOT.GUI
          string reelActualValueText = "";
          DirectionalValuePanel.Directions reelActualDirection = DirectionalValuePanel.Directions.Idle;
 
-         bool displayLockIndicators = NicBotComm.Instance.ReelInLockMode();
-         bool displayReelCurrent = NicBotComm.Instance.ReelInCurrentMode();
+         bool reelDisplayLockIndicators = NicBotComm.Instance.GetReelInLockMode();
+         bool reelDisplayCurrent = NicBotComm.Instance.GetReelInCurrentMode();
 
-         if (false != displayReelCurrent)
+         if (false != reelDisplayCurrent)
          {
             double reelCurrent = NicBotComm.Instance.GetReelCurrent();
-            double reelDisplayCurrent = Math.Abs(reelCurrent);
+            double reelDisplayValue = Math.Abs(reelCurrent);
 
-            if (reelDisplayCurrent < ParameterAccessor.Instance.ReelReverseCurrent.StepValue)
+            if (reelDisplayValue < ParameterAccessor.Instance.ReelReverseCurrent.StepValue)
             {
                reelCurrent = 0;
-               reelDisplayCurrent = 0;
+               reelDisplayValue = 0;
+               this.ReelLockButton.Enabled = true;
+            }
+            else
+            {
+               this.ReelLockButton.Enabled = reelDisplayLockIndicators;
             }
 
-            if ((0 == reelCurrent) || (false != displayLockIndicators))
+            if ((0 == reelCurrent) || (false != reelDisplayLockIndicators))
             {
                reelActualDirection = DirectionalValuePanel.Directions.Idle;
             }
@@ -1775,20 +1780,25 @@ namespace NICBOT.GUI
                reelActualDirection = DirectionalValuePanel.Directions.Reverse;
             }
 
-            reelActualValueText = this.GetValueText(reelDisplayCurrent, ParameterAccessor.Instance.ReelReverseCurrent);
+            reelActualValueText = this.GetValueText(reelDisplayValue, ParameterAccessor.Instance.ReelReverseCurrent);
          }
          else
          {
             double reelSpeed = NicBotComm.Instance.GetReelSpeed();
-            double reelDisplaySpeed = Math.Abs(reelSpeed);
+            double reelDisplayValue = Math.Abs(reelSpeed);
 
-            if (reelDisplaySpeed < ParameterAccessor.Instance.ReelReverseSpeed.StepValue)
+            if (reelDisplayValue < ParameterAccessor.Instance.ReelReverseSpeed.StepValue)
             {
                reelSpeed = 0;
-               reelDisplaySpeed = 0;
+               reelDisplayValue = 0;
+               this.ReelLockButton.Enabled = true;
+            }
+            else
+            {
+               this.ReelLockButton.Enabled = false;
             }
 
-            if ((0 == reelSpeed) || (false != displayLockIndicators))
+            if ((0 == reelSpeed) || (false != reelDisplayLockIndicators))
             {
                reelActualDirection = DirectionalValuePanel.Directions.Idle;
             }
@@ -1801,7 +1811,7 @@ namespace NICBOT.GUI
                reelActualDirection = DirectionalValuePanel.Directions.Reverse;
             }
 
-            reelActualValueText = this.GetValueText(reelDisplaySpeed, ParameterAccessor.Instance.ReelReverseSpeed);
+            reelActualValueText = this.GetValueText(reelDisplayValue, ParameterAccessor.Instance.ReelReverseSpeed);
          }
 
          this.ReelActualValuePanel.Direction = reelActualDirection;
@@ -1819,29 +1829,49 @@ namespace NICBOT.GUI
 
          #region Feeder
 
-         double feederVelocity = NicBotComm.Instance.GetFeederVelocity();
-         double feederSpeedValue = Math.Abs(feederVelocity);
+         string feederActualValueText = "";
+         DirectionalValuePanel.Directions feederActualDirection = DirectionalValuePanel.Directions.Idle;
+         bool feederDisplayLockMode = NicBotComm.Instance.GetFeederInLockMode();
 
-         if (feederSpeedValue < ParameterAccessor.Instance.FeederMaxSpeed.StepValue)
+         if (false == feederDisplayLockMode)
          {
-            feederVelocity = 0;
-            feederSpeedValue = 0;
-         }
+            double feederVelocity = NicBotComm.Instance.GetFeederVelocity();
+            double feederSpeedValue = Math.Abs(feederVelocity);
 
-         if (feederVelocity > 0)
-         {
-            this.FeederActualValuePanel.Direction = DirectionalValuePanel.Directions.Forward;
-         }
-         else if (feederVelocity < 0)
-         {
-            this.FeederActualValuePanel.Direction = DirectionalValuePanel.Directions.Reverse;
+            if (feederSpeedValue < ParameterAccessor.Instance.FeederMaxSpeed.StepValue)
+            {
+               feederVelocity = 0;
+               feederSpeedValue = 0;
+               this.FeederLockButton.Enabled = true;
+            }
+            else
+            {
+               this.FeederLockButton.Enabled = false;
+            }
+
+            if (feederVelocity > 0)
+            {
+               feederActualDirection = DirectionalValuePanel.Directions.Forward;
+            }
+            else if (feederVelocity < 0)
+            {
+               feederActualDirection = DirectionalValuePanel.Directions.Reverse;
+            }
+            else
+            {
+               feederActualDirection = DirectionalValuePanel.Directions.Idle;
+            }
+
+            feederActualValueText = this.GetValueText(feederSpeedValue, ParameterAccessor.Instance.FeederMaxSpeed);
          }
          else
          {
-            this.FeederActualValuePanel.Direction = DirectionalValuePanel.Directions.Idle;
+            double feederLockCurrent = NicBotComm.Instance.GetFeederLockCurrent();
+            feederActualValueText = this.GetValueText(feederLockCurrent, ParameterAccessor.Instance.FeederLockCurrent);
          }
 
-         this.FeederActualValuePanel.ValueText = this.GetValueText(feederSpeedValue, ParameterAccessor.Instance.FeederMaxSpeed);
+         this.FeederActualValuePanel.Direction = feederActualDirection;
+         this.FeederActualValuePanel.ValueText = feederActualValueText;
 
 #if false // feeder clamp undefined
          bool feederClampRequest = NicBotComm.Instance.GetFeederClampSetPoint();

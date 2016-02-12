@@ -862,11 +862,17 @@ namespace NICBOT.GUI
          if (null == motor.FaultReason)
          {
             bool modeChange = false;
+            ElmoWhistleMotor.ControlModes neededControlMode = ElmoWhistleMotor.ControlModes.singleLoopPosition;
             ElmoWhistleMotor.Modes neededMode = ElmoWhistleMotor.Modes.undefined;
             double neededValue = 0;
 
+            double inversionValue = (MotorDirections.Normal == parameters.Direction) ? 1 : -1;
+            inversionValue *= (false == parameters.PositionInversion) ? 1 : -1;
+
             if (MotorStates.Disabled == parameters.State)
             {
+               neededControlMode = ElmoWhistleMotor.ControlModes.singleLoopPosition;
+
                if (0 == status.requestedVelocity)
                {
                   neededMode = ElmoWhistleMotor.Modes.off;
@@ -882,6 +888,8 @@ namespace NICBOT.GUI
             {
                if (FeederModes.off == this.feederModeSetPoint)
                {
+                  neededControlMode = ElmoWhistleMotor.ControlModes.singleLoopPosition;
+
                   if (0 == status.requestedVelocity)
                   {
                      neededMode = ElmoWhistleMotor.Modes.off;
@@ -895,6 +903,8 @@ namespace NICBOT.GUI
                }
                else if (FeederModes.move == this.feederModeSetPoint)
                {
+                  neededControlMode = ElmoWhistleMotor.ControlModes.singleLoopPosition;
+
                   bool velocityMode = true;
 
                   if (((false != parameters.PositivePusher) && (this.feederVelocitySetPoint < 0)) ||
@@ -917,17 +927,22 @@ namespace NICBOT.GUI
                }
                else if (FeederModes.locked == this.feederModeSetPoint)
                {
+                  neededControlMode = ElmoWhistleMotor.ControlModes.microStepper;
                   neededMode = ElmoWhistleMotor.Modes.current;
                   neededValue = ParameterAccessor.Instance.FeederLockCurrent.OperationalValue;
+                  inversionValue = 1.0;
                }
             }
             else if (MotorStates.Locked == parameters.State)
             {
+               neededControlMode = ElmoWhistleMotor.ControlModes.microStepper;
                neededMode = ElmoWhistleMotor.Modes.current;
                neededValue = ParameterAccessor.Instance.FeederLockCurrent.OperationalValue;
+               inversionValue = 1.0;
             }
 
-            if (neededMode != status.requestedMode)
+            if ((neededControlMode != status.requestedControlMode) ||
+                (neededMode != status.requestedMode))
             {
                bool requestedZero = false;
                bool atZero = false;
@@ -954,51 +969,74 @@ namespace NICBOT.GUI
                }
                else
                {
-                  motor.SetMode(neededMode);
+                  motor.SetControlMode(neededControlMode);
+                  status.requestedControlMode = neededControlMode;
 
-                  status.requestedMode = neededMode;
+                  if (ElmoWhistleMotor.ControlModes.singleLoopPosition == status.requestedControlMode)
+                  {
+                     motor.SetMode(neededMode);
+                     status.requestedMode = neededMode;
+                  }
+                  else
+                  {
+                     status.requestedMode = neededMode;
+                  }
+
+                  Tracer.WriteMedium(TraceGroup.TBUS, null, "{0} control={1}, mode={2}", motor.Name, status.requestedControlMode, status.requestedMode);
                   modeChange = true;
-                  Tracer.WriteMedium(TraceGroup.TBUS, null, "{0} {1}", motor.Name, neededMode.ToString());
                }
             }
 
-            if (ElmoWhistleMotor.Modes.velocity == status.requestedMode)
+            if (((neededControlMode == status.requestedControlMode) && (neededMode == status.requestedMode)) ||
+                (0 == neededValue))
             {
-               if ((neededValue != status.requestedVelocity) || (false != modeChange) || (false != this.evaluateFeederParameters))
+               if (ElmoWhistleMotor.ControlModes.singleLoopPosition == status.requestedControlMode)
                {
-                  int settingInversionValue = (MotorDirections.Normal == parameters.Direction) ? 1 : -1;
-                  int positionInversionValue = (false == parameters.PositionInversion) ? 1 : -1;
-                  int velocityRpm = (int)(settingInversionValue * positionInversionValue * neededValue * ParameterAccessor.Instance.FeederVelocityToRpm);
-                  motor.ScheduleVelocity(velocityRpm);
-                  scheduled = true;
+                  if (ElmoWhistleMotor.Modes.velocity == status.requestedMode)
+                  {
+                     if ((neededValue != status.requestedVelocity) || (false != modeChange) || (false != this.evaluateFeederParameters))
+                     {
+                        int velocityRpm = (int)(inversionValue * neededValue * ParameterAccessor.Instance.FeederVelocityToRpm);
+                        motor.ScheduleVelocity(velocityRpm);
+                        scheduled = true;
 
-                  status.requestedVelocity = neededValue;
-                  Tracer.WriteMedium(TraceGroup.TBUS, null, "{0} velocity {1:0.00} {2}", motor.Name, neededValue, velocityRpm);
+                        status.requestedVelocity = neededValue;
+                        Tracer.WriteMedium(TraceGroup.TBUS, null, "{0} velocity {1:0.00} {2}", motor.Name, neededValue, velocityRpm);
+                     }
+                  }
+                  else if (ElmoWhistleMotor.Modes.current == status.requestedMode)
+                  {
+                     if ((neededValue != status.requestedCurrent) || (false != modeChange) || (false != this.evaluateFeederParameters))
+                     {
+                        float torqueCurrent = (float)(inversionValue * neededValue);
+                        motor.ScheduleTorque(torqueCurrent);
+                        scheduled = true;
+
+                        status.requestedCurrent = neededValue;
+                        Tracer.WriteMedium(TraceGroup.TBUS, null, "{0} current {1:0.000} {2:0.000}", motor.Name, neededValue, torqueCurrent);
+                     }
+                  }
+                  else if (ElmoWhistleMotor.Modes.off == status.requestedMode)
+                  {
+                     if (false != modeChange)
+                     {
+                        motor.ScheduleVelocity(0);
+                        scheduled = true;
+
+                        status.requestedVelocity = 0;
+                        Tracer.WriteMedium(TraceGroup.RBUS, null, "{0} velocity=0 rpm=0", motor.Name, 0, 0);
+                     }
+                  }
                }
-            }
-            else if (ElmoWhistleMotor.Modes.current == status.requestedMode)
-            {
-               if ((neededValue != status.requestedCurrent) || (false != modeChange) || (false != this.evaluateFeederParameters))
+               else if (ElmoWhistleMotor.ControlModes.microStepper == status.requestedControlMode)
                {
-                  int settingInversionValue = (MotorDirections.Normal == parameters.Direction) ? 1 : -1;
-                  int positionInversionValue = (false == parameters.PositionInversion) ? 1 : -1;
-                  float torqueCurrent = (float)(settingInversionValue * positionInversionValue * neededValue);
-                  motor.ScheduleTorque(torqueCurrent);
-                  scheduled = true;
-
-                  status.requestedCurrent = neededValue;
-                  Tracer.WriteMedium(TraceGroup.TBUS, null, "{0} current {1:0.000} {2:0.000}", motor.Name, neededValue, torqueCurrent);
-               }
-            }
-            else if (ElmoWhistleMotor.Modes.off == status.requestedMode)
-            {
-               if (false != modeChange)
-               {
-                  motor.ScheduleVelocity(0);
-                  scheduled = true;
-
-                  status.requestedVelocity = 0;
-                  Tracer.WriteMedium(TraceGroup.RBUS, null, "{0} velocity=0 rpm=0", motor.Name, 0, 0);
+                  if ((neededValue != status.requestedCurrent) || (false != modeChange))
+                  {
+                     float torqueCurrent = (float)neededValue;
+                     motor.SetStepperCurrent(torqueCurrent);
+                     status.requestedCurrent = neededValue;
+                     Tracer.WriteMedium(TraceGroup.TBUS, null, "{0} lock current {1}", motor.Name, neededValue);
+                  }
                }
             }
          }
@@ -1034,18 +1072,12 @@ namespace NICBOT.GUI
       private void EvaluateFeederMotorVelocity(ElmoWhistleMotor motor, FeederMotorStatus status, FeederMotorParameters parameters, ref double total, ref int count)
       {
          if ((null == motor.FaultReason) &&
-             (MotorStates.Enabled == parameters.State))
-             //(FeederModes.move == this.feederModeSetPoint))
+             (MotorStates.Enabled == parameters.State) &&
+             (ElmoWhistleMotor.ControlModes.singleLoopPosition == status.requestedControlMode))
          {
             double motorContribution = motor.RPM;
 
-            if (DateTime.Now > this.feederTraceTimeLimit)
-            {
-               Tracer.WriteHigh(TraceGroup.TBUS, "", "{0} motor, velocity={1}, torque={2}", motor.Name, motor.RPM, motor.Torque);
-               this.feederTraceTimeLimit = DateTime.Now.AddMilliseconds(1000);
-            }
-
-            if (status.requestedMode == ElmoWhistleMotor.Modes.current) 
+            if (status.requestedMode == ElmoWhistleMotor.Modes.current)
             {
                motorContribution = motor.Torque * 1000 / ParameterAccessor.Instance.FeederCurrentPer1kRPM.OperationalValue;
             }
@@ -1054,6 +1086,28 @@ namespace NICBOT.GUI
             int positionInversionValue = (false == parameters.PositionInversion) ? 1 : -1;
             total += (motorContribution * settingInversionValue * positionInversionValue) / ParameterAccessor.Instance.FeederVelocityToRpm;
 
+            count++;
+         }
+      }
+
+      public bool EvaluateFeederMotorLockMode(FeederMotorStatus status)
+      {
+         bool result = false;
+
+         if (ElmoWhistleMotor.ControlModes.microStepper == status.requestedControlMode)
+         {
+            result = true;
+         }
+
+         return (result);
+      }
+
+      private void EvaluateFeederMotorLockCurrent(ElmoWhistleMotor motor, FeederMotorStatus status, ref double total, ref int count)
+      {
+         if ((null == motor.FaultReason) &&
+             (ElmoWhistleMotor.ControlModes.microStepper == status.requestedControlMode))
+         {
+            total += motor.Torque;
             count++;
          }
       }
@@ -2832,13 +2886,13 @@ namespace NICBOT.GUI
          return (this.reelModeSetPoint);
       }
 
-      public bool ReelInLockMode()
+      public bool GetReelInLockMode()
       {
          bool result = (ElmoWhistleMotor.ControlModes.microStepper == this.reelRequestedControlMode) ? true : false;
          return (result);
       }
       
-      public bool ReelInCurrentMode()
+      public bool GetReelInCurrentMode()
       {
          bool result = false;
 
@@ -2923,6 +2977,36 @@ namespace NICBOT.GUI
          this.EvaluateFeederMotorVelocity(this.feederTopRearMotor, this.feederTopRearStatus, ParameterAccessor.Instance.TopRearFeederMotor, ref result, ref count);
          this.EvaluateFeederMotorVelocity(this.feederBottomFrontMotor, this.feederBottomFrontStatus, ParameterAccessor.Instance.BottomFrontFeederMotor, ref result, ref count);
          this.EvaluateFeederMotorVelocity(this.feederBottomRearMotor, this.feederBottomRearStatus, ParameterAccessor.Instance.BottomRearFeederMotor, ref result, ref count);
+
+         if (0 != count)
+         {
+            result /= count;
+         }
+
+         return (result);
+      }
+
+      public bool GetFeederInLockMode()
+      {
+         bool result = true;
+
+         result = result && this.EvaluateFeederMotorLockMode(this.feederTopFrontStatus);
+         result = result && this.EvaluateFeederMotorLockMode(this.feederTopRearStatus);
+         result = result && this.EvaluateFeederMotorLockMode(this.feederBottomFrontStatus);
+         result = result && this.EvaluateFeederMotorLockMode(this.feederBottomRearStatus);
+
+         return (result);
+      }
+
+      public double GetFeederLockCurrent()
+      {
+         double result = 0;
+         int count = 0;
+
+         this.EvaluateFeederMotorLockCurrent(this.feederTopFrontMotor, this.feederTopFrontStatus, ref result, ref count);
+         this.EvaluateFeederMotorLockCurrent(this.feederTopRearMotor, this.feederTopRearStatus, ref result, ref count);
+         this.EvaluateFeederMotorLockCurrent(this.feederBottomFrontMotor, this.feederBottomFrontStatus, ref result, ref count);
+         this.EvaluateFeederMotorLockCurrent(this.feederBottomRearMotor, this.feederBottomRearStatus, ref result, ref count);
 
          if (0 != count)
          {

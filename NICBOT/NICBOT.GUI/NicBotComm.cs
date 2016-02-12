@@ -430,14 +430,14 @@ namespace NICBOT.GUI
          return (TruckCommBus.Instance.GetReelMode());
       }
 
-      public bool ReelInLockMode()
+      public bool GetReelInLockMode()
       {
-         return (TruckCommBus.Instance.ReelInLockMode());
+         return (TruckCommBus.Instance.GetReelInLockMode());
       }
 
-      public bool ReelInCurrentMode()
+      public bool GetReelInCurrentMode()
       {
-         return (TruckCommBus.Instance.ReelInCurrentMode());
+         return (TruckCommBus.Instance.GetReelInCurrentMode());
       }
 
       public double GetReelCurrent()
@@ -550,6 +550,16 @@ namespace NICBOT.GUI
       public double GetFeederVelocity()
       {
          return ( TruckCommBus.Instance.GetFeederVelocity() );
+      }
+
+      public bool GetFeederInLockMode()
+      {
+         return (TruckCommBus.Instance.GetFeederInLockMode());
+      }
+
+      public double GetFeederLockCurrent()
+      {
+         return (TruckCommBus.Instance.GetFeederLockCurrent());
       }
 
       public double GetTopFrontFeederCurrent()

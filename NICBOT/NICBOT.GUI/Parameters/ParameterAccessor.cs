@@ -349,7 +349,7 @@ namespace NICBOT.GUI
          this.FeederTrackingCalibration = new ValueParameter("FeederTrackingCalibration", "%", 1, -100, 100, 0.1, 50, 50);
          this.FeederMaxSpeed = new ValueParameter("FeederMaxSpeed", "m/MIN", 2, 0, 12.05992, 1, 12, 12);
          this.FeederLowSpeedScale = new ValueParameter("FeederLowSpeedScale", "%", 0, 1, 100, 1, 30, 30);
-         this.FeederLockCurrent = new ValueParameter("FeederLockCurrent", "A", 2, 0.01, 0.5, 0.0, 0.10, 0.10);
+         this.FeederLockCurrent = new ValueParameter("FeederLockCurrent", "A", 1, 0.0, 6.5, 0.1, 2.0, 2.0);
          this.FeederCurrentPer1kRPM = new ValueParameter("FeederCurrentPer1kRPM", "A", 1, 0.1, 3.0, 0.1, 0.8, 0.8);
          this.FeederManualSpeed = new ValueParameter("FeederManualSpeed", "m/MIN", 2, 0, 12.05992, 1, 7, 7);
          this.FeederCurrentCaution = new CautionParameter("FeederCurrentCaution", 6.0, 5.0, 0.0, 0.0);

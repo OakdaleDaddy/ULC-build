@@ -7,6 +7,7 @@ namespace NICBOT.GUI
 
    public class FeederMotorStatus
    {
+      public ElmoWhistleMotor.ControlModes requestedControlMode;
       public ElmoWhistleMotor.Modes requestedMode;
       public double requestedVelocity;
       public double requestedCurrent;
@@ -18,6 +19,7 @@ namespace NICBOT.GUI
 
       public void Initialize()
       {
+         this.requestedControlMode = ElmoWhistleMotor.ControlModes.singleLoopPosition;
          this.requestedMode = ElmoWhistleMotor.Modes.undefined;
          this.requestedVelocity = 0;
          this.requestedCurrent = 0;
