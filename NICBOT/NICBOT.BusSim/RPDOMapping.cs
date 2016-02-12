@@ -38,6 +38,7 @@ namespace NICBOT.BusSim
 
       private bool started;
       private bool active;
+      private bool received;
 
       #endregion
 
@@ -218,6 +219,7 @@ namespace NICBOT.BusSim
             }
 
             this.frame[i] = ch;
+            this.received = true;
          }
 
          if ((254 == this.txType) || (255 == this.txType))
@@ -303,6 +305,7 @@ namespace NICBOT.BusSim
 
          this.started = false;
          this.active = false;
+         this.received = false;
       }
 
       public void Start()
@@ -351,6 +354,7 @@ namespace NICBOT.BusSim
          return (result);
       }
 
+#if false
       public void Activate()
       {
          if (false != this.active)
@@ -358,6 +362,7 @@ namespace NICBOT.BusSim
             this.processNeeded = true;
          }
       }
+#endif
 
       public void Update()
       {
@@ -365,18 +370,22 @@ namespace NICBOT.BusSim
          {
             if (false != this.processNeeded)
             {
-               int offset = 0;
-
-               for (int i = 0; i < this.mapCount; i++)
+               if (false != this.received)
                {
-                  UInt16 mapIndex = (UInt16)((this.mappings[i] >> 16) & 0xFFFF);
-                  byte mapSubIndex = (byte)((this.mappings[i] >> 8) & 0xFF);
-                  int length = this.OnPdoSize(mapIndex, mapSubIndex);
-                  bool validTransfer = this.StorePdoData(mapIndex, mapSubIndex, this.frame, offset, (UInt32)length);
-                  offset += length;
+                  int offset = 0;
+
+                  for (int i = 0; i < this.mapCount; i++)
+                  {
+                     UInt16 mapIndex = (UInt16)((this.mappings[i] >> 16) & 0xFFFF);
+                     byte mapSubIndex = (byte)((this.mappings[i] >> 8) & 0xFF);
+                     int length = this.OnPdoSize(mapIndex, mapSubIndex);
+                     bool validTransfer = this.StorePdoData(mapIndex, mapSubIndex, this.frame, offset, (UInt32)length);
+                     offset += length;
+                  }
                }
 
                this.processNeeded = false;
+               this.received = false;
             }
          }
       }
