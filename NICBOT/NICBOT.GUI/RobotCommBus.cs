@@ -1439,29 +1439,32 @@ namespace NICBOT.GUI
       {
          string result = null;
 
-         if (this.GetStatus(RobotCommBus.BusComponentId.Bus) != null)
+         if (false != this.Running)
          {
-            result = "robot communication offline";
-         }
-         else if (this.GetStatus(RobotCommBus.BusComponentId.RobotBody) != null)
-         {
-            result = "robot body offline";
-         }
-         else if (this.GetStatus(RobotCommBus.BusComponentId.RobotTopFrontWheel) != null)
-         {
-            result = "robot top front wheel offline";
-         }
-         else if (this.GetStatus(RobotCommBus.BusComponentId.RobotTopRearWheel) != null)
-         {
-            result = "robot top rear wheel offline";
-         }
-         else if (this.GetStatus(RobotCommBus.BusComponentId.RobotBottomFrontWheel) != null)
-         {
-            result = "robot bottom front wheel offline";
-         }
-         else if (this.GetStatus(RobotCommBus.BusComponentId.RobotBottomRearWheel) != null)
-         {
-            result = "robot bottom rear wheel offline";
+            if (this.GetStatus(RobotCommBus.BusComponentId.Bus) != null)
+            {
+               result = "robot communication offline";
+            }
+            else if (this.GetStatus(RobotCommBus.BusComponentId.RobotBody) != null)
+            {
+               result = "robot body offline";
+            }
+            else if (this.GetStatus(RobotCommBus.BusComponentId.RobotTopFrontWheel) != null)
+            {
+               result = "robot top front wheel offline";
+            }
+            else if (this.GetStatus(RobotCommBus.BusComponentId.RobotTopRearWheel) != null)
+            {
+               result = "robot top rear wheel offline";
+            }
+            else if (this.GetStatus(RobotCommBus.BusComponentId.RobotBottomFrontWheel) != null)
+            {
+               result = "robot bottom front wheel offline";
+            }
+            else if (this.GetStatus(RobotCommBus.BusComponentId.RobotBottomRearWheel) != null)
+            {
+               result = "robot bottom rear wheel offline";
+            }
          }
 
          return (result);
