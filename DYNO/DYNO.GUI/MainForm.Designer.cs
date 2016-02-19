@@ -57,10 +57,22 @@
          this.label13 = new System.Windows.Forms.Label();
          this.MainTabControl = new System.Windows.Forms.TabControl();
          this.TestTabPage = new System.Windows.Forms.TabPage();
-         this.ClearActivityLogButton = new System.Windows.Forms.Button();
          this.SaveParametersButton = new System.Windows.Forms.Button();
          this.LoadParametersButton = new System.Windows.Forms.Button();
          this.SetupTabPage = new System.Windows.Forms.TabPage();
+         this.ProducerHeartbeatTimeTextBox = new System.Windows.Forms.TextBox();
+         this.label106 = new System.Windows.Forms.Label();
+         this.ConsumerHeartbeatTimeTextBox = new System.Windows.Forms.TextBox();
+         this.ConsumerHeartbeatNodeIdTextBox = new System.Windows.Forms.TextBox();
+         this.label105 = new System.Windows.Forms.Label();
+         this.AnalogIoVoltsToLoadPoundsTextBox = new System.Windows.Forms.TextBox();
+         this.AnalogIoVoltsToSupplyAmpsSlopeTextBox = new System.Windows.Forms.TextBox();
+         this.BodyRpmToSpeedTextBox = new System.Windows.Forms.TextBox();
+         this.UutRpmToSpeedTextBox = new System.Windows.Forms.TextBox();
+         this.label26 = new System.Windows.Forms.Label();
+         this.label25 = new System.Windows.Forms.Label();
+         this.label24 = new System.Windows.Forms.Label();
+         this.label23 = new System.Windows.Forms.Label();
          this.DigitalIoIdTextBox = new System.Windows.Forms.TextBox();
          this.AnalogIoIdTextBox = new System.Windows.Forms.TextBox();
          this.EncoderIdTextBox = new System.Windows.Forms.TextBox();
@@ -83,26 +95,15 @@
          this.label20 = new System.Windows.Forms.Label();
          this.TraceMaskTextBox = new System.Windows.Forms.TextBox();
          this.CanTraceComboBox = new System.Windows.Forms.ComboBox();
+         this.ClearActivityLogButton = new System.Windows.Forms.Button();
          this.MainControlSplitter = new System.Windows.Forms.Splitter();
          this.UpdateTimer = new System.Windows.Forms.Timer(this.components);
-         this.label23 = new System.Windows.Forms.Label();
-         this.UutRpmToSpeedTextBox = new System.Windows.Forms.TextBox();
-         this.label24 = new System.Windows.Forms.Label();
-         this.label25 = new System.Windows.Forms.Label();
-         this.label26 = new System.Windows.Forms.Label();
-         this.BodyRpmToSpeedTextBox = new System.Windows.Forms.TextBox();
-         this.AnalogIoVoltsToSupplyAmpsTextBox = new System.Windows.Forms.TextBox();
-         this.AnalogIoVoltsToLoadPoundsTextBox = new System.Windows.Forms.TextBox();
          this.ActivityControlPanel = new System.Windows.Forms.Panel();
-         this.MainActivityPanel = new System.Windows.Forms.Panel();
          this.AutoScrollCheckBox = new System.Windows.Forms.CheckBox();
-         this.ActivityTitleRichTextBox = new System.Windows.Forms.RichTextBox();
+         this.MainActivityPanel = new System.Windows.Forms.Panel();
          this.ActivityRichTextBox = new System.Windows.Forms.RichTextBox();
-         this.ProducerHeartbeatTimeTextBox = new System.Windows.Forms.TextBox();
-         this.label106 = new System.Windows.Forms.Label();
-         this.ConsumerHeartbeatTimeTextBox = new System.Windows.Forms.TextBox();
-         this.ConsumerHeartbeatNodeIdTextBox = new System.Windows.Forms.TextBox();
-         this.label105 = new System.Windows.Forms.Label();
+         this.ActivityTitleRichTextBox = new System.Windows.Forms.RichTextBox();
+         this.AnalogIoVoltsToSupplyAmpsOffsetTextBox = new System.Windows.Forms.TextBox();
          this.MainStatusStrip.SuspendLayout();
          this.MainTabControl.SuspendLayout();
          this.TestTabPage.SuspendLayout();
@@ -129,7 +130,7 @@
             this.TimeStatusLabel});
          this.MainStatusStrip.Location = new System.Drawing.Point(0, 326);
          this.MainStatusStrip.Name = "MainStatusStrip";
-         this.MainStatusStrip.Size = new System.Drawing.Size(612, 22);
+         this.MainStatusStrip.Size = new System.Drawing.Size(663, 22);
          this.MainStatusStrip.TabIndex = 15;
          this.MainStatusStrip.Text = "statusStrip1";
          // 
@@ -141,7 +142,7 @@
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
          this.StatusLabel.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenInner;
          this.StatusLabel.Name = "StatusLabel";
-         this.StatusLabel.Size = new System.Drawing.Size(488, 17);
+         this.StatusLabel.Size = new System.Drawing.Size(539, 17);
          this.StatusLabel.Spring = true;
          this.StatusLabel.Text = "Status";
          this.StatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -160,7 +161,7 @@
          // CloseButton
          // 
          this.CloseButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-         this.CloseButton.Location = new System.Drawing.Point(537, 92);
+         this.CloseButton.Location = new System.Drawing.Point(588, 92);
          this.CloseButton.Name = "CloseButton";
          this.CloseButton.Size = new System.Drawing.Size(59, 23);
          this.CloseButton.TabIndex = 16;
@@ -366,7 +367,7 @@
          this.MainTabControl.MinimumSize = new System.Drawing.Size(612, 147);
          this.MainTabControl.Name = "MainTabControl";
          this.MainTabControl.SelectedIndex = 0;
-         this.MainTabControl.Size = new System.Drawing.Size(612, 147);
+         this.MainTabControl.Size = new System.Drawing.Size(663, 147);
          this.MainTabControl.TabIndex = 188;
          // 
          // TestTabPage
@@ -398,21 +399,10 @@
          this.TestTabPage.Location = new System.Drawing.Point(4, 22);
          this.TestTabPage.Name = "TestTabPage";
          this.TestTabPage.Padding = new System.Windows.Forms.Padding(3);
-         this.TestTabPage.Size = new System.Drawing.Size(604, 121);
+         this.TestTabPage.Size = new System.Drawing.Size(655, 121);
          this.TestTabPage.TabIndex = 0;
          this.TestTabPage.Text = "Test";
          this.TestTabPage.UseVisualStyleBackColor = true;
-         // 
-         // ClearActivityLogButton
-         // 
-         this.ClearActivityLogButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-         this.ClearActivityLogButton.Location = new System.Drawing.Point(537, 1);
-         this.ClearActivityLogButton.Name = "ClearActivityLogButton";
-         this.ClearActivityLogButton.Size = new System.Drawing.Size(59, 23);
-         this.ClearActivityLogButton.TabIndex = 190;
-         this.ClearActivityLogButton.Text = "Clear";
-         this.ClearActivityLogButton.UseVisualStyleBackColor = true;
-         this.ClearActivityLogButton.Click += new System.EventHandler(this.ClearActivityLogButton_Click);
          // 
          // SaveParametersButton
          // 
@@ -436,13 +426,14 @@
          // 
          // SetupTabPage
          // 
+         this.SetupTabPage.Controls.Add(this.AnalogIoVoltsToSupplyAmpsOffsetTextBox);
          this.SetupTabPage.Controls.Add(this.ProducerHeartbeatTimeTextBox);
          this.SetupTabPage.Controls.Add(this.label106);
          this.SetupTabPage.Controls.Add(this.ConsumerHeartbeatTimeTextBox);
          this.SetupTabPage.Controls.Add(this.ConsumerHeartbeatNodeIdTextBox);
          this.SetupTabPage.Controls.Add(this.label105);
          this.SetupTabPage.Controls.Add(this.AnalogIoVoltsToLoadPoundsTextBox);
-         this.SetupTabPage.Controls.Add(this.AnalogIoVoltsToSupplyAmpsTextBox);
+         this.SetupTabPage.Controls.Add(this.AnalogIoVoltsToSupplyAmpsSlopeTextBox);
          this.SetupTabPage.Controls.Add(this.BodyRpmToSpeedTextBox);
          this.SetupTabPage.Controls.Add(this.UutRpmToSpeedTextBox);
          this.SetupTabPage.Controls.Add(this.label26);
@@ -463,10 +454,126 @@
          this.SetupTabPage.Location = new System.Drawing.Point(4, 22);
          this.SetupTabPage.Name = "SetupTabPage";
          this.SetupTabPage.Padding = new System.Windows.Forms.Padding(3);
-         this.SetupTabPage.Size = new System.Drawing.Size(604, 121);
+         this.SetupTabPage.Size = new System.Drawing.Size(655, 121);
          this.SetupTabPage.TabIndex = 1;
          this.SetupTabPage.Text = "Setup";
          this.SetupTabPage.UseVisualStyleBackColor = true;
+         // 
+         // ProducerHeartbeatTimeTextBox
+         // 
+         this.ProducerHeartbeatTimeTextBox.Location = new System.Drawing.Point(84, 84);
+         this.ProducerHeartbeatTimeTextBox.Name = "ProducerHeartbeatTimeTextBox";
+         this.ProducerHeartbeatTimeTextBox.Size = new System.Drawing.Size(39, 20);
+         this.ProducerHeartbeatTimeTextBox.TabIndex = 199;
+         this.ProducerHeartbeatTimeTextBox.Text = "1000";
+         this.ProducerHeartbeatTimeTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+         this.ProducerHeartbeatTimeTextBox.Enter += new System.EventHandler(this.ParsedEntryControl_Enter);
+         // 
+         // label106
+         // 
+         this.label106.AutoSize = true;
+         this.label106.Location = new System.Drawing.Point(14, 87);
+         this.label106.Name = "label106";
+         this.label106.Size = new System.Drawing.Size(68, 13);
+         this.label106.TabIndex = 198;
+         this.label106.Text = "Producer HB";
+         // 
+         // ConsumerHeartbeatTimeTextBox
+         // 
+         this.ConsumerHeartbeatTimeTextBox.Location = new System.Drawing.Point(113, 60);
+         this.ConsumerHeartbeatTimeTextBox.Name = "ConsumerHeartbeatTimeTextBox";
+         this.ConsumerHeartbeatTimeTextBox.Size = new System.Drawing.Size(39, 20);
+         this.ConsumerHeartbeatTimeTextBox.TabIndex = 197;
+         this.ConsumerHeartbeatTimeTextBox.Text = "3000";
+         this.ConsumerHeartbeatTimeTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+         this.ConsumerHeartbeatTimeTextBox.Enter += new System.EventHandler(this.ParsedEntryControl_Enter);
+         // 
+         // ConsumerHeartbeatNodeIdTextBox
+         // 
+         this.ConsumerHeartbeatNodeIdTextBox.Location = new System.Drawing.Point(84, 60);
+         this.ConsumerHeartbeatNodeIdTextBox.Name = "ConsumerHeartbeatNodeIdTextBox";
+         this.ConsumerHeartbeatNodeIdTextBox.Size = new System.Drawing.Size(23, 20);
+         this.ConsumerHeartbeatNodeIdTextBox.TabIndex = 196;
+         this.ConsumerHeartbeatNodeIdTextBox.Text = "80";
+         this.ConsumerHeartbeatNodeIdTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+         this.ConsumerHeartbeatNodeIdTextBox.Enter += new System.EventHandler(this.ParsedEntryControl_Enter);
+         // 
+         // label105
+         // 
+         this.label105.AutoSize = true;
+         this.label105.Location = new System.Drawing.Point(10, 63);
+         this.label105.Name = "label105";
+         this.label105.Size = new System.Drawing.Size(72, 13);
+         this.label105.TabIndex = 195;
+         this.label105.Text = "Consumer HB";
+         // 
+         // AnalogIoVoltsToLoadPoundsTextBox
+         // 
+         this.AnalogIoVoltsToLoadPoundsTextBox.Location = new System.Drawing.Point(502, 58);
+         this.AnalogIoVoltsToLoadPoundsTextBox.Name = "AnalogIoVoltsToLoadPoundsTextBox";
+         this.AnalogIoVoltsToLoadPoundsTextBox.Size = new System.Drawing.Size(62, 20);
+         this.AnalogIoVoltsToLoadPoundsTextBox.TabIndex = 194;
+         this.AnalogIoVoltsToLoadPoundsTextBox.Enter += new System.EventHandler(this.ParsedEntryControl_Enter);
+         // 
+         // AnalogIoVoltsToSupplyAmpsSlopeTextBox
+         // 
+         this.AnalogIoVoltsToSupplyAmpsSlopeTextBox.Location = new System.Drawing.Point(502, 84);
+         this.AnalogIoVoltsToSupplyAmpsSlopeTextBox.Name = "AnalogIoVoltsToSupplyAmpsSlopeTextBox";
+         this.AnalogIoVoltsToSupplyAmpsSlopeTextBox.Size = new System.Drawing.Size(62, 20);
+         this.AnalogIoVoltsToSupplyAmpsSlopeTextBox.TabIndex = 193;
+         this.AnalogIoVoltsToSupplyAmpsSlopeTextBox.Enter += new System.EventHandler(this.ParsedEntryControl_Enter);
+         // 
+         // BodyRpmToSpeedTextBox
+         // 
+         this.BodyRpmToSpeedTextBox.Location = new System.Drawing.Point(502, 32);
+         this.BodyRpmToSpeedTextBox.Name = "BodyRpmToSpeedTextBox";
+         this.BodyRpmToSpeedTextBox.Size = new System.Drawing.Size(62, 20);
+         this.BodyRpmToSpeedTextBox.TabIndex = 192;
+         this.BodyRpmToSpeedTextBox.Enter += new System.EventHandler(this.ParsedEntryControl_Enter);
+         // 
+         // UutRpmToSpeedTextBox
+         // 
+         this.UutRpmToSpeedTextBox.Location = new System.Drawing.Point(502, 6);
+         this.UutRpmToSpeedTextBox.Name = "UutRpmToSpeedTextBox";
+         this.UutRpmToSpeedTextBox.Size = new System.Drawing.Size(62, 20);
+         this.UutRpmToSpeedTextBox.TabIndex = 188;
+         this.UutRpmToSpeedTextBox.Enter += new System.EventHandler(this.ParsedEntryControl_Enter);
+         // 
+         // label26
+         // 
+         this.label26.AutoSize = true;
+         this.label26.Location = new System.Drawing.Point(346, 87);
+         this.label26.Name = "label26";
+         this.label26.Size = new System.Drawing.Size(154, 13);
+         this.label26.TabIndex = 191;
+         this.label26.Text = "AnalogIO Volts per Supply Amp";
+         // 
+         // label25
+         // 
+         this.label25.AutoSize = true;
+         this.label25.Location = new System.Drawing.Point(385, 35);
+         this.label25.Name = "label25";
+         this.label25.Size = new System.Drawing.Size(115, 13);
+         this.label25.TabIndex = 190;
+         this.label25.Text = "Body RPM to inch/sec";
+         // 
+         // label24
+         // 
+         this.label24.AutoSize = true;
+         this.label24.Location = new System.Drawing.Point(386, 9);
+         this.label24.Name = "label24";
+         this.label24.Size = new System.Drawing.Size(114, 13);
+         this.label24.TabIndex = 189;
+         this.label24.Text = "UUT RPM to inch/sec";
+         // 
+         // label23
+         // 
+         this.label23.AutoSize = true;
+         this.label23.Location = new System.Drawing.Point(370, 61);
+         this.label23.Name = "label23";
+         this.label23.Size = new System.Drawing.Size(130, 13);
+         this.label23.TabIndex = 187;
+         this.label23.Text = "AnalogIO Volts Per Pound";
          // 
          // DigitalIoIdTextBox
          // 
@@ -694,86 +801,29 @@
          this.CanTraceComboBox.TabIndex = 92;
          this.CanTraceComboBox.SelectedIndexChanged += new System.EventHandler(this.CanTraceComboBox_SelectedIndexChanged);
          // 
+         // ClearActivityLogButton
+         // 
+         this.ClearActivityLogButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+         this.ClearActivityLogButton.Location = new System.Drawing.Point(588, 1);
+         this.ClearActivityLogButton.Name = "ClearActivityLogButton";
+         this.ClearActivityLogButton.Size = new System.Drawing.Size(59, 23);
+         this.ClearActivityLogButton.TabIndex = 190;
+         this.ClearActivityLogButton.Text = "Clear";
+         this.ClearActivityLogButton.UseVisualStyleBackColor = true;
+         this.ClearActivityLogButton.Click += new System.EventHandler(this.ClearActivityLogButton_Click);
+         // 
          // MainControlSplitter
          // 
          this.MainControlSplitter.Dock = System.Windows.Forms.DockStyle.Bottom;
          this.MainControlSplitter.Location = new System.Drawing.Point(0, 176);
          this.MainControlSplitter.Name = "MainControlSplitter";
-         this.MainControlSplitter.Size = new System.Drawing.Size(612, 3);
+         this.MainControlSplitter.Size = new System.Drawing.Size(663, 3);
          this.MainControlSplitter.TabIndex = 189;
          this.MainControlSplitter.TabStop = false;
          // 
          // UpdateTimer
          // 
          this.UpdateTimer.Tick += new System.EventHandler(this.UpdateTimer_Tick);
-         // 
-         // label23
-         // 
-         this.label23.AutoSize = true;
-         this.label23.Location = new System.Drawing.Point(370, 61);
-         this.label23.Name = "label23";
-         this.label23.Size = new System.Drawing.Size(130, 13);
-         this.label23.TabIndex = 187;
-         this.label23.Text = "AnalogIO Volts Per Pound";
-         // 
-         // UutRpmToSpeedTextBox
-         // 
-         this.UutRpmToSpeedTextBox.Location = new System.Drawing.Point(502, 6);
-         this.UutRpmToSpeedTextBox.Name = "UutRpmToSpeedTextBox";
-         this.UutRpmToSpeedTextBox.Size = new System.Drawing.Size(62, 20);
-         this.UutRpmToSpeedTextBox.TabIndex = 188;
-         this.UutRpmToSpeedTextBox.Enter += new System.EventHandler(this.ParsedEntryControl_Enter);
-         // 
-         // label24
-         // 
-         this.label24.AutoSize = true;
-         this.label24.Location = new System.Drawing.Point(386, 9);
-         this.label24.Name = "label24";
-         this.label24.Size = new System.Drawing.Size(114, 13);
-         this.label24.TabIndex = 189;
-         this.label24.Text = "UUT RPM to inch/sec";
-         // 
-         // label25
-         // 
-         this.label25.AutoSize = true;
-         this.label25.Location = new System.Drawing.Point(385, 35);
-         this.label25.Name = "label25";
-         this.label25.Size = new System.Drawing.Size(115, 13);
-         this.label25.TabIndex = 190;
-         this.label25.Text = "Body RPM to inch/sec";
-         // 
-         // label26
-         // 
-         this.label26.AutoSize = true;
-         this.label26.Location = new System.Drawing.Point(346, 87);
-         this.label26.Name = "label26";
-         this.label26.Size = new System.Drawing.Size(154, 13);
-         this.label26.TabIndex = 191;
-         this.label26.Text = "AnalogIO Volts per Supply Amp";
-         // 
-         // BodyRpmToSpeedTextBox
-         // 
-         this.BodyRpmToSpeedTextBox.Location = new System.Drawing.Point(502, 32);
-         this.BodyRpmToSpeedTextBox.Name = "BodyRpmToSpeedTextBox";
-         this.BodyRpmToSpeedTextBox.Size = new System.Drawing.Size(62, 20);
-         this.BodyRpmToSpeedTextBox.TabIndex = 192;
-         this.BodyRpmToSpeedTextBox.Enter += new System.EventHandler(this.ParsedEntryControl_Enter);
-         // 
-         // AnalogIoVoltsToSupplyAmpsTextBox
-         // 
-         this.AnalogIoVoltsToSupplyAmpsTextBox.Location = new System.Drawing.Point(502, 84);
-         this.AnalogIoVoltsToSupplyAmpsTextBox.Name = "AnalogIoVoltsToSupplyAmpsTextBox";
-         this.AnalogIoVoltsToSupplyAmpsTextBox.Size = new System.Drawing.Size(62, 20);
-         this.AnalogIoVoltsToSupplyAmpsTextBox.TabIndex = 193;
-         this.AnalogIoVoltsToSupplyAmpsTextBox.Enter += new System.EventHandler(this.ParsedEntryControl_Enter);
-         // 
-         // AnalogIoVoltsToLoadPoundsTextBox
-         // 
-         this.AnalogIoVoltsToLoadPoundsTextBox.Location = new System.Drawing.Point(502, 58);
-         this.AnalogIoVoltsToLoadPoundsTextBox.Name = "AnalogIoVoltsToLoadPoundsTextBox";
-         this.AnalogIoVoltsToLoadPoundsTextBox.Size = new System.Drawing.Size(62, 20);
-         this.AnalogIoVoltsToLoadPoundsTextBox.TabIndex = 194;
-         this.AnalogIoVoltsToLoadPoundsTextBox.Enter += new System.EventHandler(this.ParsedEntryControl_Enter);
          // 
          // ActivityControlPanel
          // 
@@ -784,18 +834,8 @@
          this.ActivityControlPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
          this.ActivityControlPanel.Location = new System.Drawing.Point(0, 148);
          this.ActivityControlPanel.Name = "ActivityControlPanel";
-         this.ActivityControlPanel.Size = new System.Drawing.Size(612, 28);
+         this.ActivityControlPanel.Size = new System.Drawing.Size(663, 28);
          this.ActivityControlPanel.TabIndex = 1;
-         // 
-         // MainActivityPanel
-         // 
-         this.MainActivityPanel.Controls.Add(this.ActivityRichTextBox);
-         this.MainActivityPanel.Controls.Add(this.ActivityTitleRichTextBox);
-         this.MainActivityPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.MainActivityPanel.Location = new System.Drawing.Point(0, 0);
-         this.MainActivityPanel.Name = "MainActivityPanel";
-         this.MainActivityPanel.Size = new System.Drawing.Size(612, 148);
-         this.MainActivityPanel.TabIndex = 191;
          // 
          // AutoScrollCheckBox
          // 
@@ -807,15 +847,15 @@
          this.AutoScrollCheckBox.Text = "Scroll";
          this.AutoScrollCheckBox.UseVisualStyleBackColor = true;
          // 
-         // ActivityTitleRichTextBox
+         // MainActivityPanel
          // 
-         this.ActivityTitleRichTextBox.Dock = System.Windows.Forms.DockStyle.Top;
-         this.ActivityTitleRichTextBox.Font = new System.Drawing.Font("Consolas", 9.75F);
-         this.ActivityTitleRichTextBox.Location = new System.Drawing.Point(0, 0);
-         this.ActivityTitleRichTextBox.Name = "ActivityTitleRichTextBox";
-         this.ActivityTitleRichTextBox.Size = new System.Drawing.Size(612, 20);
-         this.ActivityTitleRichTextBox.TabIndex = 1;
-         this.ActivityTitleRichTextBox.Text = "";
+         this.MainActivityPanel.Controls.Add(this.ActivityRichTextBox);
+         this.MainActivityPanel.Controls.Add(this.ActivityTitleRichTextBox);
+         this.MainActivityPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+         this.MainActivityPanel.Location = new System.Drawing.Point(0, 0);
+         this.MainActivityPanel.Name = "MainActivityPanel";
+         this.MainActivityPanel.Size = new System.Drawing.Size(663, 148);
+         this.MainActivityPanel.TabIndex = 191;
          // 
          // ActivityRichTextBox
          // 
@@ -823,69 +863,39 @@
          this.ActivityRichTextBox.Font = new System.Drawing.Font("Consolas", 9.75F);
          this.ActivityRichTextBox.Location = new System.Drawing.Point(0, 20);
          this.ActivityRichTextBox.Name = "ActivityRichTextBox";
-         this.ActivityRichTextBox.Size = new System.Drawing.Size(612, 128);
+         this.ActivityRichTextBox.Size = new System.Drawing.Size(663, 128);
          this.ActivityRichTextBox.TabIndex = 2;
          this.ActivityRichTextBox.Text = "";
          // 
-         // ProducerHeartbeatTimeTextBox
+         // ActivityTitleRichTextBox
          // 
-         this.ProducerHeartbeatTimeTextBox.Location = new System.Drawing.Point(84, 84);
-         this.ProducerHeartbeatTimeTextBox.Name = "ProducerHeartbeatTimeTextBox";
-         this.ProducerHeartbeatTimeTextBox.Size = new System.Drawing.Size(39, 20);
-         this.ProducerHeartbeatTimeTextBox.TabIndex = 199;
-         this.ProducerHeartbeatTimeTextBox.Text = "1000";
-         this.ProducerHeartbeatTimeTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-         this.ProducerHeartbeatTimeTextBox.Enter += new System.EventHandler(this.ParsedEntryControl_Enter);
+         this.ActivityTitleRichTextBox.Dock = System.Windows.Forms.DockStyle.Top;
+         this.ActivityTitleRichTextBox.Font = new System.Drawing.Font("Consolas", 9.75F);
+         this.ActivityTitleRichTextBox.Location = new System.Drawing.Point(0, 0);
+         this.ActivityTitleRichTextBox.Name = "ActivityTitleRichTextBox";
+         this.ActivityTitleRichTextBox.Size = new System.Drawing.Size(663, 20);
+         this.ActivityTitleRichTextBox.TabIndex = 1;
+         this.ActivityTitleRichTextBox.Text = "";
          // 
-         // label106
+         // AnalogIoVoltsToSupplyAmpsOffsetTextBox
          // 
-         this.label106.AutoSize = true;
-         this.label106.Location = new System.Drawing.Point(14, 87);
-         this.label106.Name = "label106";
-         this.label106.Size = new System.Drawing.Size(68, 13);
-         this.label106.TabIndex = 198;
-         this.label106.Text = "Producer HB";
-         // 
-         // ConsumerHeartbeatTimeTextBox
-         // 
-         this.ConsumerHeartbeatTimeTextBox.Location = new System.Drawing.Point(113, 60);
-         this.ConsumerHeartbeatTimeTextBox.Name = "ConsumerHeartbeatTimeTextBox";
-         this.ConsumerHeartbeatTimeTextBox.Size = new System.Drawing.Size(39, 20);
-         this.ConsumerHeartbeatTimeTextBox.TabIndex = 197;
-         this.ConsumerHeartbeatTimeTextBox.Text = "3000";
-         this.ConsumerHeartbeatTimeTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-         this.ConsumerHeartbeatTimeTextBox.Enter += new System.EventHandler(this.ParsedEntryControl_Enter);
-         // 
-         // ConsumerHeartbeatNodeIdTextBox
-         // 
-         this.ConsumerHeartbeatNodeIdTextBox.Location = new System.Drawing.Point(84, 60);
-         this.ConsumerHeartbeatNodeIdTextBox.Name = "ConsumerHeartbeatNodeIdTextBox";
-         this.ConsumerHeartbeatNodeIdTextBox.Size = new System.Drawing.Size(23, 20);
-         this.ConsumerHeartbeatNodeIdTextBox.TabIndex = 196;
-         this.ConsumerHeartbeatNodeIdTextBox.Text = "80";
-         this.ConsumerHeartbeatNodeIdTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-         this.ConsumerHeartbeatNodeIdTextBox.Enter += new System.EventHandler(this.ParsedEntryControl_Enter);
-         // 
-         // label105
-         // 
-         this.label105.AutoSize = true;
-         this.label105.Location = new System.Drawing.Point(10, 63);
-         this.label105.Name = "label105";
-         this.label105.Size = new System.Drawing.Size(72, 13);
-         this.label105.TabIndex = 195;
-         this.label105.Text = "Consumer HB";
+         this.AnalogIoVoltsToSupplyAmpsOffsetTextBox.Location = new System.Drawing.Point(570, 84);
+         this.AnalogIoVoltsToSupplyAmpsOffsetTextBox.Name = "AnalogIoVoltsToSupplyAmpsOffsetTextBox";
+         this.AnalogIoVoltsToSupplyAmpsOffsetTextBox.Size = new System.Drawing.Size(62, 20);
+         this.AnalogIoVoltsToSupplyAmpsOffsetTextBox.TabIndex = 200;
+         this.AnalogIoVoltsToSupplyAmpsOffsetTextBox.Enter += new System.EventHandler(this.ParsedEntryControl_Enter);
          // 
          // MainForm
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-         this.ClientSize = new System.Drawing.Size(612, 348);
+         this.ClientSize = new System.Drawing.Size(663, 348);
          this.Controls.Add(this.MainActivityPanel);
          this.Controls.Add(this.ActivityControlPanel);
          this.Controls.Add(this.MainControlSplitter);
          this.Controls.Add(this.MainTabControl);
          this.Controls.Add(this.MainStatusStrip);
-         this.MinimumSize = new System.Drawing.Size(620, 375);
+         this.MinimumSize = new System.Drawing.Size(679, 386);
          this.Name = "MainForm";
          this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
          this.Text = "dynoGUI";
@@ -973,7 +983,7 @@
       private System.Windows.Forms.Label label24;
       private System.Windows.Forms.Label label26;
       private System.Windows.Forms.TextBox AnalogIoVoltsToLoadPoundsTextBox;
-      private System.Windows.Forms.TextBox AnalogIoVoltsToSupplyAmpsTextBox;
+      private System.Windows.Forms.TextBox AnalogIoVoltsToSupplyAmpsSlopeTextBox;
       private System.Windows.Forms.TextBox BodyRpmToSpeedTextBox;
       private System.Windows.Forms.Panel ActivityControlPanel;
       private System.Windows.Forms.Panel MainActivityPanel;
@@ -985,6 +995,7 @@
       private System.Windows.Forms.TextBox ConsumerHeartbeatTimeTextBox;
       private System.Windows.Forms.TextBox ConsumerHeartbeatNodeIdTextBox;
       private System.Windows.Forms.Label label105;
+      private System.Windows.Forms.TextBox AnalogIoVoltsToSupplyAmpsOffsetTextBox;
    }
 }
 

@@ -194,6 +194,32 @@
          return (result);
       }
 
+      public bool SetInterruptDelta(bool enabled, UInt32 delta)
+      {
+         bool result = false;
+
+         if (null == this.FaultReason)
+         {
+            result = true;
+                        
+            // enable interrupt delta 
+            byte enableValue = (byte)((false != enabled) ? 1 : 0);
+            result &= this.ExchangeCommAction(new SDODownload(0x6423, 0, 1, enableValue));
+
+            // set interrupt delta 
+            result &= this.ExchangeCommAction(new SDODownload(0x6426, 1, 4, delta));
+            result &= this.ExchangeCommAction(new SDODownload(0x6426, 2, 4, delta));
+            result &= this.ExchangeCommAction(new SDODownload(0x6426, 3, 4, delta));
+            result &= this.ExchangeCommAction(new SDODownload(0x6426, 4, 4, delta));
+            result &= this.ExchangeCommAction(new SDODownload(0x6426, 5, 4, delta));
+            result &= this.ExchangeCommAction(new SDODownload(0x6426, 6, 4, delta));
+            result &= this.ExchangeCommAction(new SDODownload(0x6426, 7, 4, delta));
+            result &= this.ExchangeCommAction(new SDODownload(0x6426, 8, 4, delta));
+         }
+
+         return (result);
+      }
+
       public override bool Start()
       {
          bool result = false;

@@ -51,6 +51,7 @@
       private UInt16 lastLoadSetPoint;
 
       private double secondLimit;
+      private int slippageCount;
 
       private double lastEncoderRotations;
       private DateTime lastEncoderTime;
@@ -207,8 +208,10 @@
          double uutCurrent = (double)this.uut.Torque;
          double uutTemperature = (double)this.uut.Temperature;
 
-         double supplyCurrentVoltage = ((double)this.analogIo.AnalogIn0 * 10) / 32767;
-         double supplyCurrent = supplyCurrentVoltage / this.setupParameters.AnalogIoVoltsToSupplyAmps;
+         Int16 supplyCurrentAdcCounts = this.analogIo.AnalogIn0;
+         double supplyCurrentVoltage = ((double)supplyCurrentAdcCounts * 10) / 32767;
+         double supplyCurrent = (supplyCurrentVoltage - this.setupParameters.AnalogIoVoltsToSupplyAmpsOffset) / this.setupParameters.AnalogIoVoltsToSupplyAmpsSlope;
+         Tracer.WriteLow(TraceGroup.TEST, "", "supply current: counts {0}, voltage {1:0.000}, amps {2:0.000}", supplyCurrentAdcCounts, supplyCurrentVoltage, supplyCurrent);
 
          TimeSpan encoderTimeSpan = this.currentTime - this.lastEncoderTime;
          this.lastEncoderTime = this.currentTime;
@@ -227,8 +230,9 @@
             double slippage = double.NaN;
             slippage = ((uutSpeed - bodySpeed) / uutSpeed) * 100;
             slippageString = string.Format("{0:0}%", slippage);
+            this.slippageCount++;
 
-            slippageLimit = uutSpeed * (100 - this.testParameters.SlippageLimit);
+            slippageLimit = uutSpeed * (100 - this.testParameters.SlippageLimit) / 100;
          }
 
          // this.Log("TIME, LOAD, UUT-SPEED, UUT-CURRENT, UUT-TEMPERATURE, SUPPLY-CURRENT, BODY-SPEED, SLIPPAGE");
@@ -246,9 +250,10 @@
          {
             this.completionCause = "supply current exceeded limit";
          }
-         else if ((bodySpeed > 0) && (bodySpeed < slippageLimit))
+         else if ((bodySpeed > 0) && (bodySpeed < slippageLimit) && (this.slippageCount > 2))
          {
-            this.completionCause = "slippage exceeded limit";
+            string slippageCauseString = string.Format("slippage exceeded limit (body={0:0.00}, limit={1:0.00}, count={2})", bodySpeed, slippageLimit, this.slippageCount);
+            this.completionCause = slippageCauseString;
          }
       }
 
@@ -446,6 +451,7 @@
             this.encoder.Start();
 
             this.analogIo.Configure();
+            this.analogIo.SetInterruptDelta(true, 4);
             this.analogIo.SetConsumerHeartbeat((UInt16)this.setupParameters.ConsumerHeartbeatTime, (byte)this.setupParameters.ConsumerHeartbeatNodeId);
             this.analogIo.SetProducerHeartbeat((UInt16)this.setupParameters.ProducerHeartbeatTime);
             this.analogIo.Start();
@@ -516,7 +522,8 @@
             this.Log(" - consumer heartbeat time = {0}", this.setupParameters.ConsumerHeartbeatTime);
             this.Log(" - uut RPM to speed = {0:0.000}", this.setupParameters.UutRpmToSpeed);
             this.Log(" - body RPM to speed = {0:0.000}", this.setupParameters.BodyRpmToSpeed);
-            this.Log(" - analog IO volts to supply current = {0:0.000}", this.setupParameters.AnalogIoVoltsToSupplyAmps);
+            this.Log(" - analog IO volts to supply current: slope = {0:0.000}", this.setupParameters.AnalogIoVoltsToSupplyAmpsSlope);
+            this.Log(" - analog IO volts to supply current: offset = {0:0.000}", this.setupParameters.AnalogIoVoltsToSupplyAmpsOffset);
             this.Log(" - analog IO volts to load pounds = {0:0.000}", this.setupParameters.AnalogIoVoltsToLoadPounds);
             this.Log(" - wheel start load = {0}", this.testParameters.WheelStartLoad);
             this.Log(" - wheel end load = {0}", this.testParameters.WheelStopLoad);
@@ -550,16 +557,18 @@
          if (this.currentTime > this.stateTimeLimit)
          {
             this.startTime = this.currentTime;
+            this.lastLoadSetPoint = 0;
+            this.slippageCount = 0;
             this.RampLoad();
 
             int requestedRpm = (int)(this.testParameters.WheelSpeed * this.setupParameters.UutRpmToSpeed);
             Tracer.WriteMedium(TraceGroup.TEST, "", "uut speed={0}, rpm={1}", this.testParameters.WheelSpeed, requestedRpm);
+            this.uut.SetMode(UlcRoboticsNicbotWheel.Modes.velocity);
             this.uut.SetVelocity(requestedRpm);
 
             this.startTime = DateTime.Now;
             this.secondLimit = 1.0;
 
-            this.lastLoadSetPoint = 0;
             this.lastEncoderTime = this.startTime;
             this.lastEncoderRotations = this.encoder.Rotations;
 

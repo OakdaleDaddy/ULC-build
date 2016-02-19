@@ -138,7 +138,7 @@ namespace DYNO.GUI
          this.RunTimeTextBox.Text = (null != keyValue) ? keyValue.ToString() : "0/0/15";
 
          keyValue = appKey.GetValue("WheelSpeed");
-         this.WheelSpeedTextBox.Text = (null != keyValue) ? keyValue.ToString() : "-500";
+         this.WheelSpeedTextBox.Text = (null != keyValue) ? keyValue.ToString() : "1";
          
          keyValue = appKey.GetValue("WheelStartLoad");
          this.WheelStartLoadTextBox.Text = (null != keyValue) ? keyValue.ToString() : "0.5";
@@ -190,8 +190,11 @@ namespace DYNO.GUI
          keyValue = appKey.GetValue("BodySpeedToRpm");
          this.BodyRpmToSpeedTextBox.Text = (null != keyValue) ? keyValue.ToString() : "1.0";
 
-         keyValue = appKey.GetValue("AnalogIoVoltsToSupplyAmps");
-         this.AnalogIoVoltsToSupplyAmpsTextBox.Text = (null != keyValue) ? keyValue.ToString() : "1.0";
+         keyValue = appKey.GetValue("AnalogIoVoltsToSupplyAmpsSlope");
+         this.AnalogIoVoltsToSupplyAmpsSlopeTextBox.Text = (null != keyValue) ? keyValue.ToString() : "1.0";
+
+         keyValue = appKey.GetValue("AnalogIoVoltsToSupplyAmpsOffset");
+         this.AnalogIoVoltsToSupplyAmpsOffsetTextBox.Text = (null != keyValue) ? keyValue.ToString() : "0.0";         
 
          keyValue = appKey.GetValue("AnalogIoVoltsToLoadPounds");
          this.AnalogIoVoltsToLoadPoundsTextBox.Text = (null != keyValue) ? keyValue.ToString() : "1.0";
@@ -251,7 +254,8 @@ namespace DYNO.GUI
 
          appKey.SetValue("UutSpeedToRpm", this.UutRpmToSpeedTextBox.Text);
          appKey.SetValue("BodySpeedToRpm", this.BodyRpmToSpeedTextBox.Text);
-         appKey.SetValue("AnalogIoVoltsToSupplyAmps", this.AnalogIoVoltsToSupplyAmpsTextBox.Text);
+         appKey.SetValue("AnalogIoVoltsToSupplyAmpsSlope", this.AnalogIoVoltsToSupplyAmpsSlopeTextBox.Text);
+         appKey.SetValue("AnalogIoVoltsToSupplyAmpsOffset", this.AnalogIoVoltsToSupplyAmpsOffsetTextBox.Text);
          appKey.SetValue("AnalogIoVoltsToLoadPounds", this.AnalogIoVoltsToLoadPoundsTextBox.Text);
 
          appKey.SetValue("TraceMask", this.TraceMaskTextBox.Text);
@@ -303,7 +307,8 @@ namespace DYNO.GUI
 
          this.UutRpmToSpeedTextBox.Enabled = true;
          this.BodyRpmToSpeedTextBox.Enabled = true;
-         this.AnalogIoVoltsToSupplyAmpsTextBox.Enabled = true;
+         this.AnalogIoVoltsToSupplyAmpsSlopeTextBox.Enabled = true;
+         this.AnalogIoVoltsToSupplyAmpsOffsetTextBox.Enabled = true;
          this.AnalogIoVoltsToLoadPoundsTextBox.Enabled = true;
 
          this.LoadParametersButton.Enabled = true;
@@ -334,7 +339,8 @@ namespace DYNO.GUI
 
          this.UutRpmToSpeedTextBox.Enabled = false;
          this.BodyRpmToSpeedTextBox.Enabled = false;
-         this.AnalogIoVoltsToSupplyAmpsTextBox.Enabled = false;
+         this.AnalogIoVoltsToSupplyAmpsSlopeTextBox.Enabled = false;
+         this.AnalogIoVoltsToSupplyAmpsOffsetTextBox.Enabled = false;
          this.AnalogIoVoltsToLoadPoundsTextBox.Enabled = false;
 
          this.LoadParametersButton.Enabled = false;
@@ -565,27 +571,48 @@ namespace DYNO.GUI
 
          #region Analog IO Volts to Supply Amps Parsing
 
-         string analogIoVoltsToSupplyAmpsString = this.AnalogIoVoltsToSupplyAmpsTextBox.Text;
+         string analogIoVoltsToSupplyAmpsSlopeString = this.AnalogIoVoltsToSupplyAmpsSlopeTextBox.Text;
 
-         if (null != analogIoVoltsToSupplyAmpsString)
+         if (null != analogIoVoltsToSupplyAmpsSlopeString)
          {
-            double analogIoVoltsToSupplyAmps = 0.0;
+            double analogIoVoltsToSupplyAmpsSlope = 0.0;
 
-            if ((double.TryParse(analogIoVoltsToSupplyAmpsString, out analogIoVoltsToSupplyAmps) != false) &&
-                (0 != analogIoVoltsToSupplyAmps))
+            if ((double.TryParse(analogIoVoltsToSupplyAmpsSlopeString, out analogIoVoltsToSupplyAmpsSlope) != false) &&
+                (0 != analogIoVoltsToSupplyAmpsSlope))
             {
-               setupParameters.AnalogIoVoltsToSupplyAmps = analogIoVoltsToSupplyAmps;
+               setupParameters.AnalogIoVoltsToSupplyAmpsSlope = analogIoVoltsToSupplyAmpsSlope;
             }
             else
             {
                result = "invalid entry";
-               this.AnalogIoVoltsToSupplyAmpsTextBox.BackColor = Color.Red;
+               this.AnalogIoVoltsToSupplyAmpsSlopeTextBox.BackColor = Color.Red;
             }
          }
 
          #endregion
 
-         #region Analog IO Volts to Supply Amps Parsing
+         #region Analog IO Volts to Supply Amps Offset Parsing
+
+         string analogIoVoltsToSupplyAmpsOffsetString = this.AnalogIoVoltsToSupplyAmpsOffsetTextBox.Text;
+
+         if (null != analogIoVoltsToSupplyAmpsOffsetString)
+         {
+            double analogIoVoltsToSupplyAmpsOffset = 0.0;
+
+            if (double.TryParse(analogIoVoltsToSupplyAmpsOffsetString, out analogIoVoltsToSupplyAmpsOffset) != false)
+            {
+               setupParameters.AnalogIoVoltsToSupplyAmpsOffset = analogIoVoltsToSupplyAmpsOffset;
+            }
+            else
+            {
+               result = "invalid entry";
+               this.AnalogIoVoltsToSupplyAmpsOffsetTextBox.BackColor = Color.Red;
+            }
+         }
+
+         #endregion
+
+         #region Analog IO Volts to Load Pounds Parsing
 
          string analogIoVoltsToLoadPoundsString = this.AnalogIoVoltsToLoadPoundsTextBox.Text;
 
@@ -771,7 +798,15 @@ namespace DYNO.GUI
 
             if (double.TryParse(wheelSpeedString, out wheelSpeed) != false)
             {
-               testParameters.WheelSpeed = wheelSpeed;
+               if ((wheelSpeed >= -10) && (wheelSpeed <= 10))
+               {
+                  testParameters.WheelSpeed = wheelSpeed;
+               }
+               else
+               {
+                  result = "invalid entry, limited to {-10.0 .. +10.0}";
+                  this.WheelSpeedTextBox.BackColor = Color.Red;
+               }
             }
             else
             {

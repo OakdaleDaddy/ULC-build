@@ -21,7 +21,8 @@
       public double UutRpmToSpeed { set; get; }
       public double BodyRpmToSpeed { set; get; }
       public double AnalogIoVoltsToLoadPounds { set; get; }
-      public double AnalogIoVoltsToSupplyAmps { set; get; }
+      public double AnalogIoVoltsToSupplyAmpsSlope { set; get; }
+      public double AnalogIoVoltsToSupplyAmpsOffset { set; get; }
 
       #endregion
 
@@ -42,7 +43,8 @@
          this.UutRpmToSpeed = 1.0;
          this.BodyRpmToSpeed = 1.0;
          this.AnalogIoVoltsToLoadPounds = 1.0;
-         this.AnalogIoVoltsToSupplyAmps = 1.0;
+         this.AnalogIoVoltsToSupplyAmpsSlope = 1.0;
+         this.AnalogIoVoltsToSupplyAmpsOffset = 0.0;
       }
 
       #endregion
