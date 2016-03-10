@@ -43,3 +43,6 @@ CAN-GPS/build/.dep
 CAN-GPS/build/.lst
 CAN-GPS/build/.obj
 CAN-GPS/build/.out
+
+/NICBOT_MAIN_BOOT/.vs
+/NICBOT_MAIN_BOOT/BOOT/Debug
