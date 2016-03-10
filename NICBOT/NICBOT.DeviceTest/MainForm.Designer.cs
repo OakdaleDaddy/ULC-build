@@ -80,6 +80,13 @@
          this.DeviceDownloadStringDataTextBox = new System.Windows.Forms.TextBox();
          this.DeviceUploadStringDataTextBox = new System.Windows.Forms.TextBox();
          this.label7 = new System.Windows.Forms.Label();
+         this.DownloadTabPage = new System.Windows.Forms.TabPage();
+         this.DownloadActivityButton = new System.Windows.Forms.Button();
+         this.DownloadBrowseButton = new System.Windows.Forms.Button();
+         this.DownloadFileTextBox = new System.Windows.Forms.TextBox();
+         this.label129 = new System.Windows.Forms.Label();
+         this.DownloadActiveNodeIdTextBox = new System.Windows.Forms.TextBox();
+         this.label51 = new System.Windows.Forms.Label();
          this.DigitalIoTabPage = new System.Windows.Forms.TabPage();
          this.DigitalIoProducerHeartbeatTimeTextBox = new System.Windows.Forms.TextBox();
          this.SetDigitalIoProducerHeartbeatButton = new System.Windows.Forms.Button();
@@ -606,10 +613,14 @@
          this.button3 = new System.Windows.Forms.Button();
          this.splitter1 = new System.Windows.Forms.Splitter();
          this.MainActivityPanel = new System.Windows.Forms.Panel();
+         this.DownloadClearButton = new System.Windows.Forms.Button();
+         this.DownloadResetButton = new System.Windows.Forms.Button();
+         this.DownloadProgressLabel = new System.Windows.Forms.Label();
          this.MainStatusStrip.SuspendLayout();
          this.MainTabControl.SuspendLayout();
          this.ControlTabPage.SuspendLayout();
          this.HeartbeatGroupBox.SuspendLayout();
+         this.DownloadTabPage.SuspendLayout();
          this.DigitalIoTabPage.SuspendLayout();
          this.AnalogIoTabPage.SuspendLayout();
          this.EncoderTabPage.SuspendLayout();
@@ -802,7 +813,7 @@
          // ClearButton
          // 
          this.ClearButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-         this.ClearButton.Location = new System.Drawing.Point(624, 6);
+         this.ClearButton.Location = new System.Drawing.Point(671, 6);
          this.ClearButton.Name = "ClearButton";
          this.ClearButton.Size = new System.Drawing.Size(55, 23);
          this.ClearButton.TabIndex = 25;
@@ -953,6 +964,7 @@
          // MainTabControl
          // 
          this.MainTabControl.Controls.Add(this.ControlTabPage);
+         this.MainTabControl.Controls.Add(this.DownloadTabPage);
          this.MainTabControl.Controls.Add(this.DigitalIoTabPage);
          this.MainTabControl.Controls.Add(this.AnalogIoTabPage);
          this.MainTabControl.Controls.Add(this.EncoderTabPage);
@@ -1124,6 +1136,82 @@
          this.label7.Size = new System.Drawing.Size(33, 13);
          this.label7.TabIndex = 45;
          this.label7.Text = "Node";
+         // 
+         // DownloadTabPage
+         // 
+         this.DownloadTabPage.Controls.Add(this.DownloadProgressLabel);
+         this.DownloadTabPage.Controls.Add(this.DownloadResetButton);
+         this.DownloadTabPage.Controls.Add(this.DownloadClearButton);
+         this.DownloadTabPage.Controls.Add(this.DownloadActivityButton);
+         this.DownloadTabPage.Controls.Add(this.DownloadBrowseButton);
+         this.DownloadTabPage.Controls.Add(this.DownloadFileTextBox);
+         this.DownloadTabPage.Controls.Add(this.label129);
+         this.DownloadTabPage.Controls.Add(this.DownloadActiveNodeIdTextBox);
+         this.DownloadTabPage.Controls.Add(this.label51);
+         this.DownloadTabPage.Location = new System.Drawing.Point(4, 22);
+         this.DownloadTabPage.Name = "DownloadTabPage";
+         this.DownloadTabPage.Padding = new System.Windows.Forms.Padding(3);
+         this.DownloadTabPage.Size = new System.Drawing.Size(734, 130);
+         this.DownloadTabPage.TabIndex = 11;
+         this.DownloadTabPage.Text = "Download";
+         this.DownloadTabPage.UseVisualStyleBackColor = true;
+         // 
+         // DownloadActivityButton
+         // 
+         this.DownloadActivityButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+         this.DownloadActivityButton.Location = new System.Drawing.Point(564, 34);
+         this.DownloadActivityButton.Name = "DownloadActivityButton";
+         this.DownloadActivityButton.Size = new System.Drawing.Size(59, 23);
+         this.DownloadActivityButton.TabIndex = 114;
+         this.DownloadActivityButton.Text = "Activity";
+         this.DownloadActivityButton.UseVisualStyleBackColor = true;
+         this.DownloadActivityButton.Click += new System.EventHandler(this.DownloadActivityButton_Click);
+         // 
+         // DownloadBrowseButton
+         // 
+         this.DownloadBrowseButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+         this.DownloadBrowseButton.Location = new System.Drawing.Point(629, 6);
+         this.DownloadBrowseButton.Name = "DownloadBrowseButton";
+         this.DownloadBrowseButton.Size = new System.Drawing.Size(27, 23);
+         this.DownloadBrowseButton.TabIndex = 113;
+         this.DownloadBrowseButton.Text = "...";
+         this.DownloadBrowseButton.UseVisualStyleBackColor = true;
+         this.DownloadBrowseButton.Click += new System.EventHandler(this.DownloadBrowseButton_Click);
+         // 
+         // DownloadFileTextBox
+         // 
+         this.DownloadFileTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+         this.DownloadFileTextBox.Location = new System.Drawing.Point(95, 8);
+         this.DownloadFileTextBox.Name = "DownloadFileTextBox";
+         this.DownloadFileTextBox.Size = new System.Drawing.Size(528, 20);
+         this.DownloadFileTextBox.TabIndex = 105;
+         // 
+         // label129
+         // 
+         this.label129.AutoSize = true;
+         this.label129.Location = new System.Drawing.Point(70, 11);
+         this.label129.Name = "label129";
+         this.label129.Size = new System.Drawing.Size(23, 13);
+         this.label129.TabIndex = 104;
+         this.label129.Text = "File";
+         // 
+         // DownloadActiveNodeIdTextBox
+         // 
+         this.DownloadActiveNodeIdTextBox.Location = new System.Drawing.Point(41, 8);
+         this.DownloadActiveNodeIdTextBox.Name = "DownloadActiveNodeIdTextBox";
+         this.DownloadActiveNodeIdTextBox.Size = new System.Drawing.Size(23, 20);
+         this.DownloadActiveNodeIdTextBox.TabIndex = 51;
+         this.DownloadActiveNodeIdTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+         // 
+         // label51
+         // 
+         this.label51.AutoSize = true;
+         this.label51.Location = new System.Drawing.Point(6, 11);
+         this.label51.Name = "label51";
+         this.label51.Size = new System.Drawing.Size(33, 13);
+         this.label51.TabIndex = 52;
+         this.label51.Text = "Node";
          // 
          // DigitalIoTabPage
          // 
@@ -1333,7 +1421,7 @@
          // DigitalIoClearButton
          // 
          this.DigitalIoClearButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-         this.DigitalIoClearButton.Location = new System.Drawing.Point(618, 6);
+         this.DigitalIoClearButton.Location = new System.Drawing.Point(671, 6);
          this.DigitalIoClearButton.Name = "DigitalIoClearButton";
          this.DigitalIoClearButton.Size = new System.Drawing.Size(55, 23);
          this.DigitalIoClearButton.TabIndex = 51;
@@ -1809,7 +1897,7 @@
          // AnalogIoClearButton
          // 
          this.AnalogIoClearButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-         this.AnalogIoClearButton.Location = new System.Drawing.Point(618, 6);
+         this.AnalogIoClearButton.Location = new System.Drawing.Point(671, 6);
          this.AnalogIoClearButton.Name = "AnalogIoClearButton";
          this.AnalogIoClearButton.Size = new System.Drawing.Size(55, 23);
          this.AnalogIoClearButton.TabIndex = 126;
@@ -1909,7 +1997,7 @@
          // EncoderClearButton
          // 
          this.EncoderClearButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-         this.EncoderClearButton.Location = new System.Drawing.Point(616, 6);
+         this.EncoderClearButton.Location = new System.Drawing.Point(671, 6);
          this.EncoderClearButton.Name = "EncoderClearButton";
          this.EncoderClearButton.Size = new System.Drawing.Size(55, 23);
          this.EncoderClearButton.TabIndex = 45;
@@ -2007,7 +2095,7 @@
          // MotorSyncButton
          // 
          this.MotorSyncButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-         this.MotorSyncButton.Location = new System.Drawing.Point(616, 35);
+         this.MotorSyncButton.Location = new System.Drawing.Point(671, 35);
          this.MotorSyncButton.Name = "MotorSyncButton";
          this.MotorSyncButton.Size = new System.Drawing.Size(55, 23);
          this.MotorSyncButton.TabIndex = 97;
@@ -2134,7 +2222,7 @@
          // MotorClearButton
          // 
          this.MotorClearButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-         this.MotorClearButton.Location = new System.Drawing.Point(616, 6);
+         this.MotorClearButton.Location = new System.Drawing.Point(671, 6);
          this.MotorClearButton.Name = "MotorClearButton";
          this.MotorClearButton.Size = new System.Drawing.Size(55, 23);
          this.MotorClearButton.TabIndex = 51;
@@ -3434,7 +3522,7 @@
          // CameraClearButton
          // 
          this.CameraClearButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-         this.CameraClearButton.Location = new System.Drawing.Point(616, 6);
+         this.CameraClearButton.Location = new System.Drawing.Point(671, 6);
          this.CameraClearButton.Name = "CameraClearButton";
          this.CameraClearButton.Size = new System.Drawing.Size(55, 23);
          this.CameraClearButton.TabIndex = 46;
@@ -3703,7 +3791,7 @@
          // GpsClearButton
          // 
          this.GpsClearButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-         this.GpsClearButton.Location = new System.Drawing.Point(616, 6);
+         this.GpsClearButton.Location = new System.Drawing.Point(671, 6);
          this.GpsClearButton.Name = "GpsClearButton";
          this.GpsClearButton.Size = new System.Drawing.Size(55, 23);
          this.GpsClearButton.TabIndex = 47;
@@ -4118,7 +4206,7 @@
          this.NicbotBodyRepairGroupBox.Controls.Add(this.SetNicbotOriginHuntOnButton);
          this.NicbotBodyRepairGroupBox.Location = new System.Drawing.Point(3, 85);
          this.NicbotBodyRepairGroupBox.Name = "NicbotBodyRepairGroupBox";
-         this.NicbotBodyRepairGroupBox.Size = new System.Drawing.Size(684, 418);
+         this.NicbotBodyRepairGroupBox.Size = new System.Drawing.Size(652, 418);
          this.NicbotBodyRepairGroupBox.TabIndex = 231;
          this.NicbotBodyRepairGroupBox.TabStop = false;
          this.NicbotBodyRepairGroupBox.Text = "REPAIR";
@@ -5330,7 +5418,7 @@
          this.NicbotBodyInspectGroupBox.Controls.Add(this.NicbotInspectFrontArmExtendCheckBox);
          this.NicbotBodyInspectGroupBox.Location = new System.Drawing.Point(0, 509);
          this.NicbotBodyInspectGroupBox.Name = "NicbotBodyInspectGroupBox";
-         this.NicbotBodyInspectGroupBox.Size = new System.Drawing.Size(684, 79);
+         this.NicbotBodyInspectGroupBox.Size = new System.Drawing.Size(652, 79);
          this.NicbotBodyInspectGroupBox.TabIndex = 230;
          this.NicbotBodyInspectGroupBox.TabStop = false;
          this.NicbotBodyInspectGroupBox.Text = "INSPECT";
@@ -5666,7 +5754,7 @@
          // NicBotClearButton
          // 
          this.NicBotClearButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-         this.NicBotClearButton.Location = new System.Drawing.Point(674, 6);
+         this.NicBotClearButton.Location = new System.Drawing.Point(671, 6);
          this.NicBotClearButton.Name = "NicBotClearButton";
          this.NicBotClearButton.Size = new System.Drawing.Size(55, 23);
          this.NicBotClearButton.TabIndex = 58;
@@ -6191,7 +6279,7 @@
          // button4
          // 
          this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-         this.button4.Location = new System.Drawing.Point(616, 6);
+         this.button4.Location = new System.Drawing.Point(671, 6);
          this.button4.Name = "button4";
          this.button4.Size = new System.Drawing.Size(55, 23);
          this.button4.TabIndex = 59;
@@ -6508,7 +6596,7 @@
          // button3
          // 
          this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-         this.button3.Location = new System.Drawing.Point(616, 6);
+         this.button3.Location = new System.Drawing.Point(671, 6);
          this.button3.Name = "button3";
          this.button3.Size = new System.Drawing.Size(55, 23);
          this.button3.TabIndex = 59;
@@ -6534,6 +6622,36 @@
          this.MainActivityPanel.Size = new System.Drawing.Size(742, 156);
          this.MainActivityPanel.TabIndex = 45;
          // 
+         // DownloadClearButton
+         // 
+         this.DownloadClearButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+         this.DownloadClearButton.Location = new System.Drawing.Point(671, 6);
+         this.DownloadClearButton.Name = "DownloadClearButton";
+         this.DownloadClearButton.Size = new System.Drawing.Size(55, 23);
+         this.DownloadClearButton.TabIndex = 115;
+         this.DownloadClearButton.Text = "Clear";
+         this.DownloadClearButton.UseVisualStyleBackColor = true;
+         this.DownloadClearButton.Click += new System.EventHandler(this.ClearButton_Click);
+         // 
+         // DownloadResetButton
+         // 
+         this.DownloadResetButton.Location = new System.Drawing.Point(95, 34);
+         this.DownloadResetButton.Name = "DownloadResetButton";
+         this.DownloadResetButton.Size = new System.Drawing.Size(46, 23);
+         this.DownloadResetButton.TabIndex = 116;
+         this.DownloadResetButton.Text = "Reset";
+         this.DownloadResetButton.UseVisualStyleBackColor = true;
+         this.DownloadResetButton.Click += new System.EventHandler(this.DownloadResetButton_Click);
+         // 
+         // DownloadProgressLabel
+         // 
+         this.DownloadProgressLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+         this.DownloadProgressLabel.Location = new System.Drawing.Point(629, 39);
+         this.DownloadProgressLabel.Name = "DownloadProgressLabel";
+         this.DownloadProgressLabel.Size = new System.Drawing.Size(61, 18);
+         this.DownloadProgressLabel.TabIndex = 117;
+         this.DownloadProgressLabel.Text = "0%";
+         // 
          // MainForm
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -6556,6 +6674,8 @@
          this.ControlTabPage.PerformLayout();
          this.HeartbeatGroupBox.ResumeLayout(false);
          this.HeartbeatGroupBox.PerformLayout();
+         this.DownloadTabPage.ResumeLayout(false);
+         this.DownloadTabPage.PerformLayout();
          this.DigitalIoTabPage.ResumeLayout(false);
          this.DigitalIoTabPage.PerformLayout();
          this.AnalogIoTabPage.ResumeLayout(false);
@@ -7176,6 +7296,16 @@
       private System.Windows.Forms.Label label153;
       private System.Windows.Forms.Splitter splitter1;
       private System.Windows.Forms.Panel MainActivityPanel;
+      private System.Windows.Forms.TabPage DownloadTabPage;
+      private System.Windows.Forms.Button DownloadActivityButton;
+      private System.Windows.Forms.Button DownloadBrowseButton;
+      private System.Windows.Forms.TextBox DownloadFileTextBox;
+      private System.Windows.Forms.Label label129;
+      private System.Windows.Forms.TextBox DownloadActiveNodeIdTextBox;
+      private System.Windows.Forms.Label label51;
+      private System.Windows.Forms.Button DownloadClearButton;
+      private System.Windows.Forms.Button DownloadResetButton;
+      private System.Windows.Forms.Label DownloadProgressLabel;
    }
 }
 

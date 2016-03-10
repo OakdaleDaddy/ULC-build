@@ -3,6 +3,7 @@ namespace NICBOT.CAN
 {
    using System;
    using System.Collections;
+   using System.IO;
    using System.Text;
    using System.Threading;
 
@@ -21,10 +22,20 @@ namespace NICBOT.CAN
          error,
       }
 
+      private enum DownloadSteps
+      {
+         start,
+         waitReset,
+         waitBootStart,
+         waitFirmwareDownload,
+         waitStartRequest,
+      }
+
       public delegate void ReceiveTraceHandler(int id, byte[] data);
       public delegate void TransmitTraceHandler(int id, byte[] data);
       public delegate bool TransmitHandler(int id, byte[] data);
       public delegate void CommErrorHandler(string name, int nodeId, string reason);
+      public delegate void ImageDownloadCompleteHandler(string result);
 
       #endregion
 
@@ -45,6 +56,17 @@ namespace NICBOT.CAN
 
       protected AutoResetEvent commEvent;
       protected CommAction pendingAction;
+
+      private bool downloadActive;
+      private bool downloadCancel;
+      private DownloadSteps downloadStep;
+      private CommAction downloadAction;
+      private string downloadFile;
+      private ImageDownloadCompleteHandler downloadCompleteHandler;
+      private DateTime downloadTimeLimit;
+      private byte[] downloadData;
+      private UInt32 downloadImageSize;
+      private UInt32 downloadImagePosition;
 
       protected bool receiveBootupHeartbeart;
       private bool consumerHeartbeatActive;
@@ -244,21 +266,28 @@ namespace NICBOT.CAN
          }
       }
 
-      protected void ScheduleAction(CommAction action)
+      protected bool ScheduleAction(CommAction action)
       {
+         bool result = false;
+
          if (CommStates.error != this.commState)
          {
             lock (this)
             {
                this.actionQueue.Enqueue(action);
+               result = true;
             }
 
             // this.Update(); todo how to determine calling context?
          }
+
+         return (result);
       }
 
-      protected void ScheduleAction(CommAction action, int timeout, int attemptLimit)
+      protected bool ScheduleAction(CommAction action, int timeout, int attemptLimit)
       {
+         bool result = false;
+
          if (CommStates.error != this.commState)
          {
             lock (this)
@@ -266,10 +295,13 @@ namespace NICBOT.CAN
                action.RetryTime = timeout;
                action.RetryAttemptLimit = attemptLimit;
                this.actionQueue.Enqueue(action);
+               result = true;
             }
 
             // this.Update(); todo how to determine calling context?
          }
+
+         return (result);
       }
 
       protected bool ExchangeCommAction(CommAction action, int timeout = 200, int attemptLimit = 2)
@@ -546,6 +578,10 @@ namespace NICBOT.CAN
             this.pendingAction = null;
             this.commEvent.Set();
          }
+         else if (this.downloadAction == action)
+         {
+            this.downloadAction = null;
+         }
       }
 
       #endregion
@@ -760,6 +796,38 @@ namespace NICBOT.CAN
          bool result = true;
          result &= this.ExchangeCommAction(new SDODownload(0x1017, 0, 2, (UInt16)milliseconds));
          return (result);
+      }
+
+      public bool DownloadImage(string file, ImageDownloadCompleteHandler onComplete)
+      {
+         bool result = false;
+
+         if ((null == this.FaultReason) && (false == this.downloadActive))
+         {
+            this.downloadFile = file;
+            this.downloadCompleteHandler = onComplete;
+            this.downloadCancel = false;
+            this.downloadActive = true;
+            this.downloadStep = DownloadSteps.start;
+
+            result = true;
+         }
+
+         return (result);
+      }
+
+      public void StopImageDownload()
+      {
+         this.downloadCancel = true;
+      }
+
+      public void GetImageDownloadStatus(ref UInt32 imageSize, ref UInt32 downloadPosition)
+      {
+         if (false != this.downloadActive)
+         {
+            imageSize = this.downloadImageSize;
+            downloadPosition = this.downloadImagePosition;
+         }
       }
 
       private void TraceReceive(COBTypes frameType, int cobId, byte[] msg)
@@ -1026,6 +1094,139 @@ namespace NICBOT.CAN
                this.Fault("heartbeat missing");
             }
          }
+
+         #region Download Process
+
+         if (false != this.downloadActive)
+         {
+            string downloadResult = null;
+            bool downloadComplete = false;
+            
+            if (null != this.FaultReason)
+            {
+               downloadComplete = true;
+               downloadResult = "Device faulted: " + this.FaultReason;
+            }
+            else if (false != this.downloadCancel)
+            {
+               downloadComplete = true;
+               downloadResult = "Cancelled";
+            }
+            else if (DownloadSteps.start == this.downloadStep)
+            {
+               if (File.Exists(this.downloadFile) != false)
+               {
+                  FileStream fs = File.Open(this.downloadFile, FileMode.Open);
+                  BinaryReader br = new BinaryReader(fs);
+
+                  this.downloadImagePosition = 0;
+                  this.downloadImageSize = (UInt32)fs.Length;
+                  this.downloadData = br.ReadBytes((int)this.downloadImageSize);
+
+                  br.Close();
+                  br.Dispose();
+
+                  fs.Close();
+                  fs.Dispose();
+
+                  this.receiveBootupHeartbeart = false;
+                  this.downloadAction = new NetworkRequest(0x80, this.NodeId);
+                  bool result = this.ScheduleAction(this.downloadAction);
+
+                  if (false != result)
+                  {
+                     this.downloadTimeLimit = DateTime.Now.AddMilliseconds(700);
+                     this.downloadStep = DownloadSteps.waitReset;
+                  }
+                  else
+                  {
+                     downloadResult = "Unable to schedule reset.";
+                     downloadComplete = true;
+                  }
+               }
+               else
+               {
+                  downloadResult = "Unable to open file.";
+                  downloadComplete = true;
+               }
+            }
+            else if (DownloadSteps.waitReset == this.downloadStep)
+            {
+               if ((null == this.downloadAction) && (false != this.receiveBootupHeartbeart))
+               {
+                  this.downloadTimeLimit = DateTime.Now.AddMilliseconds(500);
+                  this.downloadStep = DownloadSteps.waitBootStart;
+               }
+               else if (DateTime.Now > this.downloadTimeLimit)
+               {
+                  this.downloadTimeLimit = DateTime.Now.AddMilliseconds(500);
+                  this.downloadStep = DownloadSteps.waitBootStart;
+               }
+            }
+            else if (DownloadSteps.waitBootStart == this.downloadStep)
+            {
+               if (DateTime.Now > this.downloadTimeLimit)
+               {
+                  this.downloadAction = new SDODownload(0x1F50, 1, this.downloadData, 0, this.downloadData.Length);
+                  bool result = this.ScheduleAction(this.downloadAction, 5000, 1);
+
+                  if (false != result)
+                  {
+                     this.downloadStep = DownloadSteps.waitFirmwareDownload;
+                  }
+                  else
+                  {
+                     downloadResult = "Unable to schedule download.";
+                     downloadComplete = true;
+                  }
+               }
+            }
+            else if (DownloadSteps.waitFirmwareDownload == this.downloadStep)
+            {
+               if (null != this.downloadAction)
+               {
+                  this.downloadImagePosition = ((SDODownload)this.downloadAction).SentCount;
+               }
+               else 
+               {
+                  this.downloadImagePosition = this.downloadImageSize;
+                  this.downloadAction = new SDODownload(0x1F51, 1, 1, 1);
+                  bool result = this.ScheduleAction(this.downloadAction);
+
+                  if (false != result)
+                  {
+                     this.downloadTimeLimit = DateTime.Now.AddSeconds(2);
+                     this.downloadStep = DownloadSteps.waitStartRequest;
+                  }
+                  else
+                  {
+                     downloadResult = "Unable to schedule start.";
+                     downloadComplete = true;
+                  }
+               }
+            }
+            else if (DownloadSteps.waitStartRequest == this.downloadStep)
+            {
+               if (null == this.downloadAction)
+               {
+                  downloadResult = null;
+                  downloadComplete = true;
+               }
+            }
+            else
+            {
+               downloadResult = "Unknown step.";
+               downloadComplete = true;
+            }
+
+            if (false != downloadComplete)
+            {
+               this.downloadData = null;
+               this.downloadActive = false;
+               this.downloadCompleteHandler(downloadResult);
+            }
+         }
+         #endregion
       }
 
       public virtual void UploadLastTimeStampCorrection()

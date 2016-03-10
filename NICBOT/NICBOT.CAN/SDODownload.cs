@@ -57,6 +57,8 @@ namespace NICBOT.CAN
          this.done = false;
       }
 
+      public UInt32 SentCount { get { return (this.sentCount); } }
+
       public override bool ResponseNeeded()
       {
          return (true);
@@ -73,8 +75,9 @@ namespace NICBOT.CAN
             {
                // send expedited frame
 
-               int cmdLength = (int)(4 + this.length);
-               result = new byte[cmdLength];
+               //int cmdLength = (int)(4 + this.length);
+               //result = new byte[cmdLength];
+               result = new byte[8];
                int n = (int)(4 - this.length);
 
                result[0] = (byte)(0x20 | (n << 2) | 0x03);
@@ -108,27 +111,30 @@ namespace NICBOT.CAN
          else
          {
             UInt32 remaining = this.length - this.sentCount;
+            UInt32 packetCount = remaining;
 
-            if (remaining > 7)
+            if (packetCount > 7)
             {
-               remaining = 7;
+               packetCount = 7;
+            }
+            else
+            {
             }
 
-            int cmdLength = (int)(1 + remaining);
-            result = new byte[cmdLength];
+            result = new byte[8];
 
-            int n = (int)((remaining < 7) ? (7 - remaining) : 0);
+            int n = (int)((packetCount < 7) ? (7 - packetCount) : 0);
             int t = (false != this.toggle) ? 1 : 0;
             int c = (remaining <= 7) ? 1 : 0;
 
             result[0] = (byte)((t << 4) | (n << 1) | c);
 
-            for (int i = 0; i < remaining; i++)
+            for (int i = 0; i < packetCount; i++)
             {
                result[1 + i] = this.buffer[this.sentCount + this.offset + i];
             }
 
-            this.lastSentLength = remaining;
+            this.lastSentLength = packetCount;
          }
 
          return (result);
@@ -139,26 +145,29 @@ namespace NICBOT.CAN
          if ((null != frame) && (frame.Length >= 4))
          {
             COBTypes frameType = (COBTypes)((cobId >> 7) & 0xF);
-            ushort rspIndex = (ushort)((frame[2] << 8) | frame[1]);
-            byte rspSubIndex = frame[3];
             int scs = (int)((frame[0] >> 5) & 0x7);
 
-            if ((COBTypes.TSDO == frameType) &&
-                (rspIndex == this.index) && 
-                (rspSubIndex == this.subIndex))
+            if (COBTypes.TSDO == frameType) 
             {
                if (3 == scs)
                {
-                  this.initiated = true;
-                  this.sentCount += this.lastSentLength;
+                  ushort rspIndex = (ushort)((frame[2] << 8) | frame[1]);
+                  byte rspSubIndex = frame[3];
 
-                  if (this.sentCount == this.length)
+                  if ((rspIndex == this.index) &&
+                      (rspSubIndex == this.subIndex))
                   {
-                     this.done = true;
-                  }
-                  else
-                  {
-                     this.transmit = true;
+                     this.initiated = true;
+                     this.sentCount += this.lastSentLength;
+
+                     if (this.sentCount == this.length)
+                     {
+                        this.done = true;
+                     }
+                     else
+                     {
+                        this.transmit = true;
+                     }
                   }
                }
                else if (1 == scs)

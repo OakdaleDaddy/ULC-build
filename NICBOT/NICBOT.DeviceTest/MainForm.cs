@@ -35,6 +35,7 @@ namespace NICBOT.DeviceTest
       
       private BusInterface busInterface;
       private Device device;
+      private Device downloadDevice;
       private PeakDigitalIo digitalIo;
       private PeakAnalogIo analogIo;
       private KublerRotaryEncoder encoder;
@@ -50,6 +51,10 @@ namespace NICBOT.DeviceTest
       private int heartbeatTime;
       private DateTime heartbeatTimeLimit;
 
+      private bool downloadActive;
+      private bool downloadComplete;
+      private string downloadResult;
+      
       private byte digitalIoInputs;
       private byte motorInputs;
 
@@ -176,6 +181,12 @@ namespace NICBOT.DeviceTest
          keyValue = appKey.GetValue("HeartbeatTime");
          this.HeartbeatTimeTextBox.Text = (null != keyValue) ? keyValue.ToString() : "1000";
 
+         keyValue = appKey.GetValue("DownloadActiveNodeId");
+         this.DownloadActiveNodeIdTextBox.Text = (null != keyValue) ? keyValue.ToString() : "";
+
+         keyValue = appKey.GetValue("DownloadFile");
+         this.DownloadFileTextBox.Text = (null != keyValue) ? keyValue.ToString() : "";
+
          keyValue = appKey.GetValue("DigitalIoActiveNodeId");
          this.DigitalIoActiveNodeIdTextBox.Text = (null != keyValue) ? keyValue.ToString() : "";
          
@@ -232,6 +243,9 @@ namespace NICBOT.DeviceTest
          appKey.SetValue("ActiveNodeId", this.ActiveDeviceNodeIdTextBox.Text);
          appKey.SetValue("HeartbeatNodeId", this.HeartbeatNodeIdTextBox.Text);
          appKey.SetValue("HeartbeatTime", this.HeartbeatTimeTextBox.Text);
+
+         appKey.SetValue("DownloadActiveNodeId", this.DownloadActiveNodeIdTextBox.Text);
+         appKey.SetValue("DownloadFile", this.DownloadFileTextBox.Text);
 
          appKey.SetValue("DigitalIoActiveNodeId", this.DigitalIoActiveNodeIdTextBox.Text);
          appKey.SetValue("AnalogIoActiveNodeId", this.AnalogIoActiveNodeIdTextBox.Text);
@@ -341,6 +355,12 @@ namespace NICBOT.DeviceTest
          {
             this.rs232RxQueue.Enqueue(buffer[i]);
          }
+      }
+
+      private void DownloadCompleteHandler(string result)
+      {
+         this.downloadResult = result;
+         this.downloadComplete = true;
       }
 
       #endregion
@@ -560,6 +580,82 @@ namespace NICBOT.DeviceTest
          else
          {
             this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      #endregion
+
+      #region Device Download Events
+
+      private void DownloadBrowseButton_Click(object sender, EventArgs e)
+      {
+         OpenFileDialog openFileDialog = new OpenFileDialog();
+
+         if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+         {
+            this.DownloadFileTextBox.Text = openFileDialog.FileName;
+         }
+      }
+
+      private void DownloadResetButton_Click(object sender, EventArgs e)
+      {
+         byte deviceNodeId = 0;
+
+         if (byte.TryParse(this.DownloadActiveNodeIdTextBox.Text, out deviceNodeId) != false)
+         {
+            this.downloadDevice.NodeId = deviceNodeId;
+            this.downloadDevice.Reset();
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      private void DownloadActivityButton_Click(object sender, EventArgs e)
+      {
+         if (false == this.downloadActive)
+         {
+            byte nodeId = 0;
+
+            if (byte.TryParse(this.DownloadActiveNodeIdTextBox.Text, out nodeId) != false)
+            {
+               this.downloadDevice.NodeId = nodeId;
+               this.downloadComplete = false;
+
+               bool result = this.downloadDevice.DownloadImage(this.DownloadFileTextBox.Text, new Device.ImageDownloadCompleteHandler(this.DownloadCompleteHandler));
+
+               if (false != result)
+               {
+                  this.downloadActive = true;
+
+                  this.DownloadFileTextBox.Enabled = false;
+                  this.DownloadBrowseButton.Enabled = false;
+                  this.DownloadActivityButton.Text = "Stop";
+
+                  this.StatusLabel.Text = "Downloading...";
+               }
+               else
+               {
+                  this.StatusLabel.Text = "Unable to start download.";
+               }
+            }
+            else
+            {
+               this.StatusLabel.Text = "Invalid entry.";
+            }
+         }
+         else
+         {
+            this.downloadDevice.StopImageDownload();
+            this.downloadActive = false;
+
+            this.DownloadProgressLabel.Text = "";
+            this.DownloadFileTextBox.Enabled = true;
+            this.DownloadBrowseButton.Enabled = true;
+            this.DownloadActivityButton.Text = "Start";
+
+            this.StatusLabel.Text = "Image download stopped.";
          }
       }
 
@@ -5639,6 +5735,45 @@ namespace NICBOT.DeviceTest
 
          #endregion
 
+         #region Download Update
+
+         if (false != this.downloadActive)
+         {
+            if (false != this.downloadComplete)
+            {
+               if (null == this.downloadResult)
+               {
+                  this.StatusLabel.Text = "Download complete.";
+               }
+               else
+               {
+                  string downloadStatusString = string.Format("Download error: '{0}'", this.downloadResult);
+                  this.StatusLabel.Text = downloadStatusString;
+               }
+
+               this.DownloadProgressLabel.Text = "";
+               this.DownloadFileTextBox.Enabled = true;
+               this.DownloadBrowseButton.Enabled = true;
+               this.DownloadActivityButton.Text = "Start";
+               this.downloadActive = false;
+            }
+            else
+            {
+               UInt32 imageSize = 0;
+               UInt32 downloadPosition = 0;
+
+               this.downloadDevice.GetImageDownloadStatus(ref imageSize, ref downloadPosition);
+
+               if (0 != imageSize)
+               {
+                  double progress = downloadPosition * 100 / imageSize;
+                  this.DownloadProgressLabel.Text = string.Format("{0:0}%", progress);
+               }
+            }
+         }
+
+         #endregion
+
          #region Digital IO Updates
 
          this.DigitalIoInputsTextBox.Text = this.digitalIoInputs.ToString("X2");
@@ -5882,6 +6017,7 @@ namespace NICBOT.DeviceTest
          this.StatusLabel.Text = "";
 
          this.device = new Device("device", 0);
+         this.downloadDevice = new Device("download device", 0);
 
          this.digitalIo = new PeakDigitalIo("digital IO", 0);
          this.digitalIo.OnInputChange = new PeakDigitalIo.InputChangeHandler(this.DigitalIoChangeHandler);
@@ -5904,6 +6040,7 @@ namespace NICBOT.DeviceTest
          
          this.busInterface = new BusInterface();
          this.busInterface.AddDevice(this.device);
+         this.busInterface.AddDevice(this.downloadDevice);
          this.busInterface.AddDevice(this.digitalIo);
          this.busInterface.AddDevice(this.analogIo);
          this.busInterface.AddDevice(this.encoder);
@@ -6040,6 +6177,10 @@ namespace NICBOT.DeviceTest
 
          this.ActivityButton.Text = "Start";
          this.active = false;
+
+         this.DownloadProgressLabel.Text = "";
+         this.DownloadActivityButton.Text = "Start";
+         this.downloadActive = false;
 
          this.HeartbeatActivityButton.Text = "Start";
          this.heartbeatActive = false;

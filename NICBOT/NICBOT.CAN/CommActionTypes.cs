@@ -3,7 +3,7 @@ namespace NICBOT.CAN
 {
    public enum CommActionTypes
    {
-      // applicable to all device
+      // applicable to all devices
       NetworkRequest,
       SDODownload,
       SDOUpload,
