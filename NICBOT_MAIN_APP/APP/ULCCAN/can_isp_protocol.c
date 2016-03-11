@@ -294,7 +294,7 @@ static u8_t transferBuffer[128];
 
 static u32_t deviceType = 0x00003010;
 static char * deviceName = "NICBOT Body";
-static char * version = "v1.00 " __DATE__ " " __TIME__;
+static char * version = "v1.01 ";// __DATE__ " " __TIME__;
 
 static u32_t errorStatus = 0;
 static u8_t * deviceFaultCode;
