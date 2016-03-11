@@ -1,0 +1,10 @@
+// subversion information
+
+#ifndef _SVNINFOH_
+#define _SVNINFOH_
+
+#define REV    $WCREV$
+#define REVSTR "$WCREV$"
+
+#endif
+

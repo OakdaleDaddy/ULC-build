@@ -1,0 +1,252 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0">
+  <PropertyGroup>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>7.0</ProjectVersion>
+    <ToolchainName>com.Atmel.AVRGCC8.C</ToolchainName>
+    <ProjectGuid>dce6c7e3-ee26-4d79-826b-08594b9ad897</ProjectGuid>
+    <avrdevice>AT90CAN128</avrdevice>
+    <avrdeviceseries>none</avrdeviceseries>
+    <OutputType>Executable</OutputType>
+    <Language>C</Language>
+    <OutputFileName>$(MSBuildProjectName)</OutputFileName>
+    <OutputFileExtension>.elf</OutputFileExtension>
+    <OutputDirectory>$(MSBuildProjectDirectory)\$(Configuration)</OutputDirectory>
+    <AssemblyName>APP</AssemblyName>
+    <Name>APP</Name>
+    <RootNamespace>APP</RootNamespace>
+    <ToolchainFlavour>Native</ToolchainFlavour>
+    <KeepTimersRunning>true</KeepTimersRunning>
+    <OverrideVtor>false</OverrideVtor>
+    <CacheFlash>true</CacheFlash>
+    <ProgFlashFromRam>true</ProgFlashFromRam>
+    <RamSnippetAddress>0x20000000</RamSnippetAddress>
+    <UncachedRange />
+    <preserveEEPROM>true</preserveEEPROM>
+    <OverrideVtorValue>exception_table</OverrideVtorValue>
+    <BootSegment>2</BootSegment>
+    <eraseonlaunchrule>0</eraseonlaunchrule>
+    <AsfFrameworkConfig>
+      <framework-data xmlns="">
+        <options />
+        <configurations />
+        <files />
+        <documentation help="" />
+        <offline-documentation help="" />
+        <dependencies>
+          <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.30.1" />
+        </dependencies>
+      </framework-data>
+    </AsfFrameworkConfig>
+    <avrtool>com.atmel.avrdbg.tool.atmelice</avrtool>
+    <avrtoolserialnumber>J41800025760</avrtoolserialnumber>
+    <avrdeviceexpectedsignature>0x1E9781</avrdeviceexpectedsignature>
+    <com_atmel_avrdbg_tool_atmelice>
+      <ToolOptions>
+        <InterfaceProperties>
+          <JtagDbgClock>200000</JtagDbgClock>
+        </InterfaceProperties>
+        <InterfaceName>JTAG</InterfaceName>
+      </ToolOptions>
+      <ToolType>com.atmel.avrdbg.tool.atmelice</ToolType>
+      <ToolNumber>J41800025760</ToolNumber>
+      <ToolName>Atmel-ICE</ToolName>
+    </com_atmel_avrdbg_tool_atmelice>
+    <avrtoolinterface>JTAG</avrtoolinterface>
+    <avrtoolinterfaceclock>200000</avrtoolinterfaceclock>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <ToolchainSettings>
+      <AvrGcc>
+        <avrgcc.common.Device>-mmcu=at90can128 -B "%24(PackRepoDir)\atmel\ATmega_DFP\1.0.98\gcc\dev\at90can128"</avrgcc.common.Device>
+        <avrgcc.common.optimization.RelaxBranches>True</avrgcc.common.optimization.RelaxBranches>
+        <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
+        <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
+        <avrgcc.common.outputfiles.eep>True</avrgcc.common.outputfiles.eep>
+        <avrgcc.common.outputfiles.srec>True</avrgcc.common.outputfiles.srec>
+        <avrgcc.common.outputfiles.usersignatures>False</avrgcc.common.outputfiles.usersignatures>
+        <avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>True</avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>
+        <avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>True</avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>
+        <avrgcc.compiler.symbols.DefSymbols>
+          <ListValues>
+            <Value>NDEBUG</Value>
+          </ListValues>
+        </avrgcc.compiler.symbols.DefSymbols>
+        <avrgcc.compiler.directories.IncludePaths>
+          <ListValues>
+            <Value>%24(PackRepoDir)\atmel\ATmega_DFP\1.0.98\include</Value>
+          </ListValues>
+        </avrgcc.compiler.directories.IncludePaths>
+        <avrgcc.compiler.optimization.level>Optimize for size (-Os)</avrgcc.compiler.optimization.level>
+        <avrgcc.compiler.optimization.PackStructureMembers>True</avrgcc.compiler.optimization.PackStructureMembers>
+        <avrgcc.compiler.optimization.AllocateBytesNeededForEnum>True</avrgcc.compiler.optimization.AllocateBytesNeededForEnum>
+        <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
+        <avrgcc.assembler.general.IncludePaths>
+          <ListValues>
+            <Value>%24(PackRepoDir)\atmel\ATmega_DFP\1.0.98\include</Value>
+          </ListValues>
+        </avrgcc.assembler.general.IncludePaths>
+      </AvrGcc>
+    </ToolchainSettings>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <ToolchainSettings>
+      <AvrGcc>
+  <avrgcc.common.Device>-mmcu=at90can128 -B "%24(PackRepoDir)\atmel\ATmega_DFP\1.0.98\gcc\dev\at90can128"</avrgcc.common.Device>
+  <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
+  <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
+  <avrgcc.common.outputfiles.eep>True</avrgcc.common.outputfiles.eep>
+  <avrgcc.common.outputfiles.srec>True</avrgcc.common.outputfiles.srec>
+  <avrgcc.common.outputfiles.usersignatures>False</avrgcc.common.outputfiles.usersignatures>
+  <avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>True</avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>
+  <avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>True</avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>
+  <avrgcc.compiler.symbols.DefSymbols>
+    <ListValues>
+      <Value>xUSE_MICROCAN_OPEN</Value>
+    </ListValues>
+  </avrgcc.compiler.symbols.DefSymbols>
+  <avrgcc.compiler.directories.IncludePaths>
+    <ListValues>
+      <Value>..</Value>
+      <Value>%24(PackRepoDir)\atmel\ATmega_DFP\1.0.98\include</Value>
+      <Value>../CANopen/MCO</Value>
+      <Value>../CANopen/MCO_NICBOTMAIN__User</Value>
+      <Value>../CANopen/MCO_NICBOTMAIN__User/EDS</Value>
+      <Value>../CANopen/MCO_NICBOTMAIN_AT90CAN128</Value>
+      <Value>../CANopen/XOD</Value>
+      <Value>../ULCCAN</Value>
+    </ListValues>
+  </avrgcc.compiler.directories.IncludePaths>
+  <avrgcc.compiler.optimization.level>Optimize for size (-Os)</avrgcc.compiler.optimization.level>
+  <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
+  <avrgcc.compiler.miscellaneous.OtherFlags>-gdwarf-2</avrgcc.compiler.miscellaneous.OtherFlags>
+  <avrgcc.linker.memorysettings.Flash>
+    <ListValues>
+      <Value>.bootconf=0x3f80</Value>
+    </ListValues>
+  </avrgcc.linker.memorysettings.Flash>
+  <avrgcc.assembler.general.IncludePaths>
+    <ListValues>
+      <Value>%24(PackRepoDir)\atmel\ATmega_DFP\1.0.98\include</Value>
+    </ListValues>
+  </avrgcc.assembler.general.IncludePaths>
+</AvrGcc>
+    </ToolchainSettings>
+    <PostBuildEvent>"$(SolutionDir)\tools\hexsum.exe" "$(OutputDirectory)\$(OutputFileName).hex"  -b00000 -e1E000 -c1DFFE -l
+"$(SolutionDir)\tools\hexsum.exe" "$(OutputDirectory)\$(OutputFileName).hex" -b00000 -e1E000 -c1DFFE -x -l</PostBuildEvent>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="CANopen\can_access.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="CANopen\MCO\canfifo.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="CANopen\MCO\lssslv.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="CANopen\MCO\mco.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="CANopen\MCO\mcop.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="CANopen\MCO\mlssslv.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="CANopen\MCO\storpara.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="CANopen\MCO\xsdo.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="CANopen\MCO_NICBOTMAIN_AT90CAN128\main_AT90CAN128.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="CANopen\MCO_NICBOTMAIN_AT90CAN128\mcohw_AT80CAN128.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="CANopen\MCO_NICBOTMAIN_AT90CAN128\mcohw_nvol_AT90CAN128.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="CANopen\MCO_NICBOTMAIN_AT90CAN128\user_AT90CAN128.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="CANopen\MCO_NICBOTMAIN__User\user_cbdata.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="CANopen\MCO_NICBOTMAIN__User\user_od.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="CANopen\XOD\raccess.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="CANopen\XOD\racrc.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="CANopen\XOD\raserial.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="CANopen\XOD\xod.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="CANopen\XOD\xpdo.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="CommonFunctions.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="eeprom_lib.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="flash_api_lib.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="flash_boot_drv.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="flash_boot_lib.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="i2c_master.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="isp_lib.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="isp_lib.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="LED Control.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="NIC_Main_Board.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ServoControl.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ULCCAN\can_access.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ULCCAN\can_drv.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ULCCAN\can_isp_protocol.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ULCCAN\reduced_can_lib.c">
+      <SubType>compile</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CANopen" />
+    <Folder Include="CANopen\MCO" />
+    <Folder Include="CANopen\MCO_NICBOTMAIN__User" />
+    <Folder Include="CANopen\MCO_NICBOTMAIN_AT90CAN128" />
+    <Folder Include="CANopen\MCO_NICBOTMAIN__User\EDS" />
+    <Folder Include="CANopen\XOD" />
+    <Folder Include="ULCCAN" />
+  </ItemGroup>
+  <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
+</Project>
