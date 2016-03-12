@@ -133,8 +133,11 @@ namespace NICBOT.CAN
                   errorCode = BitConverter.ToUInt64(msg, 0);
                }
 
-               string faultReason = string.Format("emergency {0:X16}", errorCode);
-               this.Fault(faultReason);
+               if (0 != errorCode)
+               {
+                  string faultReason = string.Format("emergency {0:X16}", errorCode);
+                  this.Fault(faultReason);
+               }
             }
             else if (COBTypes.TPDO1 == frameType)
             {

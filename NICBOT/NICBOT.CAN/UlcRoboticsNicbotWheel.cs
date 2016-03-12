@@ -107,8 +107,11 @@
                   errorCode = BitConverter.ToUInt64(msg, 0);
                }
 
-               string faultReasong = string.Format("emergency {0:X16}", errorCode);
-               this.Fault(faultReasong);
+               if (0 != errorCode)
+               {
+                  string faultReasong = string.Format("emergency {0:X16}", errorCode);
+                  this.Fault(faultReasong);
+               }
             }
             else if (COBTypes.TPDO1 == frameType)
             {
