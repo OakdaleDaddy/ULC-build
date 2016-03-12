@@ -210,6 +210,7 @@ void MCOUSER_SDOWrAft (
   UNSIGNED8 len           // Length of data 
   )
 {
+   CAN_ODData(index,subindex,&(gProcImg[offset]),len);
 }
 #endif // USECB_SDO_WR_AFTER
 
@@ -275,21 +276,6 @@ UNSIGNED8 MCOUSER_AppSDOWriteInit (
   UNSIGNED8 * MEM_FAR *pDat // RETURN: pointer to data buffer
   )
 {
-  if ((idx == 0x2222) && (subidx == 0x23))
-  { // handle this access, single-buffer transfer
-    *size = sizeof(od_2222_23_wr_buf);
-    *pDat = (UNSIGNED8 *)&od_2222_23_wr_buf[0];
-    return 1;
-  }
-  else if ((idx == 0x2222) && (subidx == 0x24))
-  { // handle this access, multi-buffer transfer
-    *totalsize = sizeof(od_2222_24_fssimu_buf);
-    *size = sizeof(od_2222_24_rw_buf);
-    *pDat = (UNSIGNED8 *)&od_2222_24_rw_buf[0];
-    lenwc = 0;
-    bufcnt = 0;
-    return 1;
-  }
   return 0;
 }
 
@@ -308,27 +294,6 @@ void MCOUSER_AppSDOWriteComplete (
   UNSIGNED32 more // Number of bytes still to come (of total transfer)
   )
 {
-  if ((idx == 0x2222) && (subidx == 0x23))
-  { // handle this access, all should be done because of single-buffer transfer
-    // Here enter code to retrieve data from buffer
-    // Data length: size, more == 0
-    if (more != 0)
-    { // this should never happen
-      for (;;); // wait here for break      
-    } 
-  }
-  else if ((idx == 0x2222) && (subidx == 0x24))
-  { // handle this access, multi-buffer transfer
-    // simulate file system write by storing data from the single r/w buffer into the simulation buffer array
-    MEM_CPY(&(od_2222_24_fssimu_buf[bufcnt][0]), &(od_2222_24_rw_buf[0]), sizeof(od_2222_24_rw_buf));
-    bufcnt++;
-    // keep track of how many bytes have been transferred
-    lenwc += size;
-    if (more == 0)
-    { // this is the last transfer, all received 
-      lenw = lenwc; // save new length of the entry, for read access
-    } 
-  }
 }
 #endif // USECB_APPSDO_WRITE
 

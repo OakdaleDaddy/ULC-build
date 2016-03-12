@@ -2525,6 +2525,11 @@ static u8_t storeDeviceData(u16_t index, u8_t subIndex, u8_t * source, u32_t off
         }
     }
 
+    if ( (0 != result) )
+    {
+        CAN_ODData(index, subIndex, &source[offset], length);
+    }
+
     return(result);
 }
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */

@@ -66,6 +66,15 @@ void CAN_AppSDOReadComplete(U8 server, U16 index, U8 subIndex, U32 * size)
    *size = 0;
 }
 
+/* See can_callbacks.h for function description */
+void CAN_ODData(U16 index, U8 subIndex, U8 * pData, U8 length)
+{
+   // evaluate
+   if ( (0x2102 == index) )
+   {
+      // device mode written
+   }
+}
 
 //------------------------------------------------------------------------------
 int main(void)

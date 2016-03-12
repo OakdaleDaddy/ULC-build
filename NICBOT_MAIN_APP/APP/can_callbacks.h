@@ -86,4 +86,17 @@ U8 CAN_AppSDOReadInit(U8 server, U16 index, U8 subIndex, U32 * totalSize, U32 * 
 */
 void CAN_AppSDOReadComplete(U8 server, U16 index, U8 subIndex, U32 * size);
 
+/**
+* @brief Function to signal object dictionary change.
+*
+* The function signals the receipt of process data stored into the process 
+* image, no matter if it came in by PDO or SDO transfer. 
+*
+* @params index : index of OD entry
+* @params subIndex : subindex of OD entry
+* @params pData : pointer to data buffer
+* @params size : size of data buffer
+*/
+void CAN_ODData(U16 index, U8 subIndex, U8 * pData, U8 length);
+
 #endif /* CAN_CALLBACKS_H */ 
