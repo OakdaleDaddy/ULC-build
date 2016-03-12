@@ -988,6 +988,9 @@ UNSIGNED8 result;
   SimDriver_printf("Retrieving stored parameters: ");
 #endif
 
+  // Unused parameter 
+  (void)result;
+
   // Get info about current NVOL usage
   MCOSP_GetNVOLUsage(&(location[0]));
 

@@ -10,28 +10,9 @@
 #include "ServoControl.h"
 #include "CommonFunctions.h"
 #include "LED_Control.h"
-// #include <util/delay.h> // causes integer overflow, 
-#include <util/delay_basic.h>
 #include "can_access.h"
 #include "can_callbacks.h"
 
-static void waitStart(unsigned short milliSeconds);
-
-//------------------------------------------------------------------------------
-static void waitStart(unsigned short milliSeconds)
-{
-    unsigned short i, j;
-
-    for (i=0; i<milliSeconds; i += 1000)
-    {
-        PORTC ^= 0x01;
-
-        for (j=0; j<4000; j++)
-        {
-            _delay_loop_2(1000);
-        }
-    }        
-}
 
 //------------------------------------------------------------------------------
 /* See can_callbacks.h for function description */
@@ -85,9 +66,6 @@ int main(void)
     CAN_PORT_OUT |=  (1<<CAN_INPUT_PIN );
     CAN_PORT_OUT |=  (1<<CAN_OUTPUT_PIN);
     
-    // allow time for boot loading of other devices on the bus
-    //waitStart(3000);
-
     // Initialize CAN Communication
     CAN_ResetCommunication();
 

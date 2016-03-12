@@ -452,7 +452,7 @@ uint16_t MCOHW_GetTime(void)
 	} 
 	while (b_tovf); /* get time again if timer overflow interrupt occurred */
 	
-	return (*((uint16_t *)(&msec_timer)));
+	return (msec_timer&0xFFFF);
 }
 
 /** ****************************************************************************

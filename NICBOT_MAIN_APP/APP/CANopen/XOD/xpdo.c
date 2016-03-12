@@ -109,7 +109,7 @@ UNSIGNED16 found_rec;
   { // TPDO
 #if NR_OF_TPDOS > 0
     // Make quick guess, check for linear PDO numbering
-    if ( (PDONr < NR_OF_TPDOS) && 
+    if ( (PDONr <= NR_OF_TPDOS) && 
          (gTPDOConfig[PDONr-1].PDONr == PDONr) 
        )
     { // found the TPDO
@@ -133,7 +133,7 @@ UNSIGNED16 found_rec;
   { // RPDO
 #if NR_OF_RPDOS > 0
     // Make quick guess, check for linear PDO numbering
-    if ( (PDONr < NR_OF_RPDOS) && 
+    if ( (PDONr <= NR_OF_RPDOS) && 
          (gRPDOConfig[PDONr-1].PDONr == PDONr) 
        )
     { // found the TPDO

@@ -177,7 +177,7 @@ MACROS FOR PLATFORM-ENDIANNESS-INDEPENDENT LITTLE-ENDIAN MEMORY ACCESS
 /**************************************************************************
 MACROS FOR OBJECT DICTIONARY ENTRIES
 **************************************************************************/
-#define GETBYTE(val,pos) ((val >> pos) & 0xFF)
+#define GETBYTE(val,pos) (((val) >> (pos)) & 0xFF)
 #define GETBYTES16(val) GETBYTE(val, 0), GETBYTE(val, 8)
 #define GETBYTES32(val) GETBYTE(val, 0), GETBYTE(val, 8), GETBYTE(val,16), GETBYTE(val,24)
 

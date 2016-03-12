@@ -35,6 +35,7 @@ uint8_t i2c_start(uint8_t address)
 	_delay_ms(1);
 	// check if the device has acknowledged the READ / WRITE mode
 	uint8_t twst = TW_STATUS & 0xF8;
+	(void)twst ;
 
 	
 	return 0;

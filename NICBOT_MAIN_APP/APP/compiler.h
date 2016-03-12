@@ -83,8 +83,12 @@ typedef union
 #define ENABLED  1
 #define DISABLED 0
 #define DISABLE  0
-#define FALSE   (0==1)
-#define TRUE    (1==1)
+#ifndef FALSE
+# define FALSE   (0==1)
+#endif /* FALSE */
+#ifndef TRUE
+# define TRUE    (1==1)
+#endif /* TRUE */
 #define KO      0
 #define OK      1
 #define CLR     0

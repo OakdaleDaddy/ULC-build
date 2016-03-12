@@ -74,6 +74,7 @@ UNSIGNED16 ret_val;
   return ret_val;
 }
 
+#if (USE_XOD_ACCESS == 1)
 static UNSIGNED32 Get32 (UNSIGNED8 *ptr)
 {
 UNSIGNED32 ret_val;
@@ -85,7 +86,7 @@ UNSIGNED32 ret_val;
   ret_val += Get16(ptr);
   return ret_val;
 }
-
+#endif 
 
 /**************************************************************************
 GLOBAL FUNCTIONS
@@ -185,8 +186,8 @@ static UNSIGNED8 *pdat;
 
   if (OD_FindODDataEntry(3,index,subindex,&len,&pdat))
   { // entry found, now check if result is in process image
-    offset = (UNSIGNED32) pdat; // pointer into process image
-    offset -= (UNSIGNED32) (&(gProcImg[0])); // deduct start of proces simage to calculate offset
+    offset = (intptr_t) pdat; // pointer into process image
+    offset -= (intptr_t) (&(gProcImg[0])); // deduct start of proces simage to calculate offset
     if (offset >= PROCIMG_SIZE)
     { // not in allowed range
       offset = 0xFFFFFFFFul;
