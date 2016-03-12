@@ -10,6 +10,8 @@
 
 #ifndef USE_MICROCAN_OPEN
 
+#include "config.h"
+#include "can_isp_protocol.h"
 #include "can_access.h"
 
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */

@@ -11,6 +11,7 @@
 #include "CommonFunctions.h"
 #include "ServoControl.h"
 #include "LED_Control.h"
+#include "can_callbacks.h"
 
 //_____ D E F I N I T I O N S __________________________________________________
 
@@ -794,6 +795,7 @@ static u8_t setServoProportionalControlConstant(u8_t axisNum, u32_t value)
 	byte1 = (u8_t)((value >> 8) & 0xFF);
 	
 	result = set_kp(axisNum, byte1, byte0);
+   (void)result;
 	
 #if 0	
 	if (0 == result)
@@ -820,6 +822,7 @@ static u8_t setServoIntegralControlConstant(u8_t axisNum, u32_t value)
 	byte1 = (u8_t)((value >> 8) & 0xFF);
 	
 	result = set_ki(axisNum, byte1, byte0);
+   (void)result;
 	
 #if 0
 	if (0 == result)
@@ -846,6 +849,7 @@ static u8_t setServoDerivativeControlConstant(u8_t axisNum, u32_t value)
 	byte1 = (u8_t)((value >> 8) & 0xFF);
 	
 	result = set_kd(axisNum, byte1, byte0);
+   (void)result;
 	
 #if 0	
 	if (0 == result)
@@ -2686,6 +2690,18 @@ static u8_t sendSdoData(void)
             }
 
             transferLastLength = (7 - n);
+
+            if ( (0 == transferLastLength) )
+            {
+               uint32_t size = 0;
+               CAN_AppSDOReadComplete(0, transferIndex, transferSubIndex, &size);
+
+               if ( (0 != size) )
+               { 
+                  // block upload with application not support 
+                  result = 0;
+               }
+            }
         }
     }
     else
@@ -3801,13 +3817,20 @@ static void initiateSdoUpload(u8_t * frame)
         }
     }
 
-    if ( (0 == transferActive) )
-    {
-        u32_t dataLength = 0;
-        u8_t valid = loadDeviceData(index, subIndex, transferBuffer, &dataLength, sizeof(transferBuffer));
+   if ( (0 == transferActive) )
+   {
+      u32_t totalSize = 0;
+      u32_t size = 0;
+      u8_t * pData = NULL;
+      u8_t appResult = CAN_AppSDOReadInit(0, index, subIndex, &totalSize, &size, &pData);
 
-        if ( (0 != valid) )
-        {
+      if ( (0 == appResult) )
+      {
+         u32_t dataLength = 0;
+         u8_t valid = loadDeviceData(index, subIndex, transferBuffer, &dataLength, sizeof(transferBuffer));
+
+         if ( (0 != valid) )
+         {
             transferActive = 1;
             transferUpload = 1;
             transferStarted = 0;
@@ -3819,17 +3842,45 @@ static void initiateSdoUpload(u8_t * frame)
             transferLastLength = 0;
 
             sendSdoData();
-        }
-        else
-        {
+         }
+         else
+         {
             sendSdoAbort(index, subIndex, 0x08000000);
-        }
-    }
-    else
-    {
-        sendSdoAbort(index, subIndex, 0x08000001);
-        transferActive = 0;
-    }
+         }
+      }
+      else if ( (1 == appResult) )
+      {
+         if ( (totalSize <= sizeof(transferBuffer)) )
+         {
+            memcpy(transferBuffer, pData, totalSize);
+
+            transferActive = 1;
+            transferUpload = 1;
+            transferStarted = 0;
+            transferIndex = index;
+            transferSubIndex = subIndex;
+            transferToggle = 0;
+            transferLength = totalSize;
+            transferOffset = 0;
+            transferLastLength = 0;
+
+            sendSdoData();
+         }
+         else
+         {
+            sendSdoAbort(index, subIndex, 0x08000000);
+         }
+      }
+      else
+      {
+         sendSdoAbort(index, subIndex, 0x06010001UL);
+      }
+   }
+   else
+   {
+      sendSdoAbort(index, subIndex, 0x08000001);
+      transferActive = 0;
+   }
 }
 
 static void processSdoUpload(u8_t * frame)
@@ -4444,7 +4495,7 @@ void can_isp_protocol_init(void)
     setPreOperationalState(1);
 }
 
-void can_isp_protocol_task(void)
+uint8_t can_isp_protocol_task(void)
 {
 	// evaluate state
 	switch (deviceState)
@@ -4467,6 +4518,8 @@ void can_isp_protocol_task(void)
 	}
 	
 	serveCOP();
+
+   return(0);
 }
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */

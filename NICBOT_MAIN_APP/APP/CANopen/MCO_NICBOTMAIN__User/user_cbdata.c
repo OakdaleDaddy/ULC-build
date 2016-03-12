@@ -17,6 +17,7 @@ VERSION:   6.20, ESA 11-MAY-15
 ***************************************************************************/ 
 
 #include "mcop_inc.h"
+#include "can_callbacks.h"
 
 
 #ifdef MCOUSER_MINMAX
@@ -213,32 +214,6 @@ void MCOUSER_SDOWrAft (
 #endif // USECB_SDO_WR_AFTER
 
 
-
-#if USECB_APPSDO_READ || USECB_APPSDO_WRITE
-#include <string.h>
-char MEM_CONST od_2222_23_rd_buf1[] = "012345678901234567890123456789";
-char MEM_CONST od_2222_23_rd_buf2[] = "Test of custom entry 2222h,23h 0123456789";
-UNSIGNED8 od_2222_23_wr_buf[64];
-
-#define RW_BUFSIZE      20              // maximum size for single r/w buffer
-#define FSSIMU_PACKETS  10              // maximum number of packets for the multi-buffer access
-#define FSSIMU_MAXSIZE  (FSSIMU_PACKETS*RW_BUFSIZE) // maximum size for the multi-buffer access
-
-// od_2222_24_rw_buf is the read/write buffer for entry [2222h,24h]. That's the 
-// buffer the stack "sees".
-// od_2222_24_fssimu_buf simulates "some data source/sink in the background,"
-// such as a file system. The stack never accesses this buffer directly. Instead,
-// the call-back copies data back and forth in maximum chunks of RW_BUFSIZE.
-// These MEM_CPY calls simulate file read/write.
-UNSIGNED8 od_2222_24_rw_buf[RW_BUFSIZE];
-UNSIGNED8 od_2222_24_fssimu_buf[FSSIMU_PACKETS][RW_BUFSIZE];
-
-UNSIGNED16 bufcnt;
-volatile UNSIGNED32 lenw = 0;
-volatile UNSIGNED32 lenwc = 0;
-UNSIGNED8 zero = 0;
-#endif // USECB_APPSDO_READ || USECB_APPSDO_WRITE
-
 #if USECB_APPSDO_READ
 /*******************************************************************************
 DOES:    Call Back function to allow implementation of custom, application
@@ -258,42 +233,7 @@ UNSIGNED8 MCOUSER_AppSDOReadInit (
   UNSIGNED8 * MEM_FAR *pDat // RETURN: pointer to data buffer
   )
 {
-  static UNSIGNED16 lenr;
-  
-  if ((idx == 0x2222) && (subidx == 0x23))
-  { // handle this access, read alternating strings in single-buffer transfer
-    if (lenr != sizeof(od_2222_23_rd_buf1)-1)
-    {
-      lenr = sizeof(od_2222_23_rd_buf1)-1;
-      *size = lenr;
-      *pDat = (UNSIGNED8 *)&od_2222_23_rd_buf1[0];
-    }
-    else
-    {
-      lenr = sizeof(od_2222_23_rd_buf2)-1;
-      *size = sizeof(od_2222_23_rd_buf2)-1;
-      *pDat = (UNSIGNED8 *)&od_2222_23_rd_buf2[0];
-    }
-  }
-  else if ((idx == 0x2222) && (subidx == 0x24))
-  { // handle this access, multi-buffer transfer
-    *pDat = (UNSIGNED8 *)&od_2222_24_rw_buf[0];
-    *totalsize = lenw;
-    // either transmit full r/w buffer length, or partial buffer if data length is smaller
-    *size = (lenw > sizeof(od_2222_24_rw_buf)) ? sizeof(od_2222_24_rw_buf) : lenw;
-    // keep track of how many bytes have been transmitted
-    lenwc = *totalsize - *size;
-    // Simulate file system read by copying from simulation buffer to single r/w buffer
-    bufcnt = 0;
-    MEM_CPY(&od_2222_24_rw_buf[0], &od_2222_24_fssimu_buf[bufcnt][0], sizeof(od_2222_24_rw_buf));
-    bufcnt++;
-  }
-  else
-  {
-    return 0;
-  }
-
-  return 1;
+   return( CAN_AppSDOReadInit(sdoserver, idx, subidx, totalsize, size, pDat) );
 }
 
 
@@ -310,21 +250,7 @@ void MCOUSER_AppSDOReadComplete (
   UNSIGNED32 MEM_FAR *size // RETURN: size of next block of data, 0 for no further data
   )
 {
-  if ((idx == 0x2222) && (subidx == 0x23))
-  { // handle this access, single-buffer transfer finished
-    *size = 0;
-  }
-  else if ((idx == 0x2222) && (subidx == 0x24))
-  { // handle this access, multi-buffer transfer
-    // either transmit full r/w buffer length, or partial buffer if it's the last one
-    *size = (lenwc > sizeof(od_2222_24_rw_buf)) ? sizeof(od_2222_24_rw_buf) : lenwc;
-    // keep track of how many bytes have been transmitted
-    lenwc -= *size;
-    // Simulate file system read by copying from simulation buffer to single r/w buffer
-    MEM_CPY(&od_2222_24_rw_buf[0], &od_2222_24_fssimu_buf[bufcnt][0], sizeof(od_2222_24_rw_buf));
-    bufcnt++;
-  }
-  
+  CAN_AppSDOReadComplete(sdoserver, idx, subidx, size);
   return;
 }
 #endif // USECB_APPSDO_READ

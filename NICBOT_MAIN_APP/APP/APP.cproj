@@ -102,7 +102,7 @@
   <avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>True</avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>
   <avrgcc.compiler.symbols.DefSymbols>
     <ListValues>
-      <Value>xUSE_MICROCAN_OPEN</Value>
+      <Value>USE_MICROCAN_OPEN</Value>
     </ListValues>
   </avrgcc.compiler.symbols.DefSymbols>
   <avrgcc.compiler.directories.IncludePaths>
@@ -163,7 +163,7 @@
     <Compile Include="CANopen\MCO_NICBOTMAIN_AT90CAN128\main_AT90CAN128.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="CANopen\MCO_NICBOTMAIN_AT90CAN128\mcohw_AT80CAN128.c">
+    <Compile Include="CANopen\MCO_NICBOTMAIN_AT90CAN128\mcohw_AT90CAN128.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="CANopen\MCO_NICBOTMAIN_AT90CAN128\mcohw_nvol_AT90CAN128.c">

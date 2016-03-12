@@ -127,7 +127,7 @@ DEFINES: ENABLING CANopen DATA CALL-BACK FUNCTIONS
 // SDO request. Allows implementation of application specific, custom 
 // segmented SDOs (e.g dynamic length entries)
 // NOTE: segmented SDO access, also outside PI
-#define USECB_APPSDO_READ  0
+#define USECB_APPSDO_READ  1
 #define USECB_APPSDO_WRITE 0
 
 

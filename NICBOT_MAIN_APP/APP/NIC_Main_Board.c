@@ -1,4 +1,7 @@
 //_____  I N C L U D E S _______________________________________________________
+
+#include <string.h>
+
 #include "config.h"
 #include "can_isp_protocol.h"
 #include "isp_lib.h"
@@ -13,6 +16,7 @@
 #include "can_access.h"
 #include "can_callbacks.h"
 
+static char * softwareVersion = "v1.02 abc def";
 
 //------------------------------------------------------------------------------
 /* See can_callbacks.h for function description */
@@ -33,10 +37,40 @@ void CAN_NMTChange(U8 state)
 {
 }
 
+/* See can_callbacks.h for function description */
+U8 CAN_AppSDOReadInit(U8 server, U16 index, U8 subIndex, U32 * totalSize, U32 * size, U8 ** pData)
+{   
+   U8 result;
+
+   // Unused Parameters
+   (void)server;
+   (void)subIndex;
+
+   // initialize
+   result = 0; 
+
+   // evaluate
+   if ( (0x100A == index) )   
+   {
+      *size = *totalSize = strlen(softwareVersion);
+      *pData = (U8 *)softwareVersion;      
+      result = 1;
+   }
+
+   return(result);
+}
+
+/* See can_callbacks.h for function description */
+void CAN_AppSDOReadComplete(U8 server, U16 index, U8 subIndex, U32 * size)
+{
+   *size = 0;
+}
+
+
 //------------------------------------------------------------------------------
 int main(void)
 {   
-    DDRD |=0b00000000;
+   DDRD |=0b00000000;
 	PORTD |= 0b00000011;
 	DDRC = 0xF3;
 	PORTC = 0x00;
@@ -54,7 +88,7 @@ int main(void)
 	DDRE |= 0b00111110;
 	PORTE |= 0b00000100;
 	Init_I2C(); // todo move to setPreOperationalState
-    DrillInit(); // todo move to setPreOperationalState
+   DrillInit(); // todo move to setPreOperationalState
 	servo_hard_reset();
 
     //! --- First of all, disabling the Global Interrupt
@@ -70,7 +104,7 @@ int main(void)
     CAN_ResetCommunication();
 
     // enable interrupts
-    sei();
+    Enable_interrupt();
     
     // process
     for (;;)
@@ -78,18 +112,6 @@ int main(void)
 	   // Update CAN Stack
 	   CAN_ProcessStack();
     }
-
-#if 0
-    // initialize protocol
-    can_isp_protocol_init();
-	
-
-    // process
-    for (;;)
-    {
-        can_isp_protocol_task();
-    }    
-#endif    
 	
     // End of "main"
     return(0);

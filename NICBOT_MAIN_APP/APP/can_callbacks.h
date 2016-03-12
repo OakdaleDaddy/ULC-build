@@ -45,4 +45,45 @@ void CAN_ResetApplication(void);
 */
 void CAN_NMTChange(U8 state);
 
+/**
+* @brief Function to evaluate a SDO upload request.
+*
+* The function can be used to implement custom Object Dictionary read entries
+* of any length.  Data is transferred in segmented mode or block mode if
+* activated.
+*
+* @params server : SDO server number
+* @params index : index of OD entry
+* @params subIndex : subindex of OD entry
+* @params totalSize : total size of data, only set if greater than *size
+* @params size : size of data buffer
+* @params pData : pointer to data buffer
+*
+* @return 0: The specified OD entry is not handled by this function.
+* @return 1: The specified OD entry is handled by this function. A valid pointer and data size are returned.
+* @return 5: An SDO abort SDO_ABORT_WRITEONLY is generated.
+*/
+U8 CAN_AppSDOReadInit(U8 server, U16 index, U8 subIndex, U32 * totalSize, U32 * size, U8 ** pData);
+
+/**
+* @brief Function to transfer additional data into upload data buffer.
+*
+* The function is called upon completion of a SDO upload transfer, or 
+* whenever the source buffer has been completely transferred and needs to be 
+* refilled to deliver more data.
+*
+* The value *size returns how many more bytes are going to be transferred to 
+* the SDO Client reading from the entry, or 0 if the read transfer has finished. 
+*
+* Before returning from this function with a size value greater than zero, the
+* read buffer given in the CAN_AppSDOReadInit function needs to be updated 
+* to point to the next block of data.
+*
+* @params server : SDO server number
+* @params index : index of OD entry
+* @params subIndex : subindex of OD entry
+* @params size : size of data buffer
+*/
+void CAN_AppSDOReadComplete(U8 server, U16 index, U8 subIndex, U32 * size);
+
 #endif /* CAN_CALLBACKS_H */ 

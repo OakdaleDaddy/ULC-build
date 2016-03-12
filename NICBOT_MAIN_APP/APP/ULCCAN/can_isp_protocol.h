@@ -71,7 +71,7 @@
 //_____ D E C L A R A T I O N __________________________________________________
 
 extern void can_isp_protocol_init(void);
-extern void can_isp_protocol_task(void);
+extern uint8_t can_isp_protocol_task(void);
 
 //______________________________________________________________________________
 
