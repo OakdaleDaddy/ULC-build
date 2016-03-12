@@ -280,9 +280,8 @@ uint8_t MCOHW_SetCANFilter(uint16_t can_id)
     {
 		CANPAGE = (mob_num << MOBNB0);	/* set MOb page number */
 		CANSTMOB &= 0x00;	/* clear MOb status */
-		CANIDT1 = ((*((uint8_t *)((&can_id) + 1))) << 5) +
-		    ((*((uint8_t *)(&can_id))) >> 3);	    /* ID[10 - 3] */
-		CANIDT2 = (*((uint8_t *)(&(can_id)))) << 5;	/* ID[2 - 0] */
+		CANIDT1 = (uint8_t)((can_id >> 3) & 0xFF);
+		CANIDT2 = (uint8_t)((can_id & 0x7) << 5);
 		CANIDT4 = 0x00;	/* clear RTR and RB0 */
 		CANIDM1 = 0xFF;	/* set IDmask[10 - 3] */
 		CANIDM2 = 0x03;	/* set IDmask[2 - 0] */
