@@ -66,11 +66,7 @@
 		if (NULL != p_buffer)												   \
 		/* no overflow so place received CAN message in Rx buffer */		   \
 		{																	   \
-			p_buffer->ID = 0;                                                  \
-            *((uint8_t *)((&(p_buffer->ID)) + 1)) =							   \
-			    CANIDT1 >> 5;	                    /* get cobId MSB */	       \
-			*((uint8_t *)(&(p_buffer->ID))) =								   \
-			    (CANIDT2 >> 5) + (CANIDT1 << 3);	/* get cobId LSB */		   \
+			p_buffer->ID = (CANIDT2 >> 5) | ((uint16_t)CANIDT1 << 3);          \
 			p_buffer->LEN = (CANCDMOB & DLC_MSK);	/* get DLC */			   \
 			if (MAX_DLC < p_buffer->LEN)                                       \
             {                                                                  \

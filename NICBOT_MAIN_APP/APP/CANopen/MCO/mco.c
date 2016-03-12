@@ -2441,6 +2441,7 @@ DOES:    This function processes the next CAN message from the CAN receive
 RETURNS: FALSE, if no message was processed, 
          TRUE, if a CAN message received was processed
 **************************************************************************/
+__attribute__((optimize("O0")))
 UNSIGNED8 MCO_ProcessStackRx (
   void
   )
