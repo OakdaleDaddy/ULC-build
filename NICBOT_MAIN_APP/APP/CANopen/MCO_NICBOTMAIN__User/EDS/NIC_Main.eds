@@ -1,5 +1,5 @@
 [FileInfo]
-FileName=C:\cd\ULC\build\ULC-build\NICBOT_MAIN_APP\APP\CANopen\MCO_NICBOTMAIN__User\EDS\NIC_Wheel_Motor.eds
+FileName=C:\cd\ULC\build\ULC-build\NICBOT_MAIN_APP\APP\CANopen\MCO_NICBOTMAIN__User\EDS\NIC_Main.eds
 FileVersion=0
 FileRevision=0
 EDSVersion=4.0
@@ -8,7 +8,7 @@ CreatedBy=Unknown
 CreationTime=09:08AM
 CreationDate=01-27-2016
 ModifiedBy=Unknown
-ModificationTime=07:28AM
+ModificationTime=07:40AM
 ModificationDate=03-12-2016
 
 [Comments]
@@ -17,7 +17,7 @@ Line1=
 
 [DeviceInfo]
 Vendorname=ULC Robotics
-ProductName=NIC Wheel Board
+ProductName=NIC Main Board
 OrderCode=
 VendorNumber=0x00000000
 ProductNumber=0x00000000
@@ -35,7 +35,7 @@ SimpleBootupSlave=1
 GroupMessaging=0
 LSS_Supported=0
 Granularity=0
-DynamicChannelsSupported=0
+DynamicChannelsSupported=1
 NrOfRXPDO=1
 NrOfTXPDO=3
 CompactPDO=0x00
@@ -316,7 +316,7 @@ ObjFlags=0x00
 
 [1400]
 ParameterName=Receive PDO Parameter 1
-SubNumber=3
+SubNumber=4
 ObjectType=0x09
 
 [1400sub0]
@@ -352,9 +352,20 @@ DefaultValue=255
 PDOMapping=0
 ObjFlags=0x00
 
+[1400sub3]
+ParameterName=Transmission Type
+ObjectType=0x07
+DataType=0x0005
+LowLimit=
+HighLimit=
+AccessType=const
+DefaultValue=255
+PDOMapping=0
+ObjFlags=0x00
+
 [1600]
 ParameterName=Receive PDO Mapping 1
-SubNumber=3
+SubNumber=4
 ObjectType=0x08
 
 [1600sub0]
@@ -380,6 +391,17 @@ PDOMapping=0
 ObjFlags=0x00
 
 [1600sub2]
+ParameterName=Target Torque
+ObjectType=0x07
+DataType=0x0007
+LowLimit=
+HighLimit=
+AccessType=const
+DefaultValue=0x60710010
+PDOMapping=0
+ObjFlags=0x00
+
+[1600sub3]
 ParameterName=Target Torque
 ObjectType=0x07
 DataType=0x0007

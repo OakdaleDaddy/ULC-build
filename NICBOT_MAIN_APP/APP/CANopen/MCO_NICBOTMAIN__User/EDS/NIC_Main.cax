@@ -19,9 +19,9 @@
     <DownloadBinaryBlocksize>4096</DownloadBinaryBlocksize>
     <ProcessImageMinMax>true</ProcessImageMinMax>
     <UseIntegratedEDSChecker>true</UseIntegratedEDSChecker>
-    <EDSCiA301Rules_Name>v301V4_2</EDSCiA301Rules_Name>
-    <EDSCiA301Rules_Version>2012-06-29T00:00:00</EDSCiA301Rules_Version>
-    <EDSCiA301Rules_Profile>301</EDSCiA301Rules_Profile>
+    <EDSCiA301Rules_Name />
+    <EDSCiA301Rules_Version />
+    <EDSCiA301Rules_Profile />
     <EDSTreatConstantasReadOnly>true</EDSTreatConstantasReadOnly>
     <EDSProfileRules_Name />
     <EDSProfileRules_Version />
@@ -31,13 +31,13 @@
     <GUID>2a829f7c-65d8-4efd-82b4-458b6573be4d</GUID>
   </ProjectForm>
   <MainForm>
-    <Width>1936</Width>
-    <Height>1176</Height>
+    <Width>1928</Width>
+    <Height>1060</Height>
     <State>Maximized</State>
     <Layout>&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;Layout&gt;
-  &lt;Window Guid="2a829f7c-65d8-4efd-82b4-458b6573be4d" LastFocused="130983796407716371" DockedSize="200" PopupSize="0" FloatingLocation="-1, -1" FloatingSize="250, 400" LastOpenDockSituation="Docked" LastFixedDockSituation="Docked" LastFixedDockLocation="Left" LastFloatingWindowGuid="00000000-0000-0000-0000-000000000000" LastDockContainerCount="1" LastDockContainerIndex="0" DockedWorkingSize="250, 400" DockedWindowGroupGuid="d2a4642d-57fd-44de-8383-01eb123f6878" DockedIndexInWindowGroup="0" DockedSplitPath="0" DocumentWorkingSize="250, 400" DocumentWindowGroupGuid="00000000-0000-0000-0000-000000000000" DocumentIndexInWindowGroup="0" DocumentSplitPath="0" FloatingWorkingSize="250, 400" FloatingWindowGroupGuid="00000000-0000-0000-0000-000000000000" FloatingIndexInWindowGroup="0" FloatingSplitPath="0" /&gt;
-  &lt;Window Guid="ebc6fe26-1b64-4ef1-bfee-de1ed41388d9" LastFocused="131008995077849260" DockedSize="200" PopupSize="0" FloatingLocation="-1, -1" FloatingSize="550, 400" LastOpenDockSituation="Document" LastFixedDockSituation="Document" LastFixedDockLocation="Right" LastFloatingWindowGuid="00000000-0000-0000-0000-000000000000" LastDockContainerCount="0" LastDockContainerIndex="0" DockedWorkingSize="250, 400" DockedWindowGroupGuid="00000000-0000-0000-0000-000000000000" DockedIndexInWindowGroup="0" DockedSplitPath="0" DocumentWorkingSize="250, 400" DocumentWindowGroupGuid="dba60b0b-f979-4ad0-83fe-52ade6b3a502" DocumentIndexInWindowGroup="0" DocumentSplitPath="0" FloatingWorkingSize="250, 400" FloatingWindowGroupGuid="00000000-0000-0000-0000-000000000000" FloatingIndexInWindowGroup="0" FloatingSplitPath="0" /&gt;
+  &lt;Window Guid="2a829f7c-65d8-4efd-82b4-458b6573be4d" LastFocused="131022598975653400" DockedSize="200" PopupSize="0" FloatingLocation="-1, -1" FloatingSize="250, 400" LastOpenDockSituation="Docked" LastFixedDockSituation="Docked" LastFixedDockLocation="Left" LastFloatingWindowGuid="00000000-0000-0000-0000-000000000000" LastDockContainerCount="1" LastDockContainerIndex="0" DockedWorkingSize="250, 400" DockedWindowGroupGuid="d2a4642d-57fd-44de-8383-01eb123f6878" DockedIndexInWindowGroup="0" DockedSplitPath="0" DocumentWorkingSize="250, 400" DocumentWindowGroupGuid="00000000-0000-0000-0000-000000000000" DocumentIndexInWindowGroup="0" DocumentSplitPath="0" FloatingWorkingSize="250, 400" FloatingWindowGroupGuid="00000000-0000-0000-0000-000000000000" FloatingIndexInWindowGroup="0" FloatingSplitPath="0" /&gt;
+  &lt;Window Guid="ebc6fe26-1b64-4ef1-bfee-de1ed41388d9" LastFocused="131022599823151874" DockedSize="200" PopupSize="0" FloatingLocation="-1, -1" FloatingSize="550, 400" LastOpenDockSituation="Document" LastFixedDockSituation="Document" LastFixedDockLocation="Right" LastFloatingWindowGuid="00000000-0000-0000-0000-000000000000" LastDockContainerCount="0" LastDockContainerIndex="0" DockedWorkingSize="250, 400" DockedWindowGroupGuid="00000000-0000-0000-0000-000000000000" DockedIndexInWindowGroup="0" DockedSplitPath="0" DocumentWorkingSize="250, 400" DocumentWindowGroupGuid="dba60b0b-f979-4ad0-83fe-52ade6b3a502" DocumentIndexInWindowGroup="0" DocumentSplitPath="0" FloatingWorkingSize="250, 400" FloatingWindowGroupGuid="00000000-0000-0000-0000-000000000000" FloatingIndexInWindowGroup="0" FloatingSplitPath="0" /&gt;
   &lt;Window Guid="9f97e230-aa8d-43dd-92c9-699f7df65209" LastFocused="131008994963815453" DockedSize="200" PopupSize="0" FloatingLocation="-1, -1" FloatingSize="250, 400" LastOpenDockSituation="Docked" LastFixedDockSituation="Docked" LastFixedDockLocation="Bottom" LastFloatingWindowGuid="00000000-0000-0000-0000-000000000000" LastDockContainerCount="1" LastDockContainerIndex="0" DockedWorkingSize="250, 400" DockedWindowGroupGuid="11eafd4d-0b1b-42d4-ace1-07a2f8bf70fa" DockedIndexInWindowGroup="0" DockedSplitPath="0" DocumentWorkingSize="250, 400" DocumentWindowGroupGuid="00000000-0000-0000-0000-000000000000" DocumentIndexInWindowGroup="0" DocumentSplitPath="0" FloatingWorkingSize="250, 400" FloatingWindowGroupGuid="00000000-0000-0000-0000-000000000000" FloatingIndexInWindowGroup="0" FloatingSplitPath="0" /&gt;
   &lt;Container Dock="2" ContentSize="200"&gt;
     &lt;SplitLayoutSystem WorkingSize="250, 400" SplitMode="1"&gt;
@@ -590,6 +590,30 @@
               <GroupId>db2e5b9c-f2ec-4c3b-8910-210ce9428a8b</GroupId>
             </Entry>
             <Entry>
+              <Index>5120</Index>
+              <Subindex>3</Subindex>
+              <EntryName>Receive PDO Parameter 1</EntryName>
+              <SubentryName>Transmission Type</SubentryName>
+              <TypeId>Unsigned8</TypeId>
+              <ValueString>255</ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>Const</AccessType>
+              <HighLimitString>
+              </HighLimitString>
+              <LowLimitString>
+              </LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>false</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>db2e5b9c-f2ec-4c3b-8910-210ce9428a8b</GroupId>
+            </Entry>
+            <Entry>
               <Index>5632</Index>
               <Subindex>0</Subindex>
               <EntryName>Receive PDO Mapping 1</EntryName>
@@ -640,6 +664,30 @@
             <Entry>
               <Index>5632</Index>
               <Subindex>2</Subindex>
+              <EntryName>Receive PDO Mapping 1</EntryName>
+              <SubentryName>Target Torque</SubentryName>
+              <TypeId>Unsigned32</TypeId>
+              <ValueString>0x60710010</ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>Const</AccessType>
+              <HighLimitString>
+              </HighLimitString>
+              <LowLimitString>
+              </LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>false</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>db2e5b9c-f2ec-4c3b-8910-210ce9428a8b</GroupId>
+            </Entry>
+            <Entry>
+              <Index>5632</Index>
+              <Subindex>3</Subindex>
               <EntryName>Receive PDO Mapping 1</EntryName>
               <SubentryName>Target Torque</SubentryName>
               <TypeId>Unsigned32</TypeId>
@@ -1975,7 +2023,7 @@
           <Comments>
           </Comments>
           <VendorName>ULC Robotics</VendorName>
-          <ProductName>NIC Wheel Board</ProductName>
+          <ProductName>NIC Main Board</ProductName>
           <OrderCode>
           </OrderCode>
           <VendorNumber>0</VendorNumber>
@@ -1987,9 +2035,9 @@
           <GroupMessaging>false</GroupMessaging>
           <LSSSupported>false</LSSSupported>
           <Granularity>0</Granularity>
-          <DynamicChannelsSupported>0</DynamicChannelsSupported>
-          <NumberofRPDOs>4</NumberofRPDOs>
-          <NumberofTPDOs>4</NumberofTPDOs>
+          <DynamicChannelsSupported>1</DynamicChannelsSupported>
+          <NumberofRPDOs>1</NumberofRPDOs>
+          <NumberofTPDOs>3</NumberofTPDOs>
           <CompactPDO>0</CompactPDO>
           <NodeId>48</NodeId>
           <NodeName>Wheel</NodeName>
@@ -2000,7 +2048,7 @@
           <LSSSerialNumber>0</LSSSerialNumber>
           <DummyUsage>Dummy0006</DummyUsage>
           <NodeFunctionality>None</NodeFunctionality>
-          <Name>NIC_Wheel_Motor</Name>
+          <Name>NIC_Main</Name>
           <Groups>
             <Group>
               <Name>Object Dictionary</Name>
