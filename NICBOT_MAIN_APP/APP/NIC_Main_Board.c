@@ -91,6 +91,9 @@ int main(void)
     // Initialize CAN Communication
     CAN_ResetCommunication();
 
+    // enable interrupts
+    sei();
+    
     // process
     for (;;)
     {

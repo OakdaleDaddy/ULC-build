@@ -4440,9 +4440,6 @@ void can_isp_protocol_init(void)
     //	Init_I2C(); // todo: move to setPreOp 
     //  DrillInit(); // todo: move to setPreOp 
     
-    // enable interrupts
-    sei();
-    
     // set pre-Operational State
     setPreOperationalState(1);
 }
