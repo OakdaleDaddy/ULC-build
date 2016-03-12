@@ -4216,6 +4216,9 @@ static void setPreOperationalState(u8_t initialSet)
 	}
 	
 	accelerometer_init();
+
+	DDRC |= 0x3;
+	PORTC &= 0xFC;
 	setCANLed(0);
 	
 	initCANRate(objectBitRateCode);

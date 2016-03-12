@@ -72,7 +72,7 @@ int main(void)
 {   
    DDRD |=0b00000000;
 	PORTD |= 0b00000011;
-	DDRC = 0xF3;
+	DDRC = 0xF0;
 	PORTC = 0x00;
 		
 	DDRA = 0xff;

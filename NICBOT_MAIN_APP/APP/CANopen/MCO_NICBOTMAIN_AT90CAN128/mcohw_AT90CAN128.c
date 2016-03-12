@@ -42,7 +42,7 @@
 /* Thus: Fclk =  2MHz / (PRESCALE + 1) */
 /* where PRESCALE = 0 to 255 */
 
-#define PRESCALE_8KHZ 0xF9
+#define PRESCALE_8KHZ 0x05
 
 
 /** ****************************************************************************

@@ -38,11 +38,11 @@
 #else
 
 #ifdef _AT90
- 
- #define LED_RUN_ON PINC |= (1 << PINC0)
- #define LED_RUN_OFF PINC &= ~(1 << PINC0)
- #define LED_ERR_ON PINC |= (1 << PINC1)
- #define LED_ERR_OFF PINC &= ~(1 << PINC1)    
+
+ #define LED_RUN_ON PORTC |= (1 << PINC0)
+ #define LED_RUN_OFF PORTC &= ~(1 << PINC0)
+ #define LED_ERR_ON PORTC |= (1 << PINC1)
+ #define LED_ERR_OFF PORTC &= ~(1 << PINC1)    
 
 #else
 

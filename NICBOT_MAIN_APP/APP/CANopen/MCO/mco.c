@@ -1607,6 +1607,10 @@ UNSIGNED8 MCO_Init (
   gMCOConfig.error_register = 0;
   gMCOConfig.last_rxtime = MCOHW_GetTime();
 #if USE_LEDS
+  // Initialize Control Lines
+  DDRC |= 0x3;
+  PORTC &= 0xFC;
+
   // Initialize LED blink control 200ms timer
   gMCOConfig.LED_timestamp = MCOHW_GetTime() + 200; 
   gMCOConfig.LEDtoggle = 0;
@@ -2441,7 +2445,6 @@ DOES:    This function processes the next CAN message from the CAN receive
 RETURNS: FALSE, if no message was processed, 
          TRUE, if a CAN message received was processed
 **************************************************************************/
-__attribute__((optimize("O0")))
 UNSIGNED8 MCO_ProcessStackRx (
   void
   )
