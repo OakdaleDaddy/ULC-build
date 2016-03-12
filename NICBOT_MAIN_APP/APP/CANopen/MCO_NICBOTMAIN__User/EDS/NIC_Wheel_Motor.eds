@@ -1,5 +1,5 @@
 [FileInfo]
-FileName=C:\cd\ULC\build\ULC-build\NICBOT-WHEEL\CANOpen\MCO_NICBOTWHEEL__User\EDS\NIC_Wheel_Motor.eds
+FileName=C:\cd\ULC\build\ULC-build\NICBOT_MAIN_APP\APP\CANopen\MCO_NICBOTMAIN__User\EDS\NIC_Wheel_Motor.eds
 FileVersion=0
 FileRevision=0
 EDSVersion=4.0
@@ -8,8 +8,8 @@ CreatedBy=Unknown
 CreationTime=09:08AM
 CreationDate=01-27-2016
 ModifiedBy=Unknown
-ModificationTime=07:38PM
-ModificationDate=02-25-2016
+ModificationTime=07:28AM
+ModificationDate=03-12-2016
 
 [Comments]
 Lines=1
