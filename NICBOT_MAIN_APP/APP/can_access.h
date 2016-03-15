@@ -15,6 +15,40 @@
 #include "compiler.h"
 
 /**
+* @brief Function to read from process image.
+*
+* @param index : index of object definition
+* @param subIndex : sub index of object definition
+* @param destination : pointer to memory to contain value
+* @param length : maximum amount to transfer
+*/
+void CAN_ReadProcessImage(U16 index, U8 subIndex, U8 * destination, U8 length);
+
+/**
+* @brief Function to write to process image.
+*
+* @param index : index of object definition
+* @param subIndex : sub index of object definition
+* @param source : pointer to memory to define value
+* @param length : maximum amount to transfer
+*/
+void CAN_WriteProcessImage(U16 index, U8 subIndex, U8 * source, U8 length);
+
+/**
+* @brief Function to assign CAN baud rate to use on reset.
+*
+* @param canBps : kilo baud rate of interface
+*/
+void CAN_SetBaudrate(U16 canBps);
+
+/**
+* @brief Function to assign node ID to use on reset.
+*
+* @param nodeId : node of device
+*/
+void CAN_SetNodeId(U8 nodeId);
+
+/**
 * @brief Function to handle application reset request.
 *
 * This function is called to completely re-initialize the CANopen communication.

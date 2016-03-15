@@ -1184,6 +1184,9 @@ static UNSIGNED8 MCO_HandleSDORequest (
           }
 #endif // USECB_SDO_WR_PI
 
+          // Write Data
+          PI_WRITE(PIACC_SDO, offset, &(gRxCAN.BUF[4]), len);
+
 #if USE_CiA447
           MCOUSER_NodeSpecificSDOWrite(PROFILE_GetSDOFromNode(),index,subindex,offset,len);
 #endif

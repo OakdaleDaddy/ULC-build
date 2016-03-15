@@ -8,8 +8,8 @@ CreatedBy=Unknown
 CreationTime=09:08AM
 CreationDate=01-27-2016
 ModifiedBy=Unknown
-ModificationTime=03:30PM
-ModificationDate=03-12-2016
+ModificationTime=10:27PM
+ModificationDate=03-14-2016
 
 [Comments]
 Lines=1
@@ -98,9 +98,12 @@ SupportedObjects=39
 39=0x60FF
 
 [ManufacturerObjects]
-SupportedObjects=2
-1=0x2102
-2=0x2301
+SupportedObjects=5
+1=0x2100
+2=0x2101
+3=0x2102
+4=0x2105
+5=0x2301
 
 [1000]
 ParameterName=Device Type
@@ -805,6 +808,28 @@ DefaultValue=
 PDOMapping=0
 ObjFlags=0x00
 
+[2100]
+ParameterName=CAN Bit Rate Code
+ObjectType=0x07
+DataType=0x0005
+LowLimit=0
+HighLimit=7
+AccessType=rw
+DefaultValue=2
+PDOMapping=0
+ObjFlags=0x00
+
+[2101]
+ParameterName=CAN Node ID
+ObjectType=0x07
+DataType=0x0005
+LowLimit=1
+HighLimit=126
+AccessType=rw
+DefaultValue=32
+PDOMapping=0
+ObjFlags=0x00
+
 [2102]
 ParameterName=Device Mode
 ObjectType=0x07
@@ -813,6 +838,17 @@ LowLimit=0
 HighLimit=1
 AccessType=rw
 DefaultValue=0
+PDOMapping=0
+ObjFlags=0x00
+
+[2105]
+ParameterName=Device Store Parameters
+ObjectType=0x07
+DataType=0x0007
+LowLimit=
+HighLimit=
+AccessType=wo
+DefaultValue=
 PDOMapping=0
 ObjFlags=0x00
 

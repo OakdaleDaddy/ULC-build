@@ -21,14 +21,17 @@ VERSION:   6.20, ESA 11-MAY-15
 #include "stackinit.h"
 #include "can_callbacks.h"
 
+static UNSIGNED16 assigned_bps = CAN_BITRATE;
+static UNSIGNED8 assigned_node_id = NODEID;
+
 
 /**************************************************************************
 GLOBAL FUNCTIONS
 ***************************************************************************/ 
 
 /**************************************************************************
-DOES:    Call-back function for occurance of a fatal error. 
-         Stops operation and displays blnking error pattern on LED
+DOES:    Call-back function for occurrence of a fatal error. 
+         Stops operation and displays blinking error pattern on LED
 **************************************************************************/
 void MCOUSER_FatalError (UNSIGNED16 ErrCode)
 {
@@ -62,6 +65,22 @@ UNSIGNED16 timeout;
 
 
 /**************************************************************************
+DOES:    Call-back function for baud rate assignment
+**************************************************************************/
+void MCOUSER_SetBaudrate (UNSIGNED16 can_bps)
+{
+   assigned_bps = can_bps;
+}
+
+/**************************************************************************
+DOES:    Call-back function for baud rate assignment
+**************************************************************************/
+void MCOUSER_SetNodeId (UNSIGNED8 node_id)
+{
+   assigned_node_id = node_id;
+}
+
+/**************************************************************************
 DOES:    Call-back function for reset application.
          Starts the watchdog and waits until watchdog causes a reset.
 **************************************************************************/
@@ -69,7 +88,6 @@ void MCOUSER_ResetApplication (void)
 {
    CAN_ResetApplication();
 }
-
 
 /**************************************************************************
 DOES:    Call-back function for reset communication.
@@ -93,8 +111,8 @@ UNSIGNED8 node_id;
 
 #else
 
-  node_id = NODEID;
-  can_bps = CAN_BITRATE;
+  node_id = assigned_node_id;
+  can_bps = assigned_bps;
 
 #endif
 
@@ -162,7 +180,7 @@ void MCOUSER_HeartbeatLost (
 #if USECB_TIMEOFDAY
 /**************************************************************************
 DOES:    This function is called if the message with the time object has
-         been received. This example implementtion calculates the current
+         been received. This example implementation calculates the current
          time in hours, minutes, seconds.
 RETURNS: nothing
 **************************************************************************/

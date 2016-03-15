@@ -805,6 +805,22 @@ void MCOUSER_ResetApplication (
 
 
 /**************************************************************************
+DOES:    Call-back function for baudrate assignment
+**************************************************************************/
+void MCOUSER_SetBaudrate (
+UNSIGNED16 can_bps // baud rate to assign on reset
+);
+
+
+/**************************************************************************
+DOES:    Call-back function for baudrate assignment
+**************************************************************************/
+void MCOUSER_SetNodeId (
+UNSIGNED8 node_id // node to assign on reset
+);
+
+
+/**************************************************************************
 DOES:    This function both resets and initializes both the CAN interface
          and the CANopen protocol stack. It is called from within the
          CANopen protocol stack, if a NMT master message was received that

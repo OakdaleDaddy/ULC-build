@@ -21,6 +21,86 @@
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 /* See can_access.h for function description */
 /**
+* Locates entry, and copies into destination memory.
+*/
+void CAN_ReadProcessImage(U16 index, U8 subIndex, U8 * dest, U8 length)
+{
+   UNSIGNED16 found;
+   OD_PROCESS_DATA_ENTRY MEM_CONST *pOD;
+   UNSIGNED16 offset;
+   UNSIGNED8 objectLength;
+   
+   found = MCO_SearchODProcTable(index, subIndex);
+   
+   if (found != 0xFFFF)
+   {
+      pOD = OD_ProcTablePtr(found);
+      offset = pOD->off_hi;
+      offset <<= 8;
+      offset +=  pOD->off_lo; 
+
+      objectLength = pOD->len & 0x0F;
+
+      if (objectLength > length)
+      {
+         objectLength = length;
+      }       
+
+      PI_READ(PIACC_APP, offset, dest, objectLength);
+   }
+}
+
+/* See can_access.h for function description */
+/**
+* Locates entry, and copies into process image.
+*/
+void CAN_WriteProcessImage(U16 index, U8 subIndex, U8 * source, U8 length)
+{
+   UNSIGNED16 found;
+   OD_PROCESS_DATA_ENTRY MEM_CONST *pOD;
+   UNSIGNED16 offset;
+   UNSIGNED8 objectLength;
+   
+   found = MCO_SearchODProcTable(index, subIndex);
+   
+   if (found != 0xFFFF)
+   {
+      pOD = OD_ProcTablePtr(found);
+      offset = pOD->off_hi;
+      offset <<= 8;
+      offset +=  pOD->off_lo;
+
+      objectLength = pOD->len & 0x0F;
+
+      if (objectLength > length)
+      {
+         objectLength = length;
+      }
+
+      PI_WRITE(PIACC_APP, offset, source, objectLength);
+   }
+}
+
+/* See can_access.h for function description */
+/**
+* Calls into stack to assign baud rate for the next reset.
+*/
+void CAN_SetBaudrate(U16 canBps)
+{
+   MCOUSER_SetBaudrate(canBps);
+}
+
+/* See can_access.h for function description */
+/**
+* Calls into stack to assign node ID for the next reset.
+*/
+void CAN_SetNodeId(U8 nodeId)
+{
+   MCOUSER_SetNodeId(nodeId);
+}
+
+/* See can_access.h for function description */
+/**
 * Calls into stack to reset communication.
 */
 void CAN_ResetCommunication(void)
