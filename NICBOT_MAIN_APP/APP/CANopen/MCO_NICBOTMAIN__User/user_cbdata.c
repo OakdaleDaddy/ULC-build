@@ -163,6 +163,9 @@ UNSIGNED32 MCOUSER_SDOWrPI (
   UNSIGNED8 len           // Length of data 
   )
 {
+   UNSIGNED32 result = 0;
+
+   result = CAN_ODWrite(index, subindex, pDat, len);
 #ifdef MCOUSER_MINMAX
 UNSIGNED16 dat;
 UNSIGNED16 comp;
@@ -191,7 +194,7 @@ UNSIGNED16 comp;
     }
   }
 #endif // MCOUSER_MINMAX
-  return 0;
+  return result;
 }
 #endif // USECB_SDO_WR_PI
 

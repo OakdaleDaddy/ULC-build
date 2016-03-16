@@ -167,6 +167,12 @@ U32 CAN_GetSerial(void)
 }
 
 /* See can_callbacks.h for function description */
+void CAN_ReloadFlash(void)
+{
+   processConfiguration();
+}
+
+/* See can_callbacks.h for function description */
 void CAN_ResetApplication(void)
 {
    WDTCR = (1<<WDCE)|(1<<WDE);  // Shortest period to timeout, Watchdog enabled
@@ -222,38 +228,59 @@ void CAN_AppSDOReadComplete(U8 server, U16 index, U8 subIndex, U32 * size)
 }
 
 /* See can_callbacks.h for function description */
-void CAN_ODData(U16 index, U8 subIndex, U8 * pData, U8 length)
+U32 CAN_ODWrite(U16 index, U8 subIndex, U8 * data, U8 length)
+{
+   U32 result = 1;
+
+   // evaluate
+   if (0x2105 == index)
+   {
+      result = 1;
+
+      if ( (4 == length) )
+      {
+         U32 command = 0;
+         memcpy(&command, data, length);
+
+         if ( (0x65766173 == command) )
+         {
+            result = 0;
+         }
+      }
+   }
+   else
+   {
+      // all other values are good
+      result = 0;
+   }
+
+   return(result);
+}
+
+/* See can_callbacks.h for function description */
+void CAN_ODData(U16 index, U8 subIndex, U8 * data, U8 length)
 {
    // evaluate
    if (0x2105 == index)
    {
-      if ( (4 == length) )
-      {
-         U32 command = 0;
-         memcpy(&command, pData, length);
+      U8 baudrate;
+      U8 nodeId;
+      U8 mode;
+      U32 configuration;
 
-         if ( (0x65766173 == command) )
-         {
-            U8 baudrate;
-            U8 nodeId;
-            U8 mode;
-            U32 configuration;
+      CAN_ReadProcessImage(0x2100, 0, &baudrate, sizeof(baudrate));
+      CAN_ReadProcessImage(0x2101, 0, &nodeId, sizeof(nodeId));
+      CAN_ReadProcessImage(0x2102, 0, &mode, sizeof(mode));
 
-            CAN_ReadProcessImage(0x2100, 0, &baudrate, sizeof(baudrate));
-            CAN_ReadProcessImage(0x2101, 0, &nodeId, sizeof(nodeId));
-            CAN_ReadProcessImage(0x2102, 0, &mode, sizeof(mode));
+      configuration = EEPROM_CHECK_VALUE;
+      configuration <<= 8;
+      configuration |= mode;
+      configuration <<= 8;
+      configuration |= nodeId;
+      configuration <<= 8;
+      configuration |= baudrate;
 
-            configuration = EEPROM_CHECK_VALUE;
-            configuration <<= 8;
-            configuration |= mode;
-            configuration <<= 8;
-            configuration |= nodeId;
-            configuration <<= 8;
-            configuration |= baudrate;
-
-            writeEEPROM(EEPROM_CONFIGURATION_ADDRESS, (U8 *)&configuration, sizeof(configuration));
-         }
-      }
+      writeEEPROM(EEPROM_CONFIGURATION_ADDRESS, (U8 *)&configuration, sizeof(configuration));
    }
 }
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
@@ -297,7 +324,6 @@ int main(void)
     CAN_PORT_OUT |=  (1<<CAN_OUTPUT_PIN);
     
     // Initialize CAN Communication
-    processConfiguration();
     CAN_ResetCommunication();
 
     // enable interrupts

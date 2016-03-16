@@ -99,6 +99,8 @@ void MCOUSER_ResetCommunication (void)
 UNSIGNED16 can_bps;
 UNSIGNED8 node_id;
 
+  CAN_ReloadFlash();
+
 #if USE_LSS_SLAVE
 
   LSS_LoadConfiguration(&can_bps,&node_id);

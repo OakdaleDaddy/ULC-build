@@ -118,7 +118,7 @@ DEFINES: ENABLING CANopen DATA CALL-BACK FUNCTIONS
 // NOTE: SDO access to PI
 #define USECB_SDO_RD_PI    0
 #define USECB_SDO_RD_AFTER 0
-#define USECB_SDO_WR_PI    0
+#define USECB_SDO_WR_PI    1
 #define USECB_SDO_WR_AFTER 1
 
 // If enabled, the call back functions MCOUSER_AppSDOReadInit() with

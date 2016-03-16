@@ -70,8 +70,14 @@
 
 //_____ D E C L A R A T I O N __________________________________________________
 
-extern void can_isp_protocol_init(void);
-extern uint8_t can_isp_protocol_task(void);
+void canRead(U16 index, U8 subIndex, U8 * destination, U8 length);
+void canWrite(U16 index, U8 subIndex, U8 * source, U8 length);
+void canSetBaudrate(U16 bps);
+void canSetNodeId(U8 nodeId);
+void canInit(void);
+uint8_t canUpdate(void);
+
+
 
 //______________________________________________________________________________
 

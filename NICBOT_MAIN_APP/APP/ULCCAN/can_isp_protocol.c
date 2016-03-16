@@ -165,8 +165,8 @@ static void setCANRx(u8_t mobId, u8_t id, u8_t mask);
 static void initCANRate(u8_t bitRateCode);
 static u8_t rxCANMsg(CAN_MSG * canMsg);
 static u8_t txCANMsg(CAN_MSG * canMsg);
-static u8_t readEEPROM(u16_t address, u8_t * dest, u8_t length);
-static u8_t writeEEPROM(u16_t address, u8_t * source, u8_t length);
+//static u8_t readEEPROM(u16_t address, u8_t * dest, u8_t length);
+//static u8_t writeEEPROM(u16_t address, u8_t * source, u8_t length);
 static u32_t getCANTimer(void);
 static void setCANLed(int setValue);
 
@@ -205,7 +205,7 @@ static void resetRxPdoMap(DEVICE_RPDO_MAP * rxPdoMap, u8_t index);
 
 static u8_t evaluateDeviceDataSize(u16_t index, u8_t subIndex, u32_t length);
 static u8_t loadDeviceData(u16_t index, u8_t subIndex, u8_t * buffer, u32_t * length, u32_t limit);
-static u8_t storeDeviceData(u16_t index, u8_t subIndex, u8_t * source, u32_t offset, u32_t length);
+static u8_t storeDeviceData(u8_t signalApplication, u16_t index, u8_t subIndex, u8_t * source, u32_t offset, u32_t length);
 
 static u8_t sendDebug(u32_t codeA, u32_t codeB);
 static u8_t sendHeartbeat(u8_t value);
@@ -316,9 +316,11 @@ static u32_t heartbeatTimeLimit;
 static DEVICE_TPDO_MAP txPdoMapping[4];
 static DEVICE_RPDO_MAP rxPdoMapping[4];
 
-static u8_t objectBitRateCode;
-static u8_t objectNodeId;
-static u8_t objectDeviceMode;
+static u8_t assignedBaudrateCode = DEFAULT_DEVICE_BIT_RATE_CODE;
+static u8_t assignedNodeId = DEFAULT_DEVICE_NODE_ID;
+static u8_t objectBitRateCode = DEFAULT_DEVICE_BIT_RATE_CODE;
+static u8_t objectNodeId = DEFAULT_DEVICE_NODE_ID;
+static u8_t objectDeviceMode = REPAIR_MODE;
 
 static u8_t cameraSelectA;
 static u8_t cameraSelectB;
@@ -600,54 +602,6 @@ static u8_t txCANMsg(CAN_MSG * canMsg)
 	}
 
 	return(result);
-}
-
-// read EEPROM memory and stores to destination, return 1 on load of pointer, return 0 on no load
-static u8_t readEEPROM(u16_t address, u8_t * dest, u8_t length)
-{
-	u8_t i;
-	
-	/* Wait for completion of previous write */
-	while(EECR & (1<<EEWE));
-
-	for (i=0; i<length; i++)
-	{
-		/* Set up address register */
-		EEAR = (address + i);
-
-		/* Start eeprom read by writing EERE */
-		EECR |= (1<<EERE);
-		
-		dest[i] = EEDR;
-	}
-
-	return(1);
-}
-
-// write EEPROM memory from source, return 1 on success, return 0 on failure
-static u8_t writeEEPROM(u16_t address, u8_t * source, u8_t length)
-{
-	u8_t i;	
-
-	for (i=0; i<length; i++)
-	{
-		/* Wait for completion of previous write */
-		while(EECR & (1<<EEWE));
-		
-		/* Set up address register */
-		EEAR = (address + i);
-
-		/* Store Data */
-		EEDR = source[i];
-
-		/* Write logical one to EEMWE */
-		EECR |= (1<<EEMWE);
-
-		/* Start eeprom write by setting EEWE */
-		EECR |= (1<<EEWE);
-	}
-
-	return(1);
 }
 
 // return free running counter value in uS
@@ -1591,11 +1545,7 @@ static u8_t loadDeviceData(u16_t index, u8_t subIndex, u8_t * buffer, u32_t * le
     }
     else if (0x2105 == index)
     {
-        buffer[0] = 0x73;
-        buffer[1] = 0x61;
-        buffer[2] = 0x76;
-        buffer[3] = 0x65;
-        transferred = 4;
+        // write only field, do nothing
     }
     else if ((0x2301 == index) && (0 == subIndex))
     {
@@ -2003,73 +1953,80 @@ static u8_t loadDeviceData(u16_t index, u8_t subIndex, u8_t * buffer, u32_t * le
     return( (0 != transferred) ? 1 : 0 );
 }
 
-static u8_t storeDeviceData(u16_t index, u8_t subIndex, u8_t * source, u32_t offset, u32_t length)
+static u8_t storeDeviceData(u8_t signalApplication, u16_t index, u8_t subIndex, u8_t * source, u32_t offset, u32_t length)
 {
-    u8_t result = 0;
+   u8_t result = 0;
+   
+   if ( (0 != signalApplication) )
+   {
+      result = CAN_ODWrite(index, subIndex, &source[offset], length);
+   }
 
-    if ((0x1016 == index) && (1 == subIndex))
-    {
-        if (4 == length)
-        {
+   if ( (0 == result) )
+   {
+      if ((0x1016 == index) && (1 == subIndex))
+      {
+         if (4 == length)
+         {
             u32_t value = (u32_t)getValue(&source[offset], length);
             setConsumerHeartbeatTime(value);
             result = 1;
-        }
-    }
-	else if (0x1017 == index)
-	{
-    	if ( (2 == length) )
-    	{
-        	producerHeartbeatTime = (source[offset+1] << 8) | source[offset];
-        	heartbeatTimeLimit = SYSTIME_NOW;
-        	result = 1;
-    	}
-	}
-    if ((0x1400 <= index) && (0x1403 >= index))
-    {
-        u8_t mappingOffset = (index - 0x1400);
-        u32_t parameter = getValue(&source[offset], length);
-        result = storeRxPdoMapParameter(&rxPdoMapping[mappingOffset], subIndex, length, parameter);
-    }
-    else if ((0x1600 <= index) && (0x1603 >= index))
-    {
-        u8_t mappingOffset = (index - 0x1600);
-        u32_t data = getValue(&source[offset], length);
-        result = storeRxPdoMapData(&rxPdoMapping[mappingOffset], subIndex, length, data);
-    }
-    else if ((0x1800 <= index) && (0x1803 >= index))
-    {
-        u8_t mappingOffset = (index - 0x1800);
-        u32_t parameter = getValue(&source[offset], length);
-        result = storeTxPdoMapParameter(&txPdoMapping[mappingOffset], subIndex, length, parameter);
-    }
-    else if ((0x1A00 <= index) && (0x1A03 >= index))
-    {
-        u8_t mappingOffset = (index - 0x1A00);
-        u32_t data = getValue(&source[offset], length);
-        result = storeTxPdoMapData(&txPdoMapping[mappingOffset], subIndex, length, data);
-    }
-    else if (0x2100 == index)
-    {
-        if ( (1 == length) )
-        {
+         }
+      }
+	   else if (0x1017 == index)
+	   {
+    	   if ( (2 == length) )
+    	   {
+        	   producerHeartbeatTime = (source[offset+1] << 8) | source[offset];
+        	   heartbeatTimeLimit = SYSTIME_NOW;
+        	   result = 1;
+    	   }
+	   }
+      else if ((0x1400 <= index) && (0x1403 >= index))
+      {
+         u8_t mappingOffset = (index - 0x1400);
+         u32_t parameter = getValue(&source[offset], length);
+         result = storeRxPdoMapParameter(&rxPdoMapping[mappingOffset], subIndex, length, parameter);
+      }
+      else if ((0x1600 <= index) && (0x1603 >= index))
+      {
+         u8_t mappingOffset = (index - 0x1600);
+         u32_t data = getValue(&source[offset], length);
+         result = storeRxPdoMapData(&rxPdoMapping[mappingOffset], subIndex, length, data);
+      }
+      else if ((0x1800 <= index) && (0x1803 >= index))
+      {
+         u8_t mappingOffset = (index - 0x1800);
+         u32_t parameter = getValue(&source[offset], length);
+         result = storeTxPdoMapParameter(&txPdoMapping[mappingOffset], subIndex, length, parameter);
+      }
+      else if ((0x1A00 <= index) && (0x1A03 >= index))
+      {
+         u8_t mappingOffset = (index - 0x1A00);
+         u32_t data = getValue(&source[offset], length);
+         result = storeTxPdoMapData(&txPdoMapping[mappingOffset], subIndex, length, data);
+      }
+      else if (0x2100 == index)
+      {
+         if ( (1 == length) )
+         {
             objectBitRateCode = source[offset];
             result = 1;
-        }
-    }
-    else if (0x2101 == index)
-    {
-        if ( (1 == length) )
-        {
+         }
+      }
+      else if (0x2101 == index)
+      {
+         if ( (1 == length) )
+         {
             u8_t value = source[offset];
             objectNodeId = value;
             result = 1;
-        }
-    }
-    else if (0x2102 == index)
-    {
-        if ( (1 == length) )
-        {
+         }
+      }
+      else if (0x2102 == index)
+      {
+         if ( (1 == length) )
+         {
             u8_t value = source[offset];
 
             if ( (value >= 0) && (value <= 1) )
@@ -2077,460 +2034,438 @@ static u8_t storeDeviceData(u16_t index, u8_t subIndex, u8_t * source, u32_t off
                 objectDeviceMode = value;
                 result = 1;
             }
-        }
-    }
-    else if (0x2105 == index)
-    {
-        if ( (4 == length) )
-        {
-            u32_t command  = getValue(&source[offset], length);
-
-            if ( (0x65766173 == command) )
-            {
-                u32_t busConfiguration = EEPROM_CAN_CHECK_VALUE;
-                busConfiguration <<= 8;
-                busConfiguration |= objectDeviceMode;
-                busConfiguration <<= 8;
-                busConfiguration |= objectNodeId;
-                busConfiguration <<= 8;
-                busConfiguration |= objectBitRateCode;
-
-                if ( (writeEEPROM(EEPROM_CAN_CONFIGURATION_ADDRESS, (u8_t *)&busConfiguration, sizeof(busConfiguration)) != 0) )
-                {
-                    result = 1;
-                }
-                else
-                {
-                    result = 0;
-                }
-            }
-        }
-    }
-    else if ((0x2301 == index) && (1 == subIndex))
-    {
-        if (1 == length)
-        {
+         }
+      }
+      else if (0x2105 == index)
+      {
+         result = 1;
+      }
+      else if ((0x2301 == index) && (1 == subIndex))
+      {
+         if (1 == length)
+         {
             u8_t value = source[offset];
 
             if (value <= 12)
             {
-                cameraSelectA = value;
-				Camera_Select(cameraSelectA, cameraSelectB);
+               cameraSelectA = value;
+				   Camera_Select(cameraSelectA, cameraSelectB);
 	            result = 1;
             }
-        }
-    }
-    else if ((0x2301 == index) && (2 == subIndex))
-    {
-        if (1 == length)
-        {
+         }
+      }
+      else if ((0x2301 == index) && (2 == subIndex))
+      {
+         if (1 == length)
+         {
             u8_t value = source[offset];
 
             if (value <= 12)
             {
-                cameraSelectB = value;
-				Camera_Select(cameraSelectA, cameraSelectB);
-                result = 1;
-            }
-        }
-    }
-    else if ((0x2303 == index) && (1 <= subIndex) && (12 >= subIndex))
-    {
-        if (1 == length)
-        {
-            setCameraLightIntensity(subIndex, source[offset]);
-            result = 1;
-        }
-    }
-    else if (0x2304 == index)
-    {
-        if (2 == length)
-        {
-            u16_t value = (u16_t)getValue(&source[offset], length);
-            result = setSolenoidControl(value);
-        }
-    }
-    else if (0x2311 == index)
-    {
-        if (REPAIR_MODE == deviceMode)
-        {
-            if (2 == length)
-            {
-                frontDrillSpeedSetPoint = (u16_t)getValue(&source[offset], length);
-                result = 1;
+               cameraSelectB = value;
+				   Camera_Select(cameraSelectA, cameraSelectB);
+               result = 1;
             }
          }
-    }
-    else if (0x2312 == index)
-    {
-        if (REPAIR_MODE == deviceMode)
-        {
+      }
+      else if ((0x2303 == index) && (1 <= subIndex) && (12 >= subIndex))
+      {
+         if (1 == length)
+         {
+            setCameraLightIntensity(subIndex, source[offset]);
+            result = 1;
+         }
+      }
+      else if (0x2304 == index)
+      {
+         if (2 == length)
+         {
+            u16_t value = (u16_t)getValue(&source[offset], length);
+            result = setSolenoidControl(value);
+         }
+      }
+      else if (0x2311 == index)
+      {
+         if (REPAIR_MODE == deviceMode)
+         {
             if (2 == length)
             {
-                u16_t value = (u16_t)getValue(&source[offset], length);
+               frontDrillSpeedSetPoint = (u16_t)getValue(&source[offset], length);
+               result = 1;
+            }
+         }
+      }
+      else if (0x2312 == index)
+      {
+         if (REPAIR_MODE == deviceMode)
+         {
+            if (2 == length)
+            {
+               u16_t value = (u16_t)getValue(&source[offset], length);
 
-                if (value <= frontDrillIndexLimit)
-                {
-                    frontDrillContext.manualSetPoint = value;
-                    result = 1;
-                }
+               if (value <= frontDrillIndexLimit)
+               {
+                  frontDrillContext.manualSetPoint = value;
+                  result = 1;
+               }
             }
-        }
-    }
-    else if (0x2313 == index)
-    {
-        if (REPAIR_MODE == deviceMode)
-        {
+         }
+      }
+      else if (0x2313 == index)
+      {
+         if (REPAIR_MODE == deviceMode)
+         {
             if (2 == length)
             {
-                rearDrillSpeedSetPoint = (u16_t)getValue(&source[offset], length);
-                result = 1;
+               rearDrillSpeedSetPoint = (u16_t)getValue(&source[offset], length);
+               result = 1;
             }
-        }
-    }
-    else if (0x2314 == index)
-    {
-        if (REPAIR_MODE == deviceMode)
-        {
+         }
+      }
+      else if (0x2314 == index)
+      {
+         if (REPAIR_MODE == deviceMode)
+         {
             if (2 == length)
             {
-                u16_t value = (u16_t)getValue(&source[offset], length);
+               u16_t value = (u16_t)getValue(&source[offset], length);
 
-                if (value <= rearDrillIndexLimit)
-                {
-                    rearDrillContext.manualSetPoint = value;
-                    result = 1;
-                }
+               if (value <= rearDrillIndexLimit)
+               {
+                  rearDrillContext.manualSetPoint = value;
+                  result = 1;
+               }
             }
-        }
-    }
-    else if (0x2315 == index)
-    {
-        if (INSPECT_MODE == deviceMode)
-        {
+         }
+      }
+      else if (0x2315 == index)
+      {
+         if (INSPECT_MODE == deviceMode)
+         {
             if (2 == length)
             {				
-                sensorIndexSetPoint = (u16_t)getValue(&source[offset], length);
-                result = 1;
+               sensorIndexSetPoint = (u16_t)getValue(&source[offset], length);
+               result = 1;
             }
-        }
-    }
-    else if ((0x2331 == index) && (1 == subIndex))
-    {
-        if (REPAIR_MODE == deviceMode)
-        {
+         }
+      }
+      else if ((0x2331 == index) && (1 == subIndex))
+      {
+         if (REPAIR_MODE == deviceMode)
+         {
             if (1 == length)
             {
-                autoDrillControl = source[offset];
-                result = 1;
+               autoDrillControl = source[offset];
+               result = 1;
             }
-        }
-    }
-    else if ((0x2331 == index) && (2 == subIndex))
-    {
-        if (REPAIR_MODE == deviceMode)
-        {
+         }
+      }
+      else if ((0x2331 == index) && (2 == subIndex))
+      {
+         if (REPAIR_MODE == deviceMode)
+         {
             if (2 == length)
             {
-                u16_t value = (u16_t)getValue(&source[offset], length);
-                indexerSearchSpeed = value;
-                result = 1;
+               u16_t value = (u16_t)getValue(&source[offset], length);
+               indexerSearchSpeed = value;
+               result = 1;
             }
-        }
-    }
-    else if ((0x2331 == index) && (3 == subIndex))
-    {
-        if (REPAIR_MODE == deviceMode)
-        {
+         }
+      }
+      else if ((0x2331 == index) && (3 == subIndex))
+      {
+         if (REPAIR_MODE == deviceMode)
+         {
             if (2 == length)
             {
-                u16_t value = (u16_t)getValue(&source[offset], length);
-                indexerTravelSpeed = value;
-                result = 1;
+               u16_t value = (u16_t)getValue(&source[offset], length);
+               indexerTravelSpeed = value;
+               result = 1;
             }
-        }
-    }
-    else if ((0x2331 == index) && (4 == subIndex))
-    {
-        if (REPAIR_MODE == deviceMode)
-        {
+         }
+      }
+      else if ((0x2331 == index) && (4 == subIndex))
+      {
+         if (REPAIR_MODE == deviceMode)
+         {
             if (2 == length)
             {
-                s16_t value = (s16_t)getValue(&source[offset], length);
-                drillRotationSpeed = value;
-                result = 1;
+               s16_t value = (s16_t)getValue(&source[offset], length);
+               drillRotationSpeed = value;
+               result = 1;
             }
-        }
-    }
-    else if ((0x2331 == index) && (5 == subIndex))
-    {
-        if (REPAIR_MODE == deviceMode)
-        {
+         }
+      }
+      else if ((0x2331 == index) && (5 == subIndex))
+      {
+         if (REPAIR_MODE == deviceMode)
+         {
             if (2 == length)
             {
-                u16_t value = (u16_t)getValue(&source[offset], length);
-                indexerCuttingSpeed = value;
-                result = 1;
+               u16_t value = (u16_t)getValue(&source[offset], length);
+               indexerCuttingSpeed = value;
+               result = 1;
             }
-        }
-    }
-    else if ((0x2331 == index) && (6 == subIndex))
-    {
-        if (REPAIR_MODE == deviceMode)
-        {
+         }
+      }
+      else if ((0x2331 == index) && (6 == subIndex))
+      {
+         if (REPAIR_MODE == deviceMode)
+         {
             if (2 == length)
             {
-                u16_t value = (u16_t)getValue(&source[offset], length);
-                indexerCuttingDepth = value;
-                result = 1;
+               u16_t value = (u16_t)getValue(&source[offset], length);
+               indexerCuttingDepth = value;
+               result = 1;
             }
-        }
-    }
-    else if ((0x2331 == index) && (7 == subIndex))
-    {
-        if (REPAIR_MODE == deviceMode)
-        {
+         }
+      }
+      else if ((0x2331 == index) && (7 == subIndex))
+      {
+         if (REPAIR_MODE == deviceMode)
+         {
             if (2 == length)
             {
-                u16_t value = (u16_t)getValue(&source[offset], length);
-                indexerPeckCuttingIncrement = value;
-                result = 1;
+               u16_t value = (u16_t)getValue(&source[offset], length);
+               indexerPeckCuttingIncrement = value;
+               result = 1;
             }
-        }
-    }
-    else if ((0x2331 == index) && (8 == subIndex))
-    {
-        if (REPAIR_MODE == deviceMode)
-        {
+         }
+      }
+      else if ((0x2331 == index) && (8 == subIndex))
+      {
+         if (REPAIR_MODE == deviceMode)
+         {
             if (2 == length)
             {
-                u16_t value = (u16_t)getValue(&source[offset], length);
-                indexerPeckRetractionDistance = value;
-                result = 1;
+               u16_t value = (u16_t)getValue(&source[offset], length);
+               indexerPeckRetractionDistance = value;
+               result = 1;
             }
-        }
-    }
-    else if ((0x2331 == index) && (9 == subIndex))
-    {
-        if (REPAIR_MODE == deviceMode)
-        {
+         }
+      }
+      else if ((0x2331 == index) && (9 == subIndex))
+      {
+         if (REPAIR_MODE == deviceMode)
+         {
             if (2 == length)
             {
-                u16_t value = (u16_t)getValue(&source[offset], length);
-                indexerPeckRetractionPosition = value;
-                result = 1;
+               u16_t value = (u16_t)getValue(&source[offset], length);
+               indexerPeckRetractionPosition = value;
+               result = 1;
             }
-        }
-    }	
-	else if (0x233D == index)
-	{
-		if (REPAIR_MODE == deviceMode)
-		{
-			if (4 == length)
-			{
-                u32_t value = (u32_t)getValue(&source[offset], length);
+         }
+      }	
+	   else if (0x233D == index)
+	   {
+		   if (REPAIR_MODE == deviceMode)
+		   {
+			   if (4 == length)
+			   {
+               u32_t value = (u32_t)getValue(&source[offset], length);
                 
-                if ( (setServoProportionalControlConstant(0, value) != 0) &&
-                     (setServoProportionalControlConstant(1, value) != 0) )
-                {
-	                drillServoProportionalControlConstant = value;
-	                result = 1;
-                }
-			}
-		}
-	}
-	else if (0x233E == index)
-	{
-		if (REPAIR_MODE == deviceMode)
-		{
-			if (4 == length)
-			{
-                u32_t value = (u32_t)getValue(&source[offset], length);
+               if ( (setServoProportionalControlConstant(0, value) != 0) &&
+                    (setServoProportionalControlConstant(1, value) != 0) )
+               {
+	               drillServoProportionalControlConstant = value;
+	               result = 1;
+               }
+			   }
+		   }
+	   }
+	   else if (0x233E == index)
+	   {
+		   if (REPAIR_MODE == deviceMode)
+		   {
+			   if (4 == length)
+			   {
+               u32_t value = (u32_t)getValue(&source[offset], length);
                 
-                if ( (setServoIntegralControlConstant(0, value) != 0) &&
-                     (setServoIntegralControlConstant(1, value) != 0) )
-                {
-	                drillServoIntegralControlConstant = value;
-	                result = 1;
-                }				
-			}
-		}
-	}
-	else if (0x233F == index)
-	{
-		if (REPAIR_MODE == deviceMode)
-		{
-			if (4 == length)
-			{
-                u32_t value = (u32_t)getValue(&source[offset], length);
+               if ( (setServoIntegralControlConstant(0, value) != 0) &&
+                    (setServoIntegralControlConstant(1, value) != 0) )
+               {
+	               drillServoIntegralControlConstant = value;
+	               result = 1;
+               }				
+			   }
+		   }
+	   }
+	   else if (0x233F == index)
+	   {
+		   if (REPAIR_MODE == deviceMode)
+		   {
+			   if (4 == length)
+			   {
+               u32_t value = (u32_t)getValue(&source[offset], length);
                 
-                if ( (setServoDerivativeControlConstant(0, value) != 0) &&
+               if ( (setServoDerivativeControlConstant(0, value) != 0) &&
 	                 (setServoDerivativeControlConstant(1, value) != 0) )
-                {
-	                drillServoDerivativeControlConstant = value;
-	                result = 1;
-                }
-			}
-		}
-	}
-	else if (0x2340 == index)
-	{
-		if (REPAIR_MODE == deviceMode)
-		{
-			if (4 == length)
-			{
-				drillServoAcceleration = (u32_t)getValue(&source[offset], length);
-				result = 1;
-			}
-		}
-	}
-	else if (0x2341 == index)
-	{
-		if (REPAIR_MODE == deviceMode)
-		{
-			if (4 == length)
-			{
-				drillServoHomingVelocity = (u32_t)getValue(&source[offset], length);
-				result = 1;
-			}
-		}
-	}
-	else if (0x2342 == index)
-	{
-		if (REPAIR_MODE == deviceMode)
-		{
-			if (4 == length)
-			{
-				drillServoHomingBackoffCount = (u32_t)getValue(&source[offset], length);
-				result = 1;
-			}
-		}
-	}
-	else if (0x2343 == index)
-	{
-		if (REPAIR_MODE == deviceMode)
-		{
-			if (4 == length)
-			{
-				drillServoTravelVelocity = (u32_t)getValue(&source[offset], length);
-				result = 1;
-			}
-		}
-	}
-	else if (0x2344 == index)
-	{
-		if (REPAIR_MODE == deviceMode)
-		{
-			if (2 == length)
-			{
-                u16_t value = (u32_t)getValue(&source[offset], length);
+               {
+	               drillServoDerivativeControlConstant = value;
+	               result = 1;
+               }
+			   }
+		   }
+	   }
+	   else if (0x2340 == index)
+	   {
+		   if (REPAIR_MODE == deviceMode)
+		   {
+			   if (4 == length)
+			   {
+				   drillServoAcceleration = (u32_t)getValue(&source[offset], length);
+				   result = 1;
+			   }
+		   }
+	   }
+	   else if (0x2341 == index)
+	   {
+		   if (REPAIR_MODE == deviceMode)
+		   {
+			   if (4 == length)
+			   {
+				   drillServoHomingVelocity = (u32_t)getValue(&source[offset], length);
+				   result = 1;
+			   }
+		   }
+	   }
+	   else if (0x2342 == index)
+	   {
+		   if (REPAIR_MODE == deviceMode)
+		   {
+			   if (4 == length)
+			   {
+				   drillServoHomingBackoffCount = (u32_t)getValue(&source[offset], length);
+				   result = 1;
+			   }
+		   }
+	   }
+	   else if (0x2343 == index)
+	   {
+		   if (REPAIR_MODE == deviceMode)
+		   {
+			   if (4 == length)
+			   {
+				   drillServoTravelVelocity = (u32_t)getValue(&source[offset], length);
+				   result = 1;
+			   }
+		   }
+	   }
+	   else if (0x2344 == index)
+	   {
+		   if (REPAIR_MODE == deviceMode)
+		   {
+			   if (2 == length)
+			   {
+               u16_t value = (u32_t)getValue(&source[offset], length);
                 
-                if ( (setServoErrorLimit(0, value) != 0) &&
-                     (setServoErrorLimit(1, value) != 0) )
-                {
-    				drillServoErrorLimit = value;
-                    result = 1;                         
-                }
-			}
-		}
-	}
-	else if (0x2345 == index)
-	{
-		if (REPAIR_MODE == deviceMode)
-		{
-			if (4 == length)
-			{
-				drillServoPulsesPerUnit = (u32_t)getValue(&source[offset], length);
-				result = 1;
-			}
-		}
-	}
-    else if (0x2350 == index)
-    {
-	    if (INSPECT_MODE == deviceMode)
-	    {
-			if (4 == length)
-			{
-				sensorServoAcceleration = (u32_t)getValue(&source[offset], length);
-				result = 1;
-			}
-		}
-    }
-    else if (0x2351 == index)
-    {
-	    if (INSPECT_MODE == deviceMode)
-	    {
-			if (4 == length)
-			{
-				sensorServoHomingVelocity = (u32_t)getValue(&source[offset], length);
-				result = 1;
-			}
-		}
-    }
-    else if (0x2352 == index)
-    {
-	    if (INSPECT_MODE == deviceMode)
-	    {
-		    if (4 == length)
-		    {
-			    sensorServoHomingBackoffCount = (u32_t)getValue(&source[offset], length);
-			    result = 1;
-		    }
-	    }
-    }
-    else if (0x2354== index)
-    {
-	    if (INSPECT_MODE == deviceMode)
-	    {
-		    if (2 == length)
-		    {
-                u16_t value = (u16_t)getValue(&source[offset], length);
+               if ( (setServoErrorLimit(0, value) != 0) &&
+                    (setServoErrorLimit(1, value) != 0) )
+               {
+    				   drillServoErrorLimit = value;
+                  result = 1;                         
+               }
+			   }
+		   }
+	   }
+	   else if (0x2345 == index)
+	   {
+		   if (REPAIR_MODE == deviceMode)
+		   {
+			   if (4 == length)
+			   {
+				   drillServoPulsesPerUnit = (u32_t)getValue(&source[offset], length);
+				   result = 1;
+			   }
+		   }
+	   }
+      else if (0x2350 == index)
+      {
+	      if (INSPECT_MODE == deviceMode)
+	      {
+			   if (4 == length)
+			   {
+				   sensorServoAcceleration = (u32_t)getValue(&source[offset], length);
+				   result = 1;
+			   }
+		   }
+      }
+      else if (0x2351 == index)
+      {
+	      if (INSPECT_MODE == deviceMode)
+	      {
+			   if (4 == length)
+			   {
+				   sensorServoHomingVelocity = (u32_t)getValue(&source[offset], length);
+				   result = 1;
+			   }
+		   }
+      }
+      else if (0x2352 == index)
+      {
+	      if (INSPECT_MODE == deviceMode)
+	      {
+		      if (4 == length)
+		      {
+			      sensorServoHomingBackoffCount = (u32_t)getValue(&source[offset], length);
+			      result = 1;
+		      }
+	      }
+      }
+      else if (0x2354 == index)
+      {
+	      if (INSPECT_MODE == deviceMode)
+	      {
+		      if (2 == length)
+		      {
+               u16_t value = (u16_t)getValue(&source[offset], length);
                 
-                if ( (setServoErrorLimit(0, value) != 0) )
-                {
-			        sensorServoErrorLimit = value;
-                    result = 1;
-                }            
-		    }
-	    }
-    }
-    else if (0x2355 == index)
-    {
-	    if (INSPECT_MODE == deviceMode)
-	    {
-		    if (4 == length)
-		    {
-			    sensorServoTravelVelocity = (u32_t)getValue(&source[offset], length);
-			    result = 1;
-		    }
-	    }
-    }	
-    else if (0x2356 == index)
-    {
-	    if (INSPECT_MODE == deviceMode)
-	    {
-		    if (4 == length)
-		    {
-			    sensorServoPulsesPerDegree = (u32_t)getValue(&source[offset], length);
-			    result = 1;
-		    }
-	    }
-    }	
-    else if (0x2500 == index)
-    {
-        if (2 == length)
-        {
-			u16_t value = (u16_t)getValue(&source[offset], length);
+               if ( (setServoErrorLimit(0, value) != 0) )
+               {
+			         sensorServoErrorLimit = value;
+                  result = 1;
+               }            
+		      }
+	      }
+      }
+      else if (0x2355 == index)
+      {
+	      if (INSPECT_MODE == deviceMode)
+	      {
+		      if (4 == length)
+		      { 
+			      sensorServoTravelVelocity = (u32_t)getValue(&source[offset], length);
+			      result = 1;
+		      }
+	      }
+      }	
+      else if (0x2356 == index)
+      {
+	      if (INSPECT_MODE == deviceMode)
+	      {
+		      if (4 == length)
+		      {
+			      sensorServoPulsesPerDegree = (u32_t)getValue(&source[offset], length);
+			      result = 1;
+		      }
+	      }
+      }	
+      else if (0x2500 == index)
+      {
+         if (2 == length)
+         {
+			   u16_t value = (u16_t)getValue(&source[offset], length);
             result = setDeviceControl(value);
-        }
-    }
+         }
+      }
+   }
 
-    if ( (0 != result) )
-    {
-        CAN_ODData(index, subIndex, &source[offset], length);
-    }
+   if ( (0 != signalApplication) && (0 != result) )
+   {
+      CAN_ODData(index, subIndex, &source[offset], length);
+   }
 
-    return(result);
+   return(result);
 }
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
@@ -2567,8 +2502,8 @@ static u8_t sendHeartbeat(u8_t value)
 	u8_t result;
 
 	txMsg.cobId = CAN_COB(CAN_NMTE_T, deviceNodeId);
-    txMsg.dlc = 1;
-    txMsg.data[0] = value;
+   txMsg.dlc = 1;
+   txMsg.data[0] = value;
                 
 	result = txCANMsg(&txMsg);
 	return(result);
@@ -2956,7 +2891,7 @@ static void updateRxPdoMap(DEVICE_RPDO_MAP * rxPdoMap)
                 
                 if ( (length >= mapLength) )
                 {
-                    validTransfer = storeDeviceData(mapIndex, mapSubIndex, frame, offset, mapLength);
+                    validTransfer = storeDeviceData(1, mapIndex, mapSubIndex, frame, offset, mapLength);
                     offset += pdoMapByteCount(rxPdoMap->mappings[i]);
                     length -= mapLength;
                 }
@@ -3689,7 +3624,7 @@ static void initiateSdoDownload(u8_t * frame)
             // data = (4 - n) bytes within frame
 
             u32_t dataLength = (u32_t)(4 - n);
-            u8_t valid = storeDeviceData(index, subIndex, frame, 4, dataLength);
+            u8_t valid = storeDeviceData(1, index, subIndex, frame, 4, dataLength);
 
             if ( (0 != valid) )
             {
@@ -3714,7 +3649,7 @@ static void initiateSdoDownload(u8_t * frame)
         {
             // data = unspecified number of bytes to transfer
 
-            u8_t valid = storeDeviceData(index, subIndex, frame, 4, 4);
+            u8_t valid = storeDeviceData(1, index, subIndex, frame, 4, 4);
 
             if ( (0 != valid) )
             {
@@ -3777,7 +3712,7 @@ static void processSdoDownload(u8_t * frame)
         if ( (0 != c) &&
              (dataLength == transferLength) )
         {
-            u8_t valid = storeDeviceData(transferIndex, transferSubIndex, transferBuffer, 0, dataLength);
+            u8_t valid = storeDeviceData(1, transferIndex, transferSubIndex, transferBuffer, 0, dataLength);
 
             if ( (0 != valid) )
             {
@@ -3964,12 +3899,17 @@ static void processNmtMessage(u8_t * frame)
 		}
 		else if ( (0x80 == frame[0]) )
 		{
-			CAN_ResetApplication();
+		   setPreOperationalState(0);
 		}
-		else if ( (0x81 == frame[0]) ||
-		          (0x82 == frame[0]) )
+		else if ( (0x81 == frame[0]) )
+      {
+			CAN_ResetApplication();
+      }
+      else if ( (0x82 == frame[0]) )
 		{
-		    setPreOperationalState(0);
+         CAN_ReloadFlash();
+		   setPreOperationalState(0);
+         sendHeartbeat(0);
 		}
 	}
 }
@@ -4122,30 +4062,13 @@ static void setConsumerHeartbeatTime(u32_t value)
 
 static void setPreOperationalState(u8_t initialSet)
 {
-    u32_t busConfiguration;
     int i;
 
 	deviceState = DEVICE_PREOPERATIONAL_S;
 	transferActive = 0;
 
-	objectBitRateCode = DEFAULT_DEVICE_BIT_RATE_CODE;
-	objectNodeId = DEFAULT_DEVICE_NODE_ID;
-	objectDeviceMode = DEFAULT_DEVICE_MODE;
-
-	if ( (readEEPROM(EEPROM_CAN_CONFIGURATION_ADDRESS, (u8_t*)&busConfiguration, sizeof(busConfiguration)) != 0) )
-	{
-		u8_t check = ((busConfiguration >> 24) & 0xFF);
-
-		if ( (EEPROM_CAN_CHECK_VALUE == check) )
-		{
-			objectDeviceMode = (busConfiguration >> 16) & 0xFF;
-			objectNodeId = (busConfiguration >> 8) & 0xFF;
-			objectBitRateCode = (busConfiguration >> 0) & 0xFF;
-		}
-	}
-	
-	deviceNodeId = objectNodeId;
-    deviceMode = objectDeviceMode;
+	deviceNodeId = assignedNodeId;
+   deviceMode = objectDeviceMode;
 
 	if ( (0 == deviceNodeId) || (deviceNodeId > 127) )
 	{
@@ -4226,7 +4149,7 @@ static void setPreOperationalState(u8_t initialSet)
 	PORTC &= 0xFC;
 	setCANLed(0);
 	
-	initCANRate(objectBitRateCode);
+	initCANRate(assignedBaudrateCode);
 
 	errorStatus = 0;
 	deviceFaultCode = 0;
@@ -4299,16 +4222,7 @@ static void setPreOperationalState(u8_t initialSet)
 	processedSensorIndexSetPoint = 0;
 	processedDeviceControl = 0;
 
-	if ( (sendHeartbeat(0) != 0) )
-	{
-		setLedState(LED_PREOPERATIONAL_OK_S);
-	}
-	else
-	{
-		sendDebug(1,1); // prevent compiler warning
-		setLedState(LED_PREOPERATIONAL_ERROR_S);
-	}
-
+   setLedState(LED_PREOPERATIONAL_OK_S);
 	CAN_NMTChange(127);
 }
 
@@ -4488,22 +4402,84 @@ static void executeStoppedState(void)
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
-void can_isp_protocol_init(void)
+void canRead(U16 index, U8 subIndex, U8 * destination, U8 length)
 {
-    isp_select_memory = MEM_DEFAULT;
-    isp_select_page   = PAGE_DEFAULT;
-    isp_start_address = ADD_DEFAULT;
-    isp_number_of_bytes = N_DEFAULT;
-    isp_prog_on_going = FALSE;
-
-    //	Init_I2C(); // todo: move to setPreOp 
-    //  DrillInit(); // todo: move to setPreOp 
-    
-    // set pre-Operational State
-    setPreOperationalState(1);
+   uint32_t actualLength = 0;
+   loadDeviceData(index, subIndex, destination, &actualLength, length);
 }
 
-uint8_t can_isp_protocol_task(void)
+void canWrite(U16 index, U8 subIndex, U8 * source, U8 length)
+{
+   storeDeviceData(0, index, subIndex, source, 0, length);
+}
+
+/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+
+void canSetBaudrate(U16 canBps)
+{
+   uint8_t code;
+
+   // 0=10K, 1=20K, 2=50K, 3=100K, 4=125K, 5=250K, 6=500K, 7=1M
+   if (10 == canBps)
+   {
+      code = 0;
+   }
+   else if (100 == canBps)
+   {
+      code = 1;
+   }
+   else if (125 == canBps)
+   {
+      code = 3;
+   }
+   else if (250 == canBps)
+   {
+      code = 4;
+   }
+   else if (250 == canBps)
+   {
+      code = 5;
+   }
+   else if (500 == canBps)
+   {
+      code = 6;
+   }
+   else if (1000 == canBps)
+   {
+      code = 7;
+   }
+   else
+   {
+      code = 2;
+   }
+
+   assignedBaudrateCode = code;
+}
+
+void canSetNodeId(U8 nodeId)
+{
+   assignedNodeId = nodeId;
+}
+
+void canInit(void)
+{
+   isp_select_memory = MEM_DEFAULT;
+   isp_select_page   = PAGE_DEFAULT;
+   isp_start_address = ADD_DEFAULT;
+   isp_number_of_bytes = N_DEFAULT;
+   isp_prog_on_going = FALSE;
+
+   //	Init_I2C(); // todo: move to setPreOp 
+   //  DrillInit(); // todo: move to setPreOp 
+    
+   // set pre-Operational State
+   CAN_ReloadFlash();
+   setPreOperationalState(1);
+   sendHeartbeat(0);
+}
+
+uint8_t canUpdate(void)
 {
 	// evaluate state
 	switch (deviceState)

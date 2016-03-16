@@ -28,6 +28,14 @@ U32 CAN_GetSerial(void);
 /**
 * @brief Function to handle application reset request.
 *
+* The function is called when the flash needs to be read and communications 
+* parameters assigned.
+*/
+void CAN_ReloadFlash(void);
+
+/**
+* @brief Function to handle application reset request.
+*
 * The function is called when the CANopen node received the command from the
 * NMT Master to hard-reset itself. Both the CANopen communication as well as
 * the application is expected to fully reset. This is typically implemented 
@@ -87,16 +95,34 @@ U8 CAN_AppSDOReadInit(U8 server, U16 index, U8 subIndex, U32 * totalSize, U32 * 
 void CAN_AppSDOReadComplete(U8 server, U16 index, U8 subIndex, U32 * size);
 
 /**
+* @brief Function to signal a write of the object dictionary.
+*
+* The function signals the application that an write request was received 
+* and is about to be processed.  The call happens BEFORE data is copied to 
+* the process image.  The application can use this call to verify the 
+* incoming data.
+*
+* @params index : index of object dictionary entry
+* @params subIndex : subindex of OD entry
+* @params data : pointer to data buffer
+* @params length : length of data
+*
+* @return 0 : incoming data is good, commit the data
+* @return non-0 : incoming data is not good, abort the transfer
+*/
+U32 CAN_ODWrite(U16 index, U8 subIndex, U8 * data, U8 length);
+
+/**
 * @brief Function to signal object dictionary change.
 *
 * The function signals the receipt of process data stored into the process 
 * image, no matter if it came in by PDO or SDO transfer. 
 *
-* @params index : index of OD entry
-* @params subIndex : subindex of OD entry
-* @params pData : pointer to data buffer
+* @params index : index of object dictionary entry
+* @params subIndex : subindex of object dictionary entry
+* @params data : pointer to data buffer
 * @params size : size of data buffer
 */
-void CAN_ODData(U16 index, U8 subIndex, U8 * pData, U8 length);
+void CAN_ODData(U16 index, U8 subIndex, U8 * data, U8 length);
 
 #endif /* CAN_CALLBACKS_H */ 
