@@ -36,8 +36,8 @@
     <State>Maximized</State>
     <Layout>&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;Layout&gt;
-  &lt;Window Guid="2a829f7c-65d8-4efd-82b4-458b6573be4d" LastFocused="131026474258262908" DockedSize="200" PopupSize="0" FloatingLocation="-1, -1" FloatingSize="250, 400" LastOpenDockSituation="Docked" LastFixedDockSituation="Docked" LastFixedDockLocation="Left" LastFloatingWindowGuid="00000000-0000-0000-0000-000000000000" LastDockContainerCount="1" LastDockContainerIndex="0" DockedWorkingSize="250, 400" DockedWindowGroupGuid="d2a4642d-57fd-44de-8383-01eb123f6878" DockedIndexInWindowGroup="0" DockedSplitPath="0" DocumentWorkingSize="250, 400" DocumentWindowGroupGuid="00000000-0000-0000-0000-000000000000" DocumentIndexInWindowGroup="0" DocumentSplitPath="0" FloatingWorkingSize="250, 400" FloatingWindowGroupGuid="00000000-0000-0000-0000-000000000000" FloatingIndexInWindowGroup="0" FloatingSplitPath="0" /&gt;
-  &lt;Window Guid="ebc6fe26-1b64-4ef1-bfee-de1ed41388d9" LastFocused="131026474259162959" DockedSize="200" PopupSize="0" FloatingLocation="-1, -1" FloatingSize="550, 400" LastOpenDockSituation="Document" LastFixedDockSituation="Document" LastFixedDockLocation="Right" LastFloatingWindowGuid="00000000-0000-0000-0000-000000000000" LastDockContainerCount="0" LastDockContainerIndex="0" DockedWorkingSize="250, 400" DockedWindowGroupGuid="00000000-0000-0000-0000-000000000000" DockedIndexInWindowGroup="0" DockedSplitPath="0" DocumentWorkingSize="250, 400" DocumentWindowGroupGuid="dba60b0b-f979-4ad0-83fe-52ade6b3a502" DocumentIndexInWindowGroup="0" DocumentSplitPath="0" FloatingWorkingSize="250, 400" FloatingWindowGroupGuid="00000000-0000-0000-0000-000000000000" FloatingIndexInWindowGroup="0" FloatingSplitPath="0" /&gt;
+  &lt;Window Guid="2a829f7c-65d8-4efd-82b4-458b6573be4d" LastFocused="131026925388589645" DockedSize="200" PopupSize="0" FloatingLocation="-1, -1" FloatingSize="250, 400" LastOpenDockSituation="Docked" LastFixedDockSituation="Docked" LastFixedDockLocation="Left" LastFloatingWindowGuid="00000000-0000-0000-0000-000000000000" LastDockContainerCount="1" LastDockContainerIndex="0" DockedWorkingSize="250, 400" DockedWindowGroupGuid="d2a4642d-57fd-44de-8383-01eb123f6878" DockedIndexInWindowGroup="0" DockedSplitPath="0" DocumentWorkingSize="250, 400" DocumentWindowGroupGuid="00000000-0000-0000-0000-000000000000" DocumentIndexInWindowGroup="0" DocumentSplitPath="0" FloatingWorkingSize="250, 400" FloatingWindowGroupGuid="00000000-0000-0000-0000-000000000000" FloatingIndexInWindowGroup="0" FloatingSplitPath="0" /&gt;
+  &lt;Window Guid="ebc6fe26-1b64-4ef1-bfee-de1ed41388d9" LastFocused="131026925389609704" DockedSize="200" PopupSize="0" FloatingLocation="-1, -1" FloatingSize="550, 400" LastOpenDockSituation="Document" LastFixedDockSituation="Document" LastFixedDockLocation="Right" LastFloatingWindowGuid="00000000-0000-0000-0000-000000000000" LastDockContainerCount="0" LastDockContainerIndex="0" DockedWorkingSize="250, 400" DockedWindowGroupGuid="00000000-0000-0000-0000-000000000000" DockedIndexInWindowGroup="0" DockedSplitPath="0" DocumentWorkingSize="250, 400" DocumentWindowGroupGuid="dba60b0b-f979-4ad0-83fe-52ade6b3a502" DocumentIndexInWindowGroup="0" DocumentSplitPath="0" FloatingWorkingSize="250, 400" FloatingWindowGroupGuid="00000000-0000-0000-0000-000000000000" FloatingIndexInWindowGroup="0" FloatingSplitPath="0" /&gt;
   &lt;Window Guid="9f97e230-aa8d-43dd-92c9-699f7df65209" LastFocused="131008994963815453" DockedSize="200" PopupSize="0" FloatingLocation="-1, -1" FloatingSize="250, 400" LastOpenDockSituation="Docked" LastFixedDockSituation="Docked" LastFixedDockLocation="Bottom" LastFloatingWindowGuid="00000000-0000-0000-0000-000000000000" LastDockContainerCount="1" LastDockContainerIndex="0" DockedWorkingSize="250, 400" DockedWindowGroupGuid="11eafd4d-0b1b-42d4-ace1-07a2f8bf70fa" DockedIndexInWindowGroup="0" DockedSplitPath="0" DocumentWorkingSize="250, 400" DocumentWindowGroupGuid="00000000-0000-0000-0000-000000000000" DocumentIndexInWindowGroup="0" DocumentSplitPath="0" FloatingWorkingSize="250, 400" FloatingWindowGroupGuid="00000000-0000-0000-0000-000000000000" FloatingIndexInWindowGroup="0" FloatingSplitPath="0" /&gt;
   &lt;Container Dock="2" ContentSize="200"&gt;
     &lt;SplitLayoutSystem WorkingSize="250, 400" SplitMode="1"&gt;
@@ -1927,6 +1927,77 @@
               <LowLimitString>0</LowLimitString>
               <ObjectType>Var</ObjectType>
               <PDOMapping>false</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>030f0ef3-739a-4352-8bfd-c47c7c48156d</GroupId>
+            </Entry>
+            <Entry>
+              <Index>8964</Index>
+              <Subindex>0</Subindex>
+              <EntryName>Solenoid Control</EntryName>
+              <SubentryName>
+              </SubentryName>
+              <TypeId>Unsigned16</TypeId>
+              <ValueString>0x0000</ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>ReadWrite</AccessType>
+              <HighLimitString>65535</HighLimitString>
+              <LowLimitString>0</LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>false</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>030f0ef3-739a-4352-8bfd-c47c7c48156d</GroupId>
+            </Entry>
+            <Entry>
+              <Index>9472</Index>
+              <Subindex>0</Subindex>
+              <EntryName>Control</EntryName>
+              <SubentryName>
+              </SubentryName>
+              <TypeId>Unsigned16</TypeId>
+              <ValueString>0</ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>ReadWrite</AccessType>
+              <HighLimitString>65535</HighLimitString>
+              <LowLimitString>0</LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>false</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>030f0ef3-739a-4352-8bfd-c47c7c48156d</GroupId>
+            </Entry>
+            <Entry>
+              <Index>9473</Index>
+              <Subindex>0</Subindex>
+              <EntryName>Status</EntryName>
+              <SubentryName>
+              </SubentryName>
+              <TypeId>Unsigned16</TypeId>
+              <ValueString>0</ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>ReadOnly</AccessType>
+              <HighLimitString>
+              </HighLimitString>
+              <LowLimitString>
+              </LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>true</PDOMapping>
               <RefuseReadonScan>false</RefuseReadonScan>
               <RefuseWriteonDownload>false</RefuseWriteonDownload>
               <Denotation>

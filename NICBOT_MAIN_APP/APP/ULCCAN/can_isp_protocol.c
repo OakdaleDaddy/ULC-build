@@ -78,29 +78,6 @@ typedef enum
     CAN_NMTE_T = 14,
 }CAN_FRAME_TYPE;
 
-typedef enum
-{
-    DRILL_IDLE_S,
-    DRILL_MANUAL_MOVE_S,
-    DRILL_RH_RETRACT_TO_LIMIT_WAIT_S,
-    DRILL_RH_STOP_FROM_RETRACT_WAIT_S,
-    DRILL_RH_EXTEND_TO_NOT_LIMIT_WAIT_S,
-    DRILL_RH_STOP_FROM_EXTEND_WAIT_S,
-    DRILL_RH_BACKOFF_S,
-    DRILL_STOP_S,
-    DRILL_FAULTED_S,
-}DRILL_STATES;
-
-typedef enum
-{
-	SENSOR_HOMING_IDLE_S,
-	SENSOR_HOMING_CCW_WAIT_S,
-	SENSOR_HOMING_STOP_FROM_CCW_S,
-	SENSOR_HOMING_NOT_CCW_WAIT_S,
-	SENSOR_HOMING_STOP_FROM_NOT_CCW_S,
-	SENSOR_HOMING_STOP_FROM_BACKOFF_S,
-}SENSOR_HOME_STATES;
-
 typedef unsigned char u8_t;
 typedef char s8_t;
 typedef unsigned short u16_t;
@@ -149,38 +126,18 @@ typedef struct
 
 }DEVICE_RPDO_MAP;
 
-typedef struct  
-{
-    DRILL_STATES state;
-    u8_t axis;
-    u8_t control;
-	u8_t status;
-    u16_t retractMask;    
-    s16_t manualSetPoint;
-    s16_t processedSetPoint;	
-}DRILL_CONTEXT;
-
 static void setCANTx(void);
 static void setCANRx(u8_t mobId, u8_t id, u8_t mask);
 static void initCANRate(u8_t bitRateCode);
 static u8_t rxCANMsg(CAN_MSG * canMsg);
 static u8_t txCANMsg(CAN_MSG * canMsg);
-//static u8_t readEEPROM(u16_t address, u8_t * dest, u8_t length);
-//static u8_t writeEEPROM(u16_t address, u8_t * source, u8_t length);
 static u32_t getCANTimer(void);
 static void setCANLed(int setValue);
 
-static u8_t setServoAcceleration(u32_t value);
-static u8_t setServoVelocity(u32_t value);
-static u8_t setServoPosition(u32_t value);
 static u8_t setServoErrorLimit(u8_t axisNum, u16_t value);
 static u8_t setServoProportionalControlConstant(u8_t axisNum, u32_t value);
 static u8_t setServoIntegralControlConstant(u8_t axisNum, u32_t value);
 static u8_t setServoDerivativeControlConstant(u8_t axisNum, u32_t value);
-static u8_t setFrontLaserControl(u8_t status);
-static u8_t setRearLaserControl(u8_t status);
-static u8_t setDeviceControl(u16_t control);
-static u16_t getDeviceStatus(void);
 
 static u32_t getValue(u8_t * source, u8_t length);
 static u8_t pdoMapByteCount(u32_t mapping);
@@ -217,14 +174,6 @@ static void updateConsumerHeartbeat(void);
 static void updateProducerHeartbeat(void);
 static void updateTxPdoMap(DEVICE_TPDO_MAP * txPdoMap);
 static void updateRxPdoMap(DEVICE_RPDO_MAP * rxPdoMap);
-static void updateDeviceStatus(void);
-static void updateActualDrillPosition(void);
-static void updateActualSensorPosition(void);
-static void updateRepairControl(void);
-static void updateDrillContext(DRILL_CONTEXT * drillContext);
-static void updateInspectControl(void);
-static void updateSensorHoming(void);
-static void updateAccelerometer(void);
 
 static void initiateSdoDownload(u8_t * frame);
 static void processSdoDownload(u8_t * frame);
@@ -325,7 +274,6 @@ static u8_t cameraSelectB;
 static u8_t cameraLightIntensity[12];
 
 static u16_t solenoidControl;
-static u8_t lastWheelPositionRequest;
 
 static s16_t frontDrillSpeedSetPoint; // RPM
 //static u16_t frontDrillIndexSetPoint; // units of 1/10 mm
@@ -380,7 +328,6 @@ static u16_t deviceStatus;
 static u32_t accelerometerSampleTimeLimit;
 static u32_t drillPositionSampleTimeLimit;
 static u32_t sensorPositionSampleTimeLimit;
-static u32_t deviceStatusSampleTimeLimit;
 
 static s16_t processedFrontDrillSpeedSetPoint;
 //static u16_t processedFrontDrillIndexSetPoint;
@@ -388,12 +335,6 @@ static s16_t processedRearDrillSpeedSetPoint;
 //static u16_t processedRearDrillIndexSetPoint;
 static u32_t processedSensorIndexSetPoint;
 static u16_t processedDeviceControl;
-
-static DRILL_CONTEXT frontDrillContext;
-static DRILL_CONTEXT rearDrillContext;
-
-static SENSOR_HOME_STATES sensorHomingState;
-static u8_t sensorHomingActivate;
 
 static const u8_t consumerHeartbeatLostFaultCode[8] = { 0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
 static const u8_t rpdoFailureLostFaultCode[8] = { 0x00, 0x20, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
@@ -639,283 +580,103 @@ static void serveCOP(void)
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
-static u8_t setServoAcceleration(u32_t value)
-{
-	u8_t result;
-	u8_t byte0;
-	u8_t byte1;
-	u8_t byte2;
-	u8_t byte3;
-	
-	byte0 = (u8_t)(value & 0xFF);
-	byte1 = (u8_t)((value >> 8) & 0xFF);
-	byte2 = (u8_t)((value >> 16) & 0xFF);
-	byte3 = (u8_t)((value >> 24) & 0xFF);
-		
-	result = servo_load_accel(byte3, byte2, byte1, byte0);
-	
-	if (0 == result)
-	{
-		result = 1;
-	}
-	else 
-	{
-		result = 0;		
-	}
-	
-	return(result);
-}
-
-static u8_t setServoVelocity(u32_t value)
-{
-	u8_t result;
-	u8_t byte0;
-	u8_t byte1;
-	u8_t byte2;
-	u8_t byte3;
-	
-	byte0 = (u8_t)(value & 0xFF);
-	byte1 = (u8_t)((value >> 8) & 0xFF);
-	byte2 = (u8_t)((value >> 16) & 0xFF);
-	byte3 = (u8_t)((value >> 24) & 0xFF);
-	
-	result = servo_load_velocity(byte3, byte2, byte1, byte0);
-	
-	if (0 == result)
-	{
-		result = 1;
-	}
-	else 
-	{
-		result = 0;
-	}
-	
-	return(result);
-}
-
-static u8_t setServoPosition(u32_t value)
-{
-	u8_t result;
-	u8_t byte0;
-	u8_t byte1;
-	u8_t byte2;
-	u8_t byte3;
-				
-	byte0 = (u8_t)(value & 0xFF);
-	byte1 = (u8_t)((value >> 8) & 0xFF);
-	byte2 = (u8_t)((value >> 16) & 0xFF);
-	byte3 = (u8_t)((value >> 24) & 0xFF);
-				
-	result = servo_load_position(byte3, byte2, byte1, byte0);
-	
-	if (0 == result)
-	{
-		result = 1;
-	}
-	else
-	{
-		result = 0;
-	}
-	
-	return(result);
-}
-
 static u8_t setServoErrorLimit(u8_t axisNum, u16_t value)
 {
-	u8_t result;
-	
-	result = servo_set_error(axisNum, value);
-	
-	if (0 == result)
-	{
-		result = 1;
-	}
-	else
-	{
-		result = 0;
-	}
-	
-	return(result);
+   u8_t result;
+   
+   result = servo_set_error(axisNum, value);
+   
+   if (0 == result)
+   {
+      result = 1;
+   }
+   else
+   {
+      result = 0;
+   }
+   
+   return(result);
 }
 
 static u8_t setServoProportionalControlConstant(u8_t axisNum, u32_t value)
 {
-	u8_t result;
-	u8_t byte0;
-	u8_t byte1;
-	
-	byte0 = (u8_t)(value & 0xFF);
-	byte1 = (u8_t)((value >> 8) & 0xFF);
-	
-	result = set_kp(axisNum, byte1, byte0);
+   u8_t result;
+   u8_t byte0;
+   u8_t byte1;
+   
+   byte0 = (u8_t)(value & 0xFF);
+   byte1 = (u8_t)((value >> 8) & 0xFF);
+   
+   result = set_kp(axisNum, byte1, byte0);
    (void)result;
-	
-#if 0	
-	if (0 == result)
-	{
-		result = 1;
-	}
-	else
-	{
-		result = 0;
-	}
-	
-	return(result);
-#endif
-	return(1);
+   
+   #if 0
+   if (0 == result)
+   {
+      result = 1;
+   }
+   else
+   {
+      result = 0;
+   }
+   
+   return(result);
+   #endif
+   return(1);
 }
 
 static u8_t setServoIntegralControlConstant(u8_t axisNum, u32_t value)
 {
-	u8_t result;
-	u8_t byte0;
-	u8_t byte1;
-	
-	byte0 = (u8_t)(value & 0xFF);
-	byte1 = (u8_t)((value >> 8) & 0xFF);
-	
-	result = set_ki(axisNum, byte1, byte0);
+   u8_t result;
+   u8_t byte0;
+   u8_t byte1;
+   
+   byte0 = (u8_t)(value & 0xFF);
+   byte1 = (u8_t)((value >> 8) & 0xFF);
+   
+   result = set_ki(axisNum, byte1, byte0);
    (void)result;
-	
-#if 0
-	if (0 == result)
-	{
-		result = 1;
-	}
-	else
-	{
-		result = 0;
-	}
-	
-	return(result);
-#endif
-	return(1);
+   
+   #if 0
+   if (0 == result)
+   {
+      result = 1;
+   }
+   else
+   {
+      result = 0;
+   }
+   
+   return(result);
+   #endif
+   return(1);
 }
 
 static u8_t setServoDerivativeControlConstant(u8_t axisNum, u32_t value)
 {
-	u8_t result;
-	u8_t byte0;
-	u8_t byte1;
-	
-	byte0 = (u8_t)(value & 0xFF);
-	byte1 = (u8_t)((value >> 8) & 0xFF);
-	
-	result = set_kd(axisNum, byte1, byte0);
+   u8_t result;
+   u8_t byte0;
+   u8_t byte1;
+   
+   byte0 = (u8_t)(value & 0xFF);
+   byte1 = (u8_t)((value >> 8) & 0xFF);
+   
+   result = set_kd(axisNum, byte1, byte0);
    (void)result;
-	
-#if 0	
-	if (0 == result)
-	{
-		result = 1;
-	}
-	else
-	{
-		result = 0;
-	}
-	
-	return(result);
-#endif
-	return(1);
-}
-
-// laser status 1=on, 0=off
-static u8_t setFrontLaserControl(u8_t status)
-{
-	if ( (0 != status) )
-	{
-    	// turn the laser ON
-    	deviceControl0CCache |= 0x06;
-    	PORTG |= 0b00010000;
-	}
-	else
-	{
-    	// turn the laser OFF
-    	if (deviceControl0CCache & 0x1)
-    	{
-        	deviceControl0CCache &= 0xFB; // if front laser is ON
-    	}
-    	else
-    	{
-        	deviceControl0CCache &= 0xF9; // front laser is OFF
-    	}
-    	
-    	PORTG &= 0b11101111;
-	}
-
-	IO_Write(0x0C, deviceControl0CCache);
-	
-	return(1);
-}
-
-// laser status 1=on, 0=off
-static u8_t setRearLaserControl(u8_t status)
-{
-	if ( (0 != status) )
-	{
-    	// turn the laser ON
-    	deviceControl0CCache |= 0x03;
-    	PORTG |= 0b00001000;
-	}
-	else
-	{
-    	// turn the laser OFF
-    	if (deviceControl0CCache & 0x4)
-    	{
-        	deviceControl0CCache &= 0xFE; // if rear laser is ON
-    	}
-    	else
-    	{
-        	deviceControl0CCache &= 0xFC; // rear laser is OFF
-    	}
-    	
-    	PORTG &= 0b11110111;
-	}
-
-	IO_Write(0x0C, deviceControl0CCache);
-
-	return(1);
-}
-
-// return 0 for error, 1 for good; 
-static u8_t setDeviceControl(u16_t control)
-{
-    u8_t result = 1;
-
-    if ( (REPAIR_MODE == deviceMode) )
-    {
-	}
-    else if ( (INSPECT_MODE == deviceMode) )
-    {
-	}
-	
-    if ( (0 != result) )
-    {
-        deviceControl = control;
-    }
-
-    return(result);
-}
-
-static u16_t getDeviceStatus(void)
-{
-    u16_t result = 0;
-    u16_t inputStatus = IO_Read(0x06);
-    
-    if ( (REPAIR_MODE == deviceMode) )
-    {        		
-		result = (inputStatus << 8);
-		result |= frontDrillContext.status;
-		result |= (rearDrillContext.status << 3);		
-		result |= lastWheelPositionRequest;
-    }
-    else if ( (INSPECT_MODE == deviceMode) )
-    {
-		result = (inputStatus << 8);		
-		result |= lastWheelPositionRequest;
-    }
-
-    return (result);
+   
+   #if 0
+   if (0 == result)
+   {
+      result = 1;
+   }
+   else
+   {
+      result = 0;
+   }
+   
+   return(result);
+   #endif
+   return(1);
 }
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
@@ -1543,8 +1304,10 @@ static u8_t loadDeviceData(u16_t index, u8_t subIndex, u8_t * buffer, u32_t * le
     {
         if (REPAIR_MODE == deviceMode)
         {            
+#if 0
             size = sizeof(frontDrillContext.manualSetPoint);
             source = (u8_t *)&frontDrillContext.manualSetPoint;
+#endif
         }
     }
     else if (0x2313 == index)
@@ -1559,8 +1322,10 @@ static u8_t loadDeviceData(u16_t index, u8_t subIndex, u8_t * buffer, u32_t * le
     {
         if (REPAIR_MODE == deviceMode)
         {            
+#if 0
             size = sizeof(rearDrillContext.manualSetPoint);
             source = (u8_t *)&rearDrillContext.manualSetPoint;
+#endif
         }
     }
     else if (0x2315 == index)
@@ -2035,8 +1800,10 @@ static u8_t storeDeviceData(u8_t signalApplication, u16_t index, u8_t subIndex, 
 
                if (value <= frontDrillIndexLimit)
                {
+#if 0
                   frontDrillContext.manualSetPoint = value;
                   result = 1;
+#endif
                }
             }
          }
@@ -2062,8 +1829,10 @@ static u8_t storeDeviceData(u8_t signalApplication, u16_t index, u8_t subIndex, 
 
                if (value <= rearDrillIndexLimit)
                {
+#if 0
                   rearDrillContext.manualSetPoint = value;
                   result = 1;
+#endif
                }
             }
          }
@@ -2382,10 +2151,20 @@ static u8_t storeDeviceData(u8_t signalApplication, u16_t index, u8_t subIndex, 
       }	
       else if (0x2500 == index)
       {
-         if (2 == length)
+         deviceControl = (u16_t)getValue(&source[offset], length);
+      }
+      else if (0x2501 == index)
+      {
+         deviceStatus = (u16_t)getValue(&source[offset], length);
+
+         if (DEVICE_OPERATIONAL_S == deviceState)
          {
-			   u16_t value = (u16_t)getValue(&source[offset], length);
-            result = setDeviceControl(value);
+            u8_t i;
+      
+            for (i=0; i<4; i++)
+            {
+               activateTxPdoMap(&txPdoMapping[i], index, subIndex);
+            }
          }
       }
    }
@@ -2836,652 +2615,6 @@ static void updateRxPdoMap(DEVICE_RPDO_MAP * rxPdoMap)
             rxPdoMap->processNeeded = 0;
         }
     }
-}
-
-static void updateDeviceStatus(void)
-{
-	u16_t tempDeviceStatus;
-	
-	deviceStatusSampleTimeLimit = SYSTIME_NOW;
-	tempDeviceStatus = getDeviceStatus();
-	
-	if (tempDeviceStatus != deviceStatus)
-	{
-		u8_t i;
-
-		if (DEVICE_OPERATIONAL_S == deviceState)
-		{
-			for (i=0; i<4; i++)
-			{
-				activateTxPdoMap(&txPdoMapping[i], 0x2501, 0);
-			}
-		}
-
-		deviceStatus = tempDeviceStatus;
-	}
-}
-
-static void updateActualDrillPosition(void)
-{
-	difference = SYSTIME_DIFF (drillPositionSampleTimeLimit, now);
-	limit = (u32_t)DRILL_SAMPLE_PERIOD * 1000;
-
-	if ( (difference >= limit) )
-	{
-		u8_t * dataPointer;
-		s32_t motorCount;
-		
-		drillPositionSampleTimeLimit = SYSTIME_NOW;
-		
-		dataPointer = servo_get_position(1);
-		motorCount = dataPointer[0];
-		motorCount <<= 8;
-		motorCount |= dataPointer[1];
-		motorCount <<= 8;
-		motorCount |= dataPointer[2];
-		motorCount <<= 8;
-		motorCount |= dataPointer[3];
-		
-		motorCount *= -100L;
-		motorCount /= drillServoPulsesPerUnit;
-		motorCount &= 0xFFFF;
-		
-		if (motorCount != actualFrontDrillIndex)
-		{
-			actualFrontDrillIndex = motorCount;
-			
-			if (DEVICE_OPERATIONAL_S == deviceState)
-			{
-				u8_t i;
-				
-				for (i=0; i<4; i++)
-				{
-					activateTxPdoMap(&txPdoMapping[i], 0x2412, 0);
-				}
-			}
-		}
-
-		dataPointer = servo_get_position(0);
-		motorCount = dataPointer[0];
-		motorCount <<= 8;
-		motorCount |= dataPointer[1];
-		motorCount <<= 8;
-		motorCount |= dataPointer[2];
-		motorCount <<= 8;
-		motorCount |= dataPointer[3];
-		
-		motorCount *= -100L;
-		motorCount /= drillServoPulsesPerUnit;
-		motorCount &= 0xFFFF;
-		
-		if (motorCount != actualRearDrillIndex)
-		{
-			actualRearDrillIndex = motorCount;
-			
-			if (DEVICE_OPERATIONAL_S == deviceState)
-			{
-				u8_t i;
-				
-				for (i=0; i<4; i++)
-				{
-					activateTxPdoMap(&txPdoMapping[i], 0x2414, 0);
-				}
-			}
-		}
-
-	}
-}
-
-static void updateActualSensorPosition(void)
-{
-    difference = SYSTIME_DIFF (sensorPositionSampleTimeLimit, now);
-    limit = (u32_t)SENSOR_SAMPLE_PERIOD * 1000;
-
-    if ( (difference >= limit) )
-    {
-	    u8_t * dataPointer;
-	    s32_t sensorCount;
-	        
-	    sensorPositionSampleTimeLimit = SYSTIME_NOW;
-	        
-	    dataPointer = servo_get_position(0);
-	    sensorCount = dataPointer[0];
-	    sensorCount <<= 8;
-	    sensorCount |= dataPointer[1];
-	    sensorCount <<= 8;
-	    sensorCount |= dataPointer[2];
-	    sensorCount <<= 8;
-	    sensorCount |= dataPointer[3];
-	        
-	    sensorCount *= 100L;
-	    sensorCount /= sensorServoPulsesPerDegree;
-	        
-	    if (sensorCount != actualSensorIndex)
-	    {
-		    actualSensorIndex = sensorCount;
-		        
-		    if (DEVICE_OPERATIONAL_S == deviceState)
-		    {
-			    u8_t i;
-			        
-			    for (i=0; i<4; i++)
-			    {
-				    activateTxPdoMap(&txPdoMapping[i], 0x2415, 0);
-			    }
-		    }
-	    }
-    }
-}
-
-static void updateRepairControl(void)
-{
-	if ( (processedFrontDrillSpeedSetPoint != frontDrillSpeedSetPoint) )
-	{
-        u32_t speedCache;
-		u8_t speedRequest;
-		
-		// active range 64..127
-        speedCache = frontDrillSpeedSetPoint;
-        speedCache *= 100;
-        speedCache /= 8730;
-        speedCache += 64;
-        speedRequest = (u8_t)(speedCache & 0xFF);
-        sendDebug(0x5A, speedRequest);
-        
-		drillspeed(1, 0x30, speedRequest);
-		
-        actualFrontDrillSpeed = frontDrillSpeedSetPoint;
-
-		if (DEVICE_OPERATIONAL_S == deviceState)
-		{
-    		u8_t i;
-    			
-    		for (i=0; i<4; i++)
-    		{
-        		activateTxPdoMap(&txPdoMapping[i], 0x2411, 0);
-    		}
-		}        
-    
-        processedFrontDrillSpeedSetPoint = frontDrillSpeedSetPoint;
-	}
-	
-#if 0    
-	if ( (processedFrontDrillIndexSetPoint != frontDrillIndexSetPoint) )
-	{
-		u32_t positionRequest;
-		u8_t servoStatus;
-		
-		positionRequest = frontDrillIndexSetPoint;
-		positionRequest *= drillServoPulsesPerUnit;
-		positionRequest /= 100L;
-		
-		servoStatus = servo_get_status(0);
-
-		if ( (servoStatus & 0x04) )
-		{
-			sendDebug(0x0001A, 0);
-			setServoAcceleration(drillServoAcceleration);
-			setServoVelocity(drillServoTravelVelocity);
-		}
-
-		sendDebug(0x0001B, positionRequest);
-		setServoPosition(positionRequest);
-		servo_move_abs(0);
-		
-		processedFrontDrillIndexSetPoint = frontDrillIndexSetPoint;
-	}
-#endif    
-
-	if ( (processedRearDrillSpeedSetPoint != rearDrillSpeedSetPoint) )
-	{
-        u32_t speedCache;
-        u8_t speedRequest;
-        
-        // active range 64..127
-        speedCache = rearDrillSpeedSetPoint;
-        speedCache *= 100;
-        speedCache /= 8730;
-        speedCache += 64;
-        speedRequest = (u8_t)(speedCache & 0xFF);
-        sendDebug(0x5B, speedRequest);
-
-		drillspeed(0, 0x30, speedRequest);
-		
-        actualRearDrillSpeed = rearDrillSpeedSetPoint;
-        
-		if (DEVICE_OPERATIONAL_S == deviceState)
-		{
-    		u8_t i;
-    			
-    		for (i=0; i<4; i++)
-    		{
-        		activateTxPdoMap(&txPdoMapping[i], 0x2413, 0);
-    		}
-		}        
-
-		processedRearDrillSpeedSetPoint = rearDrillSpeedSetPoint;
-	}
-
-#if 0
-	if ( (processedRearDrillIndexSetPoint != rearDrillIndexSetPoint) )
-	{
-		u32_t positionRequest;
-		u8_t servoStatus;
-		
-		positionRequest = rearDrillIndexSetPoint;
-		positionRequest *= drillServoPulsesPerUnit;
-		positionRequest /= 100L;
-		
-		servoStatus = servo_get_status(1);
-
-		if ( (servoStatus & 0x04) )
-		{
-			sendDebug(0x0002A, 0);
-			setServoAcceleration(drillServoAcceleration);
-			setServoVelocity(drillServoTravelVelocity);
-		}
-
-		sendDebug(0x0002B, positionRequest);
-		setServoPosition(positionRequest);
-		servo_move_abs(1);
-		
-		processedRearDrillIndexSetPoint = rearDrillIndexSetPoint;
-	}
-#endif
-
-	if (processedDeviceControl != deviceControl)
-	{
-        processedDeviceControl = deviceControl;
-        frontDrillContext.control = (u8_t)(deviceControl & 0x00FF);
-        rearDrillContext.control = (u8_t)((deviceControl & 0xFF00) >> 8);
-
-		if ( ((deviceControl & 0x0001) != 0) )
-		{
-			setFrontLaserControl(1);
-		}
-		else
-		{
-			setFrontLaserControl(0);
-		}
-
-		if ( ((deviceControl & 0x0100) != 0) )
-		{
-			setRearLaserControl(1);
-		}
-		else
-		{
-			setRearLaserControl(0);
-		}
-	}
-}
-
-static void updateDrillContext(DRILL_CONTEXT * drillContext)
-{
-	if ( (DRILL_IDLE_S == drillContext->state) )
-	{
-    	if ( ((drillContext->control & 0x04) != 0) )
-    	{
-            drillContext->control &= ~(0x04);
-            
-        	setServoAcceleration(drillServoAcceleration);
-        	setServoVelocity(drillServoHomingVelocity);
-        	setServoPosition(20000000);
-        	servo_move_rel(drillContext->axis);
-        	
-        	sendDebug(0xBC, 1);
-			drillContext->status &= ~(0x02);
-        	drillContext->state = DRILL_RH_RETRACT_TO_LIMIT_WAIT_S;
-    	}
-        else if ( (drillContext->manualSetPoint != drillContext->processedSetPoint) )
-        {
-    		s32_t positionRequest;
-		
-		    positionRequest = -drillContext->manualSetPoint;
-    		positionRequest *= drillServoPulsesPerUnit;
-	    	positionRequest /= 100L;
-		
-    		setServoAcceleration(drillServoAcceleration);
-    		setServoVelocity(drillServoTravelVelocity);
-		    sendDebug(0xCC, positionRequest);
-		    setServoPosition(positionRequest);
-		    servo_move_abs(drillContext->axis);
-		
-    		drillContext->processedSetPoint = drillContext->manualSetPoint;
-            
-        	sendDebug(0xBC, 10);
-			drillContext->status &= ~(0x02);
-        	drillContext->state = DRILL_MANUAL_MOVE_S;            
-        }            
-	}    
-	else if ( (DRILL_FAULTED_S == drillContext->state) )
-	{
-        if ( ((drillContext->control & 0x02) != 0) )
-        {
-	        drillContext->control &= ~(0x02);
-			drillContext->status &= ~(0x01);
-			// do the thing to clear the error bit
-			drillContext->state = DRILL_IDLE_S;
-        }
-	}
-	else
-	{
-    	u8_t servoStatus;
-    	
-    	servoStatus = servo_get_status(drillContext->axis);
-    	
-    	if ( (servoStatus & 0x20) )
-    	{	
-			drillContext->status |= 0x01;
-			drillContext->state = DRILL_FAULTED_S;
-    	}
-        else if ( ((drillContext->control & 0x02) != 0) )
-        {
-            servo_stop_decel(drillContext->axis);
-            
-            sendDebug(0xBC, 12);
-            drillContext->control &= ~(0x02);
-            drillContext->state = DRILL_STOP_S;
-        }
-    	else
-    	{
-            if ( (DRILL_MANUAL_MOVE_S == drillContext->state) )
-            {
-                // todo check limits to stop
-            	if ( (servoStatus & 0x04) )
-            	{
-                	sendDebug(0xBC, 11);
-					drillContext->status |= 0x02;
-                	drillContext->state = DRILL_IDLE_S;
-            	}
-                else if ( (drillContext->manualSetPoint != drillContext->processedSetPoint) )
-                {
-                    s32_t positionRequest;
-            
-                    positionRequest = -drillContext->manualSetPoint;
-                    positionRequest *= drillServoPulsesPerUnit;
-                    positionRequest /= 100L;
-            
-                    sendDebug(0xCD, positionRequest);
-					
-					setServoVelocity(drillServoTravelVelocity);
-					servo_set_velocity_while_moving(drillContext->axis);
-										
-                    setServoPosition(positionRequest);
-                    servo_move_abs_while_moving(drillContext->axis);
-            
-                    drillContext->processedSetPoint = drillContext->manualSetPoint;
-                }                
-            } 
-            else if ( (DRILL_STOP_S == drillContext->state) )
-            {
-            	if ( (servoStatus & 0x04) )
-            	{
-                	sendDebug(0xBC, 13);
-					drillContext->status |= 0x02;
-                	drillContext->state = DRILL_IDLE_S;
-            	}            
-            }                
-        	else if ( (DRILL_RH_RETRACT_TO_LIMIT_WAIT_S == drillContext->state) )
-        	{
-            	if ( ((deviceStatus & drillContext->retractMask) != 0) )
-            	{
-                	servo_stop_decel(drillContext->axis);
-                	
-                	sendDebug(0xBC, 2);
-                	drillContext->state = DRILL_RH_STOP_FROM_RETRACT_WAIT_S;
-            	}
-        	}
-        	else if ( (DRILL_RH_STOP_FROM_RETRACT_WAIT_S == drillContext->state) )
-        	{
-            	if ( (servoStatus & 0x04) )
-            	{
-                	setServoPosition(-4000000);
-                	servo_move_rel(drillContext->axis);
-                	
-                	sendDebug(0xBC, 3);
-                	drillContext->state = DRILL_RH_EXTEND_TO_NOT_LIMIT_WAIT_S;
-            	}
-        	}
-        	else if ( (DRILL_RH_EXTEND_TO_NOT_LIMIT_WAIT_S == drillContext->state) )
-        	{
-            	if ( ((deviceStatus & drillContext->retractMask) == 0) )
-            	{
-                	servo_stop_decel(drillContext->axis);
-                	
-                	sendDebug(0xBC, 4);
-                	drillContext->state = DRILL_RH_STOP_FROM_EXTEND_WAIT_S;
-            	}
-        	}
-        	else if ( (DRILL_RH_STOP_FROM_EXTEND_WAIT_S == drillContext->state) )
-        	{
-            	if ( (servoStatus & 0x04) )
-            	{
-                	setServoPosition(-drillServoHomingBackoffCount);
-                	servo_move_rel(drillContext->axis);
-                	
-                	sendDebug(0xBC, 5);
-                	drillContext->state = DRILL_RH_BACKOFF_S;
-            	}
-        	}
-        	else if ( (DRILL_RH_BACKOFF_S == drillContext->state) )
-        	{
-            	if ( (servoStatus & 0x04) )
-            	{
-                	servo_set_origin(drillContext->axis);
-                    drillContext->processedSetPoint = 0;
-					drillContext->manualSetPoint = 0;
-                	
-                	sendDebug(0xBC, 6);
-					drillContext->status |= 0x02;					
-                	drillContext->state = DRILL_IDLE_S;
-            	}
-        	}
-    	}
-	}
-}
-
-static void updateInspectControl(void)
-{
-	if ( (processedSensorIndexSetPoint != sensorIndexSetPoint) && (SENSOR_HOMING_IDLE_S == sensorHomingState) )
-	{
-		u32_t positionRequest;
-		u8_t servoStatus;
-		
-		positionRequest = sensorIndexSetPoint;
-		positionRequest *= sensorServoPulsesPerDegree;
-		positionRequest /= 100L;
-		
-		servoStatus = servo_get_status(0);
-
-		if ( (servoStatus & 0x04) )
-		{
-			sendDebug(0x0000A, 0);
-			setServoAcceleration(sensorServoAcceleration);
-			setServoVelocity(sensorServoTravelVelocity);
-		}
-
-		sendDebug(0x0000B, positionRequest);
-		setServoPosition(positionRequest);
-		servo_move_abs(0);
-		
-		processedSensorIndexSetPoint = sensorIndexSetPoint;
-	}
-	
-	if (processedDeviceControl != deviceControl)
-	{
-		u16_t controlToEvalute = deviceControl & ~(processedDeviceControl);
-		processedDeviceControl = deviceControl;
-		
-		if ( ((controlToEvalute & 0x0001) != 0) && (SENSOR_HOMING_IDLE_S == sensorHomingState) )
-		{
-			sensorHomingActivate = 1;
-		}
-
-		if ( ((controlToEvalute & 0x0002) != 0) )
-		{
-			sendDebug(0x0000C, 0);
-			servo_motor_off(0);
-		}
-	}
-}
-
-static void updateSensorHoming(void)
-{
-	if ( (SENSOR_HOMING_IDLE_S == sensorHomingState) )
-	{
-		if ( (0 != sensorHomingActivate) )
-		{
-			sensorHomingActivate = 0;			
-			
-			setServoAcceleration(sensorServoAcceleration);
-			setServoVelocity(sensorServoHomingVelocity);
-			setServoPosition(-20000000);
-			servo_move_rel(0);	
-			
-			sendDebug(0xAB, 1);
-			sensorHomingState = SENSOR_HOMING_CCW_WAIT_S;
-		}
-	}
-	else
-	{
-		u8_t servoStatus;
-		
-		servoStatus = servo_get_status(0);
-		
-		if ( (servoStatus & 0x20) )
-		{
-			sensorHomingState = SENSOR_HOMING_IDLE_S;
-			setDeviceFault(servoExcessivePositionFaultCode);
-		}
-		else
-		{
-			if ( (SENSOR_HOMING_CCW_WAIT_S == sensorHomingState) )
-			{
-				if ( ((deviceStatus & 0x0400) == 0) )
-				{
-					servo_stop_decel(0);
-				
-					sendDebug(0xAB, 2);				
-					sensorHomingState = SENSOR_HOMING_STOP_FROM_CCW_S;
-				}
-			}
-			else if ( (SENSOR_HOMING_STOP_FROM_CCW_S == sensorHomingState) )
-			{
-				if ( (servoStatus & 0x04) )
-				{
-					setServoPosition(4000000);
-					servo_move_rel(0);
-				
-					sendDebug(0xAB, 3);
-					sensorHomingState = SENSOR_HOMING_NOT_CCW_WAIT_S;				
-				}
-			}
-			else if ( (SENSOR_HOMING_NOT_CCW_WAIT_S == sensorHomingState) )
-			{
-				if ( ((deviceStatus & 0x0400) != 0) )
-				{
-					servo_stop_decel(0);
-				
-					sendDebug(0xAB, 4);
-					sensorHomingState = SENSOR_HOMING_STOP_FROM_NOT_CCW_S;
-				}
-			}
-			else if ( (SENSOR_HOMING_STOP_FROM_NOT_CCW_S == sensorHomingState) )
-			{
-				if ( (servoStatus & 0x04) )
-				{
-					setServoPosition(sensorServoHomingBackoffCount);
-					servo_move_rel(0);
-				
-					sendDebug(0xAB, 5);
-					sensorHomingState = SENSOR_HOMING_STOP_FROM_BACKOFF_S;
-				}
-			}
-			else if ( (SENSOR_HOMING_STOP_FROM_BACKOFF_S == sensorHomingState) )
-			{
-				if ( (servoStatus & 0x04) )
-				{		
-					servo_set_origin(0);
-					processedSensorIndexSetPoint = 0;
-					sensorIndexSetPoint = 0;
-					
-					sendDebug(0xAB, 7);
-					sensorHomingState = SENSOR_HOMING_IDLE_S;
-				    sensorPositionSampleTimeLimit = SYSTIME_NOW;
-				}
-			}		
-		}		
-	}
-}
-
-static void updateAccelerometer(void)
-{
-    now = SYSTIME_NOW;
-    difference = SYSTIME_DIFF (accelerometerSampleTimeLimit, now);
-    limit = (u32_t)ACCELEROMETER_SAMPLE_PERIOD * 1000;
-    
-    if ( (difference > limit) )
-    {
-	    u16_t tempAccelerometerX;
-	    u16_t tempAccelerometerY;
-	    u16_t tempAccelerometerZ;
-	    
-	    accelerometerSampleTimeLimit = SYSTIME_NOW;
-	    
-	    tempAccelerometerX = accelerometer_get_x();
-		tempAccelerometerX &= 0xFE00; // b8 shows activity when sitting still
-		
-	    tempAccelerometerY = accelerometer_get_y();
-		tempAccelerometerY &= 0xFE00; // b8 shows activity when sitting still
-
-	    tempAccelerometerZ = accelerometer_get_z();
-		tempAccelerometerZ &= 0xFE00; // b8 shows activity when sitting still
-
-	    if (tempAccelerometerX != accelerometerX)
-	    {
-		    u8_t i;
-
-		    if (DEVICE_OPERATIONAL_S == deviceState)
-		    {
-			    for (i=0; i<4; i++)
-			    {
-				    activateTxPdoMap(&txPdoMapping[i], 0x2441, 0);
-			    }
-		    }
-
-		    accelerometerX = tempAccelerometerX;
-	    }
-	    
-	    if (tempAccelerometerY != accelerometerY)
-	    {
-		    u8_t i;
-
-		    if (DEVICE_OPERATIONAL_S == deviceState)
-		    {
-			    for (i=0; i<4; i++)
-			    {
-				    activateTxPdoMap(&txPdoMapping[i], 0x2442, 0);
-			    }
-		    }
-
-		    accelerometerY = tempAccelerometerY;
-	    }
-	    
-	    if (tempAccelerometerZ != accelerometerZ)
-	    {
-		    u8_t i;
-
-		    if (DEVICE_OPERATIONAL_S == deviceState)
-		    {
-			    for (i=0; i<4; i++)
-			    {
-				    activateTxPdoMap(&txPdoMapping[i], 0x2443, 0);
-			    }
-		    }
-
-		    accelerometerZ = tempAccelerometerZ;
-	    }
-    }    
 }
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
@@ -4004,76 +3137,42 @@ static void setPreOperationalState(void)
 	{
 		deviceNodeId = DEFAULT_DEVICE_NODE_ID;
 	}
-	
-	if ( (REPAIR_MODE == deviceMode) )
+
+   if ( (REPAIR_MODE == deviceMode) )
 	{
-		servo_reset(0);
-		servo_init(0);
-		
-		servo_reset(1);
-		servo_init(1);
-		
-		DrillInit();
-        drillspeed(0, 0x30, 0x45);
-        drillspeed(1, 0x30, 0x45);        
-        
-		drillServoProportionalControlConstant = 30;
-		drillServoIntegralControlConstant = 15;
-		drillServoDerivativeControlConstant = 767;		
-		drillServoAcceleration = 2560;
-		drillServoHomingVelocity = 1310720;
-		drillServoHomingBackoffCount = 44274;
-		drillServoTravelVelocity = 2621440;
-		drillServoErrorLimit = 3000;
-		drillServoPulsesPerUnit = 885472;
-		
-		setServoProportionalControlConstant(0, drillServoProportionalControlConstant);
-		setServoProportionalControlConstant(1, drillServoProportionalControlConstant);
-		
-		setServoIntegralControlConstant(0, drillServoIntegralControlConstant);
-		setServoIntegralControlConstant(1, drillServoIntegralControlConstant);
+      drillServoProportionalControlConstant = 30;
+      drillServoIntegralControlConstant = 15;
+      drillServoDerivativeControlConstant = 767;
+      drillServoAcceleration = 2560;
+      drillServoHomingVelocity = 1310720;
+      drillServoHomingBackoffCount = 44274;
+      drillServoTravelVelocity = 2621440;
+      drillServoErrorLimit = 3000;
+      drillServoPulsesPerUnit = 885472;
+   
+      setServoProportionalControlConstant(0, drillServoProportionalControlConstant);
+      setServoProportionalControlConstant(1, drillServoProportionalControlConstant);
+   
+      setServoIntegralControlConstant(0, drillServoIntegralControlConstant);
+      setServoIntegralControlConstant(1, drillServoIntegralControlConstant);
 
-		setServoDerivativeControlConstant(0, drillServoDerivativeControlConstant);
-		setServoDerivativeControlConstant(1, drillServoDerivativeControlConstant);
+      setServoDerivativeControlConstant(0, drillServoDerivativeControlConstant);
+      setServoDerivativeControlConstant(1, drillServoDerivativeControlConstant);
 
-		setServoErrorLimit(0, drillServoErrorLimit);
-		setServoErrorLimit(1, drillServoErrorLimit);
-        
-        memset(&frontDrillContext, 0, sizeof(frontDrillContext));
-        //frontDrillContext.state = DRILL_IDLE_S;
-        frontDrillContext.axis = 1;
-        //frontDrillContext.control = 0;
-        frontDrillContext.retractMask = 0x0400;
-        //frontDrillContext.manualSetPoint = 0;
-        //frontDrillContext.processedSetPoint = 0;
-        
-        memset(&rearDrillContext, 0, sizeof(rearDrillContext));
-        //rearDrillContext.state = DRILL_IDLE_S;
-        //rearDrillContext.axis = 0;
-        //rearDrillContext.control = 0;
-        rearDrillContext.retractMask = 0x0100;
-        //rearDrillContext.manualSetPoint = 0;
-        //rearDrillContext.processedSetPoint = 0;
-	}	
+      setServoErrorLimit(0, drillServoErrorLimit);
+      setServoErrorLimit(1, drillServoErrorLimit);
+   }
 	else if ( (INSPECT_MODE == deviceMode) )
 	{
-		servo_reset(0);
-		servo_init(0);
-		   
-		sensorServoAcceleration = 2560;
-		sensorServoHomingVelocity = 1310720;
-	    sensorServoHomingBackoffCount = 153641;
-		sensorServoTravelVelocity = 2621440;
-		sensorServoErrorLimit = 300;
-		sensorServoPulsesPerDegree = 23199;
+   	sensorServoAcceleration = 2560;
+   	sensorServoHomingVelocity = 1310720;
+   	sensorServoHomingBackoffCount = 153641;
+   	sensorServoTravelVelocity = 2621440;
+   	sensorServoErrorLimit = 300;
+   	sensorServoPulsesPerDegree = 23199;
 
-		setServoErrorLimit(0, sensorServoErrorLimit);
-    
-		sensorHomingState = SENSOR_HOMING_IDLE_S;
-		sensorHomingActivate = 0;
-	}
-	
-	accelerometer_init();
+   	setServoErrorLimit(0, sensorServoErrorLimit);
+   }
 
 	DDRC |= 0x3;
 	PORTC &= 0xFC;
@@ -4093,40 +3192,38 @@ static void setPreOperationalState(void)
 		resetRxPdoMap(&rxPdoMapping[i], i);
 	}
 
-    frontDrillSpeedSetPoint = 0;
-    //frontDrillIndexSetPoint = 0;
-    rearDrillSpeedSetPoint = 0;
-    //rearDrillIndexSetPoint = 0;
-    sensorIndexSetPoint = 0;
+   frontDrillSpeedSetPoint = 0;
+   //frontDrillIndexSetPoint = 0;
+   rearDrillSpeedSetPoint = 0;
+   //rearDrillIndexSetPoint = 0;
+   sensorIndexSetPoint = 0;
 
-    autoDrillControl = 0;
-    indexerSearchSpeed = 0;
-    indexerTravelSpeed = 0;
-    drillRotationSpeed = 0;
-    indexerCuttingSpeed = 0;
-    indexerCuttingDepth = 0;
-    indexerPeckCuttingIncrement = 0;
-    indexerPeckRetractionDistance = 0;
-    indexerPeckRetractionPosition = 0;
+   autoDrillControl = 0;
+   indexerSearchSpeed = 0;
+   indexerTravelSpeed = 0;
+   drillRotationSpeed = 0;
+   indexerCuttingSpeed = 0;
+   indexerCuttingDepth = 0;
+   indexerPeckCuttingIncrement = 0;
+   indexerPeckRetractionDistance = 0;
+   indexerPeckRetractionPosition = 0;
 
-    actualFrontDrillSpeed = 0;
-    actualFrontDrillIndex = 0;
-    actualRearDrillSpeed = 0;
-    actualRearDrillIndex = 0;
-    actualSensorIndex = 0;
+   actualFrontDrillSpeed = 0;
+   actualFrontDrillIndex = 0;
+   actualRearDrillSpeed = 0;
+   actualRearDrillIndex = 0;
+   actualSensorIndex = 0;
     
-    accelerometerSampleTimeLimit = SYSTIME_NOW;
-	drillPositionSampleTimeLimit = SYSTIME_NOW;
-	sensorPositionSampleTimeLimit = SYSTIME_NOW;
-    deviceStatusSampleTimeLimit = SYSTIME_NOW;
+   accelerometerSampleTimeLimit = SYSTIME_NOW;
+   drillPositionSampleTimeLimit = SYSTIME_NOW;
+   sensorPositionSampleTimeLimit = SYSTIME_NOW;
 
-    accelerometerX = 0;
-    accelerometerY = 0;
-    accelerometerZ = 0;
+   accelerometerX = 0;
+   accelerometerY = 0;
+   accelerometerZ = 0;
 	
-    deviceControl = 0;	
-	deviceControl0CCache = 0;
-    deviceStatus = getDeviceStatus();
+   deviceControl = 0;	
+   deviceControl0CCache = 0;
 	
 	processedFrontDrillSpeedSetPoint = 0;
 	//processedFrontDrillIndexSetPoint = 0;
@@ -4163,18 +3260,6 @@ static void executePreOperationalState(void)
 {
 	updateLED();
 	updateProducerHeartbeat();
-	updateDeviceStatus();
-	
-	if (REPAIR_MODE == deviceMode)
-	{
-		updateActualDrillPosition();		
-	}
-	else if (INSPECT_MODE == deviceMode)
-	{
-		updateActualSensorPosition();
-	}
-
-	updateAccelerometer();
 
 	receiveResult = rxCANMsg(&message);
 
@@ -4201,26 +3286,9 @@ static void executeOperationalState(void)
 {
     int i;
 
-	updateLED();
-    updateConsumerHeartbeat();
+   updateLED();
+   updateConsumerHeartbeat();
 	updateProducerHeartbeat();
-	updateDeviceStatus(); // todo separate device status for repair and inspect
-	
-	if (REPAIR_MODE == deviceMode)
-	{
-		updateActualDrillPosition();
-		updateRepairControl();
-        updateDrillContext(&frontDrillContext);
-        updateDrillContext(&rearDrillContext);
-	}
-	else if (INSPECT_MODE == deviceMode)
-	{
-		updateActualSensorPosition();
-		updateInspectControl();
-		updateSensorHoming();	
-	}
-	
-	updateAccelerometer();
 
 	for (i=0; i<4; i++)
 	{
@@ -4278,18 +3346,6 @@ static void executeStoppedState(void)
 {
 	updateLED();
 	updateProducerHeartbeat();
-	updateDeviceStatus();
-	
-	if (REPAIR_MODE == deviceMode)
-	{
-		updateActualDrillPosition();
-	}
-	else if (INSPECT_MODE == deviceMode)
-	{
-		updateActualSensorPosition();
-	}
-	
-	updateAccelerometer();
 
 	receiveResult = rxCANMsg(&message);
 
