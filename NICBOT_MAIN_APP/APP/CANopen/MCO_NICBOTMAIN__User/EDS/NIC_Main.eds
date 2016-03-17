@@ -8,7 +8,7 @@ CreatedBy=Unknown
 CreationTime=09:08AM
 CreationDate=01-27-2016
 ModifiedBy=Unknown
-ModificationTime=08:25AM
+ModificationTime=08:48AM
 ModificationDate=03-17-2016
 
 [Comments]
@@ -98,13 +98,14 @@ SupportedObjects=39
 39=0x60FF
 
 [ManufacturerObjects]
-SupportedObjects=6
+SupportedObjects=7
 1=0x2100
 2=0x2101
 3=0x2102
 4=0x2105
 5=0x2301
 6=0x2303
+7=0x2304
 
 [1000]
 ParameterName=Device Type
@@ -1036,6 +1037,17 @@ LowLimit=0
 HighLimit=255
 AccessType=rw
 DefaultValue=0
+PDOMapping=0
+ObjFlags=0x00
+
+[2304]
+ParameterName=Solenoid Control
+ObjectType=0x07
+DataType=0x0006
+LowLimit=0
+HighLimit=65535
+AccessType=rw
+DefaultValue=0x0000
 PDOMapping=0
 ObjFlags=0x00
 

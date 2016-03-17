@@ -179,7 +179,6 @@ static u8_t setServoIntegralControlConstant(u8_t axisNum, u32_t value);
 static u8_t setServoDerivativeControlConstant(u8_t axisNum, u32_t value);
 static u8_t setFrontLaserControl(u8_t status);
 static u8_t setRearLaserControl(u8_t status);
-static u8_t setSolenoidControl(u16_t control);
 static u8_t setDeviceControl(u16_t control);
 static u16_t getDeviceStatus(void);
 
@@ -242,7 +241,7 @@ static void processNmteMessage(u8_t messageDeviceId);
 static void setLedState(LED_STATE state);
 static void setDeviceFault(const u8_t * faultCode);
 static void setConsumerHeartbeatTime(u32_t value);
-static void setPreOperationalState(u8_t initialSet);
+static void setPreOperationalState(void);
 static void setOperationalState(void);
 static void setStoppedState(void);
 
@@ -876,44 +875,6 @@ static u8_t setRearLaserControl(u8_t status)
 	IO_Write(0x0C, deviceControl0CCache);
 
 	return(1);
-}
-
-// return 0 for error, 1 for good; sets solenoid position based on control
-static u8_t setSolenoidControl(u16_t control)
-{
-    u8_t result = 1;
-
-    // todo, evaluate control and determine if valid, set hardware based on bits
-	
-    if ( (0 != result) )
-    {
-		u8_t controlH;
-		u8_t controlL;
-		
-		controlH = (u8_t)((control >> 8) & 0xFF);
-		controlL = (u8_t)(control & 0xFF);
-		
-		IO_Write(1, controlL); // group 1
-		IO_Write(0, controlH); // group 2
-		
-        solenoidControl = control;	
-		
-	    if ( (REPAIR_MODE == deviceMode) )
-		{
-			controlL = (control & 0x30) << 2; // isolate wheel axial and circ bits
-	    }
-		else if ( (INSPECT_MODE == deviceMode) )
-	    {
-			controlL &= 0xC0; // isolate wheel axial and circ bits
-		}
-		
-		if ( (0 != controlL) )
-		{
-			lastWheelPositionRequest = controlL;
-		}
-    }
-
-    return(result);
 }
 
 // return 0 for error, 1 for good; 
@@ -2045,19 +2006,13 @@ static u8_t storeDeviceData(u8_t signalApplication, u16_t index, u8_t subIndex, 
       }
       else if ((0x2303 == index) && (1 <= subIndex) && (12 >= subIndex))
       {
-         if (1 == length)
-         {
-            cameraLightIntensity[subIndex-1] = source[offset];
-            result = 1;
-         }
+         cameraLightIntensity[subIndex-1] = source[offset];
+         result = 1;
       }
       else if (0x2304 == index)
       {
-         if (2 == length)
-         {
-            u16_t value = (u16_t)getValue(&source[offset], length);
-            result = setSolenoidControl(value);
-         }
+         solenoidControl = (u16_t)getValue(&source[offset], length);
+         result = 1;
       }
       else if (0x2311 == index)
       {
@@ -3874,7 +3829,7 @@ static void processNmtMessage(u8_t * frame)
 		}
 		else if ( (0x80 == frame[0]) )
 		{
-		   setPreOperationalState(0);
+		   setPreOperationalState();
 		}
 		else if ( (0x81 == frame[0]) )
       {
@@ -3883,7 +3838,7 @@ static void processNmtMessage(u8_t * frame)
       else if ( (0x82 == frame[0]) )
 		{
          CAN_ReloadFlash();
-		   setPreOperationalState(0);
+		   setPreOperationalState();
          sendHeartbeat(0);
 		}
 	}
@@ -4035,7 +3990,7 @@ static void setConsumerHeartbeatTime(u32_t value)
     consumerHeartbeatActive = 0;
 }
 
-static void setPreOperationalState(u8_t initialSet)
+static void setPreOperationalState(void)
 {
     int i;
 
@@ -4136,14 +4091,6 @@ static void setPreOperationalState(u8_t initialSet)
 	{
 		resetTxPdoMap(&txPdoMapping[i], i);
 		resetRxPdoMap(&rxPdoMapping[i], i);
-	}
-
-	// check to set solenoids
-	if ( (0 != initialSet) )
-	{
-		// set solenoids
-		solenoidControl = 0;
-		setSolenoidControl(0);
 	}
 
     frontDrillSpeedSetPoint = 0;
@@ -4446,7 +4393,7 @@ void canInit(void)
     
    // set pre-Operational State
    CAN_ReloadFlash();
-   setPreOperationalState(1);
+   setPreOperationalState();
    sendHeartbeat(0);
 }
 

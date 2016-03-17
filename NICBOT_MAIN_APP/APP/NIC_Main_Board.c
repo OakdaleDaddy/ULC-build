@@ -29,6 +29,7 @@ static U8 writeEEPROM(U16 address, U8 * source, U8 length);
 static void processConfiguration(void);
 
 static U8 deviceMode; /*!< mode of device, 0=repair, 1=inspect */
+static U8 initialSolenoidSet; /*!< indicator of initial solenoid, 0 on boot, 1 after assignment */
 
 static char * softwareVersion = "v1.02 abc def";
 
@@ -152,6 +153,23 @@ static void processConfiguration(void)
       }
    }
 }
+
+static void setSolenoid(void)
+{
+   U16 control;
+   U8 controlH;
+   U8 controlL;
+
+   CAN_ReadProcessImage(0x2304, 0, (U8 *)&control, sizeof(control));
+   controlH = (U8)((control >> 8) & 0xFF);
+   controlL = (U8)(control & 0xFF);
+   
+   CAN_SendDebug(0xCC, control);
+   IO_Write(1, controlL); // group 1
+   IO_Write(0, controlH); // group 2
+
+   // generate emergency if assignment fails
+}
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
@@ -200,6 +218,14 @@ void CAN_NMTChange(U8 state)
       for (i=0; i<12; i++)
       {
          LED_Intensity(i, 0);
+      }
+
+      // check to initialize solenoids
+      if (0 == initialSolenoidSet)
+      {
+         // initialize solenoids
+         initialSolenoidSet = 1;
+         setSolenoid();
       }
    }
    else if (5 == state)
@@ -288,6 +314,17 @@ U32 CAN_ODWrite(U16 index, U8 subIndex, U8 * data, U8 length)
          result = 0;
       }
    }
+   else if (0x2304 == index)
+   {
+      if (2 == length)
+      {
+         U16 control = 0;
+         memcpy(&control, data, length);
+
+         // todo, evaluate control and determine if valid
+         result = 0;
+      }
+   }
    else
    {
       // all other values are good
@@ -341,6 +378,10 @@ void CAN_ODData(U16 index, U8 subIndex, U8 * data, U8 length)
       CAN_ReadProcessImage(0x2303, subIndex, &intensity, sizeof(intensity));
       CAN_SendDebug(subIndex, intensity);
       LED_Intensity(subIndex - 1, intensity);	
+   }
+   else if (0x2304 == index)
+   {
+      setSolenoid();
    }
 }
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
