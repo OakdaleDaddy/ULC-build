@@ -8,7 +8,7 @@ CreatedBy=Unknown
 CreationTime=09:08AM
 CreationDate=01-27-2016
 ModifiedBy=Unknown
-ModificationTime=07:27PM
+ModificationTime=08:17PM
 ModificationDate=03-16-2016
 
 [Comments]
@@ -853,14 +853,41 @@ PDOMapping=0
 ObjFlags=0x00
 
 [2301]
-ParameterName=Actual Motor Temperature
+ParameterName=Camera Select
+SubNumber=3
+ObjectType=0x08
+
+[2301sub0]
+ParameterName=Highest Subindex
 ObjectType=0x07
 DataType=0x0005
 LowLimit=
 HighLimit=
 AccessType=ro
-DefaultValue=
-PDOMapping=1
+DefaultValue=0x02
+PDOMapping=0
+ObjFlags=0x00
+
+[2301sub1]
+ParameterName=Camera Select A
+ObjectType=0x07
+DataType=0x0005
+LowLimit=0
+HighLimit=12
+AccessType=rw
+DefaultValue=0
+PDOMapping=0
+ObjFlags=0x00
+
+[2301sub2]
+ParameterName=Camera Select B
+ObjectType=0x07
+DataType=0x0005
+LowLimit=0
+HighLimit=12
+AccessType=rw
+DefaultValue=0
+PDOMapping=0
 ObjFlags=0x00
 
 [6040]

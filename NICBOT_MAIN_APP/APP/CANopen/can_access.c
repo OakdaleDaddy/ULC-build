@@ -83,6 +83,16 @@ void CAN_WriteProcessImage(U16 index, U8 subIndex, U8 * source, U8 length)
 
 /* See can_access.h for function description */
 /**
+* Calls into stack to send debug frame.
+*/
+void CAN_SendDebug(U32 a, U32 b)
+{
+   MCOP_PushDebug(a, b);
+}
+
+
+/* See can_access.h for function description */
+/**
 * Calls into stack to assign baud rate for the next reset.
 */
 void CAN_SetBaudrate(U16 canBps)

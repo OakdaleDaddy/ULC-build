@@ -111,9 +111,9 @@
     	if (NULL != p_buffer)                                                  \
     	/* Tx buffer is not empty so transmit the next message */              \
     	{                                                                      \
-       		CANIDT1 = ((*((uint8_t *)((&(p_buffer->ID)) + 1))) << 5) +         \
-       		((*((uint8_t *)(&(p_buffer->ID)))) >> 3);	      /* ID[10 - 3] */ \
-       		CANIDT2 = (*((uint8_t *)(&(p_buffer->ID)))) << 5; /* ID[2-0] */    \
+            CANIDT1 = ((*((uint8_t *)(&(p_buffer->ID)) + 1)) << 5) +         \
+            ((*(uint8_t *)(&(p_buffer->ID))) >> 3);         /* ID[10 - 3] */ \
+            CANIDT2 = (*(uint8_t *)(&(p_buffer->ID))) << 5; /* ID[2-0] */    \
        		CANIDT4 = 0x00; /* clear RTR and RB0 */                            \
        		if (MAX_DLC < p_buffer->LEN)                                       \
        		{                                                                  \

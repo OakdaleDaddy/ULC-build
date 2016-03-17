@@ -185,6 +185,16 @@ void CAN_NMTChange(U8 state)
    if (127 == state)
    {
       // pre-operational
+
+      U8 cameraSelect;
+
+      // initialize cameras
+      cameraSelect = 1;
+      CAN_WriteProcessImage(0x2301, 1, &cameraSelect, sizeof(cameraSelect));
+      cameraSelect = 2;
+      CAN_WriteProcessImage(0x2301, 2, &cameraSelect, sizeof(cameraSelect));
+      CAN_SendDebug(1, 2);
+      Camera_Select(1, 2);
    }
    else if (5 == state)
    {
@@ -230,13 +240,11 @@ void CAN_AppSDOReadComplete(U8 server, U16 index, U8 subIndex, U32 * size)
 /* See can_callbacks.h for function description */
 U32 CAN_ODWrite(U16 index, U8 subIndex, U8 * data, U8 length)
 {
-   U32 result = 1;
+   U32 result = CAN_ABORT_GENERAL;
 
    // evaluate
    if (0x2105 == index)
    {
-      result = 1;
-
       if ( (4 == length) )
       {
          U32 command = 0;
@@ -245,6 +253,23 @@ U32 CAN_ODWrite(U16 index, U8 subIndex, U8 * data, U8 length)
          if ( (0x65766173 == command) )
          {
             result = 0;
+         }
+      }
+   }
+   else if ((0x2301 == index) &&
+            ((1 == subIndex) || (2 == subIndex)))
+   {
+      if (1 == length)
+      {
+         U8 value = *data;
+
+         if (value <= 12)
+         {
+            result = 0;
+         }
+         else 
+         {
+            result = CAN_ABORT_VALUE_HIGH;
          }
       }
    }
@@ -281,6 +306,17 @@ void CAN_ODData(U16 index, U8 subIndex, U8 * data, U8 length)
       configuration |= baudrate;
 
       writeEEPROM(EEPROM_CONFIGURATION_ADDRESS, (U8 *)&configuration, sizeof(configuration));
+   }
+   else if ((0x2301 == index) && 
+            ((1 == subIndex) || (2 == subIndex)))
+   {
+      U8 selectA;
+      U8 selectB;
+
+      CAN_ReadProcessImage(0x2301, 1, &selectA, sizeof(selectA));
+      CAN_ReadProcessImage(0x2301, 2, &selectB, sizeof(selectB));
+      CAN_SendDebug(selectA, selectB);
+      Camera_Select(selectA, selectB);
    }
 }
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */

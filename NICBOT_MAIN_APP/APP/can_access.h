@@ -35,6 +35,14 @@ void CAN_ReadProcessImage(U16 index, U8 subIndex, U8 * destination, U8 length);
 void CAN_WriteProcessImage(U16 index, U8 subIndex, U8 * source, U8 length);
 
 /**
+* @brief Function to send debug information.
+*
+* @param a : debug value a
+* @param b : debug value b
+*/
+void CAN_SendDebug(U32 a, U32 b);
+
+/**
 * @brief Function to assign CAN baud rate to use on reset.
 *
 * @param canBps : kilo baud rate of interface

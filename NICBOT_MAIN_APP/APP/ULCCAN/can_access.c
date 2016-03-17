@@ -36,6 +36,15 @@ void CAN_WriteProcessImage(U16 index, U8 subIndex, U8 * source, U8 length)
    canWrite(index, subIndex, source, length);
 }
 
+/* See can_access.h for function description */
+/**
+* Calls into stack to send debug frame.
+*/
+void CAN_SendDebug(U32 a, U32 b)
+{
+   canDebug(a,b);
+}
+
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 

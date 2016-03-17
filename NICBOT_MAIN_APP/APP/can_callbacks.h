@@ -14,6 +14,10 @@
 
 #include "compiler.h"
 
+#define CAN_ABORT_GENERAL (0x08000000UL) /*!< abort code for a value that is too high */
+#define CAN_ABORT_VALUE_HIGH (0x06090031UL) /*!< abort code for a value that is too high */
+#define CAN_ABORT_VALUE_LOW (0x06090032UL) /*!< abort code for a value that is low high */
+
 /**
 * @brief Function to access the device serial number.
 *
@@ -108,7 +112,7 @@ void CAN_AppSDOReadComplete(U8 server, U16 index, U8 subIndex, U32 * size);
 * @params length : length of data
 *
 * @return 0 : incoming data is good, commit the data
-* @return non-0 : incoming data is not good, abort the transfer
+* @return non-0 : incoming data is not good, abort the transfer, see CAN_ABORT codes
 */
 U32 CAN_ODWrite(U16 index, U8 subIndex, U8 * data, U8 length);
 

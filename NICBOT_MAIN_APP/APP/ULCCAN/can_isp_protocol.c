@@ -2043,31 +2043,13 @@ static u8_t storeDeviceData(u8_t signalApplication, u16_t index, u8_t subIndex, 
       }
       else if ((0x2301 == index) && (1 == subIndex))
       {
-         if (1 == length)
-         {
-            u8_t value = source[offset];
-
-            if (value <= 12)
-            {
-               cameraSelectA = value;
-				   Camera_Select(cameraSelectA, cameraSelectB);
-	            result = 1;
-            }
-         }
+         cameraSelectA = source[offset];
+         result = 1;
       }
       else if ((0x2301 == index) && (2 == subIndex))
       {
-         if (1 == length)
-         {
-            u8_t value = source[offset];
-
-            if (value <= 12)
-            {
-               cameraSelectB = value;
-				   Camera_Select(cameraSelectA, cameraSelectB);
-               result = 1;
-            }
-         }
+         cameraSelectB = source[offset];
+         result = 1;
       }
       else if ((0x2303 == index) && (1 <= subIndex) && (12 >= subIndex))
       {
@@ -4164,10 +4146,6 @@ static void setPreOperationalState(u8_t initialSet)
 		resetRxPdoMap(&rxPdoMapping[i], i);
 	}
 
-    cameraSelectA = 1;
-    cameraSelectB = 2;
-	Camera_Select(cameraSelectA, cameraSelectB);
-
     for (i=1; i<12; i++)
     {
         setCameraLightIntensity(i, 0);
@@ -4412,6 +4390,11 @@ void canRead(U16 index, U8 subIndex, U8 * destination, U8 length)
 void canWrite(U16 index, U8 subIndex, U8 * source, U8 length)
 {
    storeDeviceData(0, index, subIndex, source, 0, length);
+}
+
+void canDebug(U32 a, U32 b)
+{
+   sendDebug(a, b);
 }
 
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
