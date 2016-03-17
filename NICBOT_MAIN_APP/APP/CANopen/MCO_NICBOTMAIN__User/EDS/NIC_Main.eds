@@ -8,8 +8,8 @@ CreatedBy=Unknown
 CreationTime=09:08AM
 CreationDate=01-27-2016
 ModifiedBy=Unknown
-ModificationTime=08:17PM
-ModificationDate=03-16-2016
+ModificationTime=08:25AM
+ModificationDate=03-17-2016
 
 [Comments]
 Lines=1
@@ -98,12 +98,13 @@ SupportedObjects=39
 39=0x60FF
 
 [ManufacturerObjects]
-SupportedObjects=5
+SupportedObjects=6
 1=0x2100
 2=0x2101
 3=0x2102
 4=0x2105
 5=0x2301
+6=0x2303
 
 [1000]
 ParameterName=Device Type
@@ -885,6 +886,154 @@ ObjectType=0x07
 DataType=0x0005
 LowLimit=0
 HighLimit=12
+AccessType=rw
+DefaultValue=0
+PDOMapping=0
+ObjFlags=0x00
+
+[2303]
+ParameterName=Camera Light Intensity
+SubNumber=13
+ObjectType=0x08
+
+[2303sub0]
+ParameterName=Highest Subindex
+ObjectType=0x07
+DataType=0x0005
+LowLimit=
+HighLimit=
+AccessType=ro
+DefaultValue=0x0c
+PDOMapping=0
+ObjFlags=0x00
+
+[2303sub1]
+ParameterName=Camera 1
+ObjectType=0x07
+DataType=0x0005
+LowLimit=0
+HighLimit=255
+AccessType=rw
+DefaultValue=0
+PDOMapping=0
+ObjFlags=0x00
+
+[2303sub2]
+ParameterName=Camera 2
+ObjectType=0x07
+DataType=0x0005
+LowLimit=0
+HighLimit=255
+AccessType=rw
+DefaultValue=0
+PDOMapping=0
+ObjFlags=0x00
+
+[2303sub3]
+ParameterName=Camera 3
+ObjectType=0x07
+DataType=0x0005
+LowLimit=0
+HighLimit=255
+AccessType=rw
+DefaultValue=0
+PDOMapping=0
+ObjFlags=0x00
+
+[2303sub4]
+ParameterName=Camera 4
+ObjectType=0x07
+DataType=0x0005
+LowLimit=0
+HighLimit=255
+AccessType=rw
+DefaultValue=0
+PDOMapping=0
+ObjFlags=0x00
+
+[2303sub5]
+ParameterName=Camera 5
+ObjectType=0x07
+DataType=0x0005
+LowLimit=0
+HighLimit=255
+AccessType=rw
+DefaultValue=0
+PDOMapping=0
+ObjFlags=0x00
+
+[2303sub6]
+ParameterName=Camera 6
+ObjectType=0x07
+DataType=0x0005
+LowLimit=0
+HighLimit=255
+AccessType=rw
+DefaultValue=0
+PDOMapping=0
+ObjFlags=0x00
+
+[2303sub7]
+ParameterName=Camera 7
+ObjectType=0x07
+DataType=0x0005
+LowLimit=0
+HighLimit=255
+AccessType=rw
+DefaultValue=0
+PDOMapping=0
+ObjFlags=0x00
+
+[2303sub8]
+ParameterName=Camera 8
+ObjectType=0x07
+DataType=0x0005
+LowLimit=0
+HighLimit=255
+AccessType=rw
+DefaultValue=0
+PDOMapping=0
+ObjFlags=0x00
+
+[2303sub9]
+ParameterName=Camera 9
+ObjectType=0x07
+DataType=0x0005
+LowLimit=0
+HighLimit=255
+AccessType=rw
+DefaultValue=0
+PDOMapping=0
+ObjFlags=0x00
+
+[2303subA]
+ParameterName=Camera 10
+ObjectType=0x07
+DataType=0x0005
+LowLimit=0
+HighLimit=255
+AccessType=rw
+DefaultValue=0
+PDOMapping=0
+ObjFlags=0x00
+
+[2303subB]
+ParameterName=Camera 11
+ObjectType=0x07
+DataType=0x0005
+LowLimit=0
+HighLimit=255
+AccessType=rw
+DefaultValue=0
+PDOMapping=0
+ObjFlags=0x00
+
+[2303subC]
+ParameterName=Camera 12
+ObjectType=0x07
+DataType=0x0005
+LowLimit=0
+HighLimit=255
 AccessType=rw
 DefaultValue=0
 PDOMapping=0

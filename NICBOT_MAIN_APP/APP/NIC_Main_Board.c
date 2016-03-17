@@ -187,14 +187,20 @@ void CAN_NMTChange(U8 state)
       // pre-operational
 
       U8 cameraSelect;
+      U8 i;
 
       // initialize cameras
       cameraSelect = 1;
       CAN_WriteProcessImage(0x2301, 1, &cameraSelect, sizeof(cameraSelect));
       cameraSelect = 2;
       CAN_WriteProcessImage(0x2301, 2, &cameraSelect, sizeof(cameraSelect));
-      CAN_SendDebug(1, 2);
       Camera_Select(1, 2);
+
+      // initialize camera lights
+      for (i=0; i<12; i++)
+      {
+         LED_Intensity(i, 0);
+      }
    }
    else if (5 == state)
    {
@@ -273,6 +279,15 @@ U32 CAN_ODWrite(U16 index, U8 subIndex, U8 * data, U8 length)
          }
       }
    }
+   else if ((0x2303 == index) &&
+            (subIndex >= 1) &&
+            (subIndex <= 12))
+   {
+      if (1 == length)
+      {
+         result = 0;
+      }
+   }
    else
    {
       // all other values are good
@@ -315,8 +330,17 @@ void CAN_ODData(U16 index, U8 subIndex, U8 * data, U8 length)
 
       CAN_ReadProcessImage(0x2301, 1, &selectA, sizeof(selectA));
       CAN_ReadProcessImage(0x2301, 2, &selectB, sizeof(selectB));
-      CAN_SendDebug(selectA, selectB);
       Camera_Select(selectA, selectB);
+   }
+   else if ((0x2303 == index) &&
+            (subIndex >= 1) &&
+            (subIndex <= 12))
+   {
+      U8 intensity;
+
+      CAN_ReadProcessImage(0x2303, subIndex, &intensity, sizeof(intensity));
+      CAN_SendDebug(subIndex, intensity);
+      LED_Intensity(subIndex - 1, intensity);	
    }
 }
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */

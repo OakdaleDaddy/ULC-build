@@ -157,7 +157,7 @@ DEFINES: ADDITIONAL ENABLING/DISABLING CODE FUNCTIONALITY OF PLUS PACKAGE
 #define NROF_STORE_PARAMETERS 4
 // Specify offset and size of non-volatile memory,
 #define NVOL_STORE_START 16
-#define NVOL_STORE_SIZE (0x160 - NVOL_STORE_START)
+#define NVOL_STORE_SIZE (0x170 - NVOL_STORE_START)
 
 // If enabled, Layer Setting Services (Slave) are implemented
 #ifndef USE_LSS_SLAVE

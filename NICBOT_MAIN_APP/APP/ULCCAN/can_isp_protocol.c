@@ -177,7 +177,6 @@ static u8_t setServoErrorLimit(u8_t axisNum, u16_t value);
 static u8_t setServoProportionalControlConstant(u8_t axisNum, u32_t value);
 static u8_t setServoIntegralControlConstant(u8_t axisNum, u32_t value);
 static u8_t setServoDerivativeControlConstant(u8_t axisNum, u32_t value);
-static void setCameraLightIntensity(u8_t cameraLocation, u8_t intensity);
 static u8_t setFrontLaserControl(u8_t status);
 static u8_t setRearLaserControl(u8_t status);
 static u8_t setSolenoidControl(u16_t control);
@@ -819,13 +818,6 @@ static u8_t setServoDerivativeControlConstant(u8_t axisNum, u32_t value)
 	return(result);
 #endif
 	return(1);
-}
-
-static void setCameraLightIntensity(u8_t cameraLocation, u8_t intensity)
-{
-    u8_t index = cameraLocation-1;
-    cameraLightIntensity[index] = intensity;
-	LED_Intensity(cameraLocation, intensity);	
 }
 
 // laser status 1=on, 0=off
@@ -2055,7 +2047,7 @@ static u8_t storeDeviceData(u8_t signalApplication, u16_t index, u8_t subIndex, 
       {
          if (1 == length)
          {
-            setCameraLightIntensity(subIndex, source[offset]);
+            cameraLightIntensity[subIndex-1] = source[offset];
             result = 1;
          }
       }
@@ -4145,11 +4137,6 @@ static void setPreOperationalState(u8_t initialSet)
 		resetTxPdoMap(&txPdoMapping[i], i);
 		resetRxPdoMap(&rxPdoMapping[i], i);
 	}
-
-    for (i=1; i<12; i++)
-    {
-        setCameraLightIntensity(i, 0);
-    }
 
 	// check to set solenoids
 	if ( (0 != initialSet) )
