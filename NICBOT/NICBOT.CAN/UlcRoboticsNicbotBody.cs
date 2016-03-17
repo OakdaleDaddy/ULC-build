@@ -1122,22 +1122,27 @@
                      result &= this.ReadDeviceStatus();
 
                      // drill speeds
+                     result &= this.SetTPDOEnable(1, false);
                      result &= this.SetTPDOMapCount(1, 0);
                      result &= this.SetTPDOType(1, 254);
                      result &= this.SetTPDOInhibitTime(1, 100);
                      result &= this.SetTPDOMap(1, 1, 0x2411, 0, 2);
                      result &= this.SetTPDOMap(1, 2, 0x2413, 0, 2);
                      result &= this.SetTPDOMapCount(1, 2);
+                     result &= this.SetTPDOEnable(1, true);
 
                      // drill index
+                     result &= this.SetTPDOEnable(2, false);
                      result &= this.SetTPDOMapCount(2, 0);
                      result &= this.SetTPDOType(2, 254);
                      result &= this.SetTPDOInhibitTime(2, 100);
                      result &= this.SetTPDOMap(2, 1, 0x2412, 0, 2);
                      result &= this.SetTPDOMap(2, 2, 0x2414, 0, 2);
                      result &= this.SetTPDOMapCount(2, 2);
+                     result &= this.SetTPDOEnable(2, true);
 
                      // accelerometer and status
+                     result &= this.SetTPDOEnable(4, false);
                      result &= this.SetTPDOMapCount(4, 0);
                      result &= this.SetTPDOType(4, 254);
                      result &= this.SetTPDOInhibitTime(4, 100);
@@ -1146,6 +1151,7 @@
                      result &= this.SetTPDOMap(4, 3, 0x2442, 0, 2);
                      result &= this.SetTPDOMap(4, 4, 0x2443, 0, 2);
                      result &= this.SetTPDOMapCount(4, 4);
+                     result &= this.SetTPDOEnable(4, true);
                   }
                }
                else if (1 == modeValue)
@@ -1169,13 +1175,16 @@
                      result &= this.ReadDeviceStatus();
 
                      // sensor index
+                     result &= this.SetTPDOEnable(3, false);
                      result &= this.SetTPDOMapCount(3, 0);
                      result &= this.SetTPDOType(3, 254);
                      result &= this.SetTPDOInhibitTime(3, 100);
                      result &= this.SetTPDOMap(3, 1, 0x2415, 0, 2);
                      result &= this.SetTPDOMapCount(3, 1);
+                     result &= this.SetTPDOEnable(3, true);
 
                      // accelerometer and status
+                     result &= this.SetTPDOEnable(4, false);
                      result &= this.SetTPDOMapCount(4, 0);
                      result &= this.SetTPDOType(4, 254);
                      result &= this.SetTPDOInhibitTime(4, 100);
@@ -1184,6 +1193,7 @@
                      result &= this.SetTPDOMap(4, 3, 0x2442, 0, 2);
                      result &= this.SetTPDOMap(4, 4, 0x2443, 0, 2);
                      result &= this.SetTPDOMapCount(4, 4);
+                     result &= this.SetTPDOEnable(4, true);
                   }
                }
                else
