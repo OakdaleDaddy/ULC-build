@@ -484,6 +484,7 @@ static void setCANTx(void)
 	}   		   
 }
 
+__attribute__((optimize("O0")))
 static void setCANRx(u8_t mobId, u8_t id, u8_t mask)
 {
 	Can_set_mob(mobId);

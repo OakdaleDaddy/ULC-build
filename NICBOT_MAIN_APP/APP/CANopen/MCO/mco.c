@@ -72,7 +72,7 @@ static CAN_MSG gRxCAN;
 
 // this structure holds the CAN message for SDO responses or aborts
 CAN_MSG gTxSDO;
-
+CAN_MSG gTxDebug;
 
 /**************************************************************************
 LOCAL VARIABLES

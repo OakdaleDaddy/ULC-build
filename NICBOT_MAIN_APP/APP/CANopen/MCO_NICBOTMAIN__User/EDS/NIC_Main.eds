@@ -8,8 +8,8 @@ CreatedBy=Unknown
 CreationTime=09:08AM
 CreationDate=01-27-2016
 ModifiedBy=Unknown
-ModificationTime=10:27PM
-ModificationDate=03-14-2016
+ModificationTime=07:27PM
+ModificationDate=03-16-2016
 
 [Comments]
 Lines=1
@@ -145,7 +145,7 @@ DataType=0x0009
 LowLimit=
 HighLimit=
 AccessType=const
-DefaultValue=WHL
+DefaultValue=MAIN
 PDOMapping=0
 ObjFlags=0x00
 

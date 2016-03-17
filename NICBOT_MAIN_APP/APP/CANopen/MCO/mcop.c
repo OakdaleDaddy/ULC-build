@@ -19,7 +19,7 @@ VERSION:   6.20, ESA 11-MAY-15
 
 // this structure holds the CAN message for SDO responses or aborts
 extern CAN_MSG gTxSDO;
-
+extern CAN_MSG gTxDebug;
 
 /**************************************************************************
 GLOBAL/MODULE VARIABLES
@@ -140,6 +140,35 @@ INTEGER16 offset;
 }
 #endif // ERROR_FIELD_SIZE > 0
 
+/**************************************************************************
+DOES:    Transmits an Debug Message
+RETURNS: TRUE - If msg was considered for transmit
+         FALSE - If message was not sent 
+**************************************************************************/
+UNSIGNED8 MCOP_PushDebug
+  (
+  UNSIGNED32 codeA, // 32 bit data
+  UNSIGNED32 codeB  // 32 bit data
+  )
+{
+UNSIGNED8 ret_val;
+
+   gTxDebug.ID = 0x700 + MY_NODE_ID;
+   gTxDebug.LEN = 8;
+   gTxDebug.BUF[0] = ((codeA >> 0) & 0xFF);
+   gTxDebug.BUF[1] = ((codeA >> 8) & 0xFF);
+   gTxDebug.BUF[2] = ((codeA >> 16) & 0xFF);
+   gTxDebug.BUF[3] = ((codeA >> 24) & 0xFF);
+   gTxDebug.BUF[4] = ((codeB >> 0) & 0xFF);
+   gTxDebug.BUF[5] = ((codeB >> 8) & 0xFF);
+   gTxDebug.BUF[6] = ((codeB >> 16) & 0xFF);
+   gTxDebug.BUF[7] = ((codeB >> 24) & 0xFF);
+
+   // Transmit Debug message
+   ret_val = !MCOHW_PushMessage(&gTxDebug);
+
+   return ret_val;
+}
 
 /**************************************************************************
 DOES:    Transmits an Emergency Message

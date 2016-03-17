@@ -42,7 +42,7 @@
 /* Thus: Fclk =  2MHz / (PRESCALE + 1) */
 /* where PRESCALE = 0 to 255 */
 
-#define PRESCALE_8KHZ 0x05
+#define PRESCALE_8KHZ 0xF9
 
 
 /** ****************************************************************************
@@ -441,9 +441,9 @@ uint16_t MCOHW_GetTime(void)
 	do
 	{
 	    b_tovf = 0;
-		*((uint8_t *)(&can_timer)) = CANTIML;
-		*((uint8_t *)((&can_timer) + 1)) = CANTIMH;
-		msec_timer = ((can_timer + 4) >> 3); /* round and divide by 8 */
+	    *((uint8_t *)(&can_timer)) = CANTIML;
+	    *((uint8_t *)(&can_timer)+1) = CANTIMH;
+		 msec_timer = ((can_timer + 4) >> 3); /* round and divide by 8 */
 	} 
 	while (b_tovf); /* get time again if timer overflow interrupt occurred */
 	

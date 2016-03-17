@@ -94,6 +94,15 @@ UNSIGNED8 MCO_WriteProcessData (
   UNSIGNED8 MEM_PROC *pSrc // Source pointer
   );
 
+/**************************************************************************
+DOES:    Transmits an Debug Message
+RETURNS: 1 if message was transmitted, 0 if transmit queue is full
+**************************************************************************/
+UNSIGNED8 MCOP_PushDebug
+  (
+  UNSIGNED32 a, // 32 bit data
+  UNSIGNED32 b  // 32 bit data
+  );
 
 #if USE_EMCY
 /**************************************************************************
