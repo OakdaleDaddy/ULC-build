@@ -187,7 +187,7 @@
             }
             else if (COBTypes.TPDO1 == frameType)
             {
-               if ((null != msg) && (msg.Length >= 2))
+               if ((null != msg) && (msg.Length >= 4))
                {
                   Int16 frontValue = BitConverter.ToInt16(msg, 0);
                   Int16 rearValue = BitConverter.ToInt16(msg, 2);
@@ -197,7 +197,7 @@
             }
             else if (COBTypes.TPDO2 == frameType)
             {
-               if ((null != msg) && (msg.Length >= 2))
+               if ((null != msg) && (msg.Length >= 4))
                {
                   Int16 frontValue = BitConverter.ToInt16(msg, 0);
                   Int16 rearValue = BitConverter.ToInt16(msg, 2);
