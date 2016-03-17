@@ -36,9 +36,9 @@
     <State>Maximized</State>
     <Layout>&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;Layout&gt;
-  &lt;Window Guid="2a829f7c-65d8-4efd-82b4-458b6573be4d" LastFocused="131026925388589645" DockedSize="200" PopupSize="0" FloatingLocation="-1, -1" FloatingSize="250, 400" LastOpenDockSituation="Docked" LastFixedDockSituation="Docked" LastFixedDockLocation="Left" LastFloatingWindowGuid="00000000-0000-0000-0000-000000000000" LastDockContainerCount="1" LastDockContainerIndex="0" DockedWorkingSize="250, 400" DockedWindowGroupGuid="d2a4642d-57fd-44de-8383-01eb123f6878" DockedIndexInWindowGroup="0" DockedSplitPath="0" DocumentWorkingSize="250, 400" DocumentWindowGroupGuid="00000000-0000-0000-0000-000000000000" DocumentIndexInWindowGroup="0" DocumentSplitPath="0" FloatingWorkingSize="250, 400" FloatingWindowGroupGuid="00000000-0000-0000-0000-000000000000" FloatingIndexInWindowGroup="0" FloatingSplitPath="0" /&gt;
-  &lt;Window Guid="ebc6fe26-1b64-4ef1-bfee-de1ed41388d9" LastFocused="131026925389609704" DockedSize="200" PopupSize="0" FloatingLocation="-1, -1" FloatingSize="550, 400" LastOpenDockSituation="Document" LastFixedDockSituation="Document" LastFixedDockLocation="Right" LastFloatingWindowGuid="00000000-0000-0000-0000-000000000000" LastDockContainerCount="0" LastDockContainerIndex="0" DockedWorkingSize="250, 400" DockedWindowGroupGuid="00000000-0000-0000-0000-000000000000" DockedIndexInWindowGroup="0" DockedSplitPath="0" DocumentWorkingSize="250, 400" DocumentWindowGroupGuid="dba60b0b-f979-4ad0-83fe-52ade6b3a502" DocumentIndexInWindowGroup="0" DocumentSplitPath="0" FloatingWorkingSize="250, 400" FloatingWindowGroupGuid="00000000-0000-0000-0000-000000000000" FloatingIndexInWindowGroup="0" FloatingSplitPath="0" /&gt;
-  &lt;Window Guid="9f97e230-aa8d-43dd-92c9-699f7df65209" LastFocused="131008994963815453" DockedSize="200" PopupSize="0" FloatingLocation="-1, -1" FloatingSize="250, 400" LastOpenDockSituation="Docked" LastFixedDockSituation="Docked" LastFixedDockLocation="Bottom" LastFloatingWindowGuid="00000000-0000-0000-0000-000000000000" LastDockContainerCount="1" LastDockContainerIndex="0" DockedWorkingSize="250, 400" DockedWindowGroupGuid="11eafd4d-0b1b-42d4-ace1-07a2f8bf70fa" DockedIndexInWindowGroup="0" DockedSplitPath="0" DocumentWorkingSize="250, 400" DocumentWindowGroupGuid="00000000-0000-0000-0000-000000000000" DocumentIndexInWindowGroup="0" DocumentSplitPath="0" FloatingWorkingSize="250, 400" FloatingWindowGroupGuid="00000000-0000-0000-0000-000000000000" FloatingIndexInWindowGroup="0" FloatingSplitPath="0" /&gt;
+  &lt;Window Guid="2a829f7c-65d8-4efd-82b4-458b6573be4d" LastFocused="131027254331845376" DockedSize="200" PopupSize="0" FloatingLocation="-1, -1" FloatingSize="250, 400" LastOpenDockSituation="Docked" LastFixedDockSituation="Docked" LastFixedDockLocation="Left" LastFloatingWindowGuid="00000000-0000-0000-0000-000000000000" LastDockContainerCount="1" LastDockContainerIndex="0" DockedWorkingSize="250, 400" DockedWindowGroupGuid="d2a4642d-57fd-44de-8383-01eb123f6878" DockedIndexInWindowGroup="0" DockedSplitPath="0" DocumentWorkingSize="250, 400" DocumentWindowGroupGuid="00000000-0000-0000-0000-000000000000" DocumentIndexInWindowGroup="0" DocumentSplitPath="0" FloatingWorkingSize="250, 400" FloatingWindowGroupGuid="00000000-0000-0000-0000-000000000000" FloatingIndexInWindowGroup="0" FloatingSplitPath="0" /&gt;
+  &lt;Window Guid="ebc6fe26-1b64-4ef1-bfee-de1ed41388d9" LastFocused="131027254332955439" DockedSize="200" PopupSize="0" FloatingLocation="-1, -1" FloatingSize="550, 400" LastOpenDockSituation="Document" LastFixedDockSituation="Document" LastFixedDockLocation="Right" LastFloatingWindowGuid="00000000-0000-0000-0000-000000000000" LastDockContainerCount="0" LastDockContainerIndex="0" DockedWorkingSize="250, 400" DockedWindowGroupGuid="00000000-0000-0000-0000-000000000000" DockedIndexInWindowGroup="0" DockedSplitPath="0" DocumentWorkingSize="250, 400" DocumentWindowGroupGuid="dba60b0b-f979-4ad0-83fe-52ade6b3a502" DocumentIndexInWindowGroup="0" DocumentSplitPath="0" FloatingWorkingSize="250, 400" FloatingWindowGroupGuid="00000000-0000-0000-0000-000000000000" FloatingIndexInWindowGroup="0" FloatingSplitPath="0" /&gt;
+  &lt;Window Guid="9f97e230-aa8d-43dd-92c9-699f7df65209" LastFocused="131027236239730566" DockedSize="200" PopupSize="0" FloatingLocation="-1, -1" FloatingSize="250, 400" LastOpenDockSituation="Docked" LastFixedDockSituation="Docked" LastFixedDockLocation="Bottom" LastFloatingWindowGuid="00000000-0000-0000-0000-000000000000" LastDockContainerCount="1" LastDockContainerIndex="0" DockedWorkingSize="250, 400" DockedWindowGroupGuid="11eafd4d-0b1b-42d4-ace1-07a2f8bf70fa" DockedIndexInWindowGroup="0" DockedSplitPath="0" DocumentWorkingSize="250, 400" DocumentWindowGroupGuid="00000000-0000-0000-0000-000000000000" DocumentIndexInWindowGroup="0" DocumentSplitPath="0" FloatingWorkingSize="250, 400" FloatingWindowGroupGuid="00000000-0000-0000-0000-000000000000" FloatingIndexInWindowGroup="0" FloatingSplitPath="0" /&gt;
   &lt;Container Dock="2" ContentSize="200"&gt;
     &lt;SplitLayoutSystem WorkingSize="250, 400" SplitMode="1"&gt;
       &lt;ControlLayoutSystem WorkingSize="250, 400" Guid="11eafd4d-0b1b-42d4-ace1-07a2f8bf70fa" Collapsed="0" SelectedControl="9f97e230-aa8d-43dd-92c9-699f7df65209"&gt;
@@ -766,7 +766,7 @@
               <ValueString>255</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
-              <AccessType>Const</AccessType>
+              <AccessType>ReadWrite</AccessType>
               <HighLimitString>
               </HighLimitString>
               <LowLimitString>
@@ -911,7 +911,7 @@
               <ValueString>255</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
-              <AccessType>Const</AccessType>
+              <AccessType>ReadWrite</AccessType>
               <HighLimitString>
               </HighLimitString>
               <LowLimitString>
@@ -1056,7 +1056,7 @@
               <ValueString>255</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
-              <AccessType>Const</AccessType>
+              <AccessType>ReadWrite</AccessType>
               <HighLimitString>
               </HighLimitString>
               <LowLimitString>
@@ -1145,15 +1145,160 @@
               <GroupId>db2e5b9c-f2ec-4c3b-8910-210ce9428a8b</GroupId>
             </Entry>
             <Entry>
-              <Index>6656</Index>
+              <Index>6147</Index>
               <Subindex>0</Subindex>
-              <EntryName>Transmit PDO Mapping 1</EntryName>
-              <SubentryName>Number of Entries</SubentryName>
+              <EntryName>Transmit PDO Parameter 4</EntryName>
+              <SubentryName>Highest Subindex Supported</SubentryName>
               <TypeId>Unsigned8</TypeId>
-              <ValueString>0x02</ValueString>
+              <ValueString>0x05</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
               <AccessType>Const</AccessType>
+              <HighLimitString>
+              </HighLimitString>
+              <LowLimitString>
+              </LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>false</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>db2e5b9c-f2ec-4c3b-8910-210ce9428a8b</GroupId>
+            </Entry>
+            <Entry>
+              <Index>6147</Index>
+              <Subindex>1</Subindex>
+              <EntryName>Transmit PDO Parameter 4</EntryName>
+              <SubentryName>COB ID used by PDO</SubentryName>
+              <TypeId>Unsigned32</TypeId>
+              <ValueString>$NODEID+0x00000380</ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>Const</AccessType>
+              <HighLimitString>
+              </HighLimitString>
+              <LowLimitString>
+              </LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>false</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>db2e5b9c-f2ec-4c3b-8910-210ce9428a8b</GroupId>
+            </Entry>
+            <Entry>
+              <Index>6147</Index>
+              <Subindex>2</Subindex>
+              <EntryName>Transmit PDO Parameter 4</EntryName>
+              <SubentryName>Transmission Type</SubentryName>
+              <TypeId>Unsigned8</TypeId>
+              <ValueString>255</ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>ReadWrite</AccessType>
+              <HighLimitString>
+              </HighLimitString>
+              <LowLimitString>
+              </LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>false</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>db2e5b9c-f2ec-4c3b-8910-210ce9428a8b</GroupId>
+            </Entry>
+            <Entry>
+              <Index>6147</Index>
+              <Subindex>3</Subindex>
+              <EntryName>Transmit PDO Parameter 4</EntryName>
+              <SubentryName>Inhibit Time</SubentryName>
+              <TypeId>Unsigned16</TypeId>
+              <ValueString>0</ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>ReadWrite</AccessType>
+              <HighLimitString>
+              </HighLimitString>
+              <LowLimitString>
+              </LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>false</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>db2e5b9c-f2ec-4c3b-8910-210ce9428a8b</GroupId>
+            </Entry>
+            <Entry>
+              <Index>6147</Index>
+              <Subindex>4</Subindex>
+              <EntryName>Transmit PDO Parameter 4</EntryName>
+              <SubentryName>Compatibility Entry</SubentryName>
+              <TypeId>Unsigned8</TypeId>
+              <ValueString>
+              </ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>Const</AccessType>
+              <HighLimitString>
+              </HighLimitString>
+              <LowLimitString>
+              </LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>false</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>db2e5b9c-f2ec-4c3b-8910-210ce9428a8b</GroupId>
+            </Entry>
+            <Entry>
+              <Index>6147</Index>
+              <Subindex>5</Subindex>
+              <EntryName>Transmit PDO Parameter 4</EntryName>
+              <SubentryName>Event Timer</SubentryName>
+              <TypeId>Unsigned16</TypeId>
+              <ValueString>0</ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>ReadWrite</AccessType>
+              <HighLimitString>
+              </HighLimitString>
+              <LowLimitString>
+              </LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>false</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>db2e5b9c-f2ec-4c3b-8910-210ce9428a8b</GroupId>
+            </Entry>
+            <Entry>
+              <Index>6656</Index>
+              <Subindex>0</Subindex>
+              <EntryName>Transmit PDO Mapping 1</EntryName>
+              <SubentryName>Number of Active Entries</SubentryName>
+              <TypeId>Unsigned8</TypeId>
+              <ValueString>0x00</ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>ReadWrite</AccessType>
               <HighLimitString>
               </HighLimitString>
               <LowLimitString>
@@ -1172,12 +1317,12 @@
               <Index>6656</Index>
               <Subindex>1</Subindex>
               <EntryName>Transmit PDO Mapping 1</EntryName>
-              <SubentryName>Status Word</SubentryName>
+              <SubentryName>Map 1</SubentryName>
               <TypeId>Unsigned32</TypeId>
-              <ValueString>0x60410010</ValueString>
+              <ValueString>0x00000000</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
-              <AccessType>Const</AccessType>
+              <AccessType>ReadWrite</AccessType>
               <HighLimitString>
               </HighLimitString>
               <LowLimitString>
@@ -1196,12 +1341,156 @@
               <Index>6656</Index>
               <Subindex>2</Subindex>
               <EntryName>Transmit PDO Mapping 1</EntryName>
-              <SubentryName>Modes of Operation Display</SubentryName>
+              <SubentryName>Map 2</SubentryName>
               <TypeId>Unsigned32</TypeId>
-              <ValueString>0x60610008</ValueString>
+              <ValueString>0x00000000</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
-              <AccessType>Const</AccessType>
+              <AccessType>ReadWrite</AccessType>
+              <HighLimitString>
+              </HighLimitString>
+              <LowLimitString>
+              </LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>false</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>db2e5b9c-f2ec-4c3b-8910-210ce9428a8b</GroupId>
+            </Entry>
+            <Entry>
+              <Index>6656</Index>
+              <Subindex>3</Subindex>
+              <EntryName>Transmit PDO Mapping 1</EntryName>
+              <SubentryName>Map 3</SubentryName>
+              <TypeId>Unsigned32</TypeId>
+              <ValueString>0x00000000</ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>ReadWrite</AccessType>
+              <HighLimitString>
+              </HighLimitString>
+              <LowLimitString>
+              </LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>false</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>db2e5b9c-f2ec-4c3b-8910-210ce9428a8b</GroupId>
+            </Entry>
+            <Entry>
+              <Index>6656</Index>
+              <Subindex>4</Subindex>
+              <EntryName>Transmit PDO Mapping 1</EntryName>
+              <SubentryName>Map 4</SubentryName>
+              <TypeId>Unsigned32</TypeId>
+              <ValueString>0x00000000</ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>ReadWrite</AccessType>
+              <HighLimitString>
+              </HighLimitString>
+              <LowLimitString>
+              </LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>false</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>db2e5b9c-f2ec-4c3b-8910-210ce9428a8b</GroupId>
+            </Entry>
+            <Entry>
+              <Index>6656</Index>
+              <Subindex>5</Subindex>
+              <EntryName>Transmit PDO Mapping 1</EntryName>
+              <SubentryName>Map 5</SubentryName>
+              <TypeId>Unsigned32</TypeId>
+              <ValueString>0x00000000</ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>ReadWrite</AccessType>
+              <HighLimitString>
+              </HighLimitString>
+              <LowLimitString>
+              </LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>false</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>db2e5b9c-f2ec-4c3b-8910-210ce9428a8b</GroupId>
+            </Entry>
+            <Entry>
+              <Index>6656</Index>
+              <Subindex>6</Subindex>
+              <EntryName>Transmit PDO Mapping 1</EntryName>
+              <SubentryName>Map 6</SubentryName>
+              <TypeId>Unsigned32</TypeId>
+              <ValueString>0x00000000</ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>ReadWrite</AccessType>
+              <HighLimitString>
+              </HighLimitString>
+              <LowLimitString>
+              </LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>false</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>db2e5b9c-f2ec-4c3b-8910-210ce9428a8b</GroupId>
+            </Entry>
+            <Entry>
+              <Index>6656</Index>
+              <Subindex>7</Subindex>
+              <EntryName>Transmit PDO Mapping 1</EntryName>
+              <SubentryName>Map 7</SubentryName>
+              <TypeId>Unsigned32</TypeId>
+              <ValueString>0x00000000</ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>ReadWrite</AccessType>
+              <HighLimitString>
+              </HighLimitString>
+              <LowLimitString>
+              </LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>false</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>db2e5b9c-f2ec-4c3b-8910-210ce9428a8b</GroupId>
+            </Entry>
+            <Entry>
+              <Index>6656</Index>
+              <Subindex>8</Subindex>
+              <EntryName>Transmit PDO Mapping 1</EntryName>
+              <SubentryName>Map 8</SubentryName>
+              <TypeId>Unsigned32</TypeId>
+              <ValueString>0x00000000</ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>ReadWrite</AccessType>
               <HighLimitString>
               </HighLimitString>
               <LowLimitString>
@@ -1220,12 +1509,12 @@
               <Index>6657</Index>
               <Subindex>0</Subindex>
               <EntryName>Transmit PDO Mapping 2</EntryName>
-              <SubentryName>Number of Entries</SubentryName>
+              <SubentryName>Number of Active Entries</SubentryName>
               <TypeId>Unsigned8</TypeId>
-              <ValueString>0x03</ValueString>
+              <ValueString>0x00</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
-              <AccessType>Const</AccessType>
+              <AccessType>ReadWrite</AccessType>
               <HighLimitString>
               </HighLimitString>
               <LowLimitString>
@@ -1244,12 +1533,12 @@
               <Index>6657</Index>
               <Subindex>1</Subindex>
               <EntryName>Transmit PDO Mapping 2</EntryName>
-              <SubentryName>Actual Velocity</SubentryName>
+              <SubentryName>Map 1</SubentryName>
               <TypeId>Unsigned32</TypeId>
-              <ValueString>0x606C0020</ValueString>
+              <ValueString>0x00000000</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
-              <AccessType>Const</AccessType>
+              <AccessType>ReadWrite</AccessType>
               <HighLimitString>
               </HighLimitString>
               <LowLimitString>
@@ -1268,12 +1557,12 @@
               <Index>6657</Index>
               <Subindex>2</Subindex>
               <EntryName>Transmit PDO Mapping 2</EntryName>
-              <SubentryName>Actual Torque</SubentryName>
+              <SubentryName>Map 2</SubentryName>
               <TypeId>Unsigned32</TypeId>
-              <ValueString>0x60770010</ValueString>
+              <ValueString>0x00000000</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
-              <AccessType>Const</AccessType>
+              <AccessType>ReadWrite</AccessType>
               <HighLimitString>
               </HighLimitString>
               <LowLimitString>
@@ -1292,12 +1581,132 @@
               <Index>6657</Index>
               <Subindex>3</Subindex>
               <EntryName>Transmit PDO Mapping 2</EntryName>
-              <SubentryName>Actual Motor Temperature</SubentryName>
+              <SubentryName>Map 3</SubentryName>
               <TypeId>Unsigned32</TypeId>
-              <ValueString>0x23010008</ValueString>
+              <ValueString>0x00000000</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
-              <AccessType>Const</AccessType>
+              <AccessType>ReadWrite</AccessType>
+              <HighLimitString>
+              </HighLimitString>
+              <LowLimitString>
+              </LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>false</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>db2e5b9c-f2ec-4c3b-8910-210ce9428a8b</GroupId>
+            </Entry>
+            <Entry>
+              <Index>6657</Index>
+              <Subindex>4</Subindex>
+              <EntryName>Transmit PDO Mapping 2</EntryName>
+              <SubentryName>Map 4</SubentryName>
+              <TypeId>Unsigned32</TypeId>
+              <ValueString>0x00000000</ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>ReadWrite</AccessType>
+              <HighLimitString>
+              </HighLimitString>
+              <LowLimitString>
+              </LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>false</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>db2e5b9c-f2ec-4c3b-8910-210ce9428a8b</GroupId>
+            </Entry>
+            <Entry>
+              <Index>6657</Index>
+              <Subindex>5</Subindex>
+              <EntryName>Transmit PDO Mapping 2</EntryName>
+              <SubentryName>Map 5</SubentryName>
+              <TypeId>Unsigned32</TypeId>
+              <ValueString>0x00000000</ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>ReadWrite</AccessType>
+              <HighLimitString>
+              </HighLimitString>
+              <LowLimitString>
+              </LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>false</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>db2e5b9c-f2ec-4c3b-8910-210ce9428a8b</GroupId>
+            </Entry>
+            <Entry>
+              <Index>6657</Index>
+              <Subindex>6</Subindex>
+              <EntryName>Transmit PDO Mapping 2</EntryName>
+              <SubentryName>Map 6</SubentryName>
+              <TypeId>Unsigned32</TypeId>
+              <ValueString>0x00000000</ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>ReadWrite</AccessType>
+              <HighLimitString>
+              </HighLimitString>
+              <LowLimitString>
+              </LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>false</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>db2e5b9c-f2ec-4c3b-8910-210ce9428a8b</GroupId>
+            </Entry>
+            <Entry>
+              <Index>6657</Index>
+              <Subindex>7</Subindex>
+              <EntryName>Transmit PDO Mapping 2</EntryName>
+              <SubentryName>Map 7</SubentryName>
+              <TypeId>Unsigned32</TypeId>
+              <ValueString>0x00000000</ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>ReadWrite</AccessType>
+              <HighLimitString>
+              </HighLimitString>
+              <LowLimitString>
+              </LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>false</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>db2e5b9c-f2ec-4c3b-8910-210ce9428a8b</GroupId>
+            </Entry>
+            <Entry>
+              <Index>6657</Index>
+              <Subindex>8</Subindex>
+              <EntryName>Transmit PDO Mapping 2</EntryName>
+              <SubentryName>Map 8</SubentryName>
+              <TypeId>Unsigned32</TypeId>
+              <ValueString>0x00000000</ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>ReadWrite</AccessType>
               <HighLimitString>
               </HighLimitString>
               <LowLimitString>
@@ -1316,12 +1725,12 @@
               <Index>6658</Index>
               <Subindex>0</Subindex>
               <EntryName>Transmit PDO Mapping 3</EntryName>
-              <SubentryName>Number of Entries</SubentryName>
+              <SubentryName>Number of Active Entries</SubentryName>
               <TypeId>Unsigned8</TypeId>
-              <ValueString>0x01</ValueString>
+              <ValueString>0x00</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
-              <AccessType>Const</AccessType>
+              <AccessType>ReadWrite</AccessType>
               <HighLimitString>
               </HighLimitString>
               <LowLimitString>
@@ -1340,12 +1749,396 @@
               <Index>6658</Index>
               <Subindex>1</Subindex>
               <EntryName>Transmit PDO Mapping 3</EntryName>
-              <SubentryName>Actual Position</SubentryName>
+              <SubentryName>Map 1</SubentryName>
               <TypeId>Unsigned32</TypeId>
-              <ValueString>0x60640020</ValueString>
+              <ValueString>0x00000000</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
-              <AccessType>Const</AccessType>
+              <AccessType>ReadWrite</AccessType>
+              <HighLimitString>
+              </HighLimitString>
+              <LowLimitString>
+              </LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>false</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>db2e5b9c-f2ec-4c3b-8910-210ce9428a8b</GroupId>
+            </Entry>
+            <Entry>
+              <Index>6658</Index>
+              <Subindex>2</Subindex>
+              <EntryName>Transmit PDO Mapping 3</EntryName>
+              <SubentryName>Map 2</SubentryName>
+              <TypeId>Unsigned32</TypeId>
+              <ValueString>0x00000000</ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>ReadWrite</AccessType>
+              <HighLimitString>
+              </HighLimitString>
+              <LowLimitString>
+              </LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>false</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>db2e5b9c-f2ec-4c3b-8910-210ce9428a8b</GroupId>
+            </Entry>
+            <Entry>
+              <Index>6658</Index>
+              <Subindex>3</Subindex>
+              <EntryName>Transmit PDO Mapping 3</EntryName>
+              <SubentryName>Map 3</SubentryName>
+              <TypeId>Unsigned32</TypeId>
+              <ValueString>0x00000000</ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>ReadWrite</AccessType>
+              <HighLimitString>
+              </HighLimitString>
+              <LowLimitString>
+              </LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>false</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>db2e5b9c-f2ec-4c3b-8910-210ce9428a8b</GroupId>
+            </Entry>
+            <Entry>
+              <Index>6658</Index>
+              <Subindex>4</Subindex>
+              <EntryName>Transmit PDO Mapping 3</EntryName>
+              <SubentryName>Map 4</SubentryName>
+              <TypeId>Unsigned32</TypeId>
+              <ValueString>0x00000000</ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>ReadWrite</AccessType>
+              <HighLimitString>
+              </HighLimitString>
+              <LowLimitString>
+              </LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>false</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>db2e5b9c-f2ec-4c3b-8910-210ce9428a8b</GroupId>
+            </Entry>
+            <Entry>
+              <Index>6658</Index>
+              <Subindex>5</Subindex>
+              <EntryName>Transmit PDO Mapping 3</EntryName>
+              <SubentryName>Map 5</SubentryName>
+              <TypeId>Unsigned32</TypeId>
+              <ValueString>0x00000000</ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>ReadWrite</AccessType>
+              <HighLimitString>
+              </HighLimitString>
+              <LowLimitString>
+              </LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>false</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>db2e5b9c-f2ec-4c3b-8910-210ce9428a8b</GroupId>
+            </Entry>
+            <Entry>
+              <Index>6658</Index>
+              <Subindex>6</Subindex>
+              <EntryName>Transmit PDO Mapping 3</EntryName>
+              <SubentryName>Map 6</SubentryName>
+              <TypeId>Unsigned32</TypeId>
+              <ValueString>0x00000000</ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>ReadWrite</AccessType>
+              <HighLimitString>
+              </HighLimitString>
+              <LowLimitString>
+              </LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>false</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>db2e5b9c-f2ec-4c3b-8910-210ce9428a8b</GroupId>
+            </Entry>
+            <Entry>
+              <Index>6658</Index>
+              <Subindex>7</Subindex>
+              <EntryName>Transmit PDO Mapping 3</EntryName>
+              <SubentryName>Map 7</SubentryName>
+              <TypeId>Unsigned32</TypeId>
+              <ValueString>0x00000000</ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>ReadWrite</AccessType>
+              <HighLimitString>
+              </HighLimitString>
+              <LowLimitString>
+              </LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>false</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>db2e5b9c-f2ec-4c3b-8910-210ce9428a8b</GroupId>
+            </Entry>
+            <Entry>
+              <Index>6658</Index>
+              <Subindex>8</Subindex>
+              <EntryName>Transmit PDO Mapping 3</EntryName>
+              <SubentryName>Map 8</SubentryName>
+              <TypeId>Unsigned32</TypeId>
+              <ValueString>0x00000000</ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>ReadWrite</AccessType>
+              <HighLimitString>
+              </HighLimitString>
+              <LowLimitString>
+              </LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>false</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>db2e5b9c-f2ec-4c3b-8910-210ce9428a8b</GroupId>
+            </Entry>
+            <Entry>
+              <Index>6659</Index>
+              <Subindex>0</Subindex>
+              <EntryName>Transmit PDO Mapping 4</EntryName>
+              <SubentryName>Number of Active Entries</SubentryName>
+              <TypeId>Unsigned8</TypeId>
+              <ValueString>0x00</ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>ReadWrite</AccessType>
+              <HighLimitString>
+              </HighLimitString>
+              <LowLimitString>
+              </LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>false</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>db2e5b9c-f2ec-4c3b-8910-210ce9428a8b</GroupId>
+            </Entry>
+            <Entry>
+              <Index>6659</Index>
+              <Subindex>1</Subindex>
+              <EntryName>Transmit PDO Mapping 4</EntryName>
+              <SubentryName>Map 1</SubentryName>
+              <TypeId>Unsigned32</TypeId>
+              <ValueString>0x00000000</ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>ReadWrite</AccessType>
+              <HighLimitString>
+              </HighLimitString>
+              <LowLimitString>
+              </LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>false</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>db2e5b9c-f2ec-4c3b-8910-210ce9428a8b</GroupId>
+            </Entry>
+            <Entry>
+              <Index>6659</Index>
+              <Subindex>2</Subindex>
+              <EntryName>Transmit PDO Mapping 4</EntryName>
+              <SubentryName>Map 2</SubentryName>
+              <TypeId>Unsigned32</TypeId>
+              <ValueString>0x00000000</ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>ReadWrite</AccessType>
+              <HighLimitString>
+              </HighLimitString>
+              <LowLimitString>
+              </LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>false</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>db2e5b9c-f2ec-4c3b-8910-210ce9428a8b</GroupId>
+            </Entry>
+            <Entry>
+              <Index>6659</Index>
+              <Subindex>3</Subindex>
+              <EntryName>Transmit PDO Mapping 4</EntryName>
+              <SubentryName>Map 3</SubentryName>
+              <TypeId>Unsigned32</TypeId>
+              <ValueString>0x00000000</ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>ReadWrite</AccessType>
+              <HighLimitString>
+              </HighLimitString>
+              <LowLimitString>
+              </LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>false</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>db2e5b9c-f2ec-4c3b-8910-210ce9428a8b</GroupId>
+            </Entry>
+            <Entry>
+              <Index>6659</Index>
+              <Subindex>4</Subindex>
+              <EntryName>Transmit PDO Mapping 4</EntryName>
+              <SubentryName>Map 4</SubentryName>
+              <TypeId>Unsigned32</TypeId>
+              <ValueString>0x00000000</ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>ReadWrite</AccessType>
+              <HighLimitString>
+              </HighLimitString>
+              <LowLimitString>
+              </LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>false</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>db2e5b9c-f2ec-4c3b-8910-210ce9428a8b</GroupId>
+            </Entry>
+            <Entry>
+              <Index>6659</Index>
+              <Subindex>5</Subindex>
+              <EntryName>Transmit PDO Mapping 4</EntryName>
+              <SubentryName>Map 5</SubentryName>
+              <TypeId>Unsigned32</TypeId>
+              <ValueString>0x00000000</ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>ReadWrite</AccessType>
+              <HighLimitString>
+              </HighLimitString>
+              <LowLimitString>
+              </LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>false</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>db2e5b9c-f2ec-4c3b-8910-210ce9428a8b</GroupId>
+            </Entry>
+            <Entry>
+              <Index>6659</Index>
+              <Subindex>6</Subindex>
+              <EntryName>Transmit PDO Mapping 4</EntryName>
+              <SubentryName>Map 6</SubentryName>
+              <TypeId>Unsigned32</TypeId>
+              <ValueString>0x00000000</ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>ReadWrite</AccessType>
+              <HighLimitString>
+              </HighLimitString>
+              <LowLimitString>
+              </LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>false</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>db2e5b9c-f2ec-4c3b-8910-210ce9428a8b</GroupId>
+            </Entry>
+            <Entry>
+              <Index>6659</Index>
+              <Subindex>7</Subindex>
+              <EntryName>Transmit PDO Mapping 4</EntryName>
+              <SubentryName>Map 7</SubentryName>
+              <TypeId>Unsigned32</TypeId>
+              <ValueString>0x00000000</ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>ReadWrite</AccessType>
+              <HighLimitString>
+              </HighLimitString>
+              <LowLimitString>
+              </LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>false</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>db2e5b9c-f2ec-4c3b-8910-210ce9428a8b</GroupId>
+            </Entry>
+            <Entry>
+              <Index>6659</Index>
+              <Subindex>8</Subindex>
+              <EntryName>Transmit PDO Mapping 4</EntryName>
+              <SubentryName>Map 8</SubentryName>
+              <TypeId>Unsigned32</TypeId>
+              <ValueString>0x00000000</ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>ReadWrite</AccessType>
               <HighLimitString>
               </HighLimitString>
               <LowLimitString>
@@ -1961,7 +2754,7 @@
             <Entry>
               <Index>9472</Index>
               <Subindex>0</Subindex>
-              <EntryName>Control</EntryName>
+              <EntryName>Process Control</EntryName>
               <SubentryName>
               </SubentryName>
               <TypeId>Unsigned16</TypeId>
@@ -1984,7 +2777,7 @@
             <Entry>
               <Index>9473</Index>
               <Subindex>0</Subindex>
-              <EntryName>Status</EntryName>
+              <EntryName>Process Status</EntryName>
               <SubentryName>
               </SubentryName>
               <TypeId>Unsigned16</TypeId>
@@ -2533,7 +3326,7 @@
           <Granularity>0</Granularity>
           <DynamicChannelsSupported>1</DynamicChannelsSupported>
           <NumberofRPDOs>1</NumberofRPDOs>
-          <NumberofTPDOs>3</NumberofTPDOs>
+          <NumberofTPDOs>4</NumberofTPDOs>
           <CompactPDO>0</CompactPDO>
           <NodeId>32</NodeId>
           <NodeName>Main Board</NodeName>

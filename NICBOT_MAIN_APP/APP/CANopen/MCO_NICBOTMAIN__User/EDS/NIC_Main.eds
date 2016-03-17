@@ -8,7 +8,7 @@ CreatedBy=Unknown
 CreationTime=09:08AM
 CreationDate=01-27-2016
 ModifiedBy=Unknown
-ModificationTime=09:25AM
+ModificationTime=05:59PM
 ModificationDate=03-17-2016
 
 [Comments]
@@ -37,7 +37,7 @@ LSS_Supported=0
 Granularity=0
 DynamicChannelsSupported=1
 NrOfRXPDO=1
-NrOfTXPDO=3
+NrOfTXPDO=4
 CompactPDO=0x00
 
 [DummyUsage]
@@ -56,7 +56,7 @@ SupportedObjects=3
 3=0x1018
 
 [OptionalObjects]
-SupportedObjects=39
+SupportedObjects=41
 1=0x1005
 2=0x1008
 3=0x1009
@@ -71,31 +71,33 @@ SupportedObjects=39
 12=0x1800
 13=0x1801
 14=0x1802
-15=0x1A00
-16=0x1A01
-17=0x1A02
-18=0x1F50
-19=0x1F51
-20=0x1F80
-21=0x6040
-22=0x6041
-23=0x6060
-24=0x6061
-25=0x6064
-26=0x606C
-27=0x6071
-28=0x6072
-29=0x6075
-30=0x6076
-31=0x6077
-32=0x607A
-33=0x607F
-34=0x6081
-35=0x6083
-36=0x6084
-37=0x6085
-38=0x6087
-39=0x60FF
+15=0x1803
+16=0x1A00
+17=0x1A01
+18=0x1A02
+19=0x1A03
+20=0x1F50
+21=0x1F51
+22=0x1F80
+23=0x6040
+24=0x6041
+25=0x6060
+26=0x6061
+27=0x6064
+28=0x606C
+29=0x6071
+30=0x6072
+31=0x6075
+32=0x6076
+33=0x6077
+34=0x607A
+35=0x607F
+36=0x6081
+37=0x6083
+38=0x6084
+39=0x6085
+40=0x6087
+41=0x60FF
 
 [ManufacturerObjects]
 SupportedObjects=9
@@ -453,7 +455,7 @@ ObjectType=0x07
 DataType=0x0005
 LowLimit=
 HighLimit=
-AccessType=const
+AccessType=rw
 DefaultValue=255
 PDOMapping=0
 ObjFlags=0x00
@@ -524,7 +526,7 @@ ObjectType=0x07
 DataType=0x0005
 LowLimit=
 HighLimit=
-AccessType=const
+AccessType=rw
 DefaultValue=255
 PDOMapping=0
 ObjFlags=0x00
@@ -595,7 +597,7 @@ ObjectType=0x07
 DataType=0x0005
 LowLimit=
 HighLimit=
-AccessType=const
+AccessType=rw
 DefaultValue=255
 PDOMapping=0
 ObjFlags=0x00
@@ -633,117 +635,490 @@ DefaultValue=0
 PDOMapping=0
 ObjFlags=0x00
 
-[1A00]
-ParameterName=Transmit PDO Mapping 1
-SubNumber=3
-ObjectType=0x08
+[1803]
+ParameterName=Transmit PDO Parameter 4
+SubNumber=6
+ObjectType=0x09
 
-[1A00sub0]
-ParameterName=Number of Entries
+[1803sub0]
+ParameterName=Highest Subindex Supported
 ObjectType=0x07
 DataType=0x0005
 LowLimit=
 HighLimit=
 AccessType=const
-DefaultValue=0x02
+DefaultValue=0x05
+PDOMapping=0
+ObjFlags=0x00
+
+[1803sub1]
+ParameterName=COB ID used by PDO
+ObjectType=0x07
+DataType=0x0007
+LowLimit=
+HighLimit=
+AccessType=const
+DefaultValue=$NODEID+0x00000380
+PDOMapping=0
+ObjFlags=0x00
+
+[1803sub2]
+ParameterName=Transmission Type
+ObjectType=0x07
+DataType=0x0005
+LowLimit=
+HighLimit=
+AccessType=rw
+DefaultValue=255
+PDOMapping=0
+ObjFlags=0x00
+
+[1803sub3]
+ParameterName=Inhibit Time
+ObjectType=0x07
+DataType=0x0006
+LowLimit=
+HighLimit=
+AccessType=rw
+DefaultValue=0
+PDOMapping=0
+ObjFlags=0x00
+
+[1803sub4]
+ParameterName=Compatibility Entry
+ObjectType=0x07
+DataType=0x0005
+LowLimit=
+HighLimit=
+AccessType=const
+DefaultValue=
+PDOMapping=0
+ObjFlags=0x00
+
+[1803sub5]
+ParameterName=Event Timer
+ObjectType=0x07
+DataType=0x0006
+LowLimit=
+HighLimit=
+AccessType=rw
+DefaultValue=0
+PDOMapping=0
+ObjFlags=0x00
+
+[1A00]
+ParameterName=Transmit PDO Mapping 1
+SubNumber=9
+ObjectType=0x08
+
+[1A00sub0]
+ParameterName=Number of Active Entries
+ObjectType=0x07
+DataType=0x0005
+LowLimit=
+HighLimit=
+AccessType=rw
+DefaultValue=0x00
 PDOMapping=0
 ObjFlags=0x00
 
 [1A00sub1]
-ParameterName=Status Word
+ParameterName=Map 1
 ObjectType=0x07
 DataType=0x0007
 LowLimit=
 HighLimit=
-AccessType=const
-DefaultValue=0x60410010
+AccessType=rw
+DefaultValue=0x00000000
 PDOMapping=0
 ObjFlags=0x00
 
 [1A00sub2]
-ParameterName=Modes of Operation Display
+ParameterName=Map 2
 ObjectType=0x07
 DataType=0x0007
 LowLimit=
 HighLimit=
-AccessType=const
-DefaultValue=0x60610008
+AccessType=rw
+DefaultValue=0x00000000
+PDOMapping=0
+ObjFlags=0x00
+
+[1A00sub3]
+ParameterName=Map 3
+ObjectType=0x07
+DataType=0x0007
+LowLimit=
+HighLimit=
+AccessType=rw
+DefaultValue=0x00000000
+PDOMapping=0
+ObjFlags=0x00
+
+[1A00sub4]
+ParameterName=Map 4
+ObjectType=0x07
+DataType=0x0007
+LowLimit=
+HighLimit=
+AccessType=rw
+DefaultValue=0x00000000
+PDOMapping=0
+ObjFlags=0x00
+
+[1A00sub5]
+ParameterName=Map 5
+ObjectType=0x07
+DataType=0x0007
+LowLimit=
+HighLimit=
+AccessType=rw
+DefaultValue=0x00000000
+PDOMapping=0
+ObjFlags=0x00
+
+[1A00sub6]
+ParameterName=Map 6
+ObjectType=0x07
+DataType=0x0007
+LowLimit=
+HighLimit=
+AccessType=rw
+DefaultValue=0x00000000
+PDOMapping=0
+ObjFlags=0x00
+
+[1A00sub7]
+ParameterName=Map 7
+ObjectType=0x07
+DataType=0x0007
+LowLimit=
+HighLimit=
+AccessType=rw
+DefaultValue=0x00000000
+PDOMapping=0
+ObjFlags=0x00
+
+[1A00sub8]
+ParameterName=Map 8
+ObjectType=0x07
+DataType=0x0007
+LowLimit=
+HighLimit=
+AccessType=rw
+DefaultValue=0x00000000
 PDOMapping=0
 ObjFlags=0x00
 
 [1A01]
 ParameterName=Transmit PDO Mapping 2
-SubNumber=4
+SubNumber=9
 ObjectType=0x08
 
 [1A01sub0]
-ParameterName=Number of Entries
+ParameterName=Number of Active Entries
 ObjectType=0x07
 DataType=0x0005
 LowLimit=
 HighLimit=
-AccessType=const
-DefaultValue=0x03
+AccessType=rw
+DefaultValue=0x00
 PDOMapping=0
 ObjFlags=0x00
 
 [1A01sub1]
-ParameterName=Actual Velocity
+ParameterName=Map 1
 ObjectType=0x07
 DataType=0x0007
 LowLimit=
 HighLimit=
-AccessType=const
-DefaultValue=0x606C0020
+AccessType=rw
+DefaultValue=0x00000000
 PDOMapping=0
 ObjFlags=0x00
 
 [1A01sub2]
-ParameterName=Actual Torque
+ParameterName=Map 2
 ObjectType=0x07
 DataType=0x0007
 LowLimit=
 HighLimit=
-AccessType=const
-DefaultValue=0x60770010
+AccessType=rw
+DefaultValue=0x00000000
 PDOMapping=0
 ObjFlags=0x00
 
 [1A01sub3]
-ParameterName=Actual Motor Temperature
+ParameterName=Map 3
 ObjectType=0x07
 DataType=0x0007
 LowLimit=
 HighLimit=
-AccessType=const
-DefaultValue=0x23010008
+AccessType=rw
+DefaultValue=0x00000000
+PDOMapping=0
+ObjFlags=0x00
+
+[1A01sub4]
+ParameterName=Map 4
+ObjectType=0x07
+DataType=0x0007
+LowLimit=
+HighLimit=
+AccessType=rw
+DefaultValue=0x00000000
+PDOMapping=0
+ObjFlags=0x00
+
+[1A01sub5]
+ParameterName=Map 5
+ObjectType=0x07
+DataType=0x0007
+LowLimit=
+HighLimit=
+AccessType=rw
+DefaultValue=0x00000000
+PDOMapping=0
+ObjFlags=0x00
+
+[1A01sub6]
+ParameterName=Map 6
+ObjectType=0x07
+DataType=0x0007
+LowLimit=
+HighLimit=
+AccessType=rw
+DefaultValue=0x00000000
+PDOMapping=0
+ObjFlags=0x00
+
+[1A01sub7]
+ParameterName=Map 7
+ObjectType=0x07
+DataType=0x0007
+LowLimit=
+HighLimit=
+AccessType=rw
+DefaultValue=0x00000000
+PDOMapping=0
+ObjFlags=0x00
+
+[1A01sub8]
+ParameterName=Map 8
+ObjectType=0x07
+DataType=0x0007
+LowLimit=
+HighLimit=
+AccessType=rw
+DefaultValue=0x00000000
 PDOMapping=0
 ObjFlags=0x00
 
 [1A02]
 ParameterName=Transmit PDO Mapping 3
-SubNumber=2
+SubNumber=9
 ObjectType=0x08
 
 [1A02sub0]
-ParameterName=Number of Entries
+ParameterName=Number of Active Entries
 ObjectType=0x07
 DataType=0x0005
 LowLimit=
 HighLimit=
-AccessType=const
-DefaultValue=0x01
+AccessType=rw
+DefaultValue=0x00
 PDOMapping=0
 ObjFlags=0x00
 
 [1A02sub1]
-ParameterName=Actual Position
+ParameterName=Map 1
 ObjectType=0x07
 DataType=0x0007
 LowLimit=
 HighLimit=
-AccessType=const
-DefaultValue=0x60640020
+AccessType=rw
+DefaultValue=0x00000000
+PDOMapping=0
+ObjFlags=0x00
+
+[1A02sub2]
+ParameterName=Map 2
+ObjectType=0x07
+DataType=0x0007
+LowLimit=
+HighLimit=
+AccessType=rw
+DefaultValue=0x00000000
+PDOMapping=0
+ObjFlags=0x00
+
+[1A02sub3]
+ParameterName=Map 3
+ObjectType=0x07
+DataType=0x0007
+LowLimit=
+HighLimit=
+AccessType=rw
+DefaultValue=0x00000000
+PDOMapping=0
+ObjFlags=0x00
+
+[1A02sub4]
+ParameterName=Map 4
+ObjectType=0x07
+DataType=0x0007
+LowLimit=
+HighLimit=
+AccessType=rw
+DefaultValue=0x00000000
+PDOMapping=0
+ObjFlags=0x00
+
+[1A02sub5]
+ParameterName=Map 5
+ObjectType=0x07
+DataType=0x0007
+LowLimit=
+HighLimit=
+AccessType=rw
+DefaultValue=0x00000000
+PDOMapping=0
+ObjFlags=0x00
+
+[1A02sub6]
+ParameterName=Map 6
+ObjectType=0x07
+DataType=0x0007
+LowLimit=
+HighLimit=
+AccessType=rw
+DefaultValue=0x00000000
+PDOMapping=0
+ObjFlags=0x00
+
+[1A02sub7]
+ParameterName=Map 7
+ObjectType=0x07
+DataType=0x0007
+LowLimit=
+HighLimit=
+AccessType=rw
+DefaultValue=0x00000000
+PDOMapping=0
+ObjFlags=0x00
+
+[1A02sub8]
+ParameterName=Map 8
+ObjectType=0x07
+DataType=0x0007
+LowLimit=
+HighLimit=
+AccessType=rw
+DefaultValue=0x00000000
+PDOMapping=0
+ObjFlags=0x00
+
+[1A03]
+ParameterName=Transmit PDO Mapping 4
+SubNumber=9
+ObjectType=0x08
+
+[1A03sub0]
+ParameterName=Number of Active Entries
+ObjectType=0x07
+DataType=0x0005
+LowLimit=
+HighLimit=
+AccessType=rw
+DefaultValue=0x00
+PDOMapping=0
+ObjFlags=0x00
+
+[1A03sub1]
+ParameterName=Map 1
+ObjectType=0x07
+DataType=0x0007
+LowLimit=
+HighLimit=
+AccessType=rw
+DefaultValue=0x00000000
+PDOMapping=0
+ObjFlags=0x00
+
+[1A03sub2]
+ParameterName=Map 2
+ObjectType=0x07
+DataType=0x0007
+LowLimit=
+HighLimit=
+AccessType=rw
+DefaultValue=0x00000000
+PDOMapping=0
+ObjFlags=0x00
+
+[1A03sub3]
+ParameterName=Map 3
+ObjectType=0x07
+DataType=0x0007
+LowLimit=
+HighLimit=
+AccessType=rw
+DefaultValue=0x00000000
+PDOMapping=0
+ObjFlags=0x00
+
+[1A03sub4]
+ParameterName=Map 4
+ObjectType=0x07
+DataType=0x0007
+LowLimit=
+HighLimit=
+AccessType=rw
+DefaultValue=0x00000000
+PDOMapping=0
+ObjFlags=0x00
+
+[1A03sub5]
+ParameterName=Map 5
+ObjectType=0x07
+DataType=0x0007
+LowLimit=
+HighLimit=
+AccessType=rw
+DefaultValue=0x00000000
+PDOMapping=0
+ObjFlags=0x00
+
+[1A03sub6]
+ParameterName=Map 6
+ObjectType=0x07
+DataType=0x0007
+LowLimit=
+HighLimit=
+AccessType=rw
+DefaultValue=0x00000000
+PDOMapping=0
+ObjFlags=0x00
+
+[1A03sub7]
+ParameterName=Map 7
+ObjectType=0x07
+DataType=0x0007
+LowLimit=
+HighLimit=
+AccessType=rw
+DefaultValue=0x00000000
+PDOMapping=0
+ObjFlags=0x00
+
+[1A03sub8]
+ParameterName=Map 8
+ObjectType=0x07
+DataType=0x0007
+LowLimit=
+HighLimit=
+AccessType=rw
+DefaultValue=0x00000000
 PDOMapping=0
 ObjFlags=0x00
 
@@ -1054,7 +1429,7 @@ PDOMapping=0
 ObjFlags=0x00
 
 [2500]
-ParameterName=Control
+ParameterName=Process Control
 ObjectType=0x07
 DataType=0x0006
 LowLimit=0
@@ -1065,7 +1440,7 @@ PDOMapping=0
 ObjFlags=0x00
 
 [2501]
-ParameterName=Status
+ParameterName=Process Status
 ObjectType=0x07
 DataType=0x0006
 LowLimit=
