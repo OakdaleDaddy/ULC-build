@@ -123,7 +123,11 @@ UNSIGNED32 MCOUSER_SDORdPI (
   UNSIGNED8 len           // Length of data 
   )
 {
-  return 0;
+  UNSIGNED32 result = 0;
+
+  result = CAN_ODRead(index, subindex);
+
+  return result;
 }
 #endif // USECB_SDO_RD_PI
 

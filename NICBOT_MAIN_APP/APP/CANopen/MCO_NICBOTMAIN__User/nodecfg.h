@@ -116,7 +116,7 @@ DEFINES: ENABLING CANopen DATA CALL-BACK FUNCTIONS
 // MCOUSER_SDOWrPI(), MCOUSER_SDORdAft() and MCOUSER_SDOWrAft() are called 
 // before/after every expedited SDO access to the process image
 // NOTE: SDO access to PI
-#define USECB_SDO_RD_PI    0
+#define USECB_SDO_RD_PI    1
 #define USECB_SDO_RD_AFTER 0
 #define USECB_SDO_WR_PI    1
 #define USECB_SDO_WR_AFTER 1

@@ -92,7 +92,10 @@ static U8 initialSolenoidSet; /*!< indicator of initial solenoid, 0 on boot, 1 a
 static U8 running; /*!< indicator of running mode of device process, 0 when not active, 1 when started */
 static U16 deviceProcessControl; /*!< control used to determine device processes */
 
+static S16 frontDrillSpeedSetPoint; // RPM
 static DRILL_CONTEXT frontDrillContext; /*!< control structure for front drill */
+
+static S16 rearDrillSpeedSetPoint; // RPM
 static DRILL_CONTEXT rearDrillContext; /*!< control structure for rear drill */
 
 static SENSOR_HOME_STATES sensorHomingState; /*!< state of sensor homing process */
@@ -400,9 +403,9 @@ static void processConfiguration(void)
             bps = 50;
          }
 
-         CAN_WriteProcessImage(0x2100, 0, &baudCode, sizeof(baudCode));
-         CAN_WriteProcessImage(0x2101, 0, &nodeId, sizeof(nodeId));
-         CAN_WriteProcessImage(0x2102, 0, &mode, sizeof(mode));
+         CAN_WriteProcessImageValue(0x2100, 0, baudCode, sizeof(baudCode));
+         CAN_WriteProcessImageValue(0x2101, 0, nodeId, sizeof(nodeId));
+         CAN_WriteProcessImageValue(0x2102, 0, mode, sizeof(mode));
          
          CAN_SetNodeId(nodeId);
          CAN_SetBaudrate(bps);
@@ -460,7 +463,7 @@ static void updateDeviceStatus(void)
    if (calculatedProcessStatus != currentProcessStatus)
    {
       // update process image 
-      CAN_WriteProcessImage(0x2501, 0, (U8 *)&calculatedProcessStatus, sizeof(calculatedProcessStatus));
+      CAN_WriteProcessImageValue(0x2501, 0, calculatedProcessStatus, sizeof(calculatedProcessStatus));
    }
 }
 
@@ -1134,15 +1137,11 @@ void CAN_NMTChange(U8 state)
    {
       // pre-operational
 
-      U16 calculatedProcessStatus;
-      U8 cameraSelect;
       U8 i;
 
       // initialize cameras
-      cameraSelect = 1;
-      CAN_WriteProcessImage(0x2301, 1, &cameraSelect, sizeof(cameraSelect));
-      cameraSelect = 2;
-      CAN_WriteProcessImage(0x2301, 2, &cameraSelect, sizeof(cameraSelect));
+      CAN_WriteProcessImageValue(0x2301, 1, 1, sizeof(U8));
+      CAN_WriteProcessImageValue(0x2301, 2, 2, sizeof(U8));
       Camera_Select(1, 2);
 
       // initialize camera lights
@@ -1160,12 +1159,10 @@ void CAN_NMTChange(U8 state)
       }
 
       // initialize process control
-      deviceProcessControl = 0;
-      CAN_WriteProcessImage(0x2500, 0, (U8 *)&deviceProcessControl, sizeof(deviceProcessControl));
+      CAN_WriteProcessImageValue(0x2500, 0, 0, sizeof(U16));
 
       // initialize process status
-      calculatedProcessStatus = calculateProcessStatus();
-      CAN_WriteProcessImage(0x2501, 0, (U8 *)&calculatedProcessStatus, sizeof(calculatedProcessStatus));
+      CAN_WriteProcessImageValue(0x2501, 0, calculateProcessStatus(), sizeof(U16));
 
       // evaluate mode
       if ( (REPAIR_MODE == deviceMode) )
@@ -1180,6 +1177,11 @@ void CAN_NMTChange(U8 state)
          drillspeed(0, 0x30, 0x45);
          drillspeed(1, 0x30, 0x45);
       
+
+         // initialize front drill
+      
+         frontDrillSpeedSetPoint = 0;
+
          memset(&frontDrillContext, 0, sizeof(frontDrillContext));
          //frontDrillContext.state = DRILL_IDLE_S;
          frontDrillContext.axis = 1;
@@ -1188,6 +1190,14 @@ void CAN_NMTChange(U8 state)
          //frontDrillContext.manualSetPoint = 0;
          //frontDrillContext.processedSetPoint = 0;
       
+         CAN_WriteProcessImageValue(0x2311, 0, frontDrillSpeedSetPoint, sizeof(frontDrillSpeedSetPoint));
+         CAN_WriteProcessImageValue(0x2312, 0, frontDrillContext.manualSetPoint, sizeof(frontDrillContext.manualSetPoint));
+
+
+         // initialize rear drill
+
+         rearDrillSpeedSetPoint = 0;
+
          memset(&rearDrillContext, 0, sizeof(rearDrillContext));
          //rearDrillContext.state = DRILL_IDLE_S;
          //rearDrillContext.axis = 0;
@@ -1195,6 +1205,9 @@ void CAN_NMTChange(U8 state)
          rearDrillContext.retractMask = 0x0100;
          //rearDrillContext.manualSetPoint = 0;
          //rearDrillContext.processedSetPoint = 0;
+
+         CAN_WriteProcessImageValue(0x2313, 0, rearDrillSpeedSetPoint, sizeof(rearDrillSpeedSetPoint));
+         CAN_WriteProcessImageValue(0x2314, 0, rearDrillContext.manualSetPoint, sizeof(rearDrillContext.manualSetPoint));
       }
       else if ( (INSPECT_MODE == deviceMode) )
       {
@@ -1220,6 +1233,28 @@ void CAN_NMTChange(U8 state)
       // set stopped
       running = 0;
    }
+}
+
+/* See can_callbacks.h for function description */
+U32 CAN_ODRead(U16 index, U8 subIndex)
+{
+   U32 result = CAN_ABORT_UNSUPPORTED;
+
+   // evaluate
+   if ((index >= 0x2311) && (index <= 0x2314))
+   {
+      if (REPAIR_MODE == deviceMode)
+      {
+         result = 0;
+      }
+   }
+   else
+   {
+      // all other values are good
+      result = 0;
+   }
+   
+   return(result);
 }
 
 /* See can_callbacks.h for function description */
@@ -1259,7 +1294,36 @@ U32 CAN_ODWrite(U16 index, U8 subIndex, U8 * data, U8 length)
    U32 result = CAN_ABORT_GENERAL;
 
    // evaluate
-   if (0x2105 == index)
+   if (0x2100 == index)
+   {
+      if ( (1 == length) )
+      {
+         result = 0;
+      }
+   }
+   else if (0x2101 == index)
+   {
+      U8 value = data[0];
+
+      if ( (1 == length) &&
+           (value >= 1) &&
+           (value <= 127) )
+      {
+         result = 0;
+      }
+   }
+   else if (0x2102 == index)
+   {
+      U8 value = data[0];
+
+      if ( (1 == length) &&
+           (value >= 0) &&
+           (value <= 1) )
+      {
+         result = 0;
+      }
+   }
+   else if (0x2105 == index)
    {
       if ( (4 == length) )
       {
@@ -1305,6 +1369,13 @@ U32 CAN_ODWrite(U16 index, U8 subIndex, U8 * data, U8 length)
          U16 solenoidControl;
          memcpy(&solenoidControl, data, length);
          result = checkSolenoidControl(solenoidControl);
+      }
+   }
+   else if ((index >= 0x2311) && (index <= 0x2314))
+   {
+      if ((2 == length) && (REPAIR_MODE == deviceMode))
+      {
+         result = 0;
       }
    }
    else if (0x2500 == index)
@@ -1372,6 +1443,22 @@ void CAN_ODData(U16 index, U8 subIndex, U8 * data, U8 length)
    else if (0x2304 == index)
    {
       processSolenoidControl();
+   }
+   else if (0x2311 == index)
+   {
+      CAN_ReadProcessImage(0x2311, 0, &frontDrillSpeedSetPoint, sizeof(frontDrillSpeedSetPoint));
+   }
+   else if (0x2312 == index)
+   {
+      CAN_ReadProcessImage(0x2312, 0, &frontDrillContext.manualSetPoint, sizeof(frontDrillContext.manualSetPoint));
+   }
+   else if (0x2313 == index)
+   {
+      CAN_ReadProcessImage(0x2313, 0, &rearDrillSpeedSetPoint, sizeof(rearDrillSpeedSetPoint));
+   }
+   else if (0x2314 == index)
+   {
+      CAN_ReadProcessImage(0x2314, 0, &rearDrillContext.manualSetPoint, sizeof(rearDrillContext.manualSetPoint));
    }
    else if (0x2500 == index)
    {

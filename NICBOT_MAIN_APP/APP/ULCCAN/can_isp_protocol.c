@@ -159,8 +159,8 @@ static u8_t storeRxPdoMapData(DEVICE_RPDO_MAP * rxPdoMap, u8_t subIndex, u8_t by
 static void resetRxPdoMap(DEVICE_RPDO_MAP * rxPdoMap, u8_t index);
 
 static u8_t evaluateDeviceDataSize(u16_t index, u8_t subIndex, u32_t length);
-static u8_t loadDeviceData(u16_t index, u8_t subIndex, u8_t * buffer, u32_t * length, u32_t limit);
-static u8_t storeDeviceData(u8_t signalApplication, u16_t index, u8_t subIndex, u8_t * source, u32_t offset, u32_t length);
+static u32_t loadDeviceData(u8_t signalApplication, u16_t index, u8_t subIndex, u8_t * buffer, u32_t * length, u32_t limit);
+static u32_t storeDeviceData(u8_t signalApplication, u16_t index, u8_t subIndex, u8_t * source, u32_t offset, u32_t length);
 
 static u8_t sendDebug(u32_t codeA, u32_t codeB);
 static u8_t sendHeartbeat(u8_t value);
@@ -265,20 +265,22 @@ static DEVICE_RPDO_MAP rxPdoMapping[4];
 
 static u8_t assignedBaudrateCode = DEFAULT_DEVICE_BIT_RATE_CODE;
 static u8_t assignedNodeId = DEFAULT_DEVICE_NODE_ID;
-static u8_t objectBitRateCode = DEFAULT_DEVICE_BIT_RATE_CODE;
-static u8_t objectNodeId = DEFAULT_DEVICE_NODE_ID;
-static u8_t objectDeviceMode = REPAIR_MODE;
 
-static u8_t cameraSelectA;
-static u8_t cameraSelectB;
-static u8_t cameraLightIntensity[12];
+static u8_t canOd2100 = DEFAULT_DEVICE_BIT_RATE_CODE;
+static u8_t canOd2101 = DEFAULT_DEVICE_NODE_ID;
+static u8_t canOd2102 = REPAIR_MODE;
 
-static u16_t solenoidControl;
+static u8_t canOd230101;
+static u8_t canOd230102;
+static u8_t canOd2303[12];
 
-static s16_t frontDrillSpeedSetPoint; // RPM
-//static u16_t frontDrillIndexSetPoint; // units of 1/10 mm
-static s16_t rearDrillSpeedSetPoint; // RPM
-//static u16_t rearDrillIndexSetPoint; // units of 1/10 mm
+static u16_t canOd2304;
+
+static s16_t canOd2311;
+static s16_t canOd2312;
+static s16_t canOd2313;
+static s16_t canOd2314;
+
 static u16_t sensorIndexSetPoint;
 
 static u16_t frontDrillIndexLimit = 635; // 1/10 mm with 2.5 inch stroke
@@ -1167,514 +1169,506 @@ static u8_t evaluateDeviceDataSize(u16_t index, u8_t subIndex, u32_t length)
     return(result);
 }
 
-static u8_t loadDeviceData(u16_t index, u8_t subIndex, u8_t * buffer, u32_t * length, u32_t limit)
+static u32_t loadDeviceData(u8_t signalApplication, u16_t index, u8_t subIndex, u8_t * buffer, u32_t * length, u32_t limit)
 {
-    u32_t size;
-    u8_t * source = 0;
-    u32_t transferred = 0;
+   u32_t result = 0;
+   u32_t size;
+   u8_t * source = 0;
+   u32_t transferred = 0;
 
-    if (0x1000 == index)
-    {
-        size = sizeof(deviceType);
-        source = (u8_t *)&deviceType;
-    }
-    else if (0x1001 == index)
-    {
-        size = sizeof(errorStatus);
-        source = (u8_t *)&errorStatus;
-    }
-    else if (0x1008 == index)
-    {
-        size = strlen(deviceName);
-        source = (u8_t *)deviceName;
-    }
-    else if (0x100A == index)
-    {
-        size = strlen(version);
-        source = (u8_t *)version;
-    }
-    else if ((0x1016 == index) && (0 == subIndex))
-    {
-        buffer[0] = 1;
-        transferred = 1;
-    }
-    else if ((0x1016 == index) && (1 == subIndex))
-    {
-        size = sizeof(sdoConsumerHeartbeat);
-        source = (u8_t *)&sdoConsumerHeartbeat;
-    }
-	else if (0x1017 == index)
-	{
-    	size = sizeof(producerHeartbeatTime);
-    	source = (u8_t *)&producerHeartbeatTime;
-	}
-    else if ((0x1018 == index) && (0 == subIndex))
-    {
-        buffer[0] = 1;
-        transferred = 1;
-    }
-    else if ((0x1018 == index) && (1 == subIndex))
-    {
-		u32_t serialNumber = CAN_GetSerial();
-		memcpy(buffer, &serialNumber, 4);
-		transferred = 4;
-    }
-    else if ((0x1400 <= index) && (0x1403 >= index))
-    {
-        u8_t mappingOffset = (index - 0x1400);
-        transferred = 0;
-        loadRxPdoMapParameter(&rxPdoMapping[mappingOffset], subIndex, buffer, &transferred);
-    }
-    else if ((0x1600 <= index) && (0x1603 >= index))
-    {
-        u8_t mappingOffset = (index - 0x1600);
-        transferred = 0;
-        loadRxPdoMapData(&rxPdoMapping[mappingOffset], subIndex, buffer, &transferred);
-    }
-    else if ((0x1800 <= index) && (0x1803 >= index))
-    {
-        u8_t mappingOffset = (index - 0x1800);
-        transferred = 0;
-        loadTxPdoMapParameter(&txPdoMapping[mappingOffset], subIndex, buffer, &transferred);
-    }
-    else if ((0x1A00 <= index) && (0x1A03 >= index))
-    {
-        u8_t mappingOffset = (index - 0x1A00);
-        transferred = 0;
-        loadTxPdoMapData(&txPdoMapping[mappingOffset], subIndex, buffer, &transferred);
-    }
-    else if (0x2100 == index)
-    {
-        size = sizeof(objectBitRateCode);
-        source = (u8_t *)&objectBitRateCode;
-    }
-    else if (0x2101 == index)
-    {
-        size = sizeof(objectNodeId);
-        source = (u8_t *)&objectNodeId;
-    }
-    else if (0x2102 == index)
-    {
-        size = sizeof(objectDeviceMode);
-        source = (u8_t *)&objectDeviceMode;
-    }
-    else if (0x2105 == index)
-    {
-        // write only field, do nothing
-    }
-    else if ((0x2301 == index) && (0 == subIndex))
-    {
-        buffer[0] = 1;
-        transferred = 1;
-    }
-    else if ((0x2301 == index) && (1 == subIndex))
-    {
-        size = sizeof(cameraSelectA);
-        source = (u8_t *)&cameraSelectA;
-    }
-    else if ((0x2301 == index) && (2 == subIndex))
-    {
-        size = sizeof(cameraSelectB);
-        source = (u8_t *)&cameraSelectB;
-    }
-    else if ((0x2303 == index) && (0 == subIndex))
-    {
-        buffer[0] = 12;
-        transferred = 1;
-    }
-    else if ((0x2303 == index) && (1 <= subIndex) && (12 >= subIndex))
-    {
-        buffer[0] = cameraLightIntensity[subIndex-1];
-        transferred = 1;
-    }
-    else if (0x2304 == index)
-    {
-        size = sizeof(solenoidControl);
-        source = (u8_t *)&solenoidControl;
-    }
-    else if (0x2311 == index)
-    {
-        if (REPAIR_MODE == deviceMode)
-        {
-            size = sizeof(frontDrillSpeedSetPoint);
-            source = (u8_t *)&frontDrillSpeedSetPoint;
-        }
-    }
-    else if (0x2312 == index)
-    {
-        if (REPAIR_MODE == deviceMode)
-        {            
-#if 0
-            size = sizeof(frontDrillContext.manualSetPoint);
-            source = (u8_t *)&frontDrillContext.manualSetPoint;
-#endif
-        }
-    }
-    else if (0x2313 == index)
-    {
-        if (REPAIR_MODE == deviceMode)
-        {
-            size = sizeof(rearDrillSpeedSetPoint);
-            source = (u8_t *)&rearDrillSpeedSetPoint;
-        }
-    }
-    else if (0x2314 == index)
-    {
-        if (REPAIR_MODE == deviceMode)
-        {            
-#if 0
-            size = sizeof(rearDrillContext.manualSetPoint);
-            source = (u8_t *)&rearDrillContext.manualSetPoint;
-#endif
-        }
-    }
-    else if (0x2315 == index)
-    {
-        if (INSPECT_MODE == deviceMode)
-        {
+   if ( (0 != signalApplication) )
+   {
+      result = CAN_ODRead(index, subIndex);
+   }
+
+   if ( (0 == result) )
+   {
+      if (0x1000 == index)
+      {
+         size = sizeof(deviceType);
+         source = (u8_t *)&deviceType;
+      }
+      else if (0x1001 == index)
+      {
+         size = sizeof(errorStatus);
+         source = (u8_t *)&errorStatus;
+      }
+      else if (0x1008 == index)
+      {
+         size = strlen(deviceName);
+         source = (u8_t *)deviceName;
+      }
+      else if (0x100A == index)
+      {
+         size = strlen(version);
+         source = (u8_t *)version;
+      }
+      else if ((0x1016 == index) && (0 == subIndex))
+      {
+         buffer[0] = 1;
+         transferred = 1;
+      }
+      else if ((0x1016 == index) && (1 == subIndex))
+      {
+         size = sizeof(sdoConsumerHeartbeat);
+         source = (u8_t *)&sdoConsumerHeartbeat;
+      }
+	   else if (0x1017 == index)
+	   {
+    	   size = sizeof(producerHeartbeatTime);
+    	   source = (u8_t *)&producerHeartbeatTime;
+	   }
+      else if ((0x1018 == index) && (0 == subIndex))
+      {
+         buffer[0] = 1;
+         transferred = 1;
+      }
+      else if ((0x1018 == index) && (1 == subIndex))
+      {
+		   u32_t serialNumber = CAN_GetSerial();
+		   memcpy(buffer, &serialNumber, 4);
+		   transferred = 4;
+      }
+      else if ((0x1400 <= index) && (0x1403 >= index))
+      {
+         u8_t mappingOffset = (index - 0x1400);
+         transferred = 0;
+         loadRxPdoMapParameter(&rxPdoMapping[mappingOffset], subIndex, buffer, &transferred);
+      }
+      else if ((0x1600 <= index) && (0x1603 >= index))
+      {
+         u8_t mappingOffset = (index - 0x1600);
+         transferred = 0;
+         loadRxPdoMapData(&rxPdoMapping[mappingOffset], subIndex, buffer, &transferred);
+      }
+      else if ((0x1800 <= index) && (0x1803 >= index))
+      {
+         u8_t mappingOffset = (index - 0x1800);
+         transferred = 0;
+         loadTxPdoMapParameter(&txPdoMapping[mappingOffset], subIndex, buffer, &transferred);
+      }
+      else if ((0x1A00 <= index) && (0x1A03 >= index))
+      {
+         u8_t mappingOffset = (index - 0x1A00);
+         transferred = 0;
+         loadTxPdoMapData(&txPdoMapping[mappingOffset], subIndex, buffer, &transferred);
+      }
+      else if (0x2100 == index)
+      {
+         size = sizeof(canOd2100);
+         source = (u8_t *)&canOd2100;
+      }
+      else if (0x2101 == index)
+      {
+         size = sizeof(canOd2101);
+         source = (u8_t *)&canOd2101;
+      }
+      else if (0x2102 == index)
+      {
+         size = sizeof(canOd2102);
+         source = (u8_t *)&canOd2102;
+      }
+      else if (0x2105 == index)
+      {
+         // write only field, do nothing
+      }
+      else if ((0x2301 == index) && (0 == subIndex))
+      {
+         buffer[0] = 1;
+         transferred = 1;
+      }
+      else if ((0x2301 == index) && (1 == subIndex))
+      {
+         size = sizeof(canOd230101);
+         source = (u8_t *)&canOd230101;
+      }
+      else if ((0x2301 == index) && (2 == subIndex))
+      {
+         size = sizeof(canOd230102);
+         source = (u8_t *)&canOd230102;
+      }
+      else if ((0x2303 == index) && (0 == subIndex))
+      {
+         buffer[0] = 12;
+         transferred = 1;
+      }
+      else if ((0x2303 == index) && (1 <= subIndex) && (12 >= subIndex))
+      {
+         buffer[0] = canOd2303[subIndex-1];
+         transferred = 1;
+      }
+      else if (0x2304 == index)
+      {
+         size = sizeof(canOd2304);
+         source = (u8_t *)&canOd2304;
+      }
+      else if (0x2311 == index)
+      {
+         size = sizeof(canOd2311);
+         source = (u8_t *)&canOd2311;
+      }
+      else if (0x2312 == index)
+      {
+         size = sizeof(canOd2312);
+         source = (u8_t *)&canOd2312;
+      }
+      else if (0x2313 == index)
+      {
+         size = sizeof(canOd2313);
+         source = (u8_t *)&canOd2313;
+      }
+      else if (0x2314 == index)
+      {
+         size = sizeof(canOd2314);
+         source = (u8_t *)&canOd2314;
+      }
+      else if (0x2315 == index)
+      {
+         if (INSPECT_MODE == deviceMode)
+         {
             size = sizeof(sensorIndexSetPoint);
             source = (u8_t *)&sensorIndexSetPoint;
-        }
-    }
-    else if (0x2322 == index)
-    {
-        if (REPAIR_MODE == deviceMode)
-        {
+         }
+      }
+      else if (0x2322 == index)
+      {
+         if (REPAIR_MODE == deviceMode)
+         {
             size = sizeof(frontDrillIndexLimit);
             source = (u8_t *)&frontDrillIndexLimit;
-        }
-    }
-    else if (0x2324 == index)
-    {
-        if (REPAIR_MODE == deviceMode)
-        {
+         }
+      }
+      else if (0x2324 == index)
+      {
+         if (REPAIR_MODE == deviceMode)
+         {   
             size = sizeof(rearDrillIndexLimit);
             source = (u8_t *)&rearDrillIndexLimit;
-        }
-    }
-    
-    else if ((0x2331 == index) && (0 == subIndex))
-    {
-        if (REPAIR_MODE == deviceMode)
-        {
+         }
+      }
+      else if ((0x2331 == index) && (0 == subIndex))
+      {
+         if (REPAIR_MODE == deviceMode)
+         {
             buffer[0] = 9;
             transferred = 1;
-        }        
-    }
-    else if ((0x2331 == index) && (1 == subIndex))
-    {
-        if (REPAIR_MODE == deviceMode)
-        {
+         }        
+      }
+      else if ((0x2331 == index) && (1 == subIndex))
+      {
+         if (REPAIR_MODE == deviceMode)
+         {
             size = sizeof(autoDrillControl);
             source = (u8_t *)&autoDrillControl;
-        }
-    }
-    else if ((0x2331 == index) && (2 == subIndex))
-    {
-        if (REPAIR_MODE == deviceMode)
-        {
+         }
+      }
+      else if ((0x2331 == index) && (2 == subIndex))
+      {
+         if (REPAIR_MODE == deviceMode)
+         {
             size = sizeof(indexerSearchSpeed);
             source = (u8_t *)&indexerSearchSpeed;
-        }
-    }
-    else if ((0x2331 == index) && (3 == subIndex))
-    {
-        if (REPAIR_MODE == deviceMode)
-        {
+         }
+      }
+      else if ((0x2331 == index) && (3 == subIndex))
+      {
+         if (REPAIR_MODE == deviceMode)
+         {
             size = sizeof(indexerTravelSpeed);
             source = (u8_t *)&indexerTravelSpeed;
-        }
-    }
-    else if ((0x2331 == index) && (4 == subIndex))
-    {
-        if (REPAIR_MODE == deviceMode)
-        {
+         }
+      }
+      else if ((0x2331 == index) && (4 == subIndex))
+      {
+         if (REPAIR_MODE == deviceMode)
+         {
             size = sizeof(drillRotationSpeed);
             source = (u8_t *)&drillRotationSpeed;
-        }
-    }
-    else if ((0x2331 == index) && (5 == subIndex))
-    {
-        if (REPAIR_MODE == deviceMode)
-        {
+         }
+      }
+      else if ((0x2331 == index) && (5 == subIndex))
+      {
+         if (REPAIR_MODE == deviceMode)
+         {   
             size = sizeof(indexerCuttingSpeed);
             source = (u8_t *)&indexerCuttingSpeed;
-        }
-    }
-    else if ((0x2331 == index) && (6 == subIndex))
-    {
-        if (REPAIR_MODE == deviceMode)
-        {
+         }
+      }
+      else if ((0x2331 == index) && (6 == subIndex))
+      {
+         if (REPAIR_MODE == deviceMode)
+         {
             size = sizeof(indexerCuttingDepth);
             source = (u8_t *)&indexerCuttingDepth;
-        }
-    }
-    else if ((0x2331 == index) && (7 == subIndex))
-    {
-        if (REPAIR_MODE == deviceMode)
-        {
+         }
+      }
+      else if ((0x2331 == index) && (7 == subIndex))
+      {
+         if (REPAIR_MODE == deviceMode)
+         {
             size = sizeof(indexerPeckCuttingIncrement);
             source = (u8_t *)&indexerPeckCuttingIncrement;
-        }
-    }
-    else if ((0x2331 == index) && (8 == subIndex))
-    {
-        if (REPAIR_MODE == deviceMode)
-        {
+         }
+      }
+      else if ((0x2331 == index) && (8 == subIndex))
+      {
+         if (REPAIR_MODE == deviceMode)
+         {
             size = sizeof(indexerPeckRetractionDistance);
             source = (u8_t *)&indexerPeckRetractionDistance;
-        }
-    }
-    else if ((0x2331 == index) && (9 == subIndex))
-    {
-        if (REPAIR_MODE == deviceMode)
-        {
+         }
+      }
+      else if ((0x2331 == index) && (9 == subIndex))
+      {
+         if (REPAIR_MODE == deviceMode)
+         {
             size = sizeof(indexerPeckRetractionPosition);
             source = (u8_t *)&indexerPeckRetractionPosition;
-        }
-    }		
-	else if (0x233D == index)
-	{
-		if (REPAIR_MODE == deviceMode)
-		{
-			size = sizeof(drillServoProportionalControlConstant);
-			source = (u8_t *)&drillServoProportionalControlConstant;
-		}
-	}
-	else if (0x233E == index)
-	{
-		if (REPAIR_MODE == deviceMode)
-		{
-			size = sizeof(drillServoIntegralControlConstant);
-			source = (u8_t *)&drillServoIntegralControlConstant;
-		}
-	}
-	else if (0x233F == index)
-	{
-		if (REPAIR_MODE == deviceMode)
-		{
-			size = sizeof(drillServoDerivativeControlConstant);
-			source = (u8_t *)&drillServoDerivativeControlConstant;
-		}
-	}
-	else if (0x2340 == index)
-	{
-		if (REPAIR_MODE == deviceMode)
-		{
-			size = sizeof(drillServoAcceleration);
-			source = (u8_t *)&drillServoAcceleration;
-		}
-	}
-	else if (0x2341 == index)
-	{
-		if (REPAIR_MODE == deviceMode)
-		{
-			size = sizeof(drillServoHomingVelocity);
-			source = (u8_t *)&drillServoHomingVelocity;
-		}
-	}
-	else if (0x2342 == index)
-	{
-		if (REPAIR_MODE == deviceMode)
-		{
-			size = sizeof(drillServoHomingBackoffCount);
-			source = (u8_t *)&drillServoHomingBackoffCount;
-		}
-	}
-	else if (0x2343 == index)
-	{
-		if (REPAIR_MODE == deviceMode)
-		{
-			size = sizeof(drillServoTravelVelocity);
-			source = (u8_t *)&drillServoTravelVelocity;
-		}
-	}
-	else if (0x2344 == index)
-	{
-		if (REPAIR_MODE == deviceMode)
-		{
-			size = sizeof(drillServoErrorLimit);
-			source = (u8_t *)&drillServoErrorLimit;
-		}
-	}
-	else if (0x2345 == index)
-	{
-		if (REPAIR_MODE == deviceMode)
-		{
-			size = sizeof(drillServoPulsesPerUnit);
-			source = (u8_t *)&drillServoPulsesPerUnit;
-		}
-	}
-    else if (0x2346 == index)
-    {
-	    if (REPAIR_MODE == deviceMode)
-	    {
-		    buffer[0] = servo_get_status(0);
-		    transferred = 1;
-	    }
-    }
-    else if (0x2347 == index)
-    {
-	    if (REPAIR_MODE == deviceMode)
-	    {
-		    buffer[0] = servo_get_status(1);
-		    transferred = 1;
-	    }
-    }
-	else if (0x2350 == index)
-    {
-	    if (INSPECT_MODE == deviceMode)
-	    {
-		    size = sizeof(sensorServoAcceleration);
-		    source = (u8_t *)&sensorServoAcceleration;
-		}
-    }
-    else if (0x2351 == index)
-    {
-	    if (INSPECT_MODE == deviceMode)
-	    {
-		    size = sizeof(sensorServoHomingVelocity);
-			source = (u8_t *)&sensorServoHomingVelocity;
-	    }
-    }
-    else if (0x2352 == index)
-    {
-	    if (INSPECT_MODE == deviceMode)
-	    {
-		    size = sizeof(sensorServoHomingBackoffCount);
-		    source = (u8_t *)&sensorServoHomingBackoffCount;
-	    }
-    }	
-    else if (0x2353 == index)
-    {
-	    if (INSPECT_MODE == deviceMode)
-	    {
-	        buffer[0] = servo_get_status(0);
-		    transferred = 1;
-	    }
-    }
-    else if (0x2354 == index)
-    {
-	    if (INSPECT_MODE == deviceMode)
-	    {
-		    size = sizeof(sensorServoErrorLimit);
-		    source = (u8_t *)&sensorServoErrorLimit;
-	    }
-    }
-    else if (0x2355 == index)
-    {
-	    if (INSPECT_MODE == deviceMode)
-	    {
-		    size = sizeof(sensorServoTravelVelocity);
-		    source = (u8_t *)&sensorServoTravelVelocity;
-	    }
-    }
-    else if (0x2356 == index)
-    {
-	    if (INSPECT_MODE == deviceMode)
-	    {
-		    size = sizeof(sensorServoPulsesPerDegree);
-		    source = (u8_t *)&sensorServoPulsesPerDegree;
-	    }
-    }	
-    else if (0x2411 == index)
-    {
-        if (REPAIR_MODE == deviceMode)
-        {
+         }
+      }		
+	   else if (0x233D == index)
+	   {
+		   if (REPAIR_MODE == deviceMode)
+		   {
+			   size = sizeof(drillServoProportionalControlConstant);
+			   source = (u8_t *)&drillServoProportionalControlConstant;
+		   }
+	   }
+	   else if (0x233E == index)
+	   {
+		   if (REPAIR_MODE == deviceMode)
+		   {
+			   size = sizeof(drillServoIntegralControlConstant);
+			   source = (u8_t *)&drillServoIntegralControlConstant;
+		   }
+	   }
+	   else if (0x233F == index)
+	   {
+		   if (REPAIR_MODE == deviceMode)
+		   {
+			   size = sizeof(drillServoDerivativeControlConstant);
+			   source = (u8_t *)&drillServoDerivativeControlConstant;
+		   }
+	   }
+	   else if (0x2340 == index)
+	   {
+   		if (REPAIR_MODE == deviceMode)
+	   	{
+		   	size = sizeof(drillServoAcceleration);
+			   source = (u8_t *)&drillServoAcceleration;
+		   }
+	   }
+	   else if (0x2341 == index)
+	   {
+		   if (REPAIR_MODE == deviceMode)
+		   {
+			   size = sizeof(drillServoHomingVelocity);
+			   source = (u8_t *)&drillServoHomingVelocity;
+		   }
+	   }
+	   else if (0x2342 == index)
+	   {
+		   if (REPAIR_MODE == deviceMode)
+		   {
+			   size = sizeof(drillServoHomingBackoffCount);
+			   source = (u8_t *)&drillServoHomingBackoffCount;
+		   }
+	   }
+	   else if (0x2343 == index)
+	   {
+		   if (REPAIR_MODE == deviceMode)
+		   {
+			   size = sizeof(drillServoTravelVelocity);
+			   source = (u8_t *)&drillServoTravelVelocity;
+		   }
+	   }
+	   else if (0x2344 == index)
+	   {
+		   if (REPAIR_MODE == deviceMode)
+		   {
+			   size = sizeof(drillServoErrorLimit);
+			   source = (u8_t *)&drillServoErrorLimit;
+		   }
+	   }
+	   else if (0x2345 == index)
+   	{
+		   if (REPAIR_MODE == deviceMode)
+		   {
+			   size = sizeof(drillServoPulsesPerUnit);
+			   source = (u8_t *)&drillServoPulsesPerUnit;
+		   }
+	   }
+      else if (0x2346 == index)
+      {
+	      if (REPAIR_MODE == deviceMode)
+	      {
+		      buffer[0] = servo_get_status(0);
+		      transferred = 1;
+	      }
+      }
+      else if (0x2347 == index)
+      {
+	      if (REPAIR_MODE == deviceMode)
+	      {
+		      buffer[0] = servo_get_status(1);
+		      transferred = 1;
+	      }
+      }
+	   else if (0x2350 == index)
+      {
+	      if (INSPECT_MODE == deviceMode)
+	      {
+		      size = sizeof(sensorServoAcceleration);
+		      source = (u8_t *)&sensorServoAcceleration;
+		   }
+      }
+      else if (0x2351 == index)
+      {
+         if (INSPECT_MODE == deviceMode)
+         {
+            size = sizeof(sensorServoHomingVelocity);
+            source = (u8_t *)&sensorServoHomingVelocity;
+         }
+      }
+      else if (0x2352 == index)
+      {
+         if (INSPECT_MODE == deviceMode)
+         {
+            size = sizeof(sensorServoHomingBackoffCount);
+            source = (u8_t *)&sensorServoHomingBackoffCount;
+         }
+      }
+      else if (0x2353 == index)
+      {
+         if (INSPECT_MODE == deviceMode)
+         {
+            buffer[0] = servo_get_status(0);
+            transferred = 1;
+         }
+      }
+      else if (0x2354 == index)
+      {
+         if (INSPECT_MODE == deviceMode)
+         {
+            size = sizeof(sensorServoErrorLimit);
+            source = (u8_t *)&sensorServoErrorLimit;
+         }
+      }
+      else if (0x2355 == index)
+      {
+         if (INSPECT_MODE == deviceMode)
+         {
+            size = sizeof(sensorServoTravelVelocity);
+            source = (u8_t *)&sensorServoTravelVelocity;
+         }
+      }
+      else if (0x2356 == index)
+      {
+         if (INSPECT_MODE == deviceMode)
+         {
+            size = sizeof(sensorServoPulsesPerDegree);
+            source = (u8_t *)&sensorServoPulsesPerDegree;
+         }
+      }
+      else if (0x2411 == index)
+      {
+         if (REPAIR_MODE == deviceMode)
+         {
             size = sizeof(actualFrontDrillSpeed);
             source = (u8_t *)&actualFrontDrillSpeed;
-        }        
-    }
-    else if (0x2412 == index)
-    {
-        if (REPAIR_MODE == deviceMode)
-        {
+         }
+      }
+      else if (0x2412 == index)
+      {
+         if (REPAIR_MODE == deviceMode)
+         {
             size = sizeof(actualFrontDrillIndex);
             source = (u8_t *)&actualFrontDrillIndex;
-        }        
-    }
-    else if (0x2413 == index)
-    {
-        if (REPAIR_MODE == deviceMode)
-        {
+         }
+      }
+      else if (0x2413 == index)
+      {
+         if (REPAIR_MODE == deviceMode)
+         {
             size = sizeof(actualRearDrillSpeed);
             source = (u8_t *)&actualRearDrillSpeed;
-        }        
-    }
-    else if (0x2414 == index)
-    {
-        if (REPAIR_MODE == deviceMode)
-        {
+         }
+      }
+      else if (0x2414 == index)
+      {
+         if (REPAIR_MODE == deviceMode)
+         {
             size = sizeof(actualRearDrillIndex);
             source = (u8_t *)&actualRearDrillIndex;
-        }        
-    }
-    else if (0x2415 == index)
-    {
-        if (INSPECT_MODE == deviceMode)
-        {
+         }
+      }
+      else if (0x2415 == index)
+      {
+         if (INSPECT_MODE == deviceMode)
+         {
             size = sizeof(actualSensorIndex);
             source = (u8_t *)&actualSensorIndex;
-        }        
-    }
-    else if (0x2441 == index)
-    {
-        size = sizeof(accelerometerX);
-        source = (u8_t *)&accelerometerX;
-    }
-    else if (0x2442 == index)
-    {
-        size = sizeof(accelerometerY);
-        source = (u8_t *)&accelerometerY;
-    }
-    else if (0x2443 == index)
-    {
-        size = sizeof(accelerometerZ);
-        source = (u8_t *)&accelerometerZ;
-    }
-    else if (0x2500 == index)
-    {
-        size = sizeof(deviceControl);
-        source = (u8_t *)&deviceControl;
-    }
-    else if (0x2501 == index)
-    {
-        size = sizeof(deviceStatus);
-        source = (u8_t *)&deviceStatus;
-    }
+         }
+      }
+      else if (0x2441 == index)
+      {
+         size = sizeof(accelerometerX);
+         source = (u8_t *)&accelerometerX;
+      }
+      else if (0x2442 == index)
+      {
+         size = sizeof(accelerometerY);
+         source = (u8_t *)&accelerometerY;
+      }
+      else if (0x2443 == index)
+      {
+         size = sizeof(accelerometerZ);
+         source = (u8_t *)&accelerometerZ;
+      }
+      else if (0x2500 == index)
+      {
+         size = sizeof(deviceControl);
+         source = (u8_t *)&deviceControl;
+      }
+      else if (0x2501 == index)
+      {
+         size = sizeof(deviceStatus);
+         source = (u8_t *)&deviceStatus;
+      }
 
-    if ( (size < sizeof(transferBuffer)) )
-    {
-        if ( (0 != source) )
-        {
+      if ( (size < sizeof(transferBuffer)) )
+      {
+         if ( (0 != source) )
+         {
             u32_t i;
 
             for (i=0; i<size; i++)
             {
-                buffer[i] = source[i];
+               buffer[i] = source[i];
             }
 
             for (; i<4; i++)
             {
-                transferBuffer[i] = 0xCC;
+               transferBuffer[i] = 0xCC;
             }
 
             transferred = size;
-        }
-    }
+         }
+      }
 
-    if ( (0 != transferred) &&
-         (0 != length) )
-    {
-        *length = transferred;
-    }
+      if ( (0 != transferred) &&
+           (0 != length) )
+      {
+         *length = transferred;
+      }
+   }
 
-    return( (0 != transferred) ? 1 : 0 );
+   return( (0 != transferred) ? 0 : 1 );
 }
 
-static u8_t storeDeviceData(u8_t signalApplication, u16_t index, u8_t subIndex, u8_t * source, u32_t offset, u32_t length)
+static u32_t storeDeviceData(u8_t signalApplication, u16_t index, u8_t subIndex, u8_t * source, u32_t offset, u32_t length)
 {
-   u8_t result = 0;
+   u32_t result = 0;
    
    if ( (0 != signalApplication) )
    {
@@ -1683,6 +1677,8 @@ static u8_t storeDeviceData(u8_t signalApplication, u16_t index, u8_t subIndex, 
 
    if ( (0 == result) )
    {
+      // todo set result here 
+
       if ((0x1016 == index) && (1 == subIndex))
       {
          if (4 == length)
@@ -1727,33 +1723,18 @@ static u8_t storeDeviceData(u8_t signalApplication, u16_t index, u8_t subIndex, 
       }
       else if (0x2100 == index)
       {
-         if ( (1 == length) )
-         {
-            objectBitRateCode = source[offset];
-            result = 1;
-         }
+         canOd2100 = source[offset];
+         result = 1;
       }
       else if (0x2101 == index)
       {
-         if ( (1 == length) )
-         {
-            u8_t value = source[offset];
-            objectNodeId = value;
-            result = 1;
-         }
+         canOd2101 = source[offset];
+         result = 1;
       }
       else if (0x2102 == index)
       {
-         if ( (1 == length) )
-         {
-            u8_t value = source[offset];
-
-            if ( (value >= 0) && (value <= 1) )
-            {
-                objectDeviceMode = value;
-                result = 1;
-            }
-         }
+         canOd2102 = source[offset];
+         result = 1;
       }
       else if (0x2105 == index)
       {
@@ -1761,81 +1742,43 @@ static u8_t storeDeviceData(u8_t signalApplication, u16_t index, u8_t subIndex, 
       }
       else if ((0x2301 == index) && (1 == subIndex))
       {
-         cameraSelectA = source[offset];
+         canOd230101 = source[offset];
          result = 1;
       }
       else if ((0x2301 == index) && (2 == subIndex))
       {
-         cameraSelectB = source[offset];
+         canOd230102 = source[offset];
          result = 1;
       }
       else if ((0x2303 == index) && (1 <= subIndex) && (12 >= subIndex))
       {
-         cameraLightIntensity[subIndex-1] = source[offset];
+         canOd2303[subIndex-1] = source[offset];
          result = 1;
       }
       else if (0x2304 == index)
       {
-         solenoidControl = (u16_t)getValue(&source[offset], length);
+         canOd2304 = (u16_t)getValue(&source[offset], length);
          result = 1;
       }
       else if (0x2311 == index)
       {
-         if (REPAIR_MODE == deviceMode)
-         {
-            if (2 == length)
-            {
-               frontDrillSpeedSetPoint = (u16_t)getValue(&source[offset], length);
-               result = 1;
-            }
-         }
+         canOd2311 = (u16_t)getValue(&source[offset], length);
+         result = 1;
       }
       else if (0x2312 == index)
       {
-         if (REPAIR_MODE == deviceMode)
-         {
-            if (2 == length)
-            {
-               u16_t value = (u16_t)getValue(&source[offset], length);
-
-               if (value <= frontDrillIndexLimit)
-               {
-#if 0
-                  frontDrillContext.manualSetPoint = value;
-                  result = 1;
-#endif
-               }
-            }
-         }
+         canOd2312 = (u16_t)getValue(&source[offset], length);
+         result = 1;
       }
       else if (0x2313 == index)
       {
-         if (REPAIR_MODE == deviceMode)
-         {
-            if (2 == length)
-            {
-               rearDrillSpeedSetPoint = (u16_t)getValue(&source[offset], length);
-               result = 1;
-            }
-         }
+         canOd2313 = (u16_t)getValue(&source[offset], length);
+         result = 1;
       }
       else if (0x2314 == index)
       {
-         if (REPAIR_MODE == deviceMode)
-         {
-            if (2 == length)
-            {
-               u16_t value = (u16_t)getValue(&source[offset], length);
-
-               if (value <= rearDrillIndexLimit)
-               {
-#if 0
-                  rearDrillContext.manualSetPoint = value;
-                  result = 1;
-#endif
-               }
-            }
-         }
+         canOd2314 = (u16_t)getValue(&source[offset], length);
+         result = 1;
       }
       else if (0x2315 == index)
       {
@@ -2251,7 +2194,7 @@ static u8_t sendPdoData(DEVICE_TPDO_MAP * txPdoMap)
         u8_t mapSubIndex = (u8_t)((txPdoMap->mappings[i] >> 8) & 0xFF);
         u8_t limit = 8 - offset;
         u32_t length = 0;
-        loadDeviceData(mapIndex, mapSubIndex, &txMsg.data[offset], &length, limit);
+        loadDeviceData(0, mapIndex, mapSubIndex, &txMsg.data[offset], &length, limit);
         offset += length;
     }
 
@@ -2830,9 +2773,9 @@ static void initiateSdoUpload(u8_t * frame)
       if ( (0 == appResult) )
       {
          u32_t dataLength = 0;
-         u8_t valid = loadDeviceData(index, subIndex, transferBuffer, &dataLength, sizeof(transferBuffer));
+         u32_t valid = loadDeviceData(1, index, subIndex, transferBuffer, &dataLength, sizeof(transferBuffer));
 
-         if ( (0 != valid) )
+         if ( (0 == valid) )
          {
             transferActive = 1;
             transferUpload = 1;
@@ -3131,7 +3074,7 @@ static void setPreOperationalState(void)
 	transferActive = 0;
 
 	deviceNodeId = assignedNodeId;
-   deviceMode = objectDeviceMode;
+   deviceMode = canOd2102;
 
 	if ( (0 == deviceNodeId) || (deviceNodeId > 127) )
 	{
@@ -3192,10 +3135,11 @@ static void setPreOperationalState(void)
 		resetRxPdoMap(&rxPdoMapping[i], i);
 	}
 
-   frontDrillSpeedSetPoint = 0;
-   //frontDrillIndexSetPoint = 0;
-   rearDrillSpeedSetPoint = 0;
-   //rearDrillIndexSetPoint = 0;
+   canOd2311 = 0;
+   canOd2312 = 0;
+   canOd2313 = 0;
+   canOd2314 = 0;
+
    sensorIndexSetPoint = 0;
 
    autoDrillControl = 0;
@@ -3374,7 +3318,7 @@ static void executeStoppedState(void)
 void canRead(U16 index, U8 subIndex, U8 * destination, U8 length)
 {
    uint32_t actualLength = 0;
-   loadDeviceData(index, subIndex, destination, &actualLength, length);
+   loadDeviceData(0, index, subIndex, destination, &actualLength, length);
 }
 
 void canWrite(U16 index, U8 subIndex, U8 * source, U8 length)

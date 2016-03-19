@@ -8,8 +8,8 @@ CreatedBy=Unknown
 CreationTime=09:08AM
 CreationDate=01-27-2016
 ModifiedBy=Unknown
-ModificationTime=05:59PM
-ModificationDate=03-17-2016
+ModificationTime=01:34PM
+ModificationDate=03-19-2016
 
 [Comments]
 Lines=1
@@ -100,7 +100,7 @@ SupportedObjects=41
 41=0x60FF
 
 [ManufacturerObjects]
-SupportedObjects=9
+SupportedObjects=13
 1=0x2100
 2=0x2101
 3=0x2102
@@ -108,8 +108,12 @@ SupportedObjects=9
 5=0x2301
 6=0x2303
 7=0x2304
-8=0x2500
-9=0x2501
+8=0x2311
+9=0x2312
+10=0x2313
+11=0x2314
+12=0x2500
+13=0x2501
 
 [1000]
 ParameterName=Device Type
@@ -1425,6 +1429,50 @@ LowLimit=0
 HighLimit=65535
 AccessType=rw
 DefaultValue=0x0000
+PDOMapping=0
+ObjFlags=0x00
+
+[2311]
+ParameterName=Front Drill Speed Set Point
+ObjectType=0x07
+DataType=0x0003
+LowLimit=
+HighLimit=
+AccessType=rw
+DefaultValue=
+PDOMapping=0
+ObjFlags=0x00
+
+[2312]
+ParameterName=Front Drill Index Set Point
+ObjectType=0x07
+DataType=0x0003
+LowLimit=
+HighLimit=
+AccessType=rw
+DefaultValue=
+PDOMapping=0
+ObjFlags=0x00
+
+[2313]
+ParameterName=Rear Drill Speed Set Point
+ObjectType=0x07
+DataType=0x0003
+LowLimit=
+HighLimit=
+AccessType=rw
+DefaultValue=
+PDOMapping=0
+ObjFlags=0x00
+
+[2314]
+ParameterName=Rear Drill Index Set Point
+ObjectType=0x07
+DataType=0x0003
+LowLimit=
+HighLimit=
+AccessType=rw
+DefaultValue=
 PDOMapping=0
 ObjFlags=0x00
 

@@ -23,7 +23,7 @@
 /**
 * Locates entry, and copies into destination memory.
 */
-void CAN_ReadProcessImage(U16 index, U8 subIndex, U8 * dest, U8 length)
+void CAN_ReadProcessImage(U16 index, U8 subIndex, void * dest, U8 length)
 {
    UNSIGNED16 found;
    OD_PROCESS_DATA_ENTRY MEM_CONST *pOD;
@@ -54,7 +54,7 @@ void CAN_ReadProcessImage(U16 index, U8 subIndex, U8 * dest, U8 length)
 /**
 * Locates entry, and copies into process image.
 */
-void CAN_WriteProcessImage(U16 index, U8 subIndex, U8 * source, U8 length)
+void CAN_WriteProcessImageData(U16 index, U8 subIndex, void * source, U8 length)
 {
    UNSIGNED16 found;
    OD_PROCESS_DATA_ENTRY MEM_CONST *pOD;
@@ -79,6 +79,15 @@ void CAN_WriteProcessImage(U16 index, U8 subIndex, U8 * source, U8 length)
 
       PI_WRITE(PIACC_APP, offset, source, objectLength);
    }
+}
+
+/* See can_access.h for function description */
+/**
+* Locates entry, and copies into process image.
+*/
+void CAN_WriteProcessImageValue(U16 index, U8 subIndex, U32 value, U8 length)
+{
+   CAN_WriteProcessImageData(index, subIndex, (U8 *)&value, length);
 }
 
 /* See can_access.h for function description */

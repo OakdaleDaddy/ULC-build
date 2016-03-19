@@ -22,7 +22,7 @@
 /**
 * Calls into stack to read from process image.
 */
-void CAN_ReadProcessImage(U16 index, U8 subIndex, U8 * destination, U8 length)
+void CAN_ReadProcessImage(U16 index, U8 subIndex, void * destination, U8 length)
 {
    canRead(index, subIndex, destination, length);
 }
@@ -31,9 +31,18 @@ void CAN_ReadProcessImage(U16 index, U8 subIndex, U8 * destination, U8 length)
 /**
 * Calls into stack to write to process image.
 */
-void CAN_WriteProcessImage(U16 index, U8 subIndex, U8 * source, U8 length)
+void CAN_WriteProcessImageData(U16 index, U8 subIndex, void * source, U8 length)
 {
    canWrite(index, subIndex, source, length);
+}
+
+/* See can_access.h for function description */
+/**
+* Calls into stack to write to process image.
+*/
+void CAN_WriteProcessImageValue(U16 index, U8 subIndex, U32 value, U8 length)
+{
+   CAN_WriteProcessImageData(index, subIndex, (U8 *)&value, length);
 }
 
 /* See can_access.h for function description */

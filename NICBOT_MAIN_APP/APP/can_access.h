@@ -22,7 +22,7 @@
 * @param destination : pointer to memory to contain value
 * @param length : maximum amount to transfer
 */
-void CAN_ReadProcessImage(U16 index, U8 subIndex, U8 * destination, U8 length);
+void CAN_ReadProcessImage(U16 index, U8 subIndex, void * destination, U8 length);
 
 /**
 * @brief Function to write to process image.
@@ -32,7 +32,17 @@ void CAN_ReadProcessImage(U16 index, U8 subIndex, U8 * destination, U8 length);
 * @param source : pointer to memory to define value
 * @param length : maximum amount to transfer
 */
-void CAN_WriteProcessImage(U16 index, U8 subIndex, U8 * source, U8 length);
+void CAN_WriteProcessImageData(U16 index, U8 subIndex, void * source, U8 length);
+
+/**
+* @brief Function to write to process image.
+*
+* @param index : index of object definition
+* @param subIndex : sub index of object definition
+* @param value : value to write
+* @param length : maximum amount to transfer
+*/
+void CAN_WriteProcessImageValue(U16 index, U8 subIndex, U32 value, U8 length);
 
 /**
 * @brief Function to send debug information.

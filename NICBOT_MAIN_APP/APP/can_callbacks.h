@@ -14,16 +14,13 @@
 
 #include "compiler.h"
 
-#define CAN_ABORT_GENERAL (0x08000000UL) /*!< abort code for a value that is too high */
+#define CAN_ABORT_UNSUPPORTED (0x06010000UL) /*!< abort code for a value that is not supported */
 #define CAN_ABORT_VALUE_HIGH (0x06090031UL) /*!< abort code for a value that is too high */
 #define CAN_ABORT_VALUE_LOW (0x06090032UL) /*!< abort code for a value that is low high */
+#define CAN_ABORT_GENERAL (0x08000000UL) /*!< abort code for a value that is too high */
 
 /**
 * @brief Function to access the device serial number.
-*
-* The function is called before read accesses to the Object Dictionary entry
-* [1018h,0] – Serial Number. It can be used by the application to retrieve the 
-* serial number, for example from non-volatile memory.
 *
 * @return serial number
 */
@@ -58,6 +55,22 @@ void CAN_ResetApplication(void);
 void CAN_NMTChange(U8 state);
 
 /**
+* @brief Function to signal a read of the object dictionary.
+*
+* The function signals the application that a read request was received
+* and is about to be processed.  The call happens BEFORE data is retrieved
+* from the process image.  The application can use this call to load new
+* values into the process image or reject the request.
+*
+* @params index : index of OD entry
+* @params subIndex : subindex of OD entry
+*
+* @return 0 : read acceptable.
+* @return non-0 : read not acceptable, abort the transfer, see CAN_ABORT codes
+*/
+U32 CAN_ODRead(U16 index, U8 subIndex);
+
+/**
 * @brief Function to evaluate a SDO upload request.
 *
 * The function can be used to implement custom Object Dictionary read entries
@@ -71,9 +84,9 @@ void CAN_NMTChange(U8 state);
 * @params size : size of data buffer
 * @params pData : pointer to data buffer
 *
-* @return 0: The specified OD entry is not handled by this function.
-* @return 1: The specified OD entry is handled by this function. A valid pointer and data size are returned.
-* @return 5: An SDO abort SDO_ABORT_WRITEONLY is generated.
+* @return 0 : entry is not handled by this function.
+* @return 1 : entry is handled by this function. A valid pointer and data size are returned.
+* @return 5 : write-only, abort the transfer
 */
 U8 CAN_AppSDOReadInit(U8 server, U16 index, U8 subIndex, U32 * totalSize, U32 * size, U8 ** pData);
 
@@ -101,7 +114,7 @@ void CAN_AppSDOReadComplete(U8 server, U16 index, U8 subIndex, U32 * size);
 /**
 * @brief Function to signal a write of the object dictionary.
 *
-* The function signals the application that an write request was received 
+* The function signals the application that a write request was received 
 * and is about to be processed.  The call happens BEFORE data is copied to 
 * the process image.  The application can use this call to verify the 
 * incoming data.
