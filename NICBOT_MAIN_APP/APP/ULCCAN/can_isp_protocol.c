@@ -281,11 +281,6 @@ static s16_t canOd2312;
 static s16_t canOd2313;
 static s16_t canOd2314;
 
-static u16_t sensorIndexSetPoint;
-
-static u16_t frontDrillIndexLimit = 635; // 1/10 mm with 2.5 inch stroke
-static u16_t rearDrillIndexLimit = 635; // 1/10 mm with 2.5 inch stroke
-
 static u8_t autoDrillControl;
 static u16_t indexerSearchSpeed;
 static u16_t indexerTravelSpeed;
@@ -1322,30 +1317,6 @@ static u32_t loadDeviceData(u8_t signalApplication, u16_t index, u8_t subIndex, 
          size = sizeof(canOd2314);
          source = (u8_t *)&canOd2314;
       }
-      else if (0x2315 == index)
-      {
-         if (INSPECT_MODE == deviceMode)
-         {
-            size = sizeof(sensorIndexSetPoint);
-            source = (u8_t *)&sensorIndexSetPoint;
-         }
-      }
-      else if (0x2322 == index)
-      {
-         if (REPAIR_MODE == deviceMode)
-         {
-            size = sizeof(frontDrillIndexLimit);
-            source = (u8_t *)&frontDrillIndexLimit;
-         }
-      }
-      else if (0x2324 == index)
-      {
-         if (REPAIR_MODE == deviceMode)
-         {   
-            size = sizeof(rearDrillIndexLimit);
-            source = (u8_t *)&rearDrillIndexLimit;
-         }
-      }
       else if ((0x2331 == index) && (0 == subIndex))
       {
          if (REPAIR_MODE == deviceMode)
@@ -1779,17 +1750,6 @@ static u32_t storeDeviceData(u8_t signalApplication, u16_t index, u8_t subIndex,
       {
          canOd2314 = (u16_t)getValue(&source[offset], length);
          result = 1;
-      }
-      else if (0x2315 == index)
-      {
-         if (INSPECT_MODE == deviceMode)
-         {
-            if (2 == length)
-            {				
-               sensorIndexSetPoint = (u16_t)getValue(&source[offset], length);
-               result = 1;
-            }
-         }
       }
       else if ((0x2331 == index) && (1 == subIndex))
       {
@@ -3139,8 +3099,6 @@ static void setPreOperationalState(void)
    canOd2312 = 0;
    canOd2313 = 0;
    canOd2314 = 0;
-
-   sensorIndexSetPoint = 0;
 
    autoDrillControl = 0;
    indexerSearchSpeed = 0;

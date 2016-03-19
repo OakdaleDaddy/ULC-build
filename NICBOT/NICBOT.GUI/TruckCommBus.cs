@@ -130,7 +130,7 @@ namespace NICBOT.GUI
       private FeederModes feederModeSetPoint; // applicable to 4 motors
       private double feederVelocitySetPoint; // applicable to 4 motors
       private bool evaluateFeederParameters; // forces evaluation of set points
-      private DateTime feederTraceTimeLimit; // limits log output 
+      //private DateTime feederTraceTimeLimit; // limits log output 
 
       private FeederMotorStatus feederTopFrontStatus;
       private FeederMotorStatus feederTopRearStatus;

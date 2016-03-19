@@ -75,8 +75,6 @@
          }
          else if (Modes.inspect == this.mode)
          {
-            this.SensorAtCcwLimit = ((statusValue & 0x0400) == 0) ? true : false;
-            this.SensorAtCwLimit = ((statusValue & 0x0800) == 0) ? true : false;
         }
       }
 
@@ -123,34 +121,12 @@
       public bool BottomRearReadyToLock { set; get; }
       public bool LastCircumferential { set; get; }
       public bool LastAxial { set; get; }
-
-      public bool SensorAtCcwLimit { set; get; }
-      public bool SensorAtCwLimit { set; get; }
-
-#if false
-      public bool SensorAborted { set; get; }
-#endif
       
       public double FrontDrillSpeed { set; get; }
       public double FrontDrillIndex { set; get; }
 
       public double RearDrillSpeed { set; get; }
       public double RearDrillIndex { set; get; }
-
-      public double SensorIndex { set; get; }      
-      
-      public double SensorAngle 
-      {
-         set
-         {
-            this.SensorIndex = value * 100;
-         }
-
-         get
-         {
-            return (this.SensorIndex / 100);
-         }
-      }
 
       public double AccelerometerX { set; get; }
       public double AccelerometerY { set; get; }
@@ -207,11 +183,6 @@
             }
             else if (COBTypes.TPDO3 == frameType)
             {
-               if ((null != msg) && (msg.Length >= 2))
-               {
-                  UInt16 value = BitConverter.ToUInt16(msg, 0);
-                  this.SensorIndex = value;
-               }
             }
             else if (COBTypes.TPDO4 == frameType)
             {
@@ -1173,15 +1144,6 @@
 
                      // status
                      result &= this.ReadDeviceStatus();
-
-                     // sensor index
-                     result &= this.SetTPDOEnable(3, false);
-                     result &= this.SetTPDOMapCount(3, 0);
-                     result &= this.SetTPDOType(3, 254);
-                     result &= this.SetTPDOInhibitTime(3, 100);
-                     result &= this.SetTPDOMap(3, 1, 0x2415, 0, 2);
-                     result &= this.SetTPDOMapCount(3, 1);
-                     result &= this.SetTPDOEnable(3, true);
 
                      // accelerometer and status
                      result &= this.SetTPDOEnable(4, false);

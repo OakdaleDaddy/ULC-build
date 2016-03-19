@@ -148,10 +148,6 @@ running:
 0x2313: rear drill speed set point, s16, RW, default=0 RPM (robot mode)
 0x2314: rear drill index set point, s16, RW, default=0 {0..limit} units of 1/10 mm (robot mode)
 
-0x2322: front drill index limit, u16, RO, 635 (robot mode)
-0x2324: rear drill index limit, u16, RO, 635 (robot mode)
-no 0x2325: sensor index limit, u16, RO, 719 (inspect mode)
-
 0x2331sub0: auto drill parameter entry count, u8, RO, 9 (robot mode)
 0x2331sub1: auto drill control, u8, RW, default=0 (robot mode) 
  b0: mode {0=continuous, 1=peck}
@@ -187,7 +183,6 @@ no 0x2325: sensor index limit, u16, RO, 719 (inspect mode)
 0x2412: actual front drill index, s16, RO, default=0, mappable {0..635} units of 1/10 mm (robot mode)
 0x2413: actual rear drill speed, s16, RO, default=0, mappable RPM (robot mode)
 0x2414: actual rear drill index, s16, RO, default=0, mappable {0..635} units of 1/10 mm (robot mode)
-0x2415: actual sensor index, u16, RO, default=0, mappable (inspect mode)
 
 0x2441: accelerometer X value, u16, RO, mappable 
 0x2442: accelerometer Y value, u16, RO, mappable 

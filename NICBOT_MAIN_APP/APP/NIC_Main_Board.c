@@ -79,11 +79,8 @@ static void processProcessControl(void);
 
 static void updateDeviceStatus(void);
 static void updateActualDrillPosition(void);
-static void updateActualSensorPosition(void);
 static void updateRepairControl(void);
 static void updateDrillContext(DRILL_CONTEXT * drillContext);
-static void updateInspectControl(void);
-static void updateSensorHoming(void);
 static void updateAccelerometer(void);
 
 
@@ -540,49 +537,6 @@ static void updateActualDrillPosition(void)
 #endif
 }
 
-static void updateActualSensorPosition(void)
-{
-#if 0
-   difference = SYSTIME_DIFF (sensorPositionSampleTimeLimit, now);
-   limit = (u32_t)SENSOR_SAMPLE_PERIOD * 1000;
-
-   if ( (difference >= limit) )
-   {
-      u8_t * dataPointer;
-      s32_t sensorCount;
-      
-      sensorPositionSampleTimeLimit = SYSTIME_NOW;
-      
-      dataPointer = servo_get_position(0);
-      sensorCount = dataPointer[0];
-      sensorCount <<= 8;
-      sensorCount |= dataPointer[1];
-      sensorCount <<= 8;
-      sensorCount |= dataPointer[2];
-      sensorCount <<= 8;
-      sensorCount |= dataPointer[3];
-      
-      sensorCount *= 100L;
-      sensorCount /= sensorServoPulsesPerDegree;
-      
-      if (sensorCount != actualSensorIndex)
-      {
-         actualSensorIndex = sensorCount;
-         
-         if (DEVICE_OPERATIONAL_S == deviceState)
-         {
-            u8_t i;
-            
-            for (i=0; i<4; i++)
-            {
-               activateTxPdoMap(&txPdoMapping[i], 0x2415, 0);
-            }
-         }
-      }
-   }
-#endif
-}
-
 static void updateRepairControl(void)
 {
 #if 0
@@ -887,144 +841,6 @@ static void updateDrillContext(DRILL_CONTEXT * drillContext)
                sendDebug(0xBC, 6);
                drillContext->status |= 0x02;
                drillContext->state = DRILL_IDLE_S;
-            }
-         }
-      }
-   }
-#endif
-}
-
-static void updateInspectControl(void)
-{
-#if 0
-   if ( (processedSensorIndexSetPoint != sensorIndexSetPoint) && (SENSOR_HOMING_IDLE_S == sensorHomingState) )
-   {
-      u32_t positionRequest;
-      u8_t servoStatus;
-      
-      positionRequest = sensorIndexSetPoint;
-      positionRequest *= sensorServoPulsesPerDegree;
-      positionRequest /= 100L;
-      
-      servoStatus = servo_get_status(0);
-
-      if ( (servoStatus & 0x04) )
-      {
-         sendDebug(0x0000A, 0);
-         setServoAcceleration(sensorServoAcceleration);
-         setServoVelocity(sensorServoTravelVelocity);
-      }
-
-      sendDebug(0x0000B, positionRequest);
-      setServoPosition(positionRequest);
-      servo_move_abs(0);
-      
-      processedSensorIndexSetPoint = sensorIndexSetPoint;
-   }
-   
-   if (processedDeviceControl != deviceControl)
-   {
-      u16_t controlToEvalute = deviceControl & ~(processedDeviceControl);
-      processedDeviceControl = deviceControl;
-      
-      if ( ((controlToEvalute & 0x0001) != 0) && (SENSOR_HOMING_IDLE_S == sensorHomingState) )
-      {
-         sensorHomingActivate = 1;
-      }
-
-      if ( ((controlToEvalute & 0x0002) != 0) )
-      {
-         sendDebug(0x0000C, 0);
-         servo_motor_off(0);
-      }
-   }
-#endif
-}
-
-static void updateSensorHoming(void)
-{
-#if 0
-   if ( (SENSOR_HOMING_IDLE_S == sensorHomingState) )
-   {
-      if ( (0 != sensorHomingActivate) )
-      {
-         sensorHomingActivate = 0;
-         
-         setServoAcceleration(sensorServoAcceleration);
-         setServoVelocity(sensorServoHomingVelocity);
-         setServoPosition(-20000000);
-         servo_move_rel(0);
-         
-         sendDebug(0xAB, 1);
-         sensorHomingState = SENSOR_HOMING_CCW_WAIT_S;
-      }
-   }
-   else
-   {
-      u8_t servoStatus;
-      
-      servoStatus = servo_get_status(0);
-      
-      if ( (servoStatus & 0x20) )
-      {
-         sensorHomingState = SENSOR_HOMING_IDLE_S;
-         setDeviceFault(servoExcessivePositionFaultCode);
-      }
-      else
-      {
-         if ( (SENSOR_HOMING_CCW_WAIT_S == sensorHomingState) )
-         {
-            if ( ((deviceStatus & 0x0400) == 0) )
-            {
-               servo_stop_decel(0);
-               
-               sendDebug(0xAB, 2);
-               sensorHomingState = SENSOR_HOMING_STOP_FROM_CCW_S;
-            }
-         }
-         else if ( (SENSOR_HOMING_STOP_FROM_CCW_S == sensorHomingState) )
-         {
-            if ( (servoStatus & 0x04) )
-            {
-               setServoPosition(4000000);
-               servo_move_rel(0);
-               
-               sendDebug(0xAB, 3);
-               sensorHomingState = SENSOR_HOMING_NOT_CCW_WAIT_S;
-            }
-         }
-         else if ( (SENSOR_HOMING_NOT_CCW_WAIT_S == sensorHomingState) )
-         {
-            if ( ((deviceStatus & 0x0400) != 0) )
-            {
-               servo_stop_decel(0);
-               
-               sendDebug(0xAB, 4);
-               sensorHomingState = SENSOR_HOMING_STOP_FROM_NOT_CCW_S;
-            }
-         }
-         else if ( (SENSOR_HOMING_STOP_FROM_NOT_CCW_S == sensorHomingState) )
-         {
-            if ( (servoStatus & 0x04) )
-            {
-               setServoPosition(sensorServoHomingBackoffCount);
-               servo_move_rel(0);
-               
-               sendDebug(0xAB, 5);
-               sensorHomingState = SENSOR_HOMING_STOP_FROM_BACKOFF_S;
-            }
-         }
-         else if ( (SENSOR_HOMING_STOP_FROM_BACKOFF_S == sensorHomingState) )
-         {
-            if ( (servoStatus & 0x04) )
-            {
-               servo_set_origin(0);
-               processedSensorIndexSetPoint = 0;
-               sensorIndexSetPoint = 0;
-               
-               sendDebug(0xAB, 7);
-               sensorHomingState = SENSOR_HOMING_IDLE_S;
-               sensorPositionSampleTimeLimit = SYSTIME_NOW;
             }
          }
       }
@@ -1531,9 +1347,6 @@ int main(void)
       	}
 	      else if (INSPECT_MODE == deviceMode)
 	      {
-   	      updateActualSensorPosition();
-   	      updateInspectControl();
-   	      updateSensorHoming();
 	      }
 
       	updateAccelerometer();
@@ -1548,7 +1361,6 @@ int main(void)
       	}
       	else if (INSPECT_MODE == deviceMode)
       	{
-         	updateActualSensorPosition();
       	}
       
       	updateAccelerometer();
