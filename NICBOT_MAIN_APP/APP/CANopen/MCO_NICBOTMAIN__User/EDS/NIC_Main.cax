@@ -36,8 +36,8 @@
     <State>Maximized</State>
     <Layout>&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;Layout&gt;
-  &lt;Window Guid="2a829f7c-65d8-4efd-82b4-458b6573be4d" LastFocused="131028824954879196" DockedSize="200" PopupSize="0" FloatingLocation="-1, -1" FloatingSize="250, 400" LastOpenDockSituation="Docked" LastFixedDockSituation="Docked" LastFixedDockLocation="Left" LastFloatingWindowGuid="00000000-0000-0000-0000-000000000000" LastDockContainerCount="1" LastDockContainerIndex="0" DockedWorkingSize="250, 400" DockedWindowGroupGuid="d2a4642d-57fd-44de-8383-01eb123f6878" DockedIndexInWindowGroup="0" DockedSplitPath="0" DocumentWorkingSize="250, 400" DocumentWindowGroupGuid="00000000-0000-0000-0000-000000000000" DocumentIndexInWindowGroup="0" DocumentSplitPath="0" FloatingWorkingSize="250, 400" FloatingWindowGroupGuid="00000000-0000-0000-0000-000000000000" FloatingIndexInWindowGroup="0" FloatingSplitPath="0" /&gt;
-  &lt;Window Guid="ebc6fe26-1b64-4ef1-bfee-de1ed41388d9" LastFocused="131028824955939256" DockedSize="200" PopupSize="0" FloatingLocation="-1, -1" FloatingSize="550, 400" LastOpenDockSituation="Document" LastFixedDockSituation="Document" LastFixedDockLocation="Right" LastFloatingWindowGuid="00000000-0000-0000-0000-000000000000" LastDockContainerCount="0" LastDockContainerIndex="0" DockedWorkingSize="250, 400" DockedWindowGroupGuid="00000000-0000-0000-0000-000000000000" DockedIndexInWindowGroup="0" DockedSplitPath="0" DocumentWorkingSize="250, 400" DocumentWindowGroupGuid="dba60b0b-f979-4ad0-83fe-52ade6b3a502" DocumentIndexInWindowGroup="0" DocumentSplitPath="0" FloatingWorkingSize="250, 400" FloatingWindowGroupGuid="00000000-0000-0000-0000-000000000000" FloatingIndexInWindowGroup="0" FloatingSplitPath="0" /&gt;
+  &lt;Window Guid="2a829f7c-65d8-4efd-82b4-458b6573be4d" LastFocused="131028854016541428" DockedSize="200" PopupSize="0" FloatingLocation="-1, -1" FloatingSize="250, 400" LastOpenDockSituation="Docked" LastFixedDockSituation="Docked" LastFixedDockLocation="Left" LastFloatingWindowGuid="00000000-0000-0000-0000-000000000000" LastDockContainerCount="1" LastDockContainerIndex="0" DockedWorkingSize="250, 400" DockedWindowGroupGuid="d2a4642d-57fd-44de-8383-01eb123f6878" DockedIndexInWindowGroup="0" DockedSplitPath="0" DocumentWorkingSize="250, 400" DocumentWindowGroupGuid="00000000-0000-0000-0000-000000000000" DocumentIndexInWindowGroup="0" DocumentSplitPath="0" FloatingWorkingSize="250, 400" FloatingWindowGroupGuid="00000000-0000-0000-0000-000000000000" FloatingIndexInWindowGroup="0" FloatingSplitPath="0" /&gt;
+  &lt;Window Guid="ebc6fe26-1b64-4ef1-bfee-de1ed41388d9" LastFocused="131028864471539419" DockedSize="200" PopupSize="0" FloatingLocation="-1, -1" FloatingSize="550, 400" LastOpenDockSituation="Document" LastFixedDockSituation="Document" LastFixedDockLocation="Right" LastFloatingWindowGuid="00000000-0000-0000-0000-000000000000" LastDockContainerCount="0" LastDockContainerIndex="0" DockedWorkingSize="250, 400" DockedWindowGroupGuid="00000000-0000-0000-0000-000000000000" DockedIndexInWindowGroup="0" DockedSplitPath="0" DocumentWorkingSize="250, 400" DocumentWindowGroupGuid="dba60b0b-f979-4ad0-83fe-52ade6b3a502" DocumentIndexInWindowGroup="0" DocumentSplitPath="0" FloatingWorkingSize="250, 400" FloatingWindowGroupGuid="00000000-0000-0000-0000-000000000000" FloatingIndexInWindowGroup="0" FloatingSplitPath="0" /&gt;
   &lt;Window Guid="9f97e230-aa8d-43dd-92c9-699f7df65209" LastFocused="131027236239730566" DockedSize="200" PopupSize="0" FloatingLocation="-1, -1" FloatingSize="250, 400" LastOpenDockSituation="Docked" LastFixedDockSituation="Docked" LastFixedDockLocation="Bottom" LastFloatingWindowGuid="00000000-0000-0000-0000-000000000000" LastDockContainerCount="1" LastDockContainerIndex="0" DockedWorkingSize="250, 400" DockedWindowGroupGuid="11eafd4d-0b1b-42d4-ace1-07a2f8bf70fa" DockedIndexInWindowGroup="0" DockedSplitPath="0" DocumentWorkingSize="250, 400" DocumentWindowGroupGuid="00000000-0000-0000-0000-000000000000" DocumentIndexInWindowGroup="0" DocumentSplitPath="0" FloatingWorkingSize="250, 400" FloatingWindowGroupGuid="00000000-0000-0000-0000-000000000000" FloatingIndexInWindowGroup="0" FloatingSplitPath="0" /&gt;
   &lt;Container Dock="2" ContentSize="200"&gt;
     &lt;SplitLayoutSystem WorkingSize="250, 400" SplitMode="1"&gt;
@@ -739,7 +739,7 @@
               <EntryName>Transmit PDO Parameter 1</EntryName>
               <SubentryName>COB ID used by PDO</SubentryName>
               <TypeId>Unsigned32</TypeId>
-              <ValueString>$NODEID+0x00000180</ValueString>
+              <ValueString>$NODEID+0x80000180</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
               <AccessType>Const</AccessType>
@@ -884,7 +884,7 @@
               <EntryName>Transmit PDO Parameter 2</EntryName>
               <SubentryName>COB ID used by PDO</SubentryName>
               <TypeId>Unsigned32</TypeId>
-              <ValueString>$NODEID+0x00000280</ValueString>
+              <ValueString>$NODEID+0x80000280</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
               <AccessType>Const</AccessType>
@@ -1029,7 +1029,7 @@
               <EntryName>Transmit PDO Parameter 3</EntryName>
               <SubentryName>COB ID used by PDO</SubentryName>
               <TypeId>Unsigned32</TypeId>
-              <ValueString>$NODEID+0x00000380</ValueString>
+              <ValueString>$NODEID+0x80000380</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
               <AccessType>Const</AccessType>
@@ -1174,7 +1174,7 @@
               <EntryName>Transmit PDO Parameter 4</EntryName>
               <SubentryName>COB ID used by PDO</SubentryName>
               <TypeId>Unsigned32</TypeId>
-              <ValueString>$NODEID+0x00000380</ValueString>
+              <ValueString>$NODEID+0x80000480</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
               <AccessType>Const</AccessType>
@@ -2856,6 +2856,110 @@
               <GroupId>030f0ef3-739a-4352-8bfd-c47c7c48156d</GroupId>
             </Entry>
             <Entry>
+              <Index>9233</Index>
+              <Subindex>0</Subindex>
+              <EntryName>Actual Front Drill Speed</EntryName>
+              <SubentryName>
+              </SubentryName>
+              <TypeId>Integer16</TypeId>
+              <ValueString>
+              </ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>ReadOnly</AccessType>
+              <HighLimitString>
+              </HighLimitString>
+              <LowLimitString>
+              </LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>true</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>030f0ef3-739a-4352-8bfd-c47c7c48156d</GroupId>
+            </Entry>
+            <Entry>
+              <Index>9234</Index>
+              <Subindex>0</Subindex>
+              <EntryName>Actual Front Drill Index</EntryName>
+              <SubentryName>
+              </SubentryName>
+              <TypeId>Integer16</TypeId>
+              <ValueString>
+              </ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>ReadOnly</AccessType>
+              <HighLimitString>
+              </HighLimitString>
+              <LowLimitString>
+              </LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>true</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>030f0ef3-739a-4352-8bfd-c47c7c48156d</GroupId>
+            </Entry>
+            <Entry>
+              <Index>9235</Index>
+              <Subindex>0</Subindex>
+              <EntryName>Actual Rear Drill Speed</EntryName>
+              <SubentryName>
+              </SubentryName>
+              <TypeId>Integer16</TypeId>
+              <ValueString>
+              </ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>ReadOnly</AccessType>
+              <HighLimitString>
+              </HighLimitString>
+              <LowLimitString>
+              </LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>true</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>030f0ef3-739a-4352-8bfd-c47c7c48156d</GroupId>
+            </Entry>
+            <Entry>
+              <Index>9236</Index>
+              <Subindex>0</Subindex>
+              <EntryName>Actual Rear Drill Index</EntryName>
+              <SubentryName>
+              </SubentryName>
+              <TypeId>Integer16</TypeId>
+              <ValueString>
+              </ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>ReadOnly</AccessType>
+              <HighLimitString>
+              </HighLimitString>
+              <LowLimitString>
+              </LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>true</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>030f0ef3-739a-4352-8bfd-c47c7c48156d</GroupId>
+            </Entry>
+            <Entry>
               <Index>9472</Index>
               <Subindex>0</Subindex>
               <EntryName>Process Control</EntryName>
@@ -2902,500 +3006,6 @@
               <Hidden>false</Hidden>
               <TypeODIndex>0</TypeODIndex>
               <GroupId>030f0ef3-739a-4352-8bfd-c47c7c48156d</GroupId>
-            </Entry>
-            <Entry>
-              <Index>24640</Index>
-              <Subindex>0</Subindex>
-              <EntryName>Control Word</EntryName>
-              <SubentryName>
-              </SubentryName>
-              <TypeId>Unsigned16</TypeId>
-              <ValueString>
-              </ValueString>
-              <NoTableEntryGeneration>false</NoTableEntryGeneration>
-              <MaxSize>0</MaxSize>
-              <AccessType>ReadWrite</AccessType>
-              <HighLimitString>
-              </HighLimitString>
-              <LowLimitString>
-              </LowLimitString>
-              <ObjectType>Var</ObjectType>
-              <PDOMapping>false</PDOMapping>
-              <RefuseReadonScan>false</RefuseReadonScan>
-              <RefuseWriteonDownload>false</RefuseWriteonDownload>
-              <Denotation>
-              </Denotation>
-              <Hidden>false</Hidden>
-              <TypeODIndex>0</TypeODIndex>
-              <GroupId>e13c41d3-fa31-47d8-9a8d-a6c8cea6bf3c</GroupId>
-            </Entry>
-            <Entry>
-              <Index>24641</Index>
-              <Subindex>0</Subindex>
-              <EntryName>Status Word</EntryName>
-              <SubentryName>
-              </SubentryName>
-              <TypeId>Unsigned16</TypeId>
-              <ValueString>
-              </ValueString>
-              <NoTableEntryGeneration>false</NoTableEntryGeneration>
-              <MaxSize>0</MaxSize>
-              <AccessType>ReadOnly</AccessType>
-              <HighLimitString>
-              </HighLimitString>
-              <LowLimitString>
-              </LowLimitString>
-              <ObjectType>Var</ObjectType>
-              <PDOMapping>true</PDOMapping>
-              <RefuseReadonScan>false</RefuseReadonScan>
-              <RefuseWriteonDownload>false</RefuseWriteonDownload>
-              <Denotation>
-              </Denotation>
-              <Hidden>false</Hidden>
-              <TypeODIndex>0</TypeODIndex>
-              <GroupId>e13c41d3-fa31-47d8-9a8d-a6c8cea6bf3c</GroupId>
-            </Entry>
-            <Entry>
-              <Index>24672</Index>
-              <Subindex>0</Subindex>
-              <EntryName>Modes of Operation</EntryName>
-              <SubentryName>
-              </SubentryName>
-              <TypeId>Integer8</TypeId>
-              <ValueString>
-              </ValueString>
-              <NoTableEntryGeneration>false</NoTableEntryGeneration>
-              <MaxSize>0</MaxSize>
-              <AccessType>ReadWrite</AccessType>
-              <HighLimitString>
-              </HighLimitString>
-              <LowLimitString>
-              </LowLimitString>
-              <ObjectType>Var</ObjectType>
-              <PDOMapping>false</PDOMapping>
-              <RefuseReadonScan>false</RefuseReadonScan>
-              <RefuseWriteonDownload>false</RefuseWriteonDownload>
-              <Denotation>
-              </Denotation>
-              <Hidden>false</Hidden>
-              <TypeODIndex>0</TypeODIndex>
-              <GroupId>e13c41d3-fa31-47d8-9a8d-a6c8cea6bf3c</GroupId>
-            </Entry>
-            <Entry>
-              <Index>24673</Index>
-              <Subindex>0</Subindex>
-              <EntryName>Modes of Operation Display</EntryName>
-              <SubentryName>
-              </SubentryName>
-              <TypeId>Integer8</TypeId>
-              <ValueString>
-              </ValueString>
-              <NoTableEntryGeneration>false</NoTableEntryGeneration>
-              <MaxSize>0</MaxSize>
-              <AccessType>ReadOnly</AccessType>
-              <HighLimitString>
-              </HighLimitString>
-              <LowLimitString>
-              </LowLimitString>
-              <ObjectType>Var</ObjectType>
-              <PDOMapping>true</PDOMapping>
-              <RefuseReadonScan>false</RefuseReadonScan>
-              <RefuseWriteonDownload>false</RefuseWriteonDownload>
-              <Denotation>
-              </Denotation>
-              <Hidden>false</Hidden>
-              <TypeODIndex>0</TypeODIndex>
-              <GroupId>e13c41d3-fa31-47d8-9a8d-a6c8cea6bf3c</GroupId>
-            </Entry>
-            <Entry>
-              <Index>24676</Index>
-              <Subindex>0</Subindex>
-              <EntryName>Actual Position</EntryName>
-              <SubentryName>
-              </SubentryName>
-              <TypeId>Integer32</TypeId>
-              <ValueString>
-              </ValueString>
-              <NoTableEntryGeneration>false</NoTableEntryGeneration>
-              <MaxSize>0</MaxSize>
-              <AccessType>ReadOnly</AccessType>
-              <HighLimitString>
-              </HighLimitString>
-              <LowLimitString>
-              </LowLimitString>
-              <ObjectType>Var</ObjectType>
-              <PDOMapping>true</PDOMapping>
-              <RefuseReadonScan>false</RefuseReadonScan>
-              <RefuseWriteonDownload>false</RefuseWriteonDownload>
-              <Denotation>
-              </Denotation>
-              <Hidden>false</Hidden>
-              <TypeODIndex>0</TypeODIndex>
-              <GroupId>e13c41d3-fa31-47d8-9a8d-a6c8cea6bf3c</GroupId>
-            </Entry>
-            <Entry>
-              <Index>24684</Index>
-              <Subindex>0</Subindex>
-              <EntryName>Actual Velocity</EntryName>
-              <SubentryName>
-              </SubentryName>
-              <TypeId>Integer32</TypeId>
-              <ValueString>
-              </ValueString>
-              <NoTableEntryGeneration>false</NoTableEntryGeneration>
-              <MaxSize>0</MaxSize>
-              <AccessType>ReadOnly</AccessType>
-              <HighLimitString>
-              </HighLimitString>
-              <LowLimitString>
-              </LowLimitString>
-              <ObjectType>Var</ObjectType>
-              <PDOMapping>true</PDOMapping>
-              <RefuseReadonScan>false</RefuseReadonScan>
-              <RefuseWriteonDownload>false</RefuseWriteonDownload>
-              <Denotation>
-              </Denotation>
-              <Hidden>false</Hidden>
-              <TypeODIndex>0</TypeODIndex>
-              <GroupId>e13c41d3-fa31-47d8-9a8d-a6c8cea6bf3c</GroupId>
-            </Entry>
-            <Entry>
-              <Index>24689</Index>
-              <Subindex>0</Subindex>
-              <EntryName>Target Torque</EntryName>
-              <SubentryName>
-              </SubentryName>
-              <TypeId>Integer16</TypeId>
-              <ValueString>
-              </ValueString>
-              <NoTableEntryGeneration>false</NoTableEntryGeneration>
-              <MaxSize>0</MaxSize>
-              <AccessType>ReadWrite</AccessType>
-              <HighLimitString>
-              </HighLimitString>
-              <LowLimitString>
-              </LowLimitString>
-              <ObjectType>Var</ObjectType>
-              <PDOMapping>true</PDOMapping>
-              <RefuseReadonScan>false</RefuseReadonScan>
-              <RefuseWriteonDownload>false</RefuseWriteonDownload>
-              <Denotation>
-              </Denotation>
-              <Hidden>false</Hidden>
-              <TypeODIndex>0</TypeODIndex>
-              <GroupId>e13c41d3-fa31-47d8-9a8d-a6c8cea6bf3c</GroupId>
-            </Entry>
-            <Entry>
-              <Index>24690</Index>
-              <Subindex>0</Subindex>
-              <EntryName>Maximum Torque</EntryName>
-              <SubentryName>
-              </SubentryName>
-              <TypeId>Unsigned16</TypeId>
-              <ValueString>
-              </ValueString>
-              <NoTableEntryGeneration>false</NoTableEntryGeneration>
-              <MaxSize>0</MaxSize>
-              <AccessType>ReadWrite</AccessType>
-              <HighLimitString>
-              </HighLimitString>
-              <LowLimitString>
-              </LowLimitString>
-              <ObjectType>Var</ObjectType>
-              <PDOMapping>false</PDOMapping>
-              <RefuseReadonScan>false</RefuseReadonScan>
-              <RefuseWriteonDownload>false</RefuseWriteonDownload>
-              <Denotation>
-              </Denotation>
-              <Hidden>false</Hidden>
-              <TypeODIndex>0</TypeODIndex>
-              <GroupId>e13c41d3-fa31-47d8-9a8d-a6c8cea6bf3c</GroupId>
-            </Entry>
-            <Entry>
-              <Index>24693</Index>
-              <Subindex>0</Subindex>
-              <EntryName>Motor Rated Current</EntryName>
-              <SubentryName>
-              </SubentryName>
-              <TypeId>Unsigned32</TypeId>
-              <ValueString>
-              </ValueString>
-              <NoTableEntryGeneration>false</NoTableEntryGeneration>
-              <MaxSize>0</MaxSize>
-              <AccessType>ReadWrite</AccessType>
-              <HighLimitString>
-              </HighLimitString>
-              <LowLimitString>
-              </LowLimitString>
-              <ObjectType>Var</ObjectType>
-              <PDOMapping>false</PDOMapping>
-              <RefuseReadonScan>false</RefuseReadonScan>
-              <RefuseWriteonDownload>false</RefuseWriteonDownload>
-              <Denotation>
-              </Denotation>
-              <Hidden>false</Hidden>
-              <TypeODIndex>0</TypeODIndex>
-              <GroupId>e13c41d3-fa31-47d8-9a8d-a6c8cea6bf3c</GroupId>
-            </Entry>
-            <Entry>
-              <Index>24694</Index>
-              <Subindex>0</Subindex>
-              <EntryName>Motor Rated Torque</EntryName>
-              <SubentryName>
-              </SubentryName>
-              <TypeId>Unsigned32</TypeId>
-              <ValueString>
-              </ValueString>
-              <NoTableEntryGeneration>false</NoTableEntryGeneration>
-              <MaxSize>0</MaxSize>
-              <AccessType>ReadWrite</AccessType>
-              <HighLimitString>
-              </HighLimitString>
-              <LowLimitString>
-              </LowLimitString>
-              <ObjectType>Var</ObjectType>
-              <PDOMapping>false</PDOMapping>
-              <RefuseReadonScan>false</RefuseReadonScan>
-              <RefuseWriteonDownload>false</RefuseWriteonDownload>
-              <Denotation>
-              </Denotation>
-              <Hidden>false</Hidden>
-              <TypeODIndex>0</TypeODIndex>
-              <GroupId>e13c41d3-fa31-47d8-9a8d-a6c8cea6bf3c</GroupId>
-            </Entry>
-            <Entry>
-              <Index>24695</Index>
-              <Subindex>0</Subindex>
-              <EntryName>Actual Torque</EntryName>
-              <SubentryName>
-              </SubentryName>
-              <TypeId>Integer16</TypeId>
-              <ValueString>
-              </ValueString>
-              <NoTableEntryGeneration>false</NoTableEntryGeneration>
-              <MaxSize>0</MaxSize>
-              <AccessType>ReadOnly</AccessType>
-              <HighLimitString>
-              </HighLimitString>
-              <LowLimitString>
-              </LowLimitString>
-              <ObjectType>Var</ObjectType>
-              <PDOMapping>true</PDOMapping>
-              <RefuseReadonScan>false</RefuseReadonScan>
-              <RefuseWriteonDownload>false</RefuseWriteonDownload>
-              <Denotation>
-              </Denotation>
-              <Hidden>false</Hidden>
-              <TypeODIndex>0</TypeODIndex>
-              <GroupId>e13c41d3-fa31-47d8-9a8d-a6c8cea6bf3c</GroupId>
-            </Entry>
-            <Entry>
-              <Index>24698</Index>
-              <Subindex>0</Subindex>
-              <EntryName>Target Position</EntryName>
-              <SubentryName>
-              </SubentryName>
-              <TypeId>Integer32</TypeId>
-              <ValueString>
-              </ValueString>
-              <NoTableEntryGeneration>false</NoTableEntryGeneration>
-              <MaxSize>0</MaxSize>
-              <AccessType>ReadWrite</AccessType>
-              <HighLimitString>
-              </HighLimitString>
-              <LowLimitString>
-              </LowLimitString>
-              <ObjectType>Var</ObjectType>
-              <PDOMapping>false</PDOMapping>
-              <RefuseReadonScan>false</RefuseReadonScan>
-              <RefuseWriteonDownload>false</RefuseWriteonDownload>
-              <Denotation>
-              </Denotation>
-              <Hidden>false</Hidden>
-              <TypeODIndex>0</TypeODIndex>
-              <GroupId>e13c41d3-fa31-47d8-9a8d-a6c8cea6bf3c</GroupId>
-            </Entry>
-            <Entry>
-              <Index>24703</Index>
-              <Subindex>0</Subindex>
-              <EntryName>Maximum Profile Velocity</EntryName>
-              <SubentryName>
-              </SubentryName>
-              <TypeId>Unsigned32</TypeId>
-              <ValueString>
-              </ValueString>
-              <NoTableEntryGeneration>false</NoTableEntryGeneration>
-              <MaxSize>0</MaxSize>
-              <AccessType>ReadWrite</AccessType>
-              <HighLimitString>
-              </HighLimitString>
-              <LowLimitString>
-              </LowLimitString>
-              <ObjectType>Var</ObjectType>
-              <PDOMapping>false</PDOMapping>
-              <RefuseReadonScan>false</RefuseReadonScan>
-              <RefuseWriteonDownload>false</RefuseWriteonDownload>
-              <Denotation>
-              </Denotation>
-              <Hidden>false</Hidden>
-              <TypeODIndex>0</TypeODIndex>
-              <GroupId>e13c41d3-fa31-47d8-9a8d-a6c8cea6bf3c</GroupId>
-            </Entry>
-            <Entry>
-              <Index>24705</Index>
-              <Subindex>0</Subindex>
-              <EntryName>Profile Velocity</EntryName>
-              <SubentryName>
-              </SubentryName>
-              <TypeId>Unsigned32</TypeId>
-              <ValueString>
-              </ValueString>
-              <NoTableEntryGeneration>false</NoTableEntryGeneration>
-              <MaxSize>0</MaxSize>
-              <AccessType>ReadWrite</AccessType>
-              <HighLimitString>
-              </HighLimitString>
-              <LowLimitString>
-              </LowLimitString>
-              <ObjectType>Var</ObjectType>
-              <PDOMapping>false</PDOMapping>
-              <RefuseReadonScan>false</RefuseReadonScan>
-              <RefuseWriteonDownload>false</RefuseWriteonDownload>
-              <Denotation>
-              </Denotation>
-              <Hidden>false</Hidden>
-              <TypeODIndex>0</TypeODIndex>
-              <GroupId>e13c41d3-fa31-47d8-9a8d-a6c8cea6bf3c</GroupId>
-            </Entry>
-            <Entry>
-              <Index>24707</Index>
-              <Subindex>0</Subindex>
-              <EntryName>Profile Acceleration</EntryName>
-              <SubentryName>
-              </SubentryName>
-              <TypeId>Unsigned32</TypeId>
-              <ValueString>
-              </ValueString>
-              <NoTableEntryGeneration>false</NoTableEntryGeneration>
-              <MaxSize>0</MaxSize>
-              <AccessType>ReadWrite</AccessType>
-              <HighLimitString>
-              </HighLimitString>
-              <LowLimitString>
-              </LowLimitString>
-              <ObjectType>Var</ObjectType>
-              <PDOMapping>false</PDOMapping>
-              <RefuseReadonScan>false</RefuseReadonScan>
-              <RefuseWriteonDownload>false</RefuseWriteonDownload>
-              <Denotation>
-              </Denotation>
-              <Hidden>false</Hidden>
-              <TypeODIndex>0</TypeODIndex>
-              <GroupId>e13c41d3-fa31-47d8-9a8d-a6c8cea6bf3c</GroupId>
-            </Entry>
-            <Entry>
-              <Index>24708</Index>
-              <Subindex>0</Subindex>
-              <EntryName>Profile Deceleration</EntryName>
-              <SubentryName>
-              </SubentryName>
-              <TypeId>Unsigned32</TypeId>
-              <ValueString>
-              </ValueString>
-              <NoTableEntryGeneration>false</NoTableEntryGeneration>
-              <MaxSize>0</MaxSize>
-              <AccessType>ReadWrite</AccessType>
-              <HighLimitString>
-              </HighLimitString>
-              <LowLimitString>
-              </LowLimitString>
-              <ObjectType>Var</ObjectType>
-              <PDOMapping>false</PDOMapping>
-              <RefuseReadonScan>false</RefuseReadonScan>
-              <RefuseWriteonDownload>false</RefuseWriteonDownload>
-              <Denotation>
-              </Denotation>
-              <Hidden>false</Hidden>
-              <TypeODIndex>0</TypeODIndex>
-              <GroupId>e13c41d3-fa31-47d8-9a8d-a6c8cea6bf3c</GroupId>
-            </Entry>
-            <Entry>
-              <Index>24709</Index>
-              <Subindex>0</Subindex>
-              <EntryName>Quick-Stop Deceleration</EntryName>
-              <SubentryName>
-              </SubentryName>
-              <TypeId>Unsigned32</TypeId>
-              <ValueString>
-              </ValueString>
-              <NoTableEntryGeneration>false</NoTableEntryGeneration>
-              <MaxSize>0</MaxSize>
-              <AccessType>ReadWrite</AccessType>
-              <HighLimitString>
-              </HighLimitString>
-              <LowLimitString>
-              </LowLimitString>
-              <ObjectType>Var</ObjectType>
-              <PDOMapping>false</PDOMapping>
-              <RefuseReadonScan>false</RefuseReadonScan>
-              <RefuseWriteonDownload>false</RefuseWriteonDownload>
-              <Denotation>
-              </Denotation>
-              <Hidden>false</Hidden>
-              <TypeODIndex>0</TypeODIndex>
-              <GroupId>e13c41d3-fa31-47d8-9a8d-a6c8cea6bf3c</GroupId>
-            </Entry>
-            <Entry>
-              <Index>24711</Index>
-              <Subindex>0</Subindex>
-              <EntryName>Torque Slope</EntryName>
-              <SubentryName>
-              </SubentryName>
-              <TypeId>Unsigned32</TypeId>
-              <ValueString>
-              </ValueString>
-              <NoTableEntryGeneration>false</NoTableEntryGeneration>
-              <MaxSize>0</MaxSize>
-              <AccessType>ReadWrite</AccessType>
-              <HighLimitString>
-              </HighLimitString>
-              <LowLimitString>
-              </LowLimitString>
-              <ObjectType>Var</ObjectType>
-              <PDOMapping>false</PDOMapping>
-              <RefuseReadonScan>false</RefuseReadonScan>
-              <RefuseWriteonDownload>false</RefuseWriteonDownload>
-              <Denotation>
-              </Denotation>
-              <Hidden>false</Hidden>
-              <TypeODIndex>0</TypeODIndex>
-              <GroupId>e13c41d3-fa31-47d8-9a8d-a6c8cea6bf3c</GroupId>
-            </Entry>
-            <Entry>
-              <Index>24831</Index>
-              <Subindex>0</Subindex>
-              <EntryName>Target Velocity</EntryName>
-              <SubentryName>
-              </SubentryName>
-              <TypeId>Integer32</TypeId>
-              <ValueString>
-              </ValueString>
-              <NoTableEntryGeneration>false</NoTableEntryGeneration>
-              <MaxSize>0</MaxSize>
-              <AccessType>ReadWrite</AccessType>
-              <HighLimitString>
-              </HighLimitString>
-              <LowLimitString>
-              </LowLimitString>
-              <ObjectType>Var</ObjectType>
-              <PDOMapping>true</PDOMapping>
-              <RefuseReadonScan>false</RefuseReadonScan>
-              <RefuseWriteonDownload>false</RefuseWriteonDownload>
-              <Denotation>
-              </Denotation>
-              <Hidden>false</Hidden>
-              <TypeODIndex>0</TypeODIndex>
-              <GroupId>e13c41d3-fa31-47d8-9a8d-a6c8cea6bf3c</GroupId>
             </Entry>
           </ObjectDictionary>
           <FileInfoFileName>

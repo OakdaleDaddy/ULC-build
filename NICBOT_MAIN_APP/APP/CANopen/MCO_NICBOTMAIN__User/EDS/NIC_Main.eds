@@ -8,7 +8,7 @@ CreatedBy=Unknown
 CreationTime=09:08AM
 CreationDate=01-27-2016
 ModifiedBy=Unknown
-ModificationTime=01:34PM
+ModificationTime=02:42PM
 ModificationDate=03-19-2016
 
 [Comments]
@@ -56,7 +56,7 @@ SupportedObjects=3
 3=0x1018
 
 [OptionalObjects]
-SupportedObjects=41
+SupportedObjects=22
 1=0x1005
 2=0x1008
 3=0x1009
@@ -79,28 +79,9 @@ SupportedObjects=41
 20=0x1F50
 21=0x1F51
 22=0x1F80
-23=0x6040
-24=0x6041
-25=0x6060
-26=0x6061
-27=0x6064
-28=0x606C
-29=0x6071
-30=0x6072
-31=0x6075
-32=0x6076
-33=0x6077
-34=0x607A
-35=0x607F
-36=0x6081
-37=0x6083
-38=0x6084
-39=0x6085
-40=0x6087
-41=0x60FF
 
 [ManufacturerObjects]
-SupportedObjects=13
+SupportedObjects=17
 1=0x2100
 2=0x2101
 3=0x2102
@@ -112,8 +93,12 @@ SupportedObjects=13
 9=0x2312
 10=0x2313
 11=0x2314
-12=0x2500
-13=0x2501
+12=0x2411
+13=0x2412
+14=0x2413
+15=0x2414
+16=0x2500
+17=0x2501
 
 [1000]
 ParameterName=Device Type
@@ -449,7 +434,7 @@ DataType=0x0007
 LowLimit=
 HighLimit=
 AccessType=const
-DefaultValue=$NODEID+0x00000180
+DefaultValue=$NODEID+0x80000180
 PDOMapping=0
 ObjFlags=0x00
 
@@ -520,7 +505,7 @@ DataType=0x0007
 LowLimit=
 HighLimit=
 AccessType=const
-DefaultValue=$NODEID+0x00000280
+DefaultValue=$NODEID+0x80000280
 PDOMapping=0
 ObjFlags=0x00
 
@@ -591,7 +576,7 @@ DataType=0x0007
 LowLimit=
 HighLimit=
 AccessType=const
-DefaultValue=$NODEID+0x00000380
+DefaultValue=$NODEID+0x80000380
 PDOMapping=0
 ObjFlags=0x00
 
@@ -662,7 +647,7 @@ DataType=0x0007
 LowLimit=
 HighLimit=
 AccessType=const
-DefaultValue=$NODEID+0x00000380
+DefaultValue=$NODEID+0x80000480
 PDOMapping=0
 ObjFlags=0x00
 
@@ -1476,6 +1461,50 @@ DefaultValue=
 PDOMapping=0
 ObjFlags=0x00
 
+[2411]
+ParameterName=Actual Front Drill Speed
+ObjectType=0x07
+DataType=0x0003
+LowLimit=
+HighLimit=
+AccessType=ro
+DefaultValue=
+PDOMapping=1
+ObjFlags=0x00
+
+[2412]
+ParameterName=Actual Front Drill Index
+ObjectType=0x07
+DataType=0x0003
+LowLimit=
+HighLimit=
+AccessType=ro
+DefaultValue=
+PDOMapping=1
+ObjFlags=0x00
+
+[2413]
+ParameterName=Actual Rear Drill Speed
+ObjectType=0x07
+DataType=0x0003
+LowLimit=
+HighLimit=
+AccessType=ro
+DefaultValue=
+PDOMapping=1
+ObjFlags=0x00
+
+[2414]
+ParameterName=Actual Rear Drill Index
+ObjectType=0x07
+DataType=0x0003
+LowLimit=
+HighLimit=
+AccessType=ro
+DefaultValue=
+PDOMapping=1
+ObjFlags=0x00
+
 [2500]
 ParameterName=Process Control
 ObjectType=0x07
@@ -1495,215 +1524,6 @@ LowLimit=
 HighLimit=
 AccessType=ro
 DefaultValue=0
-PDOMapping=1
-ObjFlags=0x00
-
-[6040]
-ParameterName=Control Word
-ObjectType=0x07
-DataType=0x0006
-LowLimit=
-HighLimit=
-AccessType=rw
-DefaultValue=
-PDOMapping=0
-ObjFlags=0x00
-
-[6041]
-ParameterName=Status Word
-ObjectType=0x07
-DataType=0x0006
-LowLimit=
-HighLimit=
-AccessType=ro
-DefaultValue=
-PDOMapping=1
-ObjFlags=0x00
-
-[6060]
-ParameterName=Modes of Operation
-ObjectType=0x07
-DataType=0x0002
-LowLimit=
-HighLimit=
-AccessType=rw
-DefaultValue=
-PDOMapping=0
-ObjFlags=0x00
-
-[6061]
-ParameterName=Modes of Operation Display
-ObjectType=0x07
-DataType=0x0002
-LowLimit=
-HighLimit=
-AccessType=ro
-DefaultValue=
-PDOMapping=1
-ObjFlags=0x00
-
-[6064]
-ParameterName=Actual Position
-ObjectType=0x07
-DataType=0x0004
-LowLimit=
-HighLimit=
-AccessType=ro
-DefaultValue=
-PDOMapping=1
-ObjFlags=0x00
-
-[606C]
-ParameterName=Actual Velocity
-ObjectType=0x07
-DataType=0x0004
-LowLimit=
-HighLimit=
-AccessType=ro
-DefaultValue=
-PDOMapping=1
-ObjFlags=0x00
-
-[6071]
-ParameterName=Target Torque
-ObjectType=0x07
-DataType=0x0003
-LowLimit=
-HighLimit=
-AccessType=rw
-DefaultValue=
-PDOMapping=1
-ObjFlags=0x00
-
-[6072]
-ParameterName=Maximum Torque
-ObjectType=0x07
-DataType=0x0006
-LowLimit=
-HighLimit=
-AccessType=rw
-DefaultValue=
-PDOMapping=0
-ObjFlags=0x00
-
-[6075]
-ParameterName=Motor Rated Current
-ObjectType=0x07
-DataType=0x0007
-LowLimit=
-HighLimit=
-AccessType=rw
-DefaultValue=
-PDOMapping=0
-ObjFlags=0x00
-
-[6076]
-ParameterName=Motor Rated Torque
-ObjectType=0x07
-DataType=0x0007
-LowLimit=
-HighLimit=
-AccessType=rw
-DefaultValue=
-PDOMapping=0
-ObjFlags=0x00
-
-[6077]
-ParameterName=Actual Torque
-ObjectType=0x07
-DataType=0x0003
-LowLimit=
-HighLimit=
-AccessType=ro
-DefaultValue=
-PDOMapping=1
-ObjFlags=0x00
-
-[607A]
-ParameterName=Target Position
-ObjectType=0x07
-DataType=0x0004
-LowLimit=
-HighLimit=
-AccessType=rw
-DefaultValue=
-PDOMapping=0
-ObjFlags=0x00
-
-[607F]
-ParameterName=Maximum Profile Velocity
-ObjectType=0x07
-DataType=0x0007
-LowLimit=
-HighLimit=
-AccessType=rw
-DefaultValue=
-PDOMapping=0
-ObjFlags=0x00
-
-[6081]
-ParameterName=Profile Velocity
-ObjectType=0x07
-DataType=0x0007
-LowLimit=
-HighLimit=
-AccessType=rw
-DefaultValue=
-PDOMapping=0
-ObjFlags=0x00
-
-[6083]
-ParameterName=Profile Acceleration
-ObjectType=0x07
-DataType=0x0007
-LowLimit=
-HighLimit=
-AccessType=rw
-DefaultValue=
-PDOMapping=0
-ObjFlags=0x00
-
-[6084]
-ParameterName=Profile Deceleration
-ObjectType=0x07
-DataType=0x0007
-LowLimit=
-HighLimit=
-AccessType=rw
-DefaultValue=
-PDOMapping=0
-ObjFlags=0x00
-
-[6085]
-ParameterName=Quick-Stop Deceleration
-ObjectType=0x07
-DataType=0x0007
-LowLimit=
-HighLimit=
-AccessType=rw
-DefaultValue=
-PDOMapping=0
-ObjFlags=0x00
-
-[6087]
-ParameterName=Torque Slope
-ObjectType=0x07
-DataType=0x0007
-LowLimit=
-HighLimit=
-AccessType=rw
-DefaultValue=
-PDOMapping=0
-ObjFlags=0x00
-
-[60FF]
-ParameterName=Target Velocity
-ObjectType=0x07
-DataType=0x0004
-LowLimit=
-HighLimit=
-AccessType=rw
-DefaultValue=
 PDOMapping=1
 ObjFlags=0x00
 

@@ -91,9 +91,11 @@ static U16 deviceProcessControl; /*!< control used to determine device processes
 
 static S16 frontDrillSpeedSetPoint; // RPM
 static DRILL_CONTEXT frontDrillContext; /*!< control structure for front drill */
+static S16 processedFrontDrillSpeedSetPoint;
 
 static S16 rearDrillSpeedSetPoint; // RPM
 static DRILL_CONTEXT rearDrillContext; /*!< control structure for rear drill */
+static S16 processedRearDrillSpeedSetPoint;
 
 static SENSOR_HOME_STATES sensorHomingState; /*!< state of sensor homing process */
 static U8 sensorHomingActivate; /*!< indicator of sensor homing process activity */
@@ -539,38 +541,27 @@ static void updateActualDrillPosition(void)
 
 static void updateRepairControl(void)
 {
-#if 0
    if ( (processedFrontDrillSpeedSetPoint != frontDrillSpeedSetPoint) )
    {
-      u32_t speedCache;
-      u8_t speedRequest;
+      U32 speedCache;
+      U8 speedRequest;
       
       // active range 64..127
       speedCache = frontDrillSpeedSetPoint;
       speedCache *= 100;
       speedCache /= 8730;
       speedCache += 64;
-      speedRequest = (u8_t)(speedCache & 0xFF);
-      sendDebug(0x5A, speedRequest);
+      speedRequest = (U8)(speedCache & 0xFF);
+      CAN_SendDebug(0x5A, speedRequest);
       
       drillspeed(1, 0x30, speedRequest);
       
-      actualFrontDrillSpeed = frontDrillSpeedSetPoint;
-
-      if (DEVICE_OPERATIONAL_S == deviceState)
-      {
-         u8_t i;
-         
-         for (i=0; i<4; i++)
-         {
-            activateTxPdoMap(&txPdoMapping[i], 0x2411, 0);
-         }
-      }
+      CAN_WriteProcessImageValue(0x2411, 0, frontDrillSpeedSetPoint, sizeof(S16));
       
       processedFrontDrillSpeedSetPoint = frontDrillSpeedSetPoint;
    }
    
-   #if 0
+#if 0
    if ( (processedFrontDrillIndexSetPoint != frontDrillIndexSetPoint) )
    {
       u32_t positionRequest;
@@ -584,50 +575,40 @@ static void updateRepairControl(void)
 
       if ( (servoStatus & 0x04) )
       {
-         sendDebug(0x0001A, 0);
+         CAN_SendDebug(0x0001A, 0);
          setServoAcceleration(drillServoAcceleration);
          setServoVelocity(drillServoTravelVelocity);
       }
 
-      sendDebug(0x0001B, positionRequest);
+      CAN_SendDebug(0x0001B, positionRequest);
       setServoPosition(positionRequest);
       servo_move_abs(0);
       
       processedFrontDrillIndexSetPoint = frontDrillIndexSetPoint;
    }
-   #endif
+#endif
 
    if ( (processedRearDrillSpeedSetPoint != rearDrillSpeedSetPoint) )
    {
-      u32_t speedCache;
-      u8_t speedRequest;
+      U32 speedCache;
+      U8 speedRequest;
       
       // active range 64..127
       speedCache = rearDrillSpeedSetPoint;
       speedCache *= 100;
       speedCache /= 8730;
       speedCache += 64;
-      speedRequest = (u8_t)(speedCache & 0xFF);
-      sendDebug(0x5B, speedRequest);
+      speedRequest = (U8)(speedCache & 0xFF);
+      CAN_SendDebug(0x5B, speedRequest);
 
       drillspeed(0, 0x30, speedRequest);
       
-      actualRearDrillSpeed = rearDrillSpeedSetPoint;
-      
-      if (DEVICE_OPERATIONAL_S == deviceState)
-      {
-         u8_t i;
-         
-         for (i=0; i<4; i++)
-         {
-            activateTxPdoMap(&txPdoMapping[i], 0x2413, 0);
-         }
-      }
+      CAN_WriteProcessImageValue(0x2413, 0, rearDrillSpeedSetPoint, sizeof(S16));
 
       processedRearDrillSpeedSetPoint = rearDrillSpeedSetPoint;
    }
 
-   #if 0
+#if 0
    if ( (processedRearDrillIndexSetPoint != rearDrillIndexSetPoint) )
    {
       u32_t positionRequest;
@@ -641,19 +622,20 @@ static void updateRepairControl(void)
 
       if ( (servoStatus & 0x04) )
       {
-         sendDebug(0x0002A, 0);
+         CAN_SendDebug(0x0002A, 0);
          setServoAcceleration(drillServoAcceleration);
          setServoVelocity(drillServoTravelVelocity);
       }
 
-      sendDebug(0x0002B, positionRequest);
+      CAN_SendDebug(0x0002B, positionRequest);
       setServoPosition(positionRequest);
       servo_move_abs(1);
       
       processedRearDrillIndexSetPoint = rearDrillIndexSetPoint;
    }
-   #endif
+#endif
 
+#if 0
    if (processedDeviceControl != deviceControl)
    {
       processedDeviceControl = deviceControl;
@@ -695,7 +677,7 @@ static void updateDrillContext(DRILL_CONTEXT * drillContext)
          setServoPosition(20000000);
          servo_move_rel(drillContext->axis);
          
-         sendDebug(0xBC, 1);
+         CAN_SendDebug(0xBC, 1);
          drillContext->status &= ~(0x02);
          drillContext->state = DRILL_RH_RETRACT_TO_LIMIT_WAIT_S;
       }
@@ -709,13 +691,13 @@ static void updateDrillContext(DRILL_CONTEXT * drillContext)
          
          setServoAcceleration(drillServoAcceleration);
          setServoVelocity(drillServoTravelVelocity);
-         sendDebug(0xCC, positionRequest);
+         CAN_SendDebug(0xCC, positionRequest);
          setServoPosition(positionRequest);
          servo_move_abs(drillContext->axis);
          
          drillContext->processedSetPoint = drillContext->manualSetPoint;
          
-         sendDebug(0xBC, 10);
+         CAN_SendDebug(0xBC, 10);
          drillContext->status &= ~(0x02);
          drillContext->state = DRILL_MANUAL_MOVE_S;
       }
@@ -745,7 +727,7 @@ static void updateDrillContext(DRILL_CONTEXT * drillContext)
       {
          servo_stop_decel(drillContext->axis);
          
-         sendDebug(0xBC, 12);
+         CAN_SendDebug(0xBC, 12);
          drillContext->control &= ~(0x02);
          drillContext->state = DRILL_STOP_S;
       }
@@ -756,7 +738,7 @@ static void updateDrillContext(DRILL_CONTEXT * drillContext)
             // todo check limits to stop
             if ( (servoStatus & 0x04) )
             {
-               sendDebug(0xBC, 11);
+               CAN_SendDebug(0xBC, 11);
                drillContext->status |= 0x02;
                drillContext->state = DRILL_IDLE_S;
             }
@@ -768,7 +750,7 @@ static void updateDrillContext(DRILL_CONTEXT * drillContext)
                positionRequest *= drillServoPulsesPerUnit;
                positionRequest /= 100L;
                
-               sendDebug(0xCD, positionRequest);
+               CAN_SendDebug(0xCD, positionRequest);
                
                setServoVelocity(drillServoTravelVelocity);
                servo_set_velocity_while_moving(drillContext->axis);
@@ -783,7 +765,7 @@ static void updateDrillContext(DRILL_CONTEXT * drillContext)
          {
             if ( (servoStatus & 0x04) )
             {
-               sendDebug(0xBC, 13);
+               CAN_SendDebug(0xBC, 13);
                drillContext->status |= 0x02;
                drillContext->state = DRILL_IDLE_S;
             }
@@ -794,7 +776,7 @@ static void updateDrillContext(DRILL_CONTEXT * drillContext)
             {
                servo_stop_decel(drillContext->axis);
                
-               sendDebug(0xBC, 2);
+               CAN_SendDebug(0xBC, 2);
                drillContext->state = DRILL_RH_STOP_FROM_RETRACT_WAIT_S;
             }
          }
@@ -805,7 +787,7 @@ static void updateDrillContext(DRILL_CONTEXT * drillContext)
                setServoPosition(-4000000);
                servo_move_rel(drillContext->axis);
                
-               sendDebug(0xBC, 3);
+               CAN_SendDebug(0xBC, 3);
                drillContext->state = DRILL_RH_EXTEND_TO_NOT_LIMIT_WAIT_S;
             }
          }
@@ -815,7 +797,7 @@ static void updateDrillContext(DRILL_CONTEXT * drillContext)
             {
                servo_stop_decel(drillContext->axis);
                
-               sendDebug(0xBC, 4);
+               CAN_SendDebug(0xBC, 4);
                drillContext->state = DRILL_RH_STOP_FROM_EXTEND_WAIT_S;
             }
          }
@@ -826,7 +808,7 @@ static void updateDrillContext(DRILL_CONTEXT * drillContext)
                setServoPosition(-drillServoHomingBackoffCount);
                servo_move_rel(drillContext->axis);
                
-               sendDebug(0xBC, 5);
+               CAN_SendDebug(0xBC, 5);
                drillContext->state = DRILL_RH_BACKOFF_S;
             }
          }
@@ -838,7 +820,7 @@ static void updateDrillContext(DRILL_CONTEXT * drillContext)
                drillContext->processedSetPoint = 0;
                drillContext->manualSetPoint = 0;
                
-               sendDebug(0xBC, 6);
+               CAN_SendDebug(0xBC, 6);
                drillContext->status |= 0x02;
                drillContext->state = DRILL_IDLE_S;
             }
@@ -1005,9 +987,13 @@ void CAN_NMTChange(U8 state)
          frontDrillContext.retractMask = 0x0400;
          //frontDrillContext.manualSetPoint = 0;
          //frontDrillContext.processedSetPoint = 0;
+
+      	processedFrontDrillSpeedSetPoint = 0;
       
          CAN_WriteProcessImageValue(0x2311, 0, frontDrillSpeedSetPoint, sizeof(frontDrillSpeedSetPoint));
          CAN_WriteProcessImageValue(0x2312, 0, frontDrillContext.manualSetPoint, sizeof(frontDrillContext.manualSetPoint));
+         CAN_WriteProcessImageValue(0x2411, 0, 0, sizeof(S16));
+         CAN_WriteProcessImageValue(0x2412, 0, 0, sizeof(S16));
 
 
          // initialize rear drill
@@ -1022,8 +1008,12 @@ void CAN_NMTChange(U8 state)
          //rearDrillContext.manualSetPoint = 0;
          //rearDrillContext.processedSetPoint = 0;
 
+      	processedRearDrillSpeedSetPoint = 0;
+
          CAN_WriteProcessImageValue(0x2313, 0, rearDrillSpeedSetPoint, sizeof(rearDrillSpeedSetPoint));
          CAN_WriteProcessImageValue(0x2314, 0, rearDrillContext.manualSetPoint, sizeof(rearDrillContext.manualSetPoint));
+         CAN_WriteProcessImageValue(0x2413, 0, 0, sizeof(S16));
+         CAN_WriteProcessImageValue(0x2414, 0, 0, sizeof(S16));
       }
       else if ( (INSPECT_MODE == deviceMode) )
       {
@@ -1057,7 +1047,14 @@ U32 CAN_ODRead(U16 index, U8 subIndex)
    U32 result = CAN_ABORT_UNSUPPORTED;
 
    // evaluate
-   if ((index >= 0x2311) && (index <= 0x2314))
+   if ( (index >= 0x2311) && (index <= 0x2314) )
+   {
+      if (REPAIR_MODE == deviceMode)
+      {
+         result = 0;
+      }
+   }
+   else if ( (index >= 0x2411) && (index <= 0x2414) )
    {
       if (REPAIR_MODE == deviceMode)
       {
@@ -1194,6 +1191,10 @@ U32 CAN_ODWrite(U16 index, U8 subIndex, U8 * data, U8 length)
          result = 0;
       }
    }
+   else if ((index >= 0x2411) && (index <= 0x2414))
+   {
+      // read only
+   }
    else if (0x2500 == index)
    {
       if (2 == length)
@@ -1202,6 +1203,10 @@ U32 CAN_ODWrite(U16 index, U8 subIndex, U8 * data, U8 length)
          memcpy(&processControl, data, length);
          result = checkProcessControl(processControl);
       }
+   }
+   else if ( (0x2501 == index) )
+   {
+      // read only
    }
    else
    {

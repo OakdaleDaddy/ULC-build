@@ -291,11 +291,10 @@ static u16_t indexerPeckCuttingIncrement;
 static u16_t indexerPeckRetractionDistance;
 static u16_t indexerPeckRetractionPosition;
 
-static s16_t actualFrontDrillSpeed;
-static u16_t actualFrontDrillIndex;
-static s16_t actualRearDrillSpeed;
-static u16_t actualRearDrillIndex;
-static u16_t actualSensorIndex;
+static s16_t canOd2411;
+static u16_t canOd2412;
+static s16_t canOd2413;
+static u16_t canOd2414;
 
 static u32_t drillServoProportionalControlConstant;
 static u32_t drillServoIntegralControlConstant;
@@ -1543,43 +1542,23 @@ static u32_t loadDeviceData(u8_t signalApplication, u16_t index, u8_t subIndex, 
       }
       else if (0x2411 == index)
       {
-         if (REPAIR_MODE == deviceMode)
-         {
-            size = sizeof(actualFrontDrillSpeed);
-            source = (u8_t *)&actualFrontDrillSpeed;
-         }
+         size = sizeof(canOd2411);
+         source = (u8_t *)&canOd2411;
       }
       else if (0x2412 == index)
       {
-         if (REPAIR_MODE == deviceMode)
-         {
-            size = sizeof(actualFrontDrillIndex);
-            source = (u8_t *)&actualFrontDrillIndex;
-         }
+         size = sizeof(canOd2412);
+         source = (u8_t *)&canOd2412;
       }
       else if (0x2413 == index)
       {
-         if (REPAIR_MODE == deviceMode)
-         {
-            size = sizeof(actualRearDrillSpeed);
-            source = (u8_t *)&actualRearDrillSpeed;
-         }
+         size = sizeof(canOd2413);
+         source = (u8_t *)&canOd2413;
       }
       else if (0x2414 == index)
       {
-         if (REPAIR_MODE == deviceMode)
-         {
-            size = sizeof(actualRearDrillIndex);
-            source = (u8_t *)&actualRearDrillIndex;
-         }
-      }
-      else if (0x2415 == index)
-      {
-         if (INSPECT_MODE == deviceMode)
-         {
-            size = sizeof(actualSensorIndex);
-            source = (u8_t *)&actualSensorIndex;
-         }
+         size = sizeof(canOd2414);
+         source = (u8_t *)&canOd2414;
       }
       else if (0x2441 == index)
       {
@@ -1649,6 +1628,7 @@ static u32_t storeDeviceData(u8_t signalApplication, u16_t index, u8_t subIndex,
    if ( (0 == result) )
    {
       // todo set result here 
+      uint8_t checkTxPdo = 0;
 
       if ((0x1016 == index) && (1 == subIndex))
       {
@@ -2052,6 +2032,26 @@ static u32_t storeDeviceData(u8_t signalApplication, u16_t index, u8_t subIndex,
 		      }
 	      }
       }	
+      else if (0x2411 == index)
+      {
+         canOd2411 = (u16_t)getValue(&source[offset], length);
+         checkTxPdo = 1;
+      }
+      else if (0x2412 == index)
+      {
+         canOd2412 = (u16_t)getValue(&source[offset], length);
+         checkTxPdo = 1;
+      }
+      else if (0x2413 == index)
+      {
+         canOd2413 = (u16_t)getValue(&source[offset], length);
+         checkTxPdo = 1;
+      }
+      else if (0x2414 == index)
+      {
+         canOd2414 = (u16_t)getValue(&source[offset], length);
+         checkTxPdo = 1;
+      }
       else if (0x2500 == index)
       {
          deviceControl = (u16_t)getValue(&source[offset], length);
@@ -2059,15 +2059,17 @@ static u32_t storeDeviceData(u8_t signalApplication, u16_t index, u8_t subIndex,
       else if (0x2501 == index)
       {
          deviceStatus = (u16_t)getValue(&source[offset], length);
+         checkTxPdo = 1;
+      }
 
-         if (DEVICE_OPERATIONAL_S == deviceState)
-         {
-            u8_t i;
+      if ( (0 != checkTxPdo) &&
+           (DEVICE_OPERATIONAL_S == deviceState) )
+      {
+         u8_t i;
       
-            for (i=0; i<4; i++)
-            {
-               activateTxPdoMap(&txPdoMapping[i], index, subIndex);
-            }
+         for (i=0; i<4; i++)
+         {
+            activateTxPdoMap(&txPdoMapping[i], index, subIndex);
          }
       }
    }
@@ -3110,11 +3112,10 @@ static void setPreOperationalState(void)
    indexerPeckRetractionDistance = 0;
    indexerPeckRetractionPosition = 0;
 
-   actualFrontDrillSpeed = 0;
-   actualFrontDrillIndex = 0;
-   actualRearDrillSpeed = 0;
-   actualRearDrillIndex = 0;
-   actualSensorIndex = 0;
+   canOd2411 = 0;
+   canOd2412 = 0;
+   canOd2413 = 0;
+   canOd2414 = 0;
     
    accelerometerSampleTimeLimit = SYSTIME_NOW;
    drillPositionSampleTimeLimit = SYSTIME_NOW;

@@ -130,6 +130,8 @@ DEFINES: ENABLING CANopen DATA CALL-BACK FUNCTIONS
 #define USECB_APPSDO_READ  1
 #define USECB_APPSDO_WRITE 0
 
+// Support of dynamic PDO mapping.
+#define USE_DYNAMIC_PDO_MAPPING 1
 
 /**************************************************************************
 DEFINES: ADDITIONAL ENABLING/DISABLING CODE FUNCTIONALITY OF PLUS PACKAGE
