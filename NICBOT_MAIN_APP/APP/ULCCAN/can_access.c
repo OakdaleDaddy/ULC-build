@@ -59,6 +59,27 @@ void CAN_SendDebug(U32 a, U32 b)
 
 /* See can_access.h for function description */
 /**
+* Calls into stack to return hardware time count.
+*/
+U16 CAN_GetTime(void)
+{
+   return ( canGetTime() );
+}
+
+/* See can_access.h for function description */
+/**
+* Calls into stack to evaluate time count.
+*/
+U8 CAN_IsTimeExpired(U16 timeCount)
+{
+   return ( canIsTimeExpired(timeCount) );
+}
+
+/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+
+/* See can_access.h for function description */
+/**
 * Calls into stack to set baud rate for next reset.
 */
 void CAN_SetBaudrate(U16 canBps)

@@ -1,4 +1,4 @@
-/*
+                                                                                                       /*
 */
 /**
 * @file
@@ -99,6 +99,23 @@ void CAN_SendDebug(U32 a, U32 b)
    MCOP_PushDebug(a, b);
 }
 
+/* See can_access.h for function description */
+/**
+* Calls into stack to return hardware time count.
+*/
+U16 CAN_GetTime(void)
+{
+   return ( MCOHW_GetTime() );
+}
+
+/* See can_access.h for function description */
+/**
+* Calls into stack to evaluate time count.
+*/
+U8 CAN_IsTimeExpired(U16 timeCount)
+{
+   return ( MCOHW_IsTimeExpired(timeCount) );
+}
 
 /* See can_access.h for function description */
 /**
@@ -152,3 +169,4 @@ U8 CAN_ProcessStack(void)
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 #endif /* USE_MICROCAN_OPEN */
+

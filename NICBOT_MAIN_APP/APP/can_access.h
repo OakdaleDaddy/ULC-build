@@ -53,6 +53,23 @@ void CAN_WriteProcessImageValue(U16 index, U8 subIndex, U32 value, U8 length);
 void CAN_SendDebug(U32 a, U32 b);
 
 /**
+* @brief Function to get interface time count.
+*
+* @return millisecond tick count
+*/
+U16 CAN_GetTime(void);
+
+/**
+* @brief Function to check timeout.
+*
+* @warning maximum measurable time is 0x8000 (about 32 seconds).
+*
+* @return 0 : time not reached
+* @return 1 : time has expired
+*/
+U8 CAN_IsTimeExpired(U16 timeCount);
+
+/**
 * @brief Function to assign CAN baud rate to use on reset.
 *
 * @param canBps : kilo baud rate of interface

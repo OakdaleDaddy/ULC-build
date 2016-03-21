@@ -20,10 +20,6 @@
 #define CAN_TYPE(cob) ((cob>>7) & 0xF)
 #define CAN_ID(cob) (cob & 0x7F)
 
-#define	SYSTIME_NOW		getCANTimer()
-#define	SYSTIME_MAX		0xFFFFFFFF
-#define	SYSTIME_DIFF( _First, _Second)		(( _First <= _Second ? ( _Second - _First) : (( SYSTIME_MAX - _First) + _Second)))
-
 #define MAXIMUM_HEARTBEAT_DIFF (0x0000FFFFL * 1000)
 
 #define EEPROM_CAN_CONFIGURATION_ADDRESS (256)
@@ -38,11 +34,6 @@
 
 #define CAN_MAX_TX_MSGS (8)
 #define CAN_MAX_RX_MSGS (16)
-
-#define ACCELEROMETER_SAMPLE_PERIOD (50) // mS
-#define DRILL_SAMPLE_PERIOD (100) // mS
-#define SENSOR_SAMPLE_PERIOD (100) // mS
-#define DEVICE_STATUS_SAMPLE_PERIOD (50) // mS
 
 typedef enum
 {
@@ -87,26 +78,26 @@ typedef long s32_t;
 
 typedef struct  
 {
-	u16_t cobId;
-	u8_t dlc;
-	u8_t data[8];	
+   u16_t cobId;
+   u8_t dlc;
+   u8_t data[8];  
 }CAN_MSG;
 
 typedef struct
 {
-    u8_t mapCount; // number of mappings
-    u32_t mappings[8]; // maps
+   u8_t mapCount; // number of mappings
+   u32_t mappings[8]; // maps
 
-    u8_t txType; // transmit type: 0..F0=n syncs, FE=event, FF=event
-    u32_t cobId; // cob of PDO
-    u16_t inhibitTime; // time used for inhibit, 100uS units
-    u16_t eventTime; // time used for event, mS units
+   u8_t txType; // transmit type: 0..F0=n syncs, FE=event, FF=event
+   u32_t cobId; // cob of PDO
+   u16_t inhibitTime; // time used for inhibit, 100uS units
+   u16_t eventTime; // time used for event, mS units
 
-    u8_t syncCount; // number of received syncs
-    u32_t inhibitTimeCount; // used for inhibit time tracking
-    u32_t processTimeCount; // used for time tracking
-    u8_t initialTriggered; // used to trigger initial change event on start
-    u8_t processNeeded; // used for event activity and SYNC trigger
+   u8_t syncCount; // number of received syncs
+   u16_t inhibitTimeCount; // used for inhibit time tracking
+   u16_t processTimeCount; // used for time tracking
+   u8_t initialTriggered; // used to trigger initial change event on start
+   u8_t processNeeded; // used for event activity and SYNC trigger
 
 }DEVICE_TPDO_MAP;
 
@@ -131,7 +122,6 @@ static void setCANRx(u8_t mobId, u8_t id, u8_t mask);
 static void initCANRate(u8_t bitRateCode);
 static u8_t rxCANMsg(CAN_MSG * canMsg);
 static u8_t txCANMsg(CAN_MSG * canMsg);
-static u32_t getCANTimer(void);
 static void setCANLed(int setValue);
 
 static u8_t setServoErrorLimit(u8_t axisNum, u16_t value);
@@ -222,7 +212,7 @@ static LED_STATE ledState;
 static u16_t ledFlashCount;
 static u16_t ledFlashLimit;
 static u16_t ledFlashStep;
-static u32_t ledTimeCounter;
+static u16_t ledTimeCounter;
 
 static CAN_MSG message;
 static u8_t receiveResult;
@@ -247,18 +237,14 @@ static char * version = "v1.01 ";// __DATE__ " " __TIME__;
 static u32_t errorStatus = 0;
 static u8_t * deviceFaultCode;
 
-static u32_t now;
-static u32_t difference;
-static u32_t limit;
-
 static u32_t sdoConsumerHeartbeat;
 static u8_t consumerHeartbeatNode;
 static u16_t consumerHeartbeatTime;
 static u8_t consumerHeartbeatActive;
-static u32_t consumerHeartbeatTimeLimit;
+static u16_t consumerHeartbeatTimeLimit;
 
 static u16_t producerHeartbeatTime;
-static u32_t heartbeatTimeLimit;
+static u16_t heartbeatTimeLimit;
 
 static DEVICE_TPDO_MAP txPdoMapping[4];
 static DEVICE_RPDO_MAP rxPdoMapping[4];
@@ -313,17 +299,13 @@ static u32_t sensorServoTravelVelocity;
 static u16_t sensorServoErrorLimit;
 static s32_t sensorServoPulsesPerDegree;
 
-static u16_t accelerometerX;
-static u16_t accelerometerY;
-static u16_t accelerometerZ;
+static u16_t canOd2441;
+static u16_t canOd2442;
+static u16_t canOd2443;
 
 static u16_t deviceControl;
 static u8_t deviceControl0CCache;
 static u16_t deviceStatus;
-
-static u32_t accelerometerSampleTimeLimit;
-static u32_t drillPositionSampleTimeLimit;
-static u32_t sensorPositionSampleTimeLimit;
 
 static s16_t processedFrontDrillSpeedSetPoint;
 //static u16_t processedFrontDrillIndexSetPoint;
@@ -341,62 +323,62 @@ static const u8_t servoExcessivePositionFaultCode[8] = { 0x00, 0x30, 0x00, 0x00,
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 ISR(OVRIT_vect)
 {
-	tovf_f = 1;
-    canIsrCount += 0x00010000;	
+   tovf_f = 1;
+   canIsrCount += 0x00010000; 
 }
  
 ISR(CANIT_vect)
 {
-	CAN_MSG * nextMsg;
-	u16_t irqStatus;
-	
-	irqStatus = CANSIT;
-	
-	if ( (irqStatus & 0x0001) )
-	{		
-		Can_set_mob(MOB_0);
-		CANSTMOB = CANSTMOB & ~(0x20);
+   CAN_MSG * nextMsg;
+   u16_t irqStatus;
+   
+   irqStatus = CANSIT;
+   
+   if ( (irqStatus & 0x0001) )
+   {     
+      Can_set_mob(MOB_0);
+      CANSTMOB = CANSTMOB & ~(0x20);
 
-		nextMsg = &canRxBuffer[canRxInIndex];
+      nextMsg = &canRxBuffer[canRxInIndex];
 
-		nextMsg->dlc = Can_get_dlc();
-		can_get_data(nextMsg->data);
-		Can_get_std_id(nextMsg->cobId);
+      nextMsg->dlc = Can_get_dlc();
+      can_get_data(nextMsg->data);
+      Can_get_std_id(nextMsg->cobId);
 
-		canRxInIndex++;
-		
-		if ( (CAN_MAX_RX_MSGS == canRxInIndex) )
-		{
-			canRxInIndex = 0;
-		}
-		
-		Can_config_rx();	
-	}
+      canRxInIndex++;
+      
+      if ( (CAN_MAX_RX_MSGS == canRxInIndex) )
+      {
+         canRxInIndex = 0;
+      }
+      
+      Can_config_rx();  
+   }
 
-	if ( (irqStatus & 0x4000) )
-	{
-		Can_set_mob(MOB_14);
-		CANSTMOB = CANSTMOB & ~(0x40);
-  		setCANTx();
-	}
+   if ( (irqStatus & 0x4000) )
+   {
+      Can_set_mob(MOB_14);
+      CANSTMOB = CANSTMOB & ~(0x40);
+      setCANTx();
+   }
 }
 
 static void setCANTx(void)
 {
     CAN_MSG * nextMsg;
-	u8_t i;
+   u8_t i;
 
-	if ( (canTxOutIndex != canTxInIndex) )
-	{
+   if ( (canTxOutIndex != canTxInIndex) )
+   {
         nextMsg = &canTxBuffer[canTxOutIndex];
 
-	    canLastTxOutIndex = canTxOutIndex;
-	    canTxOutIndex++;
-	    
-	    if ( (CAN_MAX_TX_MSGS == canTxOutIndex) )
-	    {
-    	    canTxOutIndex = 0;
-	    }
+       canLastTxOutIndex = canTxOutIndex;
+       canTxOutIndex++;
+       
+       if ( (CAN_MAX_TX_MSGS == canTxOutIndex) )
+       {
+          canTxOutIndex = 0;
+       }
 
         Can_set_mob(MOB_14);
         Can_mob_abort();
@@ -412,161 +394,145 @@ static void setCANTx(void)
         Can_clear_rtr();
         Can_set_dlc(nextMsg->dlc);
         Can_config_tx();
-	}
+   }
     else
-	{
-    	canTxActive = 0;
-	}   		   
+   {
+      canTxActive = 0;
+   }           
 }
 
 __attribute__((optimize("O0")))
 static void setCANRx(u8_t mobId, u8_t id, u8_t mask)
 {
-	Can_set_mob(mobId);
-	Can_clear_mob();
-	Can_clear_ide();
-	Can_set_std_id(id);
-	Can_set_std_msk(mask);
-	Can_set_rtrmsk();
-	Can_clear_rtr();
-	Can_set_idemsk();
-	Can_config_rx();
+   Can_set_mob(mobId);
+   Can_clear_mob();
+   Can_clear_ide();
+   Can_set_std_id(id);
+   Can_set_std_msk(mask);
+   Can_set_rtrmsk();
+   Can_clear_rtr();
+   Can_set_idemsk();
+   Can_config_rx();
 }
 
 static void initCANRate(u8_t bitRateCode)
 {
-    Can_reset();
+   Can_reset();
     
-    get_conf_byte(EB);
+   get_conf_byte(EB);
         
-	// {0=10K, 1=20K, 2=50K, 3=100K, 4=125K, 5=250K, 6=500K, 7=1M} todo
-    if ( (4 == bitRateCode) )
-    {
-        // 125K
-        CANBT1 = 0x0E;
-		CANBT2 = 0x0C;
-		CANBT3 = 0x37;
-    }
-    else 
-    {
-        // 50K
-        CANBT1 = 0x26;
-        CANBT2 = 0x04;
-        CANBT3 = 0x3E;
-    }
+   // {0=10K, 1=20K, 2=50K, 3=100K, 4=125K, 5=250K, 6=500K, 7=1M} todo
+   if ( (4 == bitRateCode) )
+   {
+      // 125K
+      CANBT1 = 0x0E;
+      CANBT2 = 0x0C;
+      CANBT3 = 0x37;
+   }
+   else 
+   {
+      // 50K
+      CANBT1 = 0x26;
+      CANBT2 = 0x04;
+      CANBT3 = 0x3E;
+   }
         
-    can_clear_all_mob();
-    Can_enable();
+   can_clear_all_mob();
+   Can_enable();
 
-	canTxInIndex = 1;
-	canTxOutIndex = 1;
-	canLastTxOutIndex = 0;
-	canTxActive = 0;
+   canTxInIndex = 1;
+   canTxOutIndex = 1;
+   canLastTxOutIndex = 0;
+   canTxActive = 0;
 
-	canRxInIndex = 0;
-	canRxOutIndex = 0;
+   canRxInIndex = 0;
+   canRxOutIndex = 0;
 
-    CANTCON = 0x01;
+   CANTCON = 0xF9; // set for 8KHz
     
-	CANIE2 |= 0x01; // enable interrupt for MOB0
-	CANIE1 |= 0x40; // enable interrupt for MOB14
-	CANGIE |= 0xB1; // enable all interrupts, enable receive interrupt, enable transmit interrupt, enable timer overflow interrupt
-	setCANRx(MOB_0, 0, 0);
+   CANIE2 |= 0x01; // enable interrupt for MOB0
+   CANIE1 |= 0x40; // enable interrupt for MOB14
+   CANGIE |= 0xB1; // enable all interrupts, enable receive interrupt, enable transmit interrupt, enable timer overflow interrupt
+   setCANRx(MOB_0, 0, 0);
 }
 
 // reads CAN buffer, return 1 on load of pointer, return 0 on no load
 static u8_t rxCANMsg(CAN_MSG * canMsg)
 {
-	u8_t result = 0;
-	
-	if ( (canRxOutIndex != canRxInIndex) )
-	{
-		CAN_MSG * nextMsg;
-		u8_t i;
-		
-		nextMsg = &canRxBuffer[canRxOutIndex];
-		
-		canMsg->cobId = nextMsg->cobId;
-		canMsg->dlc = nextMsg->dlc;
-		
-		for (i=0; i<canMsg->dlc; i++)
-		{
-			canMsg->data[i] = nextMsg->data[i];
-		}
-		
-		canRxOutIndex++;
-		
-		if ( (CAN_MAX_RX_MSGS == canRxOutIndex) )
-		{
-			canRxOutIndex = 0;
-		}
+   u8_t result = 0;
+   
+   if ( (canRxOutIndex != canRxInIndex) )
+   {
+      CAN_MSG * nextMsg;
+      u8_t i;
+      
+      nextMsg = &canRxBuffer[canRxOutIndex];
+      
+      canMsg->cobId = nextMsg->cobId;
+      canMsg->dlc = nextMsg->dlc;
+      
+      for (i=0; i<canMsg->dlc; i++)
+      {
+         canMsg->data[i] = nextMsg->data[i];
+      }
+      
+      canRxOutIndex++;
+      
+      if ( (CAN_MAX_RX_MSGS == canRxOutIndex) )
+      {
+         canRxOutIndex = 0;
+      }
 
-		result = 1;
-	}
-	
-	return(result);
+      result = 1;
+   }
+   
+   return(result);
 }
 
 static u8_t txCANMsg(CAN_MSG * canMsg)
 {
-	CAN_MSG * nextMsg;
-	u8_t result;
-	
-	result = 0;
-	
-	if ( (canTxInIndex != canLastTxOutIndex) )
-	{		
-		nextMsg = &canTxBuffer[canTxInIndex];
-		memcpy(nextMsg, canMsg, sizeof(CAN_MSG));
-		
-		canTxInIndex++;
-		
-		if ( (CAN_MAX_TX_MSGS == canTxInIndex) )
-		{
-			canTxInIndex = 0;
-		}
+   CAN_MSG * nextMsg;
+   u8_t result;
+   
+   result = 0;
+   
+   if ( (canTxInIndex != canLastTxOutIndex) )
+   {     
+      nextMsg = &canTxBuffer[canTxInIndex];
+      memcpy(nextMsg, canMsg, sizeof(CAN_MSG));
+      
+      canTxInIndex++;
+      
+      if ( (CAN_MAX_TX_MSGS == canTxInIndex) )
+      {
+         canTxInIndex = 0;
+      }
 
-		if ( (0 == canTxActive) )
-		{
-			canTxActive = 1;
-			cli();
-			setCANTx();
-			sei();
-		}
-		
-		result = 1;
-	}
+      if ( (0 == canTxActive) )
+      {
+         canTxActive = 1;
+         cli();
+         setCANTx();
+         sei();
+      }
+      
+      result = 1;
+   }
 
-	return(result);
-}
-
-// return free running counter value in uS
-static u32_t getCANTimer(void)
-{
-    u32_t result;
-
-    do
-    {
-	    tovf_f = 0;
-	    *((unsigned char *)(&canIsrCount)) = CANTIML;
-	    *((unsigned char *)(&canIsrCount)+1) = CANTIMH;
-	    result = canIsrCount;
-    } while (tovf_f != 0);
-    
-    return(result);
+   return(result);
 }
 
 // set LED, 1 is on, 0 is off
 static void setCANLed(int setValue)
 {
-	PORTC &= 0xfe;
-	PORTC |= setValue;
+   PORTC &= 0xfe;
+   PORTC |= setValue;
 }
 
 // service watchdog timer
 static void serveCOP(void)
 {
-	asm( "WDR" ); // Watchdog reset
+   asm( "WDR" ); // Watchdog reset
 }
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
@@ -765,37 +731,37 @@ static u8_t pdoTxMappable(u16_t index, u8_t subIndex)
 
 static void loadTxPdoMapParameter(DEVICE_TPDO_MAP * txPdoMap, u8_t subIndex, u8_t * buffer, u32_t * dataCount)
 {
-    if (0 == subIndex)
-    {
-        buffer[0] = 5;
-        *dataCount = 1;
-    }
-    else if (1 == subIndex)
-    {
-        u32_t cobId = txPdoMap->cobId;
-        buffer[0] = ((cobId >> 0) & 0xFF);
-        buffer[1] = ((cobId >> 8) & 0xFF);
-        buffer[2] = ((cobId >> 16) & 0xFF);
-        buffer[3] = ((cobId >> 24) & 0xFF);
-        *dataCount = 4;
-    }
-    else if (2 == subIndex)
-    {
-        buffer[0] = txPdoMap->txType;
-        *dataCount = 1;
-    }
-    else if (3 == subIndex)
-    {
-        buffer[0] = ((txPdoMap->inhibitTime >> 0) & 0xFF);
-        buffer[1] = ((txPdoMap->inhibitTime >> 8) & 0xFF);
-        *dataCount = 2;
-    }
-    else if (5 == subIndex)
-    {
-        buffer[0] = ((txPdoMap->eventTime >> 0) & 0xFF);
-        buffer[1] = ((txPdoMap->eventTime >> 8) & 0xFF);
-        *dataCount = 2;
-    }
+   if (0 == subIndex)
+   {
+      buffer[0] = 5;
+      *dataCount = 1;
+   }
+   else if (1 == subIndex)
+   {
+      u32_t cobId = txPdoMap->cobId;
+      buffer[0] = ((cobId >> 0) & 0xFF);
+      buffer[1] = ((cobId >> 8) & 0xFF);
+      buffer[2] = ((cobId >> 16) & 0xFF);
+      buffer[3] = ((cobId >> 24) & 0xFF);
+      *dataCount = 4;
+   }
+   else if (2 == subIndex)
+   {
+      buffer[0] = txPdoMap->txType;
+      *dataCount = 1;
+   }
+   else if (3 == subIndex)
+   {
+      buffer[0] = ((txPdoMap->inhibitTime >> 0) & 0xFF);
+      buffer[1] = ((txPdoMap->inhibitTime >> 8) & 0xFF);
+      *dataCount = 2;
+   }
+   else if (5 == subIndex)
+   {
+      buffer[0] = ((txPdoMap->eventTime >> 0) & 0xFF);
+      buffer[1] = ((txPdoMap->eventTime >> 8) & 0xFF);
+      *dataCount = 2;
+   }
 }
 
 static void loadTxPdoMapData(DEVICE_TPDO_MAP * txPdoMap, u8_t subIndex, u8_t * buffer, u32_t * dataCount)
@@ -820,45 +786,45 @@ static void loadTxPdoMapData(DEVICE_TPDO_MAP * txPdoMap, u8_t subIndex, u8_t * b
 
 static u8_t storeTxPdoMapParameter(DEVICE_TPDO_MAP * txPdoMap, u8_t subIndex, u8_t byteCount, u32_t value)
 {
-    u8_t result = 0;
+   u8_t result = 0;
 
-    if ( (DEVICE_PREOPERATIONAL_S == deviceState) )
-    {
-        if ( (1 == subIndex) )
-        {
-            if ( (4 == byteCount) )
-            {
-                txPdoMap->cobId = value;
-                result = 1;
-            }
-        }
-        else if ( (2 == subIndex) )
-        {
-            if ( (1 == byteCount) )
-            {
-                txPdoMap->txType = (u8_t)value;
-                result = 1;
-            }
-        }
-        else if ( (3 == subIndex) )
-        {
-            if ( (2 == byteCount) )
-            {
-                txPdoMap->inhibitTime = (u16_t)value;
-                result = 1;
-            }
-        }
-        else if ( (5 == subIndex) )
-        {
-            if ( (2 == byteCount) )
-            {
-                txPdoMap->eventTime = (u16_t)value;
-                result = 1;
-            }
-        }
-    }
+   if ( (DEVICE_PREOPERATIONAL_S == deviceState) )
+   {
+      if ( (1 == subIndex) )
+      {
+         if ( (4 == byteCount) )
+         {
+            txPdoMap->cobId = value;
+            result = 1;
+         }
+      }
+      else if ( (2 == subIndex) )
+      {
+         if ( (1 == byteCount) )
+         {
+            txPdoMap->txType = (u8_t)value;
+            result = 1;
+         }
+      }
+      else if ( (3 == subIndex) )
+      {
+         if ( (2 == byteCount) )
+         {
+            txPdoMap->inhibitTime = (u16_t)value;
+            result = 1;
+         }
+      }
+      else if ( (5 == subIndex) )
+      {
+         if ( (2 == byteCount) )
+         {
+            txPdoMap->eventTime = (u16_t)value;
+            result = 1;
+         }
+      }
+   }
 
-    return (result);
+   return (result);
 }
 
 static u8_t storeTxPdoMapData(DEVICE_TPDO_MAP * txPdoMap, u8_t subIndex, u8_t byteCount, u32_t value)
@@ -970,8 +936,8 @@ static void resetTxPdoMap(DEVICE_TPDO_MAP * txPdoMap, u8_t index)
     txPdoMap->eventTime = 0;
 
     txPdoMap->syncCount = 0;
-    txPdoMap->inhibitTimeCount = SYSTIME_NOW;
-    txPdoMap->processTimeCount = SYSTIME_NOW;
+    txPdoMap->inhibitTimeCount = 0;
+    txPdoMap->processTimeCount = 0;
     txPdoMap->initialTriggered = 0;
     txPdoMap->processNeeded = 0;
 }
@@ -1207,11 +1173,11 @@ static u32_t loadDeviceData(u8_t signalApplication, u16_t index, u8_t subIndex, 
          size = sizeof(sdoConsumerHeartbeat);
          source = (u8_t *)&sdoConsumerHeartbeat;
       }
-	   else if (0x1017 == index)
-	   {
-    	   size = sizeof(producerHeartbeatTime);
-    	   source = (u8_t *)&producerHeartbeatTime;
-	   }
+      else if (0x1017 == index)
+      {
+         size = sizeof(producerHeartbeatTime);
+         source = (u8_t *)&producerHeartbeatTime;
+      }
       else if ((0x1018 == index) && (0 == subIndex))
       {
          buffer[0] = 1;
@@ -1219,9 +1185,9 @@ static u32_t loadDeviceData(u8_t signalApplication, u16_t index, u8_t subIndex, 
       }
       else if ((0x1018 == index) && (1 == subIndex))
       {
-		   u32_t serialNumber = CAN_GetSerial();
-		   memcpy(buffer, &serialNumber, 4);
-		   transferred = 4;
+         u32_t serialNumber = CAN_GetSerial();
+         memcpy(buffer, &serialNumber, 4);
+         transferred = 4;
       }
       else if ((0x1400 <= index) && (0x1403 >= index))
       {
@@ -1395,102 +1361,102 @@ static u32_t loadDeviceData(u8_t signalApplication, u16_t index, u8_t subIndex, 
             size = sizeof(indexerPeckRetractionPosition);
             source = (u8_t *)&indexerPeckRetractionPosition;
          }
-      }		
-	   else if (0x233D == index)
-	   {
-		   if (REPAIR_MODE == deviceMode)
-		   {
-			   size = sizeof(drillServoProportionalControlConstant);
-			   source = (u8_t *)&drillServoProportionalControlConstant;
-		   }
-	   }
-	   else if (0x233E == index)
-	   {
-		   if (REPAIR_MODE == deviceMode)
-		   {
-			   size = sizeof(drillServoIntegralControlConstant);
-			   source = (u8_t *)&drillServoIntegralControlConstant;
-		   }
-	   }
-	   else if (0x233F == index)
-	   {
-		   if (REPAIR_MODE == deviceMode)
-		   {
-			   size = sizeof(drillServoDerivativeControlConstant);
-			   source = (u8_t *)&drillServoDerivativeControlConstant;
-		   }
-	   }
-	   else if (0x2340 == index)
-	   {
-   		if (REPAIR_MODE == deviceMode)
-	   	{
-		   	size = sizeof(drillServoAcceleration);
-			   source = (u8_t *)&drillServoAcceleration;
-		   }
-	   }
-	   else if (0x2341 == index)
-	   {
-		   if (REPAIR_MODE == deviceMode)
-		   {
-			   size = sizeof(drillServoHomingVelocity);
-			   source = (u8_t *)&drillServoHomingVelocity;
-		   }
-	   }
-	   else if (0x2342 == index)
-	   {
-		   if (REPAIR_MODE == deviceMode)
-		   {
-			   size = sizeof(drillServoHomingBackoffCount);
-			   source = (u8_t *)&drillServoHomingBackoffCount;
-		   }
-	   }
-	   else if (0x2343 == index)
-	   {
-		   if (REPAIR_MODE == deviceMode)
-		   {
-			   size = sizeof(drillServoTravelVelocity);
-			   source = (u8_t *)&drillServoTravelVelocity;
-		   }
-	   }
-	   else if (0x2344 == index)
-	   {
-		   if (REPAIR_MODE == deviceMode)
-		   {
-			   size = sizeof(drillServoErrorLimit);
-			   source = (u8_t *)&drillServoErrorLimit;
-		   }
-	   }
-	   else if (0x2345 == index)
-   	{
-		   if (REPAIR_MODE == deviceMode)
-		   {
-			   size = sizeof(drillServoPulsesPerUnit);
-			   source = (u8_t *)&drillServoPulsesPerUnit;
-		   }
-	   }
+      }     
+      else if (0x233D == index)
+      {
+         if (REPAIR_MODE == deviceMode)
+         {
+            size = sizeof(drillServoProportionalControlConstant);
+            source = (u8_t *)&drillServoProportionalControlConstant;
+         }
+      }
+      else if (0x233E == index)
+      {
+         if (REPAIR_MODE == deviceMode)
+         {
+            size = sizeof(drillServoIntegralControlConstant);
+            source = (u8_t *)&drillServoIntegralControlConstant;
+         }
+      }
+      else if (0x233F == index)
+      {
+         if (REPAIR_MODE == deviceMode)
+         {
+            size = sizeof(drillServoDerivativeControlConstant);
+            source = (u8_t *)&drillServoDerivativeControlConstant;
+         }
+      }
+      else if (0x2340 == index)
+      {
+         if (REPAIR_MODE == deviceMode)
+         {
+            size = sizeof(drillServoAcceleration);
+            source = (u8_t *)&drillServoAcceleration;
+         }
+      }
+      else if (0x2341 == index)
+      {
+         if (REPAIR_MODE == deviceMode)
+         {
+            size = sizeof(drillServoHomingVelocity);
+            source = (u8_t *)&drillServoHomingVelocity;
+         }
+      }
+      else if (0x2342 == index)
+      {
+         if (REPAIR_MODE == deviceMode)
+         {
+            size = sizeof(drillServoHomingBackoffCount);
+            source = (u8_t *)&drillServoHomingBackoffCount;
+         }
+      }
+      else if (0x2343 == index)
+      {
+         if (REPAIR_MODE == deviceMode)
+         {
+            size = sizeof(drillServoTravelVelocity);
+            source = (u8_t *)&drillServoTravelVelocity;
+         }
+      }
+      else if (0x2344 == index)
+      {
+         if (REPAIR_MODE == deviceMode)
+         {
+            size = sizeof(drillServoErrorLimit);
+            source = (u8_t *)&drillServoErrorLimit;
+         }
+      }
+      else if (0x2345 == index)
+      {
+         if (REPAIR_MODE == deviceMode)
+         {
+            size = sizeof(drillServoPulsesPerUnit);
+            source = (u8_t *)&drillServoPulsesPerUnit;
+         }
+      }
       else if (0x2346 == index)
       {
-	      if (REPAIR_MODE == deviceMode)
-	      {
-		      buffer[0] = servo_get_status(0);
-		      transferred = 1;
-	      }
+         if (REPAIR_MODE == deviceMode)
+         {
+            buffer[0] = servo_get_status(0);
+            transferred = 1;
+         }
       }
       else if (0x2347 == index)
       {
-	      if (REPAIR_MODE == deviceMode)
-	      {
-		      buffer[0] = servo_get_status(1);
-		      transferred = 1;
-	      }
+         if (REPAIR_MODE == deviceMode)
+         {
+            buffer[0] = servo_get_status(1);
+            transferred = 1;
+         }
       }
-	   else if (0x2350 == index)
+      else if (0x2350 == index)
       {
-	      if (INSPECT_MODE == deviceMode)
-	      {
-		      size = sizeof(sensorServoAcceleration);
-		      source = (u8_t *)&sensorServoAcceleration;
-		   }
+         if (INSPECT_MODE == deviceMode)
+         {
+            size = sizeof(sensorServoAcceleration);
+            source = (u8_t *)&sensorServoAcceleration;
+         }
       }
       else if (0x2351 == index)
       {
@@ -1562,18 +1528,18 @@ static u32_t loadDeviceData(u8_t signalApplication, u16_t index, u8_t subIndex, 
       }
       else if (0x2441 == index)
       {
-         size = sizeof(accelerometerX);
-         source = (u8_t *)&accelerometerX;
+         size = sizeof(canOd2441);
+         source = (u8_t *)&canOd2441;
       }
       else if (0x2442 == index)
       {
-         size = sizeof(accelerometerY);
-         source = (u8_t *)&accelerometerY;
+         size = sizeof(canOd2442);
+         source = (u8_t *)&canOd2442;
       }
       else if (0x2443 == index)
       {
-         size = sizeof(accelerometerZ);
-         source = (u8_t *)&accelerometerZ;
+         size = sizeof(canOd2443);
+         source = (u8_t *)&canOd2443;
       }
       else if (0x2500 == index)
       {
@@ -1639,15 +1605,15 @@ static u32_t storeDeviceData(u8_t signalApplication, u16_t index, u8_t subIndex,
             result = 1;
          }
       }
-	   else if (0x1017 == index)
-	   {
-    	   if ( (2 == length) )
-    	   {
-        	   producerHeartbeatTime = (source[offset+1] << 8) | source[offset];
-        	   heartbeatTimeLimit = SYSTIME_NOW;
-        	   result = 1;
-    	   }
-	   }
+      else if (0x1017 == index)
+      {
+         if ( (2 == length) )
+         {
+            producerHeartbeatTime = (source[offset+1] << 8) | source[offset];
+            heartbeatTimeLimit = canGetTime() + producerHeartbeatTime;
+            result = 1;
+         }
+      }
       else if ((0x1400 <= index) && (0x1403 >= index))
       {
          u8_t mappingOffset = (index - 0x1400);
@@ -1837,220 +1803,270 @@ static u32_t storeDeviceData(u8_t signalApplication, u16_t index, u8_t subIndex,
                result = 1;
             }
          }
-      }	
-	   else if (0x233D == index)
-	   {
-		   if (REPAIR_MODE == deviceMode)
-		   {
-			   if (4 == length)
-			   {
+      }  
+      else if (0x233D == index)
+      {
+         if (REPAIR_MODE == deviceMode)
+         {
+            if (4 == length)
+            {
                u32_t value = (u32_t)getValue(&source[offset], length);
                 
                if ( (setServoProportionalControlConstant(0, value) != 0) &&
                     (setServoProportionalControlConstant(1, value) != 0) )
                {
-	               drillServoProportionalControlConstant = value;
-	               result = 1;
+                  drillServoProportionalControlConstant = value;
+                  result = 1;
                }
-			   }
-		   }
-	   }
-	   else if (0x233E == index)
-	   {
-		   if (REPAIR_MODE == deviceMode)
-		   {
-			   if (4 == length)
-			   {
+            }
+         }
+      }
+      else if (0x233E == index)
+      {
+         if (REPAIR_MODE == deviceMode)
+         {
+            if (4 == length)
+            {
                u32_t value = (u32_t)getValue(&source[offset], length);
                 
                if ( (setServoIntegralControlConstant(0, value) != 0) &&
                     (setServoIntegralControlConstant(1, value) != 0) )
                {
-	               drillServoIntegralControlConstant = value;
-	               result = 1;
-               }				
-			   }
-		   }
-	   }
-	   else if (0x233F == index)
-	   {
-		   if (REPAIR_MODE == deviceMode)
-		   {
-			   if (4 == length)
-			   {
+                  drillServoIntegralControlConstant = value;
+                  result = 1;
+               }           
+            }
+         }
+      }
+      else if (0x233F == index)
+      {
+         if (REPAIR_MODE == deviceMode)
+         {
+            if (4 == length)
+            {
                u32_t value = (u32_t)getValue(&source[offset], length);
                 
                if ( (setServoDerivativeControlConstant(0, value) != 0) &&
-	                 (setServoDerivativeControlConstant(1, value) != 0) )
+                    (setServoDerivativeControlConstant(1, value) != 0) )
                {
-	               drillServoDerivativeControlConstant = value;
-	               result = 1;
+                  drillServoDerivativeControlConstant = value;
+                  result = 1;
                }
-			   }
-		   }
-	   }
-	   else if (0x2340 == index)
-	   {
-		   if (REPAIR_MODE == deviceMode)
-		   {
-			   if (4 == length)
-			   {
-				   drillServoAcceleration = (u32_t)getValue(&source[offset], length);
-				   result = 1;
-			   }
-		   }
-	   }
-	   else if (0x2341 == index)
-	   {
-		   if (REPAIR_MODE == deviceMode)
-		   {
-			   if (4 == length)
-			   {
-				   drillServoHomingVelocity = (u32_t)getValue(&source[offset], length);
-				   result = 1;
-			   }
-		   }
-	   }
-	   else if (0x2342 == index)
-	   {
-		   if (REPAIR_MODE == deviceMode)
-		   {
-			   if (4 == length)
-			   {
-				   drillServoHomingBackoffCount = (u32_t)getValue(&source[offset], length);
-				   result = 1;
-			   }
-		   }
-	   }
-	   else if (0x2343 == index)
-	   {
-		   if (REPAIR_MODE == deviceMode)
-		   {
-			   if (4 == length)
-			   {
-				   drillServoTravelVelocity = (u32_t)getValue(&source[offset], length);
-				   result = 1;
-			   }
-		   }
-	   }
-	   else if (0x2344 == index)
-	   {
-		   if (REPAIR_MODE == deviceMode)
-		   {
-			   if (2 == length)
-			   {
+            }
+         }
+      }
+      else if (0x2340 == index)
+      {
+         if (REPAIR_MODE == deviceMode)
+         {
+            if (4 == length)
+            {
+               drillServoAcceleration = (u32_t)getValue(&source[offset], length);
+               result = 1;
+            }
+         }
+      }
+      else if (0x2341 == index)
+      {
+         if (REPAIR_MODE == deviceMode)
+         {
+            if (4 == length)
+            {
+               drillServoHomingVelocity = (u32_t)getValue(&source[offset], length);
+               result = 1;
+            }
+         }
+      }
+      else if (0x2342 == index)
+      {
+         if (REPAIR_MODE == deviceMode)
+         {
+            if (4 == length)
+            {
+               drillServoHomingBackoffCount = (u32_t)getValue(&source[offset], length);
+               result = 1;
+            }
+         }
+      }
+      else if (0x2343 == index)
+      {
+         if (REPAIR_MODE == deviceMode)
+         {
+            if (4 == length)
+            {
+               drillServoTravelVelocity = (u32_t)getValue(&source[offset], length);
+               result = 1;
+            }
+         }
+      }
+      else if (0x2344 == index)
+      {
+         if (REPAIR_MODE == deviceMode)
+         {
+            if (2 == length)
+            {
                u16_t value = (u32_t)getValue(&source[offset], length);
                 
                if ( (setServoErrorLimit(0, value) != 0) &&
                     (setServoErrorLimit(1, value) != 0) )
                {
-    				   drillServoErrorLimit = value;
+                  drillServoErrorLimit = value;
                   result = 1;                         
                }
-			   }
-		   }
-	   }
-	   else if (0x2345 == index)
-	   {
-		   if (REPAIR_MODE == deviceMode)
-		   {
-			   if (4 == length)
-			   {
-				   drillServoPulsesPerUnit = (u32_t)getValue(&source[offset], length);
-				   result = 1;
-			   }
-		   }
-	   }
+            }
+         }
+      }
+      else if (0x2345 == index)
+      {
+         if (REPAIR_MODE == deviceMode)
+         {
+            if (4 == length)
+            {
+               drillServoPulsesPerUnit = (u32_t)getValue(&source[offset], length);
+               result = 1;
+            }
+         }
+      }
       else if (0x2350 == index)
       {
-	      if (INSPECT_MODE == deviceMode)
-	      {
-			   if (4 == length)
-			   {
-				   sensorServoAcceleration = (u32_t)getValue(&source[offset], length);
-				   result = 1;
-			   }
-		   }
+         if (INSPECT_MODE == deviceMode)
+         {
+            if (4 == length)
+            {
+               sensorServoAcceleration = (u32_t)getValue(&source[offset], length);
+               result = 1;
+            }
+         }
       }
       else if (0x2351 == index)
       {
-	      if (INSPECT_MODE == deviceMode)
-	      {
-			   if (4 == length)
-			   {
-				   sensorServoHomingVelocity = (u32_t)getValue(&source[offset], length);
-				   result = 1;
-			   }
-		   }
+         if (INSPECT_MODE == deviceMode)
+         {
+            if (4 == length)
+            {
+               sensorServoHomingVelocity = (u32_t)getValue(&source[offset], length);
+               result = 1;
+            }
+         }
       }
       else if (0x2352 == index)
       {
-	      if (INSPECT_MODE == deviceMode)
-	      {
-		      if (4 == length)
-		      {
-			      sensorServoHomingBackoffCount = (u32_t)getValue(&source[offset], length);
-			      result = 1;
-		      }
-	      }
+         if (INSPECT_MODE == deviceMode)
+         {
+            if (4 == length)
+            {
+               sensorServoHomingBackoffCount = (u32_t)getValue(&source[offset], length);
+               result = 1;
+            }
+         }
       }
       else if (0x2354 == index)
       {
-	      if (INSPECT_MODE == deviceMode)
-	      {
-		      if (2 == length)
-		      {
+         if (INSPECT_MODE == deviceMode)
+         {
+            if (2 == length)
+            {
                u16_t value = (u16_t)getValue(&source[offset], length);
                 
                if ( (setServoErrorLimit(0, value) != 0) )
                {
-			         sensorServoErrorLimit = value;
+                  sensorServoErrorLimit = value;
                   result = 1;
                }            
-		      }
-	      }
+            }
+         }
       }
       else if (0x2355 == index)
       {
-	      if (INSPECT_MODE == deviceMode)
-	      {
-		      if (4 == length)
-		      { 
-			      sensorServoTravelVelocity = (u32_t)getValue(&source[offset], length);
-			      result = 1;
-		      }
-	      }
-      }	
+         if (INSPECT_MODE == deviceMode)
+         {
+            if (4 == length)
+            { 
+               sensorServoTravelVelocity = (u32_t)getValue(&source[offset], length);
+               result = 1;
+            }
+         }
+      }  
       else if (0x2356 == index)
       {
-	      if (INSPECT_MODE == deviceMode)
-	      {
-		      if (4 == length)
-		      {
-			      sensorServoPulsesPerDegree = (u32_t)getValue(&source[offset], length);
-			      result = 1;
-		      }
-	      }
-      }	
+         if (INSPECT_MODE == deviceMode)
+         {
+            if (4 == length)
+            {
+               sensorServoPulsesPerDegree = (u32_t)getValue(&source[offset], length);
+               result = 1;
+            }
+         }
+      }  
       else if (0x2411 == index)
       {
-         canOd2411 = (u16_t)getValue(&source[offset], length);
-         checkTxPdo = 1;
+         s16_t value = (u16_t)getValue(&source[offset], length);
+
+         if ( (value != canOd2411) )
+         {
+            canOd2411 = value;
+            checkTxPdo = 1;
+         }
       }
       else if (0x2412 == index)
       {
-         canOd2412 = (u16_t)getValue(&source[offset], length);
-         checkTxPdo = 1;
+         u16_t value = (u16_t)getValue(&source[offset], length);
+
+         if ( (value != canOd2412) )
+         {
+            canOd2412 = value;
+            checkTxPdo = 1;
+         }
       }
       else if (0x2413 == index)
       {
-         canOd2413 = (u16_t)getValue(&source[offset], length);
-         checkTxPdo = 1;
+         s16_t value = (u16_t)getValue(&source[offset], length);
+
+         if ( (value != canOd2413) )
+         {
+            canOd2413 = value;
+            checkTxPdo = 1;
+         }
       }
       else if (0x2414 == index)
       {
-         canOd2414 = (u16_t)getValue(&source[offset], length);
-         checkTxPdo = 1;
+         u16_t value = (u16_t)getValue(&source[offset], length);
+
+         if ( (value != canOd2414) )
+         {
+            canOd2414 = value;
+            checkTxPdo = 1;
+         }
+      }
+      else if (0x2441 == index)
+      {
+         u16_t value = (u16_t)getValue(&source[offset], length);
+
+         if ( (value != canOd2441) )
+         {
+            canOd2441 = value;
+            checkTxPdo = 1;
+         }
+      }
+      else if (0x2442 == index)
+      {
+         u16_t value = (u16_t)getValue(&source[offset], length);
+
+         if ( (value != canOd2442) )
+         {
+            canOd2442 = value;
+            checkTxPdo = 1;
+         }
+      }
+      else if (0x2443 == index)
+      {
+         u16_t value = (u16_t)getValue(&source[offset], length);
+
+         if ( (value != canOd2443) )
+         {
+            canOd2443 = value;
+            checkTxPdo = 1;
+         }
       }
       else if (0x2500 == index)
       {
@@ -2058,8 +2074,13 @@ static u32_t storeDeviceData(u8_t signalApplication, u16_t index, u8_t subIndex,
       }
       else if (0x2501 == index)
       {
-         deviceStatus = (u16_t)getValue(&source[offset], length);
-         checkTxPdo = 1;
+         u16_t value = (u16_t)getValue(&source[offset], length);
+
+         if ( (value != deviceStatus) )
+         {
+            deviceStatus = value;
+            checkTxPdo = 1;
+         }
       }
 
       if ( (0 != checkTxPdo) &&
@@ -2091,61 +2112,61 @@ static u32_t storeDeviceData(u8_t signalApplication, u16_t index, u8_t subIndex,
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 static u8_t sendDebug(u32_t codeA, u32_t codeB)
 {
-	CAN_MSG txMsg;
-	u8_t result;
-	
-	txMsg.cobId = CAN_COB(CAN_NMTE_T, deviceNodeId);
-	txMsg.dlc = 8;
-	
-	txMsg.data[0] = ((codeA >> 0) & 0xFF);
-	txMsg.data[1] = ((codeA >> 8) & 0xFF);
-	txMsg.data[2] = ((codeA >> 16) & 0xFF);
-	txMsg.data[3] = ((codeA >> 24) & 0xFF);
-	txMsg.data[4] = ((codeB >> 0) & 0xFF);
-	txMsg.data[5] = ((codeB >> 8) & 0xFF);
-	txMsg.data[6] = ((codeB >> 16) & 0xFF);
-	txMsg.data[7] = ((codeB >> 24) & 0xFF);
+   CAN_MSG txMsg;
+   u8_t result;
+   
+   txMsg.cobId = CAN_COB(CAN_NMTE_T, deviceNodeId);
+   txMsg.dlc = 8;
+   
+   txMsg.data[0] = ((codeA >> 0) & 0xFF);
+   txMsg.data[1] = ((codeA >> 8) & 0xFF);
+   txMsg.data[2] = ((codeA >> 16) & 0xFF);
+   txMsg.data[3] = ((codeA >> 24) & 0xFF);
+   txMsg.data[4] = ((codeB >> 0) & 0xFF);
+   txMsg.data[5] = ((codeB >> 8) & 0xFF);
+   txMsg.data[6] = ((codeB >> 16) & 0xFF);
+   txMsg.data[7] = ((codeB >> 24) & 0xFF);
 
-	result = txCANMsg(&txMsg);	
-	return(result);
+   result = txCANMsg(&txMsg); 
+   return(result);
 }
 
 static u8_t sendHeartbeat(u8_t value)
 {
-	CAN_MSG txMsg;
-	u8_t result;
+   CAN_MSG txMsg;
+   u8_t result;
 
-	txMsg.cobId = CAN_COB(CAN_NMTE_T, deviceNodeId);
+   txMsg.cobId = CAN_COB(CAN_NMTE_T, deviceNodeId);
    txMsg.dlc = 1;
    txMsg.data[0] = value;
                 
-	result = txCANMsg(&txMsg);
-	return(result);
+   result = txCANMsg(&txMsg);
+   return(result);
 }
 
 static u8_t sendEmergency(u8_t * faultCode)
 {
-	CAN_MSG txMsg;
-	u8_t result;
-	u8_t i;
-	
-	txMsg.cobId  = CAN_COB(CAN_EMGY_T, deviceNodeId);
-	txMsg.dlc = 8;
-	
-	for (i=0; i<8; i++)
-	{
-		txMsg.data[i] = faultCode[i];
-	}
-	
-	result = txCANMsg(&txMsg);
-	return(result);
+   CAN_MSG txMsg;
+   u8_t result;
+   u8_t i;
+   
+   txMsg.cobId  = CAN_COB(CAN_EMGY_T, deviceNodeId);
+   txMsg.dlc = 8;
+   
+   for (i=0; i<8; i++)
+   {
+      txMsg.data[i] = faultCode[i];
+   }
+   
+   result = txCANMsg(&txMsg);
+   return(result);
 }
 
 static u8_t sendPdoData(DEVICE_TPDO_MAP * txPdoMap)
 {
-	CAN_MSG txMsg;
-	u8_t result;
-	u8_t i;
+   CAN_MSG txMsg;
+   u8_t result;
+   u8_t i;
     u8_t offset = 0;
 
     txMsg.cobId = txPdoMap->cobId;
@@ -2162,14 +2183,14 @@ static u8_t sendPdoData(DEVICE_TPDO_MAP * txPdoMap)
 
     txMsg.dlc = offset;
 
-	result = txCANMsg(&txMsg);
-	return(result);
+   result = txCANMsg(&txMsg);
+   return(result);
 }
 
 static u8_t sendSdoData(void)
 {
-	CAN_MSG txMsg;
-	u8_t result;
+   CAN_MSG txMsg;
+   u8_t result;
 
     txMsg.cobId = CAN_COB(CAN_TSDO_T, deviceNodeId);
     txMsg.dlc = 8;
@@ -2302,14 +2323,14 @@ static u8_t sendSdoData(void)
         }
     }
 
-	result = txCANMsg(&txMsg);
-	return(result);
+   result = txCANMsg(&txMsg);
+   return(result);
 }
 
 static u8_t sendSdoAbort(u16_t index, u8_t subIndex, u32_t code)
 {
-	CAN_MSG txMsg;
-	u8_t result;
+   CAN_MSG txMsg;
+   u8_t result;
 
     txMsg.cobId = CAN_COB(CAN_TSDO_T, deviceNodeId);
     txMsg.dlc = 8;
@@ -2322,8 +2343,8 @@ static u8_t sendSdoAbort(u16_t index, u8_t subIndex, u32_t code)
     txMsg.data[6] = ((code >> 16) & 0xFF);
     txMsg.data[7] = ((code >> 24) & 0xFF);
 
-	result = txCANMsg(&txMsg);
-	return(result);
+   result = txCANMsg(&txMsg);
+   return(result);
 }
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
@@ -2335,117 +2356,103 @@ static u8_t sendSdoAbort(u16_t index, u8_t subIndex, u32_t code)
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 static void updateLED(void)
 {
-    u32_t now = SYSTIME_NOW;
-    u32_t diff = SYSTIME_DIFF (ledTimeCounter, now);
+   if ( (canIsTimeExpired(ledTimeCounter) != 0) )
+   {
+      ledTimeCounter = canGetTime() + 50;
+      ledFlashCount += 50;
 
-	if ( (diff >= 50000) )
-	{
-		ledTimeCounter = now ;
-        ledFlashCount += 50;
+      if ( (ledFlashCount >= ledFlashLimit) )
+      {
+         ledFlashStep++;
 
-		if ( (ledFlashCount >= ledFlashLimit) )
-		{
-			ledFlashStep++;
-
-			if ( (LED_PREOPERATIONAL_OK_S == ledState) )
-			{
-				if ( (1 == ledFlashStep) )
-				{
-					ledFlashLimit = 500;
-					setCANLed(0);
-				}
-				else
-				{
-					ledFlashStep = 0;
-					ledFlashLimit = 250;
-					ledFlashCount = 0;
-					setCANLed(1);
-				}
-			}
-			else if ( (LED_PREOPERATIONAL_ERROR_S == ledState) )
-			{
-				if ( (1 == ledFlashStep) )
-				{
-					ledFlashLimit = 1000;
-					setCANLed(0);
-				}
-				else
-				{
-					ledFlashStep = 0;
-					ledFlashLimit = 250;
-					ledFlashCount = 0;
-					setCANLed(1);
-				}
-			}
-			else if ( (LED_STOPPED_S == ledState) )
-			{
-				if ( (1 == ledFlashStep) )
-				{
-					ledFlashLimit = 200;
-					setCANLed(0);
-				}
-				else if ( (2 == ledFlashStep) )
-				{
-					ledFlashLimit = 300;
-					setCANLed(1);
-				}
-				else if ( (3 == ledFlashStep) )
-				{
-					ledFlashLimit = 1000;
-					setCANLed(0);
-				}
-				else
-				{
-					ledFlashStep = 0;
-					ledFlashLimit = 100;
-					ledFlashCount = 0;
-					setCANLed(1);
-				}
-			}
-		}
-	}
+         if ( (LED_PREOPERATIONAL_OK_S == ledState) )
+         {
+            if ( (1 == ledFlashStep) )
+            {
+               ledFlashLimit = 500;
+               setCANLed(0);
+            }
+            else
+            {
+               ledFlashStep = 0;
+               ledFlashLimit = 250;
+               ledFlashCount = 0;
+               setCANLed(1);
+            }
+         }
+         else if ( (LED_PREOPERATIONAL_ERROR_S == ledState) )
+         {
+            if ( (1 == ledFlashStep) )
+            {
+               ledFlashLimit = 1000;
+               setCANLed(0);
+            }
+            else
+            {
+               ledFlashStep = 0;
+               ledFlashLimit = 250;
+               ledFlashCount = 0;
+               setCANLed(1);
+            }
+         }  
+         else if ( (LED_STOPPED_S == ledState) )
+         {
+            if ( (1 == ledFlashStep) )
+            {
+               ledFlashLimit = 200;
+               setCANLed(0);
+            }
+            else if ( (2 == ledFlashStep) )
+            {
+               ledFlashLimit = 300;
+               setCANLed(1);
+            }
+            else if ( (3 == ledFlashStep) )
+            {
+               ledFlashLimit = 1000;
+               setCANLed(0);
+            }
+            else
+            {
+               ledFlashStep = 0;
+               ledFlashLimit = 100;
+               ledFlashCount = 0;
+               setCANLed(1);
+            }
+         }
+      }
+   }
 }
 
 static void updateConsumerHeartbeat(void)
 {
-    if ( (0 != consumerHeartbeatActive) &&
-		 (0 == deviceFaultCode) )   
-    {
-        now = SYSTIME_NOW;
-        difference = SYSTIME_DIFF (consumerHeartbeatTimeLimit, now);
-        limit = (u32_t)consumerHeartbeatTime * 1000;
-
-	    if ( (difference < MAXIMUM_HEARTBEAT_DIFF) && (difference > limit) )
-        {
-		    setDeviceFault(consumerHeartbeatLostFaultCode);			
-			sendDebug(difference, now);
-        }
-	}
+   if ( (0 != consumerHeartbeatActive) &&
+        (0 == deviceFaultCode) )   
+   {
+      if ( (canIsTimeExpired(consumerHeartbeatTimeLimit) != 0) )
+      {
+         setDeviceFault(consumerHeartbeatLostFaultCode);       
+      }  
+   }
 }
 
 static void updateProducerHeartbeat(void)
 {
-    if ( (0 != producerHeartbeatTime) )
-    {
-        u32_t now = SYSTIME_NOW;
-        u32_t difference = SYSTIME_DIFF (heartbeatTimeLimit, now);
-        u32_t limit = (u32_t)producerHeartbeatTime * 1000;
-
-        if ( (difference >= limit) )
-        {
-            heartbeatTimeLimit = now ;
-            u8_t stateValue = (DEVICE_PREOPERATIONAL_S == deviceState) ? 0x7F : ( (DEVICE_OPERATIONAL_S == deviceState) ? 5 : 4);
-            sendHeartbeat(stateValue);
-        }
-    }
+   if ( (0 != producerHeartbeatTime) )
+   {
+      if ( (canIsTimeExpired(heartbeatTimeLimit) != 0) )
+      {
+         heartbeatTimeLimit = canGetTime() + producerHeartbeatTime;
+         u8_t stateValue = (DEVICE_PREOPERATIONAL_S == deviceState) ? 0x7F : ( (DEVICE_OPERATIONAL_S == deviceState) ? 5 : 4);
+         sendHeartbeat(stateValue);
+      }
+   }
 }
 
 static void updateTxPdoMap(DEVICE_TPDO_MAP * txPdoMap)
 {
     if ( (DEVICE_OPERATIONAL_S == deviceState) )
     {
-        u32_t now = SYSTIME_NOW;
-        
         if ( (254 == txPdoMap->txType) &&
              (0 == txPdoMap->initialTriggered) )
         {
@@ -2455,12 +2462,9 @@ static void updateTxPdoMap(DEVICE_TPDO_MAP * txPdoMap)
         
         if ( (0 != txPdoMap->eventTime) )
         {
-            u32_t difference = SYSTIME_DIFF (txPdoMap->processTimeCount, now);
-            u32_t limit = (u32_t)txPdoMap->eventTime * 1000;
-
-            if (difference >= limit)
+            if ( (canIsTimeExpired(txPdoMap->processTimeCount) != 0) )
             {
-                txPdoMap->processTimeCount = now;
+                txPdoMap->processTimeCount = canGetTime() + txPdoMap->eventTime;
 
                 // 254 is transmit by change event, 255 is transmit by time event
                 if ( (255 == txPdoMap->txType) )
@@ -2472,13 +2476,10 @@ static void updateTxPdoMap(DEVICE_TPDO_MAP * txPdoMap)
 
         if ( (0 != txPdoMap->processNeeded) )
         {
-            u32_t difference = SYSTIME_DIFF (txPdoMap->inhibitTimeCount, now);
-            u32_t limit = (u32_t)txPdoMap->inhibitTime * 100;
-            
-            if (difference >= limit)
+            if ( (canIsTimeExpired(txPdoMap->inhibitTimeCount) != 0) )
             {
                 sendPdoData(txPdoMap);
-                txPdoMap->inhibitTimeCount = now;
+                txPdoMap->inhibitTimeCount = canGetTime() + (txPdoMap->inhibitTime / 10);
                 txPdoMap->processNeeded = 0;
             }
         }
@@ -2854,135 +2855,134 @@ static void abortSdoTransfer(u8_t * frame)
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 static void processNmtMessage(u8_t * frame)
 {
-	if ( (0 == frame[1]) ||
-	     (deviceNodeId == frame[1]) )
-	{
-		if ( (0x01 == frame[0]) )
-		{
-			setOperationalState();
-		}
-		else if ( (0x02 == frame[0]) )
-		{
-			setStoppedState();
-		}
-		else if ( (0x80 == frame[0]) )
-		{
-		   setPreOperationalState();
-		}
-		else if ( (0x81 == frame[0]) )
+   if ( (0 == frame[1]) ||
+        (deviceNodeId == frame[1]) )
+   {
+      if ( (0x01 == frame[0]) )
       {
-			CAN_ResetApplication();
+         setOperationalState();
+      }
+      else if ( (0x02 == frame[0]) )
+      {
+         setStoppedState();
+      }
+      else if ( (0x80 == frame[0]) )
+      {
+         setPreOperationalState();
+      }
+      else if ( (0x81 == frame[0]) )
+      {
+         CAN_ResetApplication();
       }
       else if ( (0x82 == frame[0]) )
-		{
+      {
          CAN_ReloadFlash();
-		   setPreOperationalState();
+         setPreOperationalState();
          sendHeartbeat(0);
-		}
-	}
+      }
+   }
 }
 
 static void processSyncMessage(void)
 {
-	u8_t i;
-	
-	for (i=0; i<4 ;i++)
-	{
-    	if ( (txPdoMapping[i].txType >= 1) && (txPdoMapping[i].txType <= 240) )
-    	{
-        	txPdoMapping[i].syncCount++;
+   u8_t i;
+   
+   for (i=0; i<4 ;i++)
+   {
+      if ( (txPdoMapping[i].txType >= 1) && (txPdoMapping[i].txType <= 240) )
+      {
+         txPdoMapping[i].syncCount++;
 
-        	if ( (txPdoMapping[i].syncCount >= txPdoMapping[i].txType) )
-        	{
-            	txPdoMapping[i].syncCount = 0;
-            	txPdoMapping[i].processNeeded = 1;
-        	}
-    	}
+         if ( (txPdoMapping[i].syncCount >= txPdoMapping[i].txType) )
+         {
+               txPdoMapping[i].syncCount = 0;
+               txPdoMapping[i].processNeeded = 1;
+         }
+      }
 
-    	if ( (rxPdoMapping[i].txType >= 1) && (rxPdoMapping[i].txType <= 240) )
-    	{
-        	rxPdoMapping[i].syncCount++;
+      if ( (rxPdoMapping[i].txType >= 1) && (rxPdoMapping[i].txType <= 240) )
+      {
+         rxPdoMapping[i].syncCount++;
 
-        	if ( (rxPdoMapping[i].syncCount >= rxPdoMapping[i].txType) )
-        	{
-            	if ( (0 != rxPdoMapping[i].length) )
-            	{
-                	rxPdoMapping[i].processNeeded = 1;
-            	}
+         if ( (rxPdoMapping[i].syncCount >= rxPdoMapping[i].txType) )
+         {
+               if ( (0 != rxPdoMapping[i].length) )
+               {
+                  rxPdoMapping[i].processNeeded = 1;
+               }
 
-            	rxPdoMapping[i].syncCount = 0;
-        	}
-    	}
-	}
+               rxPdoMapping[i].syncCount = 0;
+         }
+      }
+   }
 }
 
 static void processRxPdoMessage(u8_t pdoId, u8_t * frame, u8_t length)
 {
-	u8_t i;
-	u8_t pdoIndex = pdoId - 1;
-	DEVICE_RPDO_MAP * pdoMap = &rxPdoMapping[pdoIndex];
+   u8_t i;
+   u8_t pdoIndex = pdoId - 1;
+   DEVICE_RPDO_MAP * pdoMap = &rxPdoMapping[pdoIndex];
 
-	for (i=0; i<length ;i++)
-	{
-    	pdoMap->frame[i] = frame[i];
-	}
+   for (i=0; i<length ;i++)
+   {
+      pdoMap->frame[i] = frame[i];
+   }
 
-	pdoMap->length = length;
+   pdoMap->length = length;
 
     if ( (0 == pdoMap->txType) )
     {
         // evaluate index/subIndex, begin action, process when ready
     }        
-	else if ( (254 == pdoMap->txType) || (255 == pdoMap->txType) )
-	{
-    	pdoMap->processNeeded = 1;
-	}
+   else if ( (254 == pdoMap->txType) || (255 == pdoMap->txType) )
+   {
+      pdoMap->processNeeded = 1;
+   }
 }
 
 static void processSdoMessage(u8_t * frame)
 {
-	u8_t css = (int)((frame[0] >> 5) & 0x7);
+   u8_t css = (int)((frame[0] >> 5) & 0x7);
 
-	if ( (0 == css) )
-	{
-		processSdoDownload(frame);
-	}
-	else if ( (1 == css) )
-	{
-		initiateSdoDownload(frame);
-	}
-	else if ( (2 == css) )
-	{
-		initiateSdoUpload(frame);
-	}
-	else if ( (3 == css) )
-	{
-		processSdoUpload(frame);
-	}
-	else if ( (4 == css) )
-	{
-		abortSdoTransfer(frame);
-	}
-	else
-	{
-		u16_t index = index = (frame[1] << 8) | frame[0];
-		u8_t subIndex = subIndex = frame[2];
+   if ( (0 == css) )
+   {
+      processSdoDownload(frame);
+   }
+   else if ( (1 == css) )
+   {
+      initiateSdoDownload(frame);
+   }
+   else if ( (2 == css) )
+   {
+      initiateSdoUpload(frame);
+   }
+   else if ( (3 == css) )
+   {
+      processSdoUpload(frame);
+   }
+   else if ( (4 == css) )
+   {
+      abortSdoTransfer(frame);
+   }
+   else
+   {
+      u16_t index = index = (frame[1] << 8) | frame[0];
+      u8_t subIndex = subIndex = frame[2];
 
-		sendSdoAbort(index, subIndex, 0x08000000);
-	}
+      sendSdoAbort(index, subIndex, 0x08000000);
+   }
 }
 
 static void processNmteMessage(u8_t messageDeviceId)
-{
-	if ( (0 != consumerHeartbeatTime) &&
-         (messageDeviceId == consumerHeartbeatNode))
-	{
-		consumerHeartbeatActive = 1;
-		consumerHeartbeatTimeLimit = SYSTIME_NOW;
-		sendDebug(0xAA, consumerHeartbeatTimeLimit);
-	}	
+{  
+   if ( (0 != consumerHeartbeatTime) &&
+        (messageDeviceId == consumerHeartbeatNode) )
+   {
+      consumerHeartbeatActive = 1;
+      consumerHeartbeatTimeLimit = canGetTime() + consumerHeartbeatTime;
+      sendDebug(0xAA, consumerHeartbeatTimeLimit);
+   }  
 }
-
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
@@ -2993,16 +2993,16 @@ static void processNmteMessage(u8_t messageDeviceId)
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 static void setLedState(LED_STATE state)
 {
-	ledState = state;
-	ledFlashStep = 0;
-	ledFlashLimit = 0;
-	ledFlashCount = 0;
-	ledTimeCounter = SYSTIME_NOW;
+   ledState = state;
+   ledFlashStep = 0;
+   ledFlashLimit = 0;
+   ledFlashCount = 0;
+   ledTimeCounter = canGetTime() + 50;
 
-	if ( (LED_OPERATIONAL_S == state) )
-	{
-		setCANLed(1);
-	}
+   if ( (LED_OPERATIONAL_S == state) )
+   {
+      setCANLed(1);
+   }
 }
 
 static void setDeviceFault(const u8_t * faultCode)
@@ -3010,13 +3010,13 @@ static void setDeviceFault(const u8_t * faultCode)
     if ( (0 == deviceFaultCode) )
     {
         // store
-	    deviceFaultCode = (u8_t *)faultCode;
+       deviceFaultCode = (u8_t *)faultCode;
 
-	    // load fault error code
-		errorStatus = (u32_t)getValue(&deviceFaultCode[4], 4);
+       // load fault error code
+      errorStatus = (u32_t)getValue(&deviceFaultCode[4], 4);
 
-		// emit emergency code
-		sendEmergency(deviceFaultCode);
+      // emit emergency code
+      sendEmergency(deviceFaultCode);
     }
 }
 
@@ -3030,21 +3030,21 @@ static void setConsumerHeartbeatTime(u32_t value)
 
 static void setPreOperationalState(void)
 {
-    int i;
+   int i;
 
-	deviceState = DEVICE_PREOPERATIONAL_S;
-	transferActive = 0;
+   deviceState = DEVICE_PREOPERATIONAL_S;
+   transferActive = 0;
 
-	deviceNodeId = assignedNodeId;
+   deviceNodeId = assignedNodeId;
    deviceMode = canOd2102;
 
-	if ( (0 == deviceNodeId) || (deviceNodeId > 127) )
-	{
-		deviceNodeId = DEFAULT_DEVICE_NODE_ID;
-	}
+   if ( (0 == deviceNodeId) || (deviceNodeId > 127) )
+   {
+      deviceNodeId = DEFAULT_DEVICE_NODE_ID;
+   }
 
    if ( (REPAIR_MODE == deviceMode) )
-	{
+   {
       drillServoProportionalControlConstant = 30;
       drillServoIntegralControlConstant = 15;
       drillServoDerivativeControlConstant = 767;
@@ -3067,35 +3067,35 @@ static void setPreOperationalState(void)
       setServoErrorLimit(0, drillServoErrorLimit);
       setServoErrorLimit(1, drillServoErrorLimit);
    }
-	else if ( (INSPECT_MODE == deviceMode) )
-	{
-   	sensorServoAcceleration = 2560;
-   	sensorServoHomingVelocity = 1310720;
-   	sensorServoHomingBackoffCount = 153641;
-   	sensorServoTravelVelocity = 2621440;
-   	sensorServoErrorLimit = 300;
-   	sensorServoPulsesPerDegree = 23199;
+   else if ( (INSPECT_MODE == deviceMode) )
+   {
+      sensorServoAcceleration = 2560;
+      sensorServoHomingVelocity = 1310720;
+      sensorServoHomingBackoffCount = 153641;
+      sensorServoTravelVelocity = 2621440;
+      sensorServoErrorLimit = 300;
+      sensorServoPulsesPerDegree = 23199;
 
-   	setServoErrorLimit(0, sensorServoErrorLimit);
+      setServoErrorLimit(0, sensorServoErrorLimit);
    }
+   
+   DDRC |= 0x3;
+   PORTC &= 0xFC;
+   setCANLed(0);
+   
+   initCANRate(assignedBaudrateCode);
 
-	DDRC |= 0x3;
-	PORTC &= 0xFC;
-	setCANLed(0);
-	
-	initCANRate(assignedBaudrateCode);
-
-	errorStatus = 0;
-	deviceFaultCode = 0;
+   errorStatus = 0;
+   deviceFaultCode = 0;
     
-	setConsumerHeartbeatTime(0);
-	producerHeartbeatTime = 0;
+   setConsumerHeartbeatTime(0);
+   producerHeartbeatTime = 0;
 
-	for (i=0; i<4; i++)
-	{
-		resetTxPdoMap(&txPdoMapping[i], i);
-		resetRxPdoMap(&rxPdoMapping[i], i);
-	}
+   for (i=0; i<4; i++)
+   {
+      resetTxPdoMap(&txPdoMapping[i], i);
+      resetRxPdoMap(&rxPdoMapping[i], i);
+   }
 
    canOd2311 = 0;
    canOd2312 = 0;
@@ -3116,41 +3116,47 @@ static void setPreOperationalState(void)
    canOd2412 = 0;
    canOd2413 = 0;
    canOd2414 = 0;
-    
-   accelerometerSampleTimeLimit = SYSTIME_NOW;
-   drillPositionSampleTimeLimit = SYSTIME_NOW;
-   sensorPositionSampleTimeLimit = SYSTIME_NOW;
 
-   accelerometerX = 0;
-   accelerometerY = 0;
-   accelerometerZ = 0;
-	
-   deviceControl = 0;	
+   canOd2441 = 0;
+   canOd2442 = 0;
+   canOd2443 = 0;
+   
+   deviceControl = 0;   
    deviceControl0CCache = 0;
-	
-	processedFrontDrillSpeedSetPoint = 0;
-	//processedFrontDrillIndexSetPoint = 0;
-	processedRearDrillSpeedSetPoint = 0;
-	//processedRearDrillIndexSetPoint = 0;
-	processedSensorIndexSetPoint = 0;
-	processedDeviceControl = 0;
+   
+   processedFrontDrillSpeedSetPoint = 0;
+   //processedFrontDrillIndexSetPoint = 0;
+   processedRearDrillSpeedSetPoint = 0;
+   //processedRearDrillIndexSetPoint = 0;
+   processedSensorIndexSetPoint = 0;
+   processedDeviceControl = 0;
 
    setLedState(LED_PREOPERATIONAL_OK_S);
-	CAN_NMTChange(127);
+   CAN_NMTChange(127);
 }
 
 static void setOperationalState(void)
 {
-	deviceState = DEVICE_OPERATIONAL_S;
-	setLedState(LED_OPERATIONAL_S);
-	CAN_NMTChange(5);
+   int i;
+
+   deviceState = DEVICE_OPERATIONAL_S;
+
+   for (i=0; i<4; i++)
+   {
+      u16_t now = canGetTime();
+      txPdoMapping[i].inhibitTimeCount = now;
+      txPdoMapping[i].processTimeCount = now + txPdoMapping[i].eventTime;
+   }
+
+   setLedState(LED_OPERATIONAL_S);
+   CAN_NMTChange(5);
 }
 
 static void setStoppedState(void)
 {
-	deviceState = DEVICE_STOPPED_S;
-	setLedState(LED_STOPPED_S);
-	CAN_NMTChange(4);
+   deviceState = DEVICE_STOPPED_S;
+   setLedState(LED_STOPPED_S);
+   CAN_NMTChange(4);
 }
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
@@ -3161,28 +3167,28 @@ static void setStoppedState(void)
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 static void executePreOperationalState(void)
 {
-	updateLED();
-	updateProducerHeartbeat();
+   updateLED();
+   updateProducerHeartbeat();
 
-	receiveResult = rxCANMsg(&message);
+   receiveResult = rxCANMsg(&message);
 
-	if ( (0 != receiveResult) )
-	{
-		messageType = CAN_TYPE(message.cobId);
-		messageDeviceId = CAN_ID(message.cobId);
+   if ( (0 != receiveResult) )
+   {
+      messageType = CAN_TYPE(message.cobId);
+      messageDeviceId = CAN_ID(message.cobId);
 
-		if ( (0 == messageDeviceId) || (deviceNodeId == messageDeviceId) )
-		{
-			if ( (CAN_NMT_T ==  messageType) )
-			{
-				processNmtMessage(message.data);
-			}
-			else if ( (CAN_RSDO_T ==  messageType) )
-			{
-				processSdoMessage(message.data);
-			}
-		}
-	}
+      if ( (0 == messageDeviceId) || (deviceNodeId == messageDeviceId) )
+      {
+         if ( (CAN_NMT_T ==  messageType) )
+         {
+            processNmtMessage(message.data);
+         }
+         else if ( (CAN_RSDO_T ==  messageType) )
+         {
+            processSdoMessage(message.data);
+         }
+      }
+   }
 }
 
 static void executeOperationalState(void)
@@ -3191,80 +3197,80 @@ static void executeOperationalState(void)
 
    updateLED();
    updateConsumerHeartbeat();
-	updateProducerHeartbeat();
+   updateProducerHeartbeat();
 
-	for (i=0; i<4; i++)
-	{
-		updateTxPdoMap(&txPdoMapping[i]);
-		updateRxPdoMap(&rxPdoMapping[i]);
-	}
+   for (i=0; i<4; i++)
+   {
+      updateTxPdoMap(&txPdoMapping[i]);
+      updateRxPdoMap(&rxPdoMapping[i]);
+   }
 
-	receiveResult = rxCANMsg(&message);
+   receiveResult = rxCANMsg(&message);
 
-	if ( (0 != receiveResult) )
-	{
-		messageType = CAN_TYPE(message.cobId);
-		messageDeviceId = CAN_ID(message.cobId);
+   if ( (0 != receiveResult) )
+   {
+      messageType = CAN_TYPE(message.cobId);
+      messageDeviceId = CAN_ID(message.cobId);
 
-		if ( (0 == messageDeviceId) || (deviceNodeId == messageDeviceId) )
-		{
-			if ( (CAN_NMT_T ==  messageType) )
-			{
-				processNmtMessage(message.data);
-			}
-			else if ( (CAN_SYNC_T == messageType) )
-			{
-				processSyncMessage();
-			}
-			else if ( (CAN_RPDO1_T ==  messageType) )
-			{
-				processRxPdoMessage(1, message.data, message.dlc);
-			}
-			else if ( (CAN_RPDO2_T ==  messageType) )
-			{
-				processRxPdoMessage(2, message.data, message.dlc);
-			}
-			else if ( (CAN_RPDO3_T ==  messageType) )
-			{
-				processRxPdoMessage(3, message.data, message.dlc);
-			}
-			else if ( (CAN_RPDO4_T ==  messageType) )
-			{
-				processRxPdoMessage(4, message.data, message.dlc);
-			}
-			else if ( (CAN_RSDO_T ==  messageType) )
-			{
-				processSdoMessage(message.data);
-			}
-		}
+      if ( (0 == messageDeviceId) || (deviceNodeId == messageDeviceId) )
+      {
+         if ( (CAN_NMT_T ==  messageType) )
+         {
+            processNmtMessage(message.data);
+         }
+         else if ( (CAN_SYNC_T == messageType) )
+         {
+            processSyncMessage();
+         }
+         else if ( (CAN_RPDO1_T ==  messageType) )
+         {
+            processRxPdoMessage(1, message.data, message.dlc);
+         }
+         else if ( (CAN_RPDO2_T ==  messageType) )
+         {
+            processRxPdoMessage(2, message.data, message.dlc);
+         }
+         else if ( (CAN_RPDO3_T ==  messageType) )
+         {
+            processRxPdoMessage(3, message.data, message.dlc);
+         }
+         else if ( (CAN_RPDO4_T ==  messageType) )
+         {
+            processRxPdoMessage(4, message.data, message.dlc);
+         }
+         else if ( (CAN_RSDO_T ==  messageType) )
+         {
+            processSdoMessage(message.data);
+         }
+      }
 
-	    if ( (CAN_NMTE_T == messageType) )
-	    {
-			processNmteMessage(messageDeviceId);
-	    }
-	}
+       if ( (CAN_NMTE_T == messageType) )
+       {
+         processNmteMessage(messageDeviceId);
+       }
+   }
 }
 
 static void executeStoppedState(void)
 {
-	updateLED();
-	updateProducerHeartbeat();
+   updateLED();
+   updateProducerHeartbeat();
 
-	receiveResult = rxCANMsg(&message);
+   receiveResult = rxCANMsg(&message);
 
-	if ( (0 != receiveResult) )
-	{
-		messageType = CAN_TYPE(message.cobId);
-		messageDeviceId = CAN_ID(message.cobId);
+   if ( (0 != receiveResult) )
+   {
+      messageType = CAN_TYPE(message.cobId);
+      messageDeviceId = CAN_ID(message.cobId);
 
-		if ( (0 == messageDeviceId) || (deviceNodeId == messageDeviceId) )
-		{
-			if ( (CAN_NMT_T ==  messageType) )
-			{
-				processNmtMessage(message.data);
-			}
-		}
-	}
+      if ( (0 == messageDeviceId) || (deviceNodeId == messageDeviceId) )
+      {
+         if ( (CAN_NMT_T ==  messageType) )
+         {
+            processNmtMessage(message.data);
+         }
+      }
+   }
 }
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
@@ -3288,6 +3294,51 @@ void canWrite(U16 index, U8 subIndex, U8 * source, U8 length)
 void canDebug(U32 a, U32 b)
 {
    sendDebug(a, b);
+}
+
+/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+
+U16 canGetTime(void)
+{
+   uint32_t msec_timer;
+   
+   do
+   {
+      tovf_f = 0;
+      *((uint8_t *)(&canIsrCount)) = CANTIML;
+      *((uint8_t *)(&canIsrCount)+1) = CANTIMH;
+      msec_timer = ((canIsrCount + 4) >> 3); /* round and divide by 8 */
+   }
+   while (tovf_f); /* get time again if timer overflow interrupt occurred */
+   
+   return (msec_timer&0xFFFF);
+}
+
+U8 canIsTimeExpired(U16 timeCount)
+{
+   uint8_t result;
+   uint16_t timeNow;
+   
+   result = 0;
+   timeNow = canGetTime();
+   
+   if ( (timeNow >= timeCount) )
+   {
+      if ( ((timeNow - timeCount) < 0x8000) )
+      {
+         result = 1; /* timestamp has expired */
+      }
+   }
+   else
+   {
+      if ( ((timeCount - timeNow) >= 0x8000) ) 
+      {
+         result = 1; /* timestamp has expired */
+      }
+   }
+   
+   return (result);
 }
 
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
@@ -3347,7 +3398,7 @@ void canInit(void)
    isp_number_of_bytes = N_DEFAULT;
    isp_prog_on_going = FALSE;
 
-   //	Init_I2C(); // todo: move to setPreOp 
+   // Init_I2C(); // todo: move to setPreOp 
    //  DrillInit(); // todo: move to setPreOp 
     
    // set pre-Operational State
@@ -3358,27 +3409,27 @@ void canInit(void)
 
 uint8_t canUpdate(void)
 {
-	// evaluate state
-	switch (deviceState)
-	{
-		case DEVICE_PREOPERATIONAL_S:
-		{
-			executePreOperationalState();
-			break;
-		}
-		case DEVICE_OPERATIONAL_S:
-		{
-			executeOperationalState();
-			break;
-		}
-		case DEVICE_STOPPED_S:
-		{
-			executeStoppedState();
-			break;
-		}
-	}
-	
-	serveCOP();
+   // evaluate state
+   switch (deviceState)
+   {
+      case DEVICE_PREOPERATIONAL_S:
+      {
+         executePreOperationalState();
+         break;
+      }
+      case DEVICE_OPERATIONAL_S:
+      {
+         executeOperationalState();
+         break;
+      }
+      case DEVICE_STOPPED_S:
+      {
+         executeStoppedState();
+         break;
+      }
+   }
+   
+   serveCOP();
 
    return(0);
 }

@@ -260,6 +260,7 @@ DOES: INITIALIZE A SINGLE RPDO OR TPDO MAPPING
 Ensures that all PDO communication and mapping parameters are usable and
 initializes the global variables used by RPDOs and TPDOs
 ***************************************************************************/
+__attribute__((optimize("O0")))
 void XPDO_UpdatePDOMapping (
   UNSIGNED8 TxRx, // Set to 0 for TPDO, 1 for RPDO
   UNSIGNED16 PDONr // PDO number (1 to 512), or set highest bit if (0 to NR_OF_xPDOs)
@@ -313,7 +314,7 @@ UNSIGNED8   map_cnt; // count map entries in loop
   map_cnt = 0;
   b = 0;
   // Initilize Mapping in pPDOPataPtr
-  while (b <= 7) // Loop until maximum number of bytes in PDO
+  while (b <= 8) // Loop until maximum number of bytes in PDO
   {
     if (map_cnt >= map_num) // Last entry reached
     {

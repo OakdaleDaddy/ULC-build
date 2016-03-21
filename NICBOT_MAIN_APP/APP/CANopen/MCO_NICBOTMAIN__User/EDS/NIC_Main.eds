@@ -8,8 +8,8 @@ CreatedBy=Unknown
 CreationTime=09:08AM
 CreationDate=01-27-2016
 ModifiedBy=Unknown
-ModificationTime=02:42PM
-ModificationDate=03-19-2016
+ModificationTime=11:47PM
+ModificationDate=03-20-2016
 
 [Comments]
 Lines=1
@@ -81,7 +81,7 @@ SupportedObjects=22
 22=0x1F80
 
 [ManufacturerObjects]
-SupportedObjects=17
+SupportedObjects=20
 1=0x2100
 2=0x2101
 3=0x2102
@@ -97,8 +97,11 @@ SupportedObjects=17
 13=0x2412
 14=0x2413
 15=0x2414
-16=0x2500
-17=0x2501
+16=0x2441
+17=0x2442
+18=0x2443
+19=0x2500
+20=0x2501
 
 [1000]
 ParameterName=Device Type
@@ -1498,6 +1501,39 @@ ObjFlags=0x00
 ParameterName=Actual Rear Drill Index
 ObjectType=0x07
 DataType=0x0003
+LowLimit=
+HighLimit=
+AccessType=ro
+DefaultValue=
+PDOMapping=1
+ObjFlags=0x00
+
+[2441]
+ParameterName=Accelerometer X Value
+ObjectType=0x07
+DataType=0x0006
+LowLimit=
+HighLimit=
+AccessType=ro
+DefaultValue=
+PDOMapping=1
+ObjFlags=0x00
+
+[2442]
+ParameterName=Accelerometer Y Value
+ObjectType=0x07
+DataType=0x0006
+LowLimit=
+HighLimit=
+AccessType=ro
+DefaultValue=
+PDOMapping=1
+ObjFlags=0x00
+
+[2443]
+ParameterName=Accelerometer Z Value
+ObjectType=0x07
+DataType=0x0006
 LowLimit=
 HighLimit=
 AccessType=ro

@@ -16,12 +16,16 @@
 #include "can_access.h"
 #include "can_callbacks.h"
 
-#define EEPROM_CONFIGURATION_ADDRESS (256)
-#define EEPROM_CHECK_VALUE (0xA5)
+#define EEPROM_CONFIGURATION_ADDRESS (256) /*!< address within EEPROM of configuration value */
+#define EEPROM_CHECK_VALUE (0xA5) /*!< unique value to indicate valid values */
 
-#define REPAIR_MODE (0)
-#define INSPECT_MODE (1)
+#define REPAIR_MODE (0) /*!< value indicating repair mode */
+#define INSPECT_MODE (1) /*!< value indicating inspect mode */
 
+#define ACCELEROMETER_SAMPLE_PERIOD (50) /*!< number of milliseconds between samples */
+//#define DRILL_SAMPLE_PERIOD (100) // mS
+//#define SENSOR_SAMPLE_PERIOD (100) // mS
+//#define DEVICE_STATUS_SAMPLE_PERIOD (50) // mS
 
 typedef enum
 {
@@ -88,6 +92,10 @@ static U8 deviceMode; /*!< mode of device, 0=repair, 1=inspect */
 static U8 initialSolenoidSet; /*!< indicator of initial solenoid, 0 on boot, 1 after assignment */
 static U8 running; /*!< indicator of running mode of device process, 0 when not active, 1 when started */
 static U16 deviceProcessControl; /*!< control used to determine device processes */
+
+static U16 accelerometerSampleTimeLimit; /*!< time limit for accelerometer sampling */
+//static U16 drillPositionSampleTimeLimit;
+//static U16 sensorPositionSampleTimeLimit;
 
 static S16 frontDrillSpeedSetPoint; // RPM
 static DRILL_CONTEXT frontDrillContext; /*!< control structure for front drill */
@@ -832,74 +840,26 @@ static void updateDrillContext(DRILL_CONTEXT * drillContext)
 
 static void updateAccelerometer(void)
 {
-#if 0
-   now = SYSTIME_NOW;
-   difference = SYSTIME_DIFF (accelerometerSampleTimeLimit, now);
-   limit = (u32_t)ACCELEROMETER_SAMPLE_PERIOD * 1000;
-   
-   if ( (difference > limit) )
+   if ( (CAN_IsTimeExpired(accelerometerSampleTimeLimit) != 0) )
    {
-      u16_t tempAccelerometerX;
-      u16_t tempAccelerometerY;
-      u16_t tempAccelerometerZ;
+      U16 tempAccelerometerX;
+      U16 tempAccelerometerY;
+      U16 tempAccelerometerZ;
       
-      accelerometerSampleTimeLimit = SYSTIME_NOW;
+      accelerometerSampleTimeLimit = CAN_GetTime() + ACCELEROMETER_SAMPLE_PERIOD;
       
       tempAccelerometerX = accelerometer_get_x();
       tempAccelerometerX &= 0xFE00; // b8 shows activity when sitting still
+      CAN_WriteProcessImageValue(0x2441, 0, tempAccelerometerX, sizeof(tempAccelerometerX));
       
       tempAccelerometerY = accelerometer_get_y();
       tempAccelerometerY &= 0xFE00; // b8 shows activity when sitting still
+      CAN_WriteProcessImageValue(0x2442, 0, tempAccelerometerY, sizeof(tempAccelerometerY));
 
       tempAccelerometerZ = accelerometer_get_z();
       tempAccelerometerZ &= 0xFE00; // b8 shows activity when sitting still
-
-      if (tempAccelerometerX != accelerometerX)
-      {
-         u8_t i;
-
-         if (DEVICE_OPERATIONAL_S == deviceState)
-         {
-            for (i=0; i<4; i++)
-            {
-               activateTxPdoMap(&txPdoMapping[i], 0x2441, 0);
-            }
-         }
-
-         accelerometerX = tempAccelerometerX;
-      }
-      
-      if (tempAccelerometerY != accelerometerY)
-      {
-         u8_t i;
-
-         if (DEVICE_OPERATIONAL_S == deviceState)
-         {
-            for (i=0; i<4; i++)
-            {
-               activateTxPdoMap(&txPdoMapping[i], 0x2442, 0);
-            }
-         }
-
-         accelerometerY = tempAccelerometerY;
-      }
-      
-      if (tempAccelerometerZ != accelerometerZ)
-      {
-         u8_t i;
-
-         if (DEVICE_OPERATIONAL_S == deviceState)
-         {
-            for (i=0; i<4; i++)
-            {
-               activateTxPdoMap(&txPdoMapping[i], 0x2443, 0);
-            }
-         }
-
-         accelerometerZ = tempAccelerometerZ;
-      }
+      CAN_WriteProcessImageValue(0x2443, 0, tempAccelerometerZ, sizeof(tempAccelerometerZ));
    }
-#endif
 }
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
@@ -1024,7 +984,13 @@ void CAN_NMTChange(U8 state)
          sensorHomingActivate = 0;
       }
    
-      accelerometer_init();
+      
+      // initialize accelerometer
+      CAN_WriteProcessImageValue(0x2441, 0, 0, sizeof(U16));
+      CAN_WriteProcessImageValue(0x2442, 0, 0, sizeof(U16));
+      CAN_WriteProcessImageValue(0x2443, 0, 0, sizeof(U16));
+      accelerometerSampleTimeLimit = CAN_GetTime();
+
 
       // set stopped
       running = 0;
@@ -1294,6 +1260,7 @@ void CAN_ODData(U16 index, U8 subIndex, U8 * data, U8 length)
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+__attribute__((optimize("O0")))
 int main(void)
 {   
    DDRD |= 0b00000000;
@@ -1325,6 +1292,9 @@ int main(void)
    CAN_PORT_DIR &= ~(1<<CAN_OUTPUT_PIN);
    CAN_PORT_OUT |=  (1<<CAN_INPUT_PIN );
    CAN_PORT_OUT |=  (1<<CAN_OUTPUT_PIN);
+
+   // initialize accelerometer
+   accelerometer_init();
    
    // Initialize CAN Communication
    CAN_ResetCommunication();

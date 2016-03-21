@@ -73,6 +73,8 @@
 void canRead(U16 index, U8 subIndex, U8 * destination, U8 length);
 void canWrite(U16 index, U8 subIndex, U8 * source, U8 length);
 void canDebug(U32 a, U32 b);
+U16 canGetTime(void);
+U8 canIsTimeExpired(U16 timeCount);
 void canSetBaudrate(U16 bps);
 void canSetNodeId(U8 nodeId);
 void canInit(void);
