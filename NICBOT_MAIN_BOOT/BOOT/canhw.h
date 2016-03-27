@@ -54,6 +54,19 @@ extern void CANHW_Send_Boot (
   );
   
 /**************************************************************************
+DOES:    Sends the CANopen emergency message
+RETURNS:
+**************************************************************************/
+extern void CANHW_Send_Emergency (
+   UNSIGNED16 code,
+   UNSIGNED8 em1,
+   UNSIGNED8 em2,
+   UNSIGNED8 em3,
+   UNSIGNED8 em4,
+   UNSIGNED8 em5
+   );
+
+/**************************************************************************
 DOES:    Sends the CANopen debug message
 RETURNS:
 **************************************************************************/

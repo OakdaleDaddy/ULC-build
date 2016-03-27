@@ -184,12 +184,42 @@ void CANHW_Send_Boot (
 }
 
 /**************************************************************************
+DOES:    Sends the CANopen emergency message
+RETURNS:
+**************************************************************************/
+void CANHW_Send_Emergency (
+   UNSIGNED16 code,
+   UNSIGNED8 em1,
+   UNSIGNED8 em2,
+   UNSIGNED8 em3,
+   UNSIGNED8 em4,
+   UNSIGNED8 em5
+   )
+{
+   // transmit boot up message
+   gTxCAN.ID     = 0x080 + gNodeStatus.node_id;
+   gTxCAN.LEN    = 8;
+   gTxCAN.BUF[0] = (code&0xFF);
+   gTxCAN.BUF[1] = (code>>8);
+   gTxCAN.BUF[2] = 1; // set general error, todo support error register
+   gTxCAN.BUF[3] = em1;
+   gTxCAN.BUF[4] = em2;
+   gTxCAN.BUF[5] = em3;
+   gTxCAN.BUF[6] = em4;
+   gTxCAN.BUF[7] = em5;
+
+   CANHW_Push_Message();
+
+   return;
+}
+
+/**************************************************************************
 DOES:    Sends the CANopen debug message
 RETURNS:
 **************************************************************************/
 void CANHW_Send_Debug(
-UNSIGNED16 info
-)
+   UNSIGNED16 info
+   )
 {
 	// transmit boot up message
 	gTxCAN.ID     = 0x700 + gNodeStatus.node_id;

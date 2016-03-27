@@ -1,0 +1,23 @@
+
+Conditions that determine continuous boot loader execution are invalid BOOT-CRC, invalid APP-CRC, watchdog reset, brownout reset, and vector reset.
+ - if BOOT-CRC is invalid then stay in boot loader.
+ - if APP-CRC is invalid then stay in boot loader.
+ - if watchdog reset then stay in boot loader.
+ - if brown out reset then stay in boot loader.
+ - if vector reset then stay in boot loader.
+
+Condition that determine a temporary boot loader execution is a power up reset.
+ - if power up then start timer, on timeout run application
+
+Boot message is expected when boot loader runs continuously.
+
+Emergency message is expected when BOOT-CRC is invalid.
+Emergency message is expected when APP-CRC is invalid.
+Emergency message is expected when watchdog reset occurs.
+Emergency message is expected when brownout reset occurs.
+
+Emergency message is expected after boot message.
+
+ 
+
+

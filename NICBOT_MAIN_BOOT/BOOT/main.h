@@ -45,6 +45,7 @@ typedef enum {
 // processing data.
 typedef struct
 {
+  UNSIGNED8     start_code;              // Code indicating startup, see MCUSR
   UNSIGNED8     node_id;                 // Current Node ID (1-127)
   BOOLEAN       baudrate;                // Current baudrate (main/alternative)
   UNSIGNED32    serial;                  // Serial number
