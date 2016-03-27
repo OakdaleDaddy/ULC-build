@@ -51,13 +51,9 @@ NodeStatusType gNodeStatus;
  LOCAL FUNCTION PROTOTYPES
 ***************************************************************************/
 
-static RunModeType MAIN_Get_Execution_Mode (
-  void
-  );
+static UNSIGNED8 MAIN_Get_Start_Code(void);
 
-static void MAIN_Init (
-  void
-  );
+static void MAIN_Init(void);
 
 
 /**************************************************************************
@@ -65,31 +61,36 @@ static void MAIN_Init (
 ***************************************************************************/
 
 /**************************************************************************
-DOES:    Determine the execution mode of the bootloader, depending on the
-         cause-of-reset status.
-RETURNS: Execution mode
+DOES:    Determines source of reset.
+RETURNS: 0=power-up, 1=external, 2=brown-out, 3=watchdog, 4=J-Tag, 5=jump
 **************************************************************************/
-static RunModeType MAIN_Get_Execution_Mode (
-  void
-  )
+static UNSIGNED8 MAIN_Get_Start_Code(void)
 {
-  RunModeType return_val = EXECMODE_POWERUP;
+  UNSIGNED8 return_val;
 
-  if (BITSET(MCUSR,WDRF))
-  { // Watchdog reset occured?
-    return_val = EXECMODE_RESET;
+  if (BITSET(MCUSR,JTRF))
+  { 
+     return_val = 4;
+  }
+  else if (BITSET(MCUSR,WDRF))
+  { 
+     return_val = 3;
+  }
+  else if (BITSET(MCUSR,BORF))
+  { 
+    return_val = 2;
+  }
+  else if (BITSET(MCUSR,EXTRF))
+  { 
+     return_val = 1;
   }
   else if (BITSET(MCUSR,PORF))
-  { // Power-up reset occured?
-    return_val = EXECMODE_POWERUP;
-  }
-  else if (BITSET(MCUSR,JTRF))
-  { // JTAG reset (during debugging) is handled just like power-up reset
-    return_val = EXECMODE_POWERUP;
+  { 
+     return_val = 0;
   }
   else
-  { // If not power-up reset and not watchdog reset it must be a direct jump
-    return_val = EXECMODE_JUMP;
+  { 
+    return_val = 5;
   }
 
   // Reset MCU Status Register
@@ -112,7 +113,7 @@ static void MAIN_Init (
 
   checksums = 0x0000U;
 
-  gNodeStatus.run_mode = MAIN_Get_Execution_Mode ();
+  gNodeStatus.start_code = MAIN_Get_Start_Code();
 
   // Initialize error register and error list
   gNodeStatus.error_register          = ERRREG_NOERROR;
@@ -180,17 +181,40 @@ void MAIN_Signal_Error (
 /**************************************************************************
 DOES:    Main function to be executed after reset. Checks the reset cause
          and flash checksum
+         
+         Conditions that determine continuous boot loader execution are invalid BOOT-CRC, invalid APP-CRC, watchdog reset, brownout reset, and vector reset.
+         - if BOOT-CRC is invalid then stay in boot loader.
+         - if APP-CRC is invalid then stay in boot loader.
+         - if watchdog reset then stay in boot loader.
+         - if brown out reset then stay in boot loader.
+         - if vector reset then stay in boot loader.
+
+         Condition that determine a temporary boot loader execution is a power up reset.
+         - if power up then start timer, on timeout run application
+
+         Boot message is expected when boot loader runs continuously.
+
+         Emergency message is expected when BOOT-CRC is invalid.
+         Emergency message is expected when APP-CRC is invalid.
+         Emergency message is expected when watchdog reset occurs.
+         Emergency message is expected when brownout reset occurs.
+
+         Emergency message is expected after boot message.
+
 RETURNS: -
 **************************************************************************/
+__attribute__((optimize("O0")))
 int main (
   void
   )
 {
-  UNSIGNED16 checksum;
+  static UNSIGNED16 checksum;
+  UNSIGNED8 bootCrcValid;
+  UNSIGNED8 appCrcValid;
 
   // Disable all interrupts (just in case we jumped here)
   Disable_interrupt();
-
+  
   // Initialize low-level hardware
   HW_Init();
 
@@ -209,6 +233,11 @@ int main (
   // Initialize SDO handler
   SDO_Init();
 
+  // Initialize Controls
+  bootCrcValid = 0;
+  appCrcValid = 0;
+
+#if 0
   // If the bootloader is executed from power-up reset, initiate
   // waiting period of 60 seconds before attempting to start the
   // application.
@@ -223,15 +252,15 @@ int main (
   }
   else
   {
-    CANHW_Send_Boot();
     gNodeStatus.run_mode = EXECMODE_NORMAL;
   }
+#endif
 
   // Calculat bootloader checksum
-  FLASH_Checksum_OK(BL_CHECKSUM_START, BL_CHECKSUM_END, BL_CHECKSUM_ADR, &checksum);
+  bootCrcValid = FLASH_Checksum_OK(BL_CHECKSUM_START, BL_CHECKSUM_END, BL_CHECKSUM_ADR, &checksum);
 
   // Check the bootloader (provides reference for embedded CRC)
-  if (boot_crc == checksum)
+  if ((0 == bootCrcValid) || (boot_crc == checksum))
   { // no error - do nothing
     ;
   }
@@ -240,9 +269,10 @@ int main (
     MAIN_Signal_Error(ERRCODE_INTERNAL, checksum);
   }
 
+  appCrcValid = FLASH_Checksum_OK(AP_CHECKSUM_START, AP_CHECKSUM_END, AP_CHECKSUM_ADR,   &checksum);
+
   // Check the main application checksum and set error status if wrong
-  if ( FLASH_Checksum_OK(AP_CHECKSUM_START, AP_CHECKSUM_END,
-                         AP_CHECKSUM_ADR,   &checksum)     )
+  if (0 == appCrcValid)
   { // no error - do nothing
     ;
   }
@@ -252,6 +282,49 @@ int main (
     // Don't auto-start application after timeout
     gNodeStatus.run_mode = EXECMODE_NORMAL;
   }
+
+   // start_code: 0=power-up, 1=external, 2=brown-out, 3=watchdog, 4=J-Tag, 5=jump
+   if ( (0 == bootCrcValid) ||
+        (0 == appCrcValid) ||
+        (2 == gNodeStatus.start_code) ||
+        (3 == gNodeStatus.start_code) )
+   {
+      CANHW_Send_Boot();
+      
+      if ( (0 == bootCrcValid) )
+      {
+         CANHW_Send_Emergency(0x8000, 1, 0, 0, 0, 0);
+      }
+      else  if ( (2 == gNodeStatus.start_code) )
+      {
+         CANHW_Send_Emergency(0x8000, 2, 0, 0, 0, 0);
+      }
+      else if ( (3 == gNodeStatus.start_code) )
+      {
+         CANHW_Send_Emergency(0x8000, 3, 0, 0, 0, 0);
+      }
+      else if ( (0 == appCrcValid) )
+      {
+         CANHW_Send_Emergency(0x8000, 4, 0, 0, 0, 0);
+      }
+
+      gNodeStatus.run_mode = EXECMODE_NORMAL;
+   }
+   else if ( (0 == gNodeStatus.start_code) ||
+             (1 == gNodeStatus.start_code) ||
+             (4 == gNodeStatus.start_code) )
+   {
+      TIMER_Set(TIMER_MAIN, WAIT_TIMEOUT*(1000/TIMERTICK_MS));
+      gNodeStatus.run_mode = EXECMODE_TIMER;
+   }
+   else
+   {
+      // Set the location of the interrupt vectors to 0
+      MCUCR = BIT(IVCE);
+      MCUCR = 0x00;
+      // Call the absolute address RESVEC_ADR
+      ((void(*)(void))RESVEC_ADR)();
+   }
 
   // Endless loop to execute the bootloader. The only exit point is
   // a jump to the application if the condition for execution is
@@ -285,6 +358,7 @@ int main (
       }
       else
       { // Checksum not valid: Don't start application and report error, stay here
+        CANHW_Send_Emergency(0x8000, 4, 0, 0, 0, 0);
         MAIN_Signal_Error(ERRCODE_USER, checksum); // Signal error. Extra info is the calculated checksum.
         gNodeStatus.run_mode = EXECMODE_NORMAL;
       }

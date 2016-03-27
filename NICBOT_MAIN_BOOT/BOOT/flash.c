@@ -104,7 +104,7 @@ static FlashStateType mFlashState;
 // define CRC here, refer by extern within main to avoid optimization exclusion
 // step 1: define FFFF value and observe output 
 // step 2: insert value
-__attribute__ ((section (".BOOTCRC"))) const UNSIGNED16 boot_crc = 0x2E1E;
+__attribute__ ((section (".BOOTCRC"))) const UNSIGNED16 boot_crc = 0x23E7;
 
 /**************************************************************************
  LOCAL FUNCTION PROTOTYPES
