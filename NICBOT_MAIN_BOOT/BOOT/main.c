@@ -317,6 +317,10 @@ int main (
       TIMER_Set(TIMER_MAIN, WAIT_TIMEOUT*(1000/TIMERTICK_MS));
       gNodeStatus.run_mode = EXECMODE_TIMER;
    }
+   else if ( (5 == gNodeStatus.start_code) )
+   {
+      gNodeStatus.run_mode = EXECMODE_NORMAL;
+   }
    else
    {
       // Set the location of the interrupt vectors to 0

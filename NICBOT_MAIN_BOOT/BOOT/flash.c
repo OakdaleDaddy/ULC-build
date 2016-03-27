@@ -28,7 +28,7 @@ VERSION:     $LastChangedDate: 2016-02-26 20:53:15 +0100 (Fri, 26 Feb 2016) $
  LOCAL DEFINITIONS
 ***************************************************************************/
 
-//#define SHOW_CRC // define to output CRC on CAN bus at start
+// #define SHOW_CRC // define to output CRC on CAN bus at start
 
 #define FLASH_NUM_64K_BANKS    2         // Number of 64K Flash pages in the device.
 #define FLASH_SIZE_ERASE_PAGE  0x0080U   // Number of words in one flash page
@@ -104,7 +104,7 @@ static FlashStateType mFlashState;
 // define CRC here, refer by extern within main to avoid optimization exclusion
 // step 1: define FFFF value and observe output 
 // step 2: insert value
-__attribute__ ((section (".BOOTCRC"))) const UNSIGNED16 boot_crc = 0x23E7;
+__attribute__ ((section (".BOOTCRC"))) const UNSIGNED16 boot_crc = 0x3352;
 
 /**************************************************************************
  LOCAL FUNCTION PROTOTYPES
