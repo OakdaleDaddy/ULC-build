@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <StartArguments>C:\build\E4\hexcrc32\hexcrc32\bin\Debug\e4_main.hex -b08004000 -e0807FFFB -c0807FFFC</StartArguments>
+  </PropertyGroup>
+</Project>

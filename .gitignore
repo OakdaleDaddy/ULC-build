@@ -49,3 +49,7 @@ CAN-GPS/build/.out
 
 /NICBOT_MAIN_APP/.vs
 /NICBOT_MAIN_APP/APP/Debug
+
+/hexcrc32/hexcrc32/bin/
+/hexcrc32/hexcrc32/obj/
+
