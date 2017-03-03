@@ -1,0 +1,2 @@
+"$(SolutionDir)\tools\hexsum.exe" "$(OutputDirectory)\$(OutputFileName).hex"  -b00000 -e1E000 -c1DFFE -l
+"$(SolutionDir)\tools\hexsum.exe" "$(OutputDirectory)\$(OutputFileName).hex" -b00000 -e1E000 -c1DFFE -x -l

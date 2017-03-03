@@ -132,7 +132,7 @@ namespace hexcrc32
          return (result);
       }
 
-      static private bool ProcessLine(int lineNumber, string line, UInt32 beginMemory, UInt32 endMemory, byte[] memoryArray, ref UInt32 baseAddress, OutputTypes outputType, FileStream outputStream)
+      static private bool ProcessLine(int lineNumber, string line, UInt32 beginMemory, UInt32 endMemory, byte[] memoryArray, ref UInt32 baseAddress, FileStream asciiOutputStream, FileStream binaryOutputStream)
       {
          //Console.WriteLine(line);
          bool endFile = false;
@@ -304,19 +304,20 @@ namespace hexcrc32
             {
                if (false == ignoreLine)
                {
-                  if (OutputTypes.ascii == outputType)
+                  if (null != asciiOutputStream)
                   {
                      byte[] outputArray = Encoding.UTF8.GetBytes(line + "\r\n");
-                     outputStream.Write(outputArray, 0, outputArray.Length);
+                     asciiOutputStream.Write(outputArray, 0, outputArray.Length);
                   }
-                  else if (OutputTypes.binary == outputType)
+
+                  if (null != binaryOutputStream)
                   {
-                     outputStream.WriteByte(length);
-                     outputStream.WriteByte(addressHi);
-                     outputStream.WriteByte(addressLo);
-                     outputStream.WriteByte(type);
-                     outputStream.Write(dataArray, 0, length);
-                     outputStream.WriteByte(check);
+                     binaryOutputStream.WriteByte(length);
+                     binaryOutputStream.WriteByte(addressHi);
+                     binaryOutputStream.WriteByte(addressLo);
+                     binaryOutputStream.WriteByte(type);
+                     binaryOutputStream.Write(dataArray, 0, length);
+                     binaryOutputStream.WriteByte(check);
                   }
                }
             }
@@ -399,15 +400,17 @@ namespace hexcrc32
 
       static void Main(string[] args)
       {
-         OutputTypes outputType = OutputTypes.ascii;
          UInt32 beginMemory = 0x00000000;
          UInt32 endMemory = 0xFFFFFFFB;
          UInt32 crcLocation = 0xFFFFFFFC;
          UInt32 crcPolynomial = 0x04C11DB7;
          UInt32 crcInitial = 0xFFFFFFFF;
+         bool generateAscii = false;
+         bool generateBinary = false;
          bool generateCrc = false;
-         string inputFilePath = ""; ;
-         string outputFilePath = "";
+         string inputFilePath = null;
+         string asciiOutputFilePath = "";
+         string binaryOutputFilePath = "";
 
          try
          {
@@ -416,7 +419,7 @@ namespace hexcrc32
          catch { }
 
          Console.WriteLine("Intel Hex CRC32 Creator and Converter");
-         Console.WriteLine("Version 1.1");
+         Console.WriteLine("Version 1.2");
          Console.WriteLine("Copyright (c)2017 ULC Robotics");
 
          if (args.Length < 1)
@@ -432,7 +435,8 @@ namespace hexcrc32
             Console.WriteLine("    -cn:  Address where to put the checksum.");
             Console.WriteLine("    -pn:  Set CRC32 polynomial (default is 0x04C11DB7L)");
             Console.WriteLine("    -in:  Set CRC32 initial value (default is 0xFFFFFFFF)");
-            Console.WriteLine("    -x:   Output is a binary file (default is ASCII)");
+            Console.WriteLine("    -h:   Output includes ASCII file");
+            Console.WriteLine("    -x:   Output includes binary file");
             Console.WriteLine("");
             Console.WriteLine("  Undefined space is filled with 0xFF");
             Console.WriteLine("  n is an hexadecimal value, up to eight digits");
@@ -519,9 +523,14 @@ namespace hexcrc32
                         }
                      }
                   }
+                  else if ("-h" == command)
+                  {
+                     generateAscii = true;
+                     successfulParse = true;
+                  }
                   else if ("-x" == command)
                   {
-                     outputType = OutputTypes.binary;
+                     generateBinary = true;
                      successfulParse = true;
                   }
                }
@@ -533,16 +542,37 @@ namespace hexcrc32
             }
 
             inputFilePath = args[0];
-            outputFilePath = GetOutputFilePath(inputFilePath, outputType);
 
-            if (null != outputFilePath)
+            if (false != generateAscii)
+            {
+               asciiOutputFilePath = GetOutputFilePath(inputFilePath, OutputTypes.ascii);
+            }
+
+            if (false != generateBinary)
+            {
+               binaryOutputFilePath = GetOutputFilePath(inputFilePath, OutputTypes.binary);
+            }
+
+            if ((null != asciiOutputFilePath) || (null != binaryOutputFilePath))
             {
                if (File.Exists(inputFilePath) != false)
                {
                   StreamReader inputStream = new StreamReader(inputFilePath);
-                  FileStream outputStream = new FileStream(outputFilePath, FileMode.Create);
+                  FileStream asciiOutputStream = null;
+                  FileStream binaryOutputStream = null;
 
-                  if ((null != inputStream) && (null != outputStream))
+                  if ((null != asciiOutputFilePath) && ("" != asciiOutputFilePath))
+                  {
+                     asciiOutputStream = new FileStream(asciiOutputFilePath, FileMode.Create);
+                  }
+
+                  if ((null != binaryOutputFilePath) && ("" != binaryOutputFilePath))
+                  {
+                     binaryOutputStream = new FileStream(binaryOutputFilePath, FileMode.Create);
+                  }
+
+                  if ((null != inputStream) && 
+                      ((null != asciiOutputStream) || (null != binaryOutputStream)))
                   {
                      Console.WriteLine("Address range is 0x{0:X8} to 0x{1:X8}", beginMemory, endMemory);
                      byte[] memoryArray = null;
@@ -568,7 +598,7 @@ namespace hexcrc32
 
                         if (null != line)
                         {
-                           bool endFile = ProcessLine(lineNumber, line, beginMemory, endMemory, memoryArray, ref baseAddress, outputType, outputStream);
+                           bool endFile = ProcessLine(lineNumber, line, beginMemory, endMemory, memoryArray, ref baseAddress, asciiOutputStream, binaryOutputStream);
                            lineNumber++;
 
                            if (false != endFile)
@@ -617,36 +647,98 @@ namespace hexcrc32
                         byte[] crcBytes = BitConverter.GetBytes(crcValue);
                         Console.WriteLine("CRC32 is 0x{0:X8}", crcValue);
 
-                        WriteCrc(crcBytes, crcLocation, outputType, outputStream); 
-                     }
+                        if (null != asciiOutputStream)
+                        {
+                           WriteCrc(crcBytes, crcLocation, OutputTypes.ascii, asciiOutputStream);
+                        }
 
-                     WriteS1(outputType, outputStream); 
-
-                     if (OutputTypes.ascii == outputType)
-                     {
-                        Console.WriteLine("Intel Hex file {0} written.", outputFilePath);
-                     }
-                     else if (OutputTypes.binary == outputType)
-                     {
-                        Console.WriteLine("Binary file {0} written.", outputFilePath);
+                        if (null != binaryOutputStream)
+                        {
+                           WriteCrc(crcBytes, crcLocation, OutputTypes.binary, binaryOutputStream);
+                        }
                      }
 
                      inputStream.Close();
-                     outputStream.Close();
+
+                     if (null != asciiOutputStream)
+                     {
+                        WriteS1(OutputTypes.ascii, asciiOutputStream);
+                        Console.WriteLine("Intel Hex file {0} written.", asciiOutputFilePath);
+                        asciiOutputStream.Close();
+                     }
+
+                     if (null != binaryOutputStream)
+                     {
+                        WriteS1(OutputTypes.binary, binaryOutputStream);
+                        Console.WriteLine("Binary file {0} written.", binaryOutputFilePath);
+                        binaryOutputStream.Close();
+                     }
                   }
                   else if (null != inputStream)
                   {
                      inputStream.Close();
-                     Console.WriteLine("error: unable to open output file {0}", outputFilePath);
+                     string invalidPath = null;
+
+                     if ((null != asciiOutputFilePath) && ("" != asciiOutputFilePath))
+                     {
+                        if (null == asciiOutputStream)
+                        {
+                           invalidPath = asciiOutputFilePath; 
+                        }
+                     }
+
+                     if ((null != binaryOutputFilePath) && ("" != binaryOutputFilePath))
+                     {
+                        if (null == binaryOutputStream)
+                        {
+                           invalidPath = binaryOutputFilePath; 
+                        }
+                     }
+
+                     if (null != invalidPath)
+                     {
+                        Console.WriteLine("error: unable to open output file {0}", invalidPath);
+                     }
+                     else
+                     {
+                        Console.WriteLine("error: undefined output file, set -h or -s");
+                     }
                   }
-                  else if (null != outputStream)
+                  else if ((null != asciiOutputStream) || (null != binaryOutputStream))
                   {
-                     outputStream.Close();
+                     if (null != asciiOutputStream)
+                     {
+                        asciiOutputStream.Close();
+                     }
+
+                     if (null != binaryOutputStream)
+                     {
+                        binaryOutputStream.Close();
+                     }
+
                      Console.WriteLine("error: unable to open input file {0}", inputFilePath);
                   }
                   else
                   {
-                     Console.WriteLine("error: unable to open files {0} and {1}", inputFilePath, outputFilePath);
+                     string invalidPath = "defined";
+
+                     if ((null != asciiOutputFilePath) && ("" != asciiOutputFilePath))
+                     {
+                        if (null == asciiOutputStream)
+                        {
+                           invalidPath = asciiOutputFilePath;
+                        }
+                     }
+
+                     if ((null != binaryOutputFilePath) && ("" != binaryOutputFilePath))
+                     {
+                        if (null == binaryOutputStream)
+                        {
+                           invalidPath = binaryOutputFilePath;
+                        }
+                     }
+
+                     Console.WriteLine("error: unable to open files {0} and {1}", inputFilePath, invalidPath);
                   }
                }
                else
