@@ -1401,6 +1401,131 @@ namespace E4.CAN
          return (result);
       }
 
+      public bool GetStepper0HomingMethod(ref byte homingMethod)
+      {
+         bool result = false;
+         SDOUpload upload = new SDOUpload(0x7098, 0);
+         this.pendingAction = upload;
+         bool actionResult = this.ExchangeCommAction(this.pendingAction);
+
+         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 1))
+         {
+            homingMethod = upload.Data[0];
+            result = true;
+         }
+
+         return (result);
+      }
+
+      public bool SetStepper0HomingMethod(byte homingMethod)
+      {
+         bool result = true;
+
+         result &= this.ExchangeCommAction(new SDODownload(0x7098, 0, 1, (UInt32)homingMethod));
+
+         return (result);
+      }         
+
+      public bool GetStepper0HomingSwitchSpeed(ref UInt32 homingSwitchSpeed)
+      {
+         bool result = false;
+         SDOUpload upload = new SDOUpload(0x7099, 0x01);
+         this.pendingAction = upload;
+         bool actionResult = this.ExchangeCommAction(this.pendingAction);
+
+         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
+         {
+            homingSwitchSpeed = BitConverter.ToUInt32(upload.Data, 0);
+            result = true;
+         }
+
+         return (result);
+      }
+
+      public bool SetStepper0HomingSwitchSpeed(UInt32 homingSwitchSpeed)
+      {
+         bool result = true;
+
+         result &= this.ExchangeCommAction(new SDODownload(0x7099, 0x01, 4, (UInt32)homingSwitchSpeed));
+
+         return (result);
+      }
+
+      public bool GetStepper0HomingZeroSpeed(ref UInt32 homingZeroSpeed)
+      {
+         bool result = false;
+         SDOUpload upload = new SDOUpload(0x7099, 0x02);
+         this.pendingAction = upload;
+         bool actionResult = this.ExchangeCommAction(this.pendingAction);
+
+         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
+         {
+            homingZeroSpeed = BitConverter.ToUInt32(upload.Data, 0);
+            result = true;
+         }
+
+         return (result);
+      }
+
+      public bool SetStepper0HomingZeroSpeed(UInt32 homingZeroSpeed)
+      {
+         bool result = true;
+
+         result &= this.ExchangeCommAction(new SDODownload(0x7099, 0x02, 4, (UInt32)homingZeroSpeed));
+
+         return (result);
+      }
+
+      public bool GetStepper0HomingAcceleration(ref UInt32 homingAcceleration)
+      {
+         bool result = false;
+         SDOUpload upload = new SDOUpload(0x709A, 0);
+         this.pendingAction = upload;
+         bool actionResult = this.ExchangeCommAction(this.pendingAction);
+
+         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
+         {
+            homingAcceleration = BitConverter.ToUInt32(upload.Data, 0);
+            result = true;
+         }
+
+         return (result);
+      }
+
+      public bool SetStepper0HomingAcceleration(UInt32 homingAcceleration)
+      {
+         bool result = true;
+
+         result &= this.ExchangeCommAction(new SDODownload(0x709A, 0, 4, (UInt32)homingAcceleration));
+
+         return (result);
+      }
+
+      public bool GetStepper0HomeOffset(ref Int32 homeOffset)
+      {
+         bool result = false;
+         SDOUpload upload = new SDOUpload(0x707C, 0);
+         this.pendingAction = upload;
+         bool actionResult = this.ExchangeCommAction(this.pendingAction);
+
+         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
+         {
+            homeOffset = BitConverter.ToInt32(upload.Data, 0);
+            result = true;
+         }
+
+         return (result);
+      }
+
+      public bool SetStepper0HomeOffset(Int32 homeOffset)
+      {
+         bool result = true;
+
+         result &= this.ExchangeCommAction(new SDODownload(0x707C, 0, 4, (UInt32)homeOffset));
+
+         return (result);
+      }
+
       #endregion
 
       #region Stepper1 Functions

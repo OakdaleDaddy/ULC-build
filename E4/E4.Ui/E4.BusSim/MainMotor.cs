@@ -1636,7 +1636,33 @@
          {
             this.SetMode = buffer[offset];
             valid = true;
-         }        
+         }
+
+         else if (location == this.HomeOffsetLocation)
+         {
+            this.HomeOffset = BitConverter.ToInt32(buffer, offset);
+            valid = true;
+         }
+         else if (location == this.HomingMethodLocation)
+         {
+            this.HomingMethod = buffer[offset];
+            valid = true;
+         }
+         else if (location == this.HomingSwitchSpeedLocation)
+         {
+            this.HomingSwitchSpeed = BitConverter.ToUInt32(buffer, offset);
+            valid = true;
+         }
+         else if (location == this.HomingZeroSpeedLocation)
+         {
+            this.HomingZeroSpeed = BitConverter.ToUInt32(buffer, offset);
+            valid = true;
+         }
+         else if (location == this.HomingAccelerationLocation)
+         {
+            this.HomingAcceleration = BitConverter.ToUInt32(buffer, offset);
+            valid = true;
+         }
 
          else if ((location == this.ProportionalGainCoefficientKpLocation) && (4 == length))
          {
@@ -1774,6 +1800,37 @@
          else if (location == this.GetModeLocation)
          {
             dataLength = this.MoveDeviceData(buffer, this.GetMode);
+            valid = true;
+         }
+
+         else if (location == this.HomeOffsetLocation)
+         {
+            dataLength = this.MoveDeviceData(buffer, this.HomeOffset);
+            valid = true;
+         }
+         else if (location == this.HomingMethodLocation)
+         {
+            dataLength = this.MoveDeviceData(buffer, this.HomingMethod);
+            valid = true;
+         }
+         else if (location == this.HomingSpeedHighestLocation)
+         {
+            dataLength = this.MoveDeviceData(buffer, this.HomingSpeedHighest);
+            valid = true;
+         }
+         else if (location == this.HomingSwitchSpeedLocation)
+         {
+            dataLength = this.MoveDeviceData(buffer, this.HomingSwitchSpeed);
+            valid = true;
+         }
+         else if (location == this.HomingZeroSpeedLocation)
+         {
+            dataLength = this.MoveDeviceData(buffer, this.HomingZeroSpeed);
+            valid = true;
+         }
+         else if (location == this.HomingAccelerationLocation)
+         {
+            dataLength = this.MoveDeviceData(buffer, this.HomingAcceleration);
             valid = true;
          }
 
@@ -1966,11 +2023,11 @@
 
             if (false != operating)
             {
-               if ((1 == this.GetMode) && (false != this.SupportVelocityMode))
+               if ((1 == this.GetMode) && (false != this.SupportPositionMode))
                {
                   this.UpdatePositionMode(this.TargetPosition, this.ProfileVelocity, this.ProfileAcceleration, this.ProfileDeceleration, elapsedSeconds);
                }
-               else if ((3 == this.GetMode) && (false != this.SupportPositionMode))
+               else if ((3 == this.GetMode) && (false != this.SupportVelocityMode))
                {
                   this.UpdateVelocityMode(this.TargetVelocity, this.ProfileAcceleration, this.ProfileDeceleration, elapsedSeconds);
                }
