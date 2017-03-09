@@ -661,7 +661,34 @@ namespace E4.DeviceTest
             this.StatusLabel.Text = "Invalid entry.";
          }
       }
-      
+
+      private void DownloadEraseButton_Click(object sender, EventArgs e)
+      {
+         byte deviceNodeId = 0;
+
+         if (byte.TryParse(this.DownloadActiveNodeIdTextBox.Text, out deviceNodeId) != false)
+         {
+            this.downloadDevice.NodeId = deviceNodeId;
+
+            byte[] eraseData = BitConverter.GetBytes((UInt32)0x73617265);
+            bool result = this.downloadDevice.SDODownload(0x2FFF, 0x02, eraseData);
+
+            if (false != result)
+            {
+               this.StatusLabel.Text = "Erase triggered.";
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to trigger erase.";
+               this.DeviceUploadHexDataTextBox.Text = "";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
       private void DownloadActivityButton_Click(object sender, EventArgs e)
       {
          if (false == this.downloadActive)
@@ -1081,7 +1108,77 @@ namespace E4.DeviceTest
 
       #endregion
 
+      #region IMU
+
+      private void ReadE4MainMainIcuDirectionsButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+
+         if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
+         {
+            this.e4Main.NodeId = nodeId;
+            double roll = 0;
+            double pitch = 0;
+            double yaw = 0;
+            bool success = this.e4Main.GetMainBoardRoll(ref roll);
+            success &= this.e4Main.GetMainBoardPitch(ref pitch);
+            success &= this.e4Main.GetMainBoardYaw(ref yaw);
+
+            if (false != success)
+            {
+               this.StatusLabel.Text = "Main board direction retrieved.";
+               this.E4MainMainBoardIcuReadRollTextBox.Text = string.Format("{0:0.0}", roll);
+               this.E4MainMainBoardIcuReadPitchTextBox.Text = string.Format("{0:0.0}", pitch);
+               this.E4MainMainBoardIcuReadYawTextBox.Text = string.Format("{0:0.0}", yaw);
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to get main board direction.";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      private void ReadE4MainTargetIcuDirectionsButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+
+         if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
+         {
+            this.e4Main.NodeId = nodeId;
+            double roll = 0;
+            double pitch = 0;
+            double yaw = 0;
+            bool success = this.e4Main.GetTargetBoardRoll(ref roll);
+            success &= this.e4Main.GetTargetBoardPitch(ref pitch);
+            success &= this.e4Main.GetTargetBoardYaw(ref yaw);
+
+            if (false != success)
+            {
+               this.StatusLabel.Text = "Target board direction retrieved.";
+               this.E4MainTargetBoardIcuReadRollTextBox.Text = string.Format("{0:0.0}", roll);
+               this.E4MainTargetBoardIcuReadPitchTextBox.Text = string.Format("{0:0.0}", pitch);
+               this.E4MainTargetBoardIcuReadYawTextBox.Text = string.Format("{0:0.0}", yaw);
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to get target board direction.";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      #endregion
+
       #region BLDC0 Events
+
+      #region General
 
       private void SetE4MainBldc0ModeButton_Click(object sender, EventArgs e)
       {
@@ -1120,6 +1217,8 @@ namespace E4.DeviceTest
             this.StatusLabel.Text = "Invalid entry.";
          }
       }
+
+      #endregion
 
       #region Position Mode
 
@@ -1605,6 +1704,8 @@ namespace E4.DeviceTest
 
       #region BLDC1 Events
 
+      #region General
+
       private void SetE4MainBldc1ModeButton_Click(object sender, EventArgs e)
       {
          byte nodeId = 0;
@@ -1642,6 +1743,10 @@ namespace E4.DeviceTest
             this.StatusLabel.Text = "Invalid entry.";
          }
       }
+
+      #endregion
+
+      #region Position Mode
 
       private void GetE4MainBldc1TargetPositionButton_Click(object sender, EventArgs e)
       {
@@ -1721,6 +1826,62 @@ namespace E4.DeviceTest
          }
       }
 
+      private void GetE4MainBldc1ProfileVelocityButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+
+         if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
+         {
+            this.e4Main.NodeId = nodeId;
+            Int32 profileVelocity = 0;
+            bool success = this.e4Main.GetBldc1ProfileVelocity(ref profileVelocity);
+
+            if (false != success)
+            {
+               this.StatusLabel.Text = "BLDC1 profile velocity retrieved.";
+               this.E4MainBldc1ProfileVelocityTextBox.Text = string.Format("{0}", profileVelocity);
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to get BLDC1 profile velocity.";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      private void SetE4MainBldc1ProfileVelocityButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+         Int32 profileVelocity = 0;
+
+         if ((byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false) &&
+             (Int32.TryParse(this.E4MainBldc1ProfileVelocityTextBox.Text, out profileVelocity) != false))
+         {
+            this.e4Main.NodeId = nodeId;
+            bool result = this.e4Main.SetBldc1ProfileVelocity(profileVelocity);
+
+            if (false != result)
+            {
+               this.StatusLabel.Text = "BLDC1 profile velocity set to " + profileVelocity.ToString() + ".";
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to set BLDC1 profile velocity to " + profileVelocity.ToString() + ".";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      #endregion
+
+      #region Velocity Mode
+
       private void GetE4MainBldc1TargetVelocityButton_Click(object sender, EventArgs e)
       {
          byte nodeId = 0;
@@ -1791,58 +1952,6 @@ namespace E4.DeviceTest
             else
             {
                this.StatusLabel.Text = "Unable to schedule BLDC1 velocity for " + targetVelocity.ToString() + ".";
-            }
-         }
-         else
-         {
-            this.StatusLabel.Text = "Invalid entry.";
-         }
-      }
-
-      private void GetE4MainBldc1ProfileVelocityButton_Click(object sender, EventArgs e)
-      {
-         byte nodeId = 0;
-
-         if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
-         {
-            this.e4Main.NodeId = nodeId;
-            Int32 profileVelocity = 0;
-            bool success = this.e4Main.GetBldc1ProfileVelocity(ref profileVelocity);
-
-            if (false != success)
-            {
-               this.StatusLabel.Text = "BLDC1 profile velocity retrieved.";
-               this.E4MainBldc1ProfileVelocityTextBox.Text = string.Format("{0}", profileVelocity);
-            }
-            else
-            {
-               this.StatusLabel.Text = "Unable to get BLDC1 profile velocity.";
-            }
-         }
-         else
-         {
-            this.StatusLabel.Text = "Invalid entry.";
-         }
-      }
-
-      private void SetE4MainBldc1ProfileVelocityButton_Click(object sender, EventArgs e)
-      {
-         byte nodeId = 0;
-         Int32 profileVelocity = 0;
-
-         if ((byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false) &&
-             (Int32.TryParse(this.E4MainBldc1ProfileVelocityTextBox.Text, out profileVelocity) != false))
-         {
-            this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.SetBldc1ProfileVelocity(profileVelocity);
-
-            if (false != result)
-            {
-               this.StatusLabel.Text = "BLDC1 profile velocity set to " + profileVelocity.ToString() + ".";
-            }
-            else
-            {
-               this.StatusLabel.Text = "Unable to set BLDC1 profile velocity to " + profileVelocity.ToString() + ".";
             }
          }
          else
@@ -1954,6 +2063,8 @@ namespace E4.DeviceTest
             this.StatusLabel.Text = "Invalid entry.";
          }
       }
+
+      #endregion
 
       #region Tuning
 
@@ -2119,6 +2230,8 @@ namespace E4.DeviceTest
 
       #region Stepper 0 Events
 
+      #region General
+
       private void SetE4MainStepper0ModeButton_Click(object sender, EventArgs e)
       {
          byte nodeId = 0;
@@ -2188,6 +2301,10 @@ namespace E4.DeviceTest
             this.StatusLabel.Text = "Invalid entry.";
          }
       }
+
+      #endregion
+
+      #region Position Mode
 
       private void GetE4MainStepper0TargetPositionButton_Click(object sender, EventArgs e)
       {
@@ -2345,24 +2462,104 @@ namespace E4.DeviceTest
          }
       }
 
+      #endregion
+
+      #region Homing Mode
+
       private void StartE4MainStepper0HomingButton_Click(object sender, EventArgs e)
       {
+         byte nodeId = 0;
 
+         if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
+         {
+            this.e4Main.NodeId = nodeId;
+            bool result = this.e4Main.StartStepper0Homing();
+
+            if (false != result)
+            {
+               this.StatusLabel.Text = "Stepper0 homing started.";
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to start Stepper0 homing.";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
       }
 
       private void StopE4MainStepper0HomingButton_Click(object sender, EventArgs e)
       {
+         byte nodeId = 0;
 
+         if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
+         {
+            this.e4Main.NodeId = nodeId;
+            bool result = this.e4Main.StopStepper0Homing();
+
+            if (false != result)
+            {
+               this.StatusLabel.Text = "Stepper0 homing stopped.";
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to stop Stepper0 homing.";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
       }
 
       private void HaltE4MainStepper0HomingButton_Click(object sender, EventArgs e)
       {
+         byte nodeId = 0;
 
+         if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
+         {
+            this.e4Main.NodeId = nodeId;
+            bool result = this.e4Main.HaltStepper0Homing();
+
+            if (false != result)
+            {
+               this.StatusLabel.Text = "Stepper0 homing halted.";
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to halt Stepper0 homing.";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
       }
 
       private void RunE4MainStepper0HomingButton_Click(object sender, EventArgs e)
       {
+         byte nodeId = 0;
 
+         if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
+         {
+            this.e4Main.NodeId = nodeId;
+            bool result = this.e4Main.RunStepper0Homing();
+
+            if (false != result)
+            {
+               this.StatusLabel.Text = "Stepper0 homing run.";
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to run Stepper0 homing.";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
       }
 
       private void GetE4MainStepper0HomingMethodButton_Click(object sender, EventArgs e)
@@ -2627,7 +2824,11 @@ namespace E4.DeviceTest
 
       #endregion
 
+      #endregion
+
       #region Stepper 1 Events
+
+      #region General
 
       private void SetE4MainStepper1ModeButton_Click(object sender, EventArgs e)
       {
@@ -2698,7 +2899,11 @@ namespace E4.DeviceTest
             this.StatusLabel.Text = "Invalid entry.";
          }
       }
-      
+
+      #endregion
+
+      #region Position Mode
+
       private void GetE4MainStepper1TargetPositionButton_Click(object sender, EventArgs e)
       {
          byte nodeId = 0;
@@ -2854,6 +3059,368 @@ namespace E4.DeviceTest
             this.StatusLabel.Text = "Invalid entry.";
          }
       }
+
+      #endregion
+
+      #region Homing Mode
+
+      private void StartE4MainStepper1HomingButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+
+         if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
+         {
+            this.e4Main.NodeId = nodeId;
+            bool result = this.e4Main.StartStepper1Homing();
+
+            if (false != result)
+            {
+               this.StatusLabel.Text = "Stepper1 homing started.";
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to start Stepper1 homing.";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      private void StopE4MainStepper1HomingButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+
+         if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
+         {
+            this.e4Main.NodeId = nodeId;
+            bool result = this.e4Main.StopStepper1Homing();
+
+            if (false != result)
+            {
+               this.StatusLabel.Text = "Stepper1 homing stopped.";
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to stop Stepper1 homing.";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      private void HaltE4MainStepper1HomingButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+
+         if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
+         {
+            this.e4Main.NodeId = nodeId;
+            bool result = this.e4Main.HaltStepper1Homing();
+
+            if (false != result)
+            {
+               this.StatusLabel.Text = "Stepper1 homing halted.";
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to halt Stepper1 homing.";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      private void RunE4MainStepper1HomingButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+
+         if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
+         {
+            this.e4Main.NodeId = nodeId;
+            bool result = this.e4Main.RunStepper1Homing();
+
+            if (false != result)
+            {
+               this.StatusLabel.Text = "Stepper1 homing run.";
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to run Stepper1 homing.";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      private void GetE4MainStepper1HomingMethodButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+
+         if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
+         {
+            this.e4Main.NodeId = nodeId;
+            byte homingMethod = 0;
+            bool success = this.e4Main.GetStepper1HomingMethod(ref homingMethod);
+
+            if (false != success)
+            {
+               this.StatusLabel.Text = "Stepper1 homing method retrieved.";
+               this.E4MainStepper1HomingMethodTextBox.Text = string.Format("{0}", homingMethod);
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to get Stepper1 homing method.";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      private void SetE4MainStepper1HomingMethodButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+         byte homingMethod = 0;
+
+         if ((byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false) &&
+             (byte.TryParse(this.E4MainStepper1HomingMethodTextBox.Text, out homingMethod) != false))
+         {
+            this.e4Main.NodeId = nodeId;
+            bool result = this.e4Main.SetStepper1HomingMethod(homingMethod);
+
+            if (false != result)
+            {
+               this.StatusLabel.Text = "Stepper1 homing method set to " + homingMethod.ToString() + ".";
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to set Stepper1 homing method to " + homingMethod.ToString() + ".";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      private void GetE4MainStepper1HomingSwitchSpeedButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+
+         if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
+         {
+            this.e4Main.NodeId = nodeId;
+            UInt32 homingSwitchSpeed = 0;
+            bool success = this.e4Main.GetStepper1HomingSwitchSpeed(ref homingSwitchSpeed);
+
+            if (false != success)
+            {
+               this.StatusLabel.Text = "Stepper1 homing switch speed retrieved.";
+               this.E4MainStepper1HomingSwitchSpeedTextBox.Text = string.Format("{0}", homingSwitchSpeed);
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to get Stepper1 homing switch speed.";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      private void SetE4MainStepper1HomingSwitchSpeedButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+         UInt32 homingSwitchSpeed = 0;
+
+         if ((byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false) &&
+             (UInt32.TryParse(this.E4MainStepper1HomingSwitchSpeedTextBox.Text, out homingSwitchSpeed) != false))
+         {
+            this.e4Main.NodeId = nodeId;
+            bool result = this.e4Main.SetStepper1HomingSwitchSpeed(homingSwitchSpeed);
+
+            if (false != result)
+            {
+               this.StatusLabel.Text = "Stepper1 homing switch speed set to " + homingSwitchSpeed.ToString() + ".";
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to set Stepper1 homing switch speed to " + homingSwitchSpeed.ToString() + ".";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      private void GetE4MainStepper1HomingZeroSpeedButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+
+         if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
+         {
+            this.e4Main.NodeId = nodeId;
+            UInt32 homingZeroSpeed = 0;
+            bool success = this.e4Main.GetStepper1HomingZeroSpeed(ref homingZeroSpeed);
+
+            if (false != success)
+            {
+               this.StatusLabel.Text = "Stepper1 homing zero speed retrieved.";
+               this.E4MainStepper1HomingZeroSpeedTextBox.Text = string.Format("{0}", homingZeroSpeed);
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to get Stepper1 homing zero speed.";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      private void SetE4MainStepper1HomingZeroSpeedButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+         UInt32 homingZeroSpeed = 0;
+
+         if ((byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false) &&
+             (UInt32.TryParse(this.E4MainStepper1HomingZeroSpeedTextBox.Text, out homingZeroSpeed) != false))
+         {
+            this.e4Main.NodeId = nodeId;
+            bool result = this.e4Main.SetStepper1HomingZeroSpeed(homingZeroSpeed);
+
+            if (false != result)
+            {
+               this.StatusLabel.Text = "Stepper1 homing zero speed set to " + homingZeroSpeed.ToString() + ".";
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to set Stepper1 homing zero speed to " + homingZeroSpeed.ToString() + ".";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      private void GetE4MainStepper1HomingAccelerationButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+
+         if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
+         {
+            this.e4Main.NodeId = nodeId;
+            UInt32 homingAcceleration = 0;
+            bool success = this.e4Main.GetStepper1HomingAcceleration(ref homingAcceleration);
+
+            if (false != success)
+            {
+               this.StatusLabel.Text = "Stepper1 homing acceleration retrieved.";
+               this.E4MainStepper1HomingAccelerationTextBox.Text = string.Format("{0}", homingAcceleration);
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to get Stepper1 homing acceleration.";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      private void SetE4MainStepper1HomingAccelerationButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+         UInt32 homingAcceleration = 0;
+
+         if ((byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false) &&
+             (UInt32.TryParse(this.E4MainStepper1HomingAccelerationTextBox.Text, out homingAcceleration) != false))
+         {
+            this.e4Main.NodeId = nodeId;
+            bool result = this.e4Main.SetStepper1HomingAcceleration(homingAcceleration);
+
+            if (false != result)
+            {
+               this.StatusLabel.Text = "Stepper1 homing acceleration set to " + homingAcceleration.ToString() + ".";
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to set Stepper1 homing acceleration to " + homingAcceleration.ToString() + ".";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      private void GetE4MainStepper1HomeOffsetButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+
+         if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
+         {
+            this.e4Main.NodeId = nodeId;
+            Int32 homeOffset = 0;
+            bool success = this.e4Main.GetStepper1HomeOffset(ref homeOffset);
+
+            if (false != success)
+            {
+               this.StatusLabel.Text = "Stepper1 home offset retrieved.";
+               this.E4MainStepper1HomeOffsetTextBox.Text = string.Format("{0}", homeOffset);
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to get Stepper1 home offset.";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      private void SetE4MainStepper1HomeOffsetButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+         Int32 homeOffset = 0;
+
+         if ((byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false) &&
+             (Int32.TryParse(this.E4MainStepper1HomeOffsetTextBox.Text, out homeOffset) != false))
+         {
+            this.e4Main.NodeId = nodeId;
+            bool result = this.e4Main.SetStepper1HomeOffset(homeOffset);
+
+            if (false != result)
+            {
+               this.StatusLabel.Text = "Stepper1 home offset set to " + homeOffset.ToString() + ".";
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to set Stepper1 home offset to " + homeOffset.ToString() + ".";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      #endregion
 
       #endregion
 
@@ -3082,6 +3649,16 @@ namespace E4.DeviceTest
       }
 
       #endregion
+
+      private void button2_Click(object sender, EventArgs e)
+      {
+
+      }
+
+      private void E4MainLaserTabPage_Click(object sender, EventArgs e)
+      {
+
+      }
 
    }
 }

@@ -639,6 +639,106 @@ namespace E4.CAN
 
       #endregion
 
+      #region IMU Functions
+
+      public bool GetMainBoardRoll(ref double roll)
+      {
+         bool result = false;
+         SDOUpload upload = new SDOUpload(0x2441, 0x01);
+         this.pendingAction = upload;
+         bool actionResult = this.ExchangeCommAction(this.pendingAction);
+
+         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 2))
+         {
+            roll = ((double)BitConverter.ToInt16(upload.Data, 0) / 16);
+            result = true;
+         }
+
+         return (result);
+      }
+
+      public bool GetMainBoardPitch(ref double pitch)
+      {
+         bool result = false;
+         SDOUpload upload = new SDOUpload(0x2441, 0x02);
+         this.pendingAction = upload;
+         bool actionResult = this.ExchangeCommAction(this.pendingAction);
+
+         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 2))
+         {
+            pitch = ((double)BitConverter.ToInt16(upload.Data, 0) / 16);
+            result = true;
+         }
+
+         return (result);
+      }
+
+      public bool GetMainBoardYaw(ref double yaw)
+      {
+         bool result = false;
+         SDOUpload upload = new SDOUpload(0x2441, 0x03);
+         this.pendingAction = upload;
+         bool actionResult = this.ExchangeCommAction(this.pendingAction);
+
+         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 2))
+         {
+            yaw = ((double)BitConverter.ToInt16(upload.Data, 0) / 16);
+            result = true;
+         }
+
+         return (result);
+      }
+
+      public bool GetTargetBoardRoll(ref double roll)
+      {
+         bool result = false;
+         SDOUpload upload = new SDOUpload(0x2445, 0x01);
+         this.pendingAction = upload;
+         bool actionResult = this.ExchangeCommAction(this.pendingAction);
+
+         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 2))
+         {
+            roll = ((double)BitConverter.ToInt16(upload.Data, 0) / 16);
+            result = true;
+         }
+
+         return (result);
+      }
+
+      public bool GetTargetBoardPitch(ref double pitch)
+      {
+         bool result = false;
+         SDOUpload upload = new SDOUpload(0x2445, 0x02);
+         this.pendingAction = upload;
+         bool actionResult = this.ExchangeCommAction(this.pendingAction);
+
+         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 2))
+         {
+            pitch = ((double)BitConverter.ToInt16(upload.Data, 0) / 16);
+            result = true;
+         }
+
+         return (result);
+      }
+
+      public bool GetTargetBoardYaw(ref double yaw)
+      {
+         bool result = false;
+         SDOUpload upload = new SDOUpload(0x2445, 0x03);
+         this.pendingAction = upload;
+         bool actionResult = this.ExchangeCommAction(this.pendingAction);
+
+         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 2))
+         {
+            yaw = ((double)BitConverter.ToInt16(upload.Data, 0) / 16);
+            result = true;
+         }
+
+         return (result);
+      }
+
+      #endregion
+
       #region BLDL0 Functions
 
       public bool SetBldc0ControlWord(UInt16 controlWord)
@@ -1401,6 +1501,83 @@ namespace E4.CAN
          return (result);
       }
 
+      public bool StartStepper0Homing()
+      {
+         bool result = true;
+
+         if (MotorModes.homing == this.stepper0Mode)
+         {
+            UInt16 controlWord = this.stepper0ControlWord;
+            controlWord |= 0x0010;
+            result &= this.SetStepper0ControlWord(controlWord);
+
+            if (false != result)
+            {
+               this.Stepper0HomingAttained = false;
+            }
+         }
+         else
+         {
+            result = false;
+         }
+
+         return (result);
+      }
+
+      public bool StopStepper0Homing()
+      {
+         bool result = true;
+
+         if (MotorModes.homing == this.stepper0Mode)
+         {
+            UInt16 controlWord = this.stepper0ControlWord;
+            controlWord &= 0xFFEF;
+            result &= this.SetStepper0ControlWord(controlWord);
+         }
+         else
+         {
+            result = false;
+         }
+
+         return (result);
+      }
+
+      public bool HaltStepper0Homing()
+      {
+         bool result = true;
+
+         if (MotorModes.homing == this.stepper0Mode)
+         {
+            UInt16 controlWord = this.stepper0ControlWord;
+            controlWord |= 0x0100;
+            result &= this.SetStepper0ControlWord(controlWord);
+         }
+         else
+         {
+            result = false;
+         }
+
+         return (result);
+      }
+
+      public bool RunStepper0Homing()
+      {
+         bool result = true;
+
+         if (MotorModes.homing == this.stepper0Mode)
+         {
+            UInt16 controlWord = this.stepper0ControlWord;
+            controlWord &= 0xFEFF;
+            result &= this.SetStepper0ControlWord(controlWord);
+         }
+         else
+         {
+            result = false;
+         }
+
+         return (result);
+      }
+
       public bool GetStepper0HomingMethod(ref byte homingMethod)
       {
          bool result = false;
@@ -1704,6 +1881,208 @@ namespace E4.CAN
          bool result = true;
 
          result &= this.ExchangeCommAction(new SDODownload(0x7883, 0, 4, (UInt32)profileAcceleration));
+
+         return (result);
+      }
+
+      public bool StartStepper1Homing()
+      {
+         bool result = true;
+
+         if (MotorModes.homing == this.stepper1Mode)
+         {
+            UInt16 controlWord = this.stepper1ControlWord;
+            controlWord |= 0x0010;
+            result &= this.SetStepper1ControlWord(controlWord);
+
+            if (false != result)
+            {
+               this.Stepper1HomingAttained = false;
+            }
+         }
+         else
+         {
+            result = false;
+         }
+
+         return (result);
+      }
+
+      public bool StopStepper1Homing()
+      {
+         bool result = true;
+
+         if (MotorModes.homing == this.stepper1Mode)
+         {
+            UInt16 controlWord = this.stepper1ControlWord;
+            controlWord &= 0xFFEF;
+            result &= this.SetStepper1ControlWord(controlWord);
+         }
+         else
+         {
+            result = false;
+         }
+
+         return (result);
+      }
+
+      public bool HaltStepper1Homing()
+      {
+         bool result = true;
+
+         if (MotorModes.homing == this.stepper1Mode)
+         {
+            UInt16 controlWord = this.stepper1ControlWord;
+            controlWord |= 0x0100;
+            result &= this.SetStepper1ControlWord(controlWord);
+         }
+         else
+         {
+            result = false;
+         }
+
+         return (result);
+      }
+
+      public bool RunStepper1Homing()
+      {
+         bool result = true;
+
+         if (MotorModes.homing == this.stepper1Mode)
+         {
+            UInt16 controlWord = this.stepper1ControlWord;
+            controlWord &= 0xFEFF;
+            result &= this.SetStepper1ControlWord(controlWord);
+         }
+         else
+         {
+            result = false;
+         }
+
+         return (result);
+      }
+
+      public bool GetStepper1HomingMethod(ref byte homingMethod)
+      {
+         bool result = false;
+         SDOUpload upload = new SDOUpload(0x7898, 0);
+         this.pendingAction = upload;
+         bool actionResult = this.ExchangeCommAction(this.pendingAction);
+
+         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 1))
+         {
+            homingMethod = upload.Data[0];
+            result = true;
+         }
+
+         return (result);
+      }
+
+      public bool SetStepper1HomingMethod(byte homingMethod)
+      {
+         bool result = true;
+
+         result &= this.ExchangeCommAction(new SDODownload(0x7898, 0, 1, (UInt32)homingMethod));
+
+         return (result);
+      }
+
+      public bool GetStepper1HomingSwitchSpeed(ref UInt32 homingSwitchSpeed)
+      {
+         bool result = false;
+         SDOUpload upload = new SDOUpload(0x7899, 0x01);
+         this.pendingAction = upload;
+         bool actionResult = this.ExchangeCommAction(this.pendingAction);
+
+         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
+         {
+            homingSwitchSpeed = BitConverter.ToUInt32(upload.Data, 0);
+            result = true;
+         }
+
+         return (result);
+      }
+
+      public bool SetStepper1HomingSwitchSpeed(UInt32 homingSwitchSpeed)
+      {
+         bool result = true;
+
+         result &= this.ExchangeCommAction(new SDODownload(0x7899, 0x01, 4, (UInt32)homingSwitchSpeed));
+
+         return (result);
+      }
+
+      public bool GetStepper1HomingZeroSpeed(ref UInt32 homingZeroSpeed)
+      {
+         bool result = false;
+         SDOUpload upload = new SDOUpload(0x7899, 0x02);
+         this.pendingAction = upload;
+         bool actionResult = this.ExchangeCommAction(this.pendingAction);
+
+         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
+         {
+            homingZeroSpeed = BitConverter.ToUInt32(upload.Data, 0);
+            result = true;
+         }
+
+         return (result);
+      }
+
+      public bool SetStepper1HomingZeroSpeed(UInt32 homingZeroSpeed)
+      {
+         bool result = true;
+
+         result &= this.ExchangeCommAction(new SDODownload(0x7899, 0x02, 4, (UInt32)homingZeroSpeed));
+
+         return (result);
+      }
+
+      public bool GetStepper1HomingAcceleration(ref UInt32 homingAcceleration)
+      {
+         bool result = false;
+         SDOUpload upload = new SDOUpload(0x789A, 0);
+         this.pendingAction = upload;
+         bool actionResult = this.ExchangeCommAction(this.pendingAction);
+
+         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
+         {
+            homingAcceleration = BitConverter.ToUInt32(upload.Data, 0);
+            result = true;
+         }
+
+         return (result);
+      }
+
+      public bool SetStepper1HomingAcceleration(UInt32 homingAcceleration)
+      {
+         bool result = true;
+
+         result &= this.ExchangeCommAction(new SDODownload(0x789A, 0, 4, (UInt32)homingAcceleration));
+
+         return (result);
+      }
+
+      public bool GetStepper1HomeOffset(ref Int32 homeOffset)
+      {
+         bool result = false;
+         SDOUpload upload = new SDOUpload(0x787C, 0);
+         this.pendingAction = upload;
+         bool actionResult = this.ExchangeCommAction(this.pendingAction);
+
+         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
+         {
+            homeOffset = BitConverter.ToInt32(upload.Data, 0);
+            result = true;
+         }
+
+         return (result);
+      }
+
+      public bool SetStepper1HomeOffset(Int32 homeOffset)
+      {
+         bool result = true;
+
+         result &= this.ExchangeCommAction(new SDODownload(0x787C, 0, 4, (UInt32)homeOffset));
 
          return (result);
       }

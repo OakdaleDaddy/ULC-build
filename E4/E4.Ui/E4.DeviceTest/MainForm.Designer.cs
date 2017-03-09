@@ -66,6 +66,7 @@ namespace E4.DeviceTest
          this.DeviceUploadStringDataTextBox = new System.Windows.Forms.TextBox();
          this.label7 = new System.Windows.Forms.Label();
          this.DownloadTabPage = new System.Windows.Forms.TabPage();
+         this.DownloadEraseButton = new System.Windows.Forms.Button();
          this.DownloadFileDateTimeLabel = new System.Windows.Forms.Label();
          this.DownloadProgressBar = new System.Windows.Forms.ProgressBar();
          this.DownloadClearFaultButton = new System.Windows.Forms.Button();
@@ -219,6 +220,32 @@ namespace E4.DeviceTest
          this.label25 = new System.Windows.Forms.Label();
          this.E4MainStepper0TabPage = new System.Windows.Forms.TabPage();
          this.E4MainStepper0Panel = new System.Windows.Forms.Panel();
+         this.E4MainStepper0HomingGroupBox = new System.Windows.Forms.GroupBox();
+         this.E4MainStepper0HomingAttainedLabel = new System.Windows.Forms.Label();
+         this.RunE4MainStepper0HomingButton = new System.Windows.Forms.Button();
+         this.HaltE4MainStepper0HomingButton = new System.Windows.Forms.Button();
+         this.StopE4MainStepper0HomingButton = new System.Windows.Forms.Button();
+         this.StartE4MainStepper0HomingButton = new System.Windows.Forms.Button();
+         this.SetE4MainStepper0HomeOffsetButton = new System.Windows.Forms.Button();
+         this.SetE4MainStepper0HomingMethodButton = new System.Windows.Forms.Button();
+         this.GetE4MainStepper0HomingZeroSpeedButton = new System.Windows.Forms.Button();
+         this.GetE4MainStepper0HomingSwitchSpeedButton = new System.Windows.Forms.Button();
+         this.E4MainStepper0HomingSwitchSpeedTextBox = new System.Windows.Forms.TextBox();
+         this.SetE4MainStepper0HomingSwitchSpeedButton = new System.Windows.Forms.Button();
+         this.label166 = new System.Windows.Forms.Label();
+         this.label167 = new System.Windows.Forms.Label();
+         this.GetE4MainStepper0HomingMethodButton = new System.Windows.Forms.Button();
+         this.E4MainStepper0HomingMethodTextBox = new System.Windows.Forms.TextBox();
+         this.E4MainStepper0HomingZeroSpeedTextBox = new System.Windows.Forms.TextBox();
+         this.SetE4MainStepper0HomingZeroSpeedButton = new System.Windows.Forms.Button();
+         this.label168 = new System.Windows.Forms.Label();
+         this.E4MainStepper0HomingAccelerationTextBox = new System.Windows.Forms.TextBox();
+         this.label155 = new System.Windows.Forms.Label();
+         this.label165 = new System.Windows.Forms.Label();
+         this.GetE4MainStepper0HomingAccelerationButton = new System.Windows.Forms.Button();
+         this.SetE4MainStepper0HomingAccelerationButton = new System.Windows.Forms.Button();
+         this.GetE4MainStepper0HomeOffsetButton = new System.Windows.Forms.Button();
+         this.E4MainStepper0HomeOffsetTextBox = new System.Windows.Forms.TextBox();
          this.E4MainStepper0PositionGroupBox = new System.Windows.Forms.GroupBox();
          this.GetE4MainStepper0ProfileAccelerationButton = new System.Windows.Forms.Button();
          this.label43 = new System.Windows.Forms.Label();
@@ -249,6 +276,32 @@ namespace E4.DeviceTest
          this.label32 = new System.Windows.Forms.Label();
          this.E4MainStepper1TabPage = new System.Windows.Forms.TabPage();
          this.E4MainStepper1Panel = new System.Windows.Forms.Panel();
+         this.E4MainStepper1GroupBox = new System.Windows.Forms.GroupBox();
+         this.E4MainStepper1HomingAttainedLabel = new System.Windows.Forms.Label();
+         this.RunE4MainStepper1HomingButton = new System.Windows.Forms.Button();
+         this.HaltE4MainStepper1HomingButton = new System.Windows.Forms.Button();
+         this.StopE4MainStepper1HomingButton = new System.Windows.Forms.Button();
+         this.StartE4MainStepper1HomingButton = new System.Windows.Forms.Button();
+         this.SetE4MainStepper1HomeOffsetButton = new System.Windows.Forms.Button();
+         this.SetE4MainStepper1HomingMethodButton = new System.Windows.Forms.Button();
+         this.GetE4MainStepper1HomingZeroSpeedButton = new System.Windows.Forms.Button();
+         this.GetE4MainStepper1HomingSwitchSpeedButton = new System.Windows.Forms.Button();
+         this.E4MainStepper1HomingSwitchSpeedTextBox = new System.Windows.Forms.TextBox();
+         this.SetE4MainStepper1HomingSwitchSpeedButton = new System.Windows.Forms.Button();
+         this.label49 = new System.Windows.Forms.Label();
+         this.label50 = new System.Windows.Forms.Label();
+         this.GetE4MainStepper1HomingMethodButton = new System.Windows.Forms.Button();
+         this.E4MainStepper1HomingMethodTextBox = new System.Windows.Forms.TextBox();
+         this.E4MainStepper1HomingZeroSpeedTextBox = new System.Windows.Forms.TextBox();
+         this.SetE4MainStepper1HomingZeroSpeedButton = new System.Windows.Forms.Button();
+         this.label52 = new System.Windows.Forms.Label();
+         this.E4MainStepper1HomingAccelerationTextBox = new System.Windows.Forms.TextBox();
+         this.label53 = new System.Windows.Forms.Label();
+         this.label54 = new System.Windows.Forms.Label();
+         this.GetE4MainStepper1HomingAccelerationButton = new System.Windows.Forms.Button();
+         this.SetE4MainStepper1HomingAccelerationButton = new System.Windows.Forms.Button();
+         this.GetE4MainStepper1HomeOffsetButton = new System.Windows.Forms.Button();
+         this.E4MainStepper1HomeOffsetTextBox = new System.Windows.Forms.TextBox();
          this.groupBox1 = new System.Windows.Forms.GroupBox();
          this.GetE4MainStepper1ProfileAccelerationButton = new System.Windows.Forms.Button();
          this.label40 = new System.Windows.Forms.Label();
@@ -298,58 +351,49 @@ namespace E4.DeviceTest
          this.E4MainStartButton = new System.Windows.Forms.Button();
          this.splitter1 = new System.Windows.Forms.Splitter();
          this.MainActivityPanel = new System.Windows.Forms.Panel();
-         this.E4MainStepper0HomingGroupBox = new System.Windows.Forms.GroupBox();
-         this.E4MainStepper0HomingAttainedLabel = new System.Windows.Forms.Label();
-         this.RunE4MainStepper0HomingButton = new System.Windows.Forms.Button();
-         this.HaltE4MainStepper0HomingButton = new System.Windows.Forms.Button();
-         this.StopE4MainStepper0HomingButton = new System.Windows.Forms.Button();
-         this.StartE4MainStepper0HomingButton = new System.Windows.Forms.Button();
-         this.SetE4MainStepper0HomeOffsetButton = new System.Windows.Forms.Button();
-         this.SetE4MainStepper0HomingMethodButton = new System.Windows.Forms.Button();
-         this.GetE4MainStepper0HomingZeroSpeedButton = new System.Windows.Forms.Button();
-         this.GetE4MainStepper0HomingSwitchSpeedButton = new System.Windows.Forms.Button();
-         this.E4MainStepper0HomingSwitchSpeedTextBox = new System.Windows.Forms.TextBox();
-         this.SetE4MainStepper0HomingSwitchSpeedButton = new System.Windows.Forms.Button();
-         this.label166 = new System.Windows.Forms.Label();
-         this.label167 = new System.Windows.Forms.Label();
-         this.GetE4MainStepper0HomingMethodButton = new System.Windows.Forms.Button();
-         this.E4MainStepper0HomingMethodTextBox = new System.Windows.Forms.TextBox();
-         this.E4MainStepper0HomingZeroSpeedTextBox = new System.Windows.Forms.TextBox();
-         this.SetE4MainStepper0HomingZeroSpeedButton = new System.Windows.Forms.Button();
-         this.label168 = new System.Windows.Forms.Label();
-         this.E4MainStepper0HomingAccelerationTextBox = new System.Windows.Forms.TextBox();
-         this.label155 = new System.Windows.Forms.Label();
-         this.label165 = new System.Windows.Forms.Label();
-         this.GetE4MainStepper0HomingAccelerationButton = new System.Windows.Forms.Button();
-         this.SetE4MainStepper0HomingAccelerationButton = new System.Windows.Forms.Button();
-         this.GetE4MainStepper0HomeOffsetButton = new System.Windows.Forms.Button();
-         this.E4MainStepper0HomeOffsetTextBox = new System.Windows.Forms.TextBox();
-         this.E4MainStepper1GroupBox = new System.Windows.Forms.GroupBox();
-         this.E4MainStepper1HomingAttainedLabel = new System.Windows.Forms.Label();
+         this.E4MainImuTabPage = new System.Windows.Forms.TabPage();
+         this.label31 = new System.Windows.Forms.Label();
+         this.label38 = new System.Windows.Forms.Label();
+         this.E4MainMainBoardIcuReadYawTextBox = new System.Windows.Forms.TextBox();
+         this.E4MainMainBoardIcuReadPitchTextBox = new System.Windows.Forms.TextBox();
+         this.E4MainMainBoardIcuReadRollTextBox = new System.Windows.Forms.TextBox();
+         this.label45 = new System.Windows.Forms.Label();
+         this.label55 = new System.Windows.Forms.Label();
+         this.label56 = new System.Windows.Forms.Label();
+         this.E4MainTargetBoardIcuReadYawTextBox = new System.Windows.Forms.TextBox();
+         this.E4MainTargetBoardIcuReadPitchTextBox = new System.Windows.Forms.TextBox();
+         this.E4MainTargetBoardIcuReadRollTextBox = new System.Windows.Forms.TextBox();
+         this.label57 = new System.Windows.Forms.Label();
+         this.ReadE4MainMainIcuDirectionsButton = new System.Windows.Forms.Button();
+         this.ReadE4MainTargetIcuDirectionsButton = new System.Windows.Forms.Button();
+         this.E4MainLaserTabPage = new System.Windows.Forms.TabPage();
          this.button1 = new System.Windows.Forms.Button();
          this.button2 = new System.Windows.Forms.Button();
          this.button3 = new System.Windows.Forms.Button();
+         this.textBox1 = new System.Windows.Forms.TextBox();
+         this.label58 = new System.Windows.Forms.Label();
          this.button4 = new System.Windows.Forms.Button();
          this.button5 = new System.Windows.Forms.Button();
+         this.textBox2 = new System.Windows.Forms.TextBox();
+         this.label59 = new System.Windows.Forms.Label();
+         this.label60 = new System.Windows.Forms.Label();
+         this.LaserScannerPositionTextBox = new System.Windows.Forms.TextBox();
+         this.label61 = new System.Windows.Forms.Label();
          this.button6 = new System.Windows.Forms.Button();
          this.button7 = new System.Windows.Forms.Button();
-         this.button8 = new System.Windows.Forms.Button();
-         this.textBox1 = new System.Windows.Forms.TextBox();
-         this.button9 = new System.Windows.Forms.Button();
-         this.label49 = new System.Windows.Forms.Label();
-         this.label50 = new System.Windows.Forms.Label();
-         this.button10 = new System.Windows.Forms.Button();
-         this.textBox2 = new System.Windows.Forms.TextBox();
+         this.label62 = new System.Windows.Forms.Label();
          this.textBox3 = new System.Windows.Forms.TextBox();
-         this.button11 = new System.Windows.Forms.Button();
-         this.label52 = new System.Windows.Forms.Label();
+         this.button8 = new System.Windows.Forms.Button();
+         this.E4MainLaserRangeFinderGroupBox = new System.Windows.Forms.GroupBox();
+         this.E4MainLaserScannerGroupBox = new System.Windows.Forms.GroupBox();
+         this.button9 = new System.Windows.Forms.Button();
          this.textBox4 = new System.Windows.Forms.TextBox();
-         this.label53 = new System.Windows.Forms.Label();
-         this.label54 = new System.Windows.Forms.Label();
-         this.button12 = new System.Windows.Forms.Button();
-         this.button13 = new System.Windows.Forms.Button();
-         this.button14 = new System.Windows.Forms.Button();
+         this.label63 = new System.Windows.Forms.Label();
+         this.label64 = new System.Windows.Forms.Label();
+         this.label65 = new System.Windows.Forms.Label();
          this.textBox5 = new System.Windows.Forms.TextBox();
+         this.label66 = new System.Windows.Forms.Label();
+         this.button10 = new System.Windows.Forms.Button();
          this.MainStatusStrip.SuspendLayout();
          this.MainTabControl.SuspendLayout();
          this.ControlTabPage.SuspendLayout();
@@ -371,13 +415,17 @@ namespace E4.DeviceTest
          this.E4MainBldc1VelocityGroupBox.SuspendLayout();
          this.E4MainStepper0TabPage.SuspendLayout();
          this.E4MainStepper0Panel.SuspendLayout();
+         this.E4MainStepper0HomingGroupBox.SuspendLayout();
          this.E4MainStepper0PositionGroupBox.SuspendLayout();
          this.E4MainStepper1TabPage.SuspendLayout();
          this.E4MainStepper1Panel.SuspendLayout();
+         this.E4MainStepper1GroupBox.SuspendLayout();
          this.groupBox1.SuspendLayout();
          this.MainActivityPanel.SuspendLayout();
-         this.E4MainStepper0HomingGroupBox.SuspendLayout();
-         this.E4MainStepper1GroupBox.SuspendLayout();
+         this.E4MainImuTabPage.SuspendLayout();
+         this.E4MainLaserTabPage.SuspendLayout();
+         this.E4MainLaserRangeFinderGroupBox.SuspendLayout();
+         this.E4MainLaserScannerGroupBox.SuspendLayout();
          this.SuspendLayout();
          // 
          // ActivityRichTextBox
@@ -728,6 +776,7 @@ namespace E4.DeviceTest
          // 
          // DownloadTabPage
          // 
+         this.DownloadTabPage.Controls.Add(this.DownloadEraseButton);
          this.DownloadTabPage.Controls.Add(this.DownloadFileDateTimeLabel);
          this.DownloadTabPage.Controls.Add(this.DownloadProgressBar);
          this.DownloadTabPage.Controls.Add(this.DownloadClearFaultButton);
@@ -748,6 +797,16 @@ namespace E4.DeviceTest
          this.DownloadTabPage.Text = "Download";
          this.DownloadTabPage.UseVisualStyleBackColor = true;
          this.DownloadTabPage.Enter += new System.EventHandler(this.DownloadTabPage_Enter);
+         // 
+         // DownloadEraseButton
+         // 
+         this.DownloadEraseButton.Location = new System.Drawing.Point(224, 34);
+         this.DownloadEraseButton.Name = "DownloadEraseButton";
+         this.DownloadEraseButton.Size = new System.Drawing.Size(46, 23);
+         this.DownloadEraseButton.TabIndex = 121;
+         this.DownloadEraseButton.Text = "Erase";
+         this.DownloadEraseButton.UseVisualStyleBackColor = true;
+         this.DownloadEraseButton.Click += new System.EventHandler(this.DownloadEraseButton_Click);
          // 
          // DownloadFileDateTimeLabel
          // 
@@ -890,6 +949,7 @@ namespace E4.DeviceTest
          this.MainTabPage.Controls.Add(this.E4MainResetButton);
          this.MainTabPage.Controls.Add(this.E4MainStopButton);
          this.MainTabPage.Controls.Add(this.E4MainStartButton);
+         this.MainTabPage.Controls.Add(this.label64);
          this.MainTabPage.Location = new System.Drawing.Point(4, 22);
          this.MainTabPage.Name = "MainTabPage";
          this.MainTabPage.Padding = new System.Windows.Forms.Padding(3);
@@ -915,6 +975,8 @@ namespace E4.DeviceTest
             | System.Windows.Forms.AnchorStyles.Right)));
          this.E4MainTabControl.Controls.Add(this.E4MainHeartbeatsTabPage);
          this.E4MainTabControl.Controls.Add(this.E4MainCameraTabPage);
+         this.E4MainTabControl.Controls.Add(this.E4MainImuTabPage);
+         this.E4MainTabControl.Controls.Add(this.E4MainLaserTabPage);
          this.E4MainTabControl.Controls.Add(this.E4MainBldc0TabPage);
          this.E4MainTabControl.Controls.Add(this.E4MainBldc1TabPage);
          this.E4MainTabControl.Controls.Add(this.E4MainStepper0TabPage);
@@ -2339,6 +2401,269 @@ namespace E4.DeviceTest
          this.E4MainStepper0Panel.TabIndex = 440;
          this.E4MainStepper0Panel.Scroll += new System.Windows.Forms.ScrollEventHandler(this.E4MainStepper0Panel_Scroll);
          // 
+         // E4MainStepper0HomingGroupBox
+         // 
+         this.E4MainStepper0HomingGroupBox.Controls.Add(this.E4MainStepper0HomingAttainedLabel);
+         this.E4MainStepper0HomingGroupBox.Controls.Add(this.RunE4MainStepper0HomingButton);
+         this.E4MainStepper0HomingGroupBox.Controls.Add(this.HaltE4MainStepper0HomingButton);
+         this.E4MainStepper0HomingGroupBox.Controls.Add(this.StopE4MainStepper0HomingButton);
+         this.E4MainStepper0HomingGroupBox.Controls.Add(this.StartE4MainStepper0HomingButton);
+         this.E4MainStepper0HomingGroupBox.Controls.Add(this.SetE4MainStepper0HomeOffsetButton);
+         this.E4MainStepper0HomingGroupBox.Controls.Add(this.SetE4MainStepper0HomingMethodButton);
+         this.E4MainStepper0HomingGroupBox.Controls.Add(this.GetE4MainStepper0HomingZeroSpeedButton);
+         this.E4MainStepper0HomingGroupBox.Controls.Add(this.GetE4MainStepper0HomingSwitchSpeedButton);
+         this.E4MainStepper0HomingGroupBox.Controls.Add(this.E4MainStepper0HomingSwitchSpeedTextBox);
+         this.E4MainStepper0HomingGroupBox.Controls.Add(this.SetE4MainStepper0HomingSwitchSpeedButton);
+         this.E4MainStepper0HomingGroupBox.Controls.Add(this.label166);
+         this.E4MainStepper0HomingGroupBox.Controls.Add(this.label167);
+         this.E4MainStepper0HomingGroupBox.Controls.Add(this.GetE4MainStepper0HomingMethodButton);
+         this.E4MainStepper0HomingGroupBox.Controls.Add(this.E4MainStepper0HomingMethodTextBox);
+         this.E4MainStepper0HomingGroupBox.Controls.Add(this.E4MainStepper0HomingZeroSpeedTextBox);
+         this.E4MainStepper0HomingGroupBox.Controls.Add(this.SetE4MainStepper0HomingZeroSpeedButton);
+         this.E4MainStepper0HomingGroupBox.Controls.Add(this.label168);
+         this.E4MainStepper0HomingGroupBox.Controls.Add(this.E4MainStepper0HomingAccelerationTextBox);
+         this.E4MainStepper0HomingGroupBox.Controls.Add(this.label155);
+         this.E4MainStepper0HomingGroupBox.Controls.Add(this.label165);
+         this.E4MainStepper0HomingGroupBox.Controls.Add(this.GetE4MainStepper0HomingAccelerationButton);
+         this.E4MainStepper0HomingGroupBox.Controls.Add(this.SetE4MainStepper0HomingAccelerationButton);
+         this.E4MainStepper0HomingGroupBox.Controls.Add(this.GetE4MainStepper0HomeOffsetButton);
+         this.E4MainStepper0HomingGroupBox.Controls.Add(this.E4MainStepper0HomeOffsetTextBox);
+         this.E4MainStepper0HomingGroupBox.Location = new System.Drawing.Point(3, 79);
+         this.E4MainStepper0HomingGroupBox.Name = "E4MainStepper0HomingGroupBox";
+         this.E4MainStepper0HomingGroupBox.Size = new System.Drawing.Size(681, 70);
+         this.E4MainStepper0HomingGroupBox.TabIndex = 421;
+         this.E4MainStepper0HomingGroupBox.TabStop = false;
+         this.E4MainStepper0HomingGroupBox.Text = "Homing";
+         // 
+         // E4MainStepper0HomingAttainedLabel
+         // 
+         this.E4MainStepper0HomingAttainedLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+         this.E4MainStepper0HomingAttainedLabel.Location = new System.Drawing.Point(19, 46);
+         this.E4MainStepper0HomingAttainedLabel.Name = "E4MainStepper0HomingAttainedLabel";
+         this.E4MainStepper0HomingAttainedLabel.Size = new System.Drawing.Size(27, 12);
+         this.E4MainStepper0HomingAttainedLabel.TabIndex = 410;
+         this.E4MainStepper0HomingAttainedLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         // 
+         // RunE4MainStepper0HomingButton
+         // 
+         this.RunE4MainStepper0HomingButton.Location = new System.Drawing.Point(179, 15);
+         this.RunE4MainStepper0HomingButton.Name = "RunE4MainStepper0HomingButton";
+         this.RunE4MainStepper0HomingButton.Size = new System.Drawing.Size(46, 23);
+         this.RunE4MainStepper0HomingButton.TabIndex = 409;
+         this.RunE4MainStepper0HomingButton.Text = "Run";
+         this.RunE4MainStepper0HomingButton.UseVisualStyleBackColor = true;
+         this.RunE4MainStepper0HomingButton.Click += new System.EventHandler(this.RunE4MainStepper0HomingButton_Click);
+         // 
+         // HaltE4MainStepper0HomingButton
+         // 
+         this.HaltE4MainStepper0HomingButton.Location = new System.Drawing.Point(127, 15);
+         this.HaltE4MainStepper0HomingButton.Name = "HaltE4MainStepper0HomingButton";
+         this.HaltE4MainStepper0HomingButton.Size = new System.Drawing.Size(46, 23);
+         this.HaltE4MainStepper0HomingButton.TabIndex = 408;
+         this.HaltE4MainStepper0HomingButton.Text = "Halt";
+         this.HaltE4MainStepper0HomingButton.UseVisualStyleBackColor = true;
+         this.HaltE4MainStepper0HomingButton.Click += new System.EventHandler(this.HaltE4MainStepper0HomingButton_Click);
+         // 
+         // StopE4MainStepper0HomingButton
+         // 
+         this.StopE4MainStepper0HomingButton.Location = new System.Drawing.Point(75, 15);
+         this.StopE4MainStepper0HomingButton.Name = "StopE4MainStepper0HomingButton";
+         this.StopE4MainStepper0HomingButton.Size = new System.Drawing.Size(46, 23);
+         this.StopE4MainStepper0HomingButton.TabIndex = 407;
+         this.StopE4MainStepper0HomingButton.Text = "Stop";
+         this.StopE4MainStepper0HomingButton.UseVisualStyleBackColor = true;
+         this.StopE4MainStepper0HomingButton.Click += new System.EventHandler(this.StopE4MainStepper0HomingButton_Click);
+         // 
+         // StartE4MainStepper0HomingButton
+         // 
+         this.StartE4MainStepper0HomingButton.Location = new System.Drawing.Point(23, 15);
+         this.StartE4MainStepper0HomingButton.Name = "StartE4MainStepper0HomingButton";
+         this.StartE4MainStepper0HomingButton.Size = new System.Drawing.Size(46, 23);
+         this.StartE4MainStepper0HomingButton.TabIndex = 406;
+         this.StartE4MainStepper0HomingButton.Text = "Start";
+         this.StartE4MainStepper0HomingButton.UseVisualStyleBackColor = true;
+         this.StartE4MainStepper0HomingButton.Click += new System.EventHandler(this.StartE4MainStepper0HomingButton_Click);
+         // 
+         // SetE4MainStepper0HomeOffsetButton
+         // 
+         this.SetE4MainStepper0HomeOffsetButton.Location = new System.Drawing.Point(627, 41);
+         this.SetE4MainStepper0HomeOffsetButton.Name = "SetE4MainStepper0HomeOffsetButton";
+         this.SetE4MainStepper0HomeOffsetButton.Size = new System.Drawing.Size(35, 23);
+         this.SetE4MainStepper0HomeOffsetButton.TabIndex = 388;
+         this.SetE4MainStepper0HomeOffsetButton.Text = "Set";
+         this.SetE4MainStepper0HomeOffsetButton.UseVisualStyleBackColor = true;
+         this.SetE4MainStepper0HomeOffsetButton.Click += new System.EventHandler(this.SetE4MainStepper0HomeOffsetButton_Click);
+         // 
+         // SetE4MainStepper0HomingMethodButton
+         // 
+         this.SetE4MainStepper0HomingMethodButton.Location = new System.Drawing.Point(190, 41);
+         this.SetE4MainStepper0HomingMethodButton.Name = "SetE4MainStepper0HomingMethodButton";
+         this.SetE4MainStepper0HomingMethodButton.Size = new System.Drawing.Size(35, 23);
+         this.SetE4MainStepper0HomingMethodButton.TabIndex = 404;
+         this.SetE4MainStepper0HomingMethodButton.Text = "Set";
+         this.SetE4MainStepper0HomingMethodButton.UseVisualStyleBackColor = true;
+         this.SetE4MainStepper0HomingMethodButton.Click += new System.EventHandler(this.SetE4MainStepper0HomingMethodButton_Click);
+         // 
+         // GetE4MainStepper0HomingZeroSpeedButton
+         // 
+         this.GetE4MainStepper0HomingZeroSpeedButton.Location = new System.Drawing.Point(371, 41);
+         this.GetE4MainStepper0HomingZeroSpeedButton.Name = "GetE4MainStepper0HomingZeroSpeedButton";
+         this.GetE4MainStepper0HomingZeroSpeedButton.Size = new System.Drawing.Size(35, 23);
+         this.GetE4MainStepper0HomingZeroSpeedButton.TabIndex = 401;
+         this.GetE4MainStepper0HomingZeroSpeedButton.Text = "Get";
+         this.GetE4MainStepper0HomingZeroSpeedButton.UseVisualStyleBackColor = true;
+         this.GetE4MainStepper0HomingZeroSpeedButton.Click += new System.EventHandler(this.GetE4MainStepper0HomingZeroSpeedButton_Click);
+         // 
+         // GetE4MainStepper0HomingSwitchSpeedButton
+         // 
+         this.GetE4MainStepper0HomingSwitchSpeedButton.Location = new System.Drawing.Point(371, 15);
+         this.GetE4MainStepper0HomingSwitchSpeedButton.Name = "GetE4MainStepper0HomingSwitchSpeedButton";
+         this.GetE4MainStepper0HomingSwitchSpeedButton.Size = new System.Drawing.Size(35, 23);
+         this.GetE4MainStepper0HomingSwitchSpeedButton.TabIndex = 397;
+         this.GetE4MainStepper0HomingSwitchSpeedButton.Text = "Get";
+         this.GetE4MainStepper0HomingSwitchSpeedButton.UseVisualStyleBackColor = true;
+         this.GetE4MainStepper0HomingSwitchSpeedButton.Click += new System.EventHandler(this.GetE4MainStepper0HomingSwitchSpeedButton_Click);
+         // 
+         // E4MainStepper0HomingSwitchSpeedTextBox
+         // 
+         this.E4MainStepper0HomingSwitchSpeedTextBox.Location = new System.Drawing.Point(306, 17);
+         this.E4MainStepper0HomingSwitchSpeedTextBox.Name = "E4MainStepper0HomingSwitchSpeedTextBox";
+         this.E4MainStepper0HomingSwitchSpeedTextBox.Size = new System.Drawing.Size(59, 20);
+         this.E4MainStepper0HomingSwitchSpeedTextBox.TabIndex = 395;
+         // 
+         // SetE4MainStepper0HomingSwitchSpeedButton
+         // 
+         this.SetE4MainStepper0HomingSwitchSpeedButton.Location = new System.Drawing.Point(412, 15);
+         this.SetE4MainStepper0HomingSwitchSpeedButton.Name = "SetE4MainStepper0HomingSwitchSpeedButton";
+         this.SetE4MainStepper0HomingSwitchSpeedButton.Size = new System.Drawing.Size(35, 23);
+         this.SetE4MainStepper0HomingSwitchSpeedButton.TabIndex = 396;
+         this.SetE4MainStepper0HomingSwitchSpeedButton.Text = "Set";
+         this.SetE4MainStepper0HomingSwitchSpeedButton.UseVisualStyleBackColor = true;
+         this.SetE4MainStepper0HomingSwitchSpeedButton.Click += new System.EventHandler(this.SetE4MainStepper0HomingSwitchSpeedButton_Click);
+         // 
+         // label166
+         // 
+         this.label166.AutoSize = true;
+         this.label166.Location = new System.Drawing.Point(231, 20);
+         this.label166.Name = "label166";
+         this.label166.Size = new System.Drawing.Size(73, 13);
+         this.label166.TabIndex = 394;
+         this.label166.Text = "Switch Speed";
+         // 
+         // label167
+         // 
+         this.label167.AutoSize = true;
+         this.label167.Location = new System.Drawing.Point(241, 46);
+         this.label167.Name = "label167";
+         this.label167.Size = new System.Drawing.Size(63, 13);
+         this.label167.TabIndex = 398;
+         this.label167.Text = "Zero Speed";
+         // 
+         // GetE4MainStepper0HomingMethodButton
+         // 
+         this.GetE4MainStepper0HomingMethodButton.Location = new System.Drawing.Point(149, 41);
+         this.GetE4MainStepper0HomingMethodButton.Name = "GetE4MainStepper0HomingMethodButton";
+         this.GetE4MainStepper0HomingMethodButton.Size = new System.Drawing.Size(35, 23);
+         this.GetE4MainStepper0HomingMethodButton.TabIndex = 405;
+         this.GetE4MainStepper0HomingMethodButton.Text = "Get";
+         this.GetE4MainStepper0HomingMethodButton.UseVisualStyleBackColor = true;
+         this.GetE4MainStepper0HomingMethodButton.Click += new System.EventHandler(this.GetE4MainStepper0HomingMethodButton_Click);
+         // 
+         // E4MainStepper0HomingMethodTextBox
+         // 
+         this.E4MainStepper0HomingMethodTextBox.Location = new System.Drawing.Point(100, 43);
+         this.E4MainStepper0HomingMethodTextBox.Name = "E4MainStepper0HomingMethodTextBox";
+         this.E4MainStepper0HomingMethodTextBox.Size = new System.Drawing.Size(43, 20);
+         this.E4MainStepper0HomingMethodTextBox.TabIndex = 403;
+         // 
+         // E4MainStepper0HomingZeroSpeedTextBox
+         // 
+         this.E4MainStepper0HomingZeroSpeedTextBox.Location = new System.Drawing.Point(306, 43);
+         this.E4MainStepper0HomingZeroSpeedTextBox.Name = "E4MainStepper0HomingZeroSpeedTextBox";
+         this.E4MainStepper0HomingZeroSpeedTextBox.Size = new System.Drawing.Size(59, 20);
+         this.E4MainStepper0HomingZeroSpeedTextBox.TabIndex = 399;
+         // 
+         // SetE4MainStepper0HomingZeroSpeedButton
+         // 
+         this.SetE4MainStepper0HomingZeroSpeedButton.Location = new System.Drawing.Point(412, 41);
+         this.SetE4MainStepper0HomingZeroSpeedButton.Name = "SetE4MainStepper0HomingZeroSpeedButton";
+         this.SetE4MainStepper0HomingZeroSpeedButton.Size = new System.Drawing.Size(35, 23);
+         this.SetE4MainStepper0HomingZeroSpeedButton.TabIndex = 400;
+         this.SetE4MainStepper0HomingZeroSpeedButton.Text = "Set";
+         this.SetE4MainStepper0HomingZeroSpeedButton.UseVisualStyleBackColor = true;
+         this.SetE4MainStepper0HomingZeroSpeedButton.Click += new System.EventHandler(this.SetE4MainStepper0HomingZeroSpeedButton_Click);
+         // 
+         // label168
+         // 
+         this.label168.AutoSize = true;
+         this.label168.Location = new System.Drawing.Point(55, 46);
+         this.label168.Name = "label168";
+         this.label168.Size = new System.Drawing.Size(43, 13);
+         this.label168.TabIndex = 402;
+         this.label168.Text = "Method";
+         // 
+         // E4MainStepper0HomingAccelerationTextBox
+         // 
+         this.E4MainStepper0HomingAccelerationTextBox.Location = new System.Drawing.Point(521, 17);
+         this.E4MainStepper0HomingAccelerationTextBox.Name = "E4MainStepper0HomingAccelerationTextBox";
+         this.E4MainStepper0HomingAccelerationTextBox.Size = new System.Drawing.Size(59, 20);
+         this.E4MainStepper0HomingAccelerationTextBox.TabIndex = 391;
+         // 
+         // label155
+         // 
+         this.label155.AutoSize = true;
+         this.label155.Location = new System.Drawing.Point(484, 46);
+         this.label155.Name = "label155";
+         this.label155.Size = new System.Drawing.Size(35, 13);
+         this.label155.TabIndex = 386;
+         this.label155.Text = "Offset";
+         // 
+         // label165
+         // 
+         this.label165.AutoSize = true;
+         this.label165.Location = new System.Drawing.Point(453, 20);
+         this.label165.Name = "label165";
+         this.label165.Size = new System.Drawing.Size(66, 13);
+         this.label165.TabIndex = 390;
+         this.label165.Text = "Acceleration";
+         // 
+         // GetE4MainStepper0HomingAccelerationButton
+         // 
+         this.GetE4MainStepper0HomingAccelerationButton.Location = new System.Drawing.Point(586, 15);
+         this.GetE4MainStepper0HomingAccelerationButton.Name = "GetE4MainStepper0HomingAccelerationButton";
+         this.GetE4MainStepper0HomingAccelerationButton.Size = new System.Drawing.Size(35, 23);
+         this.GetE4MainStepper0HomingAccelerationButton.TabIndex = 393;
+         this.GetE4MainStepper0HomingAccelerationButton.Text = "Get";
+         this.GetE4MainStepper0HomingAccelerationButton.UseVisualStyleBackColor = true;
+         this.GetE4MainStepper0HomingAccelerationButton.Click += new System.EventHandler(this.GetE4MainStepper0HomingAccelerationButton_Click);
+         // 
+         // SetE4MainStepper0HomingAccelerationButton
+         // 
+         this.SetE4MainStepper0HomingAccelerationButton.Location = new System.Drawing.Point(627, 15);
+         this.SetE4MainStepper0HomingAccelerationButton.Name = "SetE4MainStepper0HomingAccelerationButton";
+         this.SetE4MainStepper0HomingAccelerationButton.Size = new System.Drawing.Size(35, 23);
+         this.SetE4MainStepper0HomingAccelerationButton.TabIndex = 392;
+         this.SetE4MainStepper0HomingAccelerationButton.Text = "Set";
+         this.SetE4MainStepper0HomingAccelerationButton.UseVisualStyleBackColor = true;
+         this.SetE4MainStepper0HomingAccelerationButton.Click += new System.EventHandler(this.SetE4MainStepper0HomingAccelerationButton_Click);
+         // 
+         // GetE4MainStepper0HomeOffsetButton
+         // 
+         this.GetE4MainStepper0HomeOffsetButton.Location = new System.Drawing.Point(586, 41);
+         this.GetE4MainStepper0HomeOffsetButton.Name = "GetE4MainStepper0HomeOffsetButton";
+         this.GetE4MainStepper0HomeOffsetButton.Size = new System.Drawing.Size(35, 23);
+         this.GetE4MainStepper0HomeOffsetButton.TabIndex = 389;
+         this.GetE4MainStepper0HomeOffsetButton.Text = "Get";
+         this.GetE4MainStepper0HomeOffsetButton.UseVisualStyleBackColor = true;
+         this.GetE4MainStepper0HomeOffsetButton.Click += new System.EventHandler(this.GetE4MainStepper0HomeOffsetButton_Click);
+         // 
+         // E4MainStepper0HomeOffsetTextBox
+         // 
+         this.E4MainStepper0HomeOffsetTextBox.Location = new System.Drawing.Point(521, 43);
+         this.E4MainStepper0HomeOffsetTextBox.Name = "E4MainStepper0HomeOffsetTextBox";
+         this.E4MainStepper0HomeOffsetTextBox.Size = new System.Drawing.Size(59, 20);
+         this.E4MainStepper0HomeOffsetTextBox.TabIndex = 387;
+         // 
          // E4MainStepper0PositionGroupBox
          // 
          this.E4MainStepper0PositionGroupBox.Controls.Add(this.GetE4MainStepper0ProfileAccelerationButton);
@@ -2641,6 +2966,269 @@ namespace E4.DeviceTest
          this.E4MainStepper1Panel.TabIndex = 441;
          this.E4MainStepper1Panel.Scroll += new System.Windows.Forms.ScrollEventHandler(this.E4MainStepper1Panel_Scroll);
          // 
+         // E4MainStepper1GroupBox
+         // 
+         this.E4MainStepper1GroupBox.Controls.Add(this.E4MainStepper1HomingAttainedLabel);
+         this.E4MainStepper1GroupBox.Controls.Add(this.RunE4MainStepper1HomingButton);
+         this.E4MainStepper1GroupBox.Controls.Add(this.HaltE4MainStepper1HomingButton);
+         this.E4MainStepper1GroupBox.Controls.Add(this.StopE4MainStepper1HomingButton);
+         this.E4MainStepper1GroupBox.Controls.Add(this.StartE4MainStepper1HomingButton);
+         this.E4MainStepper1GroupBox.Controls.Add(this.SetE4MainStepper1HomeOffsetButton);
+         this.E4MainStepper1GroupBox.Controls.Add(this.SetE4MainStepper1HomingMethodButton);
+         this.E4MainStepper1GroupBox.Controls.Add(this.GetE4MainStepper1HomingZeroSpeedButton);
+         this.E4MainStepper1GroupBox.Controls.Add(this.GetE4MainStepper1HomingSwitchSpeedButton);
+         this.E4MainStepper1GroupBox.Controls.Add(this.E4MainStepper1HomingSwitchSpeedTextBox);
+         this.E4MainStepper1GroupBox.Controls.Add(this.SetE4MainStepper1HomingSwitchSpeedButton);
+         this.E4MainStepper1GroupBox.Controls.Add(this.label49);
+         this.E4MainStepper1GroupBox.Controls.Add(this.label50);
+         this.E4MainStepper1GroupBox.Controls.Add(this.GetE4MainStepper1HomingMethodButton);
+         this.E4MainStepper1GroupBox.Controls.Add(this.E4MainStepper1HomingMethodTextBox);
+         this.E4MainStepper1GroupBox.Controls.Add(this.E4MainStepper1HomingZeroSpeedTextBox);
+         this.E4MainStepper1GroupBox.Controls.Add(this.SetE4MainStepper1HomingZeroSpeedButton);
+         this.E4MainStepper1GroupBox.Controls.Add(this.label52);
+         this.E4MainStepper1GroupBox.Controls.Add(this.E4MainStepper1HomingAccelerationTextBox);
+         this.E4MainStepper1GroupBox.Controls.Add(this.label53);
+         this.E4MainStepper1GroupBox.Controls.Add(this.label54);
+         this.E4MainStepper1GroupBox.Controls.Add(this.GetE4MainStepper1HomingAccelerationButton);
+         this.E4MainStepper1GroupBox.Controls.Add(this.SetE4MainStepper1HomingAccelerationButton);
+         this.E4MainStepper1GroupBox.Controls.Add(this.GetE4MainStepper1HomeOffsetButton);
+         this.E4MainStepper1GroupBox.Controls.Add(this.E4MainStepper1HomeOffsetTextBox);
+         this.E4MainStepper1GroupBox.Location = new System.Drawing.Point(3, 79);
+         this.E4MainStepper1GroupBox.Name = "E4MainStepper1GroupBox";
+         this.E4MainStepper1GroupBox.Size = new System.Drawing.Size(681, 70);
+         this.E4MainStepper1GroupBox.TabIndex = 422;
+         this.E4MainStepper1GroupBox.TabStop = false;
+         this.E4MainStepper1GroupBox.Text = "Homing";
+         // 
+         // E4MainStepper1HomingAttainedLabel
+         // 
+         this.E4MainStepper1HomingAttainedLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+         this.E4MainStepper1HomingAttainedLabel.Location = new System.Drawing.Point(19, 46);
+         this.E4MainStepper1HomingAttainedLabel.Name = "E4MainStepper1HomingAttainedLabel";
+         this.E4MainStepper1HomingAttainedLabel.Size = new System.Drawing.Size(27, 12);
+         this.E4MainStepper1HomingAttainedLabel.TabIndex = 410;
+         this.E4MainStepper1HomingAttainedLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         // 
+         // RunE4MainStepper1HomingButton
+         // 
+         this.RunE4MainStepper1HomingButton.Location = new System.Drawing.Point(179, 15);
+         this.RunE4MainStepper1HomingButton.Name = "RunE4MainStepper1HomingButton";
+         this.RunE4MainStepper1HomingButton.Size = new System.Drawing.Size(46, 23);
+         this.RunE4MainStepper1HomingButton.TabIndex = 409;
+         this.RunE4MainStepper1HomingButton.Text = "Run";
+         this.RunE4MainStepper1HomingButton.UseVisualStyleBackColor = true;
+         this.RunE4MainStepper1HomingButton.Click += new System.EventHandler(this.RunE4MainStepper1HomingButton_Click);
+         // 
+         // HaltE4MainStepper1HomingButton
+         // 
+         this.HaltE4MainStepper1HomingButton.Location = new System.Drawing.Point(127, 15);
+         this.HaltE4MainStepper1HomingButton.Name = "HaltE4MainStepper1HomingButton";
+         this.HaltE4MainStepper1HomingButton.Size = new System.Drawing.Size(46, 23);
+         this.HaltE4MainStepper1HomingButton.TabIndex = 408;
+         this.HaltE4MainStepper1HomingButton.Text = "Halt";
+         this.HaltE4MainStepper1HomingButton.UseVisualStyleBackColor = true;
+         this.HaltE4MainStepper1HomingButton.Click += new System.EventHandler(this.HaltE4MainStepper1HomingButton_Click);
+         // 
+         // StopE4MainStepper1HomingButton
+         // 
+         this.StopE4MainStepper1HomingButton.Location = new System.Drawing.Point(75, 15);
+         this.StopE4MainStepper1HomingButton.Name = "StopE4MainStepper1HomingButton";
+         this.StopE4MainStepper1HomingButton.Size = new System.Drawing.Size(46, 23);
+         this.StopE4MainStepper1HomingButton.TabIndex = 407;
+         this.StopE4MainStepper1HomingButton.Text = "Stop";
+         this.StopE4MainStepper1HomingButton.UseVisualStyleBackColor = true;
+         this.StopE4MainStepper1HomingButton.Click += new System.EventHandler(this.StopE4MainStepper1HomingButton_Click);
+         // 
+         // StartE4MainStepper1HomingButton
+         // 
+         this.StartE4MainStepper1HomingButton.Location = new System.Drawing.Point(23, 15);
+         this.StartE4MainStepper1HomingButton.Name = "StartE4MainStepper1HomingButton";
+         this.StartE4MainStepper1HomingButton.Size = new System.Drawing.Size(46, 23);
+         this.StartE4MainStepper1HomingButton.TabIndex = 406;
+         this.StartE4MainStepper1HomingButton.Text = "Start";
+         this.StartE4MainStepper1HomingButton.UseVisualStyleBackColor = true;
+         this.StartE4MainStepper1HomingButton.Click += new System.EventHandler(this.StartE4MainStepper1HomingButton_Click);
+         // 
+         // SetE4MainStepper1HomeOffsetButton
+         // 
+         this.SetE4MainStepper1HomeOffsetButton.Location = new System.Drawing.Point(627, 41);
+         this.SetE4MainStepper1HomeOffsetButton.Name = "SetE4MainStepper1HomeOffsetButton";
+         this.SetE4MainStepper1HomeOffsetButton.Size = new System.Drawing.Size(35, 23);
+         this.SetE4MainStepper1HomeOffsetButton.TabIndex = 388;
+         this.SetE4MainStepper1HomeOffsetButton.Text = "Set";
+         this.SetE4MainStepper1HomeOffsetButton.UseVisualStyleBackColor = true;
+         this.SetE4MainStepper1HomeOffsetButton.Click += new System.EventHandler(this.SetE4MainStepper1HomeOffsetButton_Click);
+         // 
+         // SetE4MainStepper1HomingMethodButton
+         // 
+         this.SetE4MainStepper1HomingMethodButton.Location = new System.Drawing.Point(190, 41);
+         this.SetE4MainStepper1HomingMethodButton.Name = "SetE4MainStepper1HomingMethodButton";
+         this.SetE4MainStepper1HomingMethodButton.Size = new System.Drawing.Size(35, 23);
+         this.SetE4MainStepper1HomingMethodButton.TabIndex = 404;
+         this.SetE4MainStepper1HomingMethodButton.Text = "Set";
+         this.SetE4MainStepper1HomingMethodButton.UseVisualStyleBackColor = true;
+         this.SetE4MainStepper1HomingMethodButton.Click += new System.EventHandler(this.SetE4MainStepper1HomingMethodButton_Click);
+         // 
+         // GetE4MainStepper1HomingZeroSpeedButton
+         // 
+         this.GetE4MainStepper1HomingZeroSpeedButton.Location = new System.Drawing.Point(371, 41);
+         this.GetE4MainStepper1HomingZeroSpeedButton.Name = "GetE4MainStepper1HomingZeroSpeedButton";
+         this.GetE4MainStepper1HomingZeroSpeedButton.Size = new System.Drawing.Size(35, 23);
+         this.GetE4MainStepper1HomingZeroSpeedButton.TabIndex = 401;
+         this.GetE4MainStepper1HomingZeroSpeedButton.Text = "Get";
+         this.GetE4MainStepper1HomingZeroSpeedButton.UseVisualStyleBackColor = true;
+         this.GetE4MainStepper1HomingZeroSpeedButton.Click += new System.EventHandler(this.GetE4MainStepper1HomingZeroSpeedButton_Click);
+         // 
+         // GetE4MainStepper1HomingSwitchSpeedButton
+         // 
+         this.GetE4MainStepper1HomingSwitchSpeedButton.Location = new System.Drawing.Point(371, 15);
+         this.GetE4MainStepper1HomingSwitchSpeedButton.Name = "GetE4MainStepper1HomingSwitchSpeedButton";
+         this.GetE4MainStepper1HomingSwitchSpeedButton.Size = new System.Drawing.Size(35, 23);
+         this.GetE4MainStepper1HomingSwitchSpeedButton.TabIndex = 397;
+         this.GetE4MainStepper1HomingSwitchSpeedButton.Text = "Get";
+         this.GetE4MainStepper1HomingSwitchSpeedButton.UseVisualStyleBackColor = true;
+         this.GetE4MainStepper1HomingSwitchSpeedButton.Click += new System.EventHandler(this.GetE4MainStepper1HomingSwitchSpeedButton_Click);
+         // 
+         // E4MainStepper1HomingSwitchSpeedTextBox
+         // 
+         this.E4MainStepper1HomingSwitchSpeedTextBox.Location = new System.Drawing.Point(306, 17);
+         this.E4MainStepper1HomingSwitchSpeedTextBox.Name = "E4MainStepper1HomingSwitchSpeedTextBox";
+         this.E4MainStepper1HomingSwitchSpeedTextBox.Size = new System.Drawing.Size(59, 20);
+         this.E4MainStepper1HomingSwitchSpeedTextBox.TabIndex = 395;
+         // 
+         // SetE4MainStepper1HomingSwitchSpeedButton
+         // 
+         this.SetE4MainStepper1HomingSwitchSpeedButton.Location = new System.Drawing.Point(412, 15);
+         this.SetE4MainStepper1HomingSwitchSpeedButton.Name = "SetE4MainStepper1HomingSwitchSpeedButton";
+         this.SetE4MainStepper1HomingSwitchSpeedButton.Size = new System.Drawing.Size(35, 23);
+         this.SetE4MainStepper1HomingSwitchSpeedButton.TabIndex = 396;
+         this.SetE4MainStepper1HomingSwitchSpeedButton.Text = "Set";
+         this.SetE4MainStepper1HomingSwitchSpeedButton.UseVisualStyleBackColor = true;
+         this.SetE4MainStepper1HomingSwitchSpeedButton.Click += new System.EventHandler(this.SetE4MainStepper1HomingSwitchSpeedButton_Click);
+         // 
+         // label49
+         // 
+         this.label49.AutoSize = true;
+         this.label49.Location = new System.Drawing.Point(231, 20);
+         this.label49.Name = "label49";
+         this.label49.Size = new System.Drawing.Size(73, 13);
+         this.label49.TabIndex = 394;
+         this.label49.Text = "Switch Speed";
+         // 
+         // label50
+         // 
+         this.label50.AutoSize = true;
+         this.label50.Location = new System.Drawing.Point(241, 46);
+         this.label50.Name = "label50";
+         this.label50.Size = new System.Drawing.Size(63, 13);
+         this.label50.TabIndex = 398;
+         this.label50.Text = "Zero Speed";
+         // 
+         // GetE4MainStepper1HomingMethodButton
+         // 
+         this.GetE4MainStepper1HomingMethodButton.Location = new System.Drawing.Point(149, 41);
+         this.GetE4MainStepper1HomingMethodButton.Name = "GetE4MainStepper1HomingMethodButton";
+         this.GetE4MainStepper1HomingMethodButton.Size = new System.Drawing.Size(35, 23);
+         this.GetE4MainStepper1HomingMethodButton.TabIndex = 405;
+         this.GetE4MainStepper1HomingMethodButton.Text = "Get";
+         this.GetE4MainStepper1HomingMethodButton.UseVisualStyleBackColor = true;
+         this.GetE4MainStepper1HomingMethodButton.Click += new System.EventHandler(this.GetE4MainStepper1HomingMethodButton_Click);
+         // 
+         // E4MainStepper1HomingMethodTextBox
+         // 
+         this.E4MainStepper1HomingMethodTextBox.Location = new System.Drawing.Point(100, 43);
+         this.E4MainStepper1HomingMethodTextBox.Name = "E4MainStepper1HomingMethodTextBox";
+         this.E4MainStepper1HomingMethodTextBox.Size = new System.Drawing.Size(43, 20);
+         this.E4MainStepper1HomingMethodTextBox.TabIndex = 403;
+         // 
+         // E4MainStepper1HomingZeroSpeedTextBox
+         // 
+         this.E4MainStepper1HomingZeroSpeedTextBox.Location = new System.Drawing.Point(306, 43);
+         this.E4MainStepper1HomingZeroSpeedTextBox.Name = "E4MainStepper1HomingZeroSpeedTextBox";
+         this.E4MainStepper1HomingZeroSpeedTextBox.Size = new System.Drawing.Size(59, 20);
+         this.E4MainStepper1HomingZeroSpeedTextBox.TabIndex = 399;
+         // 
+         // SetE4MainStepper1HomingZeroSpeedButton
+         // 
+         this.SetE4MainStepper1HomingZeroSpeedButton.Location = new System.Drawing.Point(412, 41);
+         this.SetE4MainStepper1HomingZeroSpeedButton.Name = "SetE4MainStepper1HomingZeroSpeedButton";
+         this.SetE4MainStepper1HomingZeroSpeedButton.Size = new System.Drawing.Size(35, 23);
+         this.SetE4MainStepper1HomingZeroSpeedButton.TabIndex = 400;
+         this.SetE4MainStepper1HomingZeroSpeedButton.Text = "Set";
+         this.SetE4MainStepper1HomingZeroSpeedButton.UseVisualStyleBackColor = true;
+         this.SetE4MainStepper1HomingZeroSpeedButton.Click += new System.EventHandler(this.SetE4MainStepper1HomingZeroSpeedButton_Click);
+         // 
+         // label52
+         // 
+         this.label52.AutoSize = true;
+         this.label52.Location = new System.Drawing.Point(55, 46);
+         this.label52.Name = "label52";
+         this.label52.Size = new System.Drawing.Size(43, 13);
+         this.label52.TabIndex = 402;
+         this.label52.Text = "Method";
+         // 
+         // E4MainStepper1HomingAccelerationTextBox
+         // 
+         this.E4MainStepper1HomingAccelerationTextBox.Location = new System.Drawing.Point(521, 17);
+         this.E4MainStepper1HomingAccelerationTextBox.Name = "E4MainStepper1HomingAccelerationTextBox";
+         this.E4MainStepper1HomingAccelerationTextBox.Size = new System.Drawing.Size(59, 20);
+         this.E4MainStepper1HomingAccelerationTextBox.TabIndex = 391;
+         // 
+         // label53
+         // 
+         this.label53.AutoSize = true;
+         this.label53.Location = new System.Drawing.Point(484, 46);
+         this.label53.Name = "label53";
+         this.label53.Size = new System.Drawing.Size(35, 13);
+         this.label53.TabIndex = 386;
+         this.label53.Text = "Offset";
+         // 
+         // label54
+         // 
+         this.label54.AutoSize = true;
+         this.label54.Location = new System.Drawing.Point(453, 20);
+         this.label54.Name = "label54";
+         this.label54.Size = new System.Drawing.Size(66, 13);
+         this.label54.TabIndex = 390;
+         this.label54.Text = "Acceleration";
+         // 
+         // GetE4MainStepper1HomingAccelerationButton
+         // 
+         this.GetE4MainStepper1HomingAccelerationButton.Location = new System.Drawing.Point(586, 15);
+         this.GetE4MainStepper1HomingAccelerationButton.Name = "GetE4MainStepper1HomingAccelerationButton";
+         this.GetE4MainStepper1HomingAccelerationButton.Size = new System.Drawing.Size(35, 23);
+         this.GetE4MainStepper1HomingAccelerationButton.TabIndex = 393;
+         this.GetE4MainStepper1HomingAccelerationButton.Text = "Get";
+         this.GetE4MainStepper1HomingAccelerationButton.UseVisualStyleBackColor = true;
+         this.GetE4MainStepper1HomingAccelerationButton.Click += new System.EventHandler(this.GetE4MainStepper1HomingAccelerationButton_Click);
+         // 
+         // SetE4MainStepper1HomingAccelerationButton
+         // 
+         this.SetE4MainStepper1HomingAccelerationButton.Location = new System.Drawing.Point(627, 15);
+         this.SetE4MainStepper1HomingAccelerationButton.Name = "SetE4MainStepper1HomingAccelerationButton";
+         this.SetE4MainStepper1HomingAccelerationButton.Size = new System.Drawing.Size(35, 23);
+         this.SetE4MainStepper1HomingAccelerationButton.TabIndex = 392;
+         this.SetE4MainStepper1HomingAccelerationButton.Text = "Set";
+         this.SetE4MainStepper1HomingAccelerationButton.UseVisualStyleBackColor = true;
+         this.SetE4MainStepper1HomingAccelerationButton.Click += new System.EventHandler(this.SetE4MainStepper1HomingAccelerationButton_Click);
+         // 
+         // GetE4MainStepper1HomeOffsetButton
+         // 
+         this.GetE4MainStepper1HomeOffsetButton.Location = new System.Drawing.Point(586, 41);
+         this.GetE4MainStepper1HomeOffsetButton.Name = "GetE4MainStepper1HomeOffsetButton";
+         this.GetE4MainStepper1HomeOffsetButton.Size = new System.Drawing.Size(35, 23);
+         this.GetE4MainStepper1HomeOffsetButton.TabIndex = 389;
+         this.GetE4MainStepper1HomeOffsetButton.Text = "Get";
+         this.GetE4MainStepper1HomeOffsetButton.UseVisualStyleBackColor = true;
+         this.GetE4MainStepper1HomeOffsetButton.Click += new System.EventHandler(this.GetE4MainStepper1HomeOffsetButton_Click);
+         // 
+         // E4MainStepper1HomeOffsetTextBox
+         // 
+         this.E4MainStepper1HomeOffsetTextBox.Location = new System.Drawing.Point(521, 43);
+         this.E4MainStepper1HomeOffsetTextBox.Name = "E4MainStepper1HomeOffsetTextBox";
+         this.E4MainStepper1HomeOffsetTextBox.Size = new System.Drawing.Size(59, 20);
+         this.E4MainStepper1HomeOffsetTextBox.TabIndex = 387;
+         // 
          // groupBox1
          // 
          this.groupBox1.Controls.Add(this.GetE4MainStepper1ProfileAccelerationButton);
@@ -2917,7 +3505,7 @@ namespace E4.DeviceTest
          // 
          this.E4MainLaserScannerTextBox.Location = new System.Drawing.Point(367, 57);
          this.E4MainLaserScannerTextBox.Name = "E4MainLaserScannerTextBox";
-         this.E4MainLaserScannerTextBox.Size = new System.Drawing.Size(31, 20);
+         this.E4MainLaserScannerTextBox.Size = new System.Drawing.Size(25, 20);
          this.E4MainLaserScannerTextBox.TabIndex = 280;
          this.E4MainLaserScannerTextBox.Text = "FF";
          this.E4MainLaserScannerTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -3098,517 +3686,425 @@ namespace E4.DeviceTest
          this.MainActivityPanel.Size = new System.Drawing.Size(742, 161);
          this.MainActivityPanel.TabIndex = 45;
          // 
-         // E4MainStepper0HomingGroupBox
+         // E4MainImuTabPage
          // 
-         this.E4MainStepper0HomingGroupBox.Controls.Add(this.E4MainStepper0HomingAttainedLabel);
-         this.E4MainStepper0HomingGroupBox.Controls.Add(this.RunE4MainStepper0HomingButton);
-         this.E4MainStepper0HomingGroupBox.Controls.Add(this.HaltE4MainStepper0HomingButton);
-         this.E4MainStepper0HomingGroupBox.Controls.Add(this.StopE4MainStepper0HomingButton);
-         this.E4MainStepper0HomingGroupBox.Controls.Add(this.StartE4MainStepper0HomingButton);
-         this.E4MainStepper0HomingGroupBox.Controls.Add(this.SetE4MainStepper0HomeOffsetButton);
-         this.E4MainStepper0HomingGroupBox.Controls.Add(this.SetE4MainStepper0HomingMethodButton);
-         this.E4MainStepper0HomingGroupBox.Controls.Add(this.GetE4MainStepper0HomingZeroSpeedButton);
-         this.E4MainStepper0HomingGroupBox.Controls.Add(this.GetE4MainStepper0HomingSwitchSpeedButton);
-         this.E4MainStepper0HomingGroupBox.Controls.Add(this.E4MainStepper0HomingSwitchSpeedTextBox);
-         this.E4MainStepper0HomingGroupBox.Controls.Add(this.SetE4MainStepper0HomingSwitchSpeedButton);
-         this.E4MainStepper0HomingGroupBox.Controls.Add(this.label166);
-         this.E4MainStepper0HomingGroupBox.Controls.Add(this.label167);
-         this.E4MainStepper0HomingGroupBox.Controls.Add(this.GetE4MainStepper0HomingMethodButton);
-         this.E4MainStepper0HomingGroupBox.Controls.Add(this.E4MainStepper0HomingMethodTextBox);
-         this.E4MainStepper0HomingGroupBox.Controls.Add(this.E4MainStepper0HomingZeroSpeedTextBox);
-         this.E4MainStepper0HomingGroupBox.Controls.Add(this.SetE4MainStepper0HomingZeroSpeedButton);
-         this.E4MainStepper0HomingGroupBox.Controls.Add(this.label168);
-         this.E4MainStepper0HomingGroupBox.Controls.Add(this.E4MainStepper0HomingAccelerationTextBox);
-         this.E4MainStepper0HomingGroupBox.Controls.Add(this.label155);
-         this.E4MainStepper0HomingGroupBox.Controls.Add(this.label165);
-         this.E4MainStepper0HomingGroupBox.Controls.Add(this.GetE4MainStepper0HomingAccelerationButton);
-         this.E4MainStepper0HomingGroupBox.Controls.Add(this.SetE4MainStepper0HomingAccelerationButton);
-         this.E4MainStepper0HomingGroupBox.Controls.Add(this.GetE4MainStepper0HomeOffsetButton);
-         this.E4MainStepper0HomingGroupBox.Controls.Add(this.E4MainStepper0HomeOffsetTextBox);
-         this.E4MainStepper0HomingGroupBox.Location = new System.Drawing.Point(3, 79);
-         this.E4MainStepper0HomingGroupBox.Name = "E4MainStepper0HomingGroupBox";
-         this.E4MainStepper0HomingGroupBox.Size = new System.Drawing.Size(681, 70);
-         this.E4MainStepper0HomingGroupBox.TabIndex = 421;
-         this.E4MainStepper0HomingGroupBox.TabStop = false;
-         this.E4MainStepper0HomingGroupBox.Text = "Homing";
+         this.E4MainImuTabPage.Controls.Add(this.ReadE4MainTargetIcuDirectionsButton);
+         this.E4MainImuTabPage.Controls.Add(this.ReadE4MainMainIcuDirectionsButton);
+         this.E4MainImuTabPage.Controls.Add(this.label55);
+         this.E4MainImuTabPage.Controls.Add(this.label56);
+         this.E4MainImuTabPage.Controls.Add(this.E4MainTargetBoardIcuReadYawTextBox);
+         this.E4MainImuTabPage.Controls.Add(this.E4MainTargetBoardIcuReadPitchTextBox);
+         this.E4MainImuTabPage.Controls.Add(this.E4MainTargetBoardIcuReadRollTextBox);
+         this.E4MainImuTabPage.Controls.Add(this.label57);
+         this.E4MainImuTabPage.Controls.Add(this.label31);
+         this.E4MainImuTabPage.Controls.Add(this.label38);
+         this.E4MainImuTabPage.Controls.Add(this.E4MainMainBoardIcuReadYawTextBox);
+         this.E4MainImuTabPage.Controls.Add(this.E4MainMainBoardIcuReadPitchTextBox);
+         this.E4MainImuTabPage.Controls.Add(this.E4MainMainBoardIcuReadRollTextBox);
+         this.E4MainImuTabPage.Controls.Add(this.label45);
+         this.E4MainImuTabPage.Location = new System.Drawing.Point(4, 22);
+         this.E4MainImuTabPage.Name = "E4MainImuTabPage";
+         this.E4MainImuTabPage.Padding = new System.Windows.Forms.Padding(3);
+         this.E4MainImuTabPage.Size = new System.Drawing.Size(720, 156);
+         this.E4MainImuTabPage.TabIndex = 6;
+         this.E4MainImuTabPage.Text = "IMU";
+         this.E4MainImuTabPage.UseVisualStyleBackColor = true;
          // 
-         // E4MainStepper0HomingAttainedLabel
+         // label31
          // 
-         this.E4MainStepper0HomingAttainedLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-         this.E4MainStepper0HomingAttainedLabel.Location = new System.Drawing.Point(19, 46);
-         this.E4MainStepper0HomingAttainedLabel.Name = "E4MainStepper0HomingAttainedLabel";
-         this.E4MainStepper0HomingAttainedLabel.Size = new System.Drawing.Size(27, 12);
-         this.E4MainStepper0HomingAttainedLabel.TabIndex = 410;
-         this.E4MainStepper0HomingAttainedLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         this.label31.AutoSize = true;
+         this.label31.Location = new System.Drawing.Point(14, 55);
+         this.label31.Name = "label31";
+         this.label31.Size = new System.Drawing.Size(75, 13);
+         this.label31.TabIndex = 283;
+         this.label31.Text = "Main ICU Yaw";
          // 
-         // RunE4MainStepper0HomingButton
+         // label38
          // 
-         this.RunE4MainStepper0HomingButton.Location = new System.Drawing.Point(179, 15);
-         this.RunE4MainStepper0HomingButton.Name = "RunE4MainStepper0HomingButton";
-         this.RunE4MainStepper0HomingButton.Size = new System.Drawing.Size(46, 23);
-         this.RunE4MainStepper0HomingButton.TabIndex = 409;
-         this.RunE4MainStepper0HomingButton.Text = "Run";
-         this.RunE4MainStepper0HomingButton.UseVisualStyleBackColor = true;
-         this.RunE4MainStepper0HomingButton.Click += new System.EventHandler(this.RunE4MainStepper0HomingButton_Click);
+         this.label38.AutoSize = true;
+         this.label38.Location = new System.Drawing.Point(11, 32);
+         this.label38.Name = "label38";
+         this.label38.Size = new System.Drawing.Size(78, 13);
+         this.label38.TabIndex = 282;
+         this.label38.Text = "Main ICU Pitch";
          // 
-         // HaltE4MainStepper0HomingButton
+         // E4MainMainBoardIcuReadYawTextBox
          // 
-         this.HaltE4MainStepper0HomingButton.Location = new System.Drawing.Point(127, 15);
-         this.HaltE4MainStepper0HomingButton.Name = "HaltE4MainStepper0HomingButton";
-         this.HaltE4MainStepper0HomingButton.Size = new System.Drawing.Size(46, 23);
-         this.HaltE4MainStepper0HomingButton.TabIndex = 408;
-         this.HaltE4MainStepper0HomingButton.Text = "Halt";
-         this.HaltE4MainStepper0HomingButton.UseVisualStyleBackColor = true;
-         this.HaltE4MainStepper0HomingButton.Click += new System.EventHandler(this.HaltE4MainStepper0HomingButton_Click);
+         this.E4MainMainBoardIcuReadYawTextBox.Location = new System.Drawing.Point(91, 52);
+         this.E4MainMainBoardIcuReadYawTextBox.Name = "E4MainMainBoardIcuReadYawTextBox";
+         this.E4MainMainBoardIcuReadYawTextBox.Size = new System.Drawing.Size(38, 20);
+         this.E4MainMainBoardIcuReadYawTextBox.TabIndex = 281;
+         this.E4MainMainBoardIcuReadYawTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
          // 
-         // StopE4MainStepper0HomingButton
+         // E4MainMainBoardIcuReadPitchTextBox
          // 
-         this.StopE4MainStepper0HomingButton.Location = new System.Drawing.Point(75, 15);
-         this.StopE4MainStepper0HomingButton.Name = "StopE4MainStepper0HomingButton";
-         this.StopE4MainStepper0HomingButton.Size = new System.Drawing.Size(46, 23);
-         this.StopE4MainStepper0HomingButton.TabIndex = 407;
-         this.StopE4MainStepper0HomingButton.Text = "Stop";
-         this.StopE4MainStepper0HomingButton.UseVisualStyleBackColor = true;
-         this.StopE4MainStepper0HomingButton.Click += new System.EventHandler(this.StopE4MainStepper0HomingButton_Click);
+         this.E4MainMainBoardIcuReadPitchTextBox.Location = new System.Drawing.Point(91, 29);
+         this.E4MainMainBoardIcuReadPitchTextBox.Name = "E4MainMainBoardIcuReadPitchTextBox";
+         this.E4MainMainBoardIcuReadPitchTextBox.Size = new System.Drawing.Size(38, 20);
+         this.E4MainMainBoardIcuReadPitchTextBox.TabIndex = 280;
+         this.E4MainMainBoardIcuReadPitchTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
          // 
-         // StartE4MainStepper0HomingButton
+         // E4MainMainBoardIcuReadRollTextBox
          // 
-         this.StartE4MainStepper0HomingButton.Location = new System.Drawing.Point(23, 15);
-         this.StartE4MainStepper0HomingButton.Name = "StartE4MainStepper0HomingButton";
-         this.StartE4MainStepper0HomingButton.Size = new System.Drawing.Size(46, 23);
-         this.StartE4MainStepper0HomingButton.TabIndex = 406;
-         this.StartE4MainStepper0HomingButton.Text = "Start";
-         this.StartE4MainStepper0HomingButton.UseVisualStyleBackColor = true;
-         this.StartE4MainStepper0HomingButton.Click += new System.EventHandler(this.StartE4MainStepper0HomingButton_Click);
+         this.E4MainMainBoardIcuReadRollTextBox.Location = new System.Drawing.Point(91, 6);
+         this.E4MainMainBoardIcuReadRollTextBox.Name = "E4MainMainBoardIcuReadRollTextBox";
+         this.E4MainMainBoardIcuReadRollTextBox.Size = new System.Drawing.Size(38, 20);
+         this.E4MainMainBoardIcuReadRollTextBox.TabIndex = 279;
+         this.E4MainMainBoardIcuReadRollTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
          // 
-         // SetE4MainStepper0HomeOffsetButton
+         // label45
          // 
-         this.SetE4MainStepper0HomeOffsetButton.Location = new System.Drawing.Point(627, 41);
-         this.SetE4MainStepper0HomeOffsetButton.Name = "SetE4MainStepper0HomeOffsetButton";
-         this.SetE4MainStepper0HomeOffsetButton.Size = new System.Drawing.Size(35, 23);
-         this.SetE4MainStepper0HomeOffsetButton.TabIndex = 388;
-         this.SetE4MainStepper0HomeOffsetButton.Text = "Set";
-         this.SetE4MainStepper0HomeOffsetButton.UseVisualStyleBackColor = true;
-         this.SetE4MainStepper0HomeOffsetButton.Click += new System.EventHandler(this.SetE4MainStepper0HomeOffsetButton_Click);
+         this.label45.AutoSize = true;
+         this.label45.Location = new System.Drawing.Point(17, 9);
+         this.label45.Name = "label45";
+         this.label45.Size = new System.Drawing.Size(72, 13);
+         this.label45.TabIndex = 278;
+         this.label45.Text = "Main ICU Roll";
          // 
-         // SetE4MainStepper0HomingMethodButton
+         // label55
          // 
-         this.SetE4MainStepper0HomingMethodButton.Location = new System.Drawing.Point(190, 41);
-         this.SetE4MainStepper0HomingMethodButton.Name = "SetE4MainStepper0HomingMethodButton";
-         this.SetE4MainStepper0HomingMethodButton.Size = new System.Drawing.Size(35, 23);
-         this.SetE4MainStepper0HomingMethodButton.TabIndex = 404;
-         this.SetE4MainStepper0HomingMethodButton.Text = "Set";
-         this.SetE4MainStepper0HomingMethodButton.UseVisualStyleBackColor = true;
-         this.SetE4MainStepper0HomingMethodButton.Click += new System.EventHandler(this.SetE4MainStepper0HomingMethodButton_Click);
+         this.label55.AutoSize = true;
+         this.label55.Location = new System.Drawing.Point(184, 55);
+         this.label55.Name = "label55";
+         this.label55.Size = new System.Drawing.Size(83, 13);
+         this.label55.TabIndex = 289;
+         this.label55.Text = "Target ICU Yaw";
          // 
-         // GetE4MainStepper0HomingZeroSpeedButton
+         // label56
          // 
-         this.GetE4MainStepper0HomingZeroSpeedButton.Location = new System.Drawing.Point(371, 41);
-         this.GetE4MainStepper0HomingZeroSpeedButton.Name = "GetE4MainStepper0HomingZeroSpeedButton";
-         this.GetE4MainStepper0HomingZeroSpeedButton.Size = new System.Drawing.Size(35, 23);
-         this.GetE4MainStepper0HomingZeroSpeedButton.TabIndex = 401;
-         this.GetE4MainStepper0HomingZeroSpeedButton.Text = "Get";
-         this.GetE4MainStepper0HomingZeroSpeedButton.UseVisualStyleBackColor = true;
-         this.GetE4MainStepper0HomingZeroSpeedButton.Click += new System.EventHandler(this.GetE4MainStepper0HomingZeroSpeedButton_Click);
+         this.label56.AutoSize = true;
+         this.label56.Location = new System.Drawing.Point(181, 32);
+         this.label56.Name = "label56";
+         this.label56.Size = new System.Drawing.Size(86, 13);
+         this.label56.TabIndex = 288;
+         this.label56.Text = "Target ICU Pitch";
          // 
-         // GetE4MainStepper0HomingSwitchSpeedButton
+         // E4MainTargetBoardIcuReadYawTextBox
          // 
-         this.GetE4MainStepper0HomingSwitchSpeedButton.Location = new System.Drawing.Point(371, 15);
-         this.GetE4MainStepper0HomingSwitchSpeedButton.Name = "GetE4MainStepper0HomingSwitchSpeedButton";
-         this.GetE4MainStepper0HomingSwitchSpeedButton.Size = new System.Drawing.Size(35, 23);
-         this.GetE4MainStepper0HomingSwitchSpeedButton.TabIndex = 397;
-         this.GetE4MainStepper0HomingSwitchSpeedButton.Text = "Get";
-         this.GetE4MainStepper0HomingSwitchSpeedButton.UseVisualStyleBackColor = true;
-         this.GetE4MainStepper0HomingSwitchSpeedButton.Click += new System.EventHandler(this.GetE4MainStepper0HomingSwitchSpeedButton_Click);
+         this.E4MainTargetBoardIcuReadYawTextBox.Location = new System.Drawing.Point(269, 52);
+         this.E4MainTargetBoardIcuReadYawTextBox.Name = "E4MainTargetBoardIcuReadYawTextBox";
+         this.E4MainTargetBoardIcuReadYawTextBox.Size = new System.Drawing.Size(38, 20);
+         this.E4MainTargetBoardIcuReadYawTextBox.TabIndex = 287;
+         this.E4MainTargetBoardIcuReadYawTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
          // 
-         // E4MainStepper0HomingSwitchSpeedTextBox
+         // E4MainTargetBoardIcuReadPitchTextBox
          // 
-         this.E4MainStepper0HomingSwitchSpeedTextBox.Location = new System.Drawing.Point(306, 17);
-         this.E4MainStepper0HomingSwitchSpeedTextBox.Name = "E4MainStepper0HomingSwitchSpeedTextBox";
-         this.E4MainStepper0HomingSwitchSpeedTextBox.Size = new System.Drawing.Size(59, 20);
-         this.E4MainStepper0HomingSwitchSpeedTextBox.TabIndex = 395;
+         this.E4MainTargetBoardIcuReadPitchTextBox.Location = new System.Drawing.Point(269, 29);
+         this.E4MainTargetBoardIcuReadPitchTextBox.Name = "E4MainTargetBoardIcuReadPitchTextBox";
+         this.E4MainTargetBoardIcuReadPitchTextBox.Size = new System.Drawing.Size(38, 20);
+         this.E4MainTargetBoardIcuReadPitchTextBox.TabIndex = 286;
+         this.E4MainTargetBoardIcuReadPitchTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
          // 
-         // SetE4MainStepper0HomingSwitchSpeedButton
+         // E4MainTargetBoardIcuReadRollTextBox
          // 
-         this.SetE4MainStepper0HomingSwitchSpeedButton.Location = new System.Drawing.Point(412, 15);
-         this.SetE4MainStepper0HomingSwitchSpeedButton.Name = "SetE4MainStepper0HomingSwitchSpeedButton";
-         this.SetE4MainStepper0HomingSwitchSpeedButton.Size = new System.Drawing.Size(35, 23);
-         this.SetE4MainStepper0HomingSwitchSpeedButton.TabIndex = 396;
-         this.SetE4MainStepper0HomingSwitchSpeedButton.Text = "Set";
-         this.SetE4MainStepper0HomingSwitchSpeedButton.UseVisualStyleBackColor = true;
-         this.SetE4MainStepper0HomingSwitchSpeedButton.Click += new System.EventHandler(this.SetE4MainStepper0HomingSwitchSpeedButton_Click);
+         this.E4MainTargetBoardIcuReadRollTextBox.Location = new System.Drawing.Point(269, 6);
+         this.E4MainTargetBoardIcuReadRollTextBox.Name = "E4MainTargetBoardIcuReadRollTextBox";
+         this.E4MainTargetBoardIcuReadRollTextBox.Size = new System.Drawing.Size(38, 20);
+         this.E4MainTargetBoardIcuReadRollTextBox.TabIndex = 285;
+         this.E4MainTargetBoardIcuReadRollTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
          // 
-         // label166
+         // label57
          // 
-         this.label166.AutoSize = true;
-         this.label166.Location = new System.Drawing.Point(231, 20);
-         this.label166.Name = "label166";
-         this.label166.Size = new System.Drawing.Size(73, 13);
-         this.label166.TabIndex = 394;
-         this.label166.Text = "Switch Speed";
+         this.label57.AutoSize = true;
+         this.label57.Location = new System.Drawing.Point(187, 9);
+         this.label57.Name = "label57";
+         this.label57.Size = new System.Drawing.Size(80, 13);
+         this.label57.TabIndex = 284;
+         this.label57.Text = "Target ICU Roll";
          // 
-         // label167
+         // ReadE4MainMainIcuDirectionsButton
          // 
-         this.label167.AutoSize = true;
-         this.label167.Location = new System.Drawing.Point(241, 46);
-         this.label167.Name = "label167";
-         this.label167.Size = new System.Drawing.Size(63, 13);
-         this.label167.TabIndex = 398;
-         this.label167.Text = "Zero Speed";
+         this.ReadE4MainMainIcuDirectionsButton.Location = new System.Drawing.Point(135, 50);
+         this.ReadE4MainMainIcuDirectionsButton.Name = "ReadE4MainMainIcuDirectionsButton";
+         this.ReadE4MainMainIcuDirectionsButton.Size = new System.Drawing.Size(43, 23);
+         this.ReadE4MainMainIcuDirectionsButton.TabIndex = 440;
+         this.ReadE4MainMainIcuDirectionsButton.Text = "Read";
+         this.ReadE4MainMainIcuDirectionsButton.UseVisualStyleBackColor = true;
+         this.ReadE4MainMainIcuDirectionsButton.Click += new System.EventHandler(this.ReadE4MainMainIcuDirectionsButton_Click);
          // 
-         // GetE4MainStepper0HomingMethodButton
+         // ReadE4MainTargetIcuDirectionsButton
          // 
-         this.GetE4MainStepper0HomingMethodButton.Location = new System.Drawing.Point(149, 41);
-         this.GetE4MainStepper0HomingMethodButton.Name = "GetE4MainStepper0HomingMethodButton";
-         this.GetE4MainStepper0HomingMethodButton.Size = new System.Drawing.Size(35, 23);
-         this.GetE4MainStepper0HomingMethodButton.TabIndex = 405;
-         this.GetE4MainStepper0HomingMethodButton.Text = "Get";
-         this.GetE4MainStepper0HomingMethodButton.UseVisualStyleBackColor = true;
-         this.GetE4MainStepper0HomingMethodButton.Click += new System.EventHandler(this.GetE4MainStepper0HomingMethodButton_Click);
+         this.ReadE4MainTargetIcuDirectionsButton.Location = new System.Drawing.Point(313, 50);
+         this.ReadE4MainTargetIcuDirectionsButton.Name = "ReadE4MainTargetIcuDirectionsButton";
+         this.ReadE4MainTargetIcuDirectionsButton.Size = new System.Drawing.Size(43, 23);
+         this.ReadE4MainTargetIcuDirectionsButton.TabIndex = 441;
+         this.ReadE4MainTargetIcuDirectionsButton.Text = "Read";
+         this.ReadE4MainTargetIcuDirectionsButton.UseVisualStyleBackColor = true;
+         this.ReadE4MainTargetIcuDirectionsButton.Click += new System.EventHandler(this.ReadE4MainTargetIcuDirectionsButton_Click);
          // 
-         // E4MainStepper0HomingMethodTextBox
+         // E4MainLaserTabPage
          // 
-         this.E4MainStepper0HomingMethodTextBox.Location = new System.Drawing.Point(100, 43);
-         this.E4MainStepper0HomingMethodTextBox.Name = "E4MainStepper0HomingMethodTextBox";
-         this.E4MainStepper0HomingMethodTextBox.Size = new System.Drawing.Size(43, 20);
-         this.E4MainStepper0HomingMethodTextBox.TabIndex = 403;
-         // 
-         // E4MainStepper0HomingZeroSpeedTextBox
-         // 
-         this.E4MainStepper0HomingZeroSpeedTextBox.Location = new System.Drawing.Point(306, 43);
-         this.E4MainStepper0HomingZeroSpeedTextBox.Name = "E4MainStepper0HomingZeroSpeedTextBox";
-         this.E4MainStepper0HomingZeroSpeedTextBox.Size = new System.Drawing.Size(59, 20);
-         this.E4MainStepper0HomingZeroSpeedTextBox.TabIndex = 399;
-         // 
-         // SetE4MainStepper0HomingZeroSpeedButton
-         // 
-         this.SetE4MainStepper0HomingZeroSpeedButton.Location = new System.Drawing.Point(412, 41);
-         this.SetE4MainStepper0HomingZeroSpeedButton.Name = "SetE4MainStepper0HomingZeroSpeedButton";
-         this.SetE4MainStepper0HomingZeroSpeedButton.Size = new System.Drawing.Size(35, 23);
-         this.SetE4MainStepper0HomingZeroSpeedButton.TabIndex = 400;
-         this.SetE4MainStepper0HomingZeroSpeedButton.Text = "Set";
-         this.SetE4MainStepper0HomingZeroSpeedButton.UseVisualStyleBackColor = true;
-         this.SetE4MainStepper0HomingZeroSpeedButton.Click += new System.EventHandler(this.SetE4MainStepper0HomingZeroSpeedButton_Click);
-         // 
-         // label168
-         // 
-         this.label168.AutoSize = true;
-         this.label168.Location = new System.Drawing.Point(55, 46);
-         this.label168.Name = "label168";
-         this.label168.Size = new System.Drawing.Size(43, 13);
-         this.label168.TabIndex = 402;
-         this.label168.Text = "Method";
-         // 
-         // E4MainStepper0HomingAccelerationTextBox
-         // 
-         this.E4MainStepper0HomingAccelerationTextBox.Location = new System.Drawing.Point(521, 17);
-         this.E4MainStepper0HomingAccelerationTextBox.Name = "E4MainStepper0HomingAccelerationTextBox";
-         this.E4MainStepper0HomingAccelerationTextBox.Size = new System.Drawing.Size(59, 20);
-         this.E4MainStepper0HomingAccelerationTextBox.TabIndex = 391;
-         // 
-         // label155
-         // 
-         this.label155.AutoSize = true;
-         this.label155.Location = new System.Drawing.Point(484, 46);
-         this.label155.Name = "label155";
-         this.label155.Size = new System.Drawing.Size(35, 13);
-         this.label155.TabIndex = 386;
-         this.label155.Text = "Offset";
-         // 
-         // label165
-         // 
-         this.label165.AutoSize = true;
-         this.label165.Location = new System.Drawing.Point(453, 20);
-         this.label165.Name = "label165";
-         this.label165.Size = new System.Drawing.Size(66, 13);
-         this.label165.TabIndex = 390;
-         this.label165.Text = "Acceleration";
-         // 
-         // GetE4MainStepper0HomingAccelerationButton
-         // 
-         this.GetE4MainStepper0HomingAccelerationButton.Location = new System.Drawing.Point(586, 15);
-         this.GetE4MainStepper0HomingAccelerationButton.Name = "GetE4MainStepper0HomingAccelerationButton";
-         this.GetE4MainStepper0HomingAccelerationButton.Size = new System.Drawing.Size(35, 23);
-         this.GetE4MainStepper0HomingAccelerationButton.TabIndex = 393;
-         this.GetE4MainStepper0HomingAccelerationButton.Text = "Get";
-         this.GetE4MainStepper0HomingAccelerationButton.UseVisualStyleBackColor = true;
-         this.GetE4MainStepper0HomingAccelerationButton.Click += new System.EventHandler(this.GetE4MainStepper0HomingAccelerationButton_Click);
-         // 
-         // SetE4MainStepper0HomingAccelerationButton
-         // 
-         this.SetE4MainStepper0HomingAccelerationButton.Location = new System.Drawing.Point(627, 15);
-         this.SetE4MainStepper0HomingAccelerationButton.Name = "SetE4MainStepper0HomingAccelerationButton";
-         this.SetE4MainStepper0HomingAccelerationButton.Size = new System.Drawing.Size(35, 23);
-         this.SetE4MainStepper0HomingAccelerationButton.TabIndex = 392;
-         this.SetE4MainStepper0HomingAccelerationButton.Text = "Set";
-         this.SetE4MainStepper0HomingAccelerationButton.UseVisualStyleBackColor = true;
-         this.SetE4MainStepper0HomingAccelerationButton.Click += new System.EventHandler(this.SetE4MainStepper0HomingAccelerationButton_Click);
-         // 
-         // GetE4MainStepper0HomeOffsetButton
-         // 
-         this.GetE4MainStepper0HomeOffsetButton.Location = new System.Drawing.Point(586, 41);
-         this.GetE4MainStepper0HomeOffsetButton.Name = "GetE4MainStepper0HomeOffsetButton";
-         this.GetE4MainStepper0HomeOffsetButton.Size = new System.Drawing.Size(35, 23);
-         this.GetE4MainStepper0HomeOffsetButton.TabIndex = 389;
-         this.GetE4MainStepper0HomeOffsetButton.Text = "Get";
-         this.GetE4MainStepper0HomeOffsetButton.UseVisualStyleBackColor = true;
-         this.GetE4MainStepper0HomeOffsetButton.Click += new System.EventHandler(this.GetE4MainStepper0HomeOffsetButton_Click);
-         // 
-         // E4MainStepper0HomeOffsetTextBox
-         // 
-         this.E4MainStepper0HomeOffsetTextBox.Location = new System.Drawing.Point(521, 43);
-         this.E4MainStepper0HomeOffsetTextBox.Name = "E4MainStepper0HomeOffsetTextBox";
-         this.E4MainStepper0HomeOffsetTextBox.Size = new System.Drawing.Size(59, 20);
-         this.E4MainStepper0HomeOffsetTextBox.TabIndex = 387;
-         // 
-         // E4MainStepper1GroupBox
-         // 
-         this.E4MainStepper1GroupBox.Controls.Add(this.E4MainStepper1HomingAttainedLabel);
-         this.E4MainStepper1GroupBox.Controls.Add(this.button1);
-         this.E4MainStepper1GroupBox.Controls.Add(this.button2);
-         this.E4MainStepper1GroupBox.Controls.Add(this.button3);
-         this.E4MainStepper1GroupBox.Controls.Add(this.button4);
-         this.E4MainStepper1GroupBox.Controls.Add(this.button5);
-         this.E4MainStepper1GroupBox.Controls.Add(this.button6);
-         this.E4MainStepper1GroupBox.Controls.Add(this.button7);
-         this.E4MainStepper1GroupBox.Controls.Add(this.button8);
-         this.E4MainStepper1GroupBox.Controls.Add(this.textBox1);
-         this.E4MainStepper1GroupBox.Controls.Add(this.button9);
-         this.E4MainStepper1GroupBox.Controls.Add(this.label49);
-         this.E4MainStepper1GroupBox.Controls.Add(this.label50);
-         this.E4MainStepper1GroupBox.Controls.Add(this.button10);
-         this.E4MainStepper1GroupBox.Controls.Add(this.textBox2);
-         this.E4MainStepper1GroupBox.Controls.Add(this.textBox3);
-         this.E4MainStepper1GroupBox.Controls.Add(this.button11);
-         this.E4MainStepper1GroupBox.Controls.Add(this.label52);
-         this.E4MainStepper1GroupBox.Controls.Add(this.textBox4);
-         this.E4MainStepper1GroupBox.Controls.Add(this.label53);
-         this.E4MainStepper1GroupBox.Controls.Add(this.label54);
-         this.E4MainStepper1GroupBox.Controls.Add(this.button12);
-         this.E4MainStepper1GroupBox.Controls.Add(this.button13);
-         this.E4MainStepper1GroupBox.Controls.Add(this.button14);
-         this.E4MainStepper1GroupBox.Controls.Add(this.textBox5);
-         this.E4MainStepper1GroupBox.Location = new System.Drawing.Point(3, 79);
-         this.E4MainStepper1GroupBox.Name = "E4MainStepper1GroupBox";
-         this.E4MainStepper1GroupBox.Size = new System.Drawing.Size(681, 70);
-         this.E4MainStepper1GroupBox.TabIndex = 422;
-         this.E4MainStepper1GroupBox.TabStop = false;
-         this.E4MainStepper1GroupBox.Text = "Homing";
-         // 
-         // E4MainStepper1HomingAttainedLabel
-         // 
-         this.E4MainStepper1HomingAttainedLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-         this.E4MainStepper1HomingAttainedLabel.Location = new System.Drawing.Point(19, 46);
-         this.E4MainStepper1HomingAttainedLabel.Name = "E4MainStepper1HomingAttainedLabel";
-         this.E4MainStepper1HomingAttainedLabel.Size = new System.Drawing.Size(27, 12);
-         this.E4MainStepper1HomingAttainedLabel.TabIndex = 410;
-         this.E4MainStepper1HomingAttainedLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         this.E4MainLaserTabPage.Controls.Add(this.E4MainLaserScannerGroupBox);
+         this.E4MainLaserTabPage.Controls.Add(this.E4MainLaserRangeFinderGroupBox);
+         this.E4MainLaserTabPage.Location = new System.Drawing.Point(4, 22);
+         this.E4MainLaserTabPage.Name = "E4MainLaserTabPage";
+         this.E4MainLaserTabPage.Padding = new System.Windows.Forms.Padding(3);
+         this.E4MainLaserTabPage.Size = new System.Drawing.Size(720, 156);
+         this.E4MainLaserTabPage.TabIndex = 7;
+         this.E4MainLaserTabPage.Text = "Laser";
+         this.E4MainLaserTabPage.UseVisualStyleBackColor = true;
+         this.E4MainLaserTabPage.Click += new System.EventHandler(this.E4MainLaserTabPage_Click);
          // 
          // button1
          // 
-         this.button1.Location = new System.Drawing.Point(179, 15);
+         this.button1.Location = new System.Drawing.Point(81, 27);
          this.button1.Name = "button1";
-         this.button1.Size = new System.Drawing.Size(46, 23);
-         this.button1.TabIndex = 409;
-         this.button1.Text = "Run";
+         this.button1.Size = new System.Drawing.Size(52, 23);
+         this.button1.TabIndex = 97;
+         this.button1.Text = "Aim Off";
          this.button1.UseVisualStyleBackColor = true;
          // 
          // button2
          // 
-         this.button2.Location = new System.Drawing.Point(127, 15);
+         this.button2.Location = new System.Drawing.Point(23, 27);
          this.button2.Name = "button2";
-         this.button2.Size = new System.Drawing.Size(46, 23);
-         this.button2.TabIndex = 408;
-         this.button2.Text = "Halt";
+         this.button2.Size = new System.Drawing.Size(52, 23);
+         this.button2.TabIndex = 96;
+         this.button2.Text = "Aim On";
          this.button2.UseVisualStyleBackColor = true;
+         this.button2.Click += new System.EventHandler(this.button2_Click);
          // 
          // button3
          // 
-         this.button3.Location = new System.Drawing.Point(75, 15);
+         this.button3.Location = new System.Drawing.Point(282, 15);
          this.button3.Name = "button3";
-         this.button3.Size = new System.Drawing.Size(46, 23);
-         this.button3.TabIndex = 407;
-         this.button3.Text = "Stop";
+         this.button3.Size = new System.Drawing.Size(35, 23);
+         this.button3.TabIndex = 389;
+         this.button3.Text = "Get";
          this.button3.UseVisualStyleBackColor = true;
+         // 
+         // textBox1
+         // 
+         this.textBox1.Location = new System.Drawing.Point(240, 17);
+         this.textBox1.Name = "textBox1";
+         this.textBox1.Size = new System.Drawing.Size(36, 20);
+         this.textBox1.TabIndex = 386;
+         // 
+         // label58
+         // 
+         this.label58.AutoSize = true;
+         this.label58.Location = new System.Drawing.Point(152, 20);
+         this.label58.Name = "label58";
+         this.label58.Size = new System.Drawing.Size(86, 13);
+         this.label58.TabIndex = 387;
+         this.label58.Text = "Time to Measure";
          // 
          // button4
          // 
-         this.button4.Location = new System.Drawing.Point(23, 15);
+         this.button4.Location = new System.Drawing.Point(323, 15);
          this.button4.Name = "button4";
-         this.button4.Size = new System.Drawing.Size(46, 23);
-         this.button4.TabIndex = 406;
-         this.button4.Text = "Start";
+         this.button4.Size = new System.Drawing.Size(35, 23);
+         this.button4.TabIndex = 388;
+         this.button4.Text = "Set";
          this.button4.UseVisualStyleBackColor = true;
          // 
          // button5
          // 
-         this.button5.Location = new System.Drawing.Point(627, 41);
+         this.button5.Location = new System.Drawing.Point(530, 15);
          this.button5.Name = "button5";
          this.button5.Size = new System.Drawing.Size(35, 23);
-         this.button5.TabIndex = 388;
-         this.button5.Text = "Set";
+         this.button5.TabIndex = 391;
+         this.button5.Text = "Get";
          this.button5.UseVisualStyleBackColor = true;
+         // 
+         // textBox2
+         // 
+         this.textBox2.Location = new System.Drawing.Point(465, 17);
+         this.textBox2.Name = "textBox2";
+         this.textBox2.Size = new System.Drawing.Size(59, 20);
+         this.textBox2.TabIndex = 390;
+         // 
+         // label59
+         // 
+         this.label59.AutoSize = true;
+         this.label59.Location = new System.Drawing.Point(364, 20);
+         this.label59.Name = "label59";
+         this.label59.Size = new System.Drawing.Size(99, 13);
+         this.label59.TabIndex = 392;
+         this.label59.Text = "Measured Distance";
+         // 
+         // label60
+         // 
+         this.label60.AutoSize = true;
+         this.label60.Location = new System.Drawing.Point(174, 46);
+         this.label60.Name = "label60";
+         this.label60.Size = new System.Drawing.Size(64, 13);
+         this.label60.TabIndex = 393;
+         this.label60.Text = "Control Byte";
+         // 
+         // LaserScannerPositionTextBox
+         // 
+         this.LaserScannerPositionTextBox.Location = new System.Drawing.Point(240, 43);
+         this.LaserScannerPositionTextBox.MaxLength = 0;
+         this.LaserScannerPositionTextBox.Name = "LaserScannerPositionTextBox";
+         this.LaserScannerPositionTextBox.Size = new System.Drawing.Size(25, 20);
+         this.LaserScannerPositionTextBox.TabIndex = 394;
+         this.LaserScannerPositionTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+         // 
+         // label61
+         // 
+         this.label61.AutoSize = true;
+         this.label61.Location = new System.Drawing.Point(263, 43);
+         this.label61.Name = "label61";
+         this.label61.Size = new System.Drawing.Size(13, 13);
+         this.label61.TabIndex = 395;
+         this.label61.Text = "h";
          // 
          // button6
          // 
-         this.button6.Location = new System.Drawing.Point(190, 41);
+         this.button6.Location = new System.Drawing.Point(282, 41);
          this.button6.Name = "button6";
          this.button6.Size = new System.Drawing.Size(35, 23);
-         this.button6.TabIndex = 404;
-         this.button6.Text = "Set";
+         this.button6.TabIndex = 397;
+         this.button6.Text = "Get";
          this.button6.UseVisualStyleBackColor = true;
          // 
          // button7
          // 
-         this.button7.Location = new System.Drawing.Point(371, 41);
+         this.button7.Location = new System.Drawing.Point(323, 41);
          this.button7.Name = "button7";
          this.button7.Size = new System.Drawing.Size(35, 23);
-         this.button7.TabIndex = 401;
-         this.button7.Text = "Get";
+         this.button7.TabIndex = 396;
+         this.button7.Text = "Set";
          this.button7.UseVisualStyleBackColor = true;
          // 
-         // button8
+         // label62
          // 
-         this.button8.Location = new System.Drawing.Point(371, 15);
-         this.button8.Name = "button8";
-         this.button8.Size = new System.Drawing.Size(35, 23);
-         this.button8.TabIndex = 397;
-         this.button8.Text = "Get";
-         this.button8.UseVisualStyleBackColor = true;
-         // 
-         // textBox1
-         // 
-         this.textBox1.Location = new System.Drawing.Point(306, 17);
-         this.textBox1.Name = "textBox1";
-         this.textBox1.Size = new System.Drawing.Size(59, 20);
-         this.textBox1.TabIndex = 395;
-         // 
-         // button9
-         // 
-         this.button9.Location = new System.Drawing.Point(412, 15);
-         this.button9.Name = "button9";
-         this.button9.Size = new System.Drawing.Size(35, 23);
-         this.button9.TabIndex = 396;
-         this.button9.Text = "Set";
-         this.button9.UseVisualStyleBackColor = true;
-         // 
-         // label49
-         // 
-         this.label49.AutoSize = true;
-         this.label49.Location = new System.Drawing.Point(231, 20);
-         this.label49.Name = "label49";
-         this.label49.Size = new System.Drawing.Size(73, 13);
-         this.label49.TabIndex = 394;
-         this.label49.Text = "Switch Speed";
-         // 
-         // label50
-         // 
-         this.label50.AutoSize = true;
-         this.label50.Location = new System.Drawing.Point(241, 46);
-         this.label50.Name = "label50";
-         this.label50.Size = new System.Drawing.Size(63, 13);
-         this.label50.TabIndex = 398;
-         this.label50.Text = "Zero Speed";
-         // 
-         // button10
-         // 
-         this.button10.Location = new System.Drawing.Point(149, 41);
-         this.button10.Name = "button10";
-         this.button10.Size = new System.Drawing.Size(35, 23);
-         this.button10.TabIndex = 405;
-         this.button10.Text = "Get";
-         this.button10.UseVisualStyleBackColor = true;
-         // 
-         // textBox2
-         // 
-         this.textBox2.Location = new System.Drawing.Point(100, 43);
-         this.textBox2.Name = "textBox2";
-         this.textBox2.Size = new System.Drawing.Size(43, 20);
-         this.textBox2.TabIndex = 403;
+         this.label62.AutoSize = true;
+         this.label62.Location = new System.Drawing.Point(419, 46);
+         this.label62.Name = "label62";
+         this.label62.Size = new System.Drawing.Size(67, 13);
+         this.label62.TabIndex = 398;
+         this.label62.Text = "Temperature";
          // 
          // textBox3
          // 
-         this.textBox3.Location = new System.Drawing.Point(306, 43);
+         this.textBox3.Location = new System.Drawing.Point(488, 43);
          this.textBox3.Name = "textBox3";
-         this.textBox3.Size = new System.Drawing.Size(59, 20);
+         this.textBox3.Size = new System.Drawing.Size(36, 20);
          this.textBox3.TabIndex = 399;
+         this.textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
          // 
-         // button11
+         // button8
          // 
-         this.button11.Location = new System.Drawing.Point(412, 41);
-         this.button11.Name = "button11";
-         this.button11.Size = new System.Drawing.Size(35, 23);
-         this.button11.TabIndex = 400;
-         this.button11.Text = "Set";
-         this.button11.UseVisualStyleBackColor = true;
+         this.button8.Location = new System.Drawing.Point(530, 41);
+         this.button8.Name = "button8";
+         this.button8.Size = new System.Drawing.Size(35, 23);
+         this.button8.TabIndex = 400;
+         this.button8.Text = "Get";
+         this.button8.UseVisualStyleBackColor = true;
          // 
-         // label52
+         // E4MainLaserRangeFinderGroupBox
          // 
-         this.label52.AutoSize = true;
-         this.label52.Location = new System.Drawing.Point(55, 46);
-         this.label52.Name = "label52";
-         this.label52.Size = new System.Drawing.Size(43, 13);
-         this.label52.TabIndex = 402;
-         this.label52.Text = "Method";
+         this.E4MainLaserRangeFinderGroupBox.Controls.Add(this.button3);
+         this.E4MainLaserRangeFinderGroupBox.Controls.Add(this.button8);
+         this.E4MainLaserRangeFinderGroupBox.Controls.Add(this.button2);
+         this.E4MainLaserRangeFinderGroupBox.Controls.Add(this.textBox3);
+         this.E4MainLaserRangeFinderGroupBox.Controls.Add(this.button1);
+         this.E4MainLaserRangeFinderGroupBox.Controls.Add(this.label62);
+         this.E4MainLaserRangeFinderGroupBox.Controls.Add(this.button4);
+         this.E4MainLaserRangeFinderGroupBox.Controls.Add(this.button6);
+         this.E4MainLaserRangeFinderGroupBox.Controls.Add(this.label58);
+         this.E4MainLaserRangeFinderGroupBox.Controls.Add(this.button7);
+         this.E4MainLaserRangeFinderGroupBox.Controls.Add(this.textBox1);
+         this.E4MainLaserRangeFinderGroupBox.Controls.Add(this.LaserScannerPositionTextBox);
+         this.E4MainLaserRangeFinderGroupBox.Controls.Add(this.textBox2);
+         this.E4MainLaserRangeFinderGroupBox.Controls.Add(this.label61);
+         this.E4MainLaserRangeFinderGroupBox.Controls.Add(this.button5);
+         this.E4MainLaserRangeFinderGroupBox.Controls.Add(this.label60);
+         this.E4MainLaserRangeFinderGroupBox.Controls.Add(this.label59);
+         this.E4MainLaserRangeFinderGroupBox.Location = new System.Drawing.Point(3, 3);
+         this.E4MainLaserRangeFinderGroupBox.Name = "E4MainLaserRangeFinderGroupBox";
+         this.E4MainLaserRangeFinderGroupBox.Size = new System.Drawing.Size(681, 70);
+         this.E4MainLaserRangeFinderGroupBox.TabIndex = 401;
+         this.E4MainLaserRangeFinderGroupBox.TabStop = false;
+         this.E4MainLaserRangeFinderGroupBox.Text = "Laser Range Finder";
+         // 
+         // E4MainLaserScannerGroupBox
+         // 
+         this.E4MainLaserScannerGroupBox.Controls.Add(this.button10);
+         this.E4MainLaserScannerGroupBox.Controls.Add(this.label65);
+         this.E4MainLaserScannerGroupBox.Controls.Add(this.textBox5);
+         this.E4MainLaserScannerGroupBox.Controls.Add(this.label66);
+         this.E4MainLaserScannerGroupBox.Controls.Add(this.button9);
+         this.E4MainLaserScannerGroupBox.Controls.Add(this.textBox4);
+         this.E4MainLaserScannerGroupBox.Controls.Add(this.label63);
+         this.E4MainLaserScannerGroupBox.Location = new System.Drawing.Point(2, 79);
+         this.E4MainLaserScannerGroupBox.Name = "E4MainLaserScannerGroupBox";
+         this.E4MainLaserScannerGroupBox.Size = new System.Drawing.Size(682, 44);
+         this.E4MainLaserScannerGroupBox.TabIndex = 402;
+         this.E4MainLaserScannerGroupBox.TabStop = false;
+         this.E4MainLaserScannerGroupBox.Text = "Laser Scanner";
+         // 
+         // button9
+         // 
+         this.button9.Location = new System.Drawing.Point(531, 15);
+         this.button9.Name = "button9";
+         this.button9.Size = new System.Drawing.Size(35, 23);
+         this.button9.TabIndex = 403;
+         this.button9.Text = "Get";
+         this.button9.UseVisualStyleBackColor = true;
          // 
          // textBox4
          // 
-         this.textBox4.Location = new System.Drawing.Point(521, 17);
+         this.textBox4.Location = new System.Drawing.Point(489, 17);
          this.textBox4.Name = "textBox4";
-         this.textBox4.Size = new System.Drawing.Size(59, 20);
-         this.textBox4.TabIndex = 391;
+         this.textBox4.Size = new System.Drawing.Size(36, 20);
+         this.textBox4.TabIndex = 402;
+         this.textBox4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
          // 
-         // label53
+         // label63
          // 
-         this.label53.AutoSize = true;
-         this.label53.Location = new System.Drawing.Point(484, 46);
-         this.label53.Name = "label53";
-         this.label53.Size = new System.Drawing.Size(35, 13);
-         this.label53.TabIndex = 386;
-         this.label53.Text = "Offset";
+         this.label63.AutoSize = true;
+         this.label63.Location = new System.Drawing.Point(420, 20);
+         this.label63.Name = "label63";
+         this.label63.Size = new System.Drawing.Size(67, 13);
+         this.label63.TabIndex = 401;
+         this.label63.Text = "Temperature";
          // 
-         // label54
+         // label64
          // 
-         this.label54.AutoSize = true;
-         this.label54.Location = new System.Drawing.Point(453, 20);
-         this.label54.Name = "label54";
-         this.label54.Size = new System.Drawing.Size(66, 13);
-         this.label54.TabIndex = 390;
-         this.label54.Text = "Acceleration";
+         this.label64.AutoSize = true;
+         this.label64.Location = new System.Drawing.Point(391, 57);
+         this.label64.Name = "label64";
+         this.label64.Size = new System.Drawing.Size(13, 13);
+         this.label64.TabIndex = 396;
+         this.label64.Text = "h";
          // 
-         // button12
+         // label65
          // 
-         this.button12.Location = new System.Drawing.Point(586, 15);
-         this.button12.Name = "button12";
-         this.button12.Size = new System.Drawing.Size(35, 23);
-         this.button12.TabIndex = 393;
-         this.button12.Text = "Get";
-         this.button12.UseVisualStyleBackColor = true;
-         // 
-         // button13
-         // 
-         this.button13.Location = new System.Drawing.Point(627, 15);
-         this.button13.Name = "button13";
-         this.button13.Size = new System.Drawing.Size(35, 23);
-         this.button13.TabIndex = 392;
-         this.button13.Text = "Set";
-         this.button13.UseVisualStyleBackColor = true;
-         // 
-         // button14
-         // 
-         this.button14.Location = new System.Drawing.Point(586, 41);
-         this.button14.Name = "button14";
-         this.button14.Size = new System.Drawing.Size(35, 23);
-         this.button14.TabIndex = 389;
-         this.button14.Text = "Get";
-         this.button14.UseVisualStyleBackColor = true;
+         this.label65.AutoSize = true;
+         this.label65.Location = new System.Drawing.Point(195, 20);
+         this.label65.Name = "label65";
+         this.label65.Size = new System.Drawing.Size(44, 13);
+         this.label65.TabIndex = 405;
+         this.label65.Text = "Position";
          // 
          // textBox5
          // 
-         this.textBox5.Location = new System.Drawing.Point(521, 43);
+         this.textBox5.Location = new System.Drawing.Point(241, 17);
          this.textBox5.Name = "textBox5";
-         this.textBox5.Size = new System.Drawing.Size(59, 20);
-         this.textBox5.TabIndex = 387;
+         this.textBox5.Size = new System.Drawing.Size(25, 20);
+         this.textBox5.TabIndex = 404;
+         this.textBox5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+         // 
+         // label66
+         // 
+         this.label66.AutoSize = true;
+         this.label66.Location = new System.Drawing.Point(263, 17);
+         this.label66.Name = "label66";
+         this.label66.Size = new System.Drawing.Size(13, 13);
+         this.label66.TabIndex = 406;
+         this.label66.Text = "h";
+         // 
+         // button10
+         // 
+         this.button10.Location = new System.Drawing.Point(283, 15);
+         this.button10.Name = "button10";
+         this.button10.Size = new System.Drawing.Size(35, 23);
+         this.button10.TabIndex = 407;
+         this.button10.Text = "Get";
+         this.button10.UseVisualStyleBackColor = true;
          // 
          // MainForm
          // 
@@ -3663,18 +4159,25 @@ namespace E4.DeviceTest
          this.E4MainStepper0TabPage.ResumeLayout(false);
          this.E4MainStepper0TabPage.PerformLayout();
          this.E4MainStepper0Panel.ResumeLayout(false);
+         this.E4MainStepper0HomingGroupBox.ResumeLayout(false);
+         this.E4MainStepper0HomingGroupBox.PerformLayout();
          this.E4MainStepper0PositionGroupBox.ResumeLayout(false);
          this.E4MainStepper0PositionGroupBox.PerformLayout();
          this.E4MainStepper1TabPage.ResumeLayout(false);
          this.E4MainStepper1TabPage.PerformLayout();
          this.E4MainStepper1Panel.ResumeLayout(false);
+         this.E4MainStepper1GroupBox.ResumeLayout(false);
+         this.E4MainStepper1GroupBox.PerformLayout();
          this.groupBox1.ResumeLayout(false);
          this.groupBox1.PerformLayout();
          this.MainActivityPanel.ResumeLayout(false);
-         this.E4MainStepper0HomingGroupBox.ResumeLayout(false);
-         this.E4MainStepper0HomingGroupBox.PerformLayout();
-         this.E4MainStepper1GroupBox.ResumeLayout(false);
-         this.E4MainStepper1GroupBox.PerformLayout();
+         this.E4MainImuTabPage.ResumeLayout(false);
+         this.E4MainImuTabPage.PerformLayout();
+         this.E4MainLaserTabPage.ResumeLayout(false);
+         this.E4MainLaserRangeFinderGroupBox.ResumeLayout(false);
+         this.E4MainLaserRangeFinderGroupBox.PerformLayout();
+         this.E4MainLaserScannerGroupBox.ResumeLayout(false);
+         this.E4MainLaserScannerGroupBox.PerformLayout();
          this.ResumeLayout(false);
          this.PerformLayout();
 
@@ -3978,30 +4481,74 @@ namespace E4.DeviceTest
       private System.Windows.Forms.TextBox E4MainStepper0HomeOffsetTextBox;
       private System.Windows.Forms.GroupBox E4MainStepper1GroupBox;
       private System.Windows.Forms.Label E4MainStepper1HomingAttainedLabel;
-      private System.Windows.Forms.Button button1;
-      private System.Windows.Forms.Button button2;
-      private System.Windows.Forms.Button button3;
-      private System.Windows.Forms.Button button4;
-      private System.Windows.Forms.Button button5;
-      private System.Windows.Forms.Button button6;
-      private System.Windows.Forms.Button button7;
-      private System.Windows.Forms.Button button8;
-      private System.Windows.Forms.TextBox textBox1;
-      private System.Windows.Forms.Button button9;
+      private System.Windows.Forms.Button RunE4MainStepper1HomingButton;
+      private System.Windows.Forms.Button HaltE4MainStepper1HomingButton;
+      private System.Windows.Forms.Button StopE4MainStepper1HomingButton;
+      private System.Windows.Forms.Button StartE4MainStepper1HomingButton;
+      private System.Windows.Forms.Button SetE4MainStepper1HomeOffsetButton;
+      private System.Windows.Forms.Button SetE4MainStepper1HomingMethodButton;
+      private System.Windows.Forms.Button GetE4MainStepper1HomingZeroSpeedButton;
+      private System.Windows.Forms.Button GetE4MainStepper1HomingSwitchSpeedButton;
+      private System.Windows.Forms.TextBox E4MainStepper1HomingSwitchSpeedTextBox;
+      private System.Windows.Forms.Button SetE4MainStepper1HomingSwitchSpeedButton;
       private System.Windows.Forms.Label label49;
       private System.Windows.Forms.Label label50;
-      private System.Windows.Forms.Button button10;
-      private System.Windows.Forms.TextBox textBox2;
-      private System.Windows.Forms.TextBox textBox3;
-      private System.Windows.Forms.Button button11;
+      private System.Windows.Forms.Button GetE4MainStepper1HomingMethodButton;
+      private System.Windows.Forms.TextBox E4MainStepper1HomingMethodTextBox;
+      private System.Windows.Forms.TextBox E4MainStepper1HomingZeroSpeedTextBox;
+      private System.Windows.Forms.Button SetE4MainStepper1HomingZeroSpeedButton;
       private System.Windows.Forms.Label label52;
-      private System.Windows.Forms.TextBox textBox4;
+      private System.Windows.Forms.TextBox E4MainStepper1HomingAccelerationTextBox;
       private System.Windows.Forms.Label label53;
       private System.Windows.Forms.Label label54;
-      private System.Windows.Forms.Button button12;
-      private System.Windows.Forms.Button button13;
-      private System.Windows.Forms.Button button14;
+      private System.Windows.Forms.Button GetE4MainStepper1HomingAccelerationButton;
+      private System.Windows.Forms.Button SetE4MainStepper1HomingAccelerationButton;
+      private System.Windows.Forms.Button GetE4MainStepper1HomeOffsetButton;
+      private System.Windows.Forms.TextBox E4MainStepper1HomeOffsetTextBox;
+      private System.Windows.Forms.Button DownloadEraseButton;
+      private System.Windows.Forms.TabPage E4MainImuTabPage;
+      private System.Windows.Forms.Button ReadE4MainMainIcuDirectionsButton;
+      private System.Windows.Forms.Label label55;
+      private System.Windows.Forms.Label label56;
+      private System.Windows.Forms.TextBox E4MainTargetBoardIcuReadYawTextBox;
+      private System.Windows.Forms.TextBox E4MainTargetBoardIcuReadPitchTextBox;
+      private System.Windows.Forms.TextBox E4MainTargetBoardIcuReadRollTextBox;
+      private System.Windows.Forms.Label label57;
+      private System.Windows.Forms.Label label31;
+      private System.Windows.Forms.Label label38;
+      private System.Windows.Forms.TextBox E4MainMainBoardIcuReadYawTextBox;
+      private System.Windows.Forms.TextBox E4MainMainBoardIcuReadPitchTextBox;
+      private System.Windows.Forms.TextBox E4MainMainBoardIcuReadRollTextBox;
+      private System.Windows.Forms.Label label45;
+      private System.Windows.Forms.Button ReadE4MainTargetIcuDirectionsButton;
+      private System.Windows.Forms.TabPage E4MainLaserTabPage;
+      private System.Windows.Forms.Button button1;
+      private System.Windows.Forms.Button button2;
+      private System.Windows.Forms.Label label60;
+      private System.Windows.Forms.Label label59;
+      private System.Windows.Forms.Button button5;
+      private System.Windows.Forms.TextBox textBox2;
+      private System.Windows.Forms.Button button3;
+      private System.Windows.Forms.TextBox textBox1;
+      private System.Windows.Forms.Label label58;
+      private System.Windows.Forms.Button button4;
+      private System.Windows.Forms.Button button8;
+      private System.Windows.Forms.TextBox textBox3;
+      private System.Windows.Forms.Label label62;
+      private System.Windows.Forms.Button button6;
+      private System.Windows.Forms.Button button7;
+      private System.Windows.Forms.TextBox LaserScannerPositionTextBox;
+      private System.Windows.Forms.Label label61;
+      private System.Windows.Forms.GroupBox E4MainLaserScannerGroupBox;
+      private System.Windows.Forms.Button button10;
+      private System.Windows.Forms.Label label65;
       private System.Windows.Forms.TextBox textBox5;
+      private System.Windows.Forms.Label label66;
+      private System.Windows.Forms.Button button9;
+      private System.Windows.Forms.TextBox textBox4;
+      private System.Windows.Forms.Label label63;
+      private System.Windows.Forms.GroupBox E4MainLaserRangeFinderGroupBox;
+      private System.Windows.Forms.Label label64;
    }
 }
 

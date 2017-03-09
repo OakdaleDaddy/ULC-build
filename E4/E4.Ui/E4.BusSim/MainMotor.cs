@@ -737,6 +737,8 @@
 
                      this.homeDefined = true;
 
+                     this.PositionActualValue = 0;
+
                      this.homingRunState = HomingRunStates.attained;
                   }
                }

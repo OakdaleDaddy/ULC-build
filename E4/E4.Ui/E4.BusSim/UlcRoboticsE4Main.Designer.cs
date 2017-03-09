@@ -97,6 +97,13 @@
          this.SetLaserMeasuredDistanceButton = new System.Windows.Forms.Button();
          this.MainTabControl = new System.Windows.Forms.TabControl();
          this.InterfaceTabPage = new System.Windows.Forms.TabPage();
+         this.label9 = new System.Windows.Forms.Label();
+         this.label10 = new System.Windows.Forms.Label();
+         this.label11 = new System.Windows.Forms.Label();
+         this.SetTargetBoardImuDirectionsButton = new System.Windows.Forms.Button();
+         this.TargetBoardImuYawTextBox = new System.Windows.Forms.TextBox();
+         this.TargetBoardImuPitchTextBox = new System.Windows.Forms.TextBox();
+         this.TargetBoardImuRollTextBox = new System.Windows.Forms.TextBox();
          this.Bldc0TabPage = new System.Windows.Forms.TabPage();
          this.Bldc1TabPage = new System.Windows.Forms.TabPage();
          this.Stepper0TabPage = new System.Windows.Forms.TabPage();
@@ -121,13 +128,6 @@
          this.LaserScannerProcessImagePanel = new System.Windows.Forms.Panel();
          this.McuProcessImageTabPage = new System.Windows.Forms.TabPage();
          this.McuProcessImagePanel = new System.Windows.Forms.Panel();
-         this.label9 = new System.Windows.Forms.Label();
-         this.label10 = new System.Windows.Forms.Label();
-         this.label11 = new System.Windows.Forms.Label();
-         this.SetTargetBoardImuDirectionsButton = new System.Windows.Forms.Button();
-         this.TargetBoardImuYawTextBox = new System.Windows.Forms.TextBox();
-         this.TargetBoardImuPitchTextBox = new System.Windows.Forms.TextBox();
-         this.TargetBoardImuRollTextBox = new System.Windows.Forms.TextBox();
          this.CommunicationProcessImagePanel.SuspendLayout();
          this.MainTabControl.SuspendLayout();
          this.InterfaceTabPage.SuspendLayout();
@@ -631,6 +631,12 @@
          this.Motor0Motor.DigitalOutputsLocation = 0;
          this.Motor0Motor.DigitalOutputsMaskLocation = 0;
          this.Motor0Motor.GetModeLocation = 0;
+         this.Motor0Motor.HomeOffsetLocation = 0;
+         this.Motor0Motor.HomingAccelerationLocation = 0;
+         this.Motor0Motor.HomingMethodLocation = 0;
+         this.Motor0Motor.HomingSpeedHighestLocation = 0;
+         this.Motor0Motor.HomingSwitchSpeedLocation = 0;
+         this.Motor0Motor.HomingZeroSpeedLocation = 0;
          this.Motor0Motor.IntegralGainCoefficienKiLocation = 0;
          this.Motor0Motor.Location = new System.Drawing.Point(8, 6);
          this.Motor0Motor.MotorAbortConnectionOptionLocation = 0;
@@ -652,6 +658,9 @@
          this.Motor0Motor.SingleDeviceTypeLocation = 0;
          this.Motor0Motor.Size = new System.Drawing.Size(486, 109);
          this.Motor0Motor.StatusWordLocation = 0;
+         this.Motor0Motor.SupportHomingMode = false;
+         this.Motor0Motor.SupportPositionMode = false;
+         this.Motor0Motor.SupportVelocityMode = false;
          this.Motor0Motor.TabIndex = 222;
          this.Motor0Motor.TargetPositionLocation = 0;
          this.Motor0Motor.TargetTorqueLocation = 0;
@@ -668,6 +677,12 @@
          this.Motor1Motor.DigitalOutputsLocation = 0;
          this.Motor1Motor.DigitalOutputsMaskLocation = 0;
          this.Motor1Motor.GetModeLocation = 0;
+         this.Motor1Motor.HomeOffsetLocation = 0;
+         this.Motor1Motor.HomingAccelerationLocation = 0;
+         this.Motor1Motor.HomingMethodLocation = 0;
+         this.Motor1Motor.HomingSpeedHighestLocation = 0;
+         this.Motor1Motor.HomingSwitchSpeedLocation = 0;
+         this.Motor1Motor.HomingZeroSpeedLocation = 0;
          this.Motor1Motor.IntegralGainCoefficienKiLocation = 0;
          this.Motor1Motor.Location = new System.Drawing.Point(6, 6);
          this.Motor1Motor.MotorAbortConnectionOptionLocation = 0;
@@ -689,6 +704,9 @@
          this.Motor1Motor.SingleDeviceTypeLocation = 0;
          this.Motor1Motor.Size = new System.Drawing.Size(486, 108);
          this.Motor1Motor.StatusWordLocation = 0;
+         this.Motor1Motor.SupportHomingMode = false;
+         this.Motor1Motor.SupportPositionMode = false;
+         this.Motor1Motor.SupportVelocityMode = false;
          this.Motor1Motor.TabIndex = 223;
          this.Motor1Motor.TargetPositionLocation = 0;
          this.Motor1Motor.TargetTorqueLocation = 0;
@@ -705,6 +723,12 @@
          this.Motor2Motor.DigitalOutputsLocation = 0;
          this.Motor2Motor.DigitalOutputsMaskLocation = 0;
          this.Motor2Motor.GetModeLocation = 0;
+         this.Motor2Motor.HomeOffsetLocation = 0;
+         this.Motor2Motor.HomingAccelerationLocation = 0;
+         this.Motor2Motor.HomingMethodLocation = 0;
+         this.Motor2Motor.HomingSpeedHighestLocation = 0;
+         this.Motor2Motor.HomingSwitchSpeedLocation = 0;
+         this.Motor2Motor.HomingZeroSpeedLocation = 0;
          this.Motor2Motor.IntegralGainCoefficienKiLocation = 0;
          this.Motor2Motor.Location = new System.Drawing.Point(3, 6);
          this.Motor2Motor.MotorAbortConnectionOptionLocation = 0;
@@ -726,6 +750,9 @@
          this.Motor2Motor.SingleDeviceTypeLocation = 0;
          this.Motor2Motor.Size = new System.Drawing.Size(486, 108);
          this.Motor2Motor.StatusWordLocation = 0;
+         this.Motor2Motor.SupportHomingMode = false;
+         this.Motor2Motor.SupportPositionMode = false;
+         this.Motor2Motor.SupportVelocityMode = false;
          this.Motor2Motor.TabIndex = 224;
          this.Motor2Motor.TargetPositionLocation = 0;
          this.Motor2Motor.TargetTorqueLocation = 0;
@@ -742,6 +769,12 @@
          this.Motor3Motor.DigitalOutputsLocation = 0;
          this.Motor3Motor.DigitalOutputsMaskLocation = 0;
          this.Motor3Motor.GetModeLocation = 0;
+         this.Motor3Motor.HomeOffsetLocation = 0;
+         this.Motor3Motor.HomingAccelerationLocation = 0;
+         this.Motor3Motor.HomingMethodLocation = 0;
+         this.Motor3Motor.HomingSpeedHighestLocation = 0;
+         this.Motor3Motor.HomingSwitchSpeedLocation = 0;
+         this.Motor3Motor.HomingZeroSpeedLocation = 0;
          this.Motor3Motor.IntegralGainCoefficienKiLocation = 0;
          this.Motor3Motor.Location = new System.Drawing.Point(6, 6);
          this.Motor3Motor.MotorAbortConnectionOptionLocation = 0;
@@ -763,6 +796,9 @@
          this.Motor3Motor.SingleDeviceTypeLocation = 0;
          this.Motor3Motor.Size = new System.Drawing.Size(486, 108);
          this.Motor3Motor.StatusWordLocation = 0;
+         this.Motor3Motor.SupportHomingMode = false;
+         this.Motor3Motor.SupportPositionMode = false;
+         this.Motor3Motor.SupportVelocityMode = false;
          this.Motor3Motor.TabIndex = 225;
          this.Motor3Motor.TargetPositionLocation = 0;
          this.Motor3Motor.TargetTorqueLocation = 0;
@@ -949,7 +985,7 @@
          this.MainTabControl.Location = new System.Drawing.Point(0, 30);
          this.MainTabControl.Name = "MainTabControl";
          this.MainTabControl.SelectedIndex = 0;
-         this.MainTabControl.Size = new System.Drawing.Size(1005, 251);
+         this.MainTabControl.Size = new System.Drawing.Size(1005, 291);
          this.MainTabControl.TabIndex = 243;
          // 
          // InterfaceTabPage
@@ -982,9 +1018,76 @@
          this.InterfaceTabPage.Location = new System.Drawing.Point(4, 22);
          this.InterfaceTabPage.Name = "InterfaceTabPage";
          this.InterfaceTabPage.Padding = new System.Windows.Forms.Padding(3);
-         this.InterfaceTabPage.Size = new System.Drawing.Size(997, 225);
+         this.InterfaceTabPage.Size = new System.Drawing.Size(997, 265);
          this.InterfaceTabPage.TabIndex = 2;
          this.InterfaceTabPage.Text = "Interface";
+         // 
+         // label9
+         // 
+         this.label9.AutoSize = true;
+         this.label9.Location = new System.Drawing.Point(215, 119);
+         this.label9.Name = "label9";
+         this.label9.Size = new System.Drawing.Size(116, 13);
+         this.label9.TabIndex = 249;
+         this.label9.Text = "Target Board IMU Yaw";
+         // 
+         // label10
+         // 
+         this.label10.AutoSize = true;
+         this.label10.Location = new System.Drawing.Point(212, 96);
+         this.label10.Name = "label10";
+         this.label10.Size = new System.Drawing.Size(119, 13);
+         this.label10.TabIndex = 248;
+         this.label10.Text = "Target Board IMU Pitch";
+         // 
+         // label11
+         // 
+         this.label11.AutoSize = true;
+         this.label11.Location = new System.Drawing.Point(218, 73);
+         this.label11.Name = "label11";
+         this.label11.Size = new System.Drawing.Size(113, 13);
+         this.label11.TabIndex = 247;
+         this.label11.Text = "Target Board IMU Roll";
+         // 
+         // SetTargetBoardImuDirectionsButton
+         // 
+         this.SetTargetBoardImuDirectionsButton.Location = new System.Drawing.Point(379, 114);
+         this.SetTargetBoardImuDirectionsButton.Name = "SetTargetBoardImuDirectionsButton";
+         this.SetTargetBoardImuDirectionsButton.Size = new System.Drawing.Size(35, 23);
+         this.SetTargetBoardImuDirectionsButton.TabIndex = 246;
+         this.SetTargetBoardImuDirectionsButton.Text = "Set";
+         this.SetTargetBoardImuDirectionsButton.UseVisualStyleBackColor = true;
+         this.SetTargetBoardImuDirectionsButton.Click += new System.EventHandler(this.SetTargetBoardImuDirectionsButton_Click);
+         // 
+         // TargetBoardImuYawTextBox
+         // 
+         this.TargetBoardImuYawTextBox.Location = new System.Drawing.Point(333, 116);
+         this.TargetBoardImuYawTextBox.MaxLength = 5;
+         this.TargetBoardImuYawTextBox.Name = "TargetBoardImuYawTextBox";
+         this.TargetBoardImuYawTextBox.Size = new System.Drawing.Size(40, 20);
+         this.TargetBoardImuYawTextBox.TabIndex = 245;
+         this.TargetBoardImuYawTextBox.Text = "0.0";
+         this.TargetBoardImuYawTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+         // 
+         // TargetBoardImuPitchTextBox
+         // 
+         this.TargetBoardImuPitchTextBox.Location = new System.Drawing.Point(333, 93);
+         this.TargetBoardImuPitchTextBox.MaxLength = 5;
+         this.TargetBoardImuPitchTextBox.Name = "TargetBoardImuPitchTextBox";
+         this.TargetBoardImuPitchTextBox.Size = new System.Drawing.Size(40, 20);
+         this.TargetBoardImuPitchTextBox.TabIndex = 244;
+         this.TargetBoardImuPitchTextBox.Text = "0.0";
+         this.TargetBoardImuPitchTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+         // 
+         // TargetBoardImuRollTextBox
+         // 
+         this.TargetBoardImuRollTextBox.Location = new System.Drawing.Point(333, 70);
+         this.TargetBoardImuRollTextBox.MaxLength = 5;
+         this.TargetBoardImuRollTextBox.Name = "TargetBoardImuRollTextBox";
+         this.TargetBoardImuRollTextBox.Size = new System.Drawing.Size(40, 20);
+         this.TargetBoardImuRollTextBox.TabIndex = 243;
+         this.TargetBoardImuRollTextBox.Text = "0.0";
+         this.TargetBoardImuRollTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
          // 
          // Bldc0TabPage
          // 
@@ -1271,73 +1374,6 @@
          this.McuProcessImagePanel.TabIndex = 0;
          this.McuProcessImagePanel.Scroll += new System.Windows.Forms.ScrollEventHandler(this.McuProcessImagePanel_Scroll);
          // 
-         // label9
-         // 
-         this.label9.AutoSize = true;
-         this.label9.Location = new System.Drawing.Point(215, 119);
-         this.label9.Name = "label9";
-         this.label9.Size = new System.Drawing.Size(116, 13);
-         this.label9.TabIndex = 249;
-         this.label9.Text = "Target Board IMU Yaw";
-         // 
-         // label10
-         // 
-         this.label10.AutoSize = true;
-         this.label10.Location = new System.Drawing.Point(212, 96);
-         this.label10.Name = "label10";
-         this.label10.Size = new System.Drawing.Size(119, 13);
-         this.label10.TabIndex = 248;
-         this.label10.Text = "Target Board IMU Pitch";
-         // 
-         // label11
-         // 
-         this.label11.AutoSize = true;
-         this.label11.Location = new System.Drawing.Point(218, 73);
-         this.label11.Name = "label11";
-         this.label11.Size = new System.Drawing.Size(113, 13);
-         this.label11.TabIndex = 247;
-         this.label11.Text = "Target Board IMU Roll";
-         // 
-         // SetTargetBoardImuDirectionsButton
-         // 
-         this.SetTargetBoardImuDirectionsButton.Location = new System.Drawing.Point(379, 114);
-         this.SetTargetBoardImuDirectionsButton.Name = "SetTargetBoardImuDirectionsButton";
-         this.SetTargetBoardImuDirectionsButton.Size = new System.Drawing.Size(35, 23);
-         this.SetTargetBoardImuDirectionsButton.TabIndex = 246;
-         this.SetTargetBoardImuDirectionsButton.Text = "Set";
-         this.SetTargetBoardImuDirectionsButton.UseVisualStyleBackColor = true;
-         this.SetTargetBoardImuDirectionsButton.Click += new System.EventHandler(this.SetTargetBoardImuDirectionsButton_Click);
-         // 
-         // TargetBoardImuYawTextBox
-         // 
-         this.TargetBoardImuYawTextBox.Location = new System.Drawing.Point(333, 116);
-         this.TargetBoardImuYawTextBox.MaxLength = 5;
-         this.TargetBoardImuYawTextBox.Name = "TargetBoardImuYawTextBox";
-         this.TargetBoardImuYawTextBox.Size = new System.Drawing.Size(40, 20);
-         this.TargetBoardImuYawTextBox.TabIndex = 245;
-         this.TargetBoardImuYawTextBox.Text = "0.0";
-         this.TargetBoardImuYawTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-         // 
-         // TargetBoardImuPitchTextBox
-         // 
-         this.TargetBoardImuPitchTextBox.Location = new System.Drawing.Point(333, 93);
-         this.TargetBoardImuPitchTextBox.MaxLength = 5;
-         this.TargetBoardImuPitchTextBox.Name = "TargetBoardImuPitchTextBox";
-         this.TargetBoardImuPitchTextBox.Size = new System.Drawing.Size(40, 20);
-         this.TargetBoardImuPitchTextBox.TabIndex = 244;
-         this.TargetBoardImuPitchTextBox.Text = "0.0";
-         this.TargetBoardImuPitchTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-         // 
-         // TargetBoardImuRollTextBox
-         // 
-         this.TargetBoardImuRollTextBox.Location = new System.Drawing.Point(333, 70);
-         this.TargetBoardImuRollTextBox.MaxLength = 5;
-         this.TargetBoardImuRollTextBox.Name = "TargetBoardImuRollTextBox";
-         this.TargetBoardImuRollTextBox.Size = new System.Drawing.Size(40, 20);
-         this.TargetBoardImuRollTextBox.TabIndex = 243;
-         this.TargetBoardImuRollTextBox.Text = "0.0";
-         this.TargetBoardImuRollTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-         // 
          // UlcRoboticsE4Main
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1352,7 +1388,7 @@
          this.Controls.Add(this.NodeIdTextBox);
          this.Controls.Add(this.label1);
          this.Name = "UlcRoboticsE4Main";
-         this.Size = new System.Drawing.Size(1005, 281);
+         this.Size = new System.Drawing.Size(1005, 321);
          this.CommunicationProcessImagePanel.ResumeLayout(false);
          this.CommunicationProcessImagePanel.PerformLayout();
          this.MainTabControl.ResumeLayout(false);
