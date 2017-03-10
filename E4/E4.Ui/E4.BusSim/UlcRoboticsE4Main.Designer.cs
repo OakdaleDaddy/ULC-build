@@ -97,6 +97,9 @@
          this.SetLaserMeasuredDistanceButton = new System.Windows.Forms.Button();
          this.MainTabControl = new System.Windows.Forms.TabControl();
          this.InterfaceTabPage = new System.Windows.Forms.TabPage();
+         this.SetDcVoltageByteButton = new System.Windows.Forms.Button();
+         this.label12 = new System.Windows.Forms.Label();
+         this.DcVoltageByteTextBox = new System.Windows.Forms.TextBox();
          this.label9 = new System.Windows.Forms.Label();
          this.label10 = new System.Windows.Forms.Label();
          this.label11 = new System.Windows.Forms.Label();
@@ -128,6 +131,7 @@
          this.LaserScannerProcessImagePanel = new System.Windows.Forms.Panel();
          this.McuProcessImageTabPage = new System.Windows.Forms.TabPage();
          this.McuProcessImagePanel = new System.Windows.Forms.Panel();
+         this.DcLinkVoltageByteLabel = new System.Windows.Forms.Label();
          this.CommunicationProcessImagePanel.SuspendLayout();
          this.MainTabControl.SuspendLayout();
          this.InterfaceTabPage.SuspendLayout();
@@ -625,7 +629,6 @@
          // 
          this.Motor0Motor.ControlWordLocation = 0;
          this.Motor0Motor.CurrentActualValueLocation = 0;
-         this.Motor0Motor.DerivativeGainCoefficientKdLocation = 0;
          this.Motor0Motor.DigitalInputsLocation = 0;
          this.Motor0Motor.DigitalOutputsHighestLocation = 0;
          this.Motor0Motor.DigitalOutputsLocation = 0;
@@ -637,7 +640,6 @@
          this.Motor0Motor.HomingSpeedHighestLocation = 0;
          this.Motor0Motor.HomingSwitchSpeedLocation = 0;
          this.Motor0Motor.HomingZeroSpeedLocation = 0;
-         this.Motor0Motor.IntegralGainCoefficienKiLocation = 0;
          this.Motor0Motor.Location = new System.Drawing.Point(8, 6);
          this.Motor0Motor.MotorAbortConnectionOptionLocation = 0;
          this.Motor0Motor.MotorErrorCodeLocation = 0;
@@ -650,10 +652,12 @@
          this.Motor0Motor.OnTpdoCheck = null;
          this.Motor0Motor.PositionActualValueLocation = 0;
          this.Motor0Motor.PositionControlParameterHighestLocation = 0;
+         this.Motor0Motor.PositionDerivativeGainCoefficientKdLocation = 0;
+         this.Motor0Motor.PositionIntegralGainCoefficienKiLocation = 0;
+         this.Motor0Motor.PositionProportionalGainCoefficientKpLocation = 0;
          this.Motor0Motor.ProfileAccelerationLocation = 0;
          this.Motor0Motor.ProfileDecelerationLocation = 0;
          this.Motor0Motor.ProfileVelocityLocation = 0;
-         this.Motor0Motor.ProportionalGainCoefficientKpLocation = 0;
          this.Motor0Motor.SetModeLocation = 0;
          this.Motor0Motor.SingleDeviceTypeLocation = 0;
          this.Motor0Motor.Size = new System.Drawing.Size(486, 109);
@@ -666,12 +670,15 @@
          this.Motor0Motor.TargetTorqueLocation = 0;
          this.Motor0Motor.TargetVelocityLocation = 0;
          this.Motor0Motor.VelocityActualValueLocation = 0;
+         this.Motor0Motor.VelocityControlParameterHighestLocation = 0;
+         this.Motor0Motor.VelocityDerivativeGainCoefficientKdLocation = 0;
+         this.Motor0Motor.VelocityIntegralGainCoefficienKiLocation = 0;
+         this.Motor0Motor.VelocityProportionalGainCoefficientKpLocation = 0;
          // 
          // Motor1Motor
          // 
          this.Motor1Motor.ControlWordLocation = 0;
          this.Motor1Motor.CurrentActualValueLocation = 0;
-         this.Motor1Motor.DerivativeGainCoefficientKdLocation = 0;
          this.Motor1Motor.DigitalInputsLocation = 0;
          this.Motor1Motor.DigitalOutputsHighestLocation = 0;
          this.Motor1Motor.DigitalOutputsLocation = 0;
@@ -683,7 +690,6 @@
          this.Motor1Motor.HomingSpeedHighestLocation = 0;
          this.Motor1Motor.HomingSwitchSpeedLocation = 0;
          this.Motor1Motor.HomingZeroSpeedLocation = 0;
-         this.Motor1Motor.IntegralGainCoefficienKiLocation = 0;
          this.Motor1Motor.Location = new System.Drawing.Point(6, 6);
          this.Motor1Motor.MotorAbortConnectionOptionLocation = 0;
          this.Motor1Motor.MotorErrorCodeLocation = 0;
@@ -696,10 +702,12 @@
          this.Motor1Motor.OnTpdoCheck = null;
          this.Motor1Motor.PositionActualValueLocation = 0;
          this.Motor1Motor.PositionControlParameterHighestLocation = 0;
+         this.Motor1Motor.PositionDerivativeGainCoefficientKdLocation = 0;
+         this.Motor1Motor.PositionIntegralGainCoefficienKiLocation = 0;
+         this.Motor1Motor.PositionProportionalGainCoefficientKpLocation = 0;
          this.Motor1Motor.ProfileAccelerationLocation = 0;
          this.Motor1Motor.ProfileDecelerationLocation = 0;
          this.Motor1Motor.ProfileVelocityLocation = 0;
-         this.Motor1Motor.ProportionalGainCoefficientKpLocation = 0;
          this.Motor1Motor.SetModeLocation = 0;
          this.Motor1Motor.SingleDeviceTypeLocation = 0;
          this.Motor1Motor.Size = new System.Drawing.Size(486, 108);
@@ -712,12 +720,15 @@
          this.Motor1Motor.TargetTorqueLocation = 0;
          this.Motor1Motor.TargetVelocityLocation = 0;
          this.Motor1Motor.VelocityActualValueLocation = 0;
+         this.Motor1Motor.VelocityControlParameterHighestLocation = 0;
+         this.Motor1Motor.VelocityDerivativeGainCoefficientKdLocation = 0;
+         this.Motor1Motor.VelocityIntegralGainCoefficienKiLocation = 0;
+         this.Motor1Motor.VelocityProportionalGainCoefficientKpLocation = 0;
          // 
          // Motor2Motor
          // 
          this.Motor2Motor.ControlWordLocation = 0;
          this.Motor2Motor.CurrentActualValueLocation = 0;
-         this.Motor2Motor.DerivativeGainCoefficientKdLocation = 0;
          this.Motor2Motor.DigitalInputsLocation = 0;
          this.Motor2Motor.DigitalOutputsHighestLocation = 0;
          this.Motor2Motor.DigitalOutputsLocation = 0;
@@ -729,7 +740,6 @@
          this.Motor2Motor.HomingSpeedHighestLocation = 0;
          this.Motor2Motor.HomingSwitchSpeedLocation = 0;
          this.Motor2Motor.HomingZeroSpeedLocation = 0;
-         this.Motor2Motor.IntegralGainCoefficienKiLocation = 0;
          this.Motor2Motor.Location = new System.Drawing.Point(3, 6);
          this.Motor2Motor.MotorAbortConnectionOptionLocation = 0;
          this.Motor2Motor.MotorErrorCodeLocation = 0;
@@ -742,10 +752,12 @@
          this.Motor2Motor.OnTpdoCheck = null;
          this.Motor2Motor.PositionActualValueLocation = 0;
          this.Motor2Motor.PositionControlParameterHighestLocation = 0;
+         this.Motor2Motor.PositionDerivativeGainCoefficientKdLocation = 0;
+         this.Motor2Motor.PositionIntegralGainCoefficienKiLocation = 0;
+         this.Motor2Motor.PositionProportionalGainCoefficientKpLocation = 0;
          this.Motor2Motor.ProfileAccelerationLocation = 0;
          this.Motor2Motor.ProfileDecelerationLocation = 0;
          this.Motor2Motor.ProfileVelocityLocation = 0;
-         this.Motor2Motor.ProportionalGainCoefficientKpLocation = 0;
          this.Motor2Motor.SetModeLocation = 0;
          this.Motor2Motor.SingleDeviceTypeLocation = 0;
          this.Motor2Motor.Size = new System.Drawing.Size(486, 108);
@@ -758,12 +770,15 @@
          this.Motor2Motor.TargetTorqueLocation = 0;
          this.Motor2Motor.TargetVelocityLocation = 0;
          this.Motor2Motor.VelocityActualValueLocation = 0;
+         this.Motor2Motor.VelocityControlParameterHighestLocation = 0;
+         this.Motor2Motor.VelocityDerivativeGainCoefficientKdLocation = 0;
+         this.Motor2Motor.VelocityIntegralGainCoefficienKiLocation = 0;
+         this.Motor2Motor.VelocityProportionalGainCoefficientKpLocation = 0;
          // 
          // Motor3Motor
          // 
          this.Motor3Motor.ControlWordLocation = 0;
          this.Motor3Motor.CurrentActualValueLocation = 0;
-         this.Motor3Motor.DerivativeGainCoefficientKdLocation = 0;
          this.Motor3Motor.DigitalInputsLocation = 0;
          this.Motor3Motor.DigitalOutputsHighestLocation = 0;
          this.Motor3Motor.DigitalOutputsLocation = 0;
@@ -775,7 +790,6 @@
          this.Motor3Motor.HomingSpeedHighestLocation = 0;
          this.Motor3Motor.HomingSwitchSpeedLocation = 0;
          this.Motor3Motor.HomingZeroSpeedLocation = 0;
-         this.Motor3Motor.IntegralGainCoefficienKiLocation = 0;
          this.Motor3Motor.Location = new System.Drawing.Point(6, 6);
          this.Motor3Motor.MotorAbortConnectionOptionLocation = 0;
          this.Motor3Motor.MotorErrorCodeLocation = 0;
@@ -788,10 +802,12 @@
          this.Motor3Motor.OnTpdoCheck = null;
          this.Motor3Motor.PositionActualValueLocation = 0;
          this.Motor3Motor.PositionControlParameterHighestLocation = 0;
+         this.Motor3Motor.PositionDerivativeGainCoefficientKdLocation = 0;
+         this.Motor3Motor.PositionIntegralGainCoefficienKiLocation = 0;
+         this.Motor3Motor.PositionProportionalGainCoefficientKpLocation = 0;
          this.Motor3Motor.ProfileAccelerationLocation = 0;
          this.Motor3Motor.ProfileDecelerationLocation = 0;
          this.Motor3Motor.ProfileVelocityLocation = 0;
-         this.Motor3Motor.ProportionalGainCoefficientKpLocation = 0;
          this.Motor3Motor.SetModeLocation = 0;
          this.Motor3Motor.SingleDeviceTypeLocation = 0;
          this.Motor3Motor.Size = new System.Drawing.Size(486, 108);
@@ -804,6 +820,10 @@
          this.Motor3Motor.TargetTorqueLocation = 0;
          this.Motor3Motor.TargetVelocityLocation = 0;
          this.Motor3Motor.VelocityActualValueLocation = 0;
+         this.Motor3Motor.VelocityControlParameterHighestLocation = 0;
+         this.Motor3Motor.VelocityDerivativeGainCoefficientKdLocation = 0;
+         this.Motor3Motor.VelocityIntegralGainCoefficienKiLocation = 0;
+         this.Motor3Motor.VelocityProportionalGainCoefficientKpLocation = 0;
          // 
          // SetMcuTemperatureButton
          // 
@@ -991,6 +1011,9 @@
          // InterfaceTabPage
          // 
          this.InterfaceTabPage.BackColor = System.Drawing.Color.Gainsboro;
+         this.InterfaceTabPage.Controls.Add(this.SetDcVoltageByteButton);
+         this.InterfaceTabPage.Controls.Add(this.label12);
+         this.InterfaceTabPage.Controls.Add(this.DcVoltageByteTextBox);
          this.InterfaceTabPage.Controls.Add(this.label9);
          this.InterfaceTabPage.Controls.Add(this.label10);
          this.InterfaceTabPage.Controls.Add(this.label11);
@@ -1021,6 +1044,35 @@
          this.InterfaceTabPage.Size = new System.Drawing.Size(997, 265);
          this.InterfaceTabPage.TabIndex = 2;
          this.InterfaceTabPage.Text = "Interface";
+         // 
+         // SetDcVoltageByteButton
+         // 
+         this.SetDcVoltageByteButton.Location = new System.Drawing.Point(577, 6);
+         this.SetDcVoltageByteButton.Name = "SetDcVoltageByteButton";
+         this.SetDcVoltageByteButton.Size = new System.Drawing.Size(35, 23);
+         this.SetDcVoltageByteButton.TabIndex = 252;
+         this.SetDcVoltageByteButton.Text = "Set";
+         this.SetDcVoltageByteButton.UseVisualStyleBackColor = true;
+         this.SetDcVoltageByteButton.Click += new System.EventHandler(this.SetDcVoltageByteButton_Click);
+         // 
+         // label12
+         // 
+         this.label12.AutoSize = true;
+         this.label12.Location = new System.Drawing.Point(459, 11);
+         this.label12.Name = "label12";
+         this.label12.Size = new System.Drawing.Size(85, 13);
+         this.label12.TabIndex = 250;
+         this.label12.Text = "DC Voltage Byte";
+         // 
+         // DcVoltageByteTextBox
+         // 
+         this.DcVoltageByteTextBox.Location = new System.Drawing.Point(546, 8);
+         this.DcVoltageByteTextBox.MaxLength = 0;
+         this.DcVoltageByteTextBox.Name = "DcVoltageByteTextBox";
+         this.DcVoltageByteTextBox.Size = new System.Drawing.Size(25, 20);
+         this.DcVoltageByteTextBox.TabIndex = 251;
+         this.DcVoltageByteTextBox.Text = "0";
+         this.DcVoltageByteTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
          // 
          // label9
          // 
@@ -1096,7 +1148,7 @@
          this.Bldc0TabPage.Location = new System.Drawing.Point(4, 22);
          this.Bldc0TabPage.Name = "Bldc0TabPage";
          this.Bldc0TabPage.Padding = new System.Windows.Forms.Padding(3);
-         this.Bldc0TabPage.Size = new System.Drawing.Size(997, 225);
+         this.Bldc0TabPage.Size = new System.Drawing.Size(997, 265);
          this.Bldc0TabPage.TabIndex = 3;
          this.Bldc0TabPage.Text = "BLDC0";
          // 
@@ -1107,7 +1159,7 @@
          this.Bldc1TabPage.Location = new System.Drawing.Point(4, 22);
          this.Bldc1TabPage.Name = "Bldc1TabPage";
          this.Bldc1TabPage.Padding = new System.Windows.Forms.Padding(3);
-         this.Bldc1TabPage.Size = new System.Drawing.Size(997, 225);
+         this.Bldc1TabPage.Size = new System.Drawing.Size(997, 265);
          this.Bldc1TabPage.TabIndex = 4;
          this.Bldc1TabPage.Text = "BLDC1";
          // 
@@ -1118,7 +1170,7 @@
          this.Stepper0TabPage.Location = new System.Drawing.Point(4, 22);
          this.Stepper0TabPage.Name = "Stepper0TabPage";
          this.Stepper0TabPage.Padding = new System.Windows.Forms.Padding(3);
-         this.Stepper0TabPage.Size = new System.Drawing.Size(997, 225);
+         this.Stepper0TabPage.Size = new System.Drawing.Size(997, 265);
          this.Stepper0TabPage.TabIndex = 5;
          this.Stepper0TabPage.Text = "Stepper0";
          // 
@@ -1129,7 +1181,7 @@
          this.Stepper1TabPage.Location = new System.Drawing.Point(4, 22);
          this.Stepper1TabPage.Name = "Stepper1TabPage";
          this.Stepper1TabPage.Padding = new System.Windows.Forms.Padding(3);
-         this.Stepper1TabPage.Size = new System.Drawing.Size(997, 225);
+         this.Stepper1TabPage.Size = new System.Drawing.Size(997, 265);
          this.Stepper1TabPage.TabIndex = 6;
          this.Stepper1TabPage.Text = "Stepper1";
          // 
@@ -1140,7 +1192,7 @@
          this.CommunicationTabPage.Location = new System.Drawing.Point(4, 22);
          this.CommunicationTabPage.Name = "CommunicationTabPage";
          this.CommunicationTabPage.Padding = new System.Windows.Forms.Padding(3);
-         this.CommunicationTabPage.Size = new System.Drawing.Size(997, 225);
+         this.CommunicationTabPage.Size = new System.Drawing.Size(997, 265);
          this.CommunicationTabPage.TabIndex = 0;
          this.CommunicationTabPage.Text = "Communication PI";
          // 
@@ -1151,7 +1203,7 @@
          this.CameraProcessImageTabPage.Location = new System.Drawing.Point(4, 22);
          this.CameraProcessImageTabPage.Name = "CameraProcessImageTabPage";
          this.CameraProcessImageTabPage.Padding = new System.Windows.Forms.Padding(3);
-         this.CameraProcessImageTabPage.Size = new System.Drawing.Size(997, 225);
+         this.CameraProcessImageTabPage.Size = new System.Drawing.Size(997, 265);
          this.CameraProcessImageTabPage.TabIndex = 7;
          this.CameraProcessImageTabPage.Text = "Camera PI";
          // 
@@ -1176,7 +1228,7 @@
          this.ImuProcessImageTabPage.Location = new System.Drawing.Point(4, 22);
          this.ImuProcessImageTabPage.Name = "ImuProcessImageTabPage";
          this.ImuProcessImageTabPage.Padding = new System.Windows.Forms.Padding(3);
-         this.ImuProcessImageTabPage.Size = new System.Drawing.Size(997, 225);
+         this.ImuProcessImageTabPage.Size = new System.Drawing.Size(997, 265);
          this.ImuProcessImageTabPage.TabIndex = 8;
          this.ImuProcessImageTabPage.Text = "IMU PI";
          // 
@@ -1305,7 +1357,7 @@
          this.LaserRangeFinderTabPage.Location = new System.Drawing.Point(4, 22);
          this.LaserRangeFinderTabPage.Name = "LaserRangeFinderTabPage";
          this.LaserRangeFinderTabPage.Padding = new System.Windows.Forms.Padding(3);
-         this.LaserRangeFinderTabPage.Size = new System.Drawing.Size(997, 225);
+         this.LaserRangeFinderTabPage.Size = new System.Drawing.Size(997, 265);
          this.LaserRangeFinderTabPage.TabIndex = 9;
          this.LaserRangeFinderTabPage.Text = "Laser Range Finder PI";
          // 
@@ -1333,7 +1385,7 @@
          this.LaserScannerProcessImageTabPage.Location = new System.Drawing.Point(4, 22);
          this.LaserScannerProcessImageTabPage.Name = "LaserScannerProcessImageTabPage";
          this.LaserScannerProcessImageTabPage.Padding = new System.Windows.Forms.Padding(3);
-         this.LaserScannerProcessImageTabPage.Size = new System.Drawing.Size(997, 225);
+         this.LaserScannerProcessImageTabPage.Size = new System.Drawing.Size(997, 265);
          this.LaserScannerProcessImageTabPage.TabIndex = 10;
          this.LaserScannerProcessImageTabPage.Text = "Laser Scanner PI";
          // 
@@ -1357,7 +1409,7 @@
          this.McuProcessImageTabPage.Location = new System.Drawing.Point(4, 22);
          this.McuProcessImageTabPage.Name = "McuProcessImageTabPage";
          this.McuProcessImageTabPage.Padding = new System.Windows.Forms.Padding(3);
-         this.McuProcessImageTabPage.Size = new System.Drawing.Size(997, 225);
+         this.McuProcessImageTabPage.Size = new System.Drawing.Size(997, 265);
          this.McuProcessImageTabPage.TabIndex = 11;
          this.McuProcessImageTabPage.Text = "MCU PI";
          // 
@@ -1365,6 +1417,7 @@
          // 
          this.McuProcessImagePanel.AutoScroll = true;
          this.McuProcessImagePanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+         this.McuProcessImagePanel.Controls.Add(this.DcLinkVoltageByteLabel);
          this.McuProcessImagePanel.Controls.Add(this.McuTemperatureLabel);
          this.McuProcessImagePanel.Controls.Add(this.OutputsLabel);
          this.McuProcessImagePanel.Controls.Add(this.McuErrorTemperatureLabel);
@@ -1373,6 +1426,16 @@
          this.McuProcessImagePanel.Size = new System.Drawing.Size(432, 135);
          this.McuProcessImagePanel.TabIndex = 0;
          this.McuProcessImagePanel.Scroll += new System.Windows.Forms.ScrollEventHandler(this.McuProcessImagePanel_Scroll);
+         // 
+         // DcLinkVoltageByteLabel
+         // 
+         this.DcLinkVoltageByteLabel.AutoSize = true;
+         this.DcLinkVoltageByteLabel.Location = new System.Drawing.Point(3, 73);
+         this.DcLinkVoltageByteLabel.Name = "DcLinkVoltageByteLabel";
+         this.DcLinkVoltageByteLabel.Size = new System.Drawing.Size(146, 13);
+         this.DcLinkVoltageByteLabel.TabIndex = 221;
+         this.DcLinkVoltageByteLabel.Text = "0x2000 DC Link Voltage Byte";
+         this.DcLinkVoltageByteLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
          // 
          // UlcRoboticsE4Main
          // 
@@ -1521,5 +1584,9 @@
       private System.Windows.Forms.TextBox TargetBoardImuYawTextBox;
       private System.Windows.Forms.TextBox TargetBoardImuPitchTextBox;
       private System.Windows.Forms.TextBox TargetBoardImuRollTextBox;
+      private System.Windows.Forms.Label DcLinkVoltageByteLabel;
+      private System.Windows.Forms.Button SetDcVoltageByteButton;
+      private System.Windows.Forms.Label label12;
+      private System.Windows.Forms.TextBox DcVoltageByteTextBox;
    }
 }

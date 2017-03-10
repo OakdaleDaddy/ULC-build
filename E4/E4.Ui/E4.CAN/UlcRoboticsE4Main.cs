@@ -19,7 +19,7 @@ namespace E4.CAN
          homing,
          undefined,
       }
-      
+
       #endregion
 
       #region Fields
@@ -953,7 +953,82 @@ namespace E4.CAN
          return (result);
       }
 
-      public bool GetBldc0Kp(ref Int32 motorKp)
+      public bool GetBldc0VelocityKp(ref Int32 motorKp)
+      {
+         bool result = false;
+         SDOUpload upload = new SDOUpload(0x60F9, 0x01);
+         this.pendingAction = upload;
+         bool actionResult = this.ExchangeCommAction(this.pendingAction);
+
+         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
+         {
+            motorKp = BitConverter.ToInt32(upload.Data, 0);
+            result = true;
+         }
+
+         return (result);
+      }
+
+      public bool SetBldc0VelocityKp(Int32 motorKp)
+      {
+         bool result = true;
+
+         result &= this.ExchangeCommAction(new SDODownload(0x60F9, 0x01, 4, (UInt32)motorKp));
+
+         return (result);
+      }
+
+      public bool GetBldc0VelocityKi(ref Int32 motorKi)
+      {
+         bool result = false;
+         SDOUpload upload = new SDOUpload(0x60F9, 0x02);
+         this.pendingAction = upload;
+         bool actionResult = this.ExchangeCommAction(this.pendingAction);
+
+         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
+         {
+            motorKi = BitConverter.ToInt32(upload.Data, 0);
+            result = true;
+         }
+
+         return (result);
+      }
+
+      public bool SetBldc0VelocityKi(Int32 motorKi)
+      {
+         bool result = true;
+
+         result &= this.ExchangeCommAction(new SDODownload(0x60F9, 0x02, 4, (UInt32)motorKi));
+
+         return (result);
+      }
+
+      public bool GetBldc0VelocityKd(ref Int32 motorKd)
+      {
+         bool result = false;
+         SDOUpload upload = new SDOUpload(0x60F9, 0x03);
+         this.pendingAction = upload;
+         bool actionResult = this.ExchangeCommAction(this.pendingAction);
+
+         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
+         {
+            motorKd = BitConverter.ToInt32(upload.Data, 0);
+            result = true;
+         }
+
+         return (result);
+      }
+
+      public bool SetBldc0VelocityKd(Int32 motorKd)
+      {
+         bool result = true;
+
+         result &= this.ExchangeCommAction(new SDODownload(0x60F9, 0x03, 4, (UInt32)motorKd));
+
+         return (result);
+      }
+
+      public bool GetBldc0PositionKp(ref Int32 motorKp)
       {
          bool result = false;
          SDOUpload upload = new SDOUpload(0x60FB, 0x01);
@@ -969,7 +1044,7 @@ namespace E4.CAN
          return (result);
       }
 
-      public bool SetBldc0Kp(Int32 motorKp)
+      public bool SetBldc0PositionKp(Int32 motorKp)
       {
          bool result = true;
 
@@ -978,7 +1053,7 @@ namespace E4.CAN
          return (result);
       }
 
-      public bool GetBldc0Ki(ref Int32 motorKi)
+      public bool GetBldc0PositionKi(ref Int32 motorKi)
       {
          bool result = false;
          SDOUpload upload = new SDOUpload(0x60FB, 0x02);
@@ -994,7 +1069,7 @@ namespace E4.CAN
          return (result);
       }
 
-      public bool SetBldc0Ki(Int32 motorKi)
+      public bool SetBldc0PositionKi(Int32 motorKi)
       {
          bool result = true;
 
@@ -1003,7 +1078,7 @@ namespace E4.CAN
          return (result);
       }
 
-      public bool GetBldc0Kd(ref Int32 motorKd)
+      public bool GetBldc0PositionKd(ref Int32 motorKd)
       {
          bool result = false;
          SDOUpload upload = new SDOUpload(0x60FB, 0x03);
@@ -1019,7 +1094,7 @@ namespace E4.CAN
          return (result);
       }
 
-      public bool SetBldc0Kd(Int32 motorKd)
+      public bool SetBldc0PositionKd(Int32 motorKd)
       {
          bool result = true;
 
@@ -1244,7 +1319,82 @@ namespace E4.CAN
          return (result);
       }
 
-      public bool GetBldc1Kp(ref Int32 motorKp)
+      public bool GetBldc1VelocityKp(ref Int32 motorKp)
+      {
+         bool result = false;
+         SDOUpload upload = new SDOUpload(0x68F9, 0x01);
+         this.pendingAction = upload;
+         bool actionResult = this.ExchangeCommAction(this.pendingAction);
+
+         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
+         {
+            motorKp = BitConverter.ToInt32(upload.Data, 0);
+            result = true;
+         }
+
+         return (result);
+      }
+
+      public bool SetBldc1VelocityKp(Int32 motorKp)
+      {
+         bool result = true;
+
+         result &= this.ExchangeCommAction(new SDODownload(0x68F9, 0x01, 4, (UInt32)motorKp));
+
+         return (result);
+      }
+
+      public bool GetBldc1VelocityKi(ref Int32 motorKi)
+      {
+         bool result = false;
+         SDOUpload upload = new SDOUpload(0x68F9, 0x02);
+         this.pendingAction = upload;
+         bool actionResult = this.ExchangeCommAction(this.pendingAction);
+
+         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
+         {
+            motorKi = BitConverter.ToInt32(upload.Data, 0);
+            result = true;
+         }
+
+         return (result);
+      }
+
+      public bool SetBldc1VelocityKi(Int32 motorKi)
+      {
+         bool result = true;
+
+         result &= this.ExchangeCommAction(new SDODownload(0x68F9, 0x02, 4, (UInt32)motorKi));
+
+         return (result);
+      }
+
+      public bool GetBldc1VelocityKd(ref Int32 motorKd)
+      {
+         bool result = false;
+         SDOUpload upload = new SDOUpload(0x68F9, 0x03);
+         this.pendingAction = upload;
+         bool actionResult = this.ExchangeCommAction(this.pendingAction);
+
+         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
+         {
+            motorKd = BitConverter.ToInt32(upload.Data, 0);
+            result = true;
+         }
+
+         return (result);
+      }
+
+      public bool SetBldc1VelocityKd(Int32 motorKd)
+      {
+         bool result = true;
+
+         result &= this.ExchangeCommAction(new SDODownload(0x68F9, 0x03, 4, (UInt32)motorKd));
+
+         return (result);
+      }
+
+      public bool GetBldc1PositionKp(ref Int32 motorKp)
       {
          bool result = false;
          SDOUpload upload = new SDOUpload(0x68FB, 0x01);
@@ -1260,7 +1410,7 @@ namespace E4.CAN
          return (result);
       }
 
-      public bool SetBldc1Kp(Int32 motorKp)
+      public bool SetBldc1PositionKp(Int32 motorKp)
       {
          bool result = true;
 
@@ -1269,7 +1419,7 @@ namespace E4.CAN
          return (result);
       }
 
-      public bool GetBldc1Ki(ref Int32 motorKi)
+      public bool GetBldc1PositionKi(ref Int32 motorKi)
       {
          bool result = false;
          SDOUpload upload = new SDOUpload(0x68FB, 0x02);
@@ -1285,7 +1435,7 @@ namespace E4.CAN
          return (result);
       }
 
-      public bool SetBldc1Ki(Int32 motorKi)
+      public bool SetBldc1PositionKi(Int32 motorKi)
       {
          bool result = true;
 
@@ -1294,7 +1444,7 @@ namespace E4.CAN
          return (result);
       }
 
-      public bool GetBldc1Kd(ref Int32 motorKd)
+      public bool GetBldc1PositionKd(ref Int32 motorKd)
       {
          bool result = false;
          SDOUpload upload = new SDOUpload(0x68FB, 0x03);
@@ -1310,7 +1460,7 @@ namespace E4.CAN
          return (result);
       }
 
-      public bool SetBldc1Kd(Int32 motorKd)
+      public bool SetBldc1PositionKd(Int32 motorKd)
       {
          bool result = true;
 

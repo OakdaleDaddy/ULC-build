@@ -101,9 +101,9 @@
 
       private Label PositionActualValueLabel;
       private Label PositionControlParameterHighestLabel;
-      private Label ProportionalGainCoefficientKpLabel;
-      private Label IntegralGainCoefficienKiLabel;
-      private Label DerivativeGainCoefficientKdLabel;
+      private Label PositionProportionalGainCoefficientKpLabel;
+      private Label PositionIntegralGainCoefficienKiLabel;
+      private Label PositionDerivativeGainCoefficientKdLabel;
 
       private Label TargetPositionLabel;
       private Label ProfileVelocityLabel;
@@ -114,6 +114,11 @@
       private Label CurrentActualValueLabel;
 
       private Label VelocityActualValueLabel;
+
+      private Label VelocityControlParameterHighestLabel;
+      private Label VelocityProportionalGainCoefficientKpLabel;
+      private Label VelocityIntegralGainCoefficienKiLabel;
+      private Label VelocityDerivativeGainCoefficientKdLabel;
       private Label TargetVelocityLabel;
 
       #endregion
@@ -145,9 +150,9 @@
       
       private Int32 positionActualValue; // ro pdo 6064
       private byte positionControlParameterHighest; // ro 60FB-0
-      private Int32 proportionalGainCoefficientKp; // rw pdo 60FB-1
-      private Int32 integralGainCoefficienKi; // rw pdo 60FB-2
-      private Int32 derivativeGainCoefficientKd; // rw pdo 60FB-3
+      private Int32 positionProportionalGainCoefficientKp; // rw pdo 60FB-1
+      private Int32 positionIntegralGainCoefficienKi; // rw pdo 60FB-2
+      private Int32 positionDerivativeGainCoefficientKd; // rw pdo 60FB-3
 
       private Int32 targetPosition; // rw pdo 607A
       private UInt32 profileVelocity; // rw pdo 6081
@@ -158,6 +163,10 @@
       private Int16 currentActualValue; // pdo ro 6078
 
       private Int32 velocityActualValue; // ro pdo 606c
+      private byte velocityControlParameterHighest; // ro 60F9-0
+      private Int32 velocityProportionalGainCoefficientKp; // rw pdo 60F9-1
+      private Int32 velocityIntegralGainCoefficienKi; // rw pdo 60F9-2
+      private Int32 velocityDerivativeGainCoefficientKd; // rw pdo 60F9-3
       private Int32 targetVelocity; // rw pdo 60ff
 
       #endregion
@@ -1066,42 +1075,42 @@
          }
       }
 
-      private Int32 ProportionalGainCoefficientKp
+      private Int32 PositionProportionalGainCoefficientKp
       {
          set
          {
-            this.SetValue(this.ProportionalGainCoefficientKpLocation, this.ProportionalGainCoefficientKpLabel, "Proportional Gain Coefficient (KP)", ref this.proportionalGainCoefficientKp, value, 8);
+            this.SetValue(this.PositionProportionalGainCoefficientKpLocation, this.PositionProportionalGainCoefficientKpLabel, "Position Proportional Gain Coefficient (KP)", ref this.positionProportionalGainCoefficientKp, value, 8);
          }
 
          get
          {
-            return (this.proportionalGainCoefficientKp);
+            return (this.positionProportionalGainCoefficientKp);
          }
       }
 
-      private Int32 IntegralGainCoefficienKi
+      private Int32 PositionIntegralGainCoefficienKi
       {
          set
          {
-            this.SetValue(this.IntegralGainCoefficienKiLocation, this.IntegralGainCoefficienKiLabel, "Integral Gain Coefficien (KI)", ref this.integralGainCoefficienKi, value, 8);
+            this.SetValue(this.PositionIntegralGainCoefficienKiLocation, this.PositionIntegralGainCoefficienKiLabel, "Position Integral Gain Coefficien (KI)", ref this.positionIntegralGainCoefficienKi, value, 8);
          }
 
          get
          {
-            return (this.integralGainCoefficienKi);
+            return (this.positionIntegralGainCoefficienKi);
          }
       }
 
-      private Int32 DerivativeGainCoefficientKd
+      private Int32 PositionDerivativeGainCoefficientKd
       {
          set
          {
-            this.SetValue(this.DerivativeGainCoefficientKdLocation, this.DerivativeGainCoefficientKdLabel, "Derivative Gain Coefficient (KD)", ref this.derivativeGainCoefficientKd, value, 8);
+            this.SetValue(this.PositionDerivativeGainCoefficientKdLocation, this.PositionDerivativeGainCoefficientKdLabel, "Position Derivative Gain Coefficient (KD)", ref this.positionDerivativeGainCoefficientKd, value, 8);
          }
 
          get
          {
-            return (this.derivativeGainCoefficientKd);
+            return (this.positionDerivativeGainCoefficientKd);
          }
       }
 
@@ -1209,6 +1218,58 @@
          }
       }
 
+      private byte VelocityControlParameterHighest
+      {
+         set
+         {
+            this.SetValue(this.VelocityControlParameterHighestLocation, this.VelocityControlParameterHighestLabel, "Velocity Control Parameter Highest", ref this.velocityControlParameterHighest, value, 2);
+         }
+
+         get
+         {
+            return (this.velocityControlParameterHighest);
+         }
+      }
+
+      private Int32 VelocityProportionalGainCoefficientKp
+      {
+         set
+         {
+            this.SetValue(this.VelocityProportionalGainCoefficientKpLocation, this.VelocityProportionalGainCoefficientKpLabel, "Velocity Proportional Gain Coefficient (KP)", ref this.velocityProportionalGainCoefficientKp, value, 8);
+         }
+
+         get
+         {
+            return (this.velocityProportionalGainCoefficientKp);
+         }
+      }
+
+      private Int32 VelocityIntegralGainCoefficienKi
+      {
+         set
+         {
+            this.SetValue(this.VelocityIntegralGainCoefficienKiLocation, this.VelocityIntegralGainCoefficienKiLabel, "Velocity Integral Gain Coefficien (KI)", ref this.velocityIntegralGainCoefficienKi, value, 8);
+         }
+
+         get
+         {
+            return (this.velocityIntegralGainCoefficienKi);
+         }
+      }
+
+      private Int32 VelocityDerivativeGainCoefficientKd
+      {
+         set
+         {
+            this.SetValue(this.VelocityDerivativeGainCoefficientKdLocation, this.VelocityDerivativeGainCoefficientKdLabel, "Velocity Derivative Gain Coefficient (KD)", ref this.velocityDerivativeGainCoefficientKd, value, 8);
+         }
+
+         get
+         {
+            return (this.velocityDerivativeGainCoefficientKd);
+         }
+      }
+
       private Int32 TargetVelocity
       {
          set
@@ -1261,9 +1322,9 @@
 
       public int PositionActualValueLocation { set; get; }
       public int PositionControlParameterHighestLocation { set; get; }
-      public int ProportionalGainCoefficientKpLocation { set; get; }
-      public int IntegralGainCoefficienKiLocation { set; get; }
-      public int DerivativeGainCoefficientKdLocation { set; get; }
+      public int PositionProportionalGainCoefficientKpLocation { set; get; }
+      public int PositionIntegralGainCoefficienKiLocation { set; get; }
+      public int PositionDerivativeGainCoefficientKdLocation { set; get; }
 
       public int TargetPositionLocation { set; get; }
       public int ProfileVelocityLocation { set; get; }
@@ -1274,6 +1335,10 @@
       public int CurrentActualValueLocation { set; get; }
 
       public int VelocityActualValueLocation { set; get; }
+      public int VelocityControlParameterHighestLocation { set; get; }
+      public int VelocityProportionalGainCoefficientKpLocation { set; get; }
+      public int VelocityIntegralGainCoefficienKiLocation { set; get; }
+      public int VelocityDerivativeGainCoefficientKdLocation { set; get; }
       public int TargetVelocityLocation { set; get; }
 
       #endregion
@@ -1364,11 +1429,10 @@
          top += 8;
 
          this.CreateLabel(PositionActualValueLocation, "PositionActualValueLabel", out this.PositionActualValueLabel, ref top);
-
          this.CreateLabel(PositionControlParameterHighestLocation, "PositionControlParameterHighestLabel", out this.PositionControlParameterHighestLabel, ref top);
-         this.CreateLabel(ProportionalGainCoefficientKpLocation, "ProportionalGainCoefficientKpLabel", out this.ProportionalGainCoefficientKpLabel, ref top);
-         this.CreateLabel(IntegralGainCoefficienKiLocation, "IntegralGainCoefficienKiLabel", out this.IntegralGainCoefficienKiLabel, ref top);
-         this.CreateLabel(DerivativeGainCoefficientKdLocation, "DerivativeGainCoefficientKdLabel", out this.DerivativeGainCoefficientKdLabel, ref top);
+         this.CreateLabel(PositionProportionalGainCoefficientKpLocation, "PositionProportionalGainCoefficientKpLabel", out this.PositionProportionalGainCoefficientKpLabel, ref top);
+         this.CreateLabel(PositionIntegralGainCoefficienKiLocation, "PositionIntegralGainCoefficienKiLabel", out this.PositionIntegralGainCoefficienKiLabel, ref top);
+         this.CreateLabel(PositionDerivativeGainCoefficientKdLocation, "PositionDerivativeGainCoefficientKdLabel", out this.PositionDerivativeGainCoefficientKdLabel, ref top);
 
          top += 8;
 
@@ -1383,8 +1447,12 @@
          this.CreateLabel(CurrentActualValueLocation, "CurrentActualValueLabel", out this.CurrentActualValueLabel, ref top);
 
          top += 8;
-
+                  
          this.CreateLabel(VelocityActualValueLocation, "VelocityActualValueLabel", out this.VelocityActualValueLabel, ref top);
+         this.CreateLabel(VelocityControlParameterHighestLocation, "VelocityControlParameterHighestLabel", out this.VelocityControlParameterHighestLabel, ref top);
+         this.CreateLabel(VelocityProportionalGainCoefficientKpLocation, "VelocityProportionalGainCoefficientKpLabel", out this.VelocityProportionalGainCoefficientKpLabel, ref top);
+         this.CreateLabel(VelocityIntegralGainCoefficienKiLocation, "VelocityIntegralGainCoefficienKiLabel", out this.VelocityIntegralGainCoefficienKiLabel, ref top);
+         this.CreateLabel(VelocityDerivativeGainCoefficientKdLocation, "VelocityDerivativeGainCoefficientKdLabel", out this.VelocityDerivativeGainCoefficientKdLabel, ref top);
          this.CreateLabel(TargetVelocityLocation, "TargetVelocityLabel", out this.TargetVelocityLabel, ref top);
 
          this.ValuePanel.ResumeLayout(false);
@@ -1420,15 +1488,18 @@
 
              (location == this.TargetTorqueLocation) ||
 
-             (location == this.ProportionalGainCoefficientKpLocation) ||
-             (location == this.IntegralGainCoefficienKiLocation) ||
-             (location == this.DerivativeGainCoefficientKdLocation) ||
+             (location == this.PositionProportionalGainCoefficientKpLocation) ||
+             (location == this.PositionIntegralGainCoefficienKiLocation) ||
+             (location == this.PositionDerivativeGainCoefficientKdLocation) ||
 
              (location == this.TargetPositionLocation) ||
              (location == this.ProfileVelocityLocation) ||
              (location == this.ProfileAccelerationLocation) ||
              (location == this.ProfileDecelerationLocation) ||
 
+             (location == this.VelocityProportionalGainCoefficientKpLocation) ||
+             (location == this.VelocityIntegralGainCoefficienKiLocation) ||
+             (location == this.VelocityDerivativeGainCoefficientKdLocation) ||
              (location == this.TargetVelocityLocation))
          {
             result = true;
@@ -1463,9 +1534,9 @@
                   (location == this.DigitalOutputsMaskLocation) ||
                   (location == this.SingleDeviceTypeLocation) ||
 
-                  (location == this.ProportionalGainCoefficientKpLocation) ||
-                  (location == this.IntegralGainCoefficienKiLocation) ||
-                  (location == this.DerivativeGainCoefficientKdLocation) ||
+                  (location == this.PositionProportionalGainCoefficientKpLocation) ||
+                  (location == this.PositionIntegralGainCoefficienKiLocation) ||
+                  (location == this.PositionDerivativeGainCoefficientKdLocation) ||
 
                   (location == this.HomeOffsetLocation) ||
                   (location == this.HomingSwitchSpeedLocation) ||
@@ -1476,7 +1547,10 @@
                   (location == this.ProfileVelocityLocation) ||
                   (location == this.ProfileAccelerationLocation) ||
                   (location == this.ProfileDecelerationLocation) ||
-                  
+
+                  (location == this.VelocityProportionalGainCoefficientKpLocation) ||
+                  (location == this.VelocityIntegralGainCoefficienKiLocation) ||
+                  (location == this.VelocityDerivativeGainCoefficientKdLocation) ||
                   (location == this.TargetVelocityLocation))
          {
             result = 4;
@@ -1512,9 +1586,9 @@
              (location == this.HomingAccelerationLocation) ||
 
              (location == this.PositionActualValueLocation) ||
-             (location == this.ProportionalGainCoefficientKpLocation) ||
-             (location == this.IntegralGainCoefficienKiLocation) ||
-             (location == this.DerivativeGainCoefficientKdLocation) ||
+             (location == this.PositionProportionalGainCoefficientKpLocation) ||
+             (location == this.PositionIntegralGainCoefficienKiLocation) ||
+             (location == this.PositionDerivativeGainCoefficientKdLocation) ||
 
              (location == this.TargetPositionLocation) ||
              (location == this.ProfileVelocityLocation) ||
@@ -1525,6 +1599,9 @@
              (location == this.CurrentActualValueLocation) ||
             
              (location == this.VelocityActualValueLocation) ||
+             (location == this.VelocityProportionalGainCoefficientKpLocation) ||
+             (location == this.VelocityIntegralGainCoefficienKiLocation) ||
+             (location == this.VelocityDerivativeGainCoefficientKdLocation) ||
              (location == this.TargetVelocityLocation))
          {
             result = true;
@@ -1565,9 +1642,9 @@
                   (location == this.SingleDeviceTypeLocation) ||
    
                   (location == this.PositionActualValueLocation) ||
-                  (location == this.ProportionalGainCoefficientKpLocation) ||
-                  (location == this.IntegralGainCoefficienKiLocation) ||
-                  (location == this.DerivativeGainCoefficientKdLocation) ||
+                  (location == this.PositionProportionalGainCoefficientKpLocation) ||
+                  (location == this.PositionIntegralGainCoefficienKiLocation) ||
+                  (location == this.PositionDerivativeGainCoefficientKdLocation) ||
 
                   (location == this.HomeOffsetLocation) ||
                   (location == this.HomingSwitchSpeedLocation) ||
@@ -1580,6 +1657,9 @@
                   (location == this.ProfileDecelerationLocation) ||
 
                   (location == this.VelocityActualValueLocation) ||
+                  (location == this.VelocityProportionalGainCoefficientKpLocation) ||
+                  (location == this.VelocityIntegralGainCoefficienKiLocation) ||
+                  (location == this.VelocityDerivativeGainCoefficientKdLocation) ||
                   (location == this.TargetVelocityLocation))
          {
             result = 4;
@@ -1666,19 +1746,19 @@
             valid = true;
          }
 
-         else if ((location == this.ProportionalGainCoefficientKpLocation) && (4 == length))
+         else if ((location == this.PositionProportionalGainCoefficientKpLocation) && (4 == length))
          {
-            this.ProportionalGainCoefficientKp = BitConverter.ToInt32(buffer, offset);
+            this.PositionProportionalGainCoefficientKp = BitConverter.ToInt32(buffer, offset);
             valid = true;
          }
-         else if ((location == this.IntegralGainCoefficienKiLocation) && (4 == length))
+         else if ((location == this.PositionIntegralGainCoefficienKiLocation) && (4 == length))
          {
-            this.IntegralGainCoefficienKi = BitConverter.ToInt32(buffer, offset);
+            this.PositionIntegralGainCoefficienKi = BitConverter.ToInt32(buffer, offset);
             valid = true;
          }
-         else if ((location == this.DerivativeGainCoefficientKdLocation) && (4 == length))
+         else if ((location == this.PositionDerivativeGainCoefficientKdLocation) && (4 == length))
          {
-            this.DerivativeGainCoefficientKd = BitConverter.ToInt32(buffer, offset);
+            this.PositionDerivativeGainCoefficientKd = BitConverter.ToInt32(buffer, offset);
             valid = true;
          }
 
@@ -1709,6 +1789,21 @@
             valid = true;
          }
 
+         else if ((location == this.VelocityProportionalGainCoefficientKpLocation) && (4 == length))
+         {
+            this.VelocityProportionalGainCoefficientKp = BitConverter.ToInt32(buffer, offset);
+            valid = true;
+         }
+         else if ((location == this.VelocityIntegralGainCoefficienKiLocation) && (4 == length))
+         {
+            this.VelocityIntegralGainCoefficienKi = BitConverter.ToInt32(buffer, offset);
+            valid = true;
+         }
+         else if ((location == this.VelocityDerivativeGainCoefficientKdLocation) && (4 == length))
+         {
+            this.VelocityDerivativeGainCoefficientKd = BitConverter.ToInt32(buffer, offset);
+            valid = true;
+         }
          else if ((location == this.TargetVelocityLocation) && (4 == length))
          {
             this.TargetVelocity = BitConverter.ToInt32(buffer, offset);
@@ -1846,19 +1941,19 @@
             dataLength = this.MoveDeviceData(buffer, this.PositionControlParameterHighest);
             valid = true;
          }
-         else if (location == this.ProportionalGainCoefficientKpLocation)
+         else if (location == this.PositionProportionalGainCoefficientKpLocation)
          {
-            dataLength = this.MoveDeviceData(buffer, this.ProportionalGainCoefficientKp);
+            dataLength = this.MoveDeviceData(buffer, this.PositionProportionalGainCoefficientKp);
             valid = true;
          }
-         else if (location == this.IntegralGainCoefficienKiLocation)
+         else if (location == this.PositionIntegralGainCoefficienKiLocation)
          {
-            dataLength = this.MoveDeviceData(buffer, this.IntegralGainCoefficienKi);
+            dataLength = this.MoveDeviceData(buffer, this.PositionIntegralGainCoefficienKi);
             valid = true;
          }
-         else if (location == this.DerivativeGainCoefficientKdLocation)
+         else if (location == this.PositionDerivativeGainCoefficientKdLocation)
          {
-            dataLength = this.MoveDeviceData(buffer, this.DerivativeGainCoefficientKd);
+            dataLength = this.MoveDeviceData(buffer, this.PositionDerivativeGainCoefficientKd);
             valid = true;
          }
 
@@ -1897,6 +1992,26 @@
          else if (location == this.VelocityActualValueLocation)
          {
             dataLength = this.MoveDeviceData(buffer, this.VelocityActualValue);
+            valid = true;
+         }
+         else if (location == this.VelocityControlParameterHighestLocation)
+         {
+            dataLength = this.MoveDeviceData(buffer, this.VelocityControlParameterHighest);
+            valid = true;
+         }
+         else if (location == this.VelocityProportionalGainCoefficientKpLocation)
+         {
+            dataLength = this.MoveDeviceData(buffer, this.VelocityProportionalGainCoefficientKp);
+            valid = true;
+         }
+         else if (location == this.VelocityIntegralGainCoefficienKiLocation)
+         {
+            dataLength = this.MoveDeviceData(buffer, this.VelocityIntegralGainCoefficienKi);
+            valid = true;
+         }
+         else if (location == this.VelocityDerivativeGainCoefficientKdLocation)
+         {
+            dataLength = this.MoveDeviceData(buffer, this.VelocityDerivativeGainCoefficientKd);
             valid = true;
          }
          else if (location == this.TargetVelocityLocation)
@@ -1946,9 +2061,9 @@
 
          this.PositionActualValue = 0;
          this.PositionControlParameterHighest = 3;
-         this.ProportionalGainCoefficientKp = 0;
-         this.IntegralGainCoefficienKi = 0;
-         this.DerivativeGainCoefficientKd = 0;
+         this.PositionProportionalGainCoefficientKp = 0;
+         this.PositionIntegralGainCoefficienKi = 0;
+         this.PositionDerivativeGainCoefficientKd = 0;
 
          this.TargetPosition = 0;
          this.ProfileVelocity = 1000;
@@ -1959,6 +2074,10 @@
          this.CurrentActualValue = 0;
 
          this.VelocityActualValue = 0;
+         this.VelocityControlParameterHighest = 3;
+         this.VelocityProportionalGainCoefficientKp = 0;
+         this.VelocityIntegralGainCoefficienKi = 0;
+         this.VelocityDerivativeGainCoefficientKd = 0;         
          this.TargetVelocity = 0;
 
          DateTime now = DateTime.Now;

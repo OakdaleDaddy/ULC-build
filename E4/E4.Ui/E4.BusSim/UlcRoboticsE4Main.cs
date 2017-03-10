@@ -77,6 +77,7 @@ namespace E4.BusSim
 
       private byte mcuTemperature;
       private byte mcuErrorTemperature;
+      private byte dcLinkVoltageByte;
 
       private byte outputs;
 
@@ -107,7 +108,6 @@ namespace E4.BusSim
              ((0x2302 == index) && (0x01 == subIndex)) ||
              ((0x2304 == index) && (0x01 == subIndex)) ||
              ((0x2310 == index) && (0x01 == subIndex)) ||
-             ((0x2311 == index) && (0x01 == subIndex)) ||
              ((0x2311 == index) && (0x02 == subIndex)) ||
              (0x2400 == index) ||
              (0x2401 == index) ||
@@ -144,7 +144,6 @@ namespace E4.BusSim
          if ((0x2301 == index) ||
              ((0x2304 == index) && (0x01 == subIndex)) ||
              ((0x2310 == index) && (0x01 == subIndex)) ||
-             ((0x2311 == index) && (0x01 == subIndex)) ||
              ((0x2311 == index) && (0x02 == subIndex)) ||
              (0x2400 == index) ||
              (0x2401 == index) ||
@@ -196,6 +195,7 @@ namespace E4.BusSim
              ((0x2310 == index) && (0x01 == subIndex)) ||
              ((0x2311 == index) && (0x01 == subIndex)) ||
              ((0x2311 == index) && (0x02 == subIndex)) ||
+             (0x2000 == index) ||
              (0x2400 == index) ||
              (0x2401 == index) ||
              (0x2402 == index) ||
@@ -246,6 +246,7 @@ namespace E4.BusSim
              ((0x2310 == index) && (0x01 == subIndex)) ||
              ((0x2311 == index) && (0x01 == subIndex)) ||
              ((0x2311 == index) && (0x02 == subIndex)) ||
+             (0x2000 == index) ||
              (0x2400 == index) ||
              (0x2401 == index) ||
              ((0x2403 == index) && (0x01 == subIndex)) ||
@@ -969,6 +970,19 @@ namespace E4.BusSim
          }
       }
 
+      private byte DcLinkVoltageByte
+      {
+         set
+         {
+            this.SetValue(0x2000, 0x00, DcLinkVoltageByteLabel, "DC Link Voltage Byte", ref this.dcLinkVoltageByte, value, 2);
+         }
+
+         get
+         {
+            return (this.dcLinkVoltageByte);
+         }
+      }
+
       #endregion
 
       #endregion
@@ -1142,6 +1156,7 @@ namespace E4.BusSim
             this.LaserScannerErrorTemperature = 1;
 
             this.McuErrorTemperature = 0;
+            this.DcLinkVoltageByte = 0;
 
             for (int i = 0; i < this.motors.Length; i++)
             {
@@ -1441,6 +1456,11 @@ namespace E4.BusSim
          else if ((0x2311 == index) && (0x02 == subIndex))
          {
             dataLength = this.MoveDeviceData(buffer, this.McuErrorTemperature);
+            valid = true;
+         }
+         else if (0x2000 == index)
+         {
+            dataLength = this.MoveDeviceData(buffer, this.DcLinkVoltageByte);
             valid = true;
          }
          else if (0x2400 == index)
@@ -2038,6 +2058,16 @@ namespace E4.BusSim
          }
       }
 
+      private void SetDcVoltageByteButton_Click(object sender, EventArgs e)
+      {
+         byte dcLinkVoltageByte = 0;
+
+         if (byte.TryParse(this.DcVoltageByteTextBox.Text, out dcLinkVoltageByte) != false)
+         {
+            this.DcLinkVoltageByte = dcLinkVoltageByte;
+         }
+      }      
+
       #endregion
 
       #region Control Events
@@ -2171,9 +2201,9 @@ namespace E4.BusSim
 
          this.motors[0].PositionActualValueLocation = 0x606400;
          this.motors[0].PositionControlParameterHighestLocation = 0x60FB00;
-         this.motors[0].ProportionalGainCoefficientKpLocation = 0x60FB01;
-         this.motors[0].IntegralGainCoefficienKiLocation = 0x60FB02;
-         this.motors[0].DerivativeGainCoefficientKdLocation = 0x60FB03;
+         this.motors[0].PositionProportionalGainCoefficientKpLocation = 0x60FB01;
+         this.motors[0].PositionIntegralGainCoefficienKiLocation = 0x60FB02;
+         this.motors[0].PositionDerivativeGainCoefficientKdLocation = 0x60FB03;
 
          this.motors[0].TargetPositionLocation = 0x607A00;
          this.motors[0].ProfileVelocityLocation = 0x608100;
@@ -2184,6 +2214,10 @@ namespace E4.BusSim
          this.motors[0].CurrentActualValueLocation = 0x607800;
 
          this.motors[0].VelocityActualValueLocation = 0x606C00;
+         this.motors[0].VelocityControlParameterHighestLocation = 0x60F900;
+         this.motors[0].VelocityProportionalGainCoefficientKpLocation = 0x60F901;
+         this.motors[0].VelocityIntegralGainCoefficienKiLocation = 0x60F902;
+         this.motors[0].VelocityDerivativeGainCoefficientKdLocation = 0x60F903;
          this.motors[0].TargetVelocityLocation = 0x60FF00;
 
          for (int i = 1; i < this.motors.Length; i++)
@@ -2223,9 +2257,9 @@ namespace E4.BusSim
             if (1 == i)
             {
                this.motors[i].PositionControlParameterHighestLocation = this.motors[i - 1].PositionControlParameterHighestLocation + 0x080000;
-               this.motors[i].ProportionalGainCoefficientKpLocation = this.motors[i - 1].ProportionalGainCoefficientKpLocation + 0x080000;
-               this.motors[i].IntegralGainCoefficienKiLocation = this.motors[i - 1].IntegralGainCoefficienKiLocation + 0x080000;
-               this.motors[i].DerivativeGainCoefficientKdLocation = this.motors[i - 1].DerivativeGainCoefficientKdLocation + 0x080000;
+               this.motors[i].PositionProportionalGainCoefficientKpLocation = this.motors[i - 1].PositionProportionalGainCoefficientKpLocation + 0x080000;
+               this.motors[i].PositionIntegralGainCoefficienKiLocation = this.motors[i - 1].PositionIntegralGainCoefficienKiLocation + 0x080000;
+               this.motors[i].PositionDerivativeGainCoefficientKdLocation = this.motors[i - 1].PositionDerivativeGainCoefficientKdLocation + 0x080000;
             }
 
             this.motors[i].TargetPositionLocation = this.motors[i - 1].TargetPositionLocation + 0x080000;
@@ -2236,7 +2270,17 @@ namespace E4.BusSim
             this.motors[i].TargetTorqueLocation = this.motors[i - 1].TargetTorqueLocation + 0x080000;
             this.motors[i].CurrentActualValueLocation = this.motors[i - 1].CurrentActualValueLocation + 0x080000;
 
+
             this.motors[i].VelocityActualValueLocation = this.motors[i - 1].VelocityActualValueLocation + 0x080000;
+
+            if (1 == i)
+            {
+               this.motors[i].VelocityControlParameterHighestLocation = this.motors[i - 1].VelocityControlParameterHighestLocation + 0x080000;
+               this.motors[i].VelocityProportionalGainCoefficientKpLocation = this.motors[i - 1].VelocityProportionalGainCoefficientKpLocation + 0x080000;
+               this.motors[i].VelocityIntegralGainCoefficienKiLocation = this.motors[i - 1].VelocityIntegralGainCoefficienKiLocation + 0x080000;
+               this.motors[i].VelocityDerivativeGainCoefficientKdLocation = this.motors[i - 1].VelocityDerivativeGainCoefficientKdLocation + 0x080000;
+            }
+
             this.motors[i].TargetVelocityLocation = this.motors[i - 1].TargetVelocityLocation + 0x080000;
          }
 
@@ -2504,6 +2548,6 @@ namespace E4.BusSim
       }
 
       #endregion
-      
+
    }
 }

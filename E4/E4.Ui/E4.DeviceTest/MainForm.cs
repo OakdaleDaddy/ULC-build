@@ -1550,7 +1550,7 @@ namespace E4.DeviceTest
          {
             this.e4Main.NodeId = nodeId;
             Int32 motorKp = 0;
-            bool success = this.e4Main.GetBldc0Kp(ref motorKp);
+            bool success = (false != this.E4MainBldc0TuningVelocityRadioButton.Checked) ? this.e4Main.GetBldc0VelocityKp(ref motorKp) : this.e4Main.GetBldc0PositionKp(ref motorKp);
 
             if (false != success)
             {
@@ -1577,7 +1577,7 @@ namespace E4.DeviceTest
              (Int32.TryParse(this.E4MainBldc0KpTextBox.Text, out motorKp) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.SetBldc0Kp(motorKp);
+            bool result = (false != this.E4MainBldc0TuningVelocityRadioButton.Checked) ? this.e4Main.SetBldc0VelocityKp(motorKp) : this.e4Main.SetBldc0PositionKp(motorKp);
 
             if (false != result)
             {
@@ -1602,7 +1602,7 @@ namespace E4.DeviceTest
          {
             this.e4Main.NodeId = nodeId;
             Int32 motorKi = 0;
-            bool success = this.e4Main.GetBldc0Ki(ref motorKi);
+            bool success = (false != this.E4MainBldc0TuningVelocityRadioButton.Checked) ? this.e4Main.GetBldc0VelocityKi(ref motorKi) : this.e4Main.GetBldc0PositionKi(ref motorKi);
 
             if (false != success)
             {
@@ -1629,7 +1629,7 @@ namespace E4.DeviceTest
              (Int32.TryParse(this.E4MainBldc0KiTextBox.Text, out motorKi) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.SetBldc0Ki(motorKi);
+            bool result = (false != this.E4MainBldc0TuningVelocityRadioButton.Checked) ? this.e4Main.SetBldc0VelocityKi(motorKi) : this.e4Main.SetBldc0PositionKi(motorKi);
 
             if (false != result)
             {
@@ -1654,7 +1654,7 @@ namespace E4.DeviceTest
          {
             this.e4Main.NodeId = nodeId;
             Int32 motorKd = 0;
-            bool success = this.e4Main.GetBldc0Kd(ref motorKd);
+            bool success = (false != this.E4MainBldc0TuningVelocityRadioButton.Checked) ? this.e4Main.GetBldc0VelocityKd(ref motorKd) : this.e4Main.GetBldc0PositionKd(ref motorKd);
 
             if (false != success)
             {
@@ -1681,7 +1681,7 @@ namespace E4.DeviceTest
              (Int32.TryParse(this.E4MainBldc0KdTextBox.Text, out motorKd) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.SetBldc0Kd(motorKd);
+            bool result = (false != this.E4MainBldc0TuningVelocityRadioButton.Checked) ? this.e4Main.SetBldc0VelocityKd(motorKd) : this.e4Main.SetBldc0PositionKd(motorKd);
 
             if (false != result)
             {
@@ -2076,7 +2076,7 @@ namespace E4.DeviceTest
          {
             this.e4Main.NodeId = nodeId;
             Int32 motorKp = 0;
-            bool success = this.e4Main.GetBldc1Kp(ref motorKp);
+            bool success = (false != this.E4MainBldc1TuningVelocityRadioButton.Checked) ? this.e4Main.GetBldc1VelocityKp(ref motorKp) : this.e4Main.GetBldc1PositionKp(ref motorKp);
 
             if (false != success)
             {
@@ -2103,7 +2103,7 @@ namespace E4.DeviceTest
              (Int32.TryParse(this.E4MainBldc1KpTextBox.Text, out motorKp) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.SetBldc1Kp(motorKp);
+            bool result = (false != this.E4MainBldc1TuningVelocityRadioButton.Checked) ? this.e4Main.SetBldc1VelocityKp(motorKp) : this.e4Main.SetBldc1PositionKp(motorKp);
 
             if (false != result)
             {
@@ -2128,7 +2128,7 @@ namespace E4.DeviceTest
          {
             this.e4Main.NodeId = nodeId;
             Int32 motorKi = 0;
-            bool success = this.e4Main.GetBldc1Ki(ref motorKi);
+            bool success = (false != this.E4MainBldc1TuningVelocityRadioButton.Checked) ? this.e4Main.GetBldc1VelocityKi(ref motorKi) : this.e4Main.GetBldc1PositionKi(ref motorKi);
 
             if (false != success)
             {
@@ -2155,7 +2155,7 @@ namespace E4.DeviceTest
              (Int32.TryParse(this.E4MainBldc1KiTextBox.Text, out motorKi) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.SetBldc1Ki(motorKi);
+            bool result = (false != this.E4MainBldc1TuningVelocityRadioButton.Checked) ? this.e4Main.SetBldc1VelocityKi(motorKi) : this.e4Main.SetBldc1PositionKi(motorKi);
 
             if (false != result)
             {
@@ -2180,7 +2180,7 @@ namespace E4.DeviceTest
          {
             this.e4Main.NodeId = nodeId;
             Int32 motorKd = 0;
-            bool success = this.e4Main.GetBldc1Kd(ref motorKd);
+            bool success = (false != this.E4MainBldc1TuningVelocityRadioButton.Checked) ? this.e4Main.GetBldc1VelocityKd(ref motorKd) : this.e4Main.GetBldc1PositionKd(ref motorKd);
 
             if (false != success)
             {
@@ -2207,7 +2207,7 @@ namespace E4.DeviceTest
              (Int32.TryParse(this.E4MainBldc1KdTextBox.Text, out motorKd) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.SetBldc1Kd(motorKd);
+            bool result = (false != this.E4MainBldc1TuningVelocityRadioButton.Checked) ? this.e4Main.SetBldc1VelocityKd(motorKd) : this.e4Main.SetBldc1PositionKd(motorKd);
 
             if (false != result)
             {
@@ -3636,10 +3636,12 @@ namespace E4.DeviceTest
          this.heartbeatActive = false;
 
          this.E4MainBldc0ModeComboBox.SelectedIndex = 0;
-         this.E4MainBldc1EditHelperButton.Visible = false;
+         this.E4MainBldc0TuningVelocityRadioButton.Checked = true;
+         this.E4MainBldc0EditHelperButton.Visible = false;
 
          this.E4MainBldc1ModeComboBox.SelectedIndex = 0;
-         this.E4MainBldc0EditHelperButton.Visible = false;
+         this.E4MainBldc1TuningVelocityRadioButton.Checked = true;
+         this.E4MainBldc1EditHelperButton.Visible = false;
 
          this.E4MainStepper0ModeComboBox.SelectedIndex = 0;
          this.E4MainStepper0EditHelperButton.Visible = false;
