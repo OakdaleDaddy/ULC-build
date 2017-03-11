@@ -123,32 +123,33 @@ namespace E4.DeviceTest
          this.label45 = new System.Windows.Forms.Label();
          this.E4MainLaserTabPage = new System.Windows.Forms.TabPage();
          this.E4MainLaserScannerGroupBox = new System.Windows.Forms.GroupBox();
-         this.button10 = new System.Windows.Forms.Button();
+         this.GetE4MainLaserScannerPositionButton = new System.Windows.Forms.Button();
          this.label65 = new System.Windows.Forms.Label();
-         this.textBox5 = new System.Windows.Forms.TextBox();
+         this.E4MainLaserReadScannerTextBox = new System.Windows.Forms.TextBox();
          this.label66 = new System.Windows.Forms.Label();
-         this.button9 = new System.Windows.Forms.Button();
-         this.textBox4 = new System.Windows.Forms.TextBox();
+         this.GetE4MainLaserScannerTemperatureButton = new System.Windows.Forms.Button();
+         this.E4MainLaserScannerTemperatureTextBox = new System.Windows.Forms.TextBox();
          this.label63 = new System.Windows.Forms.Label();
          this.E4MainLaserRangeFinderGroupBox = new System.Windows.Forms.GroupBox();
-         this.button3 = new System.Windows.Forms.Button();
-         this.button8 = new System.Windows.Forms.Button();
-         this.button2 = new System.Windows.Forms.Button();
-         this.textBox3 = new System.Windows.Forms.TextBox();
-         this.button1 = new System.Windows.Forms.Button();
+         this.GetE4MainLaserTimeToMeasureButton = new System.Windows.Forms.Button();
+         this.GetE4MainLaserRangeFinderTemperatureButton = new System.Windows.Forms.Button();
+         this.SetE4MainLaserAimOnButton = new System.Windows.Forms.Button();
+         this.E4MainLaserRangeFinderTemperatureTextBox = new System.Windows.Forms.TextBox();
+         this.SetE4MainLaserAimOffButton = new System.Windows.Forms.Button();
          this.label62 = new System.Windows.Forms.Label();
-         this.button4 = new System.Windows.Forms.Button();
-         this.button6 = new System.Windows.Forms.Button();
+         this.SetE4MainLaserTimeToMeasureButton = new System.Windows.Forms.Button();
+         this.GetE4MainLaserControlByteButton = new System.Windows.Forms.Button();
          this.label58 = new System.Windows.Forms.Label();
-         this.button7 = new System.Windows.Forms.Button();
-         this.textBox1 = new System.Windows.Forms.TextBox();
-         this.LaserScannerPositionTextBox = new System.Windows.Forms.TextBox();
-         this.textBox2 = new System.Windows.Forms.TextBox();
+         this.SetE4MainLaserControlByteButton = new System.Windows.Forms.Button();
+         this.E4MainLaserTimeToMeasureTextBox = new System.Windows.Forms.TextBox();
+         this.E4MainLaserControlByteTextBox = new System.Windows.Forms.TextBox();
+         this.E4MainLaserReadDistanceTextBox = new System.Windows.Forms.TextBox();
          this.label61 = new System.Windows.Forms.Label();
-         this.button5 = new System.Windows.Forms.Button();
+         this.GetE4MainLaserReadDistanceButton = new System.Windows.Forms.Button();
          this.label60 = new System.Windows.Forms.Label();
          this.label59 = new System.Windows.Forms.Label();
          this.E4MainBldc0TabPage = new System.Windows.Forms.TabPage();
+         this.ClearE4MainBldc0FaultButton = new System.Windows.Forms.Button();
          this.E4MainBldc0ActualCurrentTextBox = new System.Windows.Forms.TextBox();
          this.label93 = new System.Windows.Forms.Label();
          this.E4MainBldc0ActualPositionTextBox = new System.Windows.Forms.TextBox();
@@ -157,6 +158,8 @@ namespace E4.DeviceTest
          this.label94 = new System.Windows.Forms.Label();
          this.E4MainBldc0Panel = new System.Windows.Forms.Panel();
          this.E4MainBldc0TuningGroupBox = new System.Windows.Forms.GroupBox();
+         this.E4MainBldc0TuningPositionRadioButton = new System.Windows.Forms.RadioButton();
+         this.E4MainBldc0TuningVelocityRadioButton = new System.Windows.Forms.RadioButton();
          this.GetE4MainBldc0KpButton = new System.Windows.Forms.Button();
          this.label12 = new System.Windows.Forms.Label();
          this.E4MainBldc0KdTextBox = new System.Windows.Forms.TextBox();
@@ -205,6 +208,7 @@ namespace E4.DeviceTest
          this.label1 = new System.Windows.Forms.Label();
          this.label24 = new System.Windows.Forms.Label();
          this.E4MainBldc1TabPage = new System.Windows.Forms.TabPage();
+         this.ClearE4MainBldc1FaultButton = new System.Windows.Forms.Button();
          this.E4MainBldc1ActualCurrentTextBox = new System.Windows.Forms.TextBox();
          this.label20 = new System.Windows.Forms.Label();
          this.E4MainBldc1ActualPositionTextBox = new System.Windows.Forms.TextBox();
@@ -213,6 +217,8 @@ namespace E4.DeviceTest
          this.label22 = new System.Windows.Forms.Label();
          this.E4MainBldc1Panel = new System.Windows.Forms.Panel();
          this.E4MainBldc1TuningGroupBox = new System.Windows.Forms.GroupBox();
+         this.E4MainBldc1TuningPositionRadioButton = new System.Windows.Forms.RadioButton();
+         this.E4MainBldc1TuningVelocityRadioButton = new System.Windows.Forms.RadioButton();
          this.GetE4MainBldc1KpButton = new System.Windows.Forms.Button();
          this.label187 = new System.Windows.Forms.Label();
          this.E4MainBldc1KdTextBox = new System.Windows.Forms.TextBox();
@@ -261,6 +267,7 @@ namespace E4.DeviceTest
          this.label10 = new System.Windows.Forms.Label();
          this.label25 = new System.Windows.Forms.Label();
          this.E4MainStepper0TabPage = new System.Windows.Forms.TabPage();
+         this.ClearE4MainStepper0FaultButton = new System.Windows.Forms.Button();
          this.E4MainStepper0Panel = new System.Windows.Forms.Panel();
          this.E4MainStepper0HomingGroupBox = new System.Windows.Forms.GroupBox();
          this.E4MainStepper0HomingAttainedLabel = new System.Windows.Forms.Label();
@@ -317,8 +324,9 @@ namespace E4.DeviceTest
          this.label30 = new System.Windows.Forms.Label();
          this.label32 = new System.Windows.Forms.Label();
          this.E4MainStepper1TabPage = new System.Windows.Forms.TabPage();
+         this.ClearE4MainStepper1FaultButton = new System.Windows.Forms.Button();
          this.E4MainStepper1Panel = new System.Windows.Forms.Panel();
-         this.E4MainStepper1GroupBox = new System.Windows.Forms.GroupBox();
+         this.E4MainStepper1HomingGroupBox = new System.Windows.Forms.GroupBox();
          this.E4MainStepper1HomingAttainedLabel = new System.Windows.Forms.Label();
          this.RunE4MainStepper1HomingButton = new System.Windows.Forms.Button();
          this.HaltE4MainStepper1HomingButton = new System.Windows.Forms.Button();
@@ -344,7 +352,7 @@ namespace E4.DeviceTest
          this.SetE4MainStepper1HomingAccelerationButton = new System.Windows.Forms.Button();
          this.GetE4MainStepper1HomeOffsetButton = new System.Windows.Forms.Button();
          this.E4MainStepper1HomeOffsetTextBox = new System.Windows.Forms.TextBox();
-         this.groupBox1 = new System.Windows.Forms.GroupBox();
+         this.E4MainStepper1PositionGroupBox = new System.Windows.Forms.GroupBox();
          this.GetE4MainStepper1ProfileAccelerationButton = new System.Windows.Forms.Button();
          this.label40 = new System.Windows.Forms.Label();
          this.SetE4MainStepper1ProfileAccelerationButton = new System.Windows.Forms.Button();
@@ -392,12 +400,16 @@ namespace E4.DeviceTest
          this.E4MainStopButton = new System.Windows.Forms.Button();
          this.E4MainStartButton = new System.Windows.Forms.Button();
          this.label64 = new System.Windows.Forms.Label();
-         this.splitter1 = new System.Windows.Forms.Splitter();
+         this.ControlSplitter = new System.Windows.Forms.Splitter();
          this.MainActivityPanel = new System.Windows.Forms.Panel();
-         this.E4MainBldc0TuningVelocityRadioButton = new System.Windows.Forms.RadioButton();
-         this.E4MainBldc0TuningPositionRadioButton = new System.Windows.Forms.RadioButton();
-         this.E4MainBldc1TuningPositionRadioButton = new System.Windows.Forms.RadioButton();
-         this.E4MainBldc1TuningVelocityRadioButton = new System.Windows.Forms.RadioButton();
+         this.E4MainDcLinkVoltageTextBox = new System.Windows.Forms.TextBox();
+         this.label67 = new System.Windows.Forms.Label();
+         this.label68 = new System.Windows.Forms.Label();
+         this.label69 = new System.Windows.Forms.Label();
+         this.E4MainTargetBoardIcuYawTextBox = new System.Windows.Forms.TextBox();
+         this.E4MainTargetBoardIcuPitchTextBox = new System.Windows.Forms.TextBox();
+         this.E4MainTargetBoardIcuRollTextBox = new System.Windows.Forms.TextBox();
+         this.label70 = new System.Windows.Forms.Label();
          this.MainStatusStrip.SuspendLayout();
          this.MainTabControl.SuspendLayout();
          this.ControlTabPage.SuspendLayout();
@@ -427,8 +439,8 @@ namespace E4.DeviceTest
          this.E4MainStepper0PositionGroupBox.SuspendLayout();
          this.E4MainStepper1TabPage.SuspendLayout();
          this.E4MainStepper1Panel.SuspendLayout();
-         this.E4MainStepper1GroupBox.SuspendLayout();
-         this.groupBox1.SuspendLayout();
+         this.E4MainStepper1HomingGroupBox.SuspendLayout();
+         this.E4MainStepper1PositionGroupBox.SuspendLayout();
          this.MainActivityPanel.SuspendLayout();
          this.SuspendLayout();
          // 
@@ -932,6 +944,14 @@ namespace E4.DeviceTest
          // 
          // MainTabPage
          // 
+         this.MainTabPage.Controls.Add(this.label68);
+         this.MainTabPage.Controls.Add(this.label69);
+         this.MainTabPage.Controls.Add(this.E4MainTargetBoardIcuYawTextBox);
+         this.MainTabPage.Controls.Add(this.E4MainTargetBoardIcuPitchTextBox);
+         this.MainTabPage.Controls.Add(this.E4MainTargetBoardIcuRollTextBox);
+         this.MainTabPage.Controls.Add(this.label70);
+         this.MainTabPage.Controls.Add(this.E4MainDcLinkVoltageTextBox);
+         this.MainTabPage.Controls.Add(this.label67);
          this.MainTabPage.Controls.Add(this.E4MainSyncButton);
          this.MainTabPage.Controls.Add(this.E4MainTabControl);
          this.MainTabPage.Controls.Add(this.label9);
@@ -1395,16 +1415,15 @@ namespace E4.DeviceTest
          this.E4MainLaserTabPage.TabIndex = 7;
          this.E4MainLaserTabPage.Text = "Laser";
          this.E4MainLaserTabPage.UseVisualStyleBackColor = true;
-         this.E4MainLaserTabPage.Click += new System.EventHandler(this.E4MainLaserTabPage_Click);
          // 
          // E4MainLaserScannerGroupBox
          // 
-         this.E4MainLaserScannerGroupBox.Controls.Add(this.button10);
+         this.E4MainLaserScannerGroupBox.Controls.Add(this.GetE4MainLaserScannerPositionButton);
          this.E4MainLaserScannerGroupBox.Controls.Add(this.label65);
-         this.E4MainLaserScannerGroupBox.Controls.Add(this.textBox5);
+         this.E4MainLaserScannerGroupBox.Controls.Add(this.E4MainLaserReadScannerTextBox);
          this.E4MainLaserScannerGroupBox.Controls.Add(this.label66);
-         this.E4MainLaserScannerGroupBox.Controls.Add(this.button9);
-         this.E4MainLaserScannerGroupBox.Controls.Add(this.textBox4);
+         this.E4MainLaserScannerGroupBox.Controls.Add(this.GetE4MainLaserScannerTemperatureButton);
+         this.E4MainLaserScannerGroupBox.Controls.Add(this.E4MainLaserScannerTemperatureTextBox);
          this.E4MainLaserScannerGroupBox.Controls.Add(this.label63);
          this.E4MainLaserScannerGroupBox.Location = new System.Drawing.Point(2, 79);
          this.E4MainLaserScannerGroupBox.Name = "E4MainLaserScannerGroupBox";
@@ -1413,14 +1432,15 @@ namespace E4.DeviceTest
          this.E4MainLaserScannerGroupBox.TabStop = false;
          this.E4MainLaserScannerGroupBox.Text = "Laser Scanner";
          // 
-         // button10
+         // GetE4MainLaserScannerPositionButton
          // 
-         this.button10.Location = new System.Drawing.Point(283, 15);
-         this.button10.Name = "button10";
-         this.button10.Size = new System.Drawing.Size(35, 23);
-         this.button10.TabIndex = 407;
-         this.button10.Text = "Get";
-         this.button10.UseVisualStyleBackColor = true;
+         this.GetE4MainLaserScannerPositionButton.Location = new System.Drawing.Point(283, 15);
+         this.GetE4MainLaserScannerPositionButton.Name = "GetE4MainLaserScannerPositionButton";
+         this.GetE4MainLaserScannerPositionButton.Size = new System.Drawing.Size(35, 23);
+         this.GetE4MainLaserScannerPositionButton.TabIndex = 407;
+         this.GetE4MainLaserScannerPositionButton.Text = "Get";
+         this.GetE4MainLaserScannerPositionButton.UseVisualStyleBackColor = true;
+         this.GetE4MainLaserScannerPositionButton.Click += new System.EventHandler(this.GetE4MainLaserScannerPositionButton_Click);
          // 
          // label65
          // 
@@ -1431,13 +1451,13 @@ namespace E4.DeviceTest
          this.label65.TabIndex = 405;
          this.label65.Text = "Position";
          // 
-         // textBox5
+         // E4MainLaserReadScannerTextBox
          // 
-         this.textBox5.Location = new System.Drawing.Point(241, 17);
-         this.textBox5.Name = "textBox5";
-         this.textBox5.Size = new System.Drawing.Size(25, 20);
-         this.textBox5.TabIndex = 404;
-         this.textBox5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+         this.E4MainLaserReadScannerTextBox.Location = new System.Drawing.Point(241, 17);
+         this.E4MainLaserReadScannerTextBox.Name = "E4MainLaserReadScannerTextBox";
+         this.E4MainLaserReadScannerTextBox.Size = new System.Drawing.Size(25, 20);
+         this.E4MainLaserReadScannerTextBox.TabIndex = 404;
+         this.E4MainLaserReadScannerTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
          // 
          // label66
          // 
@@ -1448,22 +1468,23 @@ namespace E4.DeviceTest
          this.label66.TabIndex = 406;
          this.label66.Text = "h";
          // 
-         // button9
+         // GetE4MainLaserScannerTemperatureButton
          // 
-         this.button9.Location = new System.Drawing.Point(531, 15);
-         this.button9.Name = "button9";
-         this.button9.Size = new System.Drawing.Size(35, 23);
-         this.button9.TabIndex = 403;
-         this.button9.Text = "Get";
-         this.button9.UseVisualStyleBackColor = true;
+         this.GetE4MainLaserScannerTemperatureButton.Location = new System.Drawing.Point(531, 15);
+         this.GetE4MainLaserScannerTemperatureButton.Name = "GetE4MainLaserScannerTemperatureButton";
+         this.GetE4MainLaserScannerTemperatureButton.Size = new System.Drawing.Size(35, 23);
+         this.GetE4MainLaserScannerTemperatureButton.TabIndex = 403;
+         this.GetE4MainLaserScannerTemperatureButton.Text = "Get";
+         this.GetE4MainLaserScannerTemperatureButton.UseVisualStyleBackColor = true;
+         this.GetE4MainLaserScannerTemperatureButton.Click += new System.EventHandler(this.GetE4MainLaserScannerTemperatureButton_Click);
          // 
-         // textBox4
+         // E4MainLaserScannerTemperatureTextBox
          // 
-         this.textBox4.Location = new System.Drawing.Point(489, 17);
-         this.textBox4.Name = "textBox4";
-         this.textBox4.Size = new System.Drawing.Size(36, 20);
-         this.textBox4.TabIndex = 402;
-         this.textBox4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+         this.E4MainLaserScannerTemperatureTextBox.Location = new System.Drawing.Point(489, 17);
+         this.E4MainLaserScannerTemperatureTextBox.Name = "E4MainLaserScannerTemperatureTextBox";
+         this.E4MainLaserScannerTemperatureTextBox.Size = new System.Drawing.Size(36, 20);
+         this.E4MainLaserScannerTemperatureTextBox.TabIndex = 402;
+         this.E4MainLaserScannerTemperatureTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
          // 
          // label63
          // 
@@ -1476,21 +1497,21 @@ namespace E4.DeviceTest
          // 
          // E4MainLaserRangeFinderGroupBox
          // 
-         this.E4MainLaserRangeFinderGroupBox.Controls.Add(this.button3);
-         this.E4MainLaserRangeFinderGroupBox.Controls.Add(this.button8);
-         this.E4MainLaserRangeFinderGroupBox.Controls.Add(this.button2);
-         this.E4MainLaserRangeFinderGroupBox.Controls.Add(this.textBox3);
-         this.E4MainLaserRangeFinderGroupBox.Controls.Add(this.button1);
+         this.E4MainLaserRangeFinderGroupBox.Controls.Add(this.GetE4MainLaserTimeToMeasureButton);
+         this.E4MainLaserRangeFinderGroupBox.Controls.Add(this.GetE4MainLaserRangeFinderTemperatureButton);
+         this.E4MainLaserRangeFinderGroupBox.Controls.Add(this.SetE4MainLaserAimOnButton);
+         this.E4MainLaserRangeFinderGroupBox.Controls.Add(this.E4MainLaserRangeFinderTemperatureTextBox);
+         this.E4MainLaserRangeFinderGroupBox.Controls.Add(this.SetE4MainLaserAimOffButton);
          this.E4MainLaserRangeFinderGroupBox.Controls.Add(this.label62);
-         this.E4MainLaserRangeFinderGroupBox.Controls.Add(this.button4);
-         this.E4MainLaserRangeFinderGroupBox.Controls.Add(this.button6);
+         this.E4MainLaserRangeFinderGroupBox.Controls.Add(this.SetE4MainLaserTimeToMeasureButton);
+         this.E4MainLaserRangeFinderGroupBox.Controls.Add(this.GetE4MainLaserControlByteButton);
          this.E4MainLaserRangeFinderGroupBox.Controls.Add(this.label58);
-         this.E4MainLaserRangeFinderGroupBox.Controls.Add(this.button7);
-         this.E4MainLaserRangeFinderGroupBox.Controls.Add(this.textBox1);
-         this.E4MainLaserRangeFinderGroupBox.Controls.Add(this.LaserScannerPositionTextBox);
-         this.E4MainLaserRangeFinderGroupBox.Controls.Add(this.textBox2);
+         this.E4MainLaserRangeFinderGroupBox.Controls.Add(this.SetE4MainLaserControlByteButton);
+         this.E4MainLaserRangeFinderGroupBox.Controls.Add(this.E4MainLaserTimeToMeasureTextBox);
+         this.E4MainLaserRangeFinderGroupBox.Controls.Add(this.E4MainLaserControlByteTextBox);
+         this.E4MainLaserRangeFinderGroupBox.Controls.Add(this.E4MainLaserReadDistanceTextBox);
          this.E4MainLaserRangeFinderGroupBox.Controls.Add(this.label61);
-         this.E4MainLaserRangeFinderGroupBox.Controls.Add(this.button5);
+         this.E4MainLaserRangeFinderGroupBox.Controls.Add(this.GetE4MainLaserReadDistanceButton);
          this.E4MainLaserRangeFinderGroupBox.Controls.Add(this.label60);
          this.E4MainLaserRangeFinderGroupBox.Controls.Add(this.label59);
          this.E4MainLaserRangeFinderGroupBox.Location = new System.Drawing.Point(3, 3);
@@ -1500,50 +1521,53 @@ namespace E4.DeviceTest
          this.E4MainLaserRangeFinderGroupBox.TabStop = false;
          this.E4MainLaserRangeFinderGroupBox.Text = "Laser Range Finder";
          // 
-         // button3
+         // GetE4MainLaserTimeToMeasureButton
          // 
-         this.button3.Location = new System.Drawing.Point(282, 15);
-         this.button3.Name = "button3";
-         this.button3.Size = new System.Drawing.Size(35, 23);
-         this.button3.TabIndex = 389;
-         this.button3.Text = "Get";
-         this.button3.UseVisualStyleBackColor = true;
+         this.GetE4MainLaserTimeToMeasureButton.Location = new System.Drawing.Point(282, 15);
+         this.GetE4MainLaserTimeToMeasureButton.Name = "GetE4MainLaserTimeToMeasureButton";
+         this.GetE4MainLaserTimeToMeasureButton.Size = new System.Drawing.Size(35, 23);
+         this.GetE4MainLaserTimeToMeasureButton.TabIndex = 389;
+         this.GetE4MainLaserTimeToMeasureButton.Text = "Get";
+         this.GetE4MainLaserTimeToMeasureButton.UseVisualStyleBackColor = true;
+         this.GetE4MainLaserTimeToMeasureButton.Click += new System.EventHandler(this.GetE4MainLaserTimeToMeasureButton_Click);
          // 
-         // button8
+         // GetE4MainLaserRangeFinderTemperatureButton
          // 
-         this.button8.Location = new System.Drawing.Point(530, 41);
-         this.button8.Name = "button8";
-         this.button8.Size = new System.Drawing.Size(35, 23);
-         this.button8.TabIndex = 400;
-         this.button8.Text = "Get";
-         this.button8.UseVisualStyleBackColor = true;
+         this.GetE4MainLaserRangeFinderTemperatureButton.Location = new System.Drawing.Point(530, 41);
+         this.GetE4MainLaserRangeFinderTemperatureButton.Name = "GetE4MainLaserRangeFinderTemperatureButton";
+         this.GetE4MainLaserRangeFinderTemperatureButton.Size = new System.Drawing.Size(35, 23);
+         this.GetE4MainLaserRangeFinderTemperatureButton.TabIndex = 400;
+         this.GetE4MainLaserRangeFinderTemperatureButton.Text = "Get";
+         this.GetE4MainLaserRangeFinderTemperatureButton.UseVisualStyleBackColor = true;
+         this.GetE4MainLaserRangeFinderTemperatureButton.Click += new System.EventHandler(this.GetE4MainLaserRangeFinderTemperatureButton_Click);
          // 
-         // button2
+         // SetE4MainLaserAimOnButton
          // 
-         this.button2.Location = new System.Drawing.Point(23, 27);
-         this.button2.Name = "button2";
-         this.button2.Size = new System.Drawing.Size(52, 23);
-         this.button2.TabIndex = 96;
-         this.button2.Text = "Aim On";
-         this.button2.UseVisualStyleBackColor = true;
-         this.button2.Click += new System.EventHandler(this.button2_Click);
+         this.SetE4MainLaserAimOnButton.Location = new System.Drawing.Point(23, 27);
+         this.SetE4MainLaserAimOnButton.Name = "SetE4MainLaserAimOnButton";
+         this.SetE4MainLaserAimOnButton.Size = new System.Drawing.Size(52, 23);
+         this.SetE4MainLaserAimOnButton.TabIndex = 96;
+         this.SetE4MainLaserAimOnButton.Text = "Aim On";
+         this.SetE4MainLaserAimOnButton.UseVisualStyleBackColor = true;
+         this.SetE4MainLaserAimOnButton.Click += new System.EventHandler(this.SetE4MainLaserAimOnButton_Click);
          // 
-         // textBox3
+         // E4MainLaserRangeFinderTemperatureTextBox
          // 
-         this.textBox3.Location = new System.Drawing.Point(488, 43);
-         this.textBox3.Name = "textBox3";
-         this.textBox3.Size = new System.Drawing.Size(36, 20);
-         this.textBox3.TabIndex = 399;
-         this.textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+         this.E4MainLaserRangeFinderTemperatureTextBox.Location = new System.Drawing.Point(488, 43);
+         this.E4MainLaserRangeFinderTemperatureTextBox.Name = "E4MainLaserRangeFinderTemperatureTextBox";
+         this.E4MainLaserRangeFinderTemperatureTextBox.Size = new System.Drawing.Size(36, 20);
+         this.E4MainLaserRangeFinderTemperatureTextBox.TabIndex = 399;
+         this.E4MainLaserRangeFinderTemperatureTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
          // 
-         // button1
+         // SetE4MainLaserAimOffButton
          // 
-         this.button1.Location = new System.Drawing.Point(81, 27);
-         this.button1.Name = "button1";
-         this.button1.Size = new System.Drawing.Size(52, 23);
-         this.button1.TabIndex = 97;
-         this.button1.Text = "Aim Off";
-         this.button1.UseVisualStyleBackColor = true;
+         this.SetE4MainLaserAimOffButton.Location = new System.Drawing.Point(81, 27);
+         this.SetE4MainLaserAimOffButton.Name = "SetE4MainLaserAimOffButton";
+         this.SetE4MainLaserAimOffButton.Size = new System.Drawing.Size(52, 23);
+         this.SetE4MainLaserAimOffButton.TabIndex = 97;
+         this.SetE4MainLaserAimOffButton.Text = "Aim Off";
+         this.SetE4MainLaserAimOffButton.UseVisualStyleBackColor = true;
+         this.SetE4MainLaserAimOffButton.Click += new System.EventHandler(this.SetE4MainLaserAimOffButton_Click);
          // 
          // label62
          // 
@@ -1554,23 +1578,25 @@ namespace E4.DeviceTest
          this.label62.TabIndex = 398;
          this.label62.Text = "Temperature";
          // 
-         // button4
+         // SetE4MainLaserTimeToMeasureButton
          // 
-         this.button4.Location = new System.Drawing.Point(323, 15);
-         this.button4.Name = "button4";
-         this.button4.Size = new System.Drawing.Size(35, 23);
-         this.button4.TabIndex = 388;
-         this.button4.Text = "Set";
-         this.button4.UseVisualStyleBackColor = true;
+         this.SetE4MainLaserTimeToMeasureButton.Location = new System.Drawing.Point(323, 15);
+         this.SetE4MainLaserTimeToMeasureButton.Name = "SetE4MainLaserTimeToMeasureButton";
+         this.SetE4MainLaserTimeToMeasureButton.Size = new System.Drawing.Size(35, 23);
+         this.SetE4MainLaserTimeToMeasureButton.TabIndex = 388;
+         this.SetE4MainLaserTimeToMeasureButton.Text = "Set";
+         this.SetE4MainLaserTimeToMeasureButton.UseVisualStyleBackColor = true;
+         this.SetE4MainLaserTimeToMeasureButton.Click += new System.EventHandler(this.SetE4MainLaserTimeToMeasureButton_Click);
          // 
-         // button6
+         // GetE4MainLaserControlByteButton
          // 
-         this.button6.Location = new System.Drawing.Point(282, 41);
-         this.button6.Name = "button6";
-         this.button6.Size = new System.Drawing.Size(35, 23);
-         this.button6.TabIndex = 397;
-         this.button6.Text = "Get";
-         this.button6.UseVisualStyleBackColor = true;
+         this.GetE4MainLaserControlByteButton.Location = new System.Drawing.Point(282, 41);
+         this.GetE4MainLaserControlByteButton.Name = "GetE4MainLaserControlByteButton";
+         this.GetE4MainLaserControlByteButton.Size = new System.Drawing.Size(35, 23);
+         this.GetE4MainLaserControlByteButton.TabIndex = 397;
+         this.GetE4MainLaserControlByteButton.Text = "Get";
+         this.GetE4MainLaserControlByteButton.UseVisualStyleBackColor = true;
+         this.GetE4MainLaserControlByteButton.Click += new System.EventHandler(this.GetE4MainLaserControlByteButton_Click);
          // 
          // label58
          // 
@@ -1581,37 +1607,38 @@ namespace E4.DeviceTest
          this.label58.TabIndex = 387;
          this.label58.Text = "Time to Measure";
          // 
-         // button7
+         // SetE4MainLaserControlByteButton
          // 
-         this.button7.Location = new System.Drawing.Point(323, 41);
-         this.button7.Name = "button7";
-         this.button7.Size = new System.Drawing.Size(35, 23);
-         this.button7.TabIndex = 396;
-         this.button7.Text = "Set";
-         this.button7.UseVisualStyleBackColor = true;
+         this.SetE4MainLaserControlByteButton.Location = new System.Drawing.Point(323, 41);
+         this.SetE4MainLaserControlByteButton.Name = "SetE4MainLaserControlByteButton";
+         this.SetE4MainLaserControlByteButton.Size = new System.Drawing.Size(35, 23);
+         this.SetE4MainLaserControlByteButton.TabIndex = 396;
+         this.SetE4MainLaserControlByteButton.Text = "Set";
+         this.SetE4MainLaserControlByteButton.UseVisualStyleBackColor = true;
+         this.SetE4MainLaserControlByteButton.Click += new System.EventHandler(this.SetE4MainLaserControlByteButton_Click);
          // 
-         // textBox1
+         // E4MainLaserTimeToMeasureTextBox
          // 
-         this.textBox1.Location = new System.Drawing.Point(240, 17);
-         this.textBox1.Name = "textBox1";
-         this.textBox1.Size = new System.Drawing.Size(36, 20);
-         this.textBox1.TabIndex = 386;
+         this.E4MainLaserTimeToMeasureTextBox.Location = new System.Drawing.Point(240, 17);
+         this.E4MainLaserTimeToMeasureTextBox.Name = "E4MainLaserTimeToMeasureTextBox";
+         this.E4MainLaserTimeToMeasureTextBox.Size = new System.Drawing.Size(31, 20);
+         this.E4MainLaserTimeToMeasureTextBox.TabIndex = 386;
          // 
-         // LaserScannerPositionTextBox
+         // E4MainLaserControlByteTextBox
          // 
-         this.LaserScannerPositionTextBox.Location = new System.Drawing.Point(240, 43);
-         this.LaserScannerPositionTextBox.MaxLength = 0;
-         this.LaserScannerPositionTextBox.Name = "LaserScannerPositionTextBox";
-         this.LaserScannerPositionTextBox.Size = new System.Drawing.Size(25, 20);
-         this.LaserScannerPositionTextBox.TabIndex = 394;
-         this.LaserScannerPositionTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+         this.E4MainLaserControlByteTextBox.Location = new System.Drawing.Point(240, 43);
+         this.E4MainLaserControlByteTextBox.MaxLength = 0;
+         this.E4MainLaserControlByteTextBox.Name = "E4MainLaserControlByteTextBox";
+         this.E4MainLaserControlByteTextBox.Size = new System.Drawing.Size(25, 20);
+         this.E4MainLaserControlByteTextBox.TabIndex = 394;
+         this.E4MainLaserControlByteTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
          // 
-         // textBox2
+         // E4MainLaserReadDistanceTextBox
          // 
-         this.textBox2.Location = new System.Drawing.Point(465, 17);
-         this.textBox2.Name = "textBox2";
-         this.textBox2.Size = new System.Drawing.Size(59, 20);
-         this.textBox2.TabIndex = 390;
+         this.E4MainLaserReadDistanceTextBox.Location = new System.Drawing.Point(465, 17);
+         this.E4MainLaserReadDistanceTextBox.Name = "E4MainLaserReadDistanceTextBox";
+         this.E4MainLaserReadDistanceTextBox.Size = new System.Drawing.Size(59, 20);
+         this.E4MainLaserReadDistanceTextBox.TabIndex = 390;
          // 
          // label61
          // 
@@ -1622,14 +1649,15 @@ namespace E4.DeviceTest
          this.label61.TabIndex = 395;
          this.label61.Text = "h";
          // 
-         // button5
+         // GetE4MainLaserReadDistanceButton
          // 
-         this.button5.Location = new System.Drawing.Point(530, 15);
-         this.button5.Name = "button5";
-         this.button5.Size = new System.Drawing.Size(35, 23);
-         this.button5.TabIndex = 391;
-         this.button5.Text = "Get";
-         this.button5.UseVisualStyleBackColor = true;
+         this.GetE4MainLaserReadDistanceButton.Location = new System.Drawing.Point(530, 15);
+         this.GetE4MainLaserReadDistanceButton.Name = "GetE4MainLaserReadDistanceButton";
+         this.GetE4MainLaserReadDistanceButton.Size = new System.Drawing.Size(35, 23);
+         this.GetE4MainLaserReadDistanceButton.TabIndex = 391;
+         this.GetE4MainLaserReadDistanceButton.Text = "Get";
+         this.GetE4MainLaserReadDistanceButton.UseVisualStyleBackColor = true;
+         this.GetE4MainLaserReadDistanceButton.Click += new System.EventHandler(this.GetE4MainLaserReadDistanceButton_Click);
          // 
          // label60
          // 
@@ -1651,6 +1679,7 @@ namespace E4.DeviceTest
          // 
          // E4MainBldc0TabPage
          // 
+         this.E4MainBldc0TabPage.Controls.Add(this.ClearE4MainBldc0FaultButton);
          this.E4MainBldc0TabPage.Controls.Add(this.E4MainBldc0ActualCurrentTextBox);
          this.E4MainBldc0TabPage.Controls.Add(this.label93);
          this.E4MainBldc0TabPage.Controls.Add(this.E4MainBldc0ActualPositionTextBox);
@@ -1674,9 +1703,19 @@ namespace E4.DeviceTest
          this.E4MainBldc0TabPage.Text = "BLDC0";
          this.E4MainBldc0TabPage.UseVisualStyleBackColor = true;
          // 
+         // ClearE4MainBldc0FaultButton
+         // 
+         this.ClearE4MainBldc0FaultButton.Location = new System.Drawing.Point(167, 4);
+         this.ClearE4MainBldc0FaultButton.Name = "ClearE4MainBldc0FaultButton";
+         this.ClearE4MainBldc0FaultButton.Size = new System.Drawing.Size(73, 23);
+         this.ClearE4MainBldc0FaultButton.TabIndex = 424;
+         this.ClearE4MainBldc0FaultButton.Text = "Clear Fault";
+         this.ClearE4MainBldc0FaultButton.UseVisualStyleBackColor = true;
+         this.ClearE4MainBldc0FaultButton.Click += new System.EventHandler(this.ClearE4MainBldc0FaultButton_Click);
+         // 
          // E4MainBldc0ActualCurrentTextBox
          // 
-         this.E4MainBldc0ActualCurrentTextBox.Location = new System.Drawing.Point(532, 6);
+         this.E4MainBldc0ActualCurrentTextBox.Location = new System.Drawing.Point(611, 6);
          this.E4MainBldc0ActualCurrentTextBox.Name = "E4MainBldc0ActualCurrentTextBox";
          this.E4MainBldc0ActualCurrentTextBox.Size = new System.Drawing.Size(39, 20);
          this.E4MainBldc0ActualCurrentTextBox.TabIndex = 422;
@@ -1684,7 +1723,7 @@ namespace E4.DeviceTest
          // label93
          // 
          this.label93.AutoSize = true;
-         this.label93.Location = new System.Drawing.Point(516, 9);
+         this.label93.Location = new System.Drawing.Point(595, 9);
          this.label93.Name = "label93";
          this.label93.Size = new System.Drawing.Size(14, 13);
          this.label93.TabIndex = 421;
@@ -1692,7 +1731,7 @@ namespace E4.DeviceTest
          // 
          // E4MainBldc0ActualPositionTextBox
          // 
-         this.E4MainBldc0ActualPositionTextBox.Location = new System.Drawing.Point(350, 6);
+         this.E4MainBldc0ActualPositionTextBox.Location = new System.Drawing.Point(429, 6);
          this.E4MainBldc0ActualPositionTextBox.Name = "E4MainBldc0ActualPositionTextBox";
          this.E4MainBldc0ActualPositionTextBox.Size = new System.Drawing.Size(69, 20);
          this.E4MainBldc0ActualPositionTextBox.TabIndex = 420;
@@ -1701,7 +1740,7 @@ namespace E4.DeviceTest
          // label170
          // 
          this.label170.AutoSize = true;
-         this.label170.Location = new System.Drawing.Point(334, 9);
+         this.label170.Location = new System.Drawing.Point(413, 9);
          this.label170.Name = "label170";
          this.label170.Size = new System.Drawing.Size(14, 13);
          this.label170.TabIndex = 419;
@@ -1709,7 +1748,7 @@ namespace E4.DeviceTest
          // 
          // E4MainBldc0ActualVelocityTextBox
          // 
-         this.E4MainBldc0ActualVelocityTextBox.Location = new System.Drawing.Point(441, 6);
+         this.E4MainBldc0ActualVelocityTextBox.Location = new System.Drawing.Point(520, 6);
          this.E4MainBldc0ActualVelocityTextBox.Name = "E4MainBldc0ActualVelocityTextBox";
          this.E4MainBldc0ActualVelocityTextBox.Size = new System.Drawing.Size(69, 20);
          this.E4MainBldc0ActualVelocityTextBox.TabIndex = 418;
@@ -1718,7 +1757,7 @@ namespace E4.DeviceTest
          // label94
          // 
          this.label94.AutoSize = true;
-         this.label94.Location = new System.Drawing.Point(425, 9);
+         this.label94.Location = new System.Drawing.Point(504, 9);
          this.label94.Name = "label94";
          this.label94.Size = new System.Drawing.Size(14, 13);
          this.label94.TabIndex = 417;
@@ -1762,6 +1801,28 @@ namespace E4.DeviceTest
          this.E4MainBldc0TuningGroupBox.TabIndex = 435;
          this.E4MainBldc0TuningGroupBox.TabStop = false;
          this.E4MainBldc0TuningGroupBox.Text = "Tuning";
+         // 
+         // E4MainBldc0TuningPositionRadioButton
+         // 
+         this.E4MainBldc0TuningPositionRadioButton.AutoSize = true;
+         this.E4MainBldc0TuningPositionRadioButton.Location = new System.Drawing.Point(109, 18);
+         this.E4MainBldc0TuningPositionRadioButton.Name = "E4MainBldc0TuningPositionRadioButton";
+         this.E4MainBldc0TuningPositionRadioButton.Size = new System.Drawing.Size(32, 17);
+         this.E4MainBldc0TuningPositionRadioButton.TabIndex = 434;
+         this.E4MainBldc0TuningPositionRadioButton.TabStop = true;
+         this.E4MainBldc0TuningPositionRadioButton.Text = "P";
+         this.E4MainBldc0TuningPositionRadioButton.UseVisualStyleBackColor = true;
+         // 
+         // E4MainBldc0TuningVelocityRadioButton
+         // 
+         this.E4MainBldc0TuningVelocityRadioButton.AutoSize = true;
+         this.E4MainBldc0TuningVelocityRadioButton.Location = new System.Drawing.Point(71, 18);
+         this.E4MainBldc0TuningVelocityRadioButton.Name = "E4MainBldc0TuningVelocityRadioButton";
+         this.E4MainBldc0TuningVelocityRadioButton.Size = new System.Drawing.Size(32, 17);
+         this.E4MainBldc0TuningVelocityRadioButton.TabIndex = 433;
+         this.E4MainBldc0TuningVelocityRadioButton.TabStop = true;
+         this.E4MainBldc0TuningVelocityRadioButton.Text = "V";
+         this.E4MainBldc0TuningVelocityRadioButton.UseVisualStyleBackColor = true;
          // 
          // GetE4MainBldc0KpButton
          // 
@@ -2152,7 +2213,7 @@ namespace E4.DeviceTest
          // 
          // E4MainBldc0StatusTextBox
          // 
-         this.E4MainBldc0StatusTextBox.Location = new System.Drawing.Point(279, 6);
+         this.E4MainBldc0StatusTextBox.Location = new System.Drawing.Point(358, 6);
          this.E4MainBldc0StatusTextBox.Name = "E4MainBldc0StatusTextBox";
          this.E4MainBldc0StatusTextBox.Size = new System.Drawing.Size(39, 20);
          this.E4MainBldc0StatusTextBox.TabIndex = 283;
@@ -2172,7 +2233,7 @@ namespace E4.DeviceTest
          // 
          // E4MainBldc0TemperatureTextBox
          // 
-         this.E4MainBldc0TemperatureTextBox.Location = new System.Drawing.Point(203, 6);
+         this.E4MainBldc0TemperatureTextBox.Location = new System.Drawing.Point(282, 6);
          this.E4MainBldc0TemperatureTextBox.Name = "E4MainBldc0TemperatureTextBox";
          this.E4MainBldc0TemperatureTextBox.Size = new System.Drawing.Size(31, 20);
          this.E4MainBldc0TemperatureTextBox.TabIndex = 266;
@@ -2191,7 +2252,7 @@ namespace E4.DeviceTest
          // label171
          // 
          this.label171.AutoSize = true;
-         this.label171.Location = new System.Drawing.Point(240, 9);
+         this.label171.Location = new System.Drawing.Point(319, 9);
          this.label171.Name = "label171";
          this.label171.Size = new System.Drawing.Size(37, 13);
          this.label171.TabIndex = 282;
@@ -2200,7 +2261,7 @@ namespace E4.DeviceTest
          // label1
          // 
          this.label1.AutoSize = true;
-         this.label1.Location = new System.Drawing.Point(167, 9);
+         this.label1.Location = new System.Drawing.Point(246, 9);
          this.label1.Name = "label1";
          this.label1.Size = new System.Drawing.Size(34, 13);
          this.label1.TabIndex = 267;
@@ -2209,7 +2270,7 @@ namespace E4.DeviceTest
          // label24
          // 
          this.label24.AutoSize = true;
-         this.label24.Location = new System.Drawing.Point(315, 6);
+         this.label24.Location = new System.Drawing.Point(394, 6);
          this.label24.Name = "label24";
          this.label24.Size = new System.Drawing.Size(13, 13);
          this.label24.TabIndex = 423;
@@ -2217,6 +2278,7 @@ namespace E4.DeviceTest
          // 
          // E4MainBldc1TabPage
          // 
+         this.E4MainBldc1TabPage.Controls.Add(this.ClearE4MainBldc1FaultButton);
          this.E4MainBldc1TabPage.Controls.Add(this.E4MainBldc1ActualCurrentTextBox);
          this.E4MainBldc1TabPage.Controls.Add(this.label20);
          this.E4MainBldc1TabPage.Controls.Add(this.E4MainBldc1ActualPositionTextBox);
@@ -2240,9 +2302,19 @@ namespace E4.DeviceTest
          this.E4MainBldc1TabPage.Text = "BLDC1";
          this.E4MainBldc1TabPage.UseVisualStyleBackColor = true;
          // 
+         // ClearE4MainBldc1FaultButton
+         // 
+         this.ClearE4MainBldc1FaultButton.Location = new System.Drawing.Point(167, 4);
+         this.ClearE4MainBldc1FaultButton.Name = "ClearE4MainBldc1FaultButton";
+         this.ClearE4MainBldc1FaultButton.Size = new System.Drawing.Size(73, 23);
+         this.ClearE4MainBldc1FaultButton.TabIndex = 430;
+         this.ClearE4MainBldc1FaultButton.Text = "Clear Fault";
+         this.ClearE4MainBldc1FaultButton.UseVisualStyleBackColor = true;
+         this.ClearE4MainBldc1FaultButton.Click += new System.EventHandler(this.ClearE4MainBldc1FaultButton_Click);
+         // 
          // E4MainBldc1ActualCurrentTextBox
          // 
-         this.E4MainBldc1ActualCurrentTextBox.Location = new System.Drawing.Point(532, 6);
+         this.E4MainBldc1ActualCurrentTextBox.Location = new System.Drawing.Point(611, 6);
          this.E4MainBldc1ActualCurrentTextBox.Name = "E4MainBldc1ActualCurrentTextBox";
          this.E4MainBldc1ActualCurrentTextBox.Size = new System.Drawing.Size(39, 20);
          this.E4MainBldc1ActualCurrentTextBox.TabIndex = 428;
@@ -2250,7 +2322,7 @@ namespace E4.DeviceTest
          // label20
          // 
          this.label20.AutoSize = true;
-         this.label20.Location = new System.Drawing.Point(516, 9);
+         this.label20.Location = new System.Drawing.Point(595, 9);
          this.label20.Name = "label20";
          this.label20.Size = new System.Drawing.Size(14, 13);
          this.label20.TabIndex = 427;
@@ -2258,7 +2330,7 @@ namespace E4.DeviceTest
          // 
          // E4MainBldc1ActualPositionTextBox
          // 
-         this.E4MainBldc1ActualPositionTextBox.Location = new System.Drawing.Point(350, 6);
+         this.E4MainBldc1ActualPositionTextBox.Location = new System.Drawing.Point(429, 6);
          this.E4MainBldc1ActualPositionTextBox.Name = "E4MainBldc1ActualPositionTextBox";
          this.E4MainBldc1ActualPositionTextBox.Size = new System.Drawing.Size(69, 20);
          this.E4MainBldc1ActualPositionTextBox.TabIndex = 426;
@@ -2267,7 +2339,7 @@ namespace E4.DeviceTest
          // label21
          // 
          this.label21.AutoSize = true;
-         this.label21.Location = new System.Drawing.Point(334, 9);
+         this.label21.Location = new System.Drawing.Point(413, 9);
          this.label21.Name = "label21";
          this.label21.Size = new System.Drawing.Size(14, 13);
          this.label21.TabIndex = 425;
@@ -2275,7 +2347,7 @@ namespace E4.DeviceTest
          // 
          // E4MainBldc1ActualVelocityTextBox
          // 
-         this.E4MainBldc1ActualVelocityTextBox.Location = new System.Drawing.Point(441, 6);
+         this.E4MainBldc1ActualVelocityTextBox.Location = new System.Drawing.Point(520, 6);
          this.E4MainBldc1ActualVelocityTextBox.Name = "E4MainBldc1ActualVelocityTextBox";
          this.E4MainBldc1ActualVelocityTextBox.Size = new System.Drawing.Size(69, 20);
          this.E4MainBldc1ActualVelocityTextBox.TabIndex = 424;
@@ -2284,7 +2356,7 @@ namespace E4.DeviceTest
          // label22
          // 
          this.label22.AutoSize = true;
-         this.label22.Location = new System.Drawing.Point(425, 9);
+         this.label22.Location = new System.Drawing.Point(504, 9);
          this.label22.Name = "label22";
          this.label22.Size = new System.Drawing.Size(14, 13);
          this.label22.TabIndex = 423;
@@ -2328,6 +2400,28 @@ namespace E4.DeviceTest
          this.E4MainBldc1TuningGroupBox.TabIndex = 434;
          this.E4MainBldc1TuningGroupBox.TabStop = false;
          this.E4MainBldc1TuningGroupBox.Text = "Tuning";
+         // 
+         // E4MainBldc1TuningPositionRadioButton
+         // 
+         this.E4MainBldc1TuningPositionRadioButton.AutoSize = true;
+         this.E4MainBldc1TuningPositionRadioButton.Location = new System.Drawing.Point(109, 18);
+         this.E4MainBldc1TuningPositionRadioButton.Name = "E4MainBldc1TuningPositionRadioButton";
+         this.E4MainBldc1TuningPositionRadioButton.Size = new System.Drawing.Size(32, 17);
+         this.E4MainBldc1TuningPositionRadioButton.TabIndex = 436;
+         this.E4MainBldc1TuningPositionRadioButton.TabStop = true;
+         this.E4MainBldc1TuningPositionRadioButton.Text = "P";
+         this.E4MainBldc1TuningPositionRadioButton.UseVisualStyleBackColor = true;
+         // 
+         // E4MainBldc1TuningVelocityRadioButton
+         // 
+         this.E4MainBldc1TuningVelocityRadioButton.AutoSize = true;
+         this.E4MainBldc1TuningVelocityRadioButton.Location = new System.Drawing.Point(71, 18);
+         this.E4MainBldc1TuningVelocityRadioButton.Name = "E4MainBldc1TuningVelocityRadioButton";
+         this.E4MainBldc1TuningVelocityRadioButton.Size = new System.Drawing.Size(32, 17);
+         this.E4MainBldc1TuningVelocityRadioButton.TabIndex = 435;
+         this.E4MainBldc1TuningVelocityRadioButton.TabStop = true;
+         this.E4MainBldc1TuningVelocityRadioButton.Text = "V";
+         this.E4MainBldc1TuningVelocityRadioButton.UseVisualStyleBackColor = true;
          // 
          // GetE4MainBldc1KpButton
          // 
@@ -2718,7 +2812,7 @@ namespace E4.DeviceTest
          // 
          // E4MainBldc1StatusTextBox
          // 
-         this.E4MainBldc1StatusTextBox.Location = new System.Drawing.Point(279, 6);
+         this.E4MainBldc1StatusTextBox.Location = new System.Drawing.Point(358, 6);
          this.E4MainBldc1StatusTextBox.Name = "E4MainBldc1StatusTextBox";
          this.E4MainBldc1StatusTextBox.Size = new System.Drawing.Size(39, 20);
          this.E4MainBldc1StatusTextBox.TabIndex = 285;
@@ -2739,7 +2833,7 @@ namespace E4.DeviceTest
          // label2
          // 
          this.label2.AutoSize = true;
-         this.label2.Location = new System.Drawing.Point(167, 9);
+         this.label2.Location = new System.Drawing.Point(246, 9);
          this.label2.Name = "label2";
          this.label2.Size = new System.Drawing.Size(34, 13);
          this.label2.TabIndex = 268;
@@ -2756,7 +2850,7 @@ namespace E4.DeviceTest
          // 
          // E4MainBldc1TemperatureTextBox
          // 
-         this.E4MainBldc1TemperatureTextBox.Location = new System.Drawing.Point(203, 6);
+         this.E4MainBldc1TemperatureTextBox.Location = new System.Drawing.Point(282, 6);
          this.E4MainBldc1TemperatureTextBox.Name = "E4MainBldc1TemperatureTextBox";
          this.E4MainBldc1TemperatureTextBox.Size = new System.Drawing.Size(31, 20);
          this.E4MainBldc1TemperatureTextBox.TabIndex = 269;
@@ -2766,7 +2860,7 @@ namespace E4.DeviceTest
          // label10
          // 
          this.label10.AutoSize = true;
-         this.label10.Location = new System.Drawing.Point(240, 9);
+         this.label10.Location = new System.Drawing.Point(319, 9);
          this.label10.Name = "label10";
          this.label10.Size = new System.Drawing.Size(37, 13);
          this.label10.TabIndex = 284;
@@ -2775,7 +2869,7 @@ namespace E4.DeviceTest
          // label25
          // 
          this.label25.AutoSize = true;
-         this.label25.Location = new System.Drawing.Point(315, 6);
+         this.label25.Location = new System.Drawing.Point(394, 6);
          this.label25.Name = "label25";
          this.label25.Size = new System.Drawing.Size(13, 13);
          this.label25.TabIndex = 429;
@@ -2783,6 +2877,7 @@ namespace E4.DeviceTest
          // 
          // E4MainStepper0TabPage
          // 
+         this.E4MainStepper0TabPage.Controls.Add(this.ClearE4MainStepper0FaultButton);
          this.E4MainStepper0TabPage.Controls.Add(this.E4MainStepper0Panel);
          this.E4MainStepper0TabPage.Controls.Add(this.ReadE4MainStepper0PvtButton);
          this.E4MainStepper0TabPage.Controls.Add(this.E4MainStepper0ActualCurrentTextBox);
@@ -2804,6 +2899,16 @@ namespace E4.DeviceTest
          this.E4MainStepper0TabPage.TabIndex = 4;
          this.E4MainStepper0TabPage.Text = "Stepper0";
          this.E4MainStepper0TabPage.UseVisualStyleBackColor = true;
+         // 
+         // ClearE4MainStepper0FaultButton
+         // 
+         this.ClearE4MainStepper0FaultButton.Location = new System.Drawing.Point(167, 4);
+         this.ClearE4MainStepper0FaultButton.Name = "ClearE4MainStepper0FaultButton";
+         this.ClearE4MainStepper0FaultButton.Size = new System.Drawing.Size(73, 23);
+         this.ClearE4MainStepper0FaultButton.TabIndex = 441;
+         this.ClearE4MainStepper0FaultButton.Text = "Clear Fault";
+         this.ClearE4MainStepper0FaultButton.UseVisualStyleBackColor = true;
+         this.ClearE4MainStepper0FaultButton.Click += new System.EventHandler(this.ClearE4MainStepper0FaultButton_Click);
          // 
          // E4MainStepper0Panel
          // 
@@ -3233,7 +3338,7 @@ namespace E4.DeviceTest
          // 
          // ReadE4MainStepper0PvtButton
          // 
-         this.ReadE4MainStepper0PvtButton.Location = new System.Drawing.Point(577, 4);
+         this.ReadE4MainStepper0PvtButton.Location = new System.Drawing.Point(583, 4);
          this.ReadE4MainStepper0PvtButton.Name = "ReadE4MainStepper0PvtButton";
          this.ReadE4MainStepper0PvtButton.Size = new System.Drawing.Size(43, 23);
          this.ReadE4MainStepper0PvtButton.TabIndex = 439;
@@ -3243,7 +3348,7 @@ namespace E4.DeviceTest
          // 
          // E4MainStepper0ActualCurrentTextBox
          // 
-         this.E4MainStepper0ActualCurrentTextBox.Location = new System.Drawing.Point(532, 6);
+         this.E4MainStepper0ActualCurrentTextBox.Location = new System.Drawing.Point(538, 6);
          this.E4MainStepper0ActualCurrentTextBox.Name = "E4MainStepper0ActualCurrentTextBox";
          this.E4MainStepper0ActualCurrentTextBox.Size = new System.Drawing.Size(39, 20);
          this.E4MainStepper0ActualCurrentTextBox.TabIndex = 436;
@@ -3251,7 +3356,7 @@ namespace E4.DeviceTest
          // label26
          // 
          this.label26.AutoSize = true;
-         this.label26.Location = new System.Drawing.Point(516, 9);
+         this.label26.Location = new System.Drawing.Point(522, 9);
          this.label26.Name = "label26";
          this.label26.Size = new System.Drawing.Size(14, 13);
          this.label26.TabIndex = 435;
@@ -3259,7 +3364,7 @@ namespace E4.DeviceTest
          // 
          // E4MainStepper0ActualPositionTextBox
          // 
-         this.E4MainStepper0ActualPositionTextBox.Location = new System.Drawing.Point(350, 6);
+         this.E4MainStepper0ActualPositionTextBox.Location = new System.Drawing.Point(356, 6);
          this.E4MainStepper0ActualPositionTextBox.Name = "E4MainStepper0ActualPositionTextBox";
          this.E4MainStepper0ActualPositionTextBox.Size = new System.Drawing.Size(69, 20);
          this.E4MainStepper0ActualPositionTextBox.TabIndex = 434;
@@ -3267,7 +3372,7 @@ namespace E4.DeviceTest
          // label27
          // 
          this.label27.AutoSize = true;
-         this.label27.Location = new System.Drawing.Point(334, 9);
+         this.label27.Location = new System.Drawing.Point(340, 9);
          this.label27.Name = "label27";
          this.label27.Size = new System.Drawing.Size(14, 13);
          this.label27.TabIndex = 433;
@@ -3275,7 +3380,7 @@ namespace E4.DeviceTest
          // 
          // E4MainStepper0ActualVelocityTextBox
          // 
-         this.E4MainStepper0ActualVelocityTextBox.Location = new System.Drawing.Point(441, 6);
+         this.E4MainStepper0ActualVelocityTextBox.Location = new System.Drawing.Point(447, 6);
          this.E4MainStepper0ActualVelocityTextBox.Name = "E4MainStepper0ActualVelocityTextBox";
          this.E4MainStepper0ActualVelocityTextBox.Size = new System.Drawing.Size(69, 20);
          this.E4MainStepper0ActualVelocityTextBox.TabIndex = 432;
@@ -3283,7 +3388,7 @@ namespace E4.DeviceTest
          // label28
          // 
          this.label28.AutoSize = true;
-         this.label28.Location = new System.Drawing.Point(425, 9);
+         this.label28.Location = new System.Drawing.Point(431, 9);
          this.label28.Name = "label28";
          this.label28.Size = new System.Drawing.Size(14, 13);
          this.label28.TabIndex = 431;
@@ -3301,7 +3406,7 @@ namespace E4.DeviceTest
          // 
          // E4MainStepper0StatusTextBox
          // 
-         this.E4MainStepper0StatusTextBox.Location = new System.Drawing.Point(279, 6);
+         this.E4MainStepper0StatusTextBox.Location = new System.Drawing.Point(285, 6);
          this.E4MainStepper0StatusTextBox.Name = "E4MainStepper0StatusTextBox";
          this.E4MainStepper0StatusTextBox.Size = new System.Drawing.Size(39, 20);
          this.E4MainStepper0StatusTextBox.TabIndex = 427;
@@ -3331,7 +3436,7 @@ namespace E4.DeviceTest
          // label30
          // 
          this.label30.AutoSize = true;
-         this.label30.Location = new System.Drawing.Point(240, 9);
+         this.label30.Location = new System.Drawing.Point(246, 9);
          this.label30.Name = "label30";
          this.label30.Size = new System.Drawing.Size(37, 13);
          this.label30.TabIndex = 426;
@@ -3340,7 +3445,7 @@ namespace E4.DeviceTest
          // label32
          // 
          this.label32.AutoSize = true;
-         this.label32.Location = new System.Drawing.Point(315, 6);
+         this.label32.Location = new System.Drawing.Point(321, 6);
          this.label32.Name = "label32";
          this.label32.Size = new System.Drawing.Size(13, 13);
          this.label32.TabIndex = 437;
@@ -3348,6 +3453,7 @@ namespace E4.DeviceTest
          // 
          // E4MainStepper1TabPage
          // 
+         this.E4MainStepper1TabPage.Controls.Add(this.ClearE4MainStepper1FaultButton);
          this.E4MainStepper1TabPage.Controls.Add(this.E4MainStepper1Panel);
          this.E4MainStepper1TabPage.Controls.Add(this.ReadE4MainStepper1PvtButton);
          this.E4MainStepper1TabPage.Controls.Add(this.E4MainStepper1ActualCurrentTextBox);
@@ -3370,14 +3476,24 @@ namespace E4.DeviceTest
          this.E4MainStepper1TabPage.Text = "Stepper1";
          this.E4MainStepper1TabPage.UseVisualStyleBackColor = true;
          // 
+         // ClearE4MainStepper1FaultButton
+         // 
+         this.ClearE4MainStepper1FaultButton.Location = new System.Drawing.Point(167, 4);
+         this.ClearE4MainStepper1FaultButton.Name = "ClearE4MainStepper1FaultButton";
+         this.ClearE4MainStepper1FaultButton.Size = new System.Drawing.Size(73, 23);
+         this.ClearE4MainStepper1FaultButton.TabIndex = 442;
+         this.ClearE4MainStepper1FaultButton.Text = "Clear Fault";
+         this.ClearE4MainStepper1FaultButton.UseVisualStyleBackColor = true;
+         this.ClearE4MainStepper1FaultButton.Click += new System.EventHandler(this.ClearE4MainStepper1FaultButton_Click);
+         // 
          // E4MainStepper1Panel
          // 
          this.E4MainStepper1Panel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
          this.E4MainStepper1Panel.AutoScroll = true;
-         this.E4MainStepper1Panel.Controls.Add(this.E4MainStepper1GroupBox);
-         this.E4MainStepper1Panel.Controls.Add(this.groupBox1);
+         this.E4MainStepper1Panel.Controls.Add(this.E4MainStepper1HomingGroupBox);
+         this.E4MainStepper1Panel.Controls.Add(this.E4MainStepper1PositionGroupBox);
          this.E4MainStepper1Panel.Controls.Add(this.E4MainStepper1EditHelperButton);
          this.E4MainStepper1Panel.Location = new System.Drawing.Point(3, 32);
          this.E4MainStepper1Panel.Name = "E4MainStepper1Panel";
@@ -3385,39 +3501,39 @@ namespace E4.DeviceTest
          this.E4MainStepper1Panel.TabIndex = 441;
          this.E4MainStepper1Panel.Scroll += new System.Windows.Forms.ScrollEventHandler(this.E4MainStepper1Panel_Scroll);
          // 
-         // E4MainStepper1GroupBox
+         // E4MainStepper1HomingGroupBox
          // 
-         this.E4MainStepper1GroupBox.Controls.Add(this.E4MainStepper1HomingAttainedLabel);
-         this.E4MainStepper1GroupBox.Controls.Add(this.RunE4MainStepper1HomingButton);
-         this.E4MainStepper1GroupBox.Controls.Add(this.HaltE4MainStepper1HomingButton);
-         this.E4MainStepper1GroupBox.Controls.Add(this.StopE4MainStepper1HomingButton);
-         this.E4MainStepper1GroupBox.Controls.Add(this.StartE4MainStepper1HomingButton);
-         this.E4MainStepper1GroupBox.Controls.Add(this.SetE4MainStepper1HomeOffsetButton);
-         this.E4MainStepper1GroupBox.Controls.Add(this.SetE4MainStepper1HomingMethodButton);
-         this.E4MainStepper1GroupBox.Controls.Add(this.GetE4MainStepper1HomingZeroSpeedButton);
-         this.E4MainStepper1GroupBox.Controls.Add(this.GetE4MainStepper1HomingSwitchSpeedButton);
-         this.E4MainStepper1GroupBox.Controls.Add(this.E4MainStepper1HomingSwitchSpeedTextBox);
-         this.E4MainStepper1GroupBox.Controls.Add(this.SetE4MainStepper1HomingSwitchSpeedButton);
-         this.E4MainStepper1GroupBox.Controls.Add(this.label49);
-         this.E4MainStepper1GroupBox.Controls.Add(this.label50);
-         this.E4MainStepper1GroupBox.Controls.Add(this.GetE4MainStepper1HomingMethodButton);
-         this.E4MainStepper1GroupBox.Controls.Add(this.E4MainStepper1HomingMethodTextBox);
-         this.E4MainStepper1GroupBox.Controls.Add(this.E4MainStepper1HomingZeroSpeedTextBox);
-         this.E4MainStepper1GroupBox.Controls.Add(this.SetE4MainStepper1HomingZeroSpeedButton);
-         this.E4MainStepper1GroupBox.Controls.Add(this.label52);
-         this.E4MainStepper1GroupBox.Controls.Add(this.E4MainStepper1HomingAccelerationTextBox);
-         this.E4MainStepper1GroupBox.Controls.Add(this.label53);
-         this.E4MainStepper1GroupBox.Controls.Add(this.label54);
-         this.E4MainStepper1GroupBox.Controls.Add(this.GetE4MainStepper1HomingAccelerationButton);
-         this.E4MainStepper1GroupBox.Controls.Add(this.SetE4MainStepper1HomingAccelerationButton);
-         this.E4MainStepper1GroupBox.Controls.Add(this.GetE4MainStepper1HomeOffsetButton);
-         this.E4MainStepper1GroupBox.Controls.Add(this.E4MainStepper1HomeOffsetTextBox);
-         this.E4MainStepper1GroupBox.Location = new System.Drawing.Point(3, 79);
-         this.E4MainStepper1GroupBox.Name = "E4MainStepper1GroupBox";
-         this.E4MainStepper1GroupBox.Size = new System.Drawing.Size(681, 70);
-         this.E4MainStepper1GroupBox.TabIndex = 422;
-         this.E4MainStepper1GroupBox.TabStop = false;
-         this.E4MainStepper1GroupBox.Text = "Homing";
+         this.E4MainStepper1HomingGroupBox.Controls.Add(this.E4MainStepper1HomingAttainedLabel);
+         this.E4MainStepper1HomingGroupBox.Controls.Add(this.RunE4MainStepper1HomingButton);
+         this.E4MainStepper1HomingGroupBox.Controls.Add(this.HaltE4MainStepper1HomingButton);
+         this.E4MainStepper1HomingGroupBox.Controls.Add(this.StopE4MainStepper1HomingButton);
+         this.E4MainStepper1HomingGroupBox.Controls.Add(this.StartE4MainStepper1HomingButton);
+         this.E4MainStepper1HomingGroupBox.Controls.Add(this.SetE4MainStepper1HomeOffsetButton);
+         this.E4MainStepper1HomingGroupBox.Controls.Add(this.SetE4MainStepper1HomingMethodButton);
+         this.E4MainStepper1HomingGroupBox.Controls.Add(this.GetE4MainStepper1HomingZeroSpeedButton);
+         this.E4MainStepper1HomingGroupBox.Controls.Add(this.GetE4MainStepper1HomingSwitchSpeedButton);
+         this.E4MainStepper1HomingGroupBox.Controls.Add(this.E4MainStepper1HomingSwitchSpeedTextBox);
+         this.E4MainStepper1HomingGroupBox.Controls.Add(this.SetE4MainStepper1HomingSwitchSpeedButton);
+         this.E4MainStepper1HomingGroupBox.Controls.Add(this.label49);
+         this.E4MainStepper1HomingGroupBox.Controls.Add(this.label50);
+         this.E4MainStepper1HomingGroupBox.Controls.Add(this.GetE4MainStepper1HomingMethodButton);
+         this.E4MainStepper1HomingGroupBox.Controls.Add(this.E4MainStepper1HomingMethodTextBox);
+         this.E4MainStepper1HomingGroupBox.Controls.Add(this.E4MainStepper1HomingZeroSpeedTextBox);
+         this.E4MainStepper1HomingGroupBox.Controls.Add(this.SetE4MainStepper1HomingZeroSpeedButton);
+         this.E4MainStepper1HomingGroupBox.Controls.Add(this.label52);
+         this.E4MainStepper1HomingGroupBox.Controls.Add(this.E4MainStepper1HomingAccelerationTextBox);
+         this.E4MainStepper1HomingGroupBox.Controls.Add(this.label53);
+         this.E4MainStepper1HomingGroupBox.Controls.Add(this.label54);
+         this.E4MainStepper1HomingGroupBox.Controls.Add(this.GetE4MainStepper1HomingAccelerationButton);
+         this.E4MainStepper1HomingGroupBox.Controls.Add(this.SetE4MainStepper1HomingAccelerationButton);
+         this.E4MainStepper1HomingGroupBox.Controls.Add(this.GetE4MainStepper1HomeOffsetButton);
+         this.E4MainStepper1HomingGroupBox.Controls.Add(this.E4MainStepper1HomeOffsetTextBox);
+         this.E4MainStepper1HomingGroupBox.Location = new System.Drawing.Point(3, 79);
+         this.E4MainStepper1HomingGroupBox.Name = "E4MainStepper1HomingGroupBox";
+         this.E4MainStepper1HomingGroupBox.Size = new System.Drawing.Size(681, 70);
+         this.E4MainStepper1HomingGroupBox.TabIndex = 422;
+         this.E4MainStepper1HomingGroupBox.TabStop = false;
+         this.E4MainStepper1HomingGroupBox.Text = "Homing";
          // 
          // E4MainStepper1HomingAttainedLabel
          // 
@@ -3648,27 +3764,27 @@ namespace E4.DeviceTest
          this.E4MainStepper1HomeOffsetTextBox.Size = new System.Drawing.Size(59, 20);
          this.E4MainStepper1HomeOffsetTextBox.TabIndex = 387;
          // 
-         // groupBox1
+         // E4MainStepper1PositionGroupBox
          // 
-         this.groupBox1.Controls.Add(this.GetE4MainStepper1ProfileAccelerationButton);
-         this.groupBox1.Controls.Add(this.label40);
-         this.groupBox1.Controls.Add(this.SetE4MainStepper1ProfileAccelerationButton);
-         this.groupBox1.Controls.Add(this.E4MainStepper1ProfileAccelerationTextBox);
-         this.groupBox1.Controls.Add(this.E4MainStepper1PositionAttainedLabel);
-         this.groupBox1.Controls.Add(this.GetE4MainStepper1ProfileVelocityButton);
-         this.groupBox1.Controls.Add(this.label47);
-         this.groupBox1.Controls.Add(this.GetE4MainStepper1TargetPositionButton);
-         this.groupBox1.Controls.Add(this.SetE4MainStepper1ProfileVelocityButton);
-         this.groupBox1.Controls.Add(this.E4MainStepper1ProfileVelocityTextBox);
-         this.groupBox1.Controls.Add(this.E4MainStepper1TargetPositionTextBox);
-         this.groupBox1.Controls.Add(this.label48);
-         this.groupBox1.Controls.Add(this.SetE4MainStepper1TargetPositionButton);
-         this.groupBox1.Location = new System.Drawing.Point(3, 3);
-         this.groupBox1.Name = "groupBox1";
-         this.groupBox1.Size = new System.Drawing.Size(681, 70);
-         this.groupBox1.TabIndex = 421;
-         this.groupBox1.TabStop = false;
-         this.groupBox1.Text = "Position";
+         this.E4MainStepper1PositionGroupBox.Controls.Add(this.GetE4MainStepper1ProfileAccelerationButton);
+         this.E4MainStepper1PositionGroupBox.Controls.Add(this.label40);
+         this.E4MainStepper1PositionGroupBox.Controls.Add(this.SetE4MainStepper1ProfileAccelerationButton);
+         this.E4MainStepper1PositionGroupBox.Controls.Add(this.E4MainStepper1ProfileAccelerationTextBox);
+         this.E4MainStepper1PositionGroupBox.Controls.Add(this.E4MainStepper1PositionAttainedLabel);
+         this.E4MainStepper1PositionGroupBox.Controls.Add(this.GetE4MainStepper1ProfileVelocityButton);
+         this.E4MainStepper1PositionGroupBox.Controls.Add(this.label47);
+         this.E4MainStepper1PositionGroupBox.Controls.Add(this.GetE4MainStepper1TargetPositionButton);
+         this.E4MainStepper1PositionGroupBox.Controls.Add(this.SetE4MainStepper1ProfileVelocityButton);
+         this.E4MainStepper1PositionGroupBox.Controls.Add(this.E4MainStepper1ProfileVelocityTextBox);
+         this.E4MainStepper1PositionGroupBox.Controls.Add(this.E4MainStepper1TargetPositionTextBox);
+         this.E4MainStepper1PositionGroupBox.Controls.Add(this.label48);
+         this.E4MainStepper1PositionGroupBox.Controls.Add(this.SetE4MainStepper1TargetPositionButton);
+         this.E4MainStepper1PositionGroupBox.Location = new System.Drawing.Point(3, 3);
+         this.E4MainStepper1PositionGroupBox.Name = "E4MainStepper1PositionGroupBox";
+         this.E4MainStepper1PositionGroupBox.Size = new System.Drawing.Size(681, 70);
+         this.E4MainStepper1PositionGroupBox.TabIndex = 421;
+         this.E4MainStepper1PositionGroupBox.TabStop = false;
+         this.E4MainStepper1PositionGroupBox.Text = "Position";
          // 
          // GetE4MainStepper1ProfileAccelerationButton
          // 
@@ -3798,7 +3914,7 @@ namespace E4.DeviceTest
          // 
          // ReadE4MainStepper1PvtButton
          // 
-         this.ReadE4MainStepper1PvtButton.Location = new System.Drawing.Point(577, 4);
+         this.ReadE4MainStepper1PvtButton.Location = new System.Drawing.Point(583, 4);
          this.ReadE4MainStepper1PvtButton.Name = "ReadE4MainStepper1PvtButton";
          this.ReadE4MainStepper1PvtButton.Size = new System.Drawing.Size(43, 23);
          this.ReadE4MainStepper1PvtButton.TabIndex = 438;
@@ -3808,7 +3924,7 @@ namespace E4.DeviceTest
          // 
          // E4MainStepper1ActualCurrentTextBox
          // 
-         this.E4MainStepper1ActualCurrentTextBox.Location = new System.Drawing.Point(532, 6);
+         this.E4MainStepper1ActualCurrentTextBox.Location = new System.Drawing.Point(538, 6);
          this.E4MainStepper1ActualCurrentTextBox.Name = "E4MainStepper1ActualCurrentTextBox";
          this.E4MainStepper1ActualCurrentTextBox.Size = new System.Drawing.Size(39, 20);
          this.E4MainStepper1ActualCurrentTextBox.TabIndex = 436;
@@ -3816,7 +3932,7 @@ namespace E4.DeviceTest
          // label33
          // 
          this.label33.AutoSize = true;
-         this.label33.Location = new System.Drawing.Point(516, 9);
+         this.label33.Location = new System.Drawing.Point(522, 9);
          this.label33.Name = "label33";
          this.label33.Size = new System.Drawing.Size(14, 13);
          this.label33.TabIndex = 435;
@@ -3824,7 +3940,7 @@ namespace E4.DeviceTest
          // 
          // E4MainStepper1ActualPositionTextBox
          // 
-         this.E4MainStepper1ActualPositionTextBox.Location = new System.Drawing.Point(350, 6);
+         this.E4MainStepper1ActualPositionTextBox.Location = new System.Drawing.Point(356, 6);
          this.E4MainStepper1ActualPositionTextBox.Name = "E4MainStepper1ActualPositionTextBox";
          this.E4MainStepper1ActualPositionTextBox.Size = new System.Drawing.Size(69, 20);
          this.E4MainStepper1ActualPositionTextBox.TabIndex = 434;
@@ -3832,7 +3948,7 @@ namespace E4.DeviceTest
          // label34
          // 
          this.label34.AutoSize = true;
-         this.label34.Location = new System.Drawing.Point(334, 9);
+         this.label34.Location = new System.Drawing.Point(340, 9);
          this.label34.Name = "label34";
          this.label34.Size = new System.Drawing.Size(14, 13);
          this.label34.TabIndex = 433;
@@ -3840,7 +3956,7 @@ namespace E4.DeviceTest
          // 
          // E4MainStepper1ActualVelocityTextBox
          // 
-         this.E4MainStepper1ActualVelocityTextBox.Location = new System.Drawing.Point(441, 6);
+         this.E4MainStepper1ActualVelocityTextBox.Location = new System.Drawing.Point(447, 6);
          this.E4MainStepper1ActualVelocityTextBox.Name = "E4MainStepper1ActualVelocityTextBox";
          this.E4MainStepper1ActualVelocityTextBox.Size = new System.Drawing.Size(69, 20);
          this.E4MainStepper1ActualVelocityTextBox.TabIndex = 432;
@@ -3848,7 +3964,7 @@ namespace E4.DeviceTest
          // label35
          // 
          this.label35.AutoSize = true;
-         this.label35.Location = new System.Drawing.Point(425, 9);
+         this.label35.Location = new System.Drawing.Point(431, 9);
          this.label35.Name = "label35";
          this.label35.Size = new System.Drawing.Size(14, 13);
          this.label35.TabIndex = 431;
@@ -3866,7 +3982,7 @@ namespace E4.DeviceTest
          // 
          // E4MainStepper1StatusTextBox
          // 
-         this.E4MainStepper1StatusTextBox.Location = new System.Drawing.Point(279, 6);
+         this.E4MainStepper1StatusTextBox.Location = new System.Drawing.Point(285, 6);
          this.E4MainStepper1StatusTextBox.Name = "E4MainStepper1StatusTextBox";
          this.E4MainStepper1StatusTextBox.Size = new System.Drawing.Size(39, 20);
          this.E4MainStepper1StatusTextBox.TabIndex = 427;
@@ -3896,7 +4012,7 @@ namespace E4.DeviceTest
          // label37
          // 
          this.label37.AutoSize = true;
-         this.label37.Location = new System.Drawing.Point(240, 9);
+         this.label37.Location = new System.Drawing.Point(246, 9);
          this.label37.Name = "label37";
          this.label37.Size = new System.Drawing.Size(37, 13);
          this.label37.TabIndex = 426;
@@ -3905,7 +4021,7 @@ namespace E4.DeviceTest
          // label39
          // 
          this.label39.AutoSize = true;
-         this.label39.Location = new System.Drawing.Point(315, 6);
+         this.label39.Location = new System.Drawing.Point(321, 6);
          this.label39.Name = "label39";
          this.label39.Size = new System.Drawing.Size(13, 13);
          this.label39.TabIndex = 437;
@@ -3914,7 +4030,7 @@ namespace E4.DeviceTest
          // label9
          // 
          this.label9.AutoSize = true;
-         this.label9.Location = new System.Drawing.Point(289, 60);
+         this.label9.Location = new System.Drawing.Point(114, 61);
          this.label9.Name = "label9";
          this.label9.Size = new System.Drawing.Size(76, 13);
          this.label9.TabIndex = 281;
@@ -3922,7 +4038,7 @@ namespace E4.DeviceTest
          // 
          // E4MainLaserScannerTextBox
          // 
-         this.E4MainLaserScannerTextBox.Location = new System.Drawing.Point(367, 57);
+         this.E4MainLaserScannerTextBox.Location = new System.Drawing.Point(192, 58);
          this.E4MainLaserScannerTextBox.Name = "E4MainLaserScannerTextBox";
          this.E4MainLaserScannerTextBox.Size = new System.Drawing.Size(25, 20);
          this.E4MainLaserScannerTextBox.TabIndex = 280;
@@ -3932,7 +4048,7 @@ namespace E4.DeviceTest
          // label8
          // 
          this.label8.AutoSize = true;
-         this.label8.Location = new System.Drawing.Point(287, 37);
+         this.label8.Location = new System.Drawing.Point(112, 38);
          this.label8.Name = "label8";
          this.label8.Size = new System.Drawing.Size(78, 13);
          this.label8.TabIndex = 279;
@@ -3940,7 +4056,7 @@ namespace E4.DeviceTest
          // 
          // E4MainLaserDistanceTextBox
          // 
-         this.E4MainLaserDistanceTextBox.Location = new System.Drawing.Point(367, 34);
+         this.E4MainLaserDistanceTextBox.Location = new System.Drawing.Point(192, 35);
          this.E4MainLaserDistanceTextBox.Name = "E4MainLaserDistanceTextBox";
          this.E4MainLaserDistanceTextBox.Size = new System.Drawing.Size(64, 20);
          this.E4MainLaserDistanceTextBox.TabIndex = 278;
@@ -3950,7 +4066,7 @@ namespace E4.DeviceTest
          // label6
          // 
          this.label6.AutoSize = true;
-         this.label6.Location = new System.Drawing.Point(541, 57);
+         this.label6.Location = new System.Drawing.Point(414, 57);
          this.label6.Name = "label6";
          this.label6.Size = new System.Drawing.Size(75, 13);
          this.label6.TabIndex = 277;
@@ -3959,7 +4075,7 @@ namespace E4.DeviceTest
          // label5
          // 
          this.label5.AutoSize = true;
-         this.label5.Location = new System.Drawing.Point(538, 34);
+         this.label5.Location = new System.Drawing.Point(411, 34);
          this.label5.Name = "label5";
          this.label5.Size = new System.Drawing.Size(78, 13);
          this.label5.TabIndex = 276;
@@ -3967,7 +4083,7 @@ namespace E4.DeviceTest
          // 
          // E4MainMainBoardIcuYawTextBox
          // 
-         this.E4MainMainBoardIcuYawTextBox.Location = new System.Drawing.Point(618, 54);
+         this.E4MainMainBoardIcuYawTextBox.Location = new System.Drawing.Point(491, 54);
          this.E4MainMainBoardIcuYawTextBox.Name = "E4MainMainBoardIcuYawTextBox";
          this.E4MainMainBoardIcuYawTextBox.Size = new System.Drawing.Size(38, 20);
          this.E4MainMainBoardIcuYawTextBox.TabIndex = 275;
@@ -3976,7 +4092,7 @@ namespace E4.DeviceTest
          // 
          // E4MainMainBoardIcuPitchTextBox
          // 
-         this.E4MainMainBoardIcuPitchTextBox.Location = new System.Drawing.Point(618, 31);
+         this.E4MainMainBoardIcuPitchTextBox.Location = new System.Drawing.Point(491, 31);
          this.E4MainMainBoardIcuPitchTextBox.Name = "E4MainMainBoardIcuPitchTextBox";
          this.E4MainMainBoardIcuPitchTextBox.Size = new System.Drawing.Size(38, 20);
          this.E4MainMainBoardIcuPitchTextBox.TabIndex = 274;
@@ -3985,7 +4101,7 @@ namespace E4.DeviceTest
          // 
          // E4MainMainBoardIcuRollTextBox
          // 
-         this.E4MainMainBoardIcuRollTextBox.Location = new System.Drawing.Point(618, 8);
+         this.E4MainMainBoardIcuRollTextBox.Location = new System.Drawing.Point(491, 8);
          this.E4MainMainBoardIcuRollTextBox.Name = "E4MainMainBoardIcuRollTextBox";
          this.E4MainMainBoardIcuRollTextBox.Size = new System.Drawing.Size(38, 20);
          this.E4MainMainBoardIcuRollTextBox.TabIndex = 273;
@@ -3995,7 +4111,7 @@ namespace E4.DeviceTest
          // label4
          // 
          this.label4.AutoSize = true;
-         this.label4.Location = new System.Drawing.Point(544, 11);
+         this.label4.Location = new System.Drawing.Point(417, 11);
          this.label4.Name = "label4";
          this.label4.Size = new System.Drawing.Size(72, 13);
          this.label4.TabIndex = 272;
@@ -4003,7 +4119,7 @@ namespace E4.DeviceTest
          // 
          // E4MainMcuTemperatureTextBox
          // 
-         this.E4MainMcuTemperatureTextBox.Location = new System.Drawing.Point(400, 8);
+         this.E4MainMcuTemperatureTextBox.Location = new System.Drawing.Point(374, 8);
          this.E4MainMcuTemperatureTextBox.Name = "E4MainMcuTemperatureTextBox";
          this.E4MainMcuTemperatureTextBox.Size = new System.Drawing.Size(31, 20);
          this.E4MainMcuTemperatureTextBox.TabIndex = 271;
@@ -4013,7 +4129,7 @@ namespace E4.DeviceTest
          // label3
          // 
          this.label3.AutoSize = true;
-         this.label3.Location = new System.Drawing.Point(304, 11);
+         this.label3.Location = new System.Drawing.Point(278, 11);
          this.label3.Name = "label3";
          this.label3.Size = new System.Drawing.Size(94, 13);
          this.label3.TabIndex = 270;
@@ -4090,20 +4206,20 @@ namespace E4.DeviceTest
          // label64
          // 
          this.label64.AutoSize = true;
-         this.label64.Location = new System.Drawing.Point(391, 57);
+         this.label64.Location = new System.Drawing.Point(216, 58);
          this.label64.Name = "label64";
          this.label64.Size = new System.Drawing.Size(13, 13);
          this.label64.TabIndex = 396;
          this.label64.Text = "h";
          // 
-         // splitter1
+         // ControlSplitter
          // 
-         this.splitter1.Dock = System.Windows.Forms.DockStyle.Bottom;
-         this.splitter1.Location = new System.Drawing.Point(0, 161);
-         this.splitter1.Name = "splitter1";
-         this.splitter1.Size = new System.Drawing.Size(742, 3);
-         this.splitter1.TabIndex = 44;
-         this.splitter1.TabStop = false;
+         this.ControlSplitter.Dock = System.Windows.Forms.DockStyle.Bottom;
+         this.ControlSplitter.Location = new System.Drawing.Point(0, 161);
+         this.ControlSplitter.Name = "ControlSplitter";
+         this.ControlSplitter.Size = new System.Drawing.Size(742, 3);
+         this.ControlSplitter.TabIndex = 44;
+         this.ControlSplitter.TabStop = false;
          // 
          // MainActivityPanel
          // 
@@ -4114,49 +4230,77 @@ namespace E4.DeviceTest
          this.MainActivityPanel.Size = new System.Drawing.Size(742, 161);
          this.MainActivityPanel.TabIndex = 45;
          // 
-         // E4MainBldc0TuningVelocityRadioButton
+         // E4MainDcLinkVoltageTextBox
          // 
-         this.E4MainBldc0TuningVelocityRadioButton.AutoSize = true;
-         this.E4MainBldc0TuningVelocityRadioButton.Location = new System.Drawing.Point(71, 18);
-         this.E4MainBldc0TuningVelocityRadioButton.Name = "E4MainBldc0TuningVelocityRadioButton";
-         this.E4MainBldc0TuningVelocityRadioButton.Size = new System.Drawing.Size(32, 17);
-         this.E4MainBldc0TuningVelocityRadioButton.TabIndex = 433;
-         this.E4MainBldc0TuningVelocityRadioButton.TabStop = true;
-         this.E4MainBldc0TuningVelocityRadioButton.Text = "V";
-         this.E4MainBldc0TuningVelocityRadioButton.UseVisualStyleBackColor = true;
+         this.E4MainDcLinkVoltageTextBox.Location = new System.Drawing.Point(374, 31);
+         this.E4MainDcLinkVoltageTextBox.Name = "E4MainDcLinkVoltageTextBox";
+         this.E4MainDcLinkVoltageTextBox.Size = new System.Drawing.Size(31, 20);
+         this.E4MainDcLinkVoltageTextBox.TabIndex = 398;
+         this.E4MainDcLinkVoltageTextBox.Text = "255";
+         this.E4MainDcLinkVoltageTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
          // 
-         // E4MainBldc0TuningPositionRadioButton
+         // label67
          // 
-         this.E4MainBldc0TuningPositionRadioButton.AutoSize = true;
-         this.E4MainBldc0TuningPositionRadioButton.Location = new System.Drawing.Point(109, 18);
-         this.E4MainBldc0TuningPositionRadioButton.Name = "E4MainBldc0TuningPositionRadioButton";
-         this.E4MainBldc0TuningPositionRadioButton.Size = new System.Drawing.Size(32, 17);
-         this.E4MainBldc0TuningPositionRadioButton.TabIndex = 434;
-         this.E4MainBldc0TuningPositionRadioButton.TabStop = true;
-         this.E4MainBldc0TuningPositionRadioButton.Text = "P";
-         this.E4MainBldc0TuningPositionRadioButton.UseVisualStyleBackColor = true;
+         this.label67.AutoSize = true;
+         this.label67.Location = new System.Drawing.Point(288, 34);
+         this.label67.Name = "label67";
+         this.label67.Size = new System.Drawing.Size(84, 13);
+         this.label67.TabIndex = 397;
+         this.label67.Text = "DC Link Voltage";
          // 
-         // E4MainBldc1TuningPositionRadioButton
+         // label68
          // 
-         this.E4MainBldc1TuningPositionRadioButton.AutoSize = true;
-         this.E4MainBldc1TuningPositionRadioButton.Location = new System.Drawing.Point(109, 18);
-         this.E4MainBldc1TuningPositionRadioButton.Name = "E4MainBldc1TuningPositionRadioButton";
-         this.E4MainBldc1TuningPositionRadioButton.Size = new System.Drawing.Size(32, 17);
-         this.E4MainBldc1TuningPositionRadioButton.TabIndex = 436;
-         this.E4MainBldc1TuningPositionRadioButton.TabStop = true;
-         this.E4MainBldc1TuningPositionRadioButton.Text = "P";
-         this.E4MainBldc1TuningPositionRadioButton.UseVisualStyleBackColor = true;
+         this.label68.AutoSize = true;
+         this.label68.Location = new System.Drawing.Point(538, 57);
+         this.label68.Name = "label68";
+         this.label68.Size = new System.Drawing.Size(83, 13);
+         this.label68.TabIndex = 404;
+         this.label68.Text = "Target ICU Yaw";
          // 
-         // E4MainBldc1TuningVelocityRadioButton
+         // label69
          // 
-         this.E4MainBldc1TuningVelocityRadioButton.AutoSize = true;
-         this.E4MainBldc1TuningVelocityRadioButton.Location = new System.Drawing.Point(71, 18);
-         this.E4MainBldc1TuningVelocityRadioButton.Name = "E4MainBldc1TuningVelocityRadioButton";
-         this.E4MainBldc1TuningVelocityRadioButton.Size = new System.Drawing.Size(32, 17);
-         this.E4MainBldc1TuningVelocityRadioButton.TabIndex = 435;
-         this.E4MainBldc1TuningVelocityRadioButton.TabStop = true;
-         this.E4MainBldc1TuningVelocityRadioButton.Text = "V";
-         this.E4MainBldc1TuningVelocityRadioButton.UseVisualStyleBackColor = true;
+         this.label69.AutoSize = true;
+         this.label69.Location = new System.Drawing.Point(535, 34);
+         this.label69.Name = "label69";
+         this.label69.Size = new System.Drawing.Size(86, 13);
+         this.label69.TabIndex = 403;
+         this.label69.Text = "Target ICU Pitch";
+         // 
+         // E4MainTargetBoardIcuYawTextBox
+         // 
+         this.E4MainTargetBoardIcuYawTextBox.Location = new System.Drawing.Point(623, 54);
+         this.E4MainTargetBoardIcuYawTextBox.Name = "E4MainTargetBoardIcuYawTextBox";
+         this.E4MainTargetBoardIcuYawTextBox.Size = new System.Drawing.Size(38, 20);
+         this.E4MainTargetBoardIcuYawTextBox.TabIndex = 402;
+         this.E4MainTargetBoardIcuYawTextBox.Text = "-179.3";
+         this.E4MainTargetBoardIcuYawTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+         // 
+         // E4MainTargetBoardIcuPitchTextBox
+         // 
+         this.E4MainTargetBoardIcuPitchTextBox.Location = new System.Drawing.Point(623, 31);
+         this.E4MainTargetBoardIcuPitchTextBox.Name = "E4MainTargetBoardIcuPitchTextBox";
+         this.E4MainTargetBoardIcuPitchTextBox.Size = new System.Drawing.Size(38, 20);
+         this.E4MainTargetBoardIcuPitchTextBox.TabIndex = 401;
+         this.E4MainTargetBoardIcuPitchTextBox.Text = "-179.3";
+         this.E4MainTargetBoardIcuPitchTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+         // 
+         // E4MainTargetBoardIcuRollTextBox
+         // 
+         this.E4MainTargetBoardIcuRollTextBox.Location = new System.Drawing.Point(623, 8);
+         this.E4MainTargetBoardIcuRollTextBox.Name = "E4MainTargetBoardIcuRollTextBox";
+         this.E4MainTargetBoardIcuRollTextBox.Size = new System.Drawing.Size(38, 20);
+         this.E4MainTargetBoardIcuRollTextBox.TabIndex = 400;
+         this.E4MainTargetBoardIcuRollTextBox.Text = "-179.3";
+         this.E4MainTargetBoardIcuRollTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+         // 
+         // label70
+         // 
+         this.label70.AutoSize = true;
+         this.label70.Location = new System.Drawing.Point(541, 11);
+         this.label70.Name = "label70";
+         this.label70.Size = new System.Drawing.Size(80, 13);
+         this.label70.TabIndex = 399;
+         this.label70.Text = "Target ICU Roll";
          // 
          // MainForm
          // 
@@ -4164,7 +4308,7 @@ namespace E4.DeviceTest
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
          this.ClientSize = new System.Drawing.Size(742, 480);
          this.Controls.Add(this.MainActivityPanel);
-         this.Controls.Add(this.splitter1);
+         this.Controls.Add(this.ControlSplitter);
          this.Controls.Add(this.MainTabControl);
          this.Controls.Add(this.MainStatusStrip);
          this.MinimumSize = new System.Drawing.Size(750, 300);
@@ -4225,10 +4369,10 @@ namespace E4.DeviceTest
          this.E4MainStepper1TabPage.ResumeLayout(false);
          this.E4MainStepper1TabPage.PerformLayout();
          this.E4MainStepper1Panel.ResumeLayout(false);
-         this.E4MainStepper1GroupBox.ResumeLayout(false);
-         this.E4MainStepper1GroupBox.PerformLayout();
-         this.groupBox1.ResumeLayout(false);
-         this.groupBox1.PerformLayout();
+         this.E4MainStepper1HomingGroupBox.ResumeLayout(false);
+         this.E4MainStepper1HomingGroupBox.PerformLayout();
+         this.E4MainStepper1PositionGroupBox.ResumeLayout(false);
+         this.E4MainStepper1PositionGroupBox.PerformLayout();
          this.MainActivityPanel.ResumeLayout(false);
          this.ResumeLayout(false);
          this.PerformLayout();
@@ -4269,7 +4413,7 @@ namespace E4.DeviceTest
       private System.Windows.Forms.Button HeartbeatActivityButton;
       private System.Windows.Forms.Label label98;
       private System.Windows.Forms.TextBox HeartbeatNodeIdTextBox;
-      private System.Windows.Forms.Splitter splitter1;
+      private System.Windows.Forms.Splitter ControlSplitter;
       private System.Windows.Forms.Panel MainActivityPanel;
       private System.Windows.Forms.TabPage DownloadTabPage;
       private System.Windows.Forms.Button DownloadActivityButton;
@@ -4491,7 +4635,7 @@ namespace E4.DeviceTest
       private System.Windows.Forms.TextBox E4MainStepper0TargetPositionTextBox;
       private System.Windows.Forms.Label label42;
       private System.Windows.Forms.Button SetE4MainStepper0TargetPositionButton;
-      private System.Windows.Forms.GroupBox groupBox1;
+      private System.Windows.Forms.GroupBox E4MainStepper1PositionGroupBox;
       private System.Windows.Forms.Button GetE4MainStepper1ProfileAccelerationButton;
       private System.Windows.Forms.Label label40;
       private System.Windows.Forms.Button SetE4MainStepper1ProfileAccelerationButton;
@@ -4531,7 +4675,7 @@ namespace E4.DeviceTest
       private System.Windows.Forms.Button SetE4MainStepper0HomingAccelerationButton;
       private System.Windows.Forms.Button GetE4MainStepper0HomeOffsetButton;
       private System.Windows.Forms.TextBox E4MainStepper0HomeOffsetTextBox;
-      private System.Windows.Forms.GroupBox E4MainStepper1GroupBox;
+      private System.Windows.Forms.GroupBox E4MainStepper1HomingGroupBox;
       private System.Windows.Forms.Label E4MainStepper1HomingAttainedLabel;
       private System.Windows.Forms.Button RunE4MainStepper1HomingButton;
       private System.Windows.Forms.Button HaltE4MainStepper1HomingButton;
@@ -4574,30 +4718,30 @@ namespace E4.DeviceTest
       private System.Windows.Forms.Label label45;
       private System.Windows.Forms.Button ReadE4MainTargetIcuDirectionsButton;
       private System.Windows.Forms.TabPage E4MainLaserTabPage;
-      private System.Windows.Forms.Button button1;
-      private System.Windows.Forms.Button button2;
+      private System.Windows.Forms.Button SetE4MainLaserAimOffButton;
+      private System.Windows.Forms.Button SetE4MainLaserAimOnButton;
       private System.Windows.Forms.Label label60;
       private System.Windows.Forms.Label label59;
-      private System.Windows.Forms.Button button5;
-      private System.Windows.Forms.TextBox textBox2;
-      private System.Windows.Forms.Button button3;
-      private System.Windows.Forms.TextBox textBox1;
+      private System.Windows.Forms.Button GetE4MainLaserReadDistanceButton;
+      private System.Windows.Forms.TextBox E4MainLaserReadDistanceTextBox;
+      private System.Windows.Forms.Button GetE4MainLaserTimeToMeasureButton;
+      private System.Windows.Forms.TextBox E4MainLaserTimeToMeasureTextBox;
       private System.Windows.Forms.Label label58;
-      private System.Windows.Forms.Button button4;
-      private System.Windows.Forms.Button button8;
-      private System.Windows.Forms.TextBox textBox3;
+      private System.Windows.Forms.Button SetE4MainLaserTimeToMeasureButton;
+      private System.Windows.Forms.Button GetE4MainLaserRangeFinderTemperatureButton;
+      private System.Windows.Forms.TextBox E4MainLaserRangeFinderTemperatureTextBox;
       private System.Windows.Forms.Label label62;
-      private System.Windows.Forms.Button button6;
-      private System.Windows.Forms.Button button7;
-      private System.Windows.Forms.TextBox LaserScannerPositionTextBox;
+      private System.Windows.Forms.Button GetE4MainLaserControlByteButton;
+      private System.Windows.Forms.Button SetE4MainLaserControlByteButton;
+      private System.Windows.Forms.TextBox E4MainLaserControlByteTextBox;
       private System.Windows.Forms.Label label61;
       private System.Windows.Forms.GroupBox E4MainLaserScannerGroupBox;
-      private System.Windows.Forms.Button button10;
+      private System.Windows.Forms.Button GetE4MainLaserScannerPositionButton;
       private System.Windows.Forms.Label label65;
-      private System.Windows.Forms.TextBox textBox5;
+      private System.Windows.Forms.TextBox E4MainLaserReadScannerTextBox;
       private System.Windows.Forms.Label label66;
-      private System.Windows.Forms.Button button9;
-      private System.Windows.Forms.TextBox textBox4;
+      private System.Windows.Forms.Button GetE4MainLaserScannerTemperatureButton;
+      private System.Windows.Forms.TextBox E4MainLaserScannerTemperatureTextBox;
       private System.Windows.Forms.Label label63;
       private System.Windows.Forms.GroupBox E4MainLaserRangeFinderGroupBox;
       private System.Windows.Forms.Label label64;
@@ -4605,6 +4749,18 @@ namespace E4.DeviceTest
       private System.Windows.Forms.RadioButton E4MainBldc0TuningVelocityRadioButton;
       private System.Windows.Forms.RadioButton E4MainBldc1TuningPositionRadioButton;
       private System.Windows.Forms.RadioButton E4MainBldc1TuningVelocityRadioButton;
+      private System.Windows.Forms.Button ClearE4MainBldc0FaultButton;
+      private System.Windows.Forms.Button ClearE4MainBldc1FaultButton;
+      private System.Windows.Forms.Button ClearE4MainStepper0FaultButton;
+      private System.Windows.Forms.Button ClearE4MainStepper1FaultButton;
+      private System.Windows.Forms.TextBox E4MainDcLinkVoltageTextBox;
+      private System.Windows.Forms.Label label67;
+      private System.Windows.Forms.Label label68;
+      private System.Windows.Forms.Label label69;
+      private System.Windows.Forms.TextBox E4MainTargetBoardIcuYawTextBox;
+      private System.Windows.Forms.TextBox E4MainTargetBoardIcuPitchTextBox;
+      private System.Windows.Forms.TextBox E4MainTargetBoardIcuRollTextBox;
+      private System.Windows.Forms.Label label70;
    }
 }
 

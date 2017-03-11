@@ -132,6 +132,62 @@ namespace E4.CAN
          return (result);
       }
 
+      private bool SetBldc0ControlWord(UInt16 controlWord)
+      {
+         bool result = true;
+
+         result &= this.ExchangeCommAction(new SDODownload(0x6040, 0, 2, controlWord));
+
+         if (false != result)
+         {
+            this.bldc0ControlWord = controlWord;
+         }
+
+         return (result);
+      }
+
+      private bool SetBldc1ControlWord(UInt16 controlWord)
+      {
+         bool result = true;
+
+         result &= this.ExchangeCommAction(new SDODownload(0x6840, 0, 2, controlWord));
+
+         if (false != result)
+         {
+            this.bldc1ControlWord = controlWord;
+         }
+
+         return (result);
+      }
+
+      private bool SetStepper0ControlWord(UInt16 controlWord)
+      {
+         bool result = true;
+
+         result &= this.ExchangeCommAction(new SDODownload(0x7040, 0, 2, controlWord));
+
+         if (false != result)
+         {
+            this.stepper0ControlWord = controlWord;
+         }
+
+         return (result);
+      }
+
+      private bool SetStepper1ControlWord(UInt16 controlWord)
+      {
+         bool result = true;
+
+         result &= this.ExchangeCommAction(new SDODownload(0x7840, 0, 2, controlWord));
+
+         if (false != result)
+         {
+            this.stepper1ControlWord = controlWord;
+         }
+
+         return (result);
+      }
+
       #endregion
 
       #region Properties
@@ -165,7 +221,11 @@ namespace E4.CAN
       public double MainBoardImuRoll { set; get; }
       public double MainBoardImuPitch { set; get; }
       public double MainBoardImuYaw { set; get; }
+      public double TargetBoardImuRoll { set; get; }
+      public double TargetBoardImuPitch { set; get; }
+      public double TargetBoardImuYaw { set; get; }
       public double McuTemperature { set; get; }
+      public byte DcLinkVoltage { set; get; }
 
       public double LaserMeasuredDistance { set; get; }
       public byte LaserScannerPosition { set; get; }
@@ -217,6 +277,11 @@ namespace E4.CAN
                   {
                      this.SetWarning(reason);
                   }
+               }
+               else
+               {
+                  this.ClearFault();
+                  this.ClearWarning();
                }
             }
             else if (COBTypes.TPDO1 == frameType)
@@ -277,10 +342,11 @@ namespace E4.CAN
             }
             else if (COBTypes.TPDO4 == frameType)
             {
-               if ((null != msg) && (msg.Length >= 2))
+               if ((null != msg) && (msg.Length >= 3))
                {
                   this.Bldc0Temperature = this.GetSignedTemperature(msg[0]);
                   this.Bldc1Temperature = this.GetSignedTemperature(msg[1]);
+                  this.DcLinkVoltage = msg[2];
                }
             }
          }
@@ -298,19 +364,21 @@ namespace E4.CAN
             }
             else if (COBTypes.TPDO2 == frameType) // TPDO6
             {
-               if ((null != msg) && (msg.Length >= 5))
+               if ((null != msg) && (msg.Length >= 7))
                {
                   this.LaserMeasuredDistance = ((double)BitConverter.ToUInt32(msg, 0) / 1);
                   this.LaserScannerPosition = msg[4];
+                  this.TargetBoardImuRoll = ((double)BitConverter.ToInt16(msg, 5) / 16);
                }
             }
             else if (COBTypes.TPDO3 == frameType) // TPDO7
             {
-               if ((null != msg) && (msg.Length >= 4))
+               if ((null != msg) && (msg.Length >= 8))
                {
                   this.Stepper0Status = BitConverter.ToUInt16(msg, 0);
                   this.Stepper1Status = BitConverter.ToUInt16(msg, 2);
-
+                  this.TargetBoardImuPitch = ((double)BitConverter.ToInt16(msg, 4) / 16);
+                  this.TargetBoardImuYaw = ((double)BitConverter.ToInt16(msg, 6) / 16);
 
                   bool stepper0Operational = ((this.Stepper0Status & 0x0004) != 0) ? true : false;
 
@@ -445,7 +513,8 @@ namespace E4.CAN
             result &= this.SetTPDOInhibitTime(4, 200);
             result &= this.SetTPDOMap(4, 1, 0x6410, 0x01, 1); // BLDC0 temperature
             result &= this.SetTPDOMap(4, 2, 0x6C10, 0x01, 1); // BLDC1 temperature
-            result &= this.SetTPDOMapCount(4, 2);
+            result &= this.SetTPDOMap(4, 3, 0x2000, 0x00, 1); // DC Link Voltage
+            result &= this.SetTPDOMapCount(4, 3);
             result &= this.SetTPDOEnable(4, true);
 
             // set TPDO5 on change with 200mS inhibit time
@@ -467,7 +536,8 @@ namespace E4.CAN
             result &= this.SetTPDOInhibitTime(6, 200);
             result &= this.SetTPDOMap(6, 1, 0x2402, 0x00, 4); // laser measured distance
             result &= this.SetTPDOMap(6, 2, 0x2410, 0x01, 1); // laser scanner position
-            result &= this.SetTPDOMapCount(6, 2);
+            result &= this.SetTPDOMap(6, 3, 0x2445, 0x01, 2); // Target Board IMU roll
+            result &= this.SetTPDOMapCount(6, 3);
             result &= this.SetTPDOEnable(6, true);
 
             // set TPDO7 on change with 200mS inhibit time
@@ -477,7 +547,9 @@ namespace E4.CAN
             result &= this.SetTPDOInhibitTime(7, 200);
             result &= this.SetTPDOMap(7, 1, 0x7041, 0x00, 2); // stepper0 status word
             result &= this.SetTPDOMap(7, 2, 0x7841, 0x00, 2); // stepper1 status word
-            result &= this.SetTPDOMapCount(7, 2);
+            result &= this.SetTPDOMap(7, 3, 0x2445, 0x02, 2); // Target Board IMU pitch
+            result &= this.SetTPDOMap(7, 4, 0x2445, 0x03, 2); // Target Board IMU yaw
+            result &= this.SetTPDOMapCount(7, 4);
             result &= this.SetTPDOEnable(7, true);
 
 
@@ -739,21 +811,147 @@ namespace E4.CAN
 
       #endregion
 
-      #region BLDL0 Functions
+      #region Laser Range Finder Functions
 
-      public bool SetBldc0ControlWord(UInt16 controlWord)
+      public bool SetLaserAimOn()
       {
          bool result = true;
 
-         result &= this.ExchangeCommAction(new SDODownload(0x6040, 0, 2, controlWord));
+         result &= this.ExchangeCommAction(new SDODownload(0x2400, 0, 1, (UInt32)1));
 
-         if (false != result)
+         return (result);
+      }
+
+      public bool SetLaserAimOff()
+      {
+         bool result = true;
+
+         result &= this.ExchangeCommAction(new SDODownload(0x2400, 0, 1, (UInt32)0));
+
+         return (result);
+      }
+
+      public bool GetLaserTimeToMeasure(ref byte timeToMeasure)
+      {
+         bool result = false;
+         SDOUpload upload = new SDOUpload(0x2401, 0);
+         this.pendingAction = upload;
+         bool actionResult = this.ExchangeCommAction(this.pendingAction);
+
+         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 1))
          {
-            this.bldc0ControlWord = controlWord;
+            timeToMeasure = upload.Data[0];
+            result = true;
          }
 
          return (result);
       }
+
+      public bool SetLaserTimeToMeasure(byte timeToMeasure)
+      {
+         bool result = true;
+
+         result &= this.ExchangeCommAction(new SDODownload(0x2401, 0, 1, (UInt32)timeToMeasure));
+
+         return (result);
+      }
+
+      public bool GetLaserControlByte(ref byte controlByte)
+      {
+         bool result = false;
+         SDOUpload upload = new SDOUpload(0x2404, 0);
+         this.pendingAction = upload;
+         bool actionResult = this.ExchangeCommAction(this.pendingAction);
+
+         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 1))
+         {
+            controlByte = upload.Data[0];
+            result = true;
+         }
+
+         return (result);
+      }
+
+      public bool SetLaserControlByte(byte controlByte)
+      {
+         bool result = true;
+
+         result &= this.ExchangeCommAction(new SDODownload(0x2404, 0, 1, (UInt32)controlByte));
+
+         return (result);
+      }
+
+      public bool GetLaserDistance(ref UInt32 distance)
+      {
+         bool result = false;
+         SDOUpload upload = new SDOUpload(0x2402, 0);
+         this.pendingAction = upload;
+         bool actionResult = this.ExchangeCommAction(this.pendingAction);
+
+         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
+         {
+            distance = BitConverter.ToUInt32(upload.Data, 0);
+            result = true;
+         }
+
+         return (result);
+      }
+
+      public bool GetLaserRangeFinderTemperature(ref byte temperature)
+      {
+         bool result = false;
+         SDOUpload upload = new SDOUpload(0x2403, 0x01);
+         this.pendingAction = upload;
+         bool actionResult = this.ExchangeCommAction(this.pendingAction);
+
+         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 1))
+         {
+            temperature = upload.Data[0];
+            result = true;
+         }
+
+         return (result);
+      }
+
+      #endregion
+
+      #region Laser Scanner Functions
+
+      public bool GetLaserScannerPosition(ref byte psotion)
+      {
+         bool result = false;
+         SDOUpload upload = new SDOUpload(0x2410, 0x01);
+         this.pendingAction = upload;
+         bool actionResult = this.ExchangeCommAction(this.pendingAction);
+
+         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 1))
+         {
+            psotion = upload.Data[0];
+            result = true;
+         }
+
+         return (result);
+      }
+
+      public bool GetLaserScannerTemperature(ref byte temperature)
+      {
+         bool result = false;
+         SDOUpload upload = new SDOUpload(0x2411, 0x01);
+         this.pendingAction = upload;
+         bool actionResult = this.ExchangeCommAction(this.pendingAction);
+
+         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 1))
+         {
+            temperature = upload.Data[0];
+            result = true;
+         }
+
+         return (result);
+      }
+
+      #endregion
+
+      #region BLDL0 Functions
 
       public bool SetBldc0Mode(MotorModes mode)
       {
@@ -791,6 +989,24 @@ namespace E4.CAN
          if (false != result)
          {
             this.bldc0Mode = mode;
+         }
+
+         return (result);
+      }
+
+      public bool ClearBldc0Fault()
+      {
+         bool result = true;
+
+         this.Bldc0PositionAttained = false;
+         this.Bldc0VelocityAttained = false;
+
+         result &= this.SetBldc0ControlWord(0x80);
+         result &= this.SetBldc0ControlWord(0x0);
+
+         if (false != result)
+         {
+            this.bldc0Mode = MotorModes.off;
          }
 
          return (result);
@@ -1107,20 +1323,6 @@ namespace E4.CAN
 
       #region BLDC1 Functions
 
-      public bool SetBldc1ControlWord(UInt16 controlWord)
-      {
-         bool result = true;
-
-         result &= this.ExchangeCommAction(new SDODownload(0x6840, 0, 2, controlWord));
-
-         if (false != result)
-         {
-            this.bldc1ControlWord = controlWord;
-         }
-
-         return (result);
-      }
-
       public bool SetBldc1Mode(MotorModes mode)
       {
          bool result = true;
@@ -1157,6 +1359,24 @@ namespace E4.CAN
          if (false != result)
          {
             this.bldc1Mode = mode;
+         }
+
+         return (result);
+      }
+
+      public bool ClearBldc1Fault()
+      {
+         bool result = true;
+
+         this.Bldc1PositionAttained = false;
+         this.Bldc1VelocityAttained = false;
+
+         result &= this.SetBldc1ControlWord(0x80);
+         result &= this.SetBldc1ControlWord(0x0);
+
+         if (false != result)
+         {
+            this.bldc1Mode = MotorModes.off;
          }
 
          return (result);
@@ -1473,20 +1693,6 @@ namespace E4.CAN
 
       #region Stepper0 Functions
 
-      public bool SetStepper0ControlWord(UInt16 controlWord)
-      {
-         bool result = true;
-
-         result &= this.ExchangeCommAction(new SDODownload(0x7040, 0, 2, controlWord));
-
-         if (false != result)
-         {
-            this.stepper0ControlWord = controlWord;
-         }
-
-         return (result);
-      }
-
       public bool SetStepper0Mode(MotorModes mode)
       {
          bool result = true;
@@ -1523,6 +1729,24 @@ namespace E4.CAN
          if (false != result)
          {
             this.stepper0Mode = mode;
+         }
+
+         return (result);
+      }
+
+      public bool ClearStepper0Fault()
+      {
+         bool result = true;
+
+         this.Stepper0PositionAttained = false;
+         this.Stepper0HomingAttained = false;
+
+         result &= this.SetStepper0ControlWord(0x80);
+         result &= this.SetStepper0ControlWord(0x0);
+
+         if (false != result)
+         {
+            this.stepper0Mode = MotorModes.off;
          }
 
          return (result);
@@ -1857,15 +2081,19 @@ namespace E4.CAN
 
       #region Stepper1 Functions
 
-      public bool SetStepper1ControlWord(UInt16 controlWord)
+      public bool ClearStepper1Fault()
       {
          bool result = true;
 
-         result &= this.ExchangeCommAction(new SDODownload(0x7840, 0, 2, controlWord));
+         this.Stepper0PositionAttained = false;
+         this.Stepper0HomingAttained = false;
+
+         result &= this.SetStepper1ControlWord(0x80);
+         result &= this.SetStepper1ControlWord(0x0);
 
          if (false != result)
          {
-            this.stepper1ControlWord = controlWord;
+            this.stepper1Mode = MotorModes.off;
          }
 
          return (result);

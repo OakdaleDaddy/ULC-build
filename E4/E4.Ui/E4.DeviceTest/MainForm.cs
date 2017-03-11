@@ -933,11 +933,11 @@ namespace E4.DeviceTest
 
             if (false != result)
             {
-               this.StatusLabel.Text = "Main camera select set.";
+               this.StatusLabel.Text = "Main camera select set to " + videoSelect.ToString() + ".";
             }
             else
             {
-               this.StatusLabel.Text = "Unable to set main camera select.";
+               this.StatusLabel.Text = "Unable to set main camera select set to " + videoSelect.ToString() + ".";
             }
          }
          else
@@ -985,11 +985,11 @@ namespace E4.DeviceTest
 
             if (false != result)
             {
-               this.StatusLabel.Text = "Main camera LED intensity set.";
+               this.StatusLabel.Text = "Main camera LED intensity set to " + ledIntensityLevel.ToString() + ".";
             }
             else
             {
-               this.StatusLabel.Text = "Unable to set main camera LED intensity.";
+               this.StatusLabel.Text = "Unable to set main camera LED intensity set to " + ledIntensityLevel.ToString() + ".";
             }
          }
          else
@@ -1093,11 +1093,11 @@ namespace E4.DeviceTest
 
             if (false != result)
             {
-               this.StatusLabel.Text = "Main camera LED channel mask set.";
+               this.StatusLabel.Text = "Main camera LED channel mask set set to " + ledChannelMask.ToString("X2") + ".";
             }
             else
             {
-               this.StatusLabel.Text = "Unable to set main camera LED channel mask.";
+               this.StatusLabel.Text = "Unable to set main camera LED channel mask set to " + ledChannelMask.ToString("X2") + ".";
             }
          }
          else
@@ -1176,6 +1176,270 @@ namespace E4.DeviceTest
 
       #endregion
 
+      #region Laser Range Finder
+
+      private void SetE4MainLaserAimOnButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+
+         if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false) 
+         {
+            this.e4Main.NodeId = nodeId;
+            bool result = this.e4Main.SetLaserAimOn();
+
+            if (false != result)
+            {
+               this.StatusLabel.Text = "Laser aim on.";
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to set laser aim on.";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      private void SetE4MainLaserAimOffButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+
+         if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
+         {
+            this.e4Main.NodeId = nodeId;
+            bool result = this.e4Main.SetLaserAimOff();
+
+            if (false != result)
+            {
+               this.StatusLabel.Text = "Laser aim off.";
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to set laser aim off.";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      private void GetE4MainLaserTimeToMeasureButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+
+         if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
+         {
+            this.e4Main.NodeId = nodeId;
+            byte timeToMeasure = 0;
+            bool success = this.e4Main.GetLaserTimeToMeasure(ref timeToMeasure);
+
+            if (false != success)
+            {
+               this.StatusLabel.Text = "Laser time to measure retrieved.";
+               this.E4MainLaserTimeToMeasureTextBox.Text = string.Format("{0}", timeToMeasure);
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to get laser time to measure.";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      private void SetE4MainLaserTimeToMeasureButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+         byte timeToMeasure = 0;
+
+         if ((byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false) &&
+             (byte.TryParse(this.E4MainLaserTimeToMeasureTextBox.Text, out timeToMeasure) != false))
+         {
+            this.e4Main.NodeId = nodeId;
+            bool result = this.e4Main.SetLaserTimeToMeasure(timeToMeasure);
+
+            if (false != result)
+            {
+               this.StatusLabel.Text = "Laser time to measure set to " + timeToMeasure.ToString() + ".";
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to set laser time to measure to " + timeToMeasure.ToString() + ".";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      private void GetE4MainLaserControlByteButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+
+         if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
+         {
+            this.e4Main.NodeId = nodeId;
+            byte controlByte = 0;
+            bool success = this.e4Main.GetLaserControlByte(ref controlByte);
+
+            if (false != success)
+            {
+               this.StatusLabel.Text = "Laser control byte retrieved.";
+               this.E4MainLaserControlByteTextBox.Text = string.Format("{0:X2}", controlByte);
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to get laser control byte.";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      private void SetE4MainLaserControlByteButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+         byte laserControlByte = 0;
+
+         if ((byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false) &&
+             (byte.TryParse(this.E4MainLaserControlByteTextBox.Text, System.Globalization.NumberStyles.HexNumber, null, out laserControlByte) != false))
+         {
+            this.e4Main.NodeId = nodeId;
+            bool result = this.e4Main.SetLaserControlByte(laserControlByte);
+
+            if (false != result)
+            {
+               this.StatusLabel.Text = "Laser control byte set to 0x" + laserControlByte.ToString("X2") + ".";
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to set laser control byte to 0x" + laserControlByte.ToString("X2") + ".";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      private void GetE4MainLaserReadDistanceButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+
+         if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
+         {
+            this.e4Main.NodeId = nodeId;
+            UInt32 distance = 0;
+            bool success = this.e4Main.GetLaserDistance(ref distance);
+
+            if (false != success)
+            {
+               this.StatusLabel.Text = "Laser distance retrieved.";
+               this.E4MainLaserReadDistanceTextBox.Text = string.Format("{0}", distance);
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to get laserdistance.";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      private void GetE4MainLaserRangeFinderTemperatureButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+
+         if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
+         {
+            this.e4Main.NodeId = nodeId;
+            byte temperature = 0;
+            bool success = this.e4Main.GetLaserRangeFinderTemperature(ref temperature);
+
+            if (false != success)
+            {
+               this.StatusLabel.Text = "Laser range finder temperature retrieved.";
+               this.E4MainLaserRangeFinderTemperatureTextBox.Text = string.Format("{0}", temperature);
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to get laser distance.";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      #endregion
+
+      #region Laser Scanner
+
+      private void GetE4MainLaserScannerPositionButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+
+         if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
+         {
+            this.e4Main.NodeId = nodeId;
+            byte position = 0;
+            bool success = this.e4Main.GetLaserScannerPosition(ref position);
+
+            if (false != success)
+            {
+               this.StatusLabel.Text = "Laser scanner position retrieved.";
+               this.E4MainLaserReadScannerTextBox.Text = string.Format("{0:X2}", position);
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to get laser scanner position.";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      private void GetE4MainLaserScannerTemperatureButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+
+         if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
+         {
+            this.e4Main.NodeId = nodeId;
+            byte temperature = 0;
+            bool success = this.e4Main.GetLaserScannerTemperature(ref temperature);
+
+            if (false != success)
+            {
+               this.StatusLabel.Text = "Laser scanner temperature retrieved.";
+               this.E4MainLaserScannerTemperatureTextBox.Text = string.Format("{0}", temperature);
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to get laser scanner temperature.";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      #endregion
+
       #region BLDC0 Events
 
       #region General
@@ -1211,6 +1475,22 @@ namespace E4.DeviceTest
             {
                this.StatusLabel.Text = "Unable to set BLDC0 mode to " + mode.ToString() + ".";
             }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      private void ClearE4MainBldc0FaultButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+
+         if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
+         {
+            this.e4Main.NodeId = nodeId;
+            this.e4Main.ClearBldc0Fault();
+            this.StatusLabel.Text = "BLDC0 fault cleared.";
          }
          else
          {
@@ -1744,6 +2024,22 @@ namespace E4.DeviceTest
          }
       }
 
+      private void ClearE4MainBldc1FaultButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+
+         if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
+         {
+            this.e4Main.NodeId = nodeId;
+            this.e4Main.ClearBldc1Fault();
+            this.StatusLabel.Text = "BLDC1 fault cleared.";
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
       #endregion
 
       #region Position Mode
@@ -2269,7 +2565,23 @@ namespace E4.DeviceTest
             this.StatusLabel.Text = "Invalid entry.";
          }
       }
-      
+
+      private void ClearE4MainStepper0FaultButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+
+         if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
+         {
+            this.e4Main.NodeId = nodeId;
+            this.e4Main.ClearStepper0Fault();
+            this.StatusLabel.Text = "Stepper0 fault cleared.";
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
       private void ReadE4MainStepper0PvtButton_Click(object sender, EventArgs e)
       {
          byte nodeId = 0;
@@ -2861,6 +3173,22 @@ namespace E4.DeviceTest
             {
                this.StatusLabel.Text = "Unable to set Stepper1 mode to " + mode.ToString() + ".";
             }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      private void ClearE4MainStepper1FaultButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+
+         if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
+         {
+            this.e4Main.NodeId = nodeId;
+            this.e4Main.ClearStepper1Fault();
+            this.StatusLabel.Text = "Stepper1 fault cleared.";
          }
          else
          {
@@ -3524,6 +3852,18 @@ namespace E4.DeviceTest
          #region Main Update
 
          this.E4MainMcuTemperatureTextBox.Text = string.Format("{0:0}", this.e4Main.McuTemperature);
+         this.E4MainDcLinkVoltageTextBox.Text = string.Format("{0:0}", this.e4Main.DcLinkVoltage);
+
+         this.E4MainMainBoardIcuRollTextBox.Text = string.Format("{0:0.0}", this.e4Main.MainBoardImuRoll);
+         this.E4MainMainBoardIcuPitchTextBox.Text = string.Format("{0:0.0}", this.e4Main.MainBoardImuPitch);
+         this.E4MainMainBoardIcuYawTextBox.Text = string.Format("{0:0.0}", this.e4Main.MainBoardImuYaw);
+
+         this.E4MainTargetBoardIcuRollTextBox.Text = string.Format("{0:0.0}", this.e4Main.TargetBoardImuRoll);
+         this.E4MainTargetBoardIcuPitchTextBox.Text = string.Format("{0:0.0}", this.e4Main.TargetBoardImuPitch);
+         this.E4MainTargetBoardIcuYawTextBox.Text = string.Format("{0:0.0}", this.e4Main.TargetBoardImuYaw);
+
+         this.E4MainLaserDistanceTextBox.Text = string.Format("{0:0}", this.e4Main.LaserMeasuredDistance);
+         this.E4MainLaserScannerTextBox.Text = string.Format("{0:X2}", this.e4Main.LaserScannerPosition);
 
          this.E4MainBldc0TemperatureTextBox.Text = string.Format("{0:0}", this.e4Main.Bldc0Temperature);
          this.E4MainBldc0StatusTextBox.Text = string.Format("{0:X4}", this.e4Main.Bldc0Status);
@@ -3548,13 +3888,6 @@ namespace E4.DeviceTest
          this.E4MainStepper1StatusTextBox.Text = string.Format("{0:X4}", this.e4Main.Stepper1Status);
          this.E4MainStepper1PositionAttainedLabel.BackColor = (null != this.e4Main.Warning) ? Color.Yellow : ((false != this.e4Main.Stepper1PositionAttained) ? Color.LimeGreen : Color.DarkSlateGray); ;
          this.E4MainStepper1HomingAttainedLabel.BackColor = (null != this.e4Main.Warning) ? Color.Yellow : ((false != this.e4Main.Stepper1HomingAttained) ? Color.LimeGreen : Color.DarkSlateGray); ;
-
-         this.E4MainMainBoardIcuRollTextBox.Text = string.Format("{0:0.0}", this.e4Main.MainBoardImuRoll);
-         this.E4MainMainBoardIcuPitchTextBox.Text = string.Format("{0:0.0}", this.e4Main.MainBoardImuPitch);
-         this.E4MainMainBoardIcuYawTextBox.Text = string.Format("{0:0.0}", this.e4Main.MainBoardImuYaw); 
-
-         this.E4MainLaserDistanceTextBox.Text = string.Format("{0:0}", this.e4Main.LaserMeasuredDistance);
-         this.E4MainLaserScannerTextBox.Text = string.Format("{0:X2}", this.e4Main.LaserScannerPosition);
 
          #endregion
       }
@@ -3652,15 +3985,6 @@ namespace E4.DeviceTest
 
       #endregion
 
-      private void button2_Click(object sender, EventArgs e)
-      {
-
-      }
-
-      private void E4MainLaserTabPage_Click(object sender, EventArgs e)
-      {
-
-      }
 
    }
 }

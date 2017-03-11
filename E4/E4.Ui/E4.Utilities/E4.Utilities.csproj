@@ -7,8 +7,8 @@
     <ProjectGuid>{159C080C-76E7-46D8-94ED-02F9619165C0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NICBOT.Utilities</RootNamespace>
-    <AssemblyName>NICBOT.Utilities</AssemblyName>
+    <RootNamespace>E4.Utilities</RootNamespace>
+    <AssemblyName>E4.Utilities</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

@@ -132,6 +132,12 @@
          this.McuProcessImageTabPage = new System.Windows.Forms.TabPage();
          this.McuProcessImagePanel = new System.Windows.Forms.Panel();
          this.DcLinkVoltageByteLabel = new System.Windows.Forms.Label();
+         this.SerLaserRangeTemperatureButton = new System.Windows.Forms.Button();
+         this.label13 = new System.Windows.Forms.Label();
+         this.LaserRangeTemperatureTextBox = new System.Windows.Forms.TextBox();
+         this.SetLaserScannerTemperatureButton = new System.Windows.Forms.Button();
+         this.label14 = new System.Windows.Forms.Label();
+         this.LaserScannerTemperatureTextBox = new System.Windows.Forms.TextBox();
          this.CommunicationProcessImagePanel.SuspendLayout();
          this.MainTabControl.SuspendLayout();
          this.InterfaceTabPage.SuspendLayout();
@@ -924,7 +930,7 @@
          // label6
          // 
          this.label6.AutoSize = true;
-         this.label6.Location = new System.Drawing.Point(229, 35);
+         this.label6.Location = new System.Drawing.Point(446, 9);
          this.label6.Name = "label6";
          this.label6.Size = new System.Drawing.Size(116, 13);
          this.label6.TabIndex = 236;
@@ -932,7 +938,7 @@
          // 
          // SetLaserScannerPositionButton
          // 
-         this.SetLaserScannerPositionButton.Location = new System.Drawing.Point(389, 32);
+         this.SetLaserScannerPositionButton.Location = new System.Drawing.Point(606, 6);
          this.SetLaserScannerPositionButton.Name = "SetLaserScannerPositionButton";
          this.SetLaserScannerPositionButton.Size = new System.Drawing.Size(35, 23);
          this.SetLaserScannerPositionButton.TabIndex = 238;
@@ -942,7 +948,7 @@
          // 
          // LaserScannerPositionTextBox
          // 
-         this.LaserScannerPositionTextBox.Location = new System.Drawing.Point(347, 32);
+         this.LaserScannerPositionTextBox.Location = new System.Drawing.Point(564, 6);
          this.LaserScannerPositionTextBox.MaxLength = 0;
          this.LaserScannerPositionTextBox.Name = "LaserScannerPositionTextBox";
          this.LaserScannerPositionTextBox.Size = new System.Drawing.Size(25, 20);
@@ -953,7 +959,7 @@
          // label7
          // 
          this.label7.AutoSize = true;
-         this.label7.Location = new System.Drawing.Point(370, 32);
+         this.label7.Location = new System.Drawing.Point(587, 6);
          this.label7.Name = "label7";
          this.label7.Size = new System.Drawing.Size(13, 13);
          this.label7.TabIndex = 239;
@@ -971,7 +977,7 @@
          // LaserMeasuredDistanceTextBox
          // 
          this.LaserMeasuredDistanceTextBox.Location = new System.Drawing.Point(320, 8);
-         this.LaserMeasuredDistanceTextBox.MaxLength = 5;
+         this.LaserMeasuredDistanceTextBox.MaxLength = 0;
          this.LaserMeasuredDistanceTextBox.Name = "LaserMeasuredDistanceTextBox";
          this.LaserMeasuredDistanceTextBox.Size = new System.Drawing.Size(63, 20);
          this.LaserMeasuredDistanceTextBox.TabIndex = 241;
@@ -1011,6 +1017,12 @@
          // InterfaceTabPage
          // 
          this.InterfaceTabPage.BackColor = System.Drawing.Color.Gainsboro;
+         this.InterfaceTabPage.Controls.Add(this.SetLaserScannerTemperatureButton);
+         this.InterfaceTabPage.Controls.Add(this.label14);
+         this.InterfaceTabPage.Controls.Add(this.LaserScannerTemperatureTextBox);
+         this.InterfaceTabPage.Controls.Add(this.SerLaserRangeTemperatureButton);
+         this.InterfaceTabPage.Controls.Add(this.label13);
+         this.InterfaceTabPage.Controls.Add(this.LaserRangeTemperatureTextBox);
          this.InterfaceTabPage.Controls.Add(this.SetDcVoltageByteButton);
          this.InterfaceTabPage.Controls.Add(this.label12);
          this.InterfaceTabPage.Controls.Add(this.DcVoltageByteTextBox);
@@ -1047,7 +1059,7 @@
          // 
          // SetDcVoltageByteButton
          // 
-         this.SetDcVoltageByteButton.Location = new System.Drawing.Point(577, 6);
+         this.SetDcVoltageByteButton.Location = new System.Drawing.Point(135, 31);
          this.SetDcVoltageByteButton.Name = "SetDcVoltageByteButton";
          this.SetDcVoltageByteButton.Size = new System.Drawing.Size(35, 23);
          this.SetDcVoltageByteButton.TabIndex = 252;
@@ -1058,7 +1070,7 @@
          // label12
          // 
          this.label12.AutoSize = true;
-         this.label12.Location = new System.Drawing.Point(459, 11);
+         this.label12.Location = new System.Drawing.Point(17, 36);
          this.label12.Name = "label12";
          this.label12.Size = new System.Drawing.Size(85, 13);
          this.label12.TabIndex = 250;
@@ -1066,7 +1078,7 @@
          // 
          // DcVoltageByteTextBox
          // 
-         this.DcVoltageByteTextBox.Location = new System.Drawing.Point(546, 8);
+         this.DcVoltageByteTextBox.Location = new System.Drawing.Point(104, 33);
          this.DcVoltageByteTextBox.MaxLength = 0;
          this.DcVoltageByteTextBox.Name = "DcVoltageByteTextBox";
          this.DcVoltageByteTextBox.Size = new System.Drawing.Size(25, 20);
@@ -1437,6 +1449,64 @@
          this.DcLinkVoltageByteLabel.Text = "0x2000 DC Link Voltage Byte";
          this.DcLinkVoltageByteLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
          // 
+         // SerLaserRangeTemperatureButton
+         // 
+         this.SerLaserRangeTemperatureButton.Location = new System.Drawing.Point(389, 32);
+         this.SerLaserRangeTemperatureButton.Name = "SerLaserRangeTemperatureButton";
+         this.SerLaserRangeTemperatureButton.Size = new System.Drawing.Size(35, 23);
+         this.SerLaserRangeTemperatureButton.TabIndex = 255;
+         this.SerLaserRangeTemperatureButton.Text = "Set";
+         this.SerLaserRangeTemperatureButton.UseVisualStyleBackColor = true;
+         this.SerLaserRangeTemperatureButton.Click += new System.EventHandler(this.SerLaserRangeTemperatureButton_Click);
+         // 
+         // label13
+         // 
+         this.label13.AutoSize = true;
+         this.label13.Location = new System.Drawing.Point(225, 37);
+         this.label13.Name = "label13";
+         this.label13.Size = new System.Drawing.Size(131, 13);
+         this.label13.TabIndex = 253;
+         this.label13.Text = "Laser Range Temperature";
+         // 
+         // LaserRangeTemperatureTextBox
+         // 
+         this.LaserRangeTemperatureTextBox.Location = new System.Drawing.Point(358, 34);
+         this.LaserRangeTemperatureTextBox.MaxLength = 0;
+         this.LaserRangeTemperatureTextBox.Name = "LaserRangeTemperatureTextBox";
+         this.LaserRangeTemperatureTextBox.Size = new System.Drawing.Size(25, 20);
+         this.LaserRangeTemperatureTextBox.TabIndex = 254;
+         this.LaserRangeTemperatureTextBox.Text = "23";
+         this.LaserRangeTemperatureTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+         // 
+         // SetLaserScannerTemperatureButton
+         // 
+         this.SetLaserScannerTemperatureButton.Location = new System.Drawing.Point(606, 32);
+         this.SetLaserScannerTemperatureButton.Name = "SetLaserScannerTemperatureButton";
+         this.SetLaserScannerTemperatureButton.Size = new System.Drawing.Size(35, 23);
+         this.SetLaserScannerTemperatureButton.TabIndex = 258;
+         this.SetLaserScannerTemperatureButton.Text = "Set";
+         this.SetLaserScannerTemperatureButton.UseVisualStyleBackColor = true;
+         this.SetLaserScannerTemperatureButton.Click += new System.EventHandler(this.SetLaserScannerTemperatureButton_Click);
+         // 
+         // label14
+         // 
+         this.label14.AutoSize = true;
+         this.label14.Location = new System.Drawing.Point(434, 37);
+         this.label14.Name = "label14";
+         this.label14.Size = new System.Drawing.Size(139, 13);
+         this.label14.TabIndex = 256;
+         this.label14.Text = "Laser Scanner Temperature";
+         // 
+         // LaserScannerTemperatureTextBox
+         // 
+         this.LaserScannerTemperatureTextBox.Location = new System.Drawing.Point(575, 34);
+         this.LaserScannerTemperatureTextBox.MaxLength = 0;
+         this.LaserScannerTemperatureTextBox.Name = "LaserScannerTemperatureTextBox";
+         this.LaserScannerTemperatureTextBox.Size = new System.Drawing.Size(25, 20);
+         this.LaserScannerTemperatureTextBox.TabIndex = 257;
+         this.LaserScannerTemperatureTextBox.Text = "23";
+         this.LaserScannerTemperatureTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+         // 
          // UlcRoboticsE4Main
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1588,5 +1658,11 @@
       private System.Windows.Forms.Button SetDcVoltageByteButton;
       private System.Windows.Forms.Label label12;
       private System.Windows.Forms.TextBox DcVoltageByteTextBox;
+      private System.Windows.Forms.Button SetLaserScannerTemperatureButton;
+      private System.Windows.Forms.Label label14;
+      private System.Windows.Forms.TextBox LaserScannerTemperatureTextBox;
+      private System.Windows.Forms.Button SerLaserRangeTemperatureButton;
+      private System.Windows.Forms.Label label13;
+      private System.Windows.Forms.TextBox LaserRangeTemperatureTextBox;
    }
 }

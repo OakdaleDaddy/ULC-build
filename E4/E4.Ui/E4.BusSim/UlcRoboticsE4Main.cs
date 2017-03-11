@@ -1808,10 +1808,7 @@ namespace E4.BusSim
          else if ((0x2404 == index) && (1 == length))
          {
             this.LaserControlByte = buffer[offset];
-         }
-         else if ((0x2405 == index) && (1 == length))
-         {
-            this.LaserControlByte = buffer[offset];
+            valid = true;
          }
          else if ((0x2411 == index) && (0x02 == subIndex) && (1 == length))
          {
@@ -1998,11 +1995,11 @@ namespace E4.BusSim
 
       private void SetMcuTemperatureButton_Click(object sender, EventArgs e)
       {
-         double mcuTemperature = 0;
+         double temperature = 0;
 
-         if (double.TryParse(this.McuTemperatureTextBox.Text, out mcuTemperature) != false)
+         if (double.TryParse(this.McuTemperatureTextBox.Text, out temperature) != false)
          {
-            this.McuTemperature = (byte)mcuTemperature;
+            this.McuTemperature = (byte)temperature;
          }
       }
 
@@ -2048,6 +2045,16 @@ namespace E4.BusSim
          }
       }
 
+      private void SerLaserRangeTemperatureButton_Click(object sender, EventArgs e)
+      {
+         double temperature = 0;
+
+         if (double.TryParse(this.LaserRangeTemperatureTextBox.Text, out temperature) != false)
+         {
+            this.LaserTemperature = (byte)temperature;
+         }
+      }
+
       private void SetLaserScannerPositionButton_Click(object sender, EventArgs e)
       {
          byte laserScannerPosition = 0;
@@ -2055,6 +2062,16 @@ namespace E4.BusSim
          if (byte.TryParse(this.LaserScannerPositionTextBox.Text,System.Globalization.NumberStyles.HexNumber, null, out laserScannerPosition) != false)
          {
             this.LaserScannerPosition = laserScannerPosition;
+         }
+      }
+
+      private void SetLaserScannerTemperatureButton_Click(object sender, EventArgs e)
+      {
+         double temperature = 0;
+
+         if (double.TryParse(this.LaserScannerTemperatureTextBox.Text, out temperature) != false)
+         {
+            this.LaserScannerTemperature = (byte)temperature;
          }
       }
 
