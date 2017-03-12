@@ -6,7 +6,10 @@
    {
       COMM,
       UI,
+      PARAM,
       CANBUS,
+      MBUS,
+      TBUS,
    }
 
    public static class TracePrefix
@@ -19,7 +22,10 @@
          {
             case TraceGroup.COMM: prefix = "COMM: "; break;
             case TraceGroup.UI: prefix = "UI: "; break;
-            case TraceGroup.CANBUS: prefix = "CAN: "; break;        
+            case TraceGroup.PARAM: prefix = "PARAM: "; break;
+            case TraceGroup.CANBUS: prefix = "CAN: "; break;
+            case TraceGroup.MBUS: prefix = "MBUS: "; break;
+            case TraceGroup.TBUS: prefix = "TBUS: "; break;
          }
 
          return (prefix);

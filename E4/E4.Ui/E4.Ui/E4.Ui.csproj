@@ -44,12 +44,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DeviceCommunication.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Parameters\IpEndpointParameters.cs" />
+    <Compile Include="Parameters\MainBusParameters.cs" />
+    <Compile Include="Parameters\ParameterAccessor.cs" />
+    <Compile Include="Parameters\TargetBusParameters.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="MainForm.resx">
@@ -79,10 +84,21 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\E4.PCANLight\E4.PCANLight.csproj">
+      <Project>{a182ebe3-ce10-4825-8b06-b581685bb389}</Project>
+      <Name>E4.PCANLight</Name>
+    </ProjectReference>
     <ProjectReference Include="..\E4.Ui.Controls\E4.Ui.Controls.csproj">
       <Project>{7d57b2d5-1706-45f0-82ab-520b3a2f0898}</Project>
       <Name>E4.Ui.Controls</Name>
     </ProjectReference>
+    <ProjectReference Include="..\E4.Utilities\E4.Utilities.csproj">
+      <Project>{159c080c-76e7-46d8-94ed-02f9619165c0}</Project>
+      <Name>E4.Utilities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Definitions\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -28,6 +28,7 @@
       /// </summary>
       private void InitializeComponent()
       {
+         this.components = new System.ComponentModel.Container();
          this.TitleLabel = new System.Windows.Forms.Label();
          this.RxPanel = new System.Windows.Forms.Panel();
          this.TxPanel = new System.Windows.Forms.Panel();
@@ -63,14 +64,21 @@
          this.linerButton3 = new E4.Ui.Controls.LinerButton();
          this.borderedPanel1 = new E4.Ui.Controls.BorderedPanel();
          this.linerButton4 = new E4.Ui.Controls.LinerButton();
-         this.holdButton2 = new E4.Ui.Controls.HoldButton();
+         this.SystemResetButton = new E4.Ui.Controls.HoldButton();
          this.ExitButton = new E4.Ui.Controls.HoldButton();
+         this.UpdateTimer = new System.Windows.Forms.Timer(this.components);
+         this.panel12 = new System.Windows.Forms.Panel();
+         this.TargetStatusTextBox = new System.Windows.Forms.TextBox();
+         this.MainStatusTextBox = new System.Windows.Forms.TextBox();
+         this.label17 = new System.Windows.Forms.Label();
+         this.HeartbeatsDisabledLabel = new System.Windows.Forms.Label();
          this.TxPanel.SuspendLayout();
          this.CameraControlPanel.SuspendLayout();
          this.panel1.SuspendLayout();
          this.panel2.SuspendLayout();
          this.StopAllPanel.SuspendLayout();
          this.borderedPanel1.SuspendLayout();
+         this.panel12.SuspendLayout();
          this.SuspendLayout();
          // 
          // TitleLabel
@@ -90,7 +98,7 @@
          // RxPanel
          // 
          this.RxPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-         this.RxPanel.Location = new System.Drawing.Point(11, 53);
+         this.RxPanel.Location = new System.Drawing.Point(16, 163);
          this.RxPanel.Name = "RxPanel";
          this.RxPanel.Size = new System.Drawing.Size(488, 361);
          this.RxPanel.TabIndex = 5;
@@ -113,7 +121,7 @@
          this.TxPanel.Controls.Add(this.linerButton2);
          this.TxPanel.Controls.Add(this.linerButton1);
          this.TxPanel.Controls.Add(this.rotatableLabel1);
-         this.TxPanel.Location = new System.Drawing.Point(505, 53);
+         this.TxPanel.Location = new System.Drawing.Point(644, 89);
          this.TxPanel.Name = "TxPanel";
          this.TxPanel.Size = new System.Drawing.Size(488, 361);
          this.TxPanel.TabIndex = 6;
@@ -791,7 +799,7 @@
          // borderedPanel1
          // 
          this.borderedPanel1.Controls.Add(this.linerButton4);
-         this.borderedPanel1.Controls.Add(this.holdButton2);
+         this.borderedPanel1.Controls.Add(this.SystemResetButton);
          this.borderedPanel1.Controls.Add(this.ExitButton);
          this.borderedPanel1.EdgeWeight = 1;
          this.borderedPanel1.Location = new System.Drawing.Point(741, 420);
@@ -813,22 +821,23 @@
          this.linerButton4.Text = "STATUS";
          this.linerButton4.UseVisualStyleBackColor = false;
          // 
-         // holdButton2
+         // SystemResetButton
          // 
-         this.holdButton2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.holdButton2.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
-         this.holdButton2.DisabledForeColor = System.Drawing.Color.Gray;
-         this.holdButton2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
-         this.holdButton2.ForeColor = System.Drawing.Color.Black;
-         this.holdButton2.HoldArrorColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-         this.holdButton2.HoldTimeoutEnable = true;
-         this.holdButton2.HoldTimeoutInterval = 100;
-         this.holdButton2.Location = new System.Drawing.Point(8, 91);
-         this.holdButton2.Name = "holdButton2";
-         this.holdButton2.Size = new System.Drawing.Size(107, 75);
-         this.holdButton2.TabIndex = 133;
-         this.holdButton2.Text = "RESET";
-         this.holdButton2.UseVisualStyleBackColor = false;
+         this.SystemResetButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.SystemResetButton.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
+         this.SystemResetButton.DisabledForeColor = System.Drawing.Color.Gray;
+         this.SystemResetButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
+         this.SystemResetButton.ForeColor = System.Drawing.Color.Black;
+         this.SystemResetButton.HoldArrorColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+         this.SystemResetButton.HoldTimeoutEnable = true;
+         this.SystemResetButton.HoldTimeoutInterval = 100;
+         this.SystemResetButton.Location = new System.Drawing.Point(8, 91);
+         this.SystemResetButton.Name = "SystemResetButton";
+         this.SystemResetButton.Size = new System.Drawing.Size(107, 75);
+         this.SystemResetButton.TabIndex = 133;
+         this.SystemResetButton.Text = "RESET";
+         this.SystemResetButton.UseVisualStyleBackColor = false;
+         this.SystemResetButton.HoldTimeout += new E4.Ui.Controls.HoldTimeoutHandler(this.SystemResetButton_HoldTimeout);
          // 
          // ExitButton
          // 
@@ -848,12 +857,80 @@
          this.ExitButton.UseVisualStyleBackColor = false;
          this.ExitButton.HoldTimeout += new E4.Ui.Controls.HoldTimeoutHandler(this.ExitButton_HoldTimeout);
          // 
+         // UpdateTimer
+         // 
+         this.UpdateTimer.Tick += new System.EventHandler(this.UpdateTimer_Tick);
+         // 
+         // panel12
+         // 
+         this.panel12.BackColor = System.Drawing.Color.Purple;
+         this.panel12.Controls.Add(this.TargetStatusTextBox);
+         this.panel12.Controls.Add(this.MainStatusTextBox);
+         this.panel12.Controls.Add(this.label17);
+         this.panel12.Location = new System.Drawing.Point(9, 52);
+         this.panel12.Name = "panel12";
+         this.panel12.Size = new System.Drawing.Size(652, 36);
+         this.panel12.TabIndex = 136;
+         // 
+         // TargetStatusTextBox
+         // 
+         this.TargetStatusTextBox.BackColor = System.Drawing.Color.Red;
+         this.TargetStatusTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.TargetStatusTextBox.ForeColor = System.Drawing.SystemColors.InfoText;
+         this.TargetStatusTextBox.Location = new System.Drawing.Point(363, 5);
+         this.TargetStatusTextBox.Name = "TargetStatusTextBox";
+         this.TargetStatusTextBox.ReadOnly = true;
+         this.TargetStatusTextBox.Size = new System.Drawing.Size(280, 26);
+         this.TargetStatusTextBox.TabIndex = 4;
+         this.TargetStatusTextBox.Text = "communication offline";
+         this.TargetStatusTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+         this.TargetStatusTextBox.Visible = false;
+         // 
+         // MainStatusTextBox
+         // 
+         this.MainStatusTextBox.BackColor = System.Drawing.Color.Red;
+         this.MainStatusTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.MainStatusTextBox.ForeColor = System.Drawing.SystemColors.InfoText;
+         this.MainStatusTextBox.Location = new System.Drawing.Point(75, 5);
+         this.MainStatusTextBox.Name = "MainStatusTextBox";
+         this.MainStatusTextBox.ReadOnly = true;
+         this.MainStatusTextBox.Size = new System.Drawing.Size(280, 26);
+         this.MainStatusTextBox.TabIndex = 3;
+         this.MainStatusTextBox.Text = "not connected";
+         this.MainStatusTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+         // 
+         // label17
+         // 
+         this.label17.AutoSize = true;
+         this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.label17.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+         this.label17.Location = new System.Drawing.Point(5, 10);
+         this.label17.Name = "label17";
+         this.label17.Size = new System.Drawing.Size(69, 16);
+         this.label17.TabIndex = 1;
+         this.label17.Text = "STATUS";
+         // 
+         // HeartbeatsDisabledLabel
+         // 
+         this.HeartbeatsDisabledLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+         this.HeartbeatsDisabledLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.HeartbeatsDisabledLabel.ForeColor = System.Drawing.Color.Red;
+         this.HeartbeatsDisabledLabel.Location = new System.Drawing.Point(246, 16);
+         this.HeartbeatsDisabledLabel.Name = "HeartbeatsDisabledLabel";
+         this.HeartbeatsDisabledLabel.Size = new System.Drawing.Size(524, 23);
+         this.HeartbeatsDisabledLabel.TabIndex = 190;
+         this.HeartbeatsDisabledLabel.Text = "!!! HEARTBEATS DISABLED !!!";
+         this.HeartbeatsDisabledLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         this.HeartbeatsDisabledLabel.Visible = false;
+         // 
          // MainForm
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
          this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
          this.ClientSize = new System.Drawing.Size(1252, 703);
+         this.Controls.Add(this.HeartbeatsDisabledLabel);
+         this.Controls.Add(this.panel12);
          this.Controls.Add(this.StopAllPanel);
          this.Controls.Add(this.borderedPanel1);
          this.Controls.Add(this.VersionLabel);
@@ -866,12 +943,17 @@
          this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
          this.Name = "MainForm";
          this.Text = "LINER UI";
+         this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
+         this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
+         this.Shown += new System.EventHandler(this.MainForm_Shown);
          this.TxPanel.ResumeLayout(false);
          this.CameraControlPanel.ResumeLayout(false);
          this.panel1.ResumeLayout(false);
          this.panel2.ResumeLayout(false);
          this.StopAllPanel.ResumeLayout(false);
          this.borderedPanel1.ResumeLayout(false);
+         this.panel12.ResumeLayout(false);
+         this.panel12.PerformLayout();
          this.ResumeLayout(false);
 
       }
@@ -902,7 +984,7 @@
       private Controls.CameraSelectButton cameraSelectButton9;
       private System.Windows.Forms.Label VersionLabel;
       private Controls.HoldButton ExitButton;
-      private Controls.HoldButton holdButton2;
+      private Controls.HoldButton SystemResetButton;
       private Controls.BorderedPanel borderedPanel1;
       private Controls.LinerButton linerButton4;
       private System.Windows.Forms.Panel StopAllPanel;
@@ -915,6 +997,12 @@
       private Controls.TextPanel textPanel2;
       private Controls.RotatableLabel rotatableLabel2;
       private Controls.RotatableLabel rotatableLabel1;
+      private System.Windows.Forms.Timer UpdateTimer;
+      private System.Windows.Forms.Panel panel12;
+      private System.Windows.Forms.TextBox TargetStatusTextBox;
+      private System.Windows.Forms.TextBox MainStatusTextBox;
+      private System.Windows.Forms.Label label17;
+      private System.Windows.Forms.Label HeartbeatsDisabledLabel;
    }
 }
 
