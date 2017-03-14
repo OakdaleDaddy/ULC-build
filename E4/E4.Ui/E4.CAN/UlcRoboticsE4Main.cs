@@ -31,18 +31,22 @@ namespace E4.CAN
       private Int16 bldc0TargetTorque;
       private Int32 bldc0TargetVelocity;
       private Int32 bldc0TargetPosition;
+      private bool bldc0TargetPositionRelative;
 
       private UInt16 bldc1ControlWord;
       private MotorModes bldc1Mode;
       private Int16 bldc1TargetTorque;
       private Int32 bldc1TargetVelocity;
       private Int32 bldc1TargetPosition;
+      private bool bldc1TargetPositionRelative;
 
       private UInt16 stepper0ControlWord;
       private MotorModes stepper0Mode;
+      private bool stepper0TargetPositionRelative;
 
       private UInt16 stepper1ControlWord;
       private MotorModes stepper1Mode;
+      private bool stepper1TargetPositionRelative;
 
       #endregion
 
@@ -614,17 +618,21 @@ namespace E4.CAN
 
          this.Bldc0PositionAttained = false;
          this.Bldc0VelocityAttained = false;
+         this.bldc0TargetPositionRelative = false;
 
          this.Bldc1PositionAttained = false;
          this.Bldc1VelocityAttained = false;
+         this.bldc1TargetPositionRelative = false;
 
          this.Stepper0PositionAttained = false;
          this.Stepper0HomingAttained = false;
          this.Stepper0HomeDefined = false;
+         this.stepper0TargetPositionRelative = false;
 
          this.Stepper1PositionAttained = false;
          this.Stepper1HomingAttained = false;
          this.Stepper1HomeDefined = false;
+         this.stepper1TargetPositionRelative = false;
       }
 
       public override void Update()
@@ -969,10 +977,12 @@ namespace E4.CAN
          }
          else if (MotorModes.position == mode)
          {
-            result &= this.SetBldc0ControlWord(0x6);
-            result &= this.SetBldc0ControlWord(0x7);
+            int relativePositionBit = (false != this.bldc0TargetPositionRelative) ? 0x0040 : 0;
+
+            result &= this.SetBldc0ControlWord((UInt16)(0x6 | relativePositionBit));
+            result &= this.SetBldc0ControlWord((UInt16)(0x7 | relativePositionBit));
             result &= this.ExchangeCommAction(new SDODownload(0x6060, 0, 1, (byte)1));
-            result &= this.SetBldc0ControlWord(0xF);
+            result &= this.SetBldc0ControlWord((UInt16)(0xF | relativePositionBit));
          }
          else if (MotorModes.velocity == mode)
          {
@@ -1012,7 +1022,7 @@ namespace E4.CAN
          return (result);
       }
 
-      public bool GetBldc0TargetPosition(ref Int32 targetPosition)
+      public bool GetBldc0TargetPosition(ref Int32 targetPosition, ref bool positionRelative)
       {
          bool result = false;
          SDOUpload upload = new SDOUpload(0x607A, 0);
@@ -1022,22 +1032,40 @@ namespace E4.CAN
          if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
          {
             targetPosition = BitConverter.ToInt32(upload.Data, 0);
+            positionRelative = this.bldc0TargetPositionRelative;
             this.bldc0TargetPosition = targetPosition;
             result = true;
          }
 
          return (result);
       }
-
-      public bool SetBldc0TargetPosition(Int32 targetPosition)
+      
+      public bool SetBldc0TargetPosition(Int32 targetPosition, bool positionRelative)
       {
          bool result = true;
+
+         if (positionRelative != this.bldc0TargetPositionRelative)
+         {
+            UInt16 controlWord = this.bldc0ControlWord;
+
+            if (false != positionRelative)
+            {
+               controlWord |= 0x0040;
+            }
+            else
+            {
+               controlWord &= 0xFFBF;
+            }
+
+            result &= this.SetBldc0ControlWord(controlWord);
+         }
 
          result &= this.ExchangeCommAction(new SDODownload(0x607A, 0, 4, (UInt32)targetPosition));
 
          if (false != result)
          {
             this.bldc0TargetPosition = targetPosition;
+            this.bldc0TargetPositionRelative = positionRelative;
          }
 
          return (result);
@@ -1319,6 +1347,156 @@ namespace E4.CAN
          return (result);
       }
 
+      public bool GetBldc0PositionWindow(ref UInt32 positionWindow)
+      {
+         bool result = false;
+         SDOUpload upload = new SDOUpload(0x6067, 0);
+         this.pendingAction = upload;
+         bool actionResult = this.ExchangeCommAction(this.pendingAction);
+
+         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
+         {
+            positionWindow = BitConverter.ToUInt32(upload.Data, 0);
+            result = true;
+         }
+
+         return (result);
+      }
+
+      public bool SetBldc0PositionWindow(UInt32 positionWindow)
+      {
+         bool result = true;
+
+         result &= this.ExchangeCommAction(new SDODownload(0x6067, 0, 4, (UInt32)positionWindow));
+
+         return (result);
+      }
+
+      public bool GetBldc0PositionWindowTime(ref UInt16 positionWindowTime)
+      {
+         bool result = false;
+         SDOUpload upload = new SDOUpload(0x6068, 0);
+         this.pendingAction = upload;
+         bool actionResult = this.ExchangeCommAction(this.pendingAction);
+
+         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 2))
+         {
+            positionWindowTime = BitConverter.ToUInt16(upload.Data, 0);
+            result = true;
+         }
+
+         return (result);
+      }
+
+      public bool SetBldc0PositionWindowTime(UInt16 positionWindowTime)
+      {
+         bool result = true;
+
+         result &= this.ExchangeCommAction(new SDODownload(0x6068, 0, 2, (UInt32)positionWindowTime));
+
+         return (result);
+      }
+
+      public bool GetBldc0VelocityWindow(ref UInt16 velocityWindow)
+      {
+         bool result = false;
+         SDOUpload upload = new SDOUpload(0x606D, 0);
+         this.pendingAction = upload;
+         bool actionResult = this.ExchangeCommAction(this.pendingAction);
+
+         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 2))
+         {
+            velocityWindow = BitConverter.ToUInt16(upload.Data, 0);
+            result = true;
+         }
+
+         return (result);
+      }
+
+      public bool SetBldc0VelocityWindow(UInt16 velocityWindow)
+      {
+         bool result = true;
+
+         result &= this.ExchangeCommAction(new SDODownload(0x606D, 0, 2, (UInt32)velocityWindow));
+
+         return (result);
+      }
+
+      public bool GetBldc0VelocityWindowTime(ref UInt16 velocityWindowTime)
+      {
+         bool result = false;
+         SDOUpload upload = new SDOUpload(0x606E, 0);
+         this.pendingAction = upload;
+         bool actionResult = this.ExchangeCommAction(this.pendingAction);
+
+         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 2))
+         {
+            velocityWindowTime = BitConverter.ToUInt16(upload.Data, 0);
+            result = true;
+         }
+
+         return (result);
+      }
+
+      public bool SetBldc0VelocityWindowTime(UInt16 velocityWindowTime)
+      {
+         bool result = true;
+
+         result &= this.ExchangeCommAction(new SDODownload(0x606E, 0, 2, (UInt32)velocityWindowTime));
+
+         return (result);
+      }
+
+      public bool GetBldc0VelocityThreshold(ref UInt16 velocityThreshold)
+      {
+         bool result = false;
+         SDOUpload upload = new SDOUpload(0x606F, 0);
+         this.pendingAction = upload;
+         bool actionResult = this.ExchangeCommAction(this.pendingAction);
+
+         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 2))
+         {
+            velocityThreshold = BitConverter.ToUInt16(upload.Data, 0);
+            result = true;
+         }
+
+         return (result);
+      }
+
+      public bool SetBldc0VelocityThreshold(UInt16 velocityThreshold)
+      {
+         bool result = true;
+
+         result &= this.ExchangeCommAction(new SDODownload(0x606F, 0, 2, (UInt32)velocityThreshold));
+
+         return (result);
+      }
+
+      public bool GetBldc0VelocityThresholdTime(ref UInt16 velocityThresholdTime)
+      {
+         bool result = false;
+         SDOUpload upload = new SDOUpload(0x6070, 0);
+         this.pendingAction = upload;
+         bool actionResult = this.ExchangeCommAction(this.pendingAction);
+
+         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 2))
+         {
+            velocityThresholdTime = BitConverter.ToUInt16(upload.Data, 0);
+            result = true;
+         }
+
+         return (result);
+      }
+
+      public bool SetBldc0VelocityThresholdTime(UInt16 velocityThresholdTime)
+      {
+         bool result = true;
+
+         result &= this.ExchangeCommAction(new SDODownload(0x6070, 0, 2, (UInt32)velocityThresholdTime));
+
+         return (result);
+      }
+
       #endregion
 
       #region BLDC1 Functions
@@ -1339,13 +1517,15 @@ namespace E4.CAN
          }
          else if (MotorModes.position == mode)
          {
-            result &= this.SetBldc1ControlWord(0x6);
-            result &= this.SetBldc1ControlWord(0x7);
-            result &= this.ExchangeCommAction(new SDODownload(0x6860, 0, 1, (byte)1));
-            result &= this.SetBldc1ControlWord(0xF);
+            int relativePositionBit = (false != this.bldc1TargetPositionRelative) ? 0x0040 : 0;
+
+            result &= this.SetBldc1ControlWord((UInt16)(0x6 | relativePositionBit));
+            result &= this.SetBldc1ControlWord((UInt16)(0x7 | relativePositionBit));
+            result &= this.ExchangeCommAction(new SDODownload(0x6060, 0, 1, (byte)1));
+            result &= this.SetBldc1ControlWord((UInt16)(0xF | relativePositionBit));
          }
          else if (MotorModes.velocity == mode)
-         {
+         {            
             result &= this.SetBldc1ControlWord(0x6);
             result &= this.SetBldc1ControlWord(0x7);
             result &= this.ExchangeCommAction(new SDODownload(0x6860, 0, 1, (byte)3));
@@ -1382,7 +1562,7 @@ namespace E4.CAN
          return (result);
       }
 
-      public bool GetBldc1TargetPosition(ref Int32 targetPosition)
+      public bool GetBldc1TargetPosition(ref Int32 targetPosition, ref bool positionRelative)
       {
          bool result = false;
          SDOUpload upload = new SDOUpload(0x687A, 0);
@@ -1393,21 +1573,39 @@ namespace E4.CAN
          {
             targetPosition = BitConverter.ToInt32(upload.Data, 0);
             this.bldc1TargetPosition = targetPosition;
+            positionRelative = this.bldc1TargetPositionRelative;
             result = true;
          }
 
          return (result);
       }
 
-      public bool SetBldc1TargetPosition(Int32 targetPosition)
+      public bool SetBldc1TargetPosition(Int32 targetPosition, bool positionRelative)
       {
          bool result = true;
+
+         if (positionRelative != this.bldc1TargetPositionRelative)
+         {
+            UInt16 controlWord = this.bldc1ControlWord;
+
+            if (false != positionRelative)
+            {
+               controlWord |= 0x0040;
+            }
+            else
+            {
+               controlWord &= 0xFFBF;
+            }
+
+            result &= this.SetBldc1ControlWord(controlWord);
+         }
 
          result &= this.ExchangeCommAction(new SDODownload(0x687A, 0, 4, (UInt32)targetPosition));
 
          if (false != result)
          {
             this.bldc1TargetPosition = targetPosition;
+            this.bldc1TargetPositionRelative = positionRelative;
          }
 
          return (result);
@@ -1689,6 +1887,156 @@ namespace E4.CAN
          return (result);
       }
 
+      public bool GetBldc1PositionWindow(ref UInt32 positionWindow)
+      {
+         bool result = false;
+         SDOUpload upload = new SDOUpload(0x6867, 0);
+         this.pendingAction = upload;
+         bool actionResult = this.ExchangeCommAction(this.pendingAction);
+
+         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
+         {
+            positionWindow = BitConverter.ToUInt32(upload.Data, 0);
+            result = true;
+         }
+
+         return (result);
+      }
+
+      public bool SetBldc1PositionWindow(UInt32 positionWindow)
+      {
+         bool result = true;
+
+         result &= this.ExchangeCommAction(new SDODownload(0x6867, 0, 4, (UInt32)positionWindow));
+
+         return (result);
+      }
+
+      public bool GetBldc1PositionWindowTime(ref UInt16 positionWindowTime)
+      {
+         bool result = false;
+         SDOUpload upload = new SDOUpload(0x6868, 0);
+         this.pendingAction = upload;
+         bool actionResult = this.ExchangeCommAction(this.pendingAction);
+
+         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 2))
+         {
+            positionWindowTime = BitConverter.ToUInt16(upload.Data, 0);
+            result = true;
+         }
+
+         return (result);
+      }
+
+      public bool SetBldc1PositionWindowTime(UInt16 positionWindowTime)
+      {
+         bool result = true;
+
+         result &= this.ExchangeCommAction(new SDODownload(0x6868, 0, 2, (UInt32)positionWindowTime));
+
+         return (result);
+      }
+
+      public bool GetBldc1VelocityWindow(ref UInt16 velocityWindow)
+      {
+         bool result = false;
+         SDOUpload upload = new SDOUpload(0x686D, 0);
+         this.pendingAction = upload;
+         bool actionResult = this.ExchangeCommAction(this.pendingAction);
+
+         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 2))
+         {
+            velocityWindow = BitConverter.ToUInt16(upload.Data, 0);
+            result = true;
+         }
+
+         return (result);
+      }
+
+      public bool SetBldc1VelocityWindow(UInt16 velocityWindow)
+      {
+         bool result = true;
+
+         result &= this.ExchangeCommAction(new SDODownload(0x686D, 0, 2, (UInt32)velocityWindow));
+
+         return (result);
+      }
+
+      public bool GetBldc1VelocityWindowTime(ref UInt16 velocityWindowTime)
+      {
+         bool result = false;
+         SDOUpload upload = new SDOUpload(0x686E, 0);
+         this.pendingAction = upload;
+         bool actionResult = this.ExchangeCommAction(this.pendingAction);
+
+         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 2))
+         {
+            velocityWindowTime = BitConverter.ToUInt16(upload.Data, 0);
+            result = true;
+         }
+
+         return (result);
+      }
+
+      public bool SetBldc1VelocityWindowTime(UInt16 velocityWindowTime)
+      {
+         bool result = true;
+
+         result &= this.ExchangeCommAction(new SDODownload(0x686E, 0, 2, (UInt32)velocityWindowTime));
+
+         return (result);
+      }
+
+      public bool GetBldc1VelocityThreshold(ref UInt16 velocityThreshold)
+      {
+         bool result = false;
+         SDOUpload upload = new SDOUpload(0x686F, 0);
+         this.pendingAction = upload;
+         bool actionResult = this.ExchangeCommAction(this.pendingAction);
+
+         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 2))
+         {
+            velocityThreshold = BitConverter.ToUInt16(upload.Data, 0);
+            result = true;
+         }
+
+         return (result);
+      }
+
+      public bool SetBldc1VelocityThreshold(UInt16 velocityThreshold)
+      {
+         bool result = true;
+
+         result &= this.ExchangeCommAction(new SDODownload(0x686F, 0, 2, (UInt32)velocityThreshold));
+
+         return (result);
+      }
+
+      public bool GetBldc1VelocityThresholdTime(ref UInt16 velocityThresholdTime)
+      {
+         bool result = false;
+         SDOUpload upload = new SDOUpload(0x6870, 0);
+         this.pendingAction = upload;
+         bool actionResult = this.ExchangeCommAction(this.pendingAction);
+
+         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 2))
+         {
+            velocityThresholdTime = BitConverter.ToUInt16(upload.Data, 0);
+            result = true;
+         }
+
+         return (result);
+      }
+
+      public bool SetBldc1VelocityThresholdTime(UInt16 velocityThresholdTime)
+      {
+         bool result = true;
+
+         result &= this.ExchangeCommAction(new SDODownload(0x6870, 0, 2, (UInt32)velocityThresholdTime));
+
+         return (result);
+      }
+
       #endregion
 
       #region Stepper0 Functions
@@ -1709,10 +2057,12 @@ namespace E4.CAN
          }
          else if (MotorModes.position == mode)
          {
-            result &= this.SetStepper0ControlWord(0x6);
-            result &= this.SetStepper0ControlWord(0x7);
-            result &= this.ExchangeCommAction(new SDODownload(0x7060, 0, 1, (byte)1));
-            result &= this.SetStepper0ControlWord(0xF);
+            int relativePositionBit = (false != this.stepper0TargetPositionRelative) ? 0x0040 : 0;
+
+            result &= this.SetStepper0ControlWord((UInt16)(0x6 | relativePositionBit));
+            result &= this.SetStepper0ControlWord((UInt16)(0x7 | relativePositionBit));
+            result &= this.ExchangeCommAction(new SDODownload(0x6060, 0, 1, (byte)1));
+            result &= this.SetStepper0ControlWord((UInt16)(0xF | relativePositionBit));
          }
          else if (MotorModes.homing == mode)
          {
@@ -1800,7 +2150,7 @@ namespace E4.CAN
          return (result);
       }
 
-      public bool GetStepper0TargetPosition(ref Int32 targetPosition)
+      public bool GetStepper0TargetPosition(ref Int32 targetPosition, ref bool positionRelative)
       {
          bool result = false;
          SDOUpload upload = new SDOUpload(0x707A, 0);
@@ -1810,17 +2160,39 @@ namespace E4.CAN
          if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
          {
             targetPosition = BitConverter.ToInt32(upload.Data, 0);
+            positionRelative = this.stepper0TargetPositionRelative;
             result = true;
          }
 
          return (result);
       }
 
-      public bool SetStepper0TargetPosition(Int32 targetPosition)
+      public bool SetStepper0TargetPosition(Int32 targetPosition, bool positionRelative)
       {
          bool result = true;
 
+         if (positionRelative != this.stepper0TargetPositionRelative)
+         {
+            UInt16 controlWord = this.stepper0ControlWord;
+
+            if (false != positionRelative)
+            {
+               controlWord |= 0x0040;
+            }
+            else
+            {
+               controlWord &= 0xFFBF;
+            }
+
+            result &= this.SetStepper0ControlWord(controlWord);
+         }
+
          result &= this.ExchangeCommAction(new SDODownload(0x707A, 0, 4, (UInt32)targetPosition));
+
+         if (false != result)
+         {
+            this.stepper0TargetPositionRelative = positionRelative;
+         }
 
          return (result);
       }
@@ -2115,10 +2487,12 @@ namespace E4.CAN
          }
          else if (MotorModes.position == mode)
          {
-            result &= this.SetStepper1ControlWord(0x6);
-            result &= this.SetStepper1ControlWord(0x7);
-            result &= this.ExchangeCommAction(new SDODownload(0x7860, 0, 1, (byte)1));
-            result &= this.SetStepper1ControlWord(0xF);
+            int relativePositionBit = (false != this.stepper1TargetPositionRelative) ? 0x0040 : 0;
+
+            result &= this.SetStepper1ControlWord((UInt16)(0x6 | relativePositionBit));
+            result &= this.SetStepper1ControlWord((UInt16)(0x7 | relativePositionBit));
+            result &= this.ExchangeCommAction(new SDODownload(0x6060, 0, 1, (byte)1));
+            result &= this.SetStepper1ControlWord((UInt16)(0xF | relativePositionBit));
          }
          else if (MotorModes.homing == mode)
          {
@@ -2188,7 +2562,7 @@ namespace E4.CAN
          return (result);
       }
 
-      public bool GetStepper1TargetPosition(ref Int32 targetPosition)
+      public bool GetStepper1TargetPosition(ref Int32 targetPosition, ref bool positionRelative)
       {
          bool result = false;
          SDOUpload upload = new SDOUpload(0x787A, 0);
@@ -2198,17 +2572,39 @@ namespace E4.CAN
          if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
          {
             targetPosition = BitConverter.ToInt32(upload.Data, 0);
+            positionRelative = stepper1TargetPositionRelative;
             result = true;
          }
 
          return (result);
       }
 
-      public bool SetStepper1TargetPosition(Int32 targetPosition)
+      public bool SetStepper1TargetPosition(Int32 targetPosition, bool positionRelative)
       {
          bool result = true;
 
+         if (positionRelative != this.stepper1TargetPositionRelative)
+         {
+            UInt16 controlWord = this.stepper1ControlWord;
+
+            if (false != positionRelative)
+            {
+               controlWord |= 0x0040;
+            }
+            else
+            {
+               controlWord &= 0xFFBF;
+            }
+
+            result &= this.SetStepper1ControlWord(controlWord);
+         }
+
          result &= this.ExchangeCommAction(new SDODownload(0x787A, 0, 4, (UInt32)targetPosition));
+
+         if (false != result)
+         {
+            this.stepper1TargetPositionRelative = positionRelative;
+         }
 
          return (result);
       }

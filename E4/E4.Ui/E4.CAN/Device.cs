@@ -59,6 +59,7 @@ namespace E4.CAN
       protected AutoResetEvent commEvent;
       protected CommAction pendingAction;
 
+      private bool faultResetEnabled;
       private bool faultResetNeeded;
       private bool faultResetActive;
       private DateTime faultResetTimeLimit;
@@ -82,6 +83,9 @@ namespace E4.CAN
       private int consumerHeartbeatSetting;
       private DateTime consumerHeartbeatTimeLimit;
       private int producerHeartbeatSetting;
+
+      private bool customComTime;
+      private int customComTimeLimit;
 
       #endregion
 
@@ -346,6 +350,12 @@ namespace E4.CAN
             this.pendingAction = action;
             this.ScheduleAction(action, timeout, attemptLimit);
             int exchangeLimit = (timeout * attemptLimit) + 50;
+
+            if (false != this.customComTime)
+            {
+               exchangeLimit = (this.customComTimeLimit * attemptLimit) + 50;
+            }
+
             result = this.commEvent.WaitOne(exchangeLimit);
 
             if (false != result)
@@ -740,6 +750,7 @@ namespace E4.CAN
          this.actionQueue.Clear();
          this.commState = CommStates.idle;
 
+         this.faultResetEnabled = true;
          this.faultResetNeeded = false;
          this.faultResetActive = false;
 
@@ -820,6 +831,7 @@ namespace E4.CAN
 
       public virtual void Reset()
       {
+         this.faultResetEnabled = true;
          this.faultResetNeeded = false;
          this.faultResetActive = false;
 
@@ -833,6 +845,9 @@ namespace E4.CAN
          this.consumerHeartbeatActive = false;
          this.consumerHeartbeatSetting = 0;
 
+         this.customComTime = false;
+         this.customComTimeLimit = 0;
+
          NetworkRequest networkRequest = new NetworkRequest(0x81, this.NodeId);
          this.ScheduleAction(networkRequest);
       }
@@ -843,7 +858,11 @@ namespace E4.CAN
          this.commState = CommStates.error;
          this.actionQueue.Clear();
          this.SignalFault();
-         this.faultResetNeeded = resetDevice;
+
+         if (false != this.faultResetEnabled)
+         {
+            this.faultResetNeeded = resetDevice;
+         }
       }
 
       public virtual void ClearFault()
@@ -1190,8 +1209,15 @@ namespace E4.CAN
 
                            if (false != responseNeeded)
                            {
+                              double retryTime = this.action.RetryTime;
+
+                              if (false != this.customComTime)
+                              {
+                                 retryTime = this.customComTimeLimit;
+                              }
+
                               //Tracer.WriteHigh(TraceGroup.CANBUS, "", "tx pending");
-                              this.commTimeLimit = DateTime.Now.AddMilliseconds(this.action.RetryTime);
+                              this.commTimeLimit = DateTime.Now.AddMilliseconds(retryTime);
                               this.commState = CommStates.rxWait;
                            }
                            else
@@ -1510,6 +1536,17 @@ namespace E4.CAN
 
          return(result);
      }
+
+      public void SetCustomComTimeout(int timeLimit)
+      {
+         this.customComTimeLimit = timeLimit;
+         this.customComTime = true;
+      }
+
+      public void DisableFaultReset()
+      {
+         this.faultResetEnabled = false;
+      }
 
       #endregion
    }

@@ -889,7 +889,7 @@ namespace E4.DeviceTest
             this.StatusLabel.Text = "Invalid entry.";
          }
       }
-
+      
       #endregion
 
       #region Camera
@@ -1510,12 +1510,14 @@ namespace E4.DeviceTest
          {
             this.e4Main.NodeId = nodeId;
             Int32 targetPosition = 0;
-            bool success = this.e4Main.GetBldc0TargetPosition(ref targetPosition);
+            bool targetPositionRelative = false;
+            bool success = this.e4Main.GetBldc0TargetPosition(ref targetPosition, ref targetPositionRelative);
 
             if (false != success)
             {
                this.StatusLabel.Text = "BLDC0 target position retrieved.";
                this.E4MainBldc0TargetPositionTextBox.Text = string.Format("{0}", targetPosition);
+               this.E4MainBldc0TargetPositionRelativeCheckBox.Checked = targetPositionRelative;
             }
             else
             {
@@ -1532,12 +1534,13 @@ namespace E4.DeviceTest
       {
          byte nodeId = 0;
          Int32 targetPosition = 0;
+         bool targetPositionRelative = this.E4MainBldc0TargetPositionRelativeCheckBox.Checked;
 
          if ((byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false) &&
              (Int32.TryParse(this.E4MainBldc0TargetPositionTextBox.Text, out targetPosition) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.SetBldc0TargetPosition(targetPosition);
+            bool result = this.e4Main.SetBldc0TargetPosition(targetPosition, targetPositionRelative);
 
             if (false != result)
             {
@@ -1978,6 +1981,318 @@ namespace E4.DeviceTest
          }
       }
 
+      private void GetE4MainBldc0PositionWindowButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+
+         if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
+         {
+            this.e4Main.NodeId = nodeId;
+            UInt32 positionWindow = 0;
+            bool success = this.e4Main.GetBldc0PositionWindow(ref positionWindow);
+
+            if (false != success)
+            {
+               this.StatusLabel.Text = "BLDC0 position window retrieved.";
+               this.E4MainBldc0PositionWindowTextBox.Text = string.Format("{0}", positionWindow);
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to get BLDC0 position window.";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      private void SetE4MainBldc0PositionWindowButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+         UInt32 positionWindow = 0;
+
+         if ((byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false) &&
+             (UInt32.TryParse(this.E4MainBldc0PositionWindowTextBox.Text, out positionWindow) != false))
+         {
+            this.e4Main.NodeId = nodeId;
+            bool result = this.e4Main.SetBldc0PositionWindow(positionWindow);
+
+            if (false != result)
+            {
+               this.StatusLabel.Text = "BLDC0 position window set to " + positionWindow.ToString() + ".";
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to set BLDC0 position window to " + positionWindow.ToString() + ".";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      private void GetE4MainBldc0PositionWindowTimeButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+
+         if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
+         {
+            this.e4Main.NodeId = nodeId;
+            UInt16 positionWindowTime = 0;
+            bool success = this.e4Main.GetBldc0PositionWindowTime(ref positionWindowTime);
+
+            if (false != success)
+            {
+               this.StatusLabel.Text = "BLDC0 position window time retrieved.";
+               this.E4MainBldc0PositionWindowTimeTextBox.Text = string.Format("{0}", positionWindowTime);
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to get BLDC0 position window time.";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      private void SetE4MainBldc0PositionWindowTimeButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+         UInt16 positionWindowTime = 0;
+
+         if ((byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false) &&
+             (UInt16.TryParse(this.E4MainBldc0PositionWindowTimeTextBox.Text, out positionWindowTime) != false))
+         {
+            this.e4Main.NodeId = nodeId;
+            bool result = this.e4Main.SetBldc0PositionWindowTime(positionWindowTime);
+
+            if (false != result)
+            {
+               this.StatusLabel.Text = "BLDC0 position window time set to " + positionWindowTime.ToString() + ".";
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to set BLDC0 position window time to " + positionWindowTime.ToString() + ".";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      private void GetE4MainBldc0VelocityWindowButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+
+         if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
+         {
+            this.e4Main.NodeId = nodeId;
+            UInt16 velocityWindow = 0;
+            bool success = this.e4Main.GetBldc0VelocityWindow(ref velocityWindow);
+
+            if (false != success)
+            {
+               this.StatusLabel.Text = "BLDC0 velocity window retrieved.";
+               this.E4MainBldc0VelocityWindowTextBox.Text = string.Format("{0}", velocityWindow);
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to get BLDC0 velocity window.";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      private void SetE4MainBldc0VelocityWindowButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+         UInt16 velocityWindow = 0;
+
+         if ((byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false) &&
+             (UInt16.TryParse(this.E4MainBldc0VelocityWindowTextBox.Text, out velocityWindow) != false))
+         {
+            this.e4Main.NodeId = nodeId;
+            bool result = this.e4Main.SetBldc0VelocityWindow(velocityWindow);
+
+            if (false != result)
+            {
+               this.StatusLabel.Text = "BLDC0 velocity window set to " + velocityWindow.ToString() + ".";
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to set BLDC0 velocity window to " + velocityWindow.ToString() + ".";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      private void GetE4MainBldc0VelocityWindowTimeButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+
+         if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
+         {
+            this.e4Main.NodeId = nodeId;
+            UInt16 velocityWindowTime = 0;
+            bool success = this.e4Main.GetBldc0VelocityWindowTime(ref velocityWindowTime);
+
+            if (false != success)
+            {
+               this.StatusLabel.Text = "BLDC0 velocity window time retrieved.";
+               this.E4MainBldc0VelocityWindowTimeTextBox.Text = string.Format("{0}", velocityWindowTime);
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to get BLDC0 velocity window time.";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      private void SetE4MainBldc0VelocityWindowTimeButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+         UInt16 velocityWindowTime = 0;
+
+         if ((byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false) &&
+             (UInt16.TryParse(this.E4MainBldc0VelocityWindowTimeTextBox.Text, out velocityWindowTime) != false))
+         {
+            this.e4Main.NodeId = nodeId;
+            bool result = this.e4Main.SetBldc0VelocityWindowTime(velocityWindowTime);
+
+            if (false != result)
+            {
+               this.StatusLabel.Text = "BLDC0 velocity window time set to " + velocityWindowTime.ToString() + ".";
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to set BLDC0 velocity window time to " + velocityWindowTime.ToString() + ".";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      private void GetE4MainBldc0VelocityThresholdButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+
+         if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
+         {
+            this.e4Main.NodeId = nodeId;
+            UInt16 velocityThreshold = 0;
+            bool success = this.e4Main.GetBldc0VelocityThreshold(ref velocityThreshold);
+
+            if (false != success)
+            {
+               this.StatusLabel.Text = "BLDC0 velocity threshold retrieved.";
+               this.E4MainBldc0VelocityThresholdTextBox.Text = string.Format("{0}", velocityThreshold);
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to get BLDC0 velocity threshold.";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      private void SetE4MainBldc0VelocityThresholdButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+         UInt16 velocityThreshold = 0;
+
+         if ((byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false) &&
+             (UInt16.TryParse(this.E4MainBldc0VelocityThresholdTextBox.Text, out velocityThreshold) != false))
+         {
+            this.e4Main.NodeId = nodeId;
+            bool result = this.e4Main.SetBldc0VelocityThreshold(velocityThreshold);
+
+            if (false != result)
+            {
+               this.StatusLabel.Text = "BLDC0 velocity threshold set to " + velocityThreshold.ToString() + ".";
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to set BLDC0 velocity threshold to " + velocityThreshold.ToString() + ".";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      private void GetE4MainBldc0VelocityThresholdTimeButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+
+         if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
+         {
+            this.e4Main.NodeId = nodeId;
+            UInt16 velocityThresholdTime = 0;
+            bool success = this.e4Main.GetBldc0VelocityThresholdTime(ref velocityThresholdTime);
+
+            if (false != success)
+            {
+               this.StatusLabel.Text = "BLDC0 velocity threshold time retrieved.";
+               this.E4MainBldc0VelocityThresholdTimeTextBox.Text = string.Format("{0}", velocityThresholdTime);
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to get BLDC0 velocity time threshold.";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      private void SetE4MainBldc0VelocityThresholdTimeButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+         UInt16 velocityThresholdTime = 0;
+
+         if ((byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false) &&
+             (UInt16.TryParse(this.E4MainBldc0VelocityThresholdTimeTextBox.Text, out velocityThresholdTime) != false))
+         {
+            this.e4Main.NodeId = nodeId;
+            bool result = this.e4Main.SetBldc0VelocityThresholdTime(velocityThresholdTime);
+
+            if (false != result)
+            {
+               this.StatusLabel.Text = "BLDC0 velocity threshold time set to " + velocityThresholdTime.ToString() + ".";
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to set BLDC0 velocity time threshold to " + velocityThresholdTime.ToString() + ".";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
       #endregion
 
       #endregion
@@ -2052,12 +2367,14 @@ namespace E4.DeviceTest
          {
             this.e4Main.NodeId = nodeId;
             Int32 targetPosition = 0;
-            bool success = this.e4Main.GetBldc1TargetPosition(ref targetPosition);
+            bool targetPositionRelative = false;
+            bool success = this.e4Main.GetBldc1TargetPosition(ref targetPosition, ref targetPositionRelative);
 
             if (false != success)
             {
                this.StatusLabel.Text = "BLDC1 target position retrieved.";
                this.E4MainBldc1TargetPositionTextBox.Text = string.Format("{0}", targetPosition);
+               this.E4MainBldc1TargetPositionRelativeCheckBox.Checked = targetPositionRelative;
             }
             else
             {
@@ -2074,12 +2391,13 @@ namespace E4.DeviceTest
       {
          byte nodeId = 0;
          Int32 targetPosition = 0;
+         bool targetPositionRelative = this.E4MainBldc1TargetPositionRelativeCheckBox.Checked;
 
          if ((byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false) &&
              (Int32.TryParse(this.E4MainBldc1TargetPositionTextBox.Text, out targetPosition) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.SetBldc1TargetPosition(targetPosition);
+            bool result = this.e4Main.SetBldc1TargetPosition(targetPosition, targetPositionRelative);
 
             if (false != result)
             {
@@ -2520,6 +2838,318 @@ namespace E4.DeviceTest
          }
       }
 
+      private void GetE4MainBldc1PositionWindowButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+
+         if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
+         {
+            this.e4Main.NodeId = nodeId;
+            UInt32 positionWindow = 0;
+            bool success = this.e4Main.GetBldc1PositionWindow(ref positionWindow);
+
+            if (false != success)
+            {
+               this.StatusLabel.Text = "BLDC1 position window retrieved.";
+               this.E4MainBldc1PositionWindowTextBox.Text = string.Format("{0}", positionWindow);
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to get BLDC1 position window.";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      private void SetE4MainBldc1PositionWindowButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+         UInt32 positionWindow = 0;
+
+         if ((byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false) &&
+             (UInt32.TryParse(this.E4MainBldc1PositionWindowTextBox.Text, out positionWindow) != false))
+         {
+            this.e4Main.NodeId = nodeId;
+            bool result = this.e4Main.SetBldc1PositionWindow(positionWindow);
+
+            if (false != result)
+            {
+               this.StatusLabel.Text = "BLDC1 position window set to " + positionWindow.ToString() + ".";
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to set BLDC1 position window to " + positionWindow.ToString() + ".";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      private void GetE4MainBldc1PositionWindowTimeButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+
+         if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
+         {
+            this.e4Main.NodeId = nodeId;
+            UInt16 positionWindowTime = 0;
+            bool success = this.e4Main.GetBldc1PositionWindowTime(ref positionWindowTime);
+
+            if (false != success)
+            {
+               this.StatusLabel.Text = "BLDC1 position window time retrieved.";
+               this.E4MainBldc1PositionWindowTimeTextBox.Text = string.Format("{0}", positionWindowTime);
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to get BLDC1 position window time.";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      private void SetE4MainBldc1PositionWindowTimeButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+         UInt16 positionWindowTime = 0;
+
+         if ((byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false) &&
+             (UInt16.TryParse(this.E4MainBldc1PositionWindowTimeTextBox.Text, out positionWindowTime) != false))
+         {
+            this.e4Main.NodeId = nodeId;
+            bool result = this.e4Main.SetBldc1PositionWindowTime(positionWindowTime);
+
+            if (false != result)
+            {
+               this.StatusLabel.Text = "BLDC1 position window time set to " + positionWindowTime.ToString() + ".";
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to set BLDC1 position window time to " + positionWindowTime.ToString() + ".";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      private void GetE4MainBldc1VelocityWindowButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+
+         if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
+         {
+            this.e4Main.NodeId = nodeId;
+            UInt16 velocityWindow = 0;
+            bool success = this.e4Main.GetBldc1VelocityWindow(ref velocityWindow);
+
+            if (false != success)
+            {
+               this.StatusLabel.Text = "BLDC1 velocity window retrieved.";
+               this.E4MainBldc1VelocityWindowTextBox.Text = string.Format("{0}", velocityWindow);
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to get BLDC1 velocity window.";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      private void SetE4MainBldc1VelocityWindowButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+         UInt16 velocityWindow = 0;
+
+         if ((byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false) &&
+             (UInt16.TryParse(this.E4MainBldc1VelocityWindowTextBox.Text, out velocityWindow) != false))
+         {
+            this.e4Main.NodeId = nodeId;
+            bool result = this.e4Main.SetBldc1VelocityWindow(velocityWindow);
+
+            if (false != result)
+            {
+               this.StatusLabel.Text = "BLDC1 velocity window set to " + velocityWindow.ToString() + ".";
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to set BLDC1 velocity window to " + velocityWindow.ToString() + ".";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      private void GetE4MainBldc1VelocityWindowTimeButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+
+         if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
+         {
+            this.e4Main.NodeId = nodeId;
+            UInt16 velocityWindowTime = 0;
+            bool success = this.e4Main.GetBldc1VelocityWindowTime(ref velocityWindowTime);
+
+            if (false != success)
+            {
+               this.StatusLabel.Text = "BLDC1 velocity window time retrieved.";
+               this.E4MainBldc1VelocityWindowTimeTextBox.Text = string.Format("{0}", velocityWindowTime);
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to get BLDC1 velocity window time.";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      private void SetE4MainBldc1VelocityWindowTimeButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+         UInt16 velocityWindowTime = 0;
+
+         if ((byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false) &&
+             (UInt16.TryParse(this.E4MainBldc1VelocityWindowTimeTextBox.Text, out velocityWindowTime) != false))
+         {
+            this.e4Main.NodeId = nodeId;
+            bool result = this.e4Main.SetBldc1VelocityWindowTime(velocityWindowTime);
+
+            if (false != result)
+            {
+               this.StatusLabel.Text = "BLDC1 velocity window time set to " + velocityWindowTime.ToString() + ".";
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to set BLDC1 velocity window time to " + velocityWindowTime.ToString() + ".";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      private void GetE4MainBldc1VelocityThresholdButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+
+         if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
+         {
+            this.e4Main.NodeId = nodeId;
+            UInt16 velocityThreshold = 0;
+            bool success = this.e4Main.GetBldc1VelocityThreshold(ref velocityThreshold);
+
+            if (false != success)
+            {
+               this.StatusLabel.Text = "BLDC1 velocity threshold retrieved.";
+               this.E4MainBldc1VelocityThresholdTextBox.Text = string.Format("{0}", velocityThreshold);
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to get BLDC1 velocity threshold.";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      private void SetE4MainBldc1VelocityThresholdButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+         UInt16 velocityThreshold = 0;
+
+         if ((byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false) &&
+             (UInt16.TryParse(this.E4MainBldc1VelocityThresholdTextBox.Text, out velocityThreshold) != false))
+         {
+            this.e4Main.NodeId = nodeId;
+            bool result = this.e4Main.SetBldc1VelocityThreshold(velocityThreshold);
+
+            if (false != result)
+            {
+               this.StatusLabel.Text = "BLDC1 velocity threshold set to " + velocityThreshold.ToString() + ".";
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to set BLDC1 velocity threshold to " + velocityThreshold.ToString() + ".";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      private void GetE4MainBldc1VelocityThresholdTimeButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+
+         if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
+         {
+            this.e4Main.NodeId = nodeId;
+            UInt16 velocityThresholdTime = 0;
+            bool success = this.e4Main.GetBldc1VelocityThresholdTime(ref velocityThresholdTime);
+
+            if (false != success)
+            {
+               this.StatusLabel.Text = "BLDC1 velocity threshold time retrieved.";
+               this.E4MainBldc1VelocityThresholdTimeTextBox.Text = string.Format("{0}", velocityThresholdTime);
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to get BLDC1 velocity time threshold.";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      private void SetE4MainBldc1VelocityThresholdTimeButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+         UInt16 velocityThresholdTime = 0;
+
+         if ((byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false) &&
+             (UInt16.TryParse(this.E4MainBldc1VelocityThresholdTimeTextBox.Text, out velocityThresholdTime) != false))
+         {
+            this.e4Main.NodeId = nodeId;
+            bool result = this.e4Main.SetBldc1VelocityThresholdTime(velocityThresholdTime);
+
+            if (false != result)
+            {
+               this.StatusLabel.Text = "BLDC1 velocity threshold time set to " + velocityThresholdTime.ToString() + ".";
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to set BLDC1 velocity time threshold to " + velocityThresholdTime.ToString() + ".";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
       #endregion
 
       #endregion
@@ -2626,12 +3256,14 @@ namespace E4.DeviceTest
          {
             this.e4Main.NodeId = nodeId;
             Int32 targetPosition = 0;
-            bool success = this.e4Main.GetStepper0TargetPosition(ref targetPosition);
+            bool targetPositionRelative = false;
+            bool success = this.e4Main.GetStepper0TargetPosition(ref targetPosition, ref targetPositionRelative);
 
             if (false != success)
             {
                this.StatusLabel.Text = "Stepper0 target position retrieved.";
                this.E4MainStepper0TargetPositionTextBox.Text = string.Format("{0}", targetPosition);
+               this.E4MainStepper0TargetPositionRelativeCheckBox.Checked = targetPositionRelative;
             }
             else
             {
@@ -2648,12 +3280,13 @@ namespace E4.DeviceTest
       {
          byte nodeId = 0;
          Int32 targetPosition = 0;
+         bool targetPositionRelative = this.E4MainStepper0TargetPositionRelativeCheckBox.Checked;
 
          if ((byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false) &&
              (Int32.TryParse(this.E4MainStepper0TargetPositionTextBox.Text, out targetPosition) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.SetStepper0TargetPosition(targetPosition);
+            bool result = this.e4Main.SetStepper0TargetPosition(targetPosition, targetPositionRelative);
 
             if (false != result)
             {
@@ -3240,12 +3873,14 @@ namespace E4.DeviceTest
          {
             this.e4Main.NodeId = nodeId;
             Int32 targetPosition = 0;
-            bool success = this.e4Main.GetStepper1TargetPosition(ref targetPosition);
+            bool targetPositionRelative = false;
+            bool success = this.e4Main.GetStepper1TargetPosition(ref targetPosition, ref targetPositionRelative);
 
             if (false != success)
             {
                this.StatusLabel.Text = "Stepper1 target position retrieved.";
                this.E4MainStepper1TargetPositionTextBox.Text = string.Format("{0}", targetPosition);
+               this.E4MainStepper1TargetPositionRelativeCheckBox.Checked = targetPositionRelative;
             }
             else
             {
@@ -3262,12 +3897,13 @@ namespace E4.DeviceTest
       {
          byte nodeId = 0;
          Int32 targetPosition = 0;
+         bool targetPositionRelative = this.E4MainStepper1TargetPositionRelativeCheckBox.Checked;
 
          if ((byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false) &&
              (Int32.TryParse(this.E4MainStepper1TargetPositionTextBox.Text, out targetPosition) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.SetStepper1TargetPosition(targetPosition);
+            bool result = this.e4Main.SetStepper1TargetPosition(targetPosition, targetPositionRelative);
 
             if (false != result)
             {
@@ -3752,6 +4388,36 @@ namespace E4.DeviceTest
 
       #endregion
 
+      #region Debug Events
+
+      private void SetE4MainSdoTimeoutButton_Click(object sender, EventArgs e)
+      {
+         int sdoTimeout = 0;
+
+         if (int.TryParse(this.E4MainSdoTimeoutTextBox.Text, out sdoTimeout) != false)
+         {
+            this.e4Main.SetCustomComTimeout(sdoTimeout);
+            this.StatusLabel.Text = "Main SDO timeout set.";
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      private void E4MainDisableFaultResetButton_Click(object sender, EventArgs e)
+      {
+         this.e4Main.DisableFaultReset();
+      }
+
+      private void E4MainClearDeviceFaultButton_Click(object sender, EventArgs e)
+      {
+         this.e4Main.ClearFault();
+         this.StatusLabel.Text = "Main fault cleared.";
+      }
+
+      #endregion
+
       #endregion
 
       #region Form Events
@@ -3984,7 +4650,6 @@ namespace E4.DeviceTest
       }
 
       #endregion
-
 
    }
 }

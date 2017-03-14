@@ -2217,6 +2217,8 @@ namespace E4.BusSim
          this.motors[0].HomingAccelerationLocation = 0x609A00;
 
          this.motors[0].PositionActualValueLocation = 0x606400;
+         this.motors[0].PositionWindowLocation = 0x606700;
+         this.motors[0].PositionWindowTimeLocation = 0x606800;
          this.motors[0].PositionControlParameterHighestLocation = 0x60FB00;
          this.motors[0].PositionProportionalGainCoefficientKpLocation = 0x60FB01;
          this.motors[0].PositionIntegralGainCoefficienKiLocation = 0x60FB02;
@@ -2231,6 +2233,10 @@ namespace E4.BusSim
          this.motors[0].CurrentActualValueLocation = 0x607800;
 
          this.motors[0].VelocityActualValueLocation = 0x606C00;
+         this.motors[0].VelocityWindowLocation = 0x606D00;
+         this.motors[0].VelocityWindowTimeLocation = 0x606E00;
+         this.motors[0].VelocityThresholdLocation = 0x606F00;
+         this.motors[0].VelocityThresholdTimeLocation = 0x607000;
          this.motors[0].VelocityControlParameterHighestLocation = 0x60F900;
          this.motors[0].VelocityProportionalGainCoefficientKpLocation = 0x60F901;
          this.motors[0].VelocityIntegralGainCoefficienKiLocation = 0x60F902;
@@ -2273,6 +2279,8 @@ namespace E4.BusSim
 
             if (1 == i)
             {
+               this.motors[i].PositionWindowLocation = this.motors[i - 1].PositionWindowLocation + 0x080000;
+               this.motors[i].PositionWindowTimeLocation = this.motors[i - 1].PositionWindowTimeLocation + 0x080000;
                this.motors[i].PositionControlParameterHighestLocation = this.motors[i - 1].PositionControlParameterHighestLocation + 0x080000;
                this.motors[i].PositionProportionalGainCoefficientKpLocation = this.motors[i - 1].PositionProportionalGainCoefficientKpLocation + 0x080000;
                this.motors[i].PositionIntegralGainCoefficienKiLocation = this.motors[i - 1].PositionIntegralGainCoefficienKiLocation + 0x080000;
@@ -2292,6 +2300,11 @@ namespace E4.BusSim
 
             if (1 == i)
             {
+               this.motors[i].VelocityWindowLocation = this.motors[i - 1].VelocityWindowLocation + 0x080000;
+               this.motors[i].VelocityWindowTimeLocation = this.motors[i - 1].VelocityWindowTimeLocation + 0x080000;
+               this.motors[i].VelocityThresholdLocation = this.motors[i - 1].VelocityThresholdLocation + 0x080000;
+               this.motors[i].VelocityThresholdTimeLocation = this.motors[i - 1].VelocityThresholdTimeLocation + 0x080000;
+
                this.motors[i].VelocityControlParameterHighestLocation = this.motors[i - 1].VelocityControlParameterHighestLocation + 0x080000;
                this.motors[i].VelocityProportionalGainCoefficientKpLocation = this.motors[i - 1].VelocityProportionalGainCoefficientKpLocation + 0x080000;
                this.motors[i].VelocityIntegralGainCoefficienKiLocation = this.motors[i - 1].VelocityIntegralGainCoefficienKiLocation + 0x080000;

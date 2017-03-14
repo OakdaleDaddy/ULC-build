@@ -100,6 +100,8 @@
       private Label HomingAccelerationLabel;
 
       private Label PositionActualValueLabel;
+      private Label PositionWindowLabel;
+      private Label PositionWindowTimeLabel;
       private Label PositionControlParameterHighestLabel;
       private Label PositionProportionalGainCoefficientKpLabel;
       private Label PositionIntegralGainCoefficienKiLabel;
@@ -114,7 +116,10 @@
       private Label CurrentActualValueLabel;
 
       private Label VelocityActualValueLabel;
-
+      private Label VelocityWindowLabel;
+      private Label VelocityWindowTimeLabel;
+      private Label VelocityThresholdLabel;
+      private Label VelocityThresholdTimeLabel;
       private Label VelocityControlParameterHighestLabel;
       private Label VelocityProportionalGainCoefficientKpLabel;
       private Label VelocityIntegralGainCoefficienKiLabel;
@@ -149,6 +154,8 @@
       private UInt32 homingAcceleration; // rw pdo 609a
       
       private Int32 positionActualValue; // ro pdo 6064
+      private UInt32 positionWindow; // rw pdo 6067
+      private UInt16 positionWindowTime; // rw pdo 6068
       private byte positionControlParameterHighest; // ro 60FB-0
       private Int32 positionProportionalGainCoefficientKp; // rw pdo 60FB-1
       private Int32 positionIntegralGainCoefficienKi; // rw pdo 60FB-2
@@ -163,6 +170,10 @@
       private Int16 currentActualValue; // pdo ro 6078
 
       private Int32 velocityActualValue; // ro pdo 606c
+      private UInt16 velocityWindow; // rw pdo 606D
+      private UInt16 velocityWindowTime; // rw pdo 606E
+      private UInt16 velocityThreshold; // rw pdo 606F
+      private UInt16 velocityThresholdTime; // rw pdo 6070
       private byte velocityControlParameterHighest; // ro 60F9-0
       private Int32 velocityProportionalGainCoefficientKp; // rw pdo 60F9-1
       private Int32 velocityIntegralGainCoefficienKi; // rw pdo 60F9-2
@@ -1062,6 +1073,34 @@
          }
       }
 
+
+      private UInt32 PositionWindow
+      {
+         set
+         {
+            this.SetValue(this.PositionWindowLocation, this.PositionWindowLabel, "Position Window", ref this.positionWindow, value, 8);
+         }
+
+         get
+         {
+            return (this.positionWindow);
+         }
+      }
+
+
+      private UInt16 PositionWindowTime
+      {
+         set
+         {
+            this.SetValue(this.PositionWindowTimeLocation, this.PositionWindowTimeLabel, "Position Window Time", ref this.positionWindowTime, value, 4);
+         }
+
+         get
+         {
+            return (this.positionWindowTime);
+         }
+      }
+
       private byte PositionControlParameterHighest
       {
          set
@@ -1218,6 +1257,58 @@
          }
       }
 
+      private UInt16 VelocityWindow
+      {
+         set
+         {
+            this.SetValue(this.VelocityWindowLocation, this.VelocityWindowLabel, "Velocity Window", ref this.velocityWindow, value, 4);
+         }
+
+         get
+         {
+            return (this.velocityWindow);
+         }
+      }
+
+      private UInt16 VelocityWindowTime
+      {
+         set
+         {
+            this.SetValue(this.VelocityWindowTimeLocation, this.VelocityWindowTimeLabel, "Velocity Window Time", ref this.velocityWindowTime, value, 4);
+         }
+
+         get
+         {
+            return (this.velocityWindowTime);
+         }
+      }
+
+      private UInt16 VelocityThreshold
+      {
+         set
+         {
+            this.SetValue(this.VelocityThresholdLocation, this.VelocityThresholdLabel, "Velocity Threshold", ref this.velocityThreshold, value, 4);
+         }
+
+         get
+         {
+            return (this.velocityThreshold);
+         }
+      }
+
+      private UInt16 VelocityThresholdTime
+      {
+         set
+         {
+            this.SetValue(this.VelocityThresholdTimeLocation, this.VelocityThresholdTimeLabel, "Velocity Threshold Time", ref this.velocityThresholdTime, value, 4);
+         }
+
+         get
+         {
+            return (this.velocityThresholdTime);
+         }
+      }
+
       private byte VelocityControlParameterHighest
       {
          set
@@ -1321,6 +1412,8 @@
       public int HomingAccelerationLocation { set; get; }
 
       public int PositionActualValueLocation { set; get; }
+      public int PositionWindowLocation { set; get; }
+      public int PositionWindowTimeLocation  { set; get; }
       public int PositionControlParameterHighestLocation { set; get; }
       public int PositionProportionalGainCoefficientKpLocation { set; get; }
       public int PositionIntegralGainCoefficienKiLocation { set; get; }
@@ -1335,6 +1428,10 @@
       public int CurrentActualValueLocation { set; get; }
 
       public int VelocityActualValueLocation { set; get; }
+      public int VelocityWindowLocation { set; get; }
+      public int VelocityWindowTimeLocation { set; get; }
+      public int VelocityThresholdLocation { set; get; }
+      public int VelocityThresholdTimeLocation { set; get; }
       public int VelocityControlParameterHighestLocation { set; get; }
       public int VelocityProportionalGainCoefficientKpLocation { set; get; }
       public int VelocityIntegralGainCoefficienKiLocation { set; get; }
@@ -1429,6 +1526,8 @@
          top += 8;
 
          this.CreateLabel(PositionActualValueLocation, "PositionActualValueLabel", out this.PositionActualValueLabel, ref top);
+         this.CreateLabel(PositionWindowLocation, "PositionWindowLabel", out this.PositionWindowLabel, ref top);
+         this.CreateLabel(PositionWindowTimeLocation, "PositionWindowTimeLabel", out this.PositionWindowTimeLabel, ref top);
          this.CreateLabel(PositionControlParameterHighestLocation, "PositionControlParameterHighestLabel", out this.PositionControlParameterHighestLabel, ref top);
          this.CreateLabel(PositionProportionalGainCoefficientKpLocation, "PositionProportionalGainCoefficientKpLabel", out this.PositionProportionalGainCoefficientKpLabel, ref top);
          this.CreateLabel(PositionIntegralGainCoefficienKiLocation, "PositionIntegralGainCoefficienKiLabel", out this.PositionIntegralGainCoefficienKiLabel, ref top);
@@ -1449,6 +1548,10 @@
          top += 8;
                   
          this.CreateLabel(VelocityActualValueLocation, "VelocityActualValueLabel", out this.VelocityActualValueLabel, ref top);
+         this.CreateLabel(VelocityWindowLocation, "VelocityWindowLabel", out this.VelocityWindowLabel, ref top);
+         this.CreateLabel(VelocityWindowTimeLocation, "VelocityWindowTimeLabel", out this.VelocityWindowTimeLabel, ref top);
+         this.CreateLabel(VelocityThresholdLocation, "VelocityThresholdLabel", out this.VelocityThresholdLabel, ref top);
+         this.CreateLabel(VelocityThresholdTimeLocation, "VelocityThresholdTimeLabel", out this.VelocityThresholdTimeLabel, ref top);
          this.CreateLabel(VelocityControlParameterHighestLocation, "VelocityControlParameterHighestLabel", out this.VelocityControlParameterHighestLabel, ref top);
          this.CreateLabel(VelocityProportionalGainCoefficientKpLocation, "VelocityProportionalGainCoefficientKpLabel", out this.VelocityProportionalGainCoefficientKpLabel, ref top);
          this.CreateLabel(VelocityIntegralGainCoefficienKiLocation, "VelocityIntegralGainCoefficienKiLabel", out this.VelocityIntegralGainCoefficienKiLabel, ref top);
@@ -1488,6 +1591,8 @@
 
              (location == this.TargetTorqueLocation) ||
 
+             (location == this.PositionWindowLocation) ||
+             (location == this.PositionWindowTimeLocation) ||
              (location == this.PositionProportionalGainCoefficientKpLocation) ||
              (location == this.PositionIntegralGainCoefficienKiLocation) ||
              (location == this.PositionDerivativeGainCoefficientKdLocation) ||
@@ -1497,6 +1602,10 @@
              (location == this.ProfileAccelerationLocation) ||
              (location == this.ProfileDecelerationLocation) ||
 
+             (location == this.VelocityWindowLocation) ||
+             (location == this.VelocityWindowTimeLocation) ||
+             (location == this.VelocityThresholdLocation) ||
+             (location == this.VelocityThresholdTimeLocation) ||
              (location == this.VelocityProportionalGainCoefficientKpLocation) ||
              (location == this.VelocityIntegralGainCoefficienKiLocation) ||
              (location == this.VelocityDerivativeGainCoefficientKdLocation) ||
@@ -1525,7 +1634,14 @@
                   (location == this.MotorTypeLocation) ||
 
                   (location == this.ControlWordLocation) ||
-             
+
+                  (location == this.PositionWindowTimeLocation) ||
+
+                  (location == this.VelocityWindowLocation) ||
+                  (location == this.VelocityWindowTimeLocation) ||
+                  (location == this.VelocityThresholdLocation) ||
+                  (location == this.VelocityThresholdTimeLocation) ||
+
                   (location == this.TargetTorqueLocation))
          {
             result = 2;
@@ -1534,6 +1650,7 @@
                   (location == this.DigitalOutputsMaskLocation) ||
                   (location == this.SingleDeviceTypeLocation) ||
 
+                  (location == this.PositionWindowLocation) ||
                   (location == this.PositionProportionalGainCoefficientKpLocation) ||
                   (location == this.PositionIntegralGainCoefficienKiLocation) ||
                   (location == this.PositionDerivativeGainCoefficientKdLocation) ||
@@ -1586,6 +1703,8 @@
              (location == this.HomingAccelerationLocation) ||
 
              (location == this.PositionActualValueLocation) ||
+             (location == this.PositionWindowLocation) ||
+             (location == this.PositionWindowTimeLocation) ||
              (location == this.PositionProportionalGainCoefficientKpLocation) ||
              (location == this.PositionIntegralGainCoefficienKiLocation) ||
              (location == this.PositionDerivativeGainCoefficientKdLocation) ||
@@ -1599,6 +1718,10 @@
              (location == this.CurrentActualValueLocation) ||
             
              (location == this.VelocityActualValueLocation) ||
+             (location == this.VelocityWindowLocation) ||
+             (location == this.VelocityWindowTimeLocation) ||
+             (location == this.VelocityThresholdLocation) ||
+             (location == this.VelocityThresholdTimeLocation) ||
              (location == this.VelocityProportionalGainCoefficientKpLocation) ||
              (location == this.VelocityIntegralGainCoefficienKiLocation) ||
              (location == this.VelocityDerivativeGainCoefficientKdLocation) ||
@@ -1631,8 +1754,15 @@
                   (location == this.ControlWordLocation) ||
                   (location == this.StatusWordLocation) ||
 
+                  (location == this.PositionWindowLocation) ||
+
                   (location == this.TargetTorqueLocation) ||
-                  (location == this.CurrentActualValueLocation))
+                  (location == this.CurrentActualValueLocation) ||
+
+                  (location == this.VelocityWindowLocation) ||
+                  (location == this.VelocityWindowTimeLocation) ||
+                  (location == this.VelocityThresholdLocation) ||
+                  (location == this.VelocityThresholdTimeLocation))
          {
             result = 2;
          }
@@ -1642,6 +1772,7 @@
                   (location == this.SingleDeviceTypeLocation) ||
    
                   (location == this.PositionActualValueLocation) ||
+                  (location == this.PositionWindowTimeLocation) ||
                   (location == this.PositionProportionalGainCoefficientKpLocation) ||
                   (location == this.PositionIntegralGainCoefficienKiLocation) ||
                   (location == this.PositionDerivativeGainCoefficientKdLocation) ||
@@ -1746,6 +1877,16 @@
             valid = true;
          }
 
+         else if ((location == this.PositionWindowLocation) && (4 == length))
+         {
+            this.PositionWindow = BitConverter.ToUInt32(buffer, offset);
+            valid = true;
+         }
+         else if ((location == this.PositionWindowTimeLocation) && (2 == length))
+         {
+            this.PositionWindowTime = BitConverter.ToUInt16(buffer, offset);
+            valid = true;
+         }
          else if ((location == this.PositionProportionalGainCoefficientKpLocation) && (4 == length))
          {
             this.PositionProportionalGainCoefficientKp = BitConverter.ToInt32(buffer, offset);
@@ -1789,6 +1930,26 @@
             valid = true;
          }
 
+         else if ((location == this.VelocityWindowLocation) && (2 == length))
+         {
+            this.VelocityWindow = BitConverter.ToUInt16(buffer, offset);
+            valid = true;
+         }
+         else if ((location == this.VelocityWindowTimeLocation) && (2 == length))
+         {
+            this.VelocityWindowTime = BitConverter.ToUInt16(buffer, offset);
+            valid = true;
+         }
+         else if ((location == this.VelocityThresholdLocation) && (2 == length))
+         {
+            this.VelocityThreshold = BitConverter.ToUInt16(buffer, offset);
+            valid = true;
+         }
+         else if ((location == this.VelocityThresholdTimeLocation) && (2 == length))
+         {
+            this.VelocityThresholdTime = BitConverter.ToUInt16(buffer, offset);
+            valid = true;
+         }
          else if ((location == this.VelocityProportionalGainCoefficientKpLocation) && (4 == length))
          {
             this.VelocityProportionalGainCoefficientKp = BitConverter.ToInt32(buffer, offset);
@@ -1936,11 +2097,21 @@
             dataLength = this.MoveDeviceData(buffer, this.PositionActualValue);
             valid = true;
          }
+         else if (location == this.PositionWindowLocation)
+         {
+            dataLength = this.MoveDeviceData(buffer, this.PositionWindow);
+            valid = true;
+         }
+         else if (location == this.PositionWindowTimeLocation)
+         {
+            dataLength = this.MoveDeviceData(buffer, this.PositionWindowTime);
+            valid = true;
+         }
          else if (location == this.PositionControlParameterHighestLocation)
          {
             dataLength = this.MoveDeviceData(buffer, this.PositionControlParameterHighest);
             valid = true;
-         }
+         }         
          else if (location == this.PositionProportionalGainCoefficientKpLocation)
          {
             dataLength = this.MoveDeviceData(buffer, this.PositionProportionalGainCoefficientKp);
@@ -1992,6 +2163,28 @@
          else if (location == this.VelocityActualValueLocation)
          {
             dataLength = this.MoveDeviceData(buffer, this.VelocityActualValue);
+            valid = true;
+         }
+
+
+         else if (location == this.VelocityWindowLocation)
+         {
+            dataLength = this.MoveDeviceData(buffer, this.VelocityWindow);
+            valid = true;
+         }
+         else if (location == this.VelocityWindowTimeLocation)
+         {
+            dataLength = this.MoveDeviceData(buffer, this.VelocityWindowTime);
+            valid = true;
+         }
+         else if (location == this.VelocityThresholdLocation)
+         {
+            dataLength = this.MoveDeviceData(buffer, this.VelocityThreshold);
+            valid = true;
+         }
+         else if (location == this.VelocityThresholdTimeLocation)
+         {
+            dataLength = this.MoveDeviceData(buffer, this.VelocityThresholdTime);
             valid = true;
          }
          else if (location == this.VelocityControlParameterHighestLocation)
@@ -2060,6 +2253,8 @@
          this.HomingAcceleration = 100;
 
          this.PositionActualValue = 0;
+         this.PositionWindow = 0;
+         this.PositionWindowTime = 0;
          this.PositionControlParameterHighest = 3;
          this.PositionProportionalGainCoefficientKp = 0;
          this.PositionIntegralGainCoefficienKi = 0;
@@ -2074,6 +2269,10 @@
          this.CurrentActualValue = 0;
 
          this.VelocityActualValue = 0;
+         this.VelocityWindow = 0;
+         this.VelocityWindowTime = 0;
+         this.VelocityThreshold = 0;
+         this.VelocityThresholdTime = 0;
          this.VelocityControlParameterHighest = 3;
          this.VelocityProportionalGainCoefficientKp = 0;
          this.VelocityIntegralGainCoefficienKi = 0;
