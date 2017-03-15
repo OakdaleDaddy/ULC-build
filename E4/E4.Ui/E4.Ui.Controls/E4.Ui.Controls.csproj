@@ -80,6 +80,9 @@
     <Compile Include="ValueCycleButton.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ValueToggleButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

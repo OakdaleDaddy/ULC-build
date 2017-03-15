@@ -44,9 +44,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CANDeviceInformationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CANDeviceInformationForm.designer.cs">
+      <DependentUpon>CANDeviceInformationForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Definitions\DeviceClearWarningRequest.cs" />
     <Compile Include="Definitions\DeviceRestartRequest.cs" />
     <Compile Include="DeviceCommunication.cs" />
+    <Compile Include="IpAddressEntryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IpAddressEntryForm.designer.cs">
+      <DependentUpon>IpAddressEntryForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainCommunicationBus.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -59,6 +71,12 @@
     </Compile>
     <Compile Include="MessageForm.designer.cs">
       <DependentUpon>MessageForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NumberEntryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NumberEntryForm.designer.cs">
+      <DependentUpon>NumberEntryForm.cs</DependentUpon>
     </Compile>
     <Compile Include="OsdForm.cs">
       <SubType>Form</SubType>
@@ -87,11 +105,20 @@
     </Compile>
     <Compile Include="TargetCommunicationBus.cs" />
     <Compile Include="VideoStampOsd.cs" />
+    <EmbeddedResource Include="CANDeviceInformationForm.resx">
+      <DependentUpon>CANDeviceInformationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IpAddressEntryForm.resx">
+      <DependentUpon>IpAddressEntryForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MessageForm.resx">
       <DependentUpon>MessageForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NumberEntryForm.resx">
+      <DependentUpon>NumberEntryForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OsdForm.resx">
       <DependentUpon>OsdForm.cs</DependentUpon>
