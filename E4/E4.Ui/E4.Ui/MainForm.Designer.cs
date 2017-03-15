@@ -30,8 +30,33 @@
       {
          this.components = new System.ComponentModel.Container();
          this.TitleLabel = new System.Windows.Forms.Label();
-         this.RxPanel = new System.Windows.Forms.Panel();
          this.TxPanel = new System.Windows.Forms.Panel();
+         this.CameraControlPanel = new System.Windows.Forms.Panel();
+         this.panel1 = new System.Windows.Forms.Panel();
+         this.panel2 = new System.Windows.Forms.Panel();
+         this.VersionLabel = new System.Windows.Forms.Label();
+         this.StopAllPanel = new System.Windows.Forms.Panel();
+         this.UpdateTimer = new System.Windows.Forms.Timer(this.components);
+         this.StatusPanel = new System.Windows.Forms.Panel();
+         this.TargetStatusTextBox = new System.Windows.Forms.TextBox();
+         this.MainStatusTextBox = new System.Windows.Forms.TextBox();
+         this.label17 = new System.Windows.Forms.Label();
+         this.HeartbeatsDisabledLabel = new System.Windows.Forms.Label();
+         this.StopAllButton = new E4.Ui.Controls.E4Button();
+         this.ControlPanel = new E4.Ui.Controls.BorderedPanel();
+         this.WriteOsdButton = new E4.Ui.Controls.E4Button();
+         this.SystemStatusButton = new E4.Ui.Controls.E4Button();
+         this.SystemResetButton = new E4.Ui.Controls.HoldButton();
+         this.ExitButton = new E4.Ui.Controls.HoldButton();
+         this.cameraSelectButton7 = new E4.Ui.Controls.CameraSelectButton();
+         this.cameraSelectButton8 = new E4.Ui.Controls.CameraSelectButton();
+         this.cameraSelectButton9 = new E4.Ui.Controls.CameraSelectButton();
+         this.cameraSelectButton6 = new E4.Ui.Controls.CameraSelectButton();
+         this.cameraSelectButton5 = new E4.Ui.Controls.CameraSelectButton();
+         this.cameraSelectButton1 = new E4.Ui.Controls.CameraSelectButton();
+         this.cameraSelectButton4 = new E4.Ui.Controls.CameraSelectButton();
+         this.cameraSelectButton3 = new E4.Ui.Controls.CameraSelectButton();
+         this.cameraSelectButton2 = new E4.Ui.Controls.CameraSelectButton();
          this.textPanel2 = new E4.Ui.Controls.TextPanel();
          this.textPanel1 = new E4.Ui.Controls.TextPanel();
          this.rotatableLabel2 = new E4.Ui.Controls.RotatableLabel();
@@ -44,41 +69,16 @@
          this.TxDirectionPanel = new E4.Ui.Controls.DirectionalValuePanel();
          this.valueCycleButton2 = new E4.Ui.Controls.ValueCycleButton();
          this.valueCycleButton1 = new E4.Ui.Controls.ValueCycleButton();
-         this.linerButton2 = new E4.Ui.Controls.LinerButton();
-         this.linerButton1 = new E4.Ui.Controls.LinerButton();
+         this.linerButton2 = new E4.Ui.Controls.E4Button();
+         this.linerButton1 = new E4.Ui.Controls.E4Button();
          this.rotatableLabel1 = new E4.Ui.Controls.RotatableLabel();
-         this.CameraControlPanel = new System.Windows.Forms.Panel();
-         this.cameraSelectButton4 = new E4.Ui.Controls.CameraSelectButton();
-         this.cameraSelectButton3 = new E4.Ui.Controls.CameraSelectButton();
-         this.cameraSelectButton2 = new E4.Ui.Controls.CameraSelectButton();
-         this.panel1 = new System.Windows.Forms.Panel();
-         this.cameraSelectButton6 = new E4.Ui.Controls.CameraSelectButton();
-         this.cameraSelectButton5 = new E4.Ui.Controls.CameraSelectButton();
-         this.cameraSelectButton1 = new E4.Ui.Controls.CameraSelectButton();
-         this.panel2 = new System.Windows.Forms.Panel();
-         this.cameraSelectButton7 = new E4.Ui.Controls.CameraSelectButton();
-         this.cameraSelectButton8 = new E4.Ui.Controls.CameraSelectButton();
-         this.cameraSelectButton9 = new E4.Ui.Controls.CameraSelectButton();
-         this.VersionLabel = new System.Windows.Forms.Label();
-         this.StopAllPanel = new System.Windows.Forms.Panel();
-         this.linerButton3 = new E4.Ui.Controls.LinerButton();
-         this.borderedPanel1 = new E4.Ui.Controls.BorderedPanel();
-         this.linerButton4 = new E4.Ui.Controls.LinerButton();
-         this.SystemResetButton = new E4.Ui.Controls.HoldButton();
-         this.ExitButton = new E4.Ui.Controls.HoldButton();
-         this.UpdateTimer = new System.Windows.Forms.Timer(this.components);
-         this.panel12 = new System.Windows.Forms.Panel();
-         this.TargetStatusTextBox = new System.Windows.Forms.TextBox();
-         this.MainStatusTextBox = new System.Windows.Forms.TextBox();
-         this.label17 = new System.Windows.Forms.Label();
-         this.HeartbeatsDisabledLabel = new System.Windows.Forms.Label();
          this.TxPanel.SuspendLayout();
          this.CameraControlPanel.SuspendLayout();
          this.panel1.SuspendLayout();
          this.panel2.SuspendLayout();
          this.StopAllPanel.SuspendLayout();
-         this.borderedPanel1.SuspendLayout();
-         this.panel12.SuspendLayout();
+         this.StatusPanel.SuspendLayout();
+         this.ControlPanel.SuspendLayout();
          this.SuspendLayout();
          // 
          // TitleLabel
@@ -87,21 +87,13 @@
          this.TitleLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
          this.TitleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
          this.TitleLabel.ForeColor = System.Drawing.SystemColors.GradientActiveCaption;
-         this.TitleLabel.Location = new System.Drawing.Point(9, 9);
+         this.TitleLabel.Location = new System.Drawing.Point(2, 4);
          this.TitleLabel.Margin = new System.Windows.Forms.Padding(0);
          this.TitleLabel.Name = "TitleLabel";
          this.TitleLabel.Size = new System.Drawing.Size(984, 40);
          this.TitleLabel.TabIndex = 4;
-         this.TitleLabel.Text = "    E4";
+         this.TitleLabel.Text = "    Element 4";
          this.TitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-         // 
-         // RxPanel
-         // 
-         this.RxPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-         this.RxPanel.Location = new System.Drawing.Point(16, 163);
-         this.RxPanel.Name = "RxPanel";
-         this.RxPanel.Size = new System.Drawing.Size(488, 361);
-         this.RxPanel.TabIndex = 5;
          // 
          // TxPanel
          // 
@@ -125,6 +117,497 @@
          this.TxPanel.Name = "TxPanel";
          this.TxPanel.Size = new System.Drawing.Size(488, 361);
          this.TxPanel.TabIndex = 6;
+         // 
+         // CameraControlPanel
+         // 
+         this.CameraControlPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+         this.CameraControlPanel.Controls.Add(this.cameraSelectButton4);
+         this.CameraControlPanel.Controls.Add(this.cameraSelectButton3);
+         this.CameraControlPanel.Controls.Add(this.cameraSelectButton2);
+         this.CameraControlPanel.Location = new System.Drawing.Point(342, 594);
+         this.CameraControlPanel.Name = "CameraControlPanel";
+         this.CameraControlPanel.Size = new System.Drawing.Size(353, 83);
+         this.CameraControlPanel.TabIndex = 7;
+         // 
+         // panel1
+         // 
+         this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+         this.panel1.Controls.Add(this.cameraSelectButton6);
+         this.panel1.Controls.Add(this.cameraSelectButton5);
+         this.panel1.Controls.Add(this.cameraSelectButton1);
+         this.panel1.Location = new System.Drawing.Point(342, 420);
+         this.panel1.Name = "panel1";
+         this.panel1.Size = new System.Drawing.Size(353, 83);
+         this.panel1.TabIndex = 8;
+         // 
+         // panel2
+         // 
+         this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(128)))));
+         this.panel2.Controls.Add(this.cameraSelectButton7);
+         this.panel2.Controls.Add(this.cameraSelectButton8);
+         this.panel2.Controls.Add(this.cameraSelectButton9);
+         this.panel2.Location = new System.Drawing.Point(342, 507);
+         this.panel2.Name = "panel2";
+         this.panel2.Size = new System.Drawing.Size(353, 83);
+         this.panel2.TabIndex = 9;
+         // 
+         // VersionLabel
+         // 
+         this.VersionLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+         this.VersionLabel.ForeColor = System.Drawing.SystemColors.AppWorkspace;
+         this.VersionLabel.Location = new System.Drawing.Point(885, 20);
+         this.VersionLabel.Name = "VersionLabel";
+         this.VersionLabel.Size = new System.Drawing.Size(100, 23);
+         this.VersionLabel.TabIndex = 131;
+         this.VersionLabel.Text = "2017.1.27.1";
+         this.VersionLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         // 
+         // StopAllPanel
+         // 
+         this.StopAllPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+         this.StopAllPanel.Controls.Add(this.StopAllButton);
+         this.StopAllPanel.Location = new System.Drawing.Point(1688, 855);
+         this.StopAllPanel.Name = "StopAllPanel";
+         this.StopAllPanel.Size = new System.Drawing.Size(230, 222);
+         this.StopAllPanel.TabIndex = 135;
+         // 
+         // UpdateTimer
+         // 
+         this.UpdateTimer.Tick += new System.EventHandler(this.UpdateTimer_Tick);
+         // 
+         // StatusPanel
+         // 
+         this.StatusPanel.BackColor = System.Drawing.Color.Purple;
+         this.StatusPanel.Controls.Add(this.TargetStatusTextBox);
+         this.StatusPanel.Controls.Add(this.MainStatusTextBox);
+         this.StatusPanel.Controls.Add(this.label17);
+         this.StatusPanel.Location = new System.Drawing.Point(2, 46);
+         this.StatusPanel.Name = "StatusPanel";
+         this.StatusPanel.Size = new System.Drawing.Size(652, 36);
+         this.StatusPanel.TabIndex = 136;
+         // 
+         // TargetStatusTextBox
+         // 
+         this.TargetStatusTextBox.BackColor = System.Drawing.Color.Red;
+         this.TargetStatusTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.TargetStatusTextBox.ForeColor = System.Drawing.SystemColors.InfoText;
+         this.TargetStatusTextBox.Location = new System.Drawing.Point(363, 5);
+         this.TargetStatusTextBox.Name = "TargetStatusTextBox";
+         this.TargetStatusTextBox.ReadOnly = true;
+         this.TargetStatusTextBox.Size = new System.Drawing.Size(280, 26);
+         this.TargetStatusTextBox.TabIndex = 4;
+         this.TargetStatusTextBox.Text = "communication offline";
+         this.TargetStatusTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+         this.TargetStatusTextBox.Visible = false;
+         // 
+         // MainStatusTextBox
+         // 
+         this.MainStatusTextBox.BackColor = System.Drawing.Color.Red;
+         this.MainStatusTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.MainStatusTextBox.ForeColor = System.Drawing.SystemColors.InfoText;
+         this.MainStatusTextBox.Location = new System.Drawing.Point(75, 5);
+         this.MainStatusTextBox.Name = "MainStatusTextBox";
+         this.MainStatusTextBox.ReadOnly = true;
+         this.MainStatusTextBox.Size = new System.Drawing.Size(280, 26);
+         this.MainStatusTextBox.TabIndex = 3;
+         this.MainStatusTextBox.Text = "not connected";
+         this.MainStatusTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+         // 
+         // label17
+         // 
+         this.label17.AutoSize = true;
+         this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.label17.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+         this.label17.Location = new System.Drawing.Point(5, 10);
+         this.label17.Name = "label17";
+         this.label17.Size = new System.Drawing.Size(69, 16);
+         this.label17.TabIndex = 1;
+         this.label17.Text = "STATUS";
+         // 
+         // HeartbeatsDisabledLabel
+         // 
+         this.HeartbeatsDisabledLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+         this.HeartbeatsDisabledLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.HeartbeatsDisabledLabel.ForeColor = System.Drawing.Color.Red;
+         this.HeartbeatsDisabledLabel.Location = new System.Drawing.Point(246, 16);
+         this.HeartbeatsDisabledLabel.Name = "HeartbeatsDisabledLabel";
+         this.HeartbeatsDisabledLabel.Size = new System.Drawing.Size(524, 23);
+         this.HeartbeatsDisabledLabel.TabIndex = 190;
+         this.HeartbeatsDisabledLabel.Text = "!!! HEARTBEATS DISABLED !!!";
+         this.HeartbeatsDisabledLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         this.HeartbeatsDisabledLabel.Visible = false;
+         // 
+         // StopAllButton
+         // 
+         this.StopAllButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.StopAllButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
+         this.StopAllButton.DisabledForeColor = System.Drawing.Color.Silver;
+         this.StopAllButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
+         this.StopAllButton.HoldArrorColor = System.Drawing.Color.Gray;
+         this.StopAllButton.Location = new System.Drawing.Point(61, 66);
+         this.StopAllButton.Name = "StopAllButton";
+         this.StopAllButton.Size = new System.Drawing.Size(107, 90);
+         this.StopAllButton.TabIndex = 3;
+         this.StopAllButton.Text = "STOP        ALL";
+         this.StopAllButton.UseVisualStyleBackColor = false;
+         this.StopAllButton.Click += new System.EventHandler(this.StopAllButton_Click);
+         // 
+         // ControlPanel
+         // 
+         this.ControlPanel.Controls.Add(this.WriteOsdButton);
+         this.ControlPanel.Controls.Add(this.SystemStatusButton);
+         this.ControlPanel.Controls.Add(this.SystemResetButton);
+         this.ControlPanel.Controls.Add(this.ExitButton);
+         this.ControlPanel.EdgeWeight = 1;
+         this.ControlPanel.Location = new System.Drawing.Point(1438, 855);
+         this.ControlPanel.Name = "ControlPanel";
+         this.ControlPanel.Size = new System.Drawing.Size(246, 222);
+         this.ControlPanel.TabIndex = 134;
+         // 
+         // WriteOsdButton
+         // 
+         this.WriteOsdButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.WriteOsdButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
+         this.WriteOsdButton.DisabledForeColor = System.Drawing.Color.Silver;
+         this.WriteOsdButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
+         this.WriteOsdButton.HoldArrorColor = System.Drawing.Color.Gray;
+         this.WriteOsdButton.Location = new System.Drawing.Point(11, 14);
+         this.WriteOsdButton.Name = "WriteOsdButton";
+         this.WriteOsdButton.Size = new System.Drawing.Size(107, 90);
+         this.WriteOsdButton.TabIndex = 134;
+         this.WriteOsdButton.Text = "WRITE   OSD";
+         this.WriteOsdButton.UseVisualStyleBackColor = false;
+         this.WriteOsdButton.Click += new System.EventHandler(this.WriteOsdButton_Click);
+         // 
+         // SystemStatusButton
+         // 
+         this.SystemStatusButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.SystemStatusButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
+         this.SystemStatusButton.DisabledForeColor = System.Drawing.Color.Silver;
+         this.SystemStatusButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
+         this.SystemStatusButton.HoldArrorColor = System.Drawing.Color.Gray;
+         this.SystemStatusButton.Location = new System.Drawing.Point(128, 15);
+         this.SystemStatusButton.Name = "SystemStatusButton";
+         this.SystemStatusButton.Size = new System.Drawing.Size(107, 90);
+         this.SystemStatusButton.TabIndex = 8;
+         this.SystemStatusButton.Text = "CHECK SYSTEM STATUS";
+         this.SystemStatusButton.UseVisualStyleBackColor = false;
+         this.SystemStatusButton.Click += new System.EventHandler(this.SystemStatusButton_Click);
+         // 
+         // SystemResetButton
+         // 
+         this.SystemResetButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.SystemResetButton.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
+         this.SystemResetButton.DisabledForeColor = System.Drawing.Color.Gray;
+         this.SystemResetButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
+         this.SystemResetButton.ForeColor = System.Drawing.Color.Black;
+         this.SystemResetButton.HoldArrorColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+         this.SystemResetButton.HoldTimeoutEnable = true;
+         this.SystemResetButton.HoldTimeoutInterval = 100;
+         this.SystemResetButton.Location = new System.Drawing.Point(11, 118);
+         this.SystemResetButton.Name = "SystemResetButton";
+         this.SystemResetButton.Size = new System.Drawing.Size(107, 90);
+         this.SystemResetButton.TabIndex = 133;
+         this.SystemResetButton.Text = "SYSTEM RESET";
+         this.SystemResetButton.UseVisualStyleBackColor = false;
+         this.SystemResetButton.HoldTimeout += new E4.Ui.Controls.HoldTimeoutHandler(this.SystemResetButton_HoldTimeout);
+         // 
+         // ExitButton
+         // 
+         this.ExitButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.ExitButton.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
+         this.ExitButton.DisabledForeColor = System.Drawing.Color.Gray;
+         this.ExitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
+         this.ExitButton.ForeColor = System.Drawing.Color.Black;
+         this.ExitButton.HoldArrorColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+         this.ExitButton.HoldTimeoutEnable = true;
+         this.ExitButton.HoldTimeoutInterval = 100;
+         this.ExitButton.Location = new System.Drawing.Point(129, 118);
+         this.ExitButton.Name = "ExitButton";
+         this.ExitButton.Size = new System.Drawing.Size(107, 90);
+         this.ExitButton.TabIndex = 132;
+         this.ExitButton.Text = "EXIT";
+         this.ExitButton.UseVisualStyleBackColor = false;
+         this.ExitButton.HoldTimeout += new E4.Ui.Controls.HoldTimeoutHandler(this.ExitButton_HoldTimeout);
+         // 
+         // cameraSelectButton7
+         // 
+         this.cameraSelectButton7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.cameraSelectButton7.Camera = E4.Ui.Controls.CameraLocations.txForward;
+         this.cameraSelectButton7.CenterBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.cameraSelectButton7.CenterEnabled = true;
+         this.cameraSelectButton7.CenterForeColor = System.Drawing.Color.Yellow;
+         this.cameraSelectButton7.CenterLevel = 50;
+         this.cameraSelectButton7.CenterVisible = true;
+         this.cameraSelectButton7.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
+         this.cameraSelectButton7.DisabledForeColor = System.Drawing.Color.Gray;
+         this.cameraSelectButton7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
+         this.cameraSelectButton7.ForeColor = System.Drawing.Color.Black;
+         this.cameraSelectButton7.HoldArrorColor = System.Drawing.Color.Gray;
+         this.cameraSelectButton7.HoldRepeat = false;
+         this.cameraSelectButton7.HoldRepeatInterval = 0;
+         this.cameraSelectButton7.HoldTimeoutEnable = true;
+         this.cameraSelectButton7.HoldTimeoutInterval = 100;
+         this.cameraSelectButton7.IndicatorBetweenSpace = 4;
+         this.cameraSelectButton7.IndicatorEdgeSpace = 4;
+         this.cameraSelectButton7.LeftColor = System.Drawing.Color.Maroon;
+         this.cameraSelectButton7.LeftVisible = true;
+         this.cameraSelectButton7.Location = new System.Drawing.Point(238, 8);
+         this.cameraSelectButton7.Name = "cameraSelectButton7";
+         this.cameraSelectButton7.RightColor = System.Drawing.Color.DarkBlue;
+         this.cameraSelectButton7.RightVisible = true;
+         this.cameraSelectButton7.Size = new System.Drawing.Size(107, 67);
+         this.cameraSelectButton7.TabIndex = 10;
+         this.cameraSelectButton7.Text = "TOP";
+         this.cameraSelectButton7.UseVisualStyleBackColor = false;
+         // 
+         // cameraSelectButton8
+         // 
+         this.cameraSelectButton8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.cameraSelectButton8.Camera = E4.Ui.Controls.CameraLocations.txForward;
+         this.cameraSelectButton8.CenterBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.cameraSelectButton8.CenterEnabled = true;
+         this.cameraSelectButton8.CenterForeColor = System.Drawing.Color.Yellow;
+         this.cameraSelectButton8.CenterLevel = 50;
+         this.cameraSelectButton8.CenterVisible = true;
+         this.cameraSelectButton8.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
+         this.cameraSelectButton8.DisabledForeColor = System.Drawing.Color.Gray;
+         this.cameraSelectButton8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
+         this.cameraSelectButton8.ForeColor = System.Drawing.Color.Black;
+         this.cameraSelectButton8.HoldArrorColor = System.Drawing.Color.Gray;
+         this.cameraSelectButton8.HoldRepeat = false;
+         this.cameraSelectButton8.HoldRepeatInterval = 0;
+         this.cameraSelectButton8.HoldTimeoutEnable = true;
+         this.cameraSelectButton8.HoldTimeoutInterval = 100;
+         this.cameraSelectButton8.IndicatorBetweenSpace = 4;
+         this.cameraSelectButton8.IndicatorEdgeSpace = 4;
+         this.cameraSelectButton8.LeftColor = System.Drawing.Color.Maroon;
+         this.cameraSelectButton8.LeftVisible = true;
+         this.cameraSelectButton8.Location = new System.Drawing.Point(123, 8);
+         this.cameraSelectButton8.Name = "cameraSelectButton8";
+         this.cameraSelectButton8.RightColor = System.Drawing.Color.DarkBlue;
+         this.cameraSelectButton8.RightVisible = true;
+         this.cameraSelectButton8.Size = new System.Drawing.Size(107, 67);
+         this.cameraSelectButton8.TabIndex = 9;
+         this.cameraSelectButton8.Text = "REAR";
+         this.cameraSelectButton8.UseVisualStyleBackColor = false;
+         // 
+         // cameraSelectButton9
+         // 
+         this.cameraSelectButton9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.cameraSelectButton9.Camera = E4.Ui.Controls.CameraLocations.txForward;
+         this.cameraSelectButton9.CenterBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.cameraSelectButton9.CenterEnabled = true;
+         this.cameraSelectButton9.CenterForeColor = System.Drawing.Color.Yellow;
+         this.cameraSelectButton9.CenterLevel = 50;
+         this.cameraSelectButton9.CenterVisible = true;
+         this.cameraSelectButton9.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
+         this.cameraSelectButton9.DisabledForeColor = System.Drawing.Color.Gray;
+         this.cameraSelectButton9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
+         this.cameraSelectButton9.ForeColor = System.Drawing.Color.Black;
+         this.cameraSelectButton9.HoldArrorColor = System.Drawing.Color.Gray;
+         this.cameraSelectButton9.HoldRepeat = false;
+         this.cameraSelectButton9.HoldRepeatInterval = 0;
+         this.cameraSelectButton9.HoldTimeoutEnable = true;
+         this.cameraSelectButton9.HoldTimeoutInterval = 100;
+         this.cameraSelectButton9.IndicatorBetweenSpace = 4;
+         this.cameraSelectButton9.IndicatorEdgeSpace = 4;
+         this.cameraSelectButton9.LeftColor = System.Drawing.Color.Maroon;
+         this.cameraSelectButton9.LeftVisible = true;
+         this.cameraSelectButton9.Location = new System.Drawing.Point(8, 8);
+         this.cameraSelectButton9.Name = "cameraSelectButton9";
+         this.cameraSelectButton9.RightColor = System.Drawing.Color.DarkBlue;
+         this.cameraSelectButton9.RightVisible = true;
+         this.cameraSelectButton9.Size = new System.Drawing.Size(107, 67);
+         this.cameraSelectButton9.TabIndex = 8;
+         this.cameraSelectButton9.Text = "FRONT";
+         this.cameraSelectButton9.UseVisualStyleBackColor = false;
+         // 
+         // cameraSelectButton6
+         // 
+         this.cameraSelectButton6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.cameraSelectButton6.Camera = E4.Ui.Controls.CameraLocations.txForward;
+         this.cameraSelectButton6.CenterBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.cameraSelectButton6.CenterEnabled = true;
+         this.cameraSelectButton6.CenterForeColor = System.Drawing.Color.Yellow;
+         this.cameraSelectButton6.CenterLevel = 50;
+         this.cameraSelectButton6.CenterVisible = true;
+         this.cameraSelectButton6.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
+         this.cameraSelectButton6.DisabledForeColor = System.Drawing.Color.Gray;
+         this.cameraSelectButton6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
+         this.cameraSelectButton6.ForeColor = System.Drawing.Color.Black;
+         this.cameraSelectButton6.HoldArrorColor = System.Drawing.Color.Gray;
+         this.cameraSelectButton6.HoldRepeat = false;
+         this.cameraSelectButton6.HoldRepeatInterval = 0;
+         this.cameraSelectButton6.HoldTimeoutEnable = true;
+         this.cameraSelectButton6.HoldTimeoutInterval = 100;
+         this.cameraSelectButton6.IndicatorBetweenSpace = 4;
+         this.cameraSelectButton6.IndicatorEdgeSpace = 4;
+         this.cameraSelectButton6.LeftColor = System.Drawing.Color.Maroon;
+         this.cameraSelectButton6.LeftVisible = true;
+         this.cameraSelectButton6.Location = new System.Drawing.Point(238, 8);
+         this.cameraSelectButton6.Name = "cameraSelectButton6";
+         this.cameraSelectButton6.RightColor = System.Drawing.Color.DarkBlue;
+         this.cameraSelectButton6.RightVisible = true;
+         this.cameraSelectButton6.Size = new System.Drawing.Size(107, 67);
+         this.cameraSelectButton6.TabIndex = 10;
+         this.cameraSelectButton6.Text = "TOP";
+         this.cameraSelectButton6.UseVisualStyleBackColor = false;
+         // 
+         // cameraSelectButton5
+         // 
+         this.cameraSelectButton5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.cameraSelectButton5.Camera = E4.Ui.Controls.CameraLocations.txForward;
+         this.cameraSelectButton5.CenterBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.cameraSelectButton5.CenterEnabled = true;
+         this.cameraSelectButton5.CenterForeColor = System.Drawing.Color.Yellow;
+         this.cameraSelectButton5.CenterLevel = 50;
+         this.cameraSelectButton5.CenterVisible = true;
+         this.cameraSelectButton5.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
+         this.cameraSelectButton5.DisabledForeColor = System.Drawing.Color.Gray;
+         this.cameraSelectButton5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
+         this.cameraSelectButton5.ForeColor = System.Drawing.Color.Black;
+         this.cameraSelectButton5.HoldArrorColor = System.Drawing.Color.Gray;
+         this.cameraSelectButton5.HoldRepeat = false;
+         this.cameraSelectButton5.HoldRepeatInterval = 0;
+         this.cameraSelectButton5.HoldTimeoutEnable = true;
+         this.cameraSelectButton5.HoldTimeoutInterval = 100;
+         this.cameraSelectButton5.IndicatorBetweenSpace = 4;
+         this.cameraSelectButton5.IndicatorEdgeSpace = 4;
+         this.cameraSelectButton5.LeftColor = System.Drawing.Color.Maroon;
+         this.cameraSelectButton5.LeftVisible = true;
+         this.cameraSelectButton5.Location = new System.Drawing.Point(123, 8);
+         this.cameraSelectButton5.Name = "cameraSelectButton5";
+         this.cameraSelectButton5.RightColor = System.Drawing.Color.DarkBlue;
+         this.cameraSelectButton5.RightVisible = true;
+         this.cameraSelectButton5.Size = new System.Drawing.Size(107, 67);
+         this.cameraSelectButton5.TabIndex = 9;
+         this.cameraSelectButton5.Text = "REAR";
+         this.cameraSelectButton5.UseVisualStyleBackColor = false;
+         // 
+         // cameraSelectButton1
+         // 
+         this.cameraSelectButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.cameraSelectButton1.Camera = E4.Ui.Controls.CameraLocations.txForward;
+         this.cameraSelectButton1.CenterBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.cameraSelectButton1.CenterEnabled = true;
+         this.cameraSelectButton1.CenterForeColor = System.Drawing.Color.Yellow;
+         this.cameraSelectButton1.CenterLevel = 50;
+         this.cameraSelectButton1.CenterVisible = true;
+         this.cameraSelectButton1.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
+         this.cameraSelectButton1.DisabledForeColor = System.Drawing.Color.Gray;
+         this.cameraSelectButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
+         this.cameraSelectButton1.ForeColor = System.Drawing.Color.Black;
+         this.cameraSelectButton1.HoldArrorColor = System.Drawing.Color.Gray;
+         this.cameraSelectButton1.HoldRepeat = false;
+         this.cameraSelectButton1.HoldRepeatInterval = 0;
+         this.cameraSelectButton1.HoldTimeoutEnable = true;
+         this.cameraSelectButton1.HoldTimeoutInterval = 100;
+         this.cameraSelectButton1.IndicatorBetweenSpace = 4;
+         this.cameraSelectButton1.IndicatorEdgeSpace = 4;
+         this.cameraSelectButton1.LeftColor = System.Drawing.Color.Maroon;
+         this.cameraSelectButton1.LeftVisible = true;
+         this.cameraSelectButton1.Location = new System.Drawing.Point(8, 8);
+         this.cameraSelectButton1.Name = "cameraSelectButton1";
+         this.cameraSelectButton1.RightColor = System.Drawing.Color.DarkBlue;
+         this.cameraSelectButton1.RightVisible = true;
+         this.cameraSelectButton1.Size = new System.Drawing.Size(107, 67);
+         this.cameraSelectButton1.TabIndex = 8;
+         this.cameraSelectButton1.Text = "FRONT";
+         this.cameraSelectButton1.UseVisualStyleBackColor = false;
+         // 
+         // cameraSelectButton4
+         // 
+         this.cameraSelectButton4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.cameraSelectButton4.Camera = E4.Ui.Controls.CameraLocations.txForward;
+         this.cameraSelectButton4.CenterBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.cameraSelectButton4.CenterEnabled = true;
+         this.cameraSelectButton4.CenterForeColor = System.Drawing.Color.Yellow;
+         this.cameraSelectButton4.CenterLevel = 50;
+         this.cameraSelectButton4.CenterVisible = false;
+         this.cameraSelectButton4.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
+         this.cameraSelectButton4.DisabledForeColor = System.Drawing.Color.Gray;
+         this.cameraSelectButton4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.cameraSelectButton4.ForeColor = System.Drawing.Color.Black;
+         this.cameraSelectButton4.HoldArrorColor = System.Drawing.Color.Gray;
+         this.cameraSelectButton4.HoldRepeat = false;
+         this.cameraSelectButton4.HoldRepeatInterval = 0;
+         this.cameraSelectButton4.HoldTimeoutEnable = true;
+         this.cameraSelectButton4.HoldTimeoutInterval = 100;
+         this.cameraSelectButton4.IndicatorBetweenSpace = 4;
+         this.cameraSelectButton4.IndicatorEdgeSpace = 4;
+         this.cameraSelectButton4.LeftColor = System.Drawing.Color.Maroon;
+         this.cameraSelectButton4.LeftVisible = false;
+         this.cameraSelectButton4.Location = new System.Drawing.Point(238, 8);
+         this.cameraSelectButton4.Name = "cameraSelectButton4";
+         this.cameraSelectButton4.RightColor = System.Drawing.Color.DarkBlue;
+         this.cameraSelectButton4.RightVisible = true;
+         this.cameraSelectButton4.Size = new System.Drawing.Size(107, 67);
+         this.cameraSelectButton4.TabIndex = 11;
+         this.cameraSelectButton4.Text = "AUXILIARY MONITOR";
+         this.cameraSelectButton4.UseVisualStyleBackColor = false;
+         // 
+         // cameraSelectButton3
+         // 
+         this.cameraSelectButton3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.cameraSelectButton3.Camera = E4.Ui.Controls.CameraLocations.txForward;
+         this.cameraSelectButton3.CenterBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.cameraSelectButton3.CenterEnabled = true;
+         this.cameraSelectButton3.CenterForeColor = System.Drawing.Color.Yellow;
+         this.cameraSelectButton3.CenterLevel = 50;
+         this.cameraSelectButton3.CenterVisible = false;
+         this.cameraSelectButton3.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
+         this.cameraSelectButton3.DisabledForeColor = System.Drawing.Color.Gray;
+         this.cameraSelectButton3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
+         this.cameraSelectButton3.ForeColor = System.Drawing.Color.Black;
+         this.cameraSelectButton3.HoldArrorColor = System.Drawing.Color.Gray;
+         this.cameraSelectButton3.HoldRepeat = false;
+         this.cameraSelectButton3.HoldRepeatInterval = 0;
+         this.cameraSelectButton3.HoldTimeoutEnable = true;
+         this.cameraSelectButton3.HoldTimeoutInterval = 100;
+         this.cameraSelectButton3.IndicatorBetweenSpace = 4;
+         this.cameraSelectButton3.IndicatorEdgeSpace = 4;
+         this.cameraSelectButton3.LeftColor = System.Drawing.Color.Maroon;
+         this.cameraSelectButton3.LeftVisible = true;
+         this.cameraSelectButton3.Location = new System.Drawing.Point(123, 8);
+         this.cameraSelectButton3.Name = "cameraSelectButton3";
+         this.cameraSelectButton3.RightColor = System.Drawing.Color.DarkBlue;
+         this.cameraSelectButton3.RightVisible = false;
+         this.cameraSelectButton3.Size = new System.Drawing.Size(107, 67);
+         this.cameraSelectButton3.TabIndex = 10;
+         this.cameraSelectButton3.Text = "MAIN MONITOR";
+         this.cameraSelectButton3.UseVisualStyleBackColor = false;
+         // 
+         // cameraSelectButton2
+         // 
+         this.cameraSelectButton2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.cameraSelectButton2.Camera = E4.Ui.Controls.CameraLocations.txForward;
+         this.cameraSelectButton2.CenterBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.cameraSelectButton2.CenterEnabled = true;
+         this.cameraSelectButton2.CenterForeColor = System.Drawing.Color.Yellow;
+         this.cameraSelectButton2.CenterLevel = 100;
+         this.cameraSelectButton2.CenterVisible = true;
+         this.cameraSelectButton2.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
+         this.cameraSelectButton2.DisabledForeColor = System.Drawing.Color.Gray;
+         this.cameraSelectButton2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
+         this.cameraSelectButton2.ForeColor = System.Drawing.Color.Black;
+         this.cameraSelectButton2.HoldArrorColor = System.Drawing.Color.Gray;
+         this.cameraSelectButton2.HoldRepeat = false;
+         this.cameraSelectButton2.HoldRepeatInterval = 0;
+         this.cameraSelectButton2.HoldTimeoutEnable = true;
+         this.cameraSelectButton2.HoldTimeoutInterval = 100;
+         this.cameraSelectButton2.IndicatorBetweenSpace = 4;
+         this.cameraSelectButton2.IndicatorEdgeSpace = 4;
+         this.cameraSelectButton2.LeftColor = System.Drawing.Color.Maroon;
+         this.cameraSelectButton2.LeftVisible = false;
+         this.cameraSelectButton2.Location = new System.Drawing.Point(8, 8);
+         this.cameraSelectButton2.Name = "cameraSelectButton2";
+         this.cameraSelectButton2.RightColor = System.Drawing.Color.DarkBlue;
+         this.cameraSelectButton2.RightVisible = false;
+         this.cameraSelectButton2.Size = new System.Drawing.Size(107, 67);
+         this.cameraSelectButton2.TabIndex = 9;
+         this.cameraSelectButton2.Text = "LIGHTS";
+         this.cameraSelectButton2.UseVisualStyleBackColor = false;
          // 
          // textPanel2
          // 
@@ -450,499 +933,25 @@
          this.rotatableLabel1.Text = "PITCH";
          this.rotatableLabel1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
          // 
-         // CameraControlPanel
-         // 
-         this.CameraControlPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-         this.CameraControlPanel.Controls.Add(this.cameraSelectButton4);
-         this.CameraControlPanel.Controls.Add(this.cameraSelectButton3);
-         this.CameraControlPanel.Controls.Add(this.cameraSelectButton2);
-         this.CameraControlPanel.Location = new System.Drawing.Point(342, 594);
-         this.CameraControlPanel.Name = "CameraControlPanel";
-         this.CameraControlPanel.Size = new System.Drawing.Size(353, 83);
-         this.CameraControlPanel.TabIndex = 7;
-         // 
-         // cameraSelectButton4
-         // 
-         this.cameraSelectButton4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.cameraSelectButton4.Camera = E4.Ui.Controls.CameraLocations.txForward;
-         this.cameraSelectButton4.CenterBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.cameraSelectButton4.CenterEnabled = true;
-         this.cameraSelectButton4.CenterForeColor = System.Drawing.Color.Yellow;
-         this.cameraSelectButton4.CenterLevel = 50;
-         this.cameraSelectButton4.CenterVisible = false;
-         this.cameraSelectButton4.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
-         this.cameraSelectButton4.DisabledForeColor = System.Drawing.Color.Gray;
-         this.cameraSelectButton4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.cameraSelectButton4.ForeColor = System.Drawing.Color.Black;
-         this.cameraSelectButton4.HoldArrorColor = System.Drawing.Color.Gray;
-         this.cameraSelectButton4.HoldRepeat = false;
-         this.cameraSelectButton4.HoldRepeatInterval = 0;
-         this.cameraSelectButton4.HoldTimeoutEnable = true;
-         this.cameraSelectButton4.HoldTimeoutInterval = 100;
-         this.cameraSelectButton4.IndicatorBetweenSpace = 4;
-         this.cameraSelectButton4.IndicatorEdgeSpace = 4;
-         this.cameraSelectButton4.LeftColor = System.Drawing.Color.Maroon;
-         this.cameraSelectButton4.LeftVisible = false;
-         this.cameraSelectButton4.Location = new System.Drawing.Point(238, 8);
-         this.cameraSelectButton4.Name = "cameraSelectButton4";
-         this.cameraSelectButton4.RightColor = System.Drawing.Color.DarkBlue;
-         this.cameraSelectButton4.RightVisible = true;
-         this.cameraSelectButton4.Size = new System.Drawing.Size(107, 67);
-         this.cameraSelectButton4.TabIndex = 11;
-         this.cameraSelectButton4.Text = "AUXILIARY MONITOR";
-         this.cameraSelectButton4.UseVisualStyleBackColor = false;
-         // 
-         // cameraSelectButton3
-         // 
-         this.cameraSelectButton3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.cameraSelectButton3.Camera = E4.Ui.Controls.CameraLocations.txForward;
-         this.cameraSelectButton3.CenterBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.cameraSelectButton3.CenterEnabled = true;
-         this.cameraSelectButton3.CenterForeColor = System.Drawing.Color.Yellow;
-         this.cameraSelectButton3.CenterLevel = 50;
-         this.cameraSelectButton3.CenterVisible = false;
-         this.cameraSelectButton3.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
-         this.cameraSelectButton3.DisabledForeColor = System.Drawing.Color.Gray;
-         this.cameraSelectButton3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
-         this.cameraSelectButton3.ForeColor = System.Drawing.Color.Black;
-         this.cameraSelectButton3.HoldArrorColor = System.Drawing.Color.Gray;
-         this.cameraSelectButton3.HoldRepeat = false;
-         this.cameraSelectButton3.HoldRepeatInterval = 0;
-         this.cameraSelectButton3.HoldTimeoutEnable = true;
-         this.cameraSelectButton3.HoldTimeoutInterval = 100;
-         this.cameraSelectButton3.IndicatorBetweenSpace = 4;
-         this.cameraSelectButton3.IndicatorEdgeSpace = 4;
-         this.cameraSelectButton3.LeftColor = System.Drawing.Color.Maroon;
-         this.cameraSelectButton3.LeftVisible = true;
-         this.cameraSelectButton3.Location = new System.Drawing.Point(123, 8);
-         this.cameraSelectButton3.Name = "cameraSelectButton3";
-         this.cameraSelectButton3.RightColor = System.Drawing.Color.DarkBlue;
-         this.cameraSelectButton3.RightVisible = false;
-         this.cameraSelectButton3.Size = new System.Drawing.Size(107, 67);
-         this.cameraSelectButton3.TabIndex = 10;
-         this.cameraSelectButton3.Text = "MAIN MONITOR";
-         this.cameraSelectButton3.UseVisualStyleBackColor = false;
-         // 
-         // cameraSelectButton2
-         // 
-         this.cameraSelectButton2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.cameraSelectButton2.Camera = E4.Ui.Controls.CameraLocations.txForward;
-         this.cameraSelectButton2.CenterBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.cameraSelectButton2.CenterEnabled = true;
-         this.cameraSelectButton2.CenterForeColor = System.Drawing.Color.Yellow;
-         this.cameraSelectButton2.CenterLevel = 100;
-         this.cameraSelectButton2.CenterVisible = true;
-         this.cameraSelectButton2.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
-         this.cameraSelectButton2.DisabledForeColor = System.Drawing.Color.Gray;
-         this.cameraSelectButton2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
-         this.cameraSelectButton2.ForeColor = System.Drawing.Color.Black;
-         this.cameraSelectButton2.HoldArrorColor = System.Drawing.Color.Gray;
-         this.cameraSelectButton2.HoldRepeat = false;
-         this.cameraSelectButton2.HoldRepeatInterval = 0;
-         this.cameraSelectButton2.HoldTimeoutEnable = true;
-         this.cameraSelectButton2.HoldTimeoutInterval = 100;
-         this.cameraSelectButton2.IndicatorBetweenSpace = 4;
-         this.cameraSelectButton2.IndicatorEdgeSpace = 4;
-         this.cameraSelectButton2.LeftColor = System.Drawing.Color.Maroon;
-         this.cameraSelectButton2.LeftVisible = false;
-         this.cameraSelectButton2.Location = new System.Drawing.Point(8, 8);
-         this.cameraSelectButton2.Name = "cameraSelectButton2";
-         this.cameraSelectButton2.RightColor = System.Drawing.Color.DarkBlue;
-         this.cameraSelectButton2.RightVisible = false;
-         this.cameraSelectButton2.Size = new System.Drawing.Size(107, 67);
-         this.cameraSelectButton2.TabIndex = 9;
-         this.cameraSelectButton2.Text = "LIGHTS";
-         this.cameraSelectButton2.UseVisualStyleBackColor = false;
-         // 
-         // panel1
-         // 
-         this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-         this.panel1.Controls.Add(this.cameraSelectButton6);
-         this.panel1.Controls.Add(this.cameraSelectButton5);
-         this.panel1.Controls.Add(this.cameraSelectButton1);
-         this.panel1.Location = new System.Drawing.Point(342, 420);
-         this.panel1.Name = "panel1";
-         this.panel1.Size = new System.Drawing.Size(353, 83);
-         this.panel1.TabIndex = 8;
-         // 
-         // cameraSelectButton6
-         // 
-         this.cameraSelectButton6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.cameraSelectButton6.Camera = E4.Ui.Controls.CameraLocations.txForward;
-         this.cameraSelectButton6.CenterBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.cameraSelectButton6.CenterEnabled = true;
-         this.cameraSelectButton6.CenterForeColor = System.Drawing.Color.Yellow;
-         this.cameraSelectButton6.CenterLevel = 50;
-         this.cameraSelectButton6.CenterVisible = true;
-         this.cameraSelectButton6.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
-         this.cameraSelectButton6.DisabledForeColor = System.Drawing.Color.Gray;
-         this.cameraSelectButton6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
-         this.cameraSelectButton6.ForeColor = System.Drawing.Color.Black;
-         this.cameraSelectButton6.HoldArrorColor = System.Drawing.Color.Gray;
-         this.cameraSelectButton6.HoldRepeat = false;
-         this.cameraSelectButton6.HoldRepeatInterval = 0;
-         this.cameraSelectButton6.HoldTimeoutEnable = true;
-         this.cameraSelectButton6.HoldTimeoutInterval = 100;
-         this.cameraSelectButton6.IndicatorBetweenSpace = 4;
-         this.cameraSelectButton6.IndicatorEdgeSpace = 4;
-         this.cameraSelectButton6.LeftColor = System.Drawing.Color.Maroon;
-         this.cameraSelectButton6.LeftVisible = true;
-         this.cameraSelectButton6.Location = new System.Drawing.Point(238, 8);
-         this.cameraSelectButton6.Name = "cameraSelectButton6";
-         this.cameraSelectButton6.RightColor = System.Drawing.Color.DarkBlue;
-         this.cameraSelectButton6.RightVisible = true;
-         this.cameraSelectButton6.Size = new System.Drawing.Size(107, 67);
-         this.cameraSelectButton6.TabIndex = 10;
-         this.cameraSelectButton6.Text = "TOP";
-         this.cameraSelectButton6.UseVisualStyleBackColor = false;
-         // 
-         // cameraSelectButton5
-         // 
-         this.cameraSelectButton5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.cameraSelectButton5.Camera = E4.Ui.Controls.CameraLocations.txForward;
-         this.cameraSelectButton5.CenterBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.cameraSelectButton5.CenterEnabled = true;
-         this.cameraSelectButton5.CenterForeColor = System.Drawing.Color.Yellow;
-         this.cameraSelectButton5.CenterLevel = 50;
-         this.cameraSelectButton5.CenterVisible = true;
-         this.cameraSelectButton5.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
-         this.cameraSelectButton5.DisabledForeColor = System.Drawing.Color.Gray;
-         this.cameraSelectButton5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
-         this.cameraSelectButton5.ForeColor = System.Drawing.Color.Black;
-         this.cameraSelectButton5.HoldArrorColor = System.Drawing.Color.Gray;
-         this.cameraSelectButton5.HoldRepeat = false;
-         this.cameraSelectButton5.HoldRepeatInterval = 0;
-         this.cameraSelectButton5.HoldTimeoutEnable = true;
-         this.cameraSelectButton5.HoldTimeoutInterval = 100;
-         this.cameraSelectButton5.IndicatorBetweenSpace = 4;
-         this.cameraSelectButton5.IndicatorEdgeSpace = 4;
-         this.cameraSelectButton5.LeftColor = System.Drawing.Color.Maroon;
-         this.cameraSelectButton5.LeftVisible = true;
-         this.cameraSelectButton5.Location = new System.Drawing.Point(123, 8);
-         this.cameraSelectButton5.Name = "cameraSelectButton5";
-         this.cameraSelectButton5.RightColor = System.Drawing.Color.DarkBlue;
-         this.cameraSelectButton5.RightVisible = true;
-         this.cameraSelectButton5.Size = new System.Drawing.Size(107, 67);
-         this.cameraSelectButton5.TabIndex = 9;
-         this.cameraSelectButton5.Text = "REAR";
-         this.cameraSelectButton5.UseVisualStyleBackColor = false;
-         // 
-         // cameraSelectButton1
-         // 
-         this.cameraSelectButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.cameraSelectButton1.Camera = E4.Ui.Controls.CameraLocations.txForward;
-         this.cameraSelectButton1.CenterBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.cameraSelectButton1.CenterEnabled = true;
-         this.cameraSelectButton1.CenterForeColor = System.Drawing.Color.Yellow;
-         this.cameraSelectButton1.CenterLevel = 50;
-         this.cameraSelectButton1.CenterVisible = true;
-         this.cameraSelectButton1.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
-         this.cameraSelectButton1.DisabledForeColor = System.Drawing.Color.Gray;
-         this.cameraSelectButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
-         this.cameraSelectButton1.ForeColor = System.Drawing.Color.Black;
-         this.cameraSelectButton1.HoldArrorColor = System.Drawing.Color.Gray;
-         this.cameraSelectButton1.HoldRepeat = false;
-         this.cameraSelectButton1.HoldRepeatInterval = 0;
-         this.cameraSelectButton1.HoldTimeoutEnable = true;
-         this.cameraSelectButton1.HoldTimeoutInterval = 100;
-         this.cameraSelectButton1.IndicatorBetweenSpace = 4;
-         this.cameraSelectButton1.IndicatorEdgeSpace = 4;
-         this.cameraSelectButton1.LeftColor = System.Drawing.Color.Maroon;
-         this.cameraSelectButton1.LeftVisible = true;
-         this.cameraSelectButton1.Location = new System.Drawing.Point(8, 8);
-         this.cameraSelectButton1.Name = "cameraSelectButton1";
-         this.cameraSelectButton1.RightColor = System.Drawing.Color.DarkBlue;
-         this.cameraSelectButton1.RightVisible = true;
-         this.cameraSelectButton1.Size = new System.Drawing.Size(107, 67);
-         this.cameraSelectButton1.TabIndex = 8;
-         this.cameraSelectButton1.Text = "FRONT";
-         this.cameraSelectButton1.UseVisualStyleBackColor = false;
-         // 
-         // panel2
-         // 
-         this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(128)))));
-         this.panel2.Controls.Add(this.cameraSelectButton7);
-         this.panel2.Controls.Add(this.cameraSelectButton8);
-         this.panel2.Controls.Add(this.cameraSelectButton9);
-         this.panel2.Location = new System.Drawing.Point(342, 507);
-         this.panel2.Name = "panel2";
-         this.panel2.Size = new System.Drawing.Size(353, 83);
-         this.panel2.TabIndex = 9;
-         // 
-         // cameraSelectButton7
-         // 
-         this.cameraSelectButton7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.cameraSelectButton7.Camera = E4.Ui.Controls.CameraLocations.txForward;
-         this.cameraSelectButton7.CenterBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.cameraSelectButton7.CenterEnabled = true;
-         this.cameraSelectButton7.CenterForeColor = System.Drawing.Color.Yellow;
-         this.cameraSelectButton7.CenterLevel = 50;
-         this.cameraSelectButton7.CenterVisible = true;
-         this.cameraSelectButton7.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
-         this.cameraSelectButton7.DisabledForeColor = System.Drawing.Color.Gray;
-         this.cameraSelectButton7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
-         this.cameraSelectButton7.ForeColor = System.Drawing.Color.Black;
-         this.cameraSelectButton7.HoldArrorColor = System.Drawing.Color.Gray;
-         this.cameraSelectButton7.HoldRepeat = false;
-         this.cameraSelectButton7.HoldRepeatInterval = 0;
-         this.cameraSelectButton7.HoldTimeoutEnable = true;
-         this.cameraSelectButton7.HoldTimeoutInterval = 100;
-         this.cameraSelectButton7.IndicatorBetweenSpace = 4;
-         this.cameraSelectButton7.IndicatorEdgeSpace = 4;
-         this.cameraSelectButton7.LeftColor = System.Drawing.Color.Maroon;
-         this.cameraSelectButton7.LeftVisible = true;
-         this.cameraSelectButton7.Location = new System.Drawing.Point(238, 8);
-         this.cameraSelectButton7.Name = "cameraSelectButton7";
-         this.cameraSelectButton7.RightColor = System.Drawing.Color.DarkBlue;
-         this.cameraSelectButton7.RightVisible = true;
-         this.cameraSelectButton7.Size = new System.Drawing.Size(107, 67);
-         this.cameraSelectButton7.TabIndex = 10;
-         this.cameraSelectButton7.Text = "TOP";
-         this.cameraSelectButton7.UseVisualStyleBackColor = false;
-         // 
-         // cameraSelectButton8
-         // 
-         this.cameraSelectButton8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.cameraSelectButton8.Camera = E4.Ui.Controls.CameraLocations.txForward;
-         this.cameraSelectButton8.CenterBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.cameraSelectButton8.CenterEnabled = true;
-         this.cameraSelectButton8.CenterForeColor = System.Drawing.Color.Yellow;
-         this.cameraSelectButton8.CenterLevel = 50;
-         this.cameraSelectButton8.CenterVisible = true;
-         this.cameraSelectButton8.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
-         this.cameraSelectButton8.DisabledForeColor = System.Drawing.Color.Gray;
-         this.cameraSelectButton8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
-         this.cameraSelectButton8.ForeColor = System.Drawing.Color.Black;
-         this.cameraSelectButton8.HoldArrorColor = System.Drawing.Color.Gray;
-         this.cameraSelectButton8.HoldRepeat = false;
-         this.cameraSelectButton8.HoldRepeatInterval = 0;
-         this.cameraSelectButton8.HoldTimeoutEnable = true;
-         this.cameraSelectButton8.HoldTimeoutInterval = 100;
-         this.cameraSelectButton8.IndicatorBetweenSpace = 4;
-         this.cameraSelectButton8.IndicatorEdgeSpace = 4;
-         this.cameraSelectButton8.LeftColor = System.Drawing.Color.Maroon;
-         this.cameraSelectButton8.LeftVisible = true;
-         this.cameraSelectButton8.Location = new System.Drawing.Point(123, 8);
-         this.cameraSelectButton8.Name = "cameraSelectButton8";
-         this.cameraSelectButton8.RightColor = System.Drawing.Color.DarkBlue;
-         this.cameraSelectButton8.RightVisible = true;
-         this.cameraSelectButton8.Size = new System.Drawing.Size(107, 67);
-         this.cameraSelectButton8.TabIndex = 9;
-         this.cameraSelectButton8.Text = "REAR";
-         this.cameraSelectButton8.UseVisualStyleBackColor = false;
-         // 
-         // cameraSelectButton9
-         // 
-         this.cameraSelectButton9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.cameraSelectButton9.Camera = E4.Ui.Controls.CameraLocations.txForward;
-         this.cameraSelectButton9.CenterBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.cameraSelectButton9.CenterEnabled = true;
-         this.cameraSelectButton9.CenterForeColor = System.Drawing.Color.Yellow;
-         this.cameraSelectButton9.CenterLevel = 50;
-         this.cameraSelectButton9.CenterVisible = true;
-         this.cameraSelectButton9.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
-         this.cameraSelectButton9.DisabledForeColor = System.Drawing.Color.Gray;
-         this.cameraSelectButton9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
-         this.cameraSelectButton9.ForeColor = System.Drawing.Color.Black;
-         this.cameraSelectButton9.HoldArrorColor = System.Drawing.Color.Gray;
-         this.cameraSelectButton9.HoldRepeat = false;
-         this.cameraSelectButton9.HoldRepeatInterval = 0;
-         this.cameraSelectButton9.HoldTimeoutEnable = true;
-         this.cameraSelectButton9.HoldTimeoutInterval = 100;
-         this.cameraSelectButton9.IndicatorBetweenSpace = 4;
-         this.cameraSelectButton9.IndicatorEdgeSpace = 4;
-         this.cameraSelectButton9.LeftColor = System.Drawing.Color.Maroon;
-         this.cameraSelectButton9.LeftVisible = true;
-         this.cameraSelectButton9.Location = new System.Drawing.Point(8, 8);
-         this.cameraSelectButton9.Name = "cameraSelectButton9";
-         this.cameraSelectButton9.RightColor = System.Drawing.Color.DarkBlue;
-         this.cameraSelectButton9.RightVisible = true;
-         this.cameraSelectButton9.Size = new System.Drawing.Size(107, 67);
-         this.cameraSelectButton9.TabIndex = 8;
-         this.cameraSelectButton9.Text = "FRONT";
-         this.cameraSelectButton9.UseVisualStyleBackColor = false;
-         // 
-         // VersionLabel
-         // 
-         this.VersionLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-         this.VersionLabel.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-         this.VersionLabel.Location = new System.Drawing.Point(885, 20);
-         this.VersionLabel.Name = "VersionLabel";
-         this.VersionLabel.Size = new System.Drawing.Size(100, 23);
-         this.VersionLabel.TabIndex = 131;
-         this.VersionLabel.Text = "2017.1.27.1";
-         this.VersionLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         // 
-         // StopAllPanel
-         // 
-         this.StopAllPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-         this.StopAllPanel.Controls.Add(this.linerButton3);
-         this.StopAllPanel.Location = new System.Drawing.Point(870, 420);
-         this.StopAllPanel.Name = "StopAllPanel";
-         this.StopAllPanel.Size = new System.Drawing.Size(123, 257);
-         this.StopAllPanel.TabIndex = 135;
-         // 
-         // linerButton3
-         // 
-         this.linerButton3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.linerButton3.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
-         this.linerButton3.DisabledForeColor = System.Drawing.Color.Silver;
-         this.linerButton3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
-         this.linerButton3.HoldArrorColor = System.Drawing.Color.Gray;
-         this.linerButton3.Location = new System.Drawing.Point(8, 81);
-         this.linerButton3.Name = "linerButton3";
-         this.linerButton3.Size = new System.Drawing.Size(107, 90);
-         this.linerButton3.TabIndex = 3;
-         this.linerButton3.Text = "STOP        ALL";
-         this.linerButton3.UseVisualStyleBackColor = false;
-         // 
-         // borderedPanel1
-         // 
-         this.borderedPanel1.Controls.Add(this.linerButton4);
-         this.borderedPanel1.Controls.Add(this.SystemResetButton);
-         this.borderedPanel1.Controls.Add(this.ExitButton);
-         this.borderedPanel1.EdgeWeight = 1;
-         this.borderedPanel1.Location = new System.Drawing.Point(741, 420);
-         this.borderedPanel1.Name = "borderedPanel1";
-         this.borderedPanel1.Size = new System.Drawing.Size(123, 257);
-         this.borderedPanel1.TabIndex = 134;
-         // 
-         // linerButton4
-         // 
-         this.linerButton4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.linerButton4.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
-         this.linerButton4.DisabledForeColor = System.Drawing.Color.Silver;
-         this.linerButton4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
-         this.linerButton4.HoldArrorColor = System.Drawing.Color.Gray;
-         this.linerButton4.Location = new System.Drawing.Point(8, 8);
-         this.linerButton4.Name = "linerButton4";
-         this.linerButton4.Size = new System.Drawing.Size(107, 75);
-         this.linerButton4.TabIndex = 8;
-         this.linerButton4.Text = "STATUS";
-         this.linerButton4.UseVisualStyleBackColor = false;
-         // 
-         // SystemResetButton
-         // 
-         this.SystemResetButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.SystemResetButton.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
-         this.SystemResetButton.DisabledForeColor = System.Drawing.Color.Gray;
-         this.SystemResetButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
-         this.SystemResetButton.ForeColor = System.Drawing.Color.Black;
-         this.SystemResetButton.HoldArrorColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-         this.SystemResetButton.HoldTimeoutEnable = true;
-         this.SystemResetButton.HoldTimeoutInterval = 100;
-         this.SystemResetButton.Location = new System.Drawing.Point(8, 91);
-         this.SystemResetButton.Name = "SystemResetButton";
-         this.SystemResetButton.Size = new System.Drawing.Size(107, 75);
-         this.SystemResetButton.TabIndex = 133;
-         this.SystemResetButton.Text = "RESET";
-         this.SystemResetButton.UseVisualStyleBackColor = false;
-         this.SystemResetButton.HoldTimeout += new E4.Ui.Controls.HoldTimeoutHandler(this.SystemResetButton_HoldTimeout);
-         // 
-         // ExitButton
-         // 
-         this.ExitButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.ExitButton.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
-         this.ExitButton.DisabledForeColor = System.Drawing.Color.Gray;
-         this.ExitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
-         this.ExitButton.ForeColor = System.Drawing.Color.Black;
-         this.ExitButton.HoldArrorColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-         this.ExitButton.HoldTimeoutEnable = true;
-         this.ExitButton.HoldTimeoutInterval = 100;
-         this.ExitButton.Location = new System.Drawing.Point(8, 174);
-         this.ExitButton.Name = "ExitButton";
-         this.ExitButton.Size = new System.Drawing.Size(107, 75);
-         this.ExitButton.TabIndex = 132;
-         this.ExitButton.Text = "EXIT";
-         this.ExitButton.UseVisualStyleBackColor = false;
-         this.ExitButton.HoldTimeout += new E4.Ui.Controls.HoldTimeoutHandler(this.ExitButton_HoldTimeout);
-         // 
-         // UpdateTimer
-         // 
-         this.UpdateTimer.Tick += new System.EventHandler(this.UpdateTimer_Tick);
-         // 
-         // panel12
-         // 
-         this.panel12.BackColor = System.Drawing.Color.Purple;
-         this.panel12.Controls.Add(this.TargetStatusTextBox);
-         this.panel12.Controls.Add(this.MainStatusTextBox);
-         this.panel12.Controls.Add(this.label17);
-         this.panel12.Location = new System.Drawing.Point(9, 52);
-         this.panel12.Name = "panel12";
-         this.panel12.Size = new System.Drawing.Size(652, 36);
-         this.panel12.TabIndex = 136;
-         // 
-         // TargetStatusTextBox
-         // 
-         this.TargetStatusTextBox.BackColor = System.Drawing.Color.Red;
-         this.TargetStatusTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.TargetStatusTextBox.ForeColor = System.Drawing.SystemColors.InfoText;
-         this.TargetStatusTextBox.Location = new System.Drawing.Point(363, 5);
-         this.TargetStatusTextBox.Name = "TargetStatusTextBox";
-         this.TargetStatusTextBox.ReadOnly = true;
-         this.TargetStatusTextBox.Size = new System.Drawing.Size(280, 26);
-         this.TargetStatusTextBox.TabIndex = 4;
-         this.TargetStatusTextBox.Text = "communication offline";
-         this.TargetStatusTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-         this.TargetStatusTextBox.Visible = false;
-         // 
-         // MainStatusTextBox
-         // 
-         this.MainStatusTextBox.BackColor = System.Drawing.Color.Red;
-         this.MainStatusTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.MainStatusTextBox.ForeColor = System.Drawing.SystemColors.InfoText;
-         this.MainStatusTextBox.Location = new System.Drawing.Point(75, 5);
-         this.MainStatusTextBox.Name = "MainStatusTextBox";
-         this.MainStatusTextBox.ReadOnly = true;
-         this.MainStatusTextBox.Size = new System.Drawing.Size(280, 26);
-         this.MainStatusTextBox.TabIndex = 3;
-         this.MainStatusTextBox.Text = "not connected";
-         this.MainStatusTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-         // 
-         // label17
-         // 
-         this.label17.AutoSize = true;
-         this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.label17.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-         this.label17.Location = new System.Drawing.Point(5, 10);
-         this.label17.Name = "label17";
-         this.label17.Size = new System.Drawing.Size(69, 16);
-         this.label17.TabIndex = 1;
-         this.label17.Text = "STATUS";
-         // 
-         // HeartbeatsDisabledLabel
-         // 
-         this.HeartbeatsDisabledLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-         this.HeartbeatsDisabledLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.HeartbeatsDisabledLabel.ForeColor = System.Drawing.Color.Red;
-         this.HeartbeatsDisabledLabel.Location = new System.Drawing.Point(246, 16);
-         this.HeartbeatsDisabledLabel.Name = "HeartbeatsDisabledLabel";
-         this.HeartbeatsDisabledLabel.Size = new System.Drawing.Size(524, 23);
-         this.HeartbeatsDisabledLabel.TabIndex = 190;
-         this.HeartbeatsDisabledLabel.Text = "!!! HEARTBEATS DISABLED !!!";
-         this.HeartbeatsDisabledLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         this.HeartbeatsDisabledLabel.Visible = false;
-         // 
          // MainForm
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
          this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-         this.ClientSize = new System.Drawing.Size(1252, 703);
+         this.ClientSize = new System.Drawing.Size(1920, 1092);
          this.Controls.Add(this.HeartbeatsDisabledLabel);
-         this.Controls.Add(this.panel12);
+         this.Controls.Add(this.StatusPanel);
          this.Controls.Add(this.StopAllPanel);
-         this.Controls.Add(this.borderedPanel1);
+         this.Controls.Add(this.ControlPanel);
          this.Controls.Add(this.VersionLabel);
          this.Controls.Add(this.panel2);
          this.Controls.Add(this.panel1);
          this.Controls.Add(this.CameraControlPanel);
          this.Controls.Add(this.TxPanel);
-         this.Controls.Add(this.RxPanel);
          this.Controls.Add(this.TitleLabel);
          this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
          this.Name = "MainForm";
-         this.Text = "LINER UI";
+         this.Text = "Element 4";
          this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
          this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
          this.Shown += new System.EventHandler(this.MainForm_Shown);
@@ -951,9 +960,9 @@
          this.panel1.ResumeLayout(false);
          this.panel2.ResumeLayout(false);
          this.StopAllPanel.ResumeLayout(false);
-         this.borderedPanel1.ResumeLayout(false);
-         this.panel12.ResumeLayout(false);
-         this.panel12.PerformLayout();
+         this.StatusPanel.ResumeLayout(false);
+         this.StatusPanel.PerformLayout();
+         this.ControlPanel.ResumeLayout(false);
          this.ResumeLayout(false);
 
       }
@@ -961,10 +970,9 @@
       #endregion
 
       private System.Windows.Forms.Label TitleLabel;
-      private System.Windows.Forms.Panel RxPanel;
       private System.Windows.Forms.Panel TxPanel;
-      private Controls.LinerButton linerButton2;
-      private Controls.LinerButton linerButton1;
+      private Controls.E4Button linerButton2;
+      private Controls.E4Button linerButton1;
       private Controls.ValueCycleButton valueCycleButton2;
       private Controls.ValueCycleButton valueCycleButton1;
       private Controls.DirectionalValuePanel TxDirectionPanel;
@@ -985,10 +993,10 @@
       private System.Windows.Forms.Label VersionLabel;
       private Controls.HoldButton ExitButton;
       private Controls.HoldButton SystemResetButton;
-      private Controls.BorderedPanel borderedPanel1;
-      private Controls.LinerButton linerButton4;
+      private Controls.BorderedPanel ControlPanel;
+      private Controls.E4Button SystemStatusButton;
       private System.Windows.Forms.Panel StopAllPanel;
-      private Controls.LinerButton linerButton3;
+      private Controls.E4Button StopAllButton;
       private Controls.LeftRightButton leftRightButton2;
       private Controls.UpDownButton upDownButton5;
       private Controls.UpDownButton upDownButton4;
@@ -998,11 +1006,12 @@
       private Controls.RotatableLabel rotatableLabel2;
       private Controls.RotatableLabel rotatableLabel1;
       private System.Windows.Forms.Timer UpdateTimer;
-      private System.Windows.Forms.Panel panel12;
+      private System.Windows.Forms.Panel StatusPanel;
       private System.Windows.Forms.TextBox TargetStatusTextBox;
       private System.Windows.Forms.TextBox MainStatusTextBox;
       private System.Windows.Forms.Label label17;
       private System.Windows.Forms.Label HeartbeatsDisabledLabel;
+      private Controls.E4Button WriteOsdButton;
    }
 }
 

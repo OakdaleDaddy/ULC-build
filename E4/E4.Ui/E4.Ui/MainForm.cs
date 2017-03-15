@@ -34,6 +34,8 @@
       private bool messageFlasher;
       private int messageFlashCount;
 
+      private PopupDimmerForm dimmerForm;
+
       #endregion
 
       #region Properties
@@ -46,9 +48,86 @@
 
       #region General Functions
 
+      private int GetAbsoluteLeft(Control control)
+      {
+         int result = 0;
+
+         while (null != control)
+         {
+            result += control.Left;
+            control = control.Parent;
+         }
+
+         return (result);
+      }
+
+      private int GetAbsoluteTop(Control control)
+      {
+         int result = 0;
+
+         while (null != control)
+         {
+            result += control.Top;
+            control = control.Parent;
+         }
+
+         return (result);
+      }
+
+      private void SetDialogLocation(Control control, Form form)
+      {
+         int offsetX = (form.Width - control.Width) / 2;
+         int offsetY = (form.Height - control.Height) / 2;
+         int formLeft = this.GetAbsoluteLeft(control) - offsetX;
+         int formTop = this.GetAbsoluteTop(control) - offsetY;
+         int formLeftMaximum = (this.Left + this.Width) - form.Width - 1;
+         int formTopMaximum = (this.Top + this.Height) - form.Height - 1;
+
+         if (formLeft < this.Left)
+         {
+            formLeft = this.Left;
+         }
+         else if (formLeft > formLeftMaximum)
+         {
+            formLeft = formLeftMaximum;
+         }
+
+         if (formTop < this.Top)
+         {
+            formTop = this.Top;
+         }
+         else if (formTop > formTopMaximum)
+         {
+            formTop = formTopMaximum;
+         }
+
+         form.Left = formLeft;
+         form.Top = formTop;
+      }
+
+      private void DimBackground()
+      {
+         this.dimmerForm.Top = 0;
+         this.dimmerForm.Left = 0;
+         this.dimmerForm.Height = this.Height;
+         this.dimmerForm.Width = this.Width;
+         this.dimmerForm.Show();
+      }
+
+      private void LightBackground()
+      {
+         this.dimmerForm.Hide();
+      }
+
       private void RestartSystem()
       {
          this.processStopNeeded = true;
+      }
+
+      private void SetTraceListenerDestination()
+      {
+         this.traceListener.SetDestination(ParameterAccessor.Instance.Trace.Address, ParameterAccessor.Instance.Trace.Port);
+         Tracer.WriteHigh(TraceGroup.UI, null, "endpoint set");
       }
 
       #endregion
@@ -68,11 +147,9 @@
       {
          // clear display
          
-#if false
          this.StopAllPanel.BackColor = Color.FromArgb(64, 64, 64);
          this.StopAllPanel.Refresh();
          this.StopAllButton.Refresh();
-#endif
 
          this.UpdateTimer.Interval = 1;
 
@@ -1304,6 +1381,39 @@
 
       #region System User Actions
 
+      private void StopAllButton_Click(object sender, EventArgs e)
+      {
+         this.StopAllPanel.BackColor = Color.Red;
+         DeviceCommunication.Instance.StopAll();
+      }
+
+      private void WriteOsdButton_Click(object sender, EventArgs e)
+      {
+         Button button = (Button)sender;
+
+         OsdForm osdForm = new OsdForm();
+
+         this.SetDialogLocation(button, osdForm);
+         this.DimBackground();
+         osdForm.ShowDialog();
+         this.LightBackground();
+      }
+
+      private void SystemStatusButton_Click(object sender, EventArgs e)
+      {
+         Button button = (Button)sender;
+
+         SystemStatusForm systemStatusForm = new SystemStatusForm();
+         systemStatusForm.SystemResetHandler = new SystemStatusForm.SystemResetDelegate(this.RestartSystem);
+         systemStatusForm.TraceListenerDestination = new SystemStatusForm.TraceListenerDestinationDelegate(this.SetTraceListenerDestination);
+
+         this.SetDialogLocation(button, systemStatusForm);
+         this.DimBackground();
+         systemStatusForm.ShowDialog();
+         this.LightBackground();
+      }
+
+
       private void SystemResetButton_HoldTimeout(object sender, Controls.HoldTimeoutEventArgs e)
       {
          this.RestartSystem();
@@ -1363,6 +1473,10 @@
          Trace.Listeners.Add(this.traceListener);
 
          Tracer.MaskString = "FFFFFFFF";
+      
+         this.dimmerForm = new PopupDimmerForm();
+         this.dimmerForm.Opacity = 0.65;
+         this.dimmerForm.ShowInTaskbar = false;
       }
 
       #endregion

@@ -10,7 +10,7 @@ namespace E4.Ui.Controls
    using System.Text;
    using System.Windows.Forms;
 
-   public class HoldButton : LinerButton
+   public class HoldButton : E4Button
    {
       private Timer holdTimer;
       private bool holdTimeout;

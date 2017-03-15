@@ -26,6 +26,8 @@
       public int JoystickDeadband;
       public int JoystickIdleBand;
 
+      public OsdParameters Osd;
+
       #endregion
 
       #region Properties
@@ -82,8 +84,30 @@
 
          this.JoystickDeadband = 5000;
          this.JoystickIdleBand = 4000;
+
+         this.Osd = new OsdParameters();
+         this.SetOsdDefaults(ref this.Osd);
       }
-      
+
+      private void SetOsdDefaults(ref OsdParameters osdParameters)
+      {
+         osdParameters.HorizontalOffset = 35;
+         osdParameters.VerticalOffset = 21;
+
+         osdParameters.ShowDate = false;
+         osdParameters.ShowTime = false;
+         osdParameters.ShowDescription = false;
+
+         osdParameters.Line1 = "";
+         osdParameters.Line2 = "";
+         osdParameters.Line3 = "";
+         osdParameters.Line4 = "";
+         osdParameters.Line5 = "";
+         osdParameters.Line6 = "";
+         osdParameters.Line7 = "";
+         osdParameters.Line8 = "";
+      }
+
       private void Initialize()
       {
          this.setDefaults = false;
@@ -94,22 +118,6 @@
 
       #region Read Functions
 
-      private int ReadInt(XmlReader reader)
-      {
-         int result = 0;
-
-         try
-         {
-            if (reader.Read())
-            {
-               result = int.Parse(reader.Value.Trim());
-            }
-         }
-         catch { }
-
-         return (result);
-      }
-
       private string ReadString(XmlReader reader)
       {
          string result = "";
@@ -119,6 +127,60 @@
             if (reader.Read())
             {
                result = reader.Value.Trim();
+            }
+         }
+         catch { }
+
+         return (result);
+      }
+
+      private string ReadStringNoTrim(XmlReader reader)
+      {
+         string result = "";
+
+         try
+         {
+            if (reader.Read())
+            {
+               result = reader.Value.ToString();
+            }
+         }
+         catch { }
+
+         if (result.Contains("\n") != false)
+         {
+            result = "";
+         }
+
+         return (result);
+      }
+
+      private bool ReadBool(XmlReader reader)
+      {
+         bool result = false;
+
+         try
+         {
+            if (reader.Read())
+            {
+               int value = int.Parse(reader.Value.Trim());
+               result = (0 != value) ? true : false;
+            }
+         }
+         catch { }
+
+         return (result);
+      }
+
+      private int ReadInt(XmlReader reader)
+      {
+         int result = 0;
+
+         try
+         {
+            if (reader.Read())
+            {
+               result = int.Parse(reader.Value.Trim());
             }
          }
          catch { }
@@ -352,6 +414,84 @@
          return (result);
       }
 
+      private OsdParameters ReadOsdParameters(XmlReader reader)
+      {
+         OsdParameters temp = new OsdParameters();
+         OsdParameters result = new OsdParameters();
+         bool readResult = true;
+
+         for (; readResult; )
+         {
+            readResult = reader.Read();
+
+            if (reader.IsStartElement())
+            {
+               if ("HorizontalOffset" == reader.Name)
+               {
+                  temp.HorizontalOffset = this.ReadInt(reader);
+               }
+               else if ("VerticalOffset" == reader.Name)
+               {
+                  temp.VerticalOffset = this.ReadInt(reader);
+               }
+               else if ("ShowDate" == reader.Name)
+               {
+                  temp.ShowDate = this.ReadBool(reader);
+               }
+               else if ("ShowTime" == reader.Name)
+               {
+                  temp.ShowTime = this.ReadBool(reader);
+               }
+               else if ("ShowDescription" == reader.Name)
+               {
+                  temp.ShowDescription = this.ReadBool(reader);
+               }
+               else if ("Line1" == reader.Name)
+               {
+                  temp.Line1 = this.ReadStringNoTrim(reader);
+               }
+               else if ("Line2" == reader.Name)
+               {
+                  temp.Line2 = this.ReadStringNoTrim(reader);
+               }
+               else if ("Line3" == reader.Name)
+               {
+                  temp.Line3 = this.ReadStringNoTrim(reader);
+               }
+               else if ("Line4" == reader.Name)
+               {
+                  temp.Line4 = this.ReadStringNoTrim(reader);
+               }
+               else if ("Line5" == reader.Name)
+               {
+                  temp.Line5 = this.ReadStringNoTrim(reader);
+               }
+               else if ("Line6" == reader.Name)
+               {
+                  temp.Line6 = this.ReadStringNoTrim(reader);
+               }
+               else if ("Line7" == reader.Name)
+               {
+                  temp.Line7 = this.ReadStringNoTrim(reader);
+               }
+               else if ("Line8" == reader.Name)
+               {
+                  temp.Line8 = this.ReadStringNoTrim(reader);
+               }
+            }
+            else
+            {
+               if ("Osd" == reader.Name)
+               {
+                  result = temp;
+                  break;
+               }
+            }
+         }
+
+         return (result);
+      }
+
       private void ReadData(string filePath)
       {
          try
@@ -408,6 +548,15 @@
                      {
                         this.JoystickIdleBand = this.ReadInt(reader);
                      }
+                     else if ("Osd" == reader.Name)
+                     {
+                        OsdParameters osdParameters = this.ReadOsdParameters(reader);
+
+                        if (null != osdParameters)
+                        {
+                           this.Osd = osdParameters;
+                        }
+                     }
                   }
                }
 
@@ -430,6 +579,12 @@
       private void WriteElement(XmlWriter writer, string tag, double value)
       {
          writer.WriteElementString(tag, value.ToString());
+      }
+
+      private void WriteElement(XmlWriter writer, string tag, bool value)
+      {
+         string fileValue = (false != value) ? "1" : "0";
+         writer.WriteElementString(tag, fileValue);
       }
 
       private void WriteMainBusParameters(XmlWriter writer, MainBusParameters mainBusParameters)
@@ -486,6 +641,29 @@
          writer.WriteEndElement();
       }
 
+      private void WriteOsdParameters(XmlWriter writer, OsdParameters osdParameters)
+      {
+         writer.WriteStartElement("Osd");
+
+         this.WriteElement(writer, "HorizontalOffset", osdParameters.HorizontalOffset);
+         this.WriteElement(writer, "VerticalOffset", osdParameters.VerticalOffset);
+
+         this.WriteElement(writer, "ShowDate", osdParameters.ShowDate);
+         this.WriteElement(writer, "ShowTime", osdParameters.ShowTime);
+         this.WriteElement(writer, "ShowDescription", osdParameters.ShowDescription);
+
+         this.WriteElement(writer, "Line1", osdParameters.Line1);
+         this.WriteElement(writer, "Line2", osdParameters.Line2);
+         this.WriteElement(writer, "Line3", osdParameters.Line3);
+         this.WriteElement(writer, "Line4", osdParameters.Line4);
+         this.WriteElement(writer, "Line5", osdParameters.Line5);
+         this.WriteElement(writer, "Line6", osdParameters.Line6);
+         this.WriteElement(writer, "Line7", osdParameters.Line7);
+         this.WriteElement(writer, "Line8", osdParameters.Line8);
+
+         writer.WriteEndElement();
+      }
+
       private void WriteData(string filePath)
       {
          XmlWriterSettings xmls = new XmlWriterSettings();
@@ -505,6 +683,8 @@
 
             this.WriteElement(writer, "JoystickDeadband", this.JoystickDeadband);
             this.WriteElement(writer, "JoystickIdleBand", this.JoystickIdleBand);
+
+            this.WriteOsdParameters(writer, this.Osd);
 
             writer.WriteEndElement();
             writer.WriteEndDocument();
@@ -572,6 +752,12 @@
       public void TriggerDefaults()
       {
          this.setDefaults = true;
+      }
+
+      public void SaveDefaults()
+      {
+         string defaultFile = this.GetDefaultFilePath();
+         this.WriteData(defaultFile);
       }
 
       #endregion

@@ -78,8 +78,14 @@
 
             this.InitializeValues();
 
-            //MainCommunicationBus.Instance.Start();
-            //TargeCommunicationBus.Instance.Start();
+            Tracer.WriteHigh(TraceGroup.COMM, null, "osd init start");
+            VideoStampOsd.Instance.Start(1, 9600);
+            VideoStampOsd.Instance.SetDateAndTime(DateTime.Now);
+            VideoStampOsd.Instance.Configure(ParameterAccessor.Instance.Osd);
+            Tracer.WriteHigh(TraceGroup.COMM, null, "osd init complete");
+
+            MainCommunicationBus.Instance.Start();
+            TargetCommunicationBus.Instance.Start();
 
             bool waiting = true;
 
@@ -89,8 +95,8 @@
 
                Thread.Sleep(50);
 
-               //busReady = (busReady && MainCommunicationBus.Instance.Ready);
-               //busReady = (busReady && TargeCommunicationBus.Instance.Ready);
+               busReady = (busReady && MainCommunicationBus.Instance.Ready);
+               busReady = (busReady && TargetCommunicationBus.Instance.Ready);
 
                waiting = (waiting && this.execute);
                waiting = (waiting && !busReady);
@@ -105,8 +111,8 @@
 
          try
          {
-            //MainCommunicationBus.Instance.Stop();
-            //TargeCommunicationBus.Instance.Stop();
+            MainCommunicationBus.Instance.Stop();
+            TargetCommunicationBus.Instance.Stop();
 
             bool waiting = true;
             DateTime waitTimeLimit = DateTime.Now.AddSeconds(30);
@@ -117,8 +123,8 @@
 
                Thread.Sleep(50);
 
-               //busRunning = (busRunning || MainCommunicationBus.Instance.Running);
-               //busRunning = (busRunning || TargeCommunicationBus.Instance.Running);
+               busRunning = (busRunning || MainCommunicationBus.Instance.Running);
+               busRunning = (busRunning || TargetCommunicationBus.Instance.Running);
 
                waiting = (waiting && busRunning);
 
@@ -128,6 +134,9 @@
                   waiting = false;
                }
             }
+
+            VideoStampOsd.Instance.Stop();
+            this.InitializeValues();
          }
          catch (Exception postException)
          {
@@ -176,32 +185,45 @@
 
       public void Service()
       {
-         //MainCommunicationBus.Instance.Service();
-         //TargetCommunication.Instance.Service();
+         MainCommunicationBus.Instance.Service();
+         TargetCommunicationBus.Instance.Service();
       }
 
       public string GetMainFaultStatus()
       {
-         string result = null; // MainCommunicationBus.Instance.GetFaultStatus();
+         string result = MainCommunicationBus.Instance.GetFaultStatus();
          return (result);
       }
 
       public string GetMainWarningStatus()
       {
-         string result = null; // MainCommunicationBus.Instance.GetWarningStatus();
+         string result = MainCommunicationBus.Instance.GetWarningStatus();
          return (result);
       }
 
       public string GetTargetFaultStatus()
       {
-         string result = null; // TargetCommunication.Instance.GetFaultStatus();
+         string result = TargetCommunicationBus.Instance.GetFaultStatus();
          return (result);
       }
 
       public string GetTargetWarningStatus()
       {
-         string result = null; // TargetCommunication.Instance.GetWarningStatus();
+         string result = TargetCommunicationBus.Instance.GetWarningStatus();
          return (result);
+      }
+
+      public void StopAll()
+      {
+#if false
+         if (null != this.activeMacro)
+         {
+            this.activeMacro.Cancel();
+         }
+#endif
+
+         MainCommunicationBus.Instance.StopAll();
+         TargetCommunicationBus.Instance.StopAll();
       }
 
       #endregion

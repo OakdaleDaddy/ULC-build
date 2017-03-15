@@ -51,12 +51,17 @@
     <Compile Include="DirectionalValuePanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="HoldButton.cs" />
+    <Compile Include="HoldButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="HoldTimeoutEventArgs.cs" />
+    <Compile Include="KeyButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="LeftRightButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="LinerButton.cs">
+    <Compile Include="E4Button.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

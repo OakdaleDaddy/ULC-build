@@ -1,12 +1,11 @@
-﻿
-namespace E4.Ui.Controls
+﻿namespace E4.Ui.Controls
 {
    using System;
    using System.Drawing;
    using System.Text;
    using System.Windows.Forms;
 
-   public class LinerButton : Button
+   public class E4Button : Button
    {
       #region Fields
 
@@ -254,7 +253,7 @@ namespace E4.Ui.Controls
 
       #region Constructor
 
-      public LinerButton()
+      public E4Button()
       {
          this.Enter += NicBotButton_Enter;
          this.Leave += NicBotButton_Leave;
