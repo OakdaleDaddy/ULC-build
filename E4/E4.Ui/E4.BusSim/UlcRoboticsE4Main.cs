@@ -65,11 +65,12 @@ namespace E4.BusSim
 
       private byte laserAimEnable;
       private byte laserTimeToMeasure;
+      private byte laserMeasuredDistanceHighest;
       private UInt32 laserMeasuredDistance;
       private byte laserTemperature;
       private byte laserErrorTemperature;
       private byte laserControlByte;
-      private byte laserErrorCodes;
+      private byte laserStatusByte;
 
       private byte laserScannerPosition;
       private byte laserScannerTemperature;
@@ -83,13 +84,21 @@ namespace E4.BusSim
 
       private MainMotor[] motors;
 
-
       private byte workingConsumerHeartbeatNode;
       private UInt16 workingConsumerHeartbeatTime;
       private bool workingConsumerHeartbeatActive;
       private DateTime workingConsumerHeartbeatTimeLimit;
 
       private DateTime workingProducerHeartbeatTimeLimit;
+
+      private bool laserMeasureActive;
+      private bool laserMeasureExecuted;
+      private byte activeLaserControlByte;
+      private int activeLaserTimeToMeasure;
+      private int laserReadingCount;
+      private int laserReadingLimit;
+      private UInt32[] laserReadings;
+      private DateTime laserReadingTimeLimit;
 
       private byte nvNodeId;
 
@@ -113,7 +122,6 @@ namespace E4.BusSim
              (0x2401 == index) ||
              ((0x2403 == index) && (0x02 == subIndex)) ||
              (0x2404 == index) ||
-             (0x2405 == index) ||
              ((0x2411 == index) && (0x02 == subIndex)) ||
              ((0x2443 == index) && (0x02 == subIndex)) ||
              ((0x2446 == index) && (0x02 == subIndex)))
@@ -149,7 +157,6 @@ namespace E4.BusSim
              (0x2401 == index) ||
              ((0x2403 == index) && (0x02 == subIndex)) ||
              (0x2404 == index) ||
-             (0x2405 == index) ||
              ((0x2411 == index) && (0x02 == subIndex)) ||
              ((0x2443 == index) && (0x02 == subIndex)) ||
              ((0x2446 == index) && (0x02 == subIndex)))
@@ -198,7 +205,8 @@ namespace E4.BusSim
              (0x2000 == index) ||
              (0x2400 == index) ||
              (0x2401 == index) ||
-             (0x2402 == index) ||
+             ((0x2402 == index) && (0x00 == subIndex)) ||
+             ((0x2402 == index) && (0x01 == subIndex)) ||
              ((0x2403 == index) && (0x01 == subIndex)) ||
              ((0x2403 == index) && (0x02 == subIndex)) ||
              (0x2404 == index) ||
@@ -249,6 +257,7 @@ namespace E4.BusSim
              (0x2000 == index) ||
              (0x2400 == index) ||
              (0x2401 == index) ||
+             ((0x2402 == index) && (0x00 == subIndex)) ||
              ((0x2403 == index) && (0x01 == subIndex)) ||
              ((0x2403 == index) && (0x02 == subIndex)) ||
              (0x2404 == index) ||
@@ -274,7 +283,7 @@ namespace E4.BusSim
          }
          else if ((0x1002 == index) ||
                   ((0x2302 == index) && (0x01 == subIndex)) ||
-                  (0x2402 == index))             
+                  ((0x2402 == index) && (0x01 == subIndex)))
          {
             result = 4;
          }
@@ -819,11 +828,24 @@ namespace E4.BusSim
          }
       }
 
+      private byte LaserMeasuredDistanceHighest
+      {
+         set
+         {
+            this.SetValue(0x2402, 0x00, LaserMeasuredDistanceHighestLabel, "Laser Measured Distance Highest", ref this.laserMeasuredDistanceHighest, value, 2);
+         }
+
+         get
+         {
+            return (this.laserMeasuredDistanceHighest);
+         }
+      }
+
       private UInt32 LaserMeasuredDistance
       {
          set
          {
-            this.SetValue(0x2402, 0x00, LaserMeasuredDistanceLabel, "Laser Measured Distance (mm)", ref this.laserMeasuredDistance, value, 8);
+            this.SetValue(0x2402, 0x01, LaserMeasuredDistanceLabel, "Laser Measured Distance (mm)", ref this.laserMeasuredDistance, value, 8);
          }
 
          get
@@ -871,16 +893,16 @@ namespace E4.BusSim
          }
       }
 
-      private byte LaserErrorCodes
+      private byte LaserStatusByte
       {
          set
          {
-            this.SetValue(0x2405, 0x00, LaserErrorCodesLabel, "Laser Error Codes", ref this.laserErrorCodes, value, 2);
+            this.SetValue(0x2405, 0x00, LaserStatusByteLabel, "Laser Status Byte", ref this.laserStatusByte, value, 2);
          }
 
          get
          {
-            return (this.laserErrorCodes);
+            return (this.laserStatusByte);
          }
       }
 
@@ -1072,6 +1094,33 @@ namespace E4.BusSim
          }
       }
 
+      private UInt32 GetLaserMeasuredDistance()
+      {
+         UInt32 result = 0;
+
+         if (UInt32.TryParse(this.LaserMeasuredDistanceTextBox.Text, out laserMeasuredDistance) != false)
+         {
+            result = (UInt32)laserMeasuredDistance;
+         }
+
+         return (result);
+      }
+
+      private void ResetLaserMeasurements()
+      {
+         this.laserMeasureActive = false;
+         this.laserMeasureExecuted = false;
+         this.LaserMeasuredDistanceHighest = 1;
+         this.LaserMeasuredDistance = 0;
+
+         for (int i = 0; i < this.laserReadings.Length; i++)
+         {
+            this.laserReadings[i] = 0;
+         }
+
+         this.LaserStatusByte = 0x00;
+      }
+
       #endregion
 
       #region Device Specific Functions
@@ -1148,11 +1197,12 @@ namespace E4.BusSim
             this.TargetBoardImuErrorTemperature = 1;
 
             this.LaserAimEnable = 0;
-            this.LaserTimeToMeasure = 0;
+            this.LaserTimeToMeasure = 6;
+            this.LaserMeasuredDistanceHighest = 1;
             this.LaserMeasuredDistance = 0;
-            this.LaserErrorTemperature = 1;
+            this.LaserErrorTemperature = 85;
             this.LaserControlByte = 0;
-            this.LaserErrorCodes = 0;
+            this.LaserStatusByte = 0;
             this.LaserScannerErrorTemperature = 1;
 
             this.McuErrorTemperature = 0;
@@ -1166,6 +1216,8 @@ namespace E4.BusSim
             int cobId = this.GetCobId(COBTypes.ERROR, this.nodeId);
             byte[] bootUpMsg = new byte[1];
             bootUpMsg[0] = 0;
+
+            this.laserMeasureActive = false;
 
             this.Transmit(cobId, bootUpMsg);
             base.Reset();
@@ -1475,8 +1527,26 @@ namespace E4.BusSim
          }
          else if (0x2402 == index)
          {
-            dataLength = this.MoveDeviceData(buffer, this.LaserMeasuredDistance);
-            valid = true;
+            if (0x00 == subIndex)
+            {
+               dataLength = this.MoveDeviceData(buffer, this.LaserMeasuredDistanceHighest);
+               valid = true;
+            }
+            else if (0x01 == subIndex)
+            {
+               dataLength = this.MoveDeviceData(buffer, this.LaserMeasuredDistance);
+               valid = true;
+            }
+            else 
+            {
+               int readingIndex = subIndex - 2;
+
+               if ((readingIndex < this.laserReadingCount) && (readingIndex < this.laserReadings.Length))
+               {
+                  dataLength = this.MoveDeviceData(buffer, this.laserReadings[readingIndex]);
+                  valid = true;
+               }
+            }
          }
          else if ((0x2403 == index) && (0x00 == subIndex))
          {
@@ -1500,7 +1570,7 @@ namespace E4.BusSim
          }
          else if (0x2405 == index)
          {
-            dataLength = this.MoveDeviceData(buffer, this.LaserErrorCodes);
+            dataLength = this.MoveDeviceData(buffer, this.LaserStatusByte);
             valid = true;
          }
          else if ((0x2410 == index) && (0x00 == subIndex))
@@ -2037,12 +2107,7 @@ namespace E4.BusSim
 
       private void SetLaserMeasuredDistanceButton_Click(object sender, EventArgs e)
       {
-         double laserMeasuredDistance = 0;
-
-         if (double.TryParse(this.LaserMeasuredDistanceTextBox.Text, out laserMeasuredDistance) != false) 
-         {
-            this.LaserMeasuredDistance = (UInt32)laserMeasuredDistance;
-         }
+         this.LaserMeasuredDistance = this.GetLaserMeasuredDistance();
       }
 
       private void SerLaserRangeTemperatureButton_Click(object sender, EventArgs e)
@@ -2317,8 +2382,10 @@ namespace E4.BusSim
 
          for (int i = 0; i < this.motors.Length; i++)
          {
-            this.motors[i].CreateLabels();
+            this.motors[i].CreateLabels();         
          }
+
+         this.laserReadings = new UInt32[128];
 
 
          this.Motor0Motor.Dock = DockStyle.Fill;
@@ -2549,10 +2616,79 @@ namespace E4.BusSim
 
             if (DeviceStates.running == this.deviceState)
             {
+               #region RPDO Activation Check
+               
                for (int i = 0; i < this.rpdoMapping.Length; i++)
                {
                   this.rpdoMapping[i].Update();
                }
+               
+               #endregion
+
+               #region Laser Measurements
+
+               byte laserControlCache = this.LaserControlByte;
+               this.activeLaserControlByte = laserControlCache;
+
+               bool laserControl = ((0x80 & laserControlCache) != 0) ? true : false;
+
+               if (false == this.laserMeasureActive)
+               {
+                  if (false == laserControl)
+                  {
+                     if (1 != this.LaserMeasuredDistanceHighest)
+                     {
+                        this.ResetLaserMeasurements();
+                     }
+                  }
+                  else if (false == this.laserMeasureExecuted)
+                  {
+                     this.activeLaserTimeToMeasure = (0 == this.LaserTimeToMeasure) ? 1 : this.LaserTimeToMeasure;
+                     this.laserReadingCount = 0;
+                     this.LaserMeasuredDistanceHighest = (byte)(this.laserReadingCount + 1);
+                     this.laserReadingLimit = (laserControlCache & 0x7F) + 1;
+                     this.laserReadingTimeLimit = now.AddMilliseconds(this.activeLaserTimeToMeasure * 150);
+                     this.laserMeasureActive = true;
+
+                     this.LaserStatusByte = 0x02;
+                  }
+               }
+               else
+               {
+                  if (false == laserControl)
+                  {
+                     this.ResetLaserMeasurements();
+                  }
+                  else if (now > this.laserReadingTimeLimit)
+                  {
+                     this.laserReadings[this.laserReadingCount] = this.GetLaserMeasuredDistance();
+                     this.laserReadingCount++;
+                     this.LaserMeasuredDistanceHighest = (byte)(this.laserReadingCount + 1);
+
+                     if (this.laserReadingCount < this.laserReadingLimit)
+                     {
+                        this.laserReadingTimeLimit = this.laserReadingTimeLimit.AddMilliseconds(this.activeLaserTimeToMeasure * 150);
+                     }
+                     else
+                     {
+                        UInt64 laserTotal = 0;
+
+                        for (int i = 0; i < this.laserReadingLimit; i++)
+                        {
+                           laserTotal += this.laserReadings[i];
+                        }
+
+                        this.LaserMeasuredDistance = (UInt32)(laserTotal / (UInt32)this.laserReadingLimit);
+                        this.laserMeasureActive = false;
+                        this.laserMeasureExecuted = true;
+                        this.LaserStatusByte = 0x01;
+                     }
+                  }
+               }
+
+               #endregion
+
+               #region TPDO Activation Check
 
                for (int i = 0; i < this.tpdoMapping.Length; i++)
                {
@@ -2570,6 +2706,8 @@ namespace E4.BusSim
                      }
                   }
                }
+
+               #endregion
             }
             else
             {

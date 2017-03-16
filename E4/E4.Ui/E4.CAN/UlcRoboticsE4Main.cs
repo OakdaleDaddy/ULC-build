@@ -231,7 +231,8 @@ namespace E4.CAN
       public double McuTemperature { set; get; }
       public byte DcLinkVoltage { set; get; }
 
-      public double LaserMeasuredDistance { set; get; }
+      public byte LaserStatusByte { set; get; }
+      public byte LaserReadingCount { set; get; }
       public byte LaserScannerPosition { set; get; }
 
       #endregion
@@ -368,11 +369,12 @@ namespace E4.CAN
             }
             else if (COBTypes.TPDO2 == frameType) // TPDO6
             {
-               if ((null != msg) && (msg.Length >= 7))
+               if ((null != msg) && (msg.Length >= 5))
                {
-                  this.LaserMeasuredDistance = ((double)BitConverter.ToUInt32(msg, 0) / 1);
-                  this.LaserScannerPosition = msg[4];
-                  this.TargetBoardImuRoll = ((double)BitConverter.ToInt16(msg, 5) / 16);
+                  this.LaserStatusByte = msg[0];
+                  this.LaserReadingCount = msg[1];
+                  this.LaserScannerPosition = msg[2];
+                  this.TargetBoardImuRoll = ((double)BitConverter.ToInt16(msg, 3) / 16);
                }
             }
             else if (COBTypes.TPDO3 == frameType) // TPDO7
@@ -538,10 +540,11 @@ namespace E4.CAN
             result &= this.SetTPDOMapCount(6, 0);
             result &= this.SetTPDOType(6, 254);
             result &= this.SetTPDOInhibitTime(6, 200);
-            result &= this.SetTPDOMap(6, 1, 0x2402, 0x00, 4); // laser measured distance
-            result &= this.SetTPDOMap(6, 2, 0x2410, 0x01, 1); // laser scanner position
-            result &= this.SetTPDOMap(6, 3, 0x2445, 0x01, 2); // Target Board IMU roll
-            result &= this.SetTPDOMapCount(6, 3);
+            result &= this.SetTPDOMap(6, 1, 0x2405, 0x00, 1); // laser status byte
+            result &= this.SetTPDOMap(6, 2, 0x2402, 0x00, 1); // laser measured highest count
+            result &= this.SetTPDOMap(6, 3, 0x2410, 0x01, 1); // laser scanner position
+            result &= this.SetTPDOMap(6, 4, 0x2445, 0x01, 2); // Target Board IMU roll
+            result &= this.SetTPDOMapCount(6, 4);
             result &= this.SetTPDOEnable(6, true);
 
             // set TPDO7 on change with 200mS inhibit time
@@ -892,7 +895,7 @@ namespace E4.CAN
       public bool GetLaserDistance(ref UInt32 distance)
       {
          bool result = false;
-         SDOUpload upload = new SDOUpload(0x2402, 0);
+         SDOUpload upload = new SDOUpload(0x2402, 0x01);
          this.pendingAction = upload;
          bool actionResult = this.ExchangeCommAction(this.pendingAction);
 

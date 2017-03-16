@@ -166,6 +166,30 @@ namespace E4.DeviceTest
          this.label94 = new System.Windows.Forms.Label();
          this.E4MainBldc0Panel = new System.Windows.Forms.Panel();
          this.E4MainBldc0TuningGroupBox = new System.Windows.Forms.GroupBox();
+         this.GetE4MainBldc0VelocityThresholdTimeButton = new System.Windows.Forms.Button();
+         this.label76 = new System.Windows.Forms.Label();
+         this.E4MainBldc0VelocityThresholdTimeTextBox = new System.Windows.Forms.TextBox();
+         this.SetE4MainBldc0VelocityThresholdTimeButton = new System.Windows.Forms.Button();
+         this.GetE4MainBldc0VelocityThresholdButton = new System.Windows.Forms.Button();
+         this.label77 = new System.Windows.Forms.Label();
+         this.E4MainBldc0VelocityThresholdTextBox = new System.Windows.Forms.TextBox();
+         this.SetE4MainBldc0VelocityThresholdButton = new System.Windows.Forms.Button();
+         this.GetE4MainBldc0VelocityWindowTimeButton = new System.Windows.Forms.Button();
+         this.label74 = new System.Windows.Forms.Label();
+         this.E4MainBldc0VelocityWindowTimeTextBox = new System.Windows.Forms.TextBox();
+         this.SetE4MainBldc0VelocityWindowTimeButton = new System.Windows.Forms.Button();
+         this.GetE4MainBldc0VelocityWindowButton = new System.Windows.Forms.Button();
+         this.label75 = new System.Windows.Forms.Label();
+         this.E4MainBldc0VelocityWindowTextBox = new System.Windows.Forms.TextBox();
+         this.SetE4MainBldc0VelocityWindowButton = new System.Windows.Forms.Button();
+         this.GetE4MainBldc0PositionWindowTimeButton = new System.Windows.Forms.Button();
+         this.label73 = new System.Windows.Forms.Label();
+         this.E4MainBldc0PositionWindowTimeTextBox = new System.Windows.Forms.TextBox();
+         this.SetE4MainBldc0PositionWindowTimeButton = new System.Windows.Forms.Button();
+         this.GetE4MainBldc0PositionWindowButton = new System.Windows.Forms.Button();
+         this.label72 = new System.Windows.Forms.Label();
+         this.E4MainBldc0PositionWindowTextBox = new System.Windows.Forms.TextBox();
+         this.SetE4MainBldc0PositionWindowButton = new System.Windows.Forms.Button();
          this.E4MainBldc0TuningPositionRadioButton = new System.Windows.Forms.RadioButton();
          this.E4MainBldc0TuningVelocityRadioButton = new System.Windows.Forms.RadioButton();
          this.GetE4MainBldc0KpButton = new System.Windows.Forms.Button();
@@ -182,6 +206,7 @@ namespace E4.DeviceTest
          this.E4MainBldc0KpTextBox = new System.Windows.Forms.TextBox();
          this.E4MainBldc0EditHelperButton = new System.Windows.Forms.Button();
          this.E4MainBldc0PositionGroupBox = new System.Windows.Forms.GroupBox();
+         this.E4MainBldc0TargetPositionRelativeCheckBox = new System.Windows.Forms.CheckBox();
          this.ScheduleE4MainBldc0TargetPositionButton = new System.Windows.Forms.Button();
          this.E4MainBldc0PositionAttainedLabel = new System.Windows.Forms.Label();
          this.GetE4MainBldc0ProfileVelocityButton = new System.Windows.Forms.Button();
@@ -225,6 +250,30 @@ namespace E4.DeviceTest
          this.label22 = new System.Windows.Forms.Label();
          this.E4MainBldc1Panel = new System.Windows.Forms.Panel();
          this.E4MainBldc1TuningGroupBox = new System.Windows.Forms.GroupBox();
+         this.GetE4MainBldc1VelocityThresholdTimeButton = new System.Windows.Forms.Button();
+         this.label78 = new System.Windows.Forms.Label();
+         this.E4MainBldc1VelocityThresholdTimeTextBox = new System.Windows.Forms.TextBox();
+         this.SetE4MainBldc1VelocityThresholdTimeButton = new System.Windows.Forms.Button();
+         this.GetE4MainBldc1VelocityThresholdButton = new System.Windows.Forms.Button();
+         this.label79 = new System.Windows.Forms.Label();
+         this.E4MainBldc1VelocityThresholdTextBox = new System.Windows.Forms.TextBox();
+         this.SetE4MainBldc1VelocityThresholdButton = new System.Windows.Forms.Button();
+         this.GetE4MainBldc1VelocityWindowTimeButton = new System.Windows.Forms.Button();
+         this.label80 = new System.Windows.Forms.Label();
+         this.E4MainBldc1VelocityWindowTimeTextBox = new System.Windows.Forms.TextBox();
+         this.SetE4MainBldc1VelocityWindowTimeButton = new System.Windows.Forms.Button();
+         this.GetE4MainBldc1VelocityWindowButton = new System.Windows.Forms.Button();
+         this.label81 = new System.Windows.Forms.Label();
+         this.E4MainBldc1VelocityWindowTextBox = new System.Windows.Forms.TextBox();
+         this.SetE4MainBldc1VelocityWindowButton = new System.Windows.Forms.Button();
+         this.GetE4MainBldc1PositionWindowTimeButton = new System.Windows.Forms.Button();
+         this.label82 = new System.Windows.Forms.Label();
+         this.E4MainBldc1PositionWindowTimeTextBox = new System.Windows.Forms.TextBox();
+         this.SetE4MainBldc1PositionWindowTimeButton = new System.Windows.Forms.Button();
+         this.GetE4MainBldc1PositionWindowButton = new System.Windows.Forms.Button();
+         this.label83 = new System.Windows.Forms.Label();
+         this.E4MainBldc1PositionWindowTextBox = new System.Windows.Forms.TextBox();
+         this.SetE4MainBldc1PositionWindowButton = new System.Windows.Forms.Button();
          this.E4MainBldc1TuningPositionRadioButton = new System.Windows.Forms.RadioButton();
          this.E4MainBldc1TuningVelocityRadioButton = new System.Windows.Forms.RadioButton();
          this.GetE4MainBldc1KpButton = new System.Windows.Forms.Button();
@@ -241,6 +290,7 @@ namespace E4.DeviceTest
          this.E4MainBldc1KpTextBox = new System.Windows.Forms.TextBox();
          this.E4MainBldc1EditHelperButton = new System.Windows.Forms.Button();
          this.E4MainBldc1PositionGroupBox = new System.Windows.Forms.GroupBox();
+         this.E4MainBldc1TargetPositionRelativeCheckBox = new System.Windows.Forms.CheckBox();
          this.ScheduleE4MainBldc1TargetPositionButton = new System.Windows.Forms.Button();
          this.E4MainBldc1PositionAttainedLabel = new System.Windows.Forms.Label();
          this.GetE4MainBldc1ProfileVelocityButton = new System.Windows.Forms.Button();
@@ -304,6 +354,7 @@ namespace E4.DeviceTest
          this.GetE4MainStepper0HomeOffsetButton = new System.Windows.Forms.Button();
          this.E4MainStepper0HomeOffsetTextBox = new System.Windows.Forms.TextBox();
          this.E4MainStepper0PositionGroupBox = new System.Windows.Forms.GroupBox();
+         this.E4MainStepper0TargetPositionRelativeCheckBox = new System.Windows.Forms.CheckBox();
          this.GetE4MainStepper0ProfileAccelerationButton = new System.Windows.Forms.Button();
          this.label43 = new System.Windows.Forms.Label();
          this.SetE4MainStepper0ProfileAccelerationButton = new System.Windows.Forms.Button();
@@ -361,6 +412,7 @@ namespace E4.DeviceTest
          this.GetE4MainStepper1HomeOffsetButton = new System.Windows.Forms.Button();
          this.E4MainStepper1HomeOffsetTextBox = new System.Windows.Forms.TextBox();
          this.E4MainStepper1PositionGroupBox = new System.Windows.Forms.GroupBox();
+         this.E4MainStepper1TargetPositionRelativeCheckBox = new System.Windows.Forms.CheckBox();
          this.GetE4MainStepper1ProfileAccelerationButton = new System.Windows.Forms.Button();
          this.label40 = new System.Windows.Forms.Label();
          this.SetE4MainStepper1ProfileAccelerationButton = new System.Windows.Forms.Button();
@@ -397,7 +449,7 @@ namespace E4.DeviceTest
          this.label9 = new System.Windows.Forms.Label();
          this.E4MainLaserScannerTextBox = new System.Windows.Forms.TextBox();
          this.label8 = new System.Windows.Forms.Label();
-         this.E4MainLaserDistanceTextBox = new System.Windows.Forms.TextBox();
+         this.E4MainLaserStatusTextBox = new System.Windows.Forms.TextBox();
          this.label6 = new System.Windows.Forms.Label();
          this.label5 = new System.Windows.Forms.Label();
          this.E4MainMainBoardIcuYawTextBox = new System.Windows.Forms.TextBox();
@@ -416,58 +468,10 @@ namespace E4.DeviceTest
          this.label64 = new System.Windows.Forms.Label();
          this.ControlSplitter = new System.Windows.Forms.Splitter();
          this.MainActivityPanel = new System.Windows.Forms.Panel();
-         this.E4MainBldc0TargetPositionRelativeCheckBox = new System.Windows.Forms.CheckBox();
-         this.E4MainBldc1TargetPositionRelativeCheckBox = new System.Windows.Forms.CheckBox();
-         this.E4MainStepper0TargetPositionRelativeCheckBox = new System.Windows.Forms.CheckBox();
-         this.E4MainStepper1TargetPositionRelativeCheckBox = new System.Windows.Forms.CheckBox();
-         this.GetE4MainBldc0PositionWindowButton = new System.Windows.Forms.Button();
-         this.label72 = new System.Windows.Forms.Label();
-         this.E4MainBldc0PositionWindowTextBox = new System.Windows.Forms.TextBox();
-         this.SetE4MainBldc0PositionWindowButton = new System.Windows.Forms.Button();
-         this.GetE4MainBldc0PositionWindowTimeButton = new System.Windows.Forms.Button();
-         this.label73 = new System.Windows.Forms.Label();
-         this.E4MainBldc0PositionWindowTimeTextBox = new System.Windows.Forms.TextBox();
-         this.SetE4MainBldc0PositionWindowTimeButton = new System.Windows.Forms.Button();
-         this.GetE4MainBldc0VelocityWindowTimeButton = new System.Windows.Forms.Button();
-         this.label74 = new System.Windows.Forms.Label();
-         this.E4MainBldc0VelocityWindowTimeTextBox = new System.Windows.Forms.TextBox();
-         this.SetE4MainBldc0VelocityWindowTimeButton = new System.Windows.Forms.Button();
-         this.GetE4MainBldc0VelocityWindowButton = new System.Windows.Forms.Button();
-         this.label75 = new System.Windows.Forms.Label();
-         this.E4MainBldc0VelocityWindowTextBox = new System.Windows.Forms.TextBox();
-         this.SetE4MainBldc0VelocityWindowButton = new System.Windows.Forms.Button();
-         this.GetE4MainBldc0VelocityThresholdTimeButton = new System.Windows.Forms.Button();
-         this.label76 = new System.Windows.Forms.Label();
-         this.E4MainBldc0VelocityThresholdTimeTextBox = new System.Windows.Forms.TextBox();
-         this.SetE4MainBldc0VelocityThresholdTimeButton = new System.Windows.Forms.Button();
-         this.GetE4MainBldc0VelocityThresholdButton = new System.Windows.Forms.Button();
-         this.label77 = new System.Windows.Forms.Label();
-         this.E4MainBldc0VelocityThresholdTextBox = new System.Windows.Forms.TextBox();
-         this.SetE4MainBldc0VelocityThresholdButton = new System.Windows.Forms.Button();
-         this.GetE4MainBldc1VelocityThresholdTimeButton = new System.Windows.Forms.Button();
-         this.label78 = new System.Windows.Forms.Label();
-         this.E4MainBldc1VelocityThresholdTimeTextBox = new System.Windows.Forms.TextBox();
-         this.SetE4MainBldc1VelocityThresholdTimeButton = new System.Windows.Forms.Button();
-         this.GetE4MainBldc1VelocityThresholdButton = new System.Windows.Forms.Button();
-         this.label79 = new System.Windows.Forms.Label();
-         this.E4MainBldc1VelocityThresholdTextBox = new System.Windows.Forms.TextBox();
-         this.SetE4MainBldc1VelocityThresholdButton = new System.Windows.Forms.Button();
-         this.GetE4MainBldc1VelocityWindowTimeButton = new System.Windows.Forms.Button();
-         this.label80 = new System.Windows.Forms.Label();
-         this.E4MainBldc1VelocityWindowTimeTextBox = new System.Windows.Forms.TextBox();
-         this.SetE4MainBldc1VelocityWindowTimeButton = new System.Windows.Forms.Button();
-         this.GetE4MainBldc1VelocityWindowButton = new System.Windows.Forms.Button();
-         this.label81 = new System.Windows.Forms.Label();
-         this.E4MainBldc1VelocityWindowTextBox = new System.Windows.Forms.TextBox();
-         this.SetE4MainBldc1VelocityWindowButton = new System.Windows.Forms.Button();
-         this.GetE4MainBldc1PositionWindowTimeButton = new System.Windows.Forms.Button();
-         this.label82 = new System.Windows.Forms.Label();
-         this.E4MainBldc1PositionWindowTimeTextBox = new System.Windows.Forms.TextBox();
-         this.SetE4MainBldc1PositionWindowTimeButton = new System.Windows.Forms.Button();
-         this.GetE4MainBldc1PositionWindowButton = new System.Windows.Forms.Button();
-         this.label83 = new System.Windows.Forms.Label();
-         this.E4MainBldc1PositionWindowTextBox = new System.Windows.Forms.TextBox();
-         this.SetE4MainBldc1PositionWindowButton = new System.Windows.Forms.Button();
+         this.label84 = new System.Windows.Forms.Label();
+         this.label85 = new System.Windows.Forms.Label();
+         this.label86 = new System.Windows.Forms.Label();
+         this.E4MainLaserCountTextBox = new System.Windows.Forms.TextBox();
          this.MainStatusStrip.SuspendLayout();
          this.MainTabControl.SuspendLayout();
          this.ControlTabPage.SuspendLayout();
@@ -509,7 +513,7 @@ namespace E4.DeviceTest
          this.ActivityRichTextBox.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
          this.ActivityRichTextBox.Location = new System.Drawing.Point(0, 0);
          this.ActivityRichTextBox.Name = "ActivityRichTextBox";
-         this.ActivityRichTextBox.Size = new System.Drawing.Size(742, 161);
+         this.ActivityRichTextBox.Size = new System.Drawing.Size(742, 118);
          this.ActivityRichTextBox.TabIndex = 0;
          this.ActivityRichTextBox.Text = "";
          this.ActivityRichTextBox.WordWrap = false;
@@ -656,11 +660,11 @@ namespace E4.DeviceTest
          this.MainTabControl.Controls.Add(this.DownloadTabPage);
          this.MainTabControl.Controls.Add(this.MainTabPage);
          this.MainTabControl.Dock = System.Windows.Forms.DockStyle.Bottom;
-         this.MainTabControl.Location = new System.Drawing.Point(0, 164);
+         this.MainTabControl.Location = new System.Drawing.Point(0, 121);
          this.MainTabControl.MinimumSize = new System.Drawing.Size(0, 156);
          this.MainTabControl.Name = "MainTabControl";
          this.MainTabControl.SelectedIndex = 0;
-         this.MainTabControl.Size = new System.Drawing.Size(742, 294);
+         this.MainTabControl.Size = new System.Drawing.Size(742, 337);
          this.MainTabControl.TabIndex = 43;
          // 
          // ControlTabPage
@@ -1003,6 +1007,10 @@ namespace E4.DeviceTest
          // 
          // MainTabPage
          // 
+         this.MainTabPage.Controls.Add(this.label85);
+         this.MainTabPage.Controls.Add(this.label86);
+         this.MainTabPage.Controls.Add(this.E4MainLaserCountTextBox);
+         this.MainTabPage.Controls.Add(this.label84);
          this.MainTabPage.Controls.Add(this.label68);
          this.MainTabPage.Controls.Add(this.label69);
          this.MainTabPage.Controls.Add(this.E4MainTargetBoardIcuYawTextBox);
@@ -1016,7 +1024,7 @@ namespace E4.DeviceTest
          this.MainTabPage.Controls.Add(this.label9);
          this.MainTabPage.Controls.Add(this.E4MainLaserScannerTextBox);
          this.MainTabPage.Controls.Add(this.label8);
-         this.MainTabPage.Controls.Add(this.E4MainLaserDistanceTextBox);
+         this.MainTabPage.Controls.Add(this.E4MainLaserStatusTextBox);
          this.MainTabPage.Controls.Add(this.label6);
          this.MainTabPage.Controls.Add(this.label5);
          this.MainTabPage.Controls.Add(this.E4MainMainBoardIcuYawTextBox);
@@ -1036,7 +1044,7 @@ namespace E4.DeviceTest
          this.MainTabPage.Location = new System.Drawing.Point(4, 22);
          this.MainTabPage.Name = "MainTabPage";
          this.MainTabPage.Padding = new System.Windows.Forms.Padding(3);
-         this.MainTabPage.Size = new System.Drawing.Size(734, 268);
+         this.MainTabPage.Size = new System.Drawing.Size(734, 311);
          this.MainTabPage.TabIndex = 12;
          this.MainTabPage.Text = "Main";
          this.MainTabPage.UseVisualStyleBackColor = true;
@@ -1115,7 +1123,7 @@ namespace E4.DeviceTest
          // 
          // E4MainSyncButton
          // 
-         this.E4MainSyncButton.Location = new System.Drawing.Point(8, 54);
+         this.E4MainSyncButton.Location = new System.Drawing.Point(10, 75);
          this.E4MainSyncButton.Name = "E4MainSyncButton";
          this.E4MainSyncButton.Size = new System.Drawing.Size(55, 23);
          this.E4MainSyncButton.TabIndex = 288;
@@ -1137,10 +1145,10 @@ namespace E4.DeviceTest
          this.E4MainTabControl.Controls.Add(this.E4MainStepper0TabPage);
          this.E4MainTabControl.Controls.Add(this.E4MainStepper1TabPage);
          this.E4MainTabControl.Controls.Add(this.E4MainDebugTabPage);
-         this.E4MainTabControl.Location = new System.Drawing.Point(3, 83);
+         this.E4MainTabControl.Location = new System.Drawing.Point(3, 101);
          this.E4MainTabControl.Name = "E4MainTabControl";
          this.E4MainTabControl.SelectedIndex = 0;
-         this.E4MainTabControl.Size = new System.Drawing.Size(728, 182);
+         this.E4MainTabControl.Size = new System.Drawing.Size(728, 204);
          this.E4MainTabControl.TabIndex = 287;
          // 
          // E4MainHeartbeatsTabPage
@@ -1543,7 +1551,7 @@ namespace E4.DeviceTest
          this.E4MainLaserTabPage.Location = new System.Drawing.Point(4, 22);
          this.E4MainLaserTabPage.Name = "E4MainLaserTabPage";
          this.E4MainLaserTabPage.Padding = new System.Windows.Forms.Padding(3);
-         this.E4MainLaserTabPage.Size = new System.Drawing.Size(720, 156);
+         this.E4MainLaserTabPage.Size = new System.Drawing.Size(720, 178);
          this.E4MainLaserTabPage.TabIndex = 7;
          this.E4MainLaserTabPage.Text = "Laser";
          this.E4MainLaserTabPage.UseVisualStyleBackColor = true;
@@ -1557,7 +1565,7 @@ namespace E4.DeviceTest
          this.E4MainLaserScannerGroupBox.Controls.Add(this.GetE4MainLaserScannerTemperatureButton);
          this.E4MainLaserScannerGroupBox.Controls.Add(this.E4MainLaserScannerTemperatureTextBox);
          this.E4MainLaserScannerGroupBox.Controls.Add(this.label63);
-         this.E4MainLaserScannerGroupBox.Location = new System.Drawing.Point(2, 79);
+         this.E4MainLaserScannerGroupBox.Location = new System.Drawing.Point(3, 79);
          this.E4MainLaserScannerGroupBox.Name = "E4MainLaserScannerGroupBox";
          this.E4MainLaserScannerGroupBox.Size = new System.Drawing.Size(682, 44);
          this.E4MainLaserScannerGroupBox.TabIndex = 402;
@@ -1958,6 +1966,223 @@ namespace E4.DeviceTest
          this.E4MainBldc0TuningGroupBox.TabStop = false;
          this.E4MainBldc0TuningGroupBox.Text = "Tuning";
          // 
+         // GetE4MainBldc0VelocityThresholdTimeButton
+         // 
+         this.GetE4MainBldc0VelocityThresholdTimeButton.Location = new System.Drawing.Point(586, 70);
+         this.GetE4MainBldc0VelocityThresholdTimeButton.Name = "GetE4MainBldc0VelocityThresholdTimeButton";
+         this.GetE4MainBldc0VelocityThresholdTimeButton.Size = new System.Drawing.Size(35, 23);
+         this.GetE4MainBldc0VelocityThresholdTimeButton.TabIndex = 458;
+         this.GetE4MainBldc0VelocityThresholdTimeButton.Text = "Get";
+         this.GetE4MainBldc0VelocityThresholdTimeButton.UseVisualStyleBackColor = true;
+         this.GetE4MainBldc0VelocityThresholdTimeButton.Click += new System.EventHandler(this.GetE4MainBldc0VelocityThresholdTimeButton_Click);
+         // 
+         // label76
+         // 
+         this.label76.AutoSize = true;
+         this.label76.Location = new System.Drawing.Point(445, 75);
+         this.label76.Name = "label76";
+         this.label76.Size = new System.Drawing.Size(74, 13);
+         this.label76.TabIndex = 457;
+         this.label76.Text = "V Threshold T";
+         // 
+         // E4MainBldc0VelocityThresholdTimeTextBox
+         // 
+         this.E4MainBldc0VelocityThresholdTimeTextBox.Location = new System.Drawing.Point(521, 72);
+         this.E4MainBldc0VelocityThresholdTimeTextBox.Name = "E4MainBldc0VelocityThresholdTimeTextBox";
+         this.E4MainBldc0VelocityThresholdTimeTextBox.Size = new System.Drawing.Size(59, 20);
+         this.E4MainBldc0VelocityThresholdTimeTextBox.TabIndex = 455;
+         // 
+         // SetE4MainBldc0VelocityThresholdTimeButton
+         // 
+         this.SetE4MainBldc0VelocityThresholdTimeButton.Location = new System.Drawing.Point(627, 70);
+         this.SetE4MainBldc0VelocityThresholdTimeButton.Name = "SetE4MainBldc0VelocityThresholdTimeButton";
+         this.SetE4MainBldc0VelocityThresholdTimeButton.Size = new System.Drawing.Size(35, 23);
+         this.SetE4MainBldc0VelocityThresholdTimeButton.TabIndex = 456;
+         this.SetE4MainBldc0VelocityThresholdTimeButton.Text = "Set";
+         this.SetE4MainBldc0VelocityThresholdTimeButton.UseVisualStyleBackColor = true;
+         this.SetE4MainBldc0VelocityThresholdTimeButton.Click += new System.EventHandler(this.SetE4MainBldc0VelocityThresholdTimeButton_Click);
+         // 
+         // GetE4MainBldc0VelocityThresholdButton
+         // 
+         this.GetE4MainBldc0VelocityThresholdButton.Location = new System.Drawing.Point(586, 44);
+         this.GetE4MainBldc0VelocityThresholdButton.Name = "GetE4MainBldc0VelocityThresholdButton";
+         this.GetE4MainBldc0VelocityThresholdButton.Size = new System.Drawing.Size(35, 23);
+         this.GetE4MainBldc0VelocityThresholdButton.TabIndex = 454;
+         this.GetE4MainBldc0VelocityThresholdButton.Text = "Get";
+         this.GetE4MainBldc0VelocityThresholdButton.UseVisualStyleBackColor = true;
+         this.GetE4MainBldc0VelocityThresholdButton.Click += new System.EventHandler(this.GetE4MainBldc0VelocityThresholdButton_Click);
+         // 
+         // label77
+         // 
+         this.label77.AutoSize = true;
+         this.label77.Location = new System.Drawing.Point(455, 49);
+         this.label77.Name = "label77";
+         this.label77.Size = new System.Drawing.Size(64, 13);
+         this.label77.TabIndex = 453;
+         this.label77.Text = "V Threshold";
+         // 
+         // E4MainBldc0VelocityThresholdTextBox
+         // 
+         this.E4MainBldc0VelocityThresholdTextBox.Location = new System.Drawing.Point(521, 46);
+         this.E4MainBldc0VelocityThresholdTextBox.Name = "E4MainBldc0VelocityThresholdTextBox";
+         this.E4MainBldc0VelocityThresholdTextBox.Size = new System.Drawing.Size(59, 20);
+         this.E4MainBldc0VelocityThresholdTextBox.TabIndex = 451;
+         // 
+         // SetE4MainBldc0VelocityThresholdButton
+         // 
+         this.SetE4MainBldc0VelocityThresholdButton.Location = new System.Drawing.Point(627, 44);
+         this.SetE4MainBldc0VelocityThresholdButton.Name = "SetE4MainBldc0VelocityThresholdButton";
+         this.SetE4MainBldc0VelocityThresholdButton.Size = new System.Drawing.Size(35, 23);
+         this.SetE4MainBldc0VelocityThresholdButton.TabIndex = 452;
+         this.SetE4MainBldc0VelocityThresholdButton.Text = "Set";
+         this.SetE4MainBldc0VelocityThresholdButton.UseVisualStyleBackColor = true;
+         this.SetE4MainBldc0VelocityThresholdButton.Click += new System.EventHandler(this.SetE4MainBldc0VelocityThresholdButton_Click);
+         // 
+         // GetE4MainBldc0VelocityWindowTimeButton
+         // 
+         this.GetE4MainBldc0VelocityWindowTimeButton.Location = new System.Drawing.Point(363, 70);
+         this.GetE4MainBldc0VelocityWindowTimeButton.Name = "GetE4MainBldc0VelocityWindowTimeButton";
+         this.GetE4MainBldc0VelocityWindowTimeButton.Size = new System.Drawing.Size(35, 23);
+         this.GetE4MainBldc0VelocityWindowTimeButton.TabIndex = 450;
+         this.GetE4MainBldc0VelocityWindowTimeButton.Text = "Get";
+         this.GetE4MainBldc0VelocityWindowTimeButton.UseVisualStyleBackColor = true;
+         this.GetE4MainBldc0VelocityWindowTimeButton.Click += new System.EventHandler(this.GetE4MainBldc0VelocityWindowTimeButton_Click);
+         // 
+         // label74
+         // 
+         this.label74.AutoSize = true;
+         this.label74.Location = new System.Drawing.Point(225, 75);
+         this.label74.Name = "label74";
+         this.label74.Size = new System.Drawing.Size(71, 13);
+         this.label74.TabIndex = 449;
+         this.label74.Text = "V Windows T";
+         // 
+         // E4MainBldc0VelocityWindowTimeTextBox
+         // 
+         this.E4MainBldc0VelocityWindowTimeTextBox.Location = new System.Drawing.Point(298, 72);
+         this.E4MainBldc0VelocityWindowTimeTextBox.Name = "E4MainBldc0VelocityWindowTimeTextBox";
+         this.E4MainBldc0VelocityWindowTimeTextBox.Size = new System.Drawing.Size(59, 20);
+         this.E4MainBldc0VelocityWindowTimeTextBox.TabIndex = 447;
+         // 
+         // SetE4MainBldc0VelocityWindowTimeButton
+         // 
+         this.SetE4MainBldc0VelocityWindowTimeButton.Location = new System.Drawing.Point(404, 70);
+         this.SetE4MainBldc0VelocityWindowTimeButton.Name = "SetE4MainBldc0VelocityWindowTimeButton";
+         this.SetE4MainBldc0VelocityWindowTimeButton.Size = new System.Drawing.Size(35, 23);
+         this.SetE4MainBldc0VelocityWindowTimeButton.TabIndex = 448;
+         this.SetE4MainBldc0VelocityWindowTimeButton.Text = "Set";
+         this.SetE4MainBldc0VelocityWindowTimeButton.UseVisualStyleBackColor = true;
+         this.SetE4MainBldc0VelocityWindowTimeButton.Click += new System.EventHandler(this.SetE4MainBldc0VelocityWindowTimeButton_Click);
+         // 
+         // GetE4MainBldc0VelocityWindowButton
+         // 
+         this.GetE4MainBldc0VelocityWindowButton.Location = new System.Drawing.Point(363, 44);
+         this.GetE4MainBldc0VelocityWindowButton.Name = "GetE4MainBldc0VelocityWindowButton";
+         this.GetE4MainBldc0VelocityWindowButton.Size = new System.Drawing.Size(35, 23);
+         this.GetE4MainBldc0VelocityWindowButton.TabIndex = 446;
+         this.GetE4MainBldc0VelocityWindowButton.Text = "Get";
+         this.GetE4MainBldc0VelocityWindowButton.UseVisualStyleBackColor = true;
+         this.GetE4MainBldc0VelocityWindowButton.Click += new System.EventHandler(this.GetE4MainBldc0VelocityWindowButton_Click);
+         // 
+         // label75
+         // 
+         this.label75.AutoSize = true;
+         this.label75.Location = new System.Drawing.Point(235, 49);
+         this.label75.Name = "label75";
+         this.label75.Size = new System.Drawing.Size(61, 13);
+         this.label75.TabIndex = 445;
+         this.label75.Text = "V Windows";
+         // 
+         // E4MainBldc0VelocityWindowTextBox
+         // 
+         this.E4MainBldc0VelocityWindowTextBox.Location = new System.Drawing.Point(298, 46);
+         this.E4MainBldc0VelocityWindowTextBox.Name = "E4MainBldc0VelocityWindowTextBox";
+         this.E4MainBldc0VelocityWindowTextBox.Size = new System.Drawing.Size(59, 20);
+         this.E4MainBldc0VelocityWindowTextBox.TabIndex = 443;
+         // 
+         // SetE4MainBldc0VelocityWindowButton
+         // 
+         this.SetE4MainBldc0VelocityWindowButton.Location = new System.Drawing.Point(404, 44);
+         this.SetE4MainBldc0VelocityWindowButton.Name = "SetE4MainBldc0VelocityWindowButton";
+         this.SetE4MainBldc0VelocityWindowButton.Size = new System.Drawing.Size(35, 23);
+         this.SetE4MainBldc0VelocityWindowButton.TabIndex = 444;
+         this.SetE4MainBldc0VelocityWindowButton.Text = "Set";
+         this.SetE4MainBldc0VelocityWindowButton.UseVisualStyleBackColor = true;
+         this.SetE4MainBldc0VelocityWindowButton.Click += new System.EventHandler(this.SetE4MainBldc0VelocityWindowButton_Click);
+         // 
+         // GetE4MainBldc0PositionWindowTimeButton
+         // 
+         this.GetE4MainBldc0PositionWindowTimeButton.Location = new System.Drawing.Point(143, 70);
+         this.GetE4MainBldc0PositionWindowTimeButton.Name = "GetE4MainBldc0PositionWindowTimeButton";
+         this.GetE4MainBldc0PositionWindowTimeButton.Size = new System.Drawing.Size(35, 23);
+         this.GetE4MainBldc0PositionWindowTimeButton.TabIndex = 442;
+         this.GetE4MainBldc0PositionWindowTimeButton.Text = "Get";
+         this.GetE4MainBldc0PositionWindowTimeButton.UseVisualStyleBackColor = true;
+         this.GetE4MainBldc0PositionWindowTimeButton.Click += new System.EventHandler(this.GetE4MainBldc0PositionWindowTimeButton_Click);
+         // 
+         // label73
+         // 
+         this.label73.AutoSize = true;
+         this.label73.Location = new System.Drawing.Point(10, 75);
+         this.label73.Name = "label73";
+         this.label73.Size = new System.Drawing.Size(66, 13);
+         this.label73.TabIndex = 441;
+         this.label73.Text = "P Window T";
+         this.label73.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+         // 
+         // E4MainBldc0PositionWindowTimeTextBox
+         // 
+         this.E4MainBldc0PositionWindowTimeTextBox.Location = new System.Drawing.Point(78, 72);
+         this.E4MainBldc0PositionWindowTimeTextBox.Name = "E4MainBldc0PositionWindowTimeTextBox";
+         this.E4MainBldc0PositionWindowTimeTextBox.Size = new System.Drawing.Size(59, 20);
+         this.E4MainBldc0PositionWindowTimeTextBox.TabIndex = 439;
+         // 
+         // SetE4MainBldc0PositionWindowTimeButton
+         // 
+         this.SetE4MainBldc0PositionWindowTimeButton.Location = new System.Drawing.Point(184, 70);
+         this.SetE4MainBldc0PositionWindowTimeButton.Name = "SetE4MainBldc0PositionWindowTimeButton";
+         this.SetE4MainBldc0PositionWindowTimeButton.Size = new System.Drawing.Size(35, 23);
+         this.SetE4MainBldc0PositionWindowTimeButton.TabIndex = 440;
+         this.SetE4MainBldc0PositionWindowTimeButton.Text = "Set";
+         this.SetE4MainBldc0PositionWindowTimeButton.UseVisualStyleBackColor = true;
+         this.SetE4MainBldc0PositionWindowTimeButton.Click += new System.EventHandler(this.SetE4MainBldc0PositionWindowTimeButton_Click);
+         // 
+         // GetE4MainBldc0PositionWindowButton
+         // 
+         this.GetE4MainBldc0PositionWindowButton.Location = new System.Drawing.Point(143, 44);
+         this.GetE4MainBldc0PositionWindowButton.Name = "GetE4MainBldc0PositionWindowButton";
+         this.GetE4MainBldc0PositionWindowButton.Size = new System.Drawing.Size(35, 23);
+         this.GetE4MainBldc0PositionWindowButton.TabIndex = 438;
+         this.GetE4MainBldc0PositionWindowButton.Text = "Get";
+         this.GetE4MainBldc0PositionWindowButton.UseVisualStyleBackColor = true;
+         this.GetE4MainBldc0PositionWindowButton.Click += new System.EventHandler(this.GetE4MainBldc0PositionWindowButton_Click);
+         // 
+         // label72
+         // 
+         this.label72.AutoSize = true;
+         this.label72.Location = new System.Drawing.Point(20, 49);
+         this.label72.Name = "label72";
+         this.label72.Size = new System.Drawing.Size(56, 13);
+         this.label72.TabIndex = 437;
+         this.label72.Text = "P Window";
+         // 
+         // E4MainBldc0PositionWindowTextBox
+         // 
+         this.E4MainBldc0PositionWindowTextBox.Location = new System.Drawing.Point(78, 46);
+         this.E4MainBldc0PositionWindowTextBox.Name = "E4MainBldc0PositionWindowTextBox";
+         this.E4MainBldc0PositionWindowTextBox.Size = new System.Drawing.Size(59, 20);
+         this.E4MainBldc0PositionWindowTextBox.TabIndex = 435;
+         // 
+         // SetE4MainBldc0PositionWindowButton
+         // 
+         this.SetE4MainBldc0PositionWindowButton.Location = new System.Drawing.Point(184, 44);
+         this.SetE4MainBldc0PositionWindowButton.Name = "SetE4MainBldc0PositionWindowButton";
+         this.SetE4MainBldc0PositionWindowButton.Size = new System.Drawing.Size(35, 23);
+         this.SetE4MainBldc0PositionWindowButton.TabIndex = 436;
+         this.SetE4MainBldc0PositionWindowButton.Text = "Set";
+         this.SetE4MainBldc0PositionWindowButton.UseVisualStyleBackColor = true;
+         this.SetE4MainBldc0PositionWindowButton.Click += new System.EventHandler(this.SetE4MainBldc0PositionWindowButton_Click);
+         // 
          // E4MainBldc0TuningPositionRadioButton
          // 
          this.E4MainBldc0TuningPositionRadioButton.AutoSize = true;
@@ -2116,6 +2341,16 @@ namespace E4.DeviceTest
          this.E4MainBldc0PositionGroupBox.TabIndex = 416;
          this.E4MainBldc0PositionGroupBox.TabStop = false;
          this.E4MainBldc0PositionGroupBox.Text = "Position";
+         // 
+         // E4MainBldc0TargetPositionRelativeCheckBox
+         // 
+         this.E4MainBldc0TargetPositionRelativeCheckBox.AutoSize = true;
+         this.E4MainBldc0TargetPositionRelativeCheckBox.Location = new System.Drawing.Point(101, 43);
+         this.E4MainBldc0TargetPositionRelativeCheckBox.Name = "E4MainBldc0TargetPositionRelativeCheckBox";
+         this.E4MainBldc0TargetPositionRelativeCheckBox.Size = new System.Drawing.Size(65, 17);
+         this.E4MainBldc0TargetPositionRelativeCheckBox.TabIndex = 410;
+         this.E4MainBldc0TargetPositionRelativeCheckBox.Text = "Relative";
+         this.E4MainBldc0TargetPositionRelativeCheckBox.UseVisualStyleBackColor = true;
          // 
          // ScheduleE4MainBldc0TargetPositionButton
          // 
@@ -2582,6 +2817,223 @@ namespace E4.DeviceTest
          this.E4MainBldc1TuningGroupBox.TabStop = false;
          this.E4MainBldc1TuningGroupBox.Text = "Tuning";
          // 
+         // GetE4MainBldc1VelocityThresholdTimeButton
+         // 
+         this.GetE4MainBldc1VelocityThresholdTimeButton.Location = new System.Drawing.Point(586, 70);
+         this.GetE4MainBldc1VelocityThresholdTimeButton.Name = "GetE4MainBldc1VelocityThresholdTimeButton";
+         this.GetE4MainBldc1VelocityThresholdTimeButton.Size = new System.Drawing.Size(35, 23);
+         this.GetE4MainBldc1VelocityThresholdTimeButton.TabIndex = 482;
+         this.GetE4MainBldc1VelocityThresholdTimeButton.Text = "Get";
+         this.GetE4MainBldc1VelocityThresholdTimeButton.UseVisualStyleBackColor = true;
+         this.GetE4MainBldc1VelocityThresholdTimeButton.Click += new System.EventHandler(this.GetE4MainBldc1VelocityThresholdTimeButton_Click);
+         // 
+         // label78
+         // 
+         this.label78.AutoSize = true;
+         this.label78.Location = new System.Drawing.Point(445, 75);
+         this.label78.Name = "label78";
+         this.label78.Size = new System.Drawing.Size(74, 13);
+         this.label78.TabIndex = 481;
+         this.label78.Text = "V Threshold T";
+         // 
+         // E4MainBldc1VelocityThresholdTimeTextBox
+         // 
+         this.E4MainBldc1VelocityThresholdTimeTextBox.Location = new System.Drawing.Point(521, 72);
+         this.E4MainBldc1VelocityThresholdTimeTextBox.Name = "E4MainBldc1VelocityThresholdTimeTextBox";
+         this.E4MainBldc1VelocityThresholdTimeTextBox.Size = new System.Drawing.Size(59, 20);
+         this.E4MainBldc1VelocityThresholdTimeTextBox.TabIndex = 479;
+         // 
+         // SetE4MainBldc1VelocityThresholdTimeButton
+         // 
+         this.SetE4MainBldc1VelocityThresholdTimeButton.Location = new System.Drawing.Point(627, 70);
+         this.SetE4MainBldc1VelocityThresholdTimeButton.Name = "SetE4MainBldc1VelocityThresholdTimeButton";
+         this.SetE4MainBldc1VelocityThresholdTimeButton.Size = new System.Drawing.Size(35, 23);
+         this.SetE4MainBldc1VelocityThresholdTimeButton.TabIndex = 480;
+         this.SetE4MainBldc1VelocityThresholdTimeButton.Text = "Set";
+         this.SetE4MainBldc1VelocityThresholdTimeButton.UseVisualStyleBackColor = true;
+         this.SetE4MainBldc1VelocityThresholdTimeButton.Click += new System.EventHandler(this.SetE4MainBldc1VelocityThresholdTimeButton_Click);
+         // 
+         // GetE4MainBldc1VelocityThresholdButton
+         // 
+         this.GetE4MainBldc1VelocityThresholdButton.Location = new System.Drawing.Point(586, 44);
+         this.GetE4MainBldc1VelocityThresholdButton.Name = "GetE4MainBldc1VelocityThresholdButton";
+         this.GetE4MainBldc1VelocityThresholdButton.Size = new System.Drawing.Size(35, 23);
+         this.GetE4MainBldc1VelocityThresholdButton.TabIndex = 478;
+         this.GetE4MainBldc1VelocityThresholdButton.Text = "Get";
+         this.GetE4MainBldc1VelocityThresholdButton.UseVisualStyleBackColor = true;
+         this.GetE4MainBldc1VelocityThresholdButton.Click += new System.EventHandler(this.GetE4MainBldc1VelocityThresholdButton_Click);
+         // 
+         // label79
+         // 
+         this.label79.AutoSize = true;
+         this.label79.Location = new System.Drawing.Point(455, 49);
+         this.label79.Name = "label79";
+         this.label79.Size = new System.Drawing.Size(64, 13);
+         this.label79.TabIndex = 477;
+         this.label79.Text = "V Threshold";
+         // 
+         // E4MainBldc1VelocityThresholdTextBox
+         // 
+         this.E4MainBldc1VelocityThresholdTextBox.Location = new System.Drawing.Point(521, 46);
+         this.E4MainBldc1VelocityThresholdTextBox.Name = "E4MainBldc1VelocityThresholdTextBox";
+         this.E4MainBldc1VelocityThresholdTextBox.Size = new System.Drawing.Size(59, 20);
+         this.E4MainBldc1VelocityThresholdTextBox.TabIndex = 475;
+         // 
+         // SetE4MainBldc1VelocityThresholdButton
+         // 
+         this.SetE4MainBldc1VelocityThresholdButton.Location = new System.Drawing.Point(627, 44);
+         this.SetE4MainBldc1VelocityThresholdButton.Name = "SetE4MainBldc1VelocityThresholdButton";
+         this.SetE4MainBldc1VelocityThresholdButton.Size = new System.Drawing.Size(35, 23);
+         this.SetE4MainBldc1VelocityThresholdButton.TabIndex = 476;
+         this.SetE4MainBldc1VelocityThresholdButton.Text = "Set";
+         this.SetE4MainBldc1VelocityThresholdButton.UseVisualStyleBackColor = true;
+         this.SetE4MainBldc1VelocityThresholdButton.Click += new System.EventHandler(this.SetE4MainBldc1VelocityThresholdButton_Click);
+         // 
+         // GetE4MainBldc1VelocityWindowTimeButton
+         // 
+         this.GetE4MainBldc1VelocityWindowTimeButton.Location = new System.Drawing.Point(363, 70);
+         this.GetE4MainBldc1VelocityWindowTimeButton.Name = "GetE4MainBldc1VelocityWindowTimeButton";
+         this.GetE4MainBldc1VelocityWindowTimeButton.Size = new System.Drawing.Size(35, 23);
+         this.GetE4MainBldc1VelocityWindowTimeButton.TabIndex = 474;
+         this.GetE4MainBldc1VelocityWindowTimeButton.Text = "Get";
+         this.GetE4MainBldc1VelocityWindowTimeButton.UseVisualStyleBackColor = true;
+         this.GetE4MainBldc1VelocityWindowTimeButton.Click += new System.EventHandler(this.GetE4MainBldc1VelocityWindowTimeButton_Click);
+         // 
+         // label80
+         // 
+         this.label80.AutoSize = true;
+         this.label80.Location = new System.Drawing.Point(225, 75);
+         this.label80.Name = "label80";
+         this.label80.Size = new System.Drawing.Size(71, 13);
+         this.label80.TabIndex = 473;
+         this.label80.Text = "V Windows T";
+         // 
+         // E4MainBldc1VelocityWindowTimeTextBox
+         // 
+         this.E4MainBldc1VelocityWindowTimeTextBox.Location = new System.Drawing.Point(298, 72);
+         this.E4MainBldc1VelocityWindowTimeTextBox.Name = "E4MainBldc1VelocityWindowTimeTextBox";
+         this.E4MainBldc1VelocityWindowTimeTextBox.Size = new System.Drawing.Size(59, 20);
+         this.E4MainBldc1VelocityWindowTimeTextBox.TabIndex = 471;
+         // 
+         // SetE4MainBldc1VelocityWindowTimeButton
+         // 
+         this.SetE4MainBldc1VelocityWindowTimeButton.Location = new System.Drawing.Point(404, 70);
+         this.SetE4MainBldc1VelocityWindowTimeButton.Name = "SetE4MainBldc1VelocityWindowTimeButton";
+         this.SetE4MainBldc1VelocityWindowTimeButton.Size = new System.Drawing.Size(35, 23);
+         this.SetE4MainBldc1VelocityWindowTimeButton.TabIndex = 472;
+         this.SetE4MainBldc1VelocityWindowTimeButton.Text = "Set";
+         this.SetE4MainBldc1VelocityWindowTimeButton.UseVisualStyleBackColor = true;
+         this.SetE4MainBldc1VelocityWindowTimeButton.Click += new System.EventHandler(this.SetE4MainBldc1VelocityWindowTimeButton_Click);
+         // 
+         // GetE4MainBldc1VelocityWindowButton
+         // 
+         this.GetE4MainBldc1VelocityWindowButton.Location = new System.Drawing.Point(363, 44);
+         this.GetE4MainBldc1VelocityWindowButton.Name = "GetE4MainBldc1VelocityWindowButton";
+         this.GetE4MainBldc1VelocityWindowButton.Size = new System.Drawing.Size(35, 23);
+         this.GetE4MainBldc1VelocityWindowButton.TabIndex = 470;
+         this.GetE4MainBldc1VelocityWindowButton.Text = "Get";
+         this.GetE4MainBldc1VelocityWindowButton.UseVisualStyleBackColor = true;
+         this.GetE4MainBldc1VelocityWindowButton.Click += new System.EventHandler(this.GetE4MainBldc1VelocityWindowButton_Click);
+         // 
+         // label81
+         // 
+         this.label81.AutoSize = true;
+         this.label81.Location = new System.Drawing.Point(235, 49);
+         this.label81.Name = "label81";
+         this.label81.Size = new System.Drawing.Size(61, 13);
+         this.label81.TabIndex = 469;
+         this.label81.Text = "V Windows";
+         // 
+         // E4MainBldc1VelocityWindowTextBox
+         // 
+         this.E4MainBldc1VelocityWindowTextBox.Location = new System.Drawing.Point(298, 46);
+         this.E4MainBldc1VelocityWindowTextBox.Name = "E4MainBldc1VelocityWindowTextBox";
+         this.E4MainBldc1VelocityWindowTextBox.Size = new System.Drawing.Size(59, 20);
+         this.E4MainBldc1VelocityWindowTextBox.TabIndex = 467;
+         // 
+         // SetE4MainBldc1VelocityWindowButton
+         // 
+         this.SetE4MainBldc1VelocityWindowButton.Location = new System.Drawing.Point(404, 44);
+         this.SetE4MainBldc1VelocityWindowButton.Name = "SetE4MainBldc1VelocityWindowButton";
+         this.SetE4MainBldc1VelocityWindowButton.Size = new System.Drawing.Size(35, 23);
+         this.SetE4MainBldc1VelocityWindowButton.TabIndex = 468;
+         this.SetE4MainBldc1VelocityWindowButton.Text = "Set";
+         this.SetE4MainBldc1VelocityWindowButton.UseVisualStyleBackColor = true;
+         this.SetE4MainBldc1VelocityWindowButton.Click += new System.EventHandler(this.SetE4MainBldc1VelocityWindowButton_Click);
+         // 
+         // GetE4MainBldc1PositionWindowTimeButton
+         // 
+         this.GetE4MainBldc1PositionWindowTimeButton.Location = new System.Drawing.Point(143, 70);
+         this.GetE4MainBldc1PositionWindowTimeButton.Name = "GetE4MainBldc1PositionWindowTimeButton";
+         this.GetE4MainBldc1PositionWindowTimeButton.Size = new System.Drawing.Size(35, 23);
+         this.GetE4MainBldc1PositionWindowTimeButton.TabIndex = 466;
+         this.GetE4MainBldc1PositionWindowTimeButton.Text = "Get";
+         this.GetE4MainBldc1PositionWindowTimeButton.UseVisualStyleBackColor = true;
+         this.GetE4MainBldc1PositionWindowTimeButton.Click += new System.EventHandler(this.GetE4MainBldc1PositionWindowTimeButton_Click);
+         // 
+         // label82
+         // 
+         this.label82.AutoSize = true;
+         this.label82.Location = new System.Drawing.Point(10, 75);
+         this.label82.Name = "label82";
+         this.label82.Size = new System.Drawing.Size(66, 13);
+         this.label82.TabIndex = 465;
+         this.label82.Text = "P Window T";
+         this.label82.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+         // 
+         // E4MainBldc1PositionWindowTimeTextBox
+         // 
+         this.E4MainBldc1PositionWindowTimeTextBox.Location = new System.Drawing.Point(78, 72);
+         this.E4MainBldc1PositionWindowTimeTextBox.Name = "E4MainBldc1PositionWindowTimeTextBox";
+         this.E4MainBldc1PositionWindowTimeTextBox.Size = new System.Drawing.Size(59, 20);
+         this.E4MainBldc1PositionWindowTimeTextBox.TabIndex = 463;
+         // 
+         // SetE4MainBldc1PositionWindowTimeButton
+         // 
+         this.SetE4MainBldc1PositionWindowTimeButton.Location = new System.Drawing.Point(184, 70);
+         this.SetE4MainBldc1PositionWindowTimeButton.Name = "SetE4MainBldc1PositionWindowTimeButton";
+         this.SetE4MainBldc1PositionWindowTimeButton.Size = new System.Drawing.Size(35, 23);
+         this.SetE4MainBldc1PositionWindowTimeButton.TabIndex = 464;
+         this.SetE4MainBldc1PositionWindowTimeButton.Text = "Set";
+         this.SetE4MainBldc1PositionWindowTimeButton.UseVisualStyleBackColor = true;
+         this.SetE4MainBldc1PositionWindowTimeButton.Click += new System.EventHandler(this.SetE4MainBldc1PositionWindowTimeButton_Click);
+         // 
+         // GetE4MainBldc1PositionWindowButton
+         // 
+         this.GetE4MainBldc1PositionWindowButton.Location = new System.Drawing.Point(143, 44);
+         this.GetE4MainBldc1PositionWindowButton.Name = "GetE4MainBldc1PositionWindowButton";
+         this.GetE4MainBldc1PositionWindowButton.Size = new System.Drawing.Size(35, 23);
+         this.GetE4MainBldc1PositionWindowButton.TabIndex = 462;
+         this.GetE4MainBldc1PositionWindowButton.Text = "Get";
+         this.GetE4MainBldc1PositionWindowButton.UseVisualStyleBackColor = true;
+         this.GetE4MainBldc1PositionWindowButton.Click += new System.EventHandler(this.GetE4MainBldc1PositionWindowButton_Click);
+         // 
+         // label83
+         // 
+         this.label83.AutoSize = true;
+         this.label83.Location = new System.Drawing.Point(20, 49);
+         this.label83.Name = "label83";
+         this.label83.Size = new System.Drawing.Size(56, 13);
+         this.label83.TabIndex = 461;
+         this.label83.Text = "P Window";
+         // 
+         // E4MainBldc1PositionWindowTextBox
+         // 
+         this.E4MainBldc1PositionWindowTextBox.Location = new System.Drawing.Point(78, 46);
+         this.E4MainBldc1PositionWindowTextBox.Name = "E4MainBldc1PositionWindowTextBox";
+         this.E4MainBldc1PositionWindowTextBox.Size = new System.Drawing.Size(59, 20);
+         this.E4MainBldc1PositionWindowTextBox.TabIndex = 459;
+         // 
+         // SetE4MainBldc1PositionWindowButton
+         // 
+         this.SetE4MainBldc1PositionWindowButton.Location = new System.Drawing.Point(184, 44);
+         this.SetE4MainBldc1PositionWindowButton.Name = "SetE4MainBldc1PositionWindowButton";
+         this.SetE4MainBldc1PositionWindowButton.Size = new System.Drawing.Size(35, 23);
+         this.SetE4MainBldc1PositionWindowButton.TabIndex = 460;
+         this.SetE4MainBldc1PositionWindowButton.Text = "Set";
+         this.SetE4MainBldc1PositionWindowButton.UseVisualStyleBackColor = true;
+         this.SetE4MainBldc1PositionWindowButton.Click += new System.EventHandler(this.SetE4MainBldc1PositionWindowButton_Click);
+         // 
          // E4MainBldc1TuningPositionRadioButton
          // 
          this.E4MainBldc1TuningPositionRadioButton.AutoSize = true;
@@ -2740,6 +3192,16 @@ namespace E4.DeviceTest
          this.E4MainBldc1PositionGroupBox.TabIndex = 416;
          this.E4MainBldc1PositionGroupBox.TabStop = false;
          this.E4MainBldc1PositionGroupBox.Text = "Position";
+         // 
+         // E4MainBldc1TargetPositionRelativeCheckBox
+         // 
+         this.E4MainBldc1TargetPositionRelativeCheckBox.AutoSize = true;
+         this.E4MainBldc1TargetPositionRelativeCheckBox.Location = new System.Drawing.Point(101, 43);
+         this.E4MainBldc1TargetPositionRelativeCheckBox.Name = "E4MainBldc1TargetPositionRelativeCheckBox";
+         this.E4MainBldc1TargetPositionRelativeCheckBox.Size = new System.Drawing.Size(65, 17);
+         this.E4MainBldc1TargetPositionRelativeCheckBox.TabIndex = 411;
+         this.E4MainBldc1TargetPositionRelativeCheckBox.Text = "Relative";
+         this.E4MainBldc1TargetPositionRelativeCheckBox.UseVisualStyleBackColor = true;
          // 
          // ScheduleE4MainBldc1TargetPositionButton
          // 
@@ -3393,6 +3855,16 @@ namespace E4.DeviceTest
          this.E4MainStepper0PositionGroupBox.TabStop = false;
          this.E4MainStepper0PositionGroupBox.Text = "Position";
          // 
+         // E4MainStepper0TargetPositionRelativeCheckBox
+         // 
+         this.E4MainStepper0TargetPositionRelativeCheckBox.AutoSize = true;
+         this.E4MainStepper0TargetPositionRelativeCheckBox.Location = new System.Drawing.Point(101, 43);
+         this.E4MainStepper0TargetPositionRelativeCheckBox.Name = "E4MainStepper0TargetPositionRelativeCheckBox";
+         this.E4MainStepper0TargetPositionRelativeCheckBox.Size = new System.Drawing.Size(65, 17);
+         this.E4MainStepper0TargetPositionRelativeCheckBox.TabIndex = 414;
+         this.E4MainStepper0TargetPositionRelativeCheckBox.Text = "Relative";
+         this.E4MainStepper0TargetPositionRelativeCheckBox.UseVisualStyleBackColor = true;
+         // 
          // GetE4MainStepper0ProfileAccelerationButton
          // 
          this.GetE4MainStepper0ProfileAccelerationButton.Location = new System.Drawing.Point(586, 15);
@@ -3970,6 +4442,16 @@ namespace E4.DeviceTest
          this.E4MainStepper1PositionGroupBox.TabStop = false;
          this.E4MainStepper1PositionGroupBox.Text = "Position";
          // 
+         // E4MainStepper1TargetPositionRelativeCheckBox
+         // 
+         this.E4MainStepper1TargetPositionRelativeCheckBox.AutoSize = true;
+         this.E4MainStepper1TargetPositionRelativeCheckBox.Location = new System.Drawing.Point(101, 43);
+         this.E4MainStepper1TargetPositionRelativeCheckBox.Name = "E4MainStepper1TargetPositionRelativeCheckBox";
+         this.E4MainStepper1TargetPositionRelativeCheckBox.Size = new System.Drawing.Size(65, 17);
+         this.E4MainStepper1TargetPositionRelativeCheckBox.TabIndex = 414;
+         this.E4MainStepper1TargetPositionRelativeCheckBox.Text = "Relative";
+         this.E4MainStepper1TargetPositionRelativeCheckBox.UseVisualStyleBackColor = true;
+         // 
          // GetE4MainStepper1ProfileAccelerationButton
          // 
          this.GetE4MainStepper1ProfileAccelerationButton.Location = new System.Drawing.Point(586, 15);
@@ -4277,7 +4759,7 @@ namespace E4.DeviceTest
          // label9
          // 
          this.label9.AutoSize = true;
-         this.label9.Location = new System.Drawing.Point(114, 61);
+         this.label9.Location = new System.Drawing.Point(545, 80);
          this.label9.Name = "label9";
          this.label9.Size = new System.Drawing.Size(76, 13);
          this.label9.TabIndex = 281;
@@ -4285,7 +4767,7 @@ namespace E4.DeviceTest
          // 
          // E4MainLaserScannerTextBox
          // 
-         this.E4MainLaserScannerTextBox.Location = new System.Drawing.Point(192, 58);
+         this.E4MainLaserScannerTextBox.Location = new System.Drawing.Point(623, 77);
          this.E4MainLaserScannerTextBox.Name = "E4MainLaserScannerTextBox";
          this.E4MainLaserScannerTextBox.Size = new System.Drawing.Size(25, 20);
          this.E4MainLaserScannerTextBox.TabIndex = 280;
@@ -4295,20 +4777,20 @@ namespace E4.DeviceTest
          // label8
          // 
          this.label8.AutoSize = true;
-         this.label8.Location = new System.Drawing.Point(112, 38);
+         this.label8.Location = new System.Drawing.Point(306, 80);
          this.label8.Name = "label8";
-         this.label8.Size = new System.Drawing.Size(78, 13);
+         this.label8.Size = new System.Drawing.Size(66, 13);
          this.label8.TabIndex = 279;
-         this.label8.Text = "Laser Distance";
+         this.label8.Text = "Laser Status";
          // 
-         // E4MainLaserDistanceTextBox
+         // E4MainLaserStatusTextBox
          // 
-         this.E4MainLaserDistanceTextBox.Location = new System.Drawing.Point(192, 35);
-         this.E4MainLaserDistanceTextBox.Name = "E4MainLaserDistanceTextBox";
-         this.E4MainLaserDistanceTextBox.Size = new System.Drawing.Size(64, 20);
-         this.E4MainLaserDistanceTextBox.TabIndex = 278;
-         this.E4MainLaserDistanceTextBox.Text = "9999999.9";
-         this.E4MainLaserDistanceTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+         this.E4MainLaserStatusTextBox.Location = new System.Drawing.Point(374, 77);
+         this.E4MainLaserStatusTextBox.Name = "E4MainLaserStatusTextBox";
+         this.E4MainLaserStatusTextBox.Size = new System.Drawing.Size(25, 20);
+         this.E4MainLaserStatusTextBox.TabIndex = 278;
+         this.E4MainLaserStatusTextBox.Text = "FF";
+         this.E4MainLaserStatusTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
          // 
          // label6
          // 
@@ -4453,7 +4935,7 @@ namespace E4.DeviceTest
          // label64
          // 
          this.label64.AutoSize = true;
-         this.label64.Location = new System.Drawing.Point(216, 58);
+         this.label64.Location = new System.Drawing.Point(647, 77);
          this.label64.Name = "label64";
          this.label64.Size = new System.Drawing.Size(13, 13);
          this.label64.TabIndex = 396;
@@ -4462,7 +4944,7 @@ namespace E4.DeviceTest
          // ControlSplitter
          // 
          this.ControlSplitter.Dock = System.Windows.Forms.DockStyle.Bottom;
-         this.ControlSplitter.Location = new System.Drawing.Point(0, 161);
+         this.ControlSplitter.Location = new System.Drawing.Point(0, 118);
          this.ControlSplitter.Name = "ControlSplitter";
          this.ControlSplitter.Size = new System.Drawing.Size(742, 3);
          this.ControlSplitter.TabIndex = 44;
@@ -4474,482 +4956,44 @@ namespace E4.DeviceTest
          this.MainActivityPanel.Dock = System.Windows.Forms.DockStyle.Fill;
          this.MainActivityPanel.Location = new System.Drawing.Point(0, 0);
          this.MainActivityPanel.Name = "MainActivityPanel";
-         this.MainActivityPanel.Size = new System.Drawing.Size(742, 161);
+         this.MainActivityPanel.Size = new System.Drawing.Size(742, 118);
          this.MainActivityPanel.TabIndex = 45;
          // 
-         // E4MainBldc0TargetPositionRelativeCheckBox
-         // 
-         this.E4MainBldc0TargetPositionRelativeCheckBox.AutoSize = true;
-         this.E4MainBldc0TargetPositionRelativeCheckBox.Location = new System.Drawing.Point(101, 43);
-         this.E4MainBldc0TargetPositionRelativeCheckBox.Name = "E4MainBldc0TargetPositionRelativeCheckBox";
-         this.E4MainBldc0TargetPositionRelativeCheckBox.Size = new System.Drawing.Size(65, 17);
-         this.E4MainBldc0TargetPositionRelativeCheckBox.TabIndex = 410;
-         this.E4MainBldc0TargetPositionRelativeCheckBox.Text = "Relative";
-         this.E4MainBldc0TargetPositionRelativeCheckBox.UseVisualStyleBackColor = true;
-         // 
-         // E4MainBldc1TargetPositionRelativeCheckBox
-         // 
-         this.E4MainBldc1TargetPositionRelativeCheckBox.AutoSize = true;
-         this.E4MainBldc1TargetPositionRelativeCheckBox.Location = new System.Drawing.Point(101, 43);
-         this.E4MainBldc1TargetPositionRelativeCheckBox.Name = "E4MainBldc1TargetPositionRelativeCheckBox";
-         this.E4MainBldc1TargetPositionRelativeCheckBox.Size = new System.Drawing.Size(65, 17);
-         this.E4MainBldc1TargetPositionRelativeCheckBox.TabIndex = 411;
-         this.E4MainBldc1TargetPositionRelativeCheckBox.Text = "Relative";
-         this.E4MainBldc1TargetPositionRelativeCheckBox.UseVisualStyleBackColor = true;
-         // 
-         // E4MainStepper0TargetPositionRelativeCheckBox
-         // 
-         this.E4MainStepper0TargetPositionRelativeCheckBox.AutoSize = true;
-         this.E4MainStepper0TargetPositionRelativeCheckBox.Location = new System.Drawing.Point(101, 43);
-         this.E4MainStepper0TargetPositionRelativeCheckBox.Name = "E4MainStepper0TargetPositionRelativeCheckBox";
-         this.E4MainStepper0TargetPositionRelativeCheckBox.Size = new System.Drawing.Size(65, 17);
-         this.E4MainStepper0TargetPositionRelativeCheckBox.TabIndex = 414;
-         this.E4MainStepper0TargetPositionRelativeCheckBox.Text = "Relative";
-         this.E4MainStepper0TargetPositionRelativeCheckBox.UseVisualStyleBackColor = true;
-         // 
-         // E4MainStepper1TargetPositionRelativeCheckBox
-         // 
-         this.E4MainStepper1TargetPositionRelativeCheckBox.AutoSize = true;
-         this.E4MainStepper1TargetPositionRelativeCheckBox.Location = new System.Drawing.Point(101, 43);
-         this.E4MainStepper1TargetPositionRelativeCheckBox.Name = "E4MainStepper1TargetPositionRelativeCheckBox";
-         this.E4MainStepper1TargetPositionRelativeCheckBox.Size = new System.Drawing.Size(65, 17);
-         this.E4MainStepper1TargetPositionRelativeCheckBox.TabIndex = 414;
-         this.E4MainStepper1TargetPositionRelativeCheckBox.Text = "Relative";
-         this.E4MainStepper1TargetPositionRelativeCheckBox.UseVisualStyleBackColor = true;
-         // 
-         // GetE4MainBldc0PositionWindowButton
-         // 
-         this.GetE4MainBldc0PositionWindowButton.Location = new System.Drawing.Point(143, 44);
-         this.GetE4MainBldc0PositionWindowButton.Name = "GetE4MainBldc0PositionWindowButton";
-         this.GetE4MainBldc0PositionWindowButton.Size = new System.Drawing.Size(35, 23);
-         this.GetE4MainBldc0PositionWindowButton.TabIndex = 438;
-         this.GetE4MainBldc0PositionWindowButton.Text = "Get";
-         this.GetE4MainBldc0PositionWindowButton.UseVisualStyleBackColor = true;
-         this.GetE4MainBldc0PositionWindowButton.Click += new System.EventHandler(this.GetE4MainBldc0PositionWindowButton_Click);
-         // 
-         // label72
-         // 
-         this.label72.AutoSize = true;
-         this.label72.Location = new System.Drawing.Point(20, 49);
-         this.label72.Name = "label72";
-         this.label72.Size = new System.Drawing.Size(56, 13);
-         this.label72.TabIndex = 437;
-         this.label72.Text = "P Window";
-         // 
-         // E4MainBldc0PositionWindowTextBox
-         // 
-         this.E4MainBldc0PositionWindowTextBox.Location = new System.Drawing.Point(78, 46);
-         this.E4MainBldc0PositionWindowTextBox.Name = "E4MainBldc0PositionWindowTextBox";
-         this.E4MainBldc0PositionWindowTextBox.Size = new System.Drawing.Size(59, 20);
-         this.E4MainBldc0PositionWindowTextBox.TabIndex = 435;
-         // 
-         // SetE4MainBldc0PositionWindowButton
-         // 
-         this.SetE4MainBldc0PositionWindowButton.Location = new System.Drawing.Point(184, 44);
-         this.SetE4MainBldc0PositionWindowButton.Name = "SetE4MainBldc0PositionWindowButton";
-         this.SetE4MainBldc0PositionWindowButton.Size = new System.Drawing.Size(35, 23);
-         this.SetE4MainBldc0PositionWindowButton.TabIndex = 436;
-         this.SetE4MainBldc0PositionWindowButton.Text = "Set";
-         this.SetE4MainBldc0PositionWindowButton.UseVisualStyleBackColor = true;
-         this.SetE4MainBldc0PositionWindowButton.Click += new System.EventHandler(this.SetE4MainBldc0PositionWindowButton_Click);
-         // 
-         // GetE4MainBldc0PositionWindowTimeButton
-         // 
-         this.GetE4MainBldc0PositionWindowTimeButton.Location = new System.Drawing.Point(143, 70);
-         this.GetE4MainBldc0PositionWindowTimeButton.Name = "GetE4MainBldc0PositionWindowTimeButton";
-         this.GetE4MainBldc0PositionWindowTimeButton.Size = new System.Drawing.Size(35, 23);
-         this.GetE4MainBldc0PositionWindowTimeButton.TabIndex = 442;
-         this.GetE4MainBldc0PositionWindowTimeButton.Text = "Get";
-         this.GetE4MainBldc0PositionWindowTimeButton.UseVisualStyleBackColor = true;
-         this.GetE4MainBldc0PositionWindowTimeButton.Click += new System.EventHandler(this.GetE4MainBldc0PositionWindowTimeButton_Click);
-         // 
-         // label73
-         // 
-         this.label73.AutoSize = true;
-         this.label73.Location = new System.Drawing.Point(10, 75);
-         this.label73.Name = "label73";
-         this.label73.Size = new System.Drawing.Size(66, 13);
-         this.label73.TabIndex = 441;
-         this.label73.Text = "P Window T";
-         this.label73.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-         // 
-         // E4MainBldc0PositionWindowTimeTextBox
-         // 
-         this.E4MainBldc0PositionWindowTimeTextBox.Location = new System.Drawing.Point(78, 72);
-         this.E4MainBldc0PositionWindowTimeTextBox.Name = "E4MainBldc0PositionWindowTimeTextBox";
-         this.E4MainBldc0PositionWindowTimeTextBox.Size = new System.Drawing.Size(59, 20);
-         this.E4MainBldc0PositionWindowTimeTextBox.TabIndex = 439;
-         // 
-         // SetE4MainBldc0PositionWindowTimeButton
-         // 
-         this.SetE4MainBldc0PositionWindowTimeButton.Location = new System.Drawing.Point(184, 70);
-         this.SetE4MainBldc0PositionWindowTimeButton.Name = "SetE4MainBldc0PositionWindowTimeButton";
-         this.SetE4MainBldc0PositionWindowTimeButton.Size = new System.Drawing.Size(35, 23);
-         this.SetE4MainBldc0PositionWindowTimeButton.TabIndex = 440;
-         this.SetE4MainBldc0PositionWindowTimeButton.Text = "Set";
-         this.SetE4MainBldc0PositionWindowTimeButton.UseVisualStyleBackColor = true;
-         this.SetE4MainBldc0PositionWindowTimeButton.Click += new System.EventHandler(this.SetE4MainBldc0PositionWindowTimeButton_Click);
-         // 
-         // GetE4MainBldc0VelocityWindowTimeButton
-         // 
-         this.GetE4MainBldc0VelocityWindowTimeButton.Location = new System.Drawing.Point(363, 70);
-         this.GetE4MainBldc0VelocityWindowTimeButton.Name = "GetE4MainBldc0VelocityWindowTimeButton";
-         this.GetE4MainBldc0VelocityWindowTimeButton.Size = new System.Drawing.Size(35, 23);
-         this.GetE4MainBldc0VelocityWindowTimeButton.TabIndex = 450;
-         this.GetE4MainBldc0VelocityWindowTimeButton.Text = "Get";
-         this.GetE4MainBldc0VelocityWindowTimeButton.UseVisualStyleBackColor = true;
-         this.GetE4MainBldc0VelocityWindowTimeButton.Click += new System.EventHandler(this.GetE4MainBldc0VelocityWindowTimeButton_Click);
-         // 
-         // label74
-         // 
-         this.label74.AutoSize = true;
-         this.label74.Location = new System.Drawing.Point(225, 75);
-         this.label74.Name = "label74";
-         this.label74.Size = new System.Drawing.Size(71, 13);
-         this.label74.TabIndex = 449;
-         this.label74.Text = "V Windows T";
-         // 
-         // E4MainBldc0VelocityWindowTimeTextBox
-         // 
-         this.E4MainBldc0VelocityWindowTimeTextBox.Location = new System.Drawing.Point(298, 72);
-         this.E4MainBldc0VelocityWindowTimeTextBox.Name = "E4MainBldc0VelocityWindowTimeTextBox";
-         this.E4MainBldc0VelocityWindowTimeTextBox.Size = new System.Drawing.Size(59, 20);
-         this.E4MainBldc0VelocityWindowTimeTextBox.TabIndex = 447;
-         // 
-         // SetE4MainBldc0VelocityWindowTimeButton
-         // 
-         this.SetE4MainBldc0VelocityWindowTimeButton.Location = new System.Drawing.Point(404, 70);
-         this.SetE4MainBldc0VelocityWindowTimeButton.Name = "SetE4MainBldc0VelocityWindowTimeButton";
-         this.SetE4MainBldc0VelocityWindowTimeButton.Size = new System.Drawing.Size(35, 23);
-         this.SetE4MainBldc0VelocityWindowTimeButton.TabIndex = 448;
-         this.SetE4MainBldc0VelocityWindowTimeButton.Text = "Set";
-         this.SetE4MainBldc0VelocityWindowTimeButton.UseVisualStyleBackColor = true;
-         this.SetE4MainBldc0VelocityWindowTimeButton.Click += new System.EventHandler(this.SetE4MainBldc0VelocityWindowTimeButton_Click);
-         // 
-         // GetE4MainBldc0VelocityWindowButton
-         // 
-         this.GetE4MainBldc0VelocityWindowButton.Location = new System.Drawing.Point(363, 44);
-         this.GetE4MainBldc0VelocityWindowButton.Name = "GetE4MainBldc0VelocityWindowButton";
-         this.GetE4MainBldc0VelocityWindowButton.Size = new System.Drawing.Size(35, 23);
-         this.GetE4MainBldc0VelocityWindowButton.TabIndex = 446;
-         this.GetE4MainBldc0VelocityWindowButton.Text = "Get";
-         this.GetE4MainBldc0VelocityWindowButton.UseVisualStyleBackColor = true;
-         this.GetE4MainBldc0VelocityWindowButton.Click += new System.EventHandler(this.GetE4MainBldc0VelocityWindowButton_Click);
-         // 
-         // label75
-         // 
-         this.label75.AutoSize = true;
-         this.label75.Location = new System.Drawing.Point(235, 49);
-         this.label75.Name = "label75";
-         this.label75.Size = new System.Drawing.Size(61, 13);
-         this.label75.TabIndex = 445;
-         this.label75.Text = "V Windows";
-         // 
-         // E4MainBldc0VelocityWindowTextBox
-         // 
-         this.E4MainBldc0VelocityWindowTextBox.Location = new System.Drawing.Point(298, 46);
-         this.E4MainBldc0VelocityWindowTextBox.Name = "E4MainBldc0VelocityWindowTextBox";
-         this.E4MainBldc0VelocityWindowTextBox.Size = new System.Drawing.Size(59, 20);
-         this.E4MainBldc0VelocityWindowTextBox.TabIndex = 443;
-         // 
-         // SetE4MainBldc0VelocityWindowButton
-         // 
-         this.SetE4MainBldc0VelocityWindowButton.Location = new System.Drawing.Point(404, 44);
-         this.SetE4MainBldc0VelocityWindowButton.Name = "SetE4MainBldc0VelocityWindowButton";
-         this.SetE4MainBldc0VelocityWindowButton.Size = new System.Drawing.Size(35, 23);
-         this.SetE4MainBldc0VelocityWindowButton.TabIndex = 444;
-         this.SetE4MainBldc0VelocityWindowButton.Text = "Set";
-         this.SetE4MainBldc0VelocityWindowButton.UseVisualStyleBackColor = true;
-         this.SetE4MainBldc0VelocityWindowButton.Click += new System.EventHandler(this.SetE4MainBldc0VelocityWindowButton_Click);
-         // 
-         // GetE4MainBldc0VelocityThresholdTimeButton
-         // 
-         this.GetE4MainBldc0VelocityThresholdTimeButton.Location = new System.Drawing.Point(586, 70);
-         this.GetE4MainBldc0VelocityThresholdTimeButton.Name = "GetE4MainBldc0VelocityThresholdTimeButton";
-         this.GetE4MainBldc0VelocityThresholdTimeButton.Size = new System.Drawing.Size(35, 23);
-         this.GetE4MainBldc0VelocityThresholdTimeButton.TabIndex = 458;
-         this.GetE4MainBldc0VelocityThresholdTimeButton.Text = "Get";
-         this.GetE4MainBldc0VelocityThresholdTimeButton.UseVisualStyleBackColor = true;
-         this.GetE4MainBldc0VelocityThresholdTimeButton.Click += new System.EventHandler(this.GetE4MainBldc0VelocityThresholdTimeButton_Click);
-         // 
-         // label76
-         // 
-         this.label76.AutoSize = true;
-         this.label76.Location = new System.Drawing.Point(445, 75);
-         this.label76.Name = "label76";
-         this.label76.Size = new System.Drawing.Size(74, 13);
-         this.label76.TabIndex = 457;
-         this.label76.Text = "V Threshold T";
-         // 
-         // E4MainBldc0VelocityThresholdTimeTextBox
-         // 
-         this.E4MainBldc0VelocityThresholdTimeTextBox.Location = new System.Drawing.Point(521, 72);
-         this.E4MainBldc0VelocityThresholdTimeTextBox.Name = "E4MainBldc0VelocityThresholdTimeTextBox";
-         this.E4MainBldc0VelocityThresholdTimeTextBox.Size = new System.Drawing.Size(59, 20);
-         this.E4MainBldc0VelocityThresholdTimeTextBox.TabIndex = 455;
-         // 
-         // SetE4MainBldc0VelocityThresholdTimeButton
-         // 
-         this.SetE4MainBldc0VelocityThresholdTimeButton.Location = new System.Drawing.Point(627, 70);
-         this.SetE4MainBldc0VelocityThresholdTimeButton.Name = "SetE4MainBldc0VelocityThresholdTimeButton";
-         this.SetE4MainBldc0VelocityThresholdTimeButton.Size = new System.Drawing.Size(35, 23);
-         this.SetE4MainBldc0VelocityThresholdTimeButton.TabIndex = 456;
-         this.SetE4MainBldc0VelocityThresholdTimeButton.Text = "Set";
-         this.SetE4MainBldc0VelocityThresholdTimeButton.UseVisualStyleBackColor = true;
-         this.SetE4MainBldc0VelocityThresholdTimeButton.Click += new System.EventHandler(this.SetE4MainBldc0VelocityThresholdTimeButton_Click);
-         // 
-         // GetE4MainBldc0VelocityThresholdButton
-         // 
-         this.GetE4MainBldc0VelocityThresholdButton.Location = new System.Drawing.Point(586, 44);
-         this.GetE4MainBldc0VelocityThresholdButton.Name = "GetE4MainBldc0VelocityThresholdButton";
-         this.GetE4MainBldc0VelocityThresholdButton.Size = new System.Drawing.Size(35, 23);
-         this.GetE4MainBldc0VelocityThresholdButton.TabIndex = 454;
-         this.GetE4MainBldc0VelocityThresholdButton.Text = "Get";
-         this.GetE4MainBldc0VelocityThresholdButton.UseVisualStyleBackColor = true;
-         this.GetE4MainBldc0VelocityThresholdButton.Click += new System.EventHandler(this.GetE4MainBldc0VelocityThresholdButton_Click);
-         // 
-         // label77
-         // 
-         this.label77.AutoSize = true;
-         this.label77.Location = new System.Drawing.Point(455, 49);
-         this.label77.Name = "label77";
-         this.label77.Size = new System.Drawing.Size(64, 13);
-         this.label77.TabIndex = 453;
-         this.label77.Text = "V Threshold";
-         // 
-         // E4MainBldc0VelocityThresholdTextBox
-         // 
-         this.E4MainBldc0VelocityThresholdTextBox.Location = new System.Drawing.Point(521, 46);
-         this.E4MainBldc0VelocityThresholdTextBox.Name = "E4MainBldc0VelocityThresholdTextBox";
-         this.E4MainBldc0VelocityThresholdTextBox.Size = new System.Drawing.Size(59, 20);
-         this.E4MainBldc0VelocityThresholdTextBox.TabIndex = 451;
-         // 
-         // SetE4MainBldc0VelocityThresholdButton
-         // 
-         this.SetE4MainBldc0VelocityThresholdButton.Location = new System.Drawing.Point(627, 44);
-         this.SetE4MainBldc0VelocityThresholdButton.Name = "SetE4MainBldc0VelocityThresholdButton";
-         this.SetE4MainBldc0VelocityThresholdButton.Size = new System.Drawing.Size(35, 23);
-         this.SetE4MainBldc0VelocityThresholdButton.TabIndex = 452;
-         this.SetE4MainBldc0VelocityThresholdButton.Text = "Set";
-         this.SetE4MainBldc0VelocityThresholdButton.UseVisualStyleBackColor = true;
-         this.SetE4MainBldc0VelocityThresholdButton.Click += new System.EventHandler(this.SetE4MainBldc0VelocityThresholdButton_Click);
-         // 
-         // GetE4MainBldc1VelocityThresholdTimeButton
-         // 
-         this.GetE4MainBldc1VelocityThresholdTimeButton.Location = new System.Drawing.Point(586, 70);
-         this.GetE4MainBldc1VelocityThresholdTimeButton.Name = "GetE4MainBldc1VelocityThresholdTimeButton";
-         this.GetE4MainBldc1VelocityThresholdTimeButton.Size = new System.Drawing.Size(35, 23);
-         this.GetE4MainBldc1VelocityThresholdTimeButton.TabIndex = 482;
-         this.GetE4MainBldc1VelocityThresholdTimeButton.Text = "Get";
-         this.GetE4MainBldc1VelocityThresholdTimeButton.UseVisualStyleBackColor = true;
-         this.GetE4MainBldc1VelocityThresholdTimeButton.Click += new System.EventHandler(this.GetE4MainBldc1VelocityThresholdTimeButton_Click);
-         // 
-         // label78
-         // 
-         this.label78.AutoSize = true;
-         this.label78.Location = new System.Drawing.Point(445, 75);
-         this.label78.Name = "label78";
-         this.label78.Size = new System.Drawing.Size(74, 13);
-         this.label78.TabIndex = 481;
-         this.label78.Text = "V Threshold T";
-         // 
-         // E4MainBldc1VelocityThresholdTimeTextBox
-         // 
-         this.E4MainBldc1VelocityThresholdTimeTextBox.Location = new System.Drawing.Point(521, 72);
-         this.E4MainBldc1VelocityThresholdTimeTextBox.Name = "E4MainBldc1VelocityThresholdTimeTextBox";
-         this.E4MainBldc1VelocityThresholdTimeTextBox.Size = new System.Drawing.Size(59, 20);
-         this.E4MainBldc1VelocityThresholdTimeTextBox.TabIndex = 479;
-         // 
-         // SetE4MainBldc1VelocityThresholdTimeButton
-         // 
-         this.SetE4MainBldc1VelocityThresholdTimeButton.Location = new System.Drawing.Point(627, 70);
-         this.SetE4MainBldc1VelocityThresholdTimeButton.Name = "SetE4MainBldc1VelocityThresholdTimeButton";
-         this.SetE4MainBldc1VelocityThresholdTimeButton.Size = new System.Drawing.Size(35, 23);
-         this.SetE4MainBldc1VelocityThresholdTimeButton.TabIndex = 480;
-         this.SetE4MainBldc1VelocityThresholdTimeButton.Text = "Set";
-         this.SetE4MainBldc1VelocityThresholdTimeButton.UseVisualStyleBackColor = true;
-         this.SetE4MainBldc1VelocityThresholdTimeButton.Click += new System.EventHandler(this.SetE4MainBldc1VelocityThresholdTimeButton_Click);
-         // 
-         // GetE4MainBldc1VelocityThresholdButton
-         // 
-         this.GetE4MainBldc1VelocityThresholdButton.Location = new System.Drawing.Point(586, 44);
-         this.GetE4MainBldc1VelocityThresholdButton.Name = "GetE4MainBldc1VelocityThresholdButton";
-         this.GetE4MainBldc1VelocityThresholdButton.Size = new System.Drawing.Size(35, 23);
-         this.GetE4MainBldc1VelocityThresholdButton.TabIndex = 478;
-         this.GetE4MainBldc1VelocityThresholdButton.Text = "Get";
-         this.GetE4MainBldc1VelocityThresholdButton.UseVisualStyleBackColor = true;
-         this.GetE4MainBldc1VelocityThresholdButton.Click += new System.EventHandler(this.GetE4MainBldc1VelocityThresholdButton_Click);
-         // 
-         // label79
-         // 
-         this.label79.AutoSize = true;
-         this.label79.Location = new System.Drawing.Point(455, 49);
-         this.label79.Name = "label79";
-         this.label79.Size = new System.Drawing.Size(64, 13);
-         this.label79.TabIndex = 477;
-         this.label79.Text = "V Threshold";
-         // 
-         // E4MainBldc1VelocityThresholdTextBox
-         // 
-         this.E4MainBldc1VelocityThresholdTextBox.Location = new System.Drawing.Point(521, 46);
-         this.E4MainBldc1VelocityThresholdTextBox.Name = "E4MainBldc1VelocityThresholdTextBox";
-         this.E4MainBldc1VelocityThresholdTextBox.Size = new System.Drawing.Size(59, 20);
-         this.E4MainBldc1VelocityThresholdTextBox.TabIndex = 475;
-         // 
-         // SetE4MainBldc1VelocityThresholdButton
-         // 
-         this.SetE4MainBldc1VelocityThresholdButton.Location = new System.Drawing.Point(627, 44);
-         this.SetE4MainBldc1VelocityThresholdButton.Name = "SetE4MainBldc1VelocityThresholdButton";
-         this.SetE4MainBldc1VelocityThresholdButton.Size = new System.Drawing.Size(35, 23);
-         this.SetE4MainBldc1VelocityThresholdButton.TabIndex = 476;
-         this.SetE4MainBldc1VelocityThresholdButton.Text = "Set";
-         this.SetE4MainBldc1VelocityThresholdButton.UseVisualStyleBackColor = true;
-         this.SetE4MainBldc1VelocityThresholdButton.Click += new System.EventHandler(this.SetE4MainBldc1VelocityThresholdButton_Click);
-         // 
-         // GetE4MainBldc1VelocityWindowTimeButton
-         // 
-         this.GetE4MainBldc1VelocityWindowTimeButton.Location = new System.Drawing.Point(363, 70);
-         this.GetE4MainBldc1VelocityWindowTimeButton.Name = "GetE4MainBldc1VelocityWindowTimeButton";
-         this.GetE4MainBldc1VelocityWindowTimeButton.Size = new System.Drawing.Size(35, 23);
-         this.GetE4MainBldc1VelocityWindowTimeButton.TabIndex = 474;
-         this.GetE4MainBldc1VelocityWindowTimeButton.Text = "Get";
-         this.GetE4MainBldc1VelocityWindowTimeButton.UseVisualStyleBackColor = true;
-         this.GetE4MainBldc1VelocityWindowTimeButton.Click += new System.EventHandler(this.GetE4MainBldc1VelocityWindowTimeButton_Click);
-         // 
-         // label80
-         // 
-         this.label80.AutoSize = true;
-         this.label80.Location = new System.Drawing.Point(225, 75);
-         this.label80.Name = "label80";
-         this.label80.Size = new System.Drawing.Size(71, 13);
-         this.label80.TabIndex = 473;
-         this.label80.Text = "V Windows T";
-         // 
-         // E4MainBldc1VelocityWindowTimeTextBox
-         // 
-         this.E4MainBldc1VelocityWindowTimeTextBox.Location = new System.Drawing.Point(298, 72);
-         this.E4MainBldc1VelocityWindowTimeTextBox.Name = "E4MainBldc1VelocityWindowTimeTextBox";
-         this.E4MainBldc1VelocityWindowTimeTextBox.Size = new System.Drawing.Size(59, 20);
-         this.E4MainBldc1VelocityWindowTimeTextBox.TabIndex = 471;
-         // 
-         // SetE4MainBldc1VelocityWindowTimeButton
-         // 
-         this.SetE4MainBldc1VelocityWindowTimeButton.Location = new System.Drawing.Point(404, 70);
-         this.SetE4MainBldc1VelocityWindowTimeButton.Name = "SetE4MainBldc1VelocityWindowTimeButton";
-         this.SetE4MainBldc1VelocityWindowTimeButton.Size = new System.Drawing.Size(35, 23);
-         this.SetE4MainBldc1VelocityWindowTimeButton.TabIndex = 472;
-         this.SetE4MainBldc1VelocityWindowTimeButton.Text = "Set";
-         this.SetE4MainBldc1VelocityWindowTimeButton.UseVisualStyleBackColor = true;
-         this.SetE4MainBldc1VelocityWindowTimeButton.Click += new System.EventHandler(this.SetE4MainBldc1VelocityWindowTimeButton_Click);
-         // 
-         // GetE4MainBldc1VelocityWindowButton
-         // 
-         this.GetE4MainBldc1VelocityWindowButton.Location = new System.Drawing.Point(363, 44);
-         this.GetE4MainBldc1VelocityWindowButton.Name = "GetE4MainBldc1VelocityWindowButton";
-         this.GetE4MainBldc1VelocityWindowButton.Size = new System.Drawing.Size(35, 23);
-         this.GetE4MainBldc1VelocityWindowButton.TabIndex = 470;
-         this.GetE4MainBldc1VelocityWindowButton.Text = "Get";
-         this.GetE4MainBldc1VelocityWindowButton.UseVisualStyleBackColor = true;
-         this.GetE4MainBldc1VelocityWindowButton.Click += new System.EventHandler(this.GetE4MainBldc1VelocityWindowButton_Click);
-         // 
-         // label81
-         // 
-         this.label81.AutoSize = true;
-         this.label81.Location = new System.Drawing.Point(235, 49);
-         this.label81.Name = "label81";
-         this.label81.Size = new System.Drawing.Size(61, 13);
-         this.label81.TabIndex = 469;
-         this.label81.Text = "V Windows";
-         // 
-         // E4MainBldc1VelocityWindowTextBox
-         // 
-         this.E4MainBldc1VelocityWindowTextBox.Location = new System.Drawing.Point(298, 46);
-         this.E4MainBldc1VelocityWindowTextBox.Name = "E4MainBldc1VelocityWindowTextBox";
-         this.E4MainBldc1VelocityWindowTextBox.Size = new System.Drawing.Size(59, 20);
-         this.E4MainBldc1VelocityWindowTextBox.TabIndex = 467;
-         // 
-         // SetE4MainBldc1VelocityWindowButton
-         // 
-         this.SetE4MainBldc1VelocityWindowButton.Location = new System.Drawing.Point(404, 44);
-         this.SetE4MainBldc1VelocityWindowButton.Name = "SetE4MainBldc1VelocityWindowButton";
-         this.SetE4MainBldc1VelocityWindowButton.Size = new System.Drawing.Size(35, 23);
-         this.SetE4MainBldc1VelocityWindowButton.TabIndex = 468;
-         this.SetE4MainBldc1VelocityWindowButton.Text = "Set";
-         this.SetE4MainBldc1VelocityWindowButton.UseVisualStyleBackColor = true;
-         this.SetE4MainBldc1VelocityWindowButton.Click += new System.EventHandler(this.SetE4MainBldc1VelocityWindowButton_Click);
-         // 
-         // GetE4MainBldc1PositionWindowTimeButton
-         // 
-         this.GetE4MainBldc1PositionWindowTimeButton.Location = new System.Drawing.Point(143, 70);
-         this.GetE4MainBldc1PositionWindowTimeButton.Name = "GetE4MainBldc1PositionWindowTimeButton";
-         this.GetE4MainBldc1PositionWindowTimeButton.Size = new System.Drawing.Size(35, 23);
-         this.GetE4MainBldc1PositionWindowTimeButton.TabIndex = 466;
-         this.GetE4MainBldc1PositionWindowTimeButton.Text = "Get";
-         this.GetE4MainBldc1PositionWindowTimeButton.UseVisualStyleBackColor = true;
-         this.GetE4MainBldc1PositionWindowTimeButton.Click += new System.EventHandler(this.GetE4MainBldc1PositionWindowTimeButton_Click);
-         // 
-         // label82
-         // 
-         this.label82.AutoSize = true;
-         this.label82.Location = new System.Drawing.Point(10, 75);
-         this.label82.Name = "label82";
-         this.label82.Size = new System.Drawing.Size(66, 13);
-         this.label82.TabIndex = 465;
-         this.label82.Text = "P Window T";
-         this.label82.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-         // 
-         // E4MainBldc1PositionWindowTimeTextBox
-         // 
-         this.E4MainBldc1PositionWindowTimeTextBox.Location = new System.Drawing.Point(78, 72);
-         this.E4MainBldc1PositionWindowTimeTextBox.Name = "E4MainBldc1PositionWindowTimeTextBox";
-         this.E4MainBldc1PositionWindowTimeTextBox.Size = new System.Drawing.Size(59, 20);
-         this.E4MainBldc1PositionWindowTimeTextBox.TabIndex = 463;
-         // 
-         // SetE4MainBldc1PositionWindowTimeButton
-         // 
-         this.SetE4MainBldc1PositionWindowTimeButton.Location = new System.Drawing.Point(184, 70);
-         this.SetE4MainBldc1PositionWindowTimeButton.Name = "SetE4MainBldc1PositionWindowTimeButton";
-         this.SetE4MainBldc1PositionWindowTimeButton.Size = new System.Drawing.Size(35, 23);
-         this.SetE4MainBldc1PositionWindowTimeButton.TabIndex = 464;
-         this.SetE4MainBldc1PositionWindowTimeButton.Text = "Set";
-         this.SetE4MainBldc1PositionWindowTimeButton.UseVisualStyleBackColor = true;
-         this.SetE4MainBldc1PositionWindowTimeButton.Click += new System.EventHandler(this.SetE4MainBldc1PositionWindowTimeButton_Click);
-         // 
-         // GetE4MainBldc1PositionWindowButton
-         // 
-         this.GetE4MainBldc1PositionWindowButton.Location = new System.Drawing.Point(143, 44);
-         this.GetE4MainBldc1PositionWindowButton.Name = "GetE4MainBldc1PositionWindowButton";
-         this.GetE4MainBldc1PositionWindowButton.Size = new System.Drawing.Size(35, 23);
-         this.GetE4MainBldc1PositionWindowButton.TabIndex = 462;
-         this.GetE4MainBldc1PositionWindowButton.Text = "Get";
-         this.GetE4MainBldc1PositionWindowButton.UseVisualStyleBackColor = true;
-         this.GetE4MainBldc1PositionWindowButton.Click += new System.EventHandler(this.GetE4MainBldc1PositionWindowButton_Click);
-         // 
-         // label83
-         // 
-         this.label83.AutoSize = true;
-         this.label83.Location = new System.Drawing.Point(20, 49);
-         this.label83.Name = "label83";
-         this.label83.Size = new System.Drawing.Size(56, 13);
-         this.label83.TabIndex = 461;
-         this.label83.Text = "P Window";
-         // 
-         // E4MainBldc1PositionWindowTextBox
-         // 
-         this.E4MainBldc1PositionWindowTextBox.Location = new System.Drawing.Point(78, 46);
-         this.E4MainBldc1PositionWindowTextBox.Name = "E4MainBldc1PositionWindowTextBox";
-         this.E4MainBldc1PositionWindowTextBox.Size = new System.Drawing.Size(59, 20);
-         this.E4MainBldc1PositionWindowTextBox.TabIndex = 459;
-         // 
-         // SetE4MainBldc1PositionWindowButton
-         // 
-         this.SetE4MainBldc1PositionWindowButton.Location = new System.Drawing.Point(184, 44);
-         this.SetE4MainBldc1PositionWindowButton.Name = "SetE4MainBldc1PositionWindowButton";
-         this.SetE4MainBldc1PositionWindowButton.Size = new System.Drawing.Size(35, 23);
-         this.SetE4MainBldc1PositionWindowButton.TabIndex = 460;
-         this.SetE4MainBldc1PositionWindowButton.Text = "Set";
-         this.SetE4MainBldc1PositionWindowButton.UseVisualStyleBackColor = true;
-         this.SetE4MainBldc1PositionWindowButton.Click += new System.EventHandler(this.SetE4MainBldc1PositionWindowButton_Click);
+         // label84
+         // 
+         this.label84.AutoSize = true;
+         this.label84.Location = new System.Drawing.Point(398, 77);
+         this.label84.Name = "label84";
+         this.label84.Size = new System.Drawing.Size(13, 13);
+         this.label84.TabIndex = 405;
+         this.label84.Text = "h";
+         // 
+         // label85
+         // 
+         this.label85.AutoSize = true;
+         this.label85.Location = new System.Drawing.Point(515, 77);
+         this.label85.Name = "label85";
+         this.label85.Size = new System.Drawing.Size(13, 13);
+         this.label85.TabIndex = 408;
+         this.label85.Text = "h";
+         // 
+         // label86
+         // 
+         this.label86.AutoSize = true;
+         this.label86.Location = new System.Drawing.Point(425, 80);
+         this.label86.Name = "label86";
+         this.label86.Size = new System.Drawing.Size(64, 13);
+         this.label86.TabIndex = 407;
+         this.label86.Text = "Laser Count";
+         // 
+         // E4MainLaserCountTextBox
+         // 
+         this.E4MainLaserCountTextBox.Location = new System.Drawing.Point(491, 77);
+         this.E4MainLaserCountTextBox.Name = "E4MainLaserCountTextBox";
+         this.E4MainLaserCountTextBox.Size = new System.Drawing.Size(25, 20);
+         this.E4MainLaserCountTextBox.TabIndex = 406;
+         this.E4MainLaserCountTextBox.Text = "FF";
+         this.E4MainLaserCountTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
          // 
          // MainForm
          // 
@@ -5124,7 +5168,7 @@ namespace E4.DeviceTest
       private System.Windows.Forms.Label label9;
       private System.Windows.Forms.TextBox E4MainLaserScannerTextBox;
       private System.Windows.Forms.Label label8;
-      private System.Windows.Forms.TextBox E4MainLaserDistanceTextBox;
+      private System.Windows.Forms.TextBox E4MainLaserStatusTextBox;
       private System.Windows.Forms.TextBox E4MainBldc0StatusTextBox;
       private System.Windows.Forms.Label label171;
       private System.Windows.Forms.TextBox E4MainBldc1StatusTextBox;
@@ -5470,6 +5514,10 @@ namespace E4.DeviceTest
       private System.Windows.Forms.Label label83;
       private System.Windows.Forms.TextBox E4MainBldc1PositionWindowTextBox;
       private System.Windows.Forms.Button SetE4MainBldc1PositionWindowButton;
+      private System.Windows.Forms.Label label85;
+      private System.Windows.Forms.Label label86;
+      private System.Windows.Forms.TextBox E4MainLaserCountTextBox;
+      private System.Windows.Forms.Label label84;
    }
 }
 
