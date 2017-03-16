@@ -8,8 +8,8 @@ CreatedBy=Ben Artes
 CreationTime=11:08AM
 CreationDate=06-24-2016
 ModifiedBy=Unknown
-ModificationTime=06:23PM
-ModificationDate=02-23-2017
+ModificationTime=10:56AM
+ModificationDate=03-02-2017
 
 [Comments]
 Lines=1
@@ -468,25 +468,26 @@ SupportedObjects=409
 409=0x7FFF
 
 [ManufacturerObjects]
-SupportedObjects=18
+SupportedObjects=19
 1=0x2301
 2=0x2302
 3=0x2303
 4=0x2304
-5=0x2305
-6=0x2310
-7=0x2311
-8=0x2400
-9=0x2401
-10=0x2402
-11=0x2403
-12=0x2404
-13=0x2405
-14=0x2410
-15=0x2411
-16=0x2440
-17=0x2441
-18=0x2446
+5=0x2310
+6=0x2311
+7=0x2400
+8=0x2401
+9=0x2402
+10=0x2403
+11=0x2404
+12=0x2410
+13=0x2411
+14=0x2440
+15=0x2441
+16=0x2443
+17=0x2444
+18=0x2445
+19=0x2446
 
 [1000]
 ParameterName=Device Type
@@ -3986,33 +3987,6 @@ DefaultValue=0x00
 PDOMapping=1
 ObjFlags=0x00
 
-[2305]
-ParameterName=Camera LED Fault Registers
-SubNumber=2
-ObjectType=0x08
-
-[2305sub0]
-ParameterName=Highest Subindex
-ObjectType=0x07
-DataType=0x0005
-LowLimit=
-HighLimit=
-AccessType=const
-DefaultValue=0x01
-PDOMapping=0
-ObjFlags=0x00
-
-[2305sub1]
-ParameterName=Camera LED Fault Register
-ObjectType=0x07
-DataType=0x0005
-LowLimit=0x80
-HighLimit=0x7F
-AccessType=rw
-DefaultValue=
-PDOMapping=1
-ObjFlags=0x00
-
 [2310]
 ParameterName=Outputs
 SubNumber=2
@@ -4160,17 +4134,6 @@ DefaultValue=
 PDOMapping=1
 ObjFlags=0x00
 
-[2405]
-ParameterName=Laser Error Codes
-ObjectType=0x07
-DataType=0x0005
-LowLimit=0x00
-HighLimit=0xFF
-AccessType=rw
-DefaultValue=
-PDOMapping=1
-ObjFlags=0x00
-
 [2410]
 ParameterName=Laser Position
 SubNumber=2
@@ -4237,7 +4200,7 @@ PDOMapping=1
 ObjFlags=0x00
 
 [2440]
-ParameterName=IMU Configuration
+ParameterName=Main Board IMU Configuration
 SubNumber=5
 ObjectType=0x09
 
@@ -4297,7 +4260,7 @@ PDOMapping=0
 ObjFlags=0x00
 
 [2441]
-ParameterName=Euler Orientation
+ParameterName=Main Board Euler Orientation
 SubNumber=4
 ObjectType=0x08
 
@@ -4345,8 +4308,155 @@ DefaultValue=
 PDOMapping=1
 ObjFlags=0x00
 
+[2443]
+ParameterName=Main Board IMU Temperatures
+SubNumber=3
+ObjectType=0x08
+
+[2443sub0]
+ParameterName=Highest Subindex
+ObjectType=0x07
+DataType=0x0005
+LowLimit=0x80
+HighLimit=0x7F
+AccessType=const
+DefaultValue=0x02
+PDOMapping=1
+ObjFlags=0x00
+
+[2443sub1]
+ParameterName=IMU Temperature
+ObjectType=0x07
+DataType=0x0002
+LowLimit=0x80
+HighLimit=0x7F
+AccessType=ro
+DefaultValue=
+PDOMapping=1
+ObjFlags=0x00
+
+[2443sub2]
+ParameterName=IMU Error Temperature
+ObjectType=0x07
+DataType=0x0002
+LowLimit=0x80
+HighLimit=0x7F
+AccessType=rw
+DefaultValue=0x01
+PDOMapping=1
+ObjFlags=0x00
+
+[2444]
+ParameterName=Target Board IMU Configuration
+SubNumber=5
+ObjectType=0x09
+
+[2444sub0]
+ParameterName=Highest Subindex
+ObjectType=0x07
+DataType=0x0005
+LowLimit=
+HighLimit=
+AccessType=const
+DefaultValue=0x04
+PDOMapping=0
+ObjFlags=0x00
+
+[2444sub1]
+ParameterName=IMU Configuration
+ObjectType=0x07
+DataType=0x0007
+LowLimit=
+HighLimit=
+AccessType=rw
+DefaultValue=
+PDOMapping=0
+ObjFlags=0x00
+
+[2444sub2]
+ParameterName=IMU Axis Remap
+ObjectType=0x07
+DataType=0x0006
+LowLimit=0x0000
+HighLimit=0x01FF
+AccessType=rw
+DefaultValue=0x24
+PDOMapping=0
+ObjFlags=0x00
+
+[2444sub3]
+ParameterName=IMU Unit Selection
+ObjectType=0x07
+DataType=0x0005
+LowLimit=
+HighLimit=
+AccessType=rw
+DefaultValue=
+PDOMapping=0
+ObjFlags=0x00
+
+[2444sub4]
+ParameterName=IMU Update Frequency
+ObjectType=0x07
+DataType=0x0006
+LowLimit=0x0000
+HighLimit=0xFFFF
+AccessType=rw
+DefaultValue=10
+PDOMapping=0
+ObjFlags=0x00
+
+[2445]
+ParameterName=Target Board Euler Orientation
+SubNumber=4
+ObjectType=0x08
+
+[2445sub0]
+ParameterName=Highest Subindex
+ObjectType=0x07
+DataType=0x0005
+LowLimit=
+HighLimit=
+AccessType=const
+DefaultValue=0x03
+PDOMapping=0
+ObjFlags=0x00
+
+[2445sub1]
+ParameterName=Roll Value
+ObjectType=0x07
+DataType=0x0003
+LowLimit=0x8000
+HighLimit=0x7FFF
+AccessType=ro
+DefaultValue=
+PDOMapping=1
+ObjFlags=0x00
+
+[2445sub2]
+ParameterName=Pitch Value
+ObjectType=0x07
+DataType=0x0003
+LowLimit=0x8000
+HighLimit=0x7FFF
+AccessType=ro
+DefaultValue=
+PDOMapping=1
+ObjFlags=0x00
+
+[2445sub3]
+ParameterName=Yaw Value
+ObjectType=0x07
+DataType=0x0003
+LowLimit=0x8000
+HighLimit=0x7FFF
+AccessType=ro
+DefaultValue=
+PDOMapping=1
+ObjFlags=0x00
+
 [2446]
-ParameterName=IMU Temperatures
+ParameterName=Target Board IMU Temperatures
 SubNumber=3
 ObjectType=0x08
 

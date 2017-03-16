@@ -4,9 +4,9 @@
     <AbsolutePaths>false</AbsolutePaths>
     <Version>2</Version>
   </Project>
-  <OutputForm>
-    <GUID>46707f07-8d0c-4ec5-a50a-f4981e6cc102</GUID>
-  </OutputForm>
+  <ProjectForm>
+    <GUID>be58bbc8-afa5-4847-bfa2-006f042f6ae7</GUID>
+  </ProjectForm>
   <Preferences>
     <ProcessImageOffset>0</ProcessImageOffset>
     <MaxMacroSize>16384</MaxMacroSize>
@@ -41,9 +41,9 @@
     <DocumentTableColumn2Width>75</DocumentTableColumn2Width>
     <DocumentCenterTables>false</DocumentCenterTables>
   </Preferences>
-  <ProjectForm>
-    <GUID>be58bbc8-afa5-4847-bfa2-006f042f6ae7</GUID>
-  </ProjectForm>
+  <OutputForm>
+    <GUID>46707f07-8d0c-4ec5-a50a-f4981e6cc102</GUID>
+  </OutputForm>
   <MainForm>
     <Width>1216</Width>
     <Height>1896</Height>
@@ -52,7 +52,7 @@
 &lt;Layout&gt;
   &lt;Window Guid="46707f07-8d0c-4ec5-a50a-f4981e6cc102" LastFocused="131316622773831269" DockedSize="142" PopupSize="0" FloatingLocation="-1, -1" FloatingSize="250, 400" LastOpenDockSituation="Docked" LastFixedDockSituation="Docked" LastFixedDockLocation="Bottom" LastFloatingWindowGuid="00000000-0000-0000-0000-000000000000" LastDockContainerCount="1" LastDockContainerIndex="0" DockedWorkingSize="250, 400" DockedWindowGroupGuid="2fe96a78-66f5-49d8-bd2e-73c6e53e24be" DockedIndexInWindowGroup="0" DockedSplitPath="0" DocumentWorkingSize="250, 400" DocumentWindowGroupGuid="00000000-0000-0000-0000-000000000000" DocumentIndexInWindowGroup="0" DocumentSplitPath="0" FloatingWorkingSize="250, 400" FloatingWindowGroupGuid="00000000-0000-0000-0000-000000000000" FloatingIndexInWindowGroup="0" FloatingSplitPath="0" /&gt;
   &lt;Window Guid="be58bbc8-afa5-4847-bfa2-006f042f6ae7" LastFocused="131285527852434000" DockedSize="180" PopupSize="0" FloatingLocation="-1, -1" FloatingSize="250, 400" LastOpenDockSituation="Docked" LastFixedDockSituation="Docked" LastFixedDockLocation="Left" LastFloatingWindowGuid="00000000-0000-0000-0000-000000000000" LastDockContainerCount="1" LastDockContainerIndex="0" DockedWorkingSize="250, 400" DockedWindowGroupGuid="ca25dd0e-afae-4aac-ab5d-be1f6ace7432" DockedIndexInWindowGroup="0" DockedSplitPath="0" DocumentWorkingSize="250, 400" DocumentWindowGroupGuid="00000000-0000-0000-0000-000000000000" DocumentIndexInWindowGroup="0" DocumentSplitPath="0" FloatingWorkingSize="250, 400" FloatingWindowGroupGuid="00000000-0000-0000-0000-000000000000" FloatingIndexInWindowGroup="0" FloatingSplitPath="0" /&gt;
-  &lt;Window Guid="5ab19427-e4c6-47d8-a185-7f5a07e291e0" LastFocused="131323656464651269" DockedSize="200" PopupSize="0" FloatingLocation="-1, -1" FloatingSize="550, 400" LastOpenDockSituation="Document" LastFixedDockSituation="Document" LastFixedDockLocation="Right" LastFloatingWindowGuid="00000000-0000-0000-0000-000000000000" LastDockContainerCount="0" LastDockContainerIndex="0" DockedWorkingSize="250, 400" DockedWindowGroupGuid="00000000-0000-0000-0000-000000000000" DockedIndexInWindowGroup="0" DockedSplitPath="0" DocumentWorkingSize="250, 400" DocumentWindowGroupGuid="5262380c-a784-47e4-a19f-12e5eba7bae0" DocumentIndexInWindowGroup="0" DocumentSplitPath="0" FloatingWorkingSize="250, 400" FloatingWindowGroupGuid="00000000-0000-0000-0000-000000000000" FloatingIndexInWindowGroup="0" FloatingSplitPath="0" /&gt;
+  &lt;Window Guid="5ab19427-e4c6-47d8-a185-7f5a07e291e0" LastFocused="131329437700741269" DockedSize="200" PopupSize="0" FloatingLocation="-1, -1" FloatingSize="550, 400" LastOpenDockSituation="Document" LastFixedDockSituation="Document" LastFixedDockLocation="Right" LastFloatingWindowGuid="00000000-0000-0000-0000-000000000000" LastDockContainerCount="0" LastDockContainerIndex="0" DockedWorkingSize="250, 400" DockedWindowGroupGuid="00000000-0000-0000-0000-000000000000" DockedIndexInWindowGroup="0" DockedSplitPath="0" DocumentWorkingSize="250, 400" DocumentWindowGroupGuid="5262380c-a784-47e4-a19f-12e5eba7bae0" DocumentIndexInWindowGroup="0" DocumentSplitPath="0" FloatingWorkingSize="250, 400" FloatingWindowGroupGuid="00000000-0000-0000-0000-000000000000" FloatingIndexInWindowGroup="0" FloatingSplitPath="0" /&gt;
   &lt;Container Dock="2" ContentSize="142"&gt;
     &lt;SplitLayoutSystem WorkingSize="250, 400" SplitMode="1"&gt;
       &lt;ControlLayoutSystem WorkingSize="250, 400" Guid="2fe96a78-66f5-49d8-bd2e-73c6e53e24be" Collapsed="0" SelectedControl="46707f07-8d0c-4ec5-a50a-f4981e6cc102"&gt;
@@ -7875,57 +7875,6 @@
               </Comments>
             </Entry>
             <Entry>
-              <Index>8965</Index>
-              <Subindex>0</Subindex>
-              <EntryName>Camera LED Fault Registers</EntryName>
-              <SubentryName>Highest Subindex</SubentryName>
-              <TypeId>Unsigned8</TypeId>
-              <ValueString>0x01</ValueString>
-              <NoTableEntryGeneration>false</NoTableEntryGeneration>
-              <MaxSize>0</MaxSize>
-              <AccessType>Const</AccessType>
-              <HighLimitString>
-              </HighLimitString>
-              <LowLimitString>
-              </LowLimitString>
-              <ObjectType>Var</ObjectType>
-              <PDOMapping>false</PDOMapping>
-              <RefuseReadonScan>false</RefuseReadonScan>
-              <RefuseWriteonDownload>false</RefuseWriteonDownload>
-              <Denotation>
-              </Denotation>
-              <Hidden>false</Hidden>
-              <TypeODIndex>0</TypeODIndex>
-              <GroupId>f751f88a-e548-41e4-9bd7-2aca714028b8</GroupId>
-              <Comments>
-              </Comments>
-            </Entry>
-            <Entry>
-              <Index>8965</Index>
-              <Subindex>1</Subindex>
-              <EntryName>Camera LED Fault Registers</EntryName>
-              <SubentryName>Camera LED Fault Register</SubentryName>
-              <TypeId>Unsigned8</TypeId>
-              <ValueString>
-              </ValueString>
-              <NoTableEntryGeneration>false</NoTableEntryGeneration>
-              <MaxSize>0</MaxSize>
-              <AccessType>ReadWrite</AccessType>
-              <HighLimitString>0x7F</HighLimitString>
-              <LowLimitString>0x80</LowLimitString>
-              <ObjectType>Var</ObjectType>
-              <PDOMapping>true</PDOMapping>
-              <RefuseReadonScan>false</RefuseReadonScan>
-              <RefuseWriteonDownload>false</RefuseWriteonDownload>
-              <Denotation>
-              </Denotation>
-              <Hidden>false</Hidden>
-              <TypeODIndex>0</TypeODIndex>
-              <GroupId>f751f88a-e548-41e4-9bd7-2aca714028b8</GroupId>
-              <Comments>
-              </Comments>
-            </Entry>
-            <Entry>
               <Index>8976</Index>
               <Subindex>0</Subindex>
               <EntryName>Outputs</EntryName>
@@ -8218,32 +8167,6 @@
               <Comments>LSB for Trigger Single MeasureMent, Rest of Bits for Trigger Averaging</Comments>
             </Entry>
             <Entry>
-              <Index>9221</Index>
-              <Subindex>0</Subindex>
-              <EntryName>Laser Error Codes</EntryName>
-              <SubentryName>
-              </SubentryName>
-              <TypeId>Unsigned8</TypeId>
-              <ValueString>
-              </ValueString>
-              <NoTableEntryGeneration>false</NoTableEntryGeneration>
-              <MaxSize>0</MaxSize>
-              <AccessType>ReadWrite</AccessType>
-              <HighLimitString>0xFF</HighLimitString>
-              <LowLimitString>0x00</LowLimitString>
-              <ObjectType>Var</ObjectType>
-              <PDOMapping>true</PDOMapping>
-              <RefuseReadonScan>false</RefuseReadonScan>
-              <RefuseWriteonDownload>false</RefuseWriteonDownload>
-              <Denotation>
-              </Denotation>
-              <Hidden>false</Hidden>
-              <TypeODIndex>0</TypeODIndex>
-              <GroupId>34fb1968-65ef-4b6c-839d-1cfc9a0ea87e</GroupId>
-              <Comments>
-              </Comments>
-            </Entry>
-            <Entry>
               <Index>9232</Index>
               <Subindex>0</Subindex>
               <EntryName>Laser Position</EntryName>
@@ -8365,7 +8288,7 @@
             <Entry>
               <Index>9280</Index>
               <Subindex>0</Subindex>
-              <EntryName>IMU Configuration</EntryName>
+              <EntryName>Main Board IMU Configuration</EntryName>
               <SubentryName>Highest Subindex</SubentryName>
               <TypeId>Unsigned8</TypeId>
               <ValueString>0x04</ValueString>
@@ -8391,7 +8314,7 @@
             <Entry>
               <Index>9280</Index>
               <Subindex>1</Subindex>
-              <EntryName>IMU Configuration</EntryName>
+              <EntryName>Main Board IMU Configuration</EntryName>
               <SubentryName>IMU Configuration</SubentryName>
               <TypeId>Unsigned32</TypeId>
               <ValueString>
@@ -8418,7 +8341,7 @@
             <Entry>
               <Index>9280</Index>
               <Subindex>2</Subindex>
-              <EntryName>IMU Configuration</EntryName>
+              <EntryName>Main Board IMU Configuration</EntryName>
               <SubentryName>IMU Axis Remap</SubentryName>
               <TypeId>Unsigned16</TypeId>
               <ValueString>0x24</ValueString>
@@ -8449,7 +8372,7 @@ Remap Codes:
             <Entry>
               <Index>9280</Index>
               <Subindex>3</Subindex>
-              <EntryName>IMU Configuration</EntryName>
+              <EntryName>Main Board IMU Configuration</EntryName>
               <SubentryName>IMU Unit Selection</SubentryName>
               <TypeId>Unsigned8</TypeId>
               <ValueString>
@@ -8476,7 +8399,7 @@ Remap Codes:
             <Entry>
               <Index>9280</Index>
               <Subindex>4</Subindex>
-              <EntryName>IMU Configuration</EntryName>
+              <EntryName>Main Board IMU Configuration</EntryName>
               <SubentryName>IMU Update Frequency</SubentryName>
               <TypeId>Unsigned16</TypeId>
               <ValueString>10</ValueString>
@@ -8499,7 +8422,7 @@ Remap Codes:
             <Entry>
               <Index>9281</Index>
               <Subindex>0</Subindex>
-              <EntryName>Euler Orientation</EntryName>
+              <EntryName>Main Board Euler Orientation</EntryName>
               <SubentryName>Highest Subindex</SubentryName>
               <TypeId>Unsigned8</TypeId>
               <ValueString>0x03</ValueString>
@@ -8525,7 +8448,7 @@ Remap Codes:
             <Entry>
               <Index>9281</Index>
               <Subindex>1</Subindex>
-              <EntryName>Euler Orientation</EntryName>
+              <EntryName>Main Board Euler Orientation</EntryName>
               <SubentryName>Roll Value</SubentryName>
               <TypeId>Integer16</TypeId>
               <ValueString>
@@ -8550,7 +8473,7 @@ Remap Codes:
             <Entry>
               <Index>9281</Index>
               <Subindex>2</Subindex>
-              <EntryName>Euler Orientation</EntryName>
+              <EntryName>Main Board Euler Orientation</EntryName>
               <SubentryName>Pitch Value</SubentryName>
               <TypeId>Integer16</TypeId>
               <ValueString>
@@ -8575,7 +8498,312 @@ Remap Codes:
             <Entry>
               <Index>9281</Index>
               <Subindex>3</Subindex>
-              <EntryName>Euler Orientation</EntryName>
+              <EntryName>Main Board Euler Orientation</EntryName>
+              <SubentryName>Yaw Value</SubentryName>
+              <TypeId>Integer16</TypeId>
+              <ValueString>
+              </ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>ReadOnly</AccessType>
+              <HighLimitString>0x7FFF</HighLimitString>
+              <LowLimitString>0x8000</LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>true</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>cef578a6-b115-4b62-b646-2c809150708f</GroupId>
+              <Comments>
+              </Comments>
+            </Entry>
+            <Entry>
+              <Index>9283</Index>
+              <Subindex>0</Subindex>
+              <EntryName>Main Board IMU Temperatures</EntryName>
+              <SubentryName>Highest Subindex</SubentryName>
+              <TypeId>Unsigned8</TypeId>
+              <ValueString>0x02</ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>Const</AccessType>
+              <HighLimitString>0x7F</HighLimitString>
+              <LowLimitString>0x80</LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>true</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>cef578a6-b115-4b62-b646-2c809150708f</GroupId>
+              <Comments>Celsius</Comments>
+            </Entry>
+            <Entry>
+              <Index>9283</Index>
+              <Subindex>1</Subindex>
+              <EntryName>Main Board IMU Temperatures</EntryName>
+              <SubentryName>IMU Temperature</SubentryName>
+              <TypeId>Integer8</TypeId>
+              <ValueString>
+              </ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>ReadOnly</AccessType>
+              <HighLimitString>0x7F</HighLimitString>
+              <LowLimitString>0x80</LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>true</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>cef578a6-b115-4b62-b646-2c809150708f</GroupId>
+              <Comments>Degrees Celsius</Comments>
+            </Entry>
+            <Entry>
+              <Index>9283</Index>
+              <Subindex>2</Subindex>
+              <EntryName>Main Board IMU Temperatures</EntryName>
+              <SubentryName>IMU Error Temperature</SubentryName>
+              <TypeId>Integer8</TypeId>
+              <ValueString>0x01</ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>ReadWrite</AccessType>
+              <HighLimitString>0x7F</HighLimitString>
+              <LowLimitString>0x80</LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>true</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>cef578a6-b115-4b62-b646-2c809150708f</GroupId>
+              <Comments>Degrees Celsius</Comments>
+            </Entry>
+            <Entry>
+              <Index>9284</Index>
+              <Subindex>0</Subindex>
+              <EntryName>Target Board IMU Configuration</EntryName>
+              <SubentryName>Highest Subindex</SubentryName>
+              <TypeId>Unsigned8</TypeId>
+              <ValueString>0x04</ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>Const</AccessType>
+              <HighLimitString>
+              </HighLimitString>
+              <LowLimitString>
+              </LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>false</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>cef578a6-b115-4b62-b646-2c809150708f</GroupId>
+              <Comments>
+              </Comments>
+            </Entry>
+            <Entry>
+              <Index>9284</Index>
+              <Subindex>1</Subindex>
+              <EntryName>Target Board IMU Configuration</EntryName>
+              <SubentryName>IMU Configuration</SubentryName>
+              <TypeId>Unsigned32</TypeId>
+              <ValueString>
+              </ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>ReadWrite</AccessType>
+              <HighLimitString>
+              </HighLimitString>
+              <LowLimitString>
+              </LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>false</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>cef578a6-b115-4b62-b646-2c809150708f</GroupId>
+              <Comments>
+              </Comments>
+            </Entry>
+            <Entry>
+              <Index>9284</Index>
+              <Subindex>2</Subindex>
+              <EntryName>Target Board IMU Configuration</EntryName>
+              <SubentryName>IMU Axis Remap</SubentryName>
+              <TypeId>Unsigned16</TypeId>
+              <ValueString>0x24</ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>ReadWrite</AccessType>
+              <HighLimitString>0x01FF</HighLimitString>
+              <LowLimitString>0x0000</LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>false</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>cef578a6-b115-4b62-b646-2c809150708f</GroupId>
+              <Comments>Packed Signed 3-bit XYZ Remap Values: Bits 9-7: Z Remap, Bits 6-3: Y Remap, Bits 2-0: X Remap
+MSB:
+0 = Positive
+1 = Negative
+Remap Codes:
+00 = X-Axis
+01 = Y-Axis
+10 = Z-Axis
+11 = Invalid</Comments>
+            </Entry>
+            <Entry>
+              <Index>9284</Index>
+              <Subindex>3</Subindex>
+              <EntryName>Target Board IMU Configuration</EntryName>
+              <SubentryName>IMU Unit Selection</SubentryName>
+              <TypeId>Unsigned8</TypeId>
+              <ValueString>
+              </ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>ReadWrite</AccessType>
+              <HighLimitString>
+              </HighLimitString>
+              <LowLimitString>
+              </LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>false</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>cef578a6-b115-4b62-b646-2c809150708f</GroupId>
+              <Comments>
+              </Comments>
+            </Entry>
+            <Entry>
+              <Index>9284</Index>
+              <Subindex>4</Subindex>
+              <EntryName>Target Board IMU Configuration</EntryName>
+              <SubentryName>IMU Update Frequency</SubentryName>
+              <TypeId>Unsigned16</TypeId>
+              <ValueString>10</ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>ReadWrite</AccessType>
+              <HighLimitString>0xFFFF</HighLimitString>
+              <LowLimitString>0x0000</LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>false</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>cef578a6-b115-4b62-b646-2c809150708f</GroupId>
+              <Comments>Hz</Comments>
+            </Entry>
+            <Entry>
+              <Index>9285</Index>
+              <Subindex>0</Subindex>
+              <EntryName>Target Board Euler Orientation</EntryName>
+              <SubentryName>Highest Subindex</SubentryName>
+              <TypeId>Unsigned8</TypeId>
+              <ValueString>0x03</ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>Const</AccessType>
+              <HighLimitString>
+              </HighLimitString>
+              <LowLimitString>
+              </LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>false</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>cef578a6-b115-4b62-b646-2c809150708f</GroupId>
+              <Comments>
+              </Comments>
+            </Entry>
+            <Entry>
+              <Index>9285</Index>
+              <Subindex>1</Subindex>
+              <EntryName>Target Board Euler Orientation</EntryName>
+              <SubentryName>Roll Value</SubentryName>
+              <TypeId>Integer16</TypeId>
+              <ValueString>
+              </ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>ReadOnly</AccessType>
+              <HighLimitString>0x7FFF</HighLimitString>
+              <LowLimitString>0x8000</LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>true</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>cef578a6-b115-4b62-b646-2c809150708f</GroupId>
+              <Comments>
+              </Comments>
+            </Entry>
+            <Entry>
+              <Index>9285</Index>
+              <Subindex>2</Subindex>
+              <EntryName>Target Board Euler Orientation</EntryName>
+              <SubentryName>Pitch Value</SubentryName>
+              <TypeId>Integer16</TypeId>
+              <ValueString>
+              </ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>ReadOnly</AccessType>
+              <HighLimitString>0x7FFF</HighLimitString>
+              <LowLimitString>0x8000</LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>true</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>cef578a6-b115-4b62-b646-2c809150708f</GroupId>
+              <Comments>
+              </Comments>
+            </Entry>
+            <Entry>
+              <Index>9285</Index>
+              <Subindex>3</Subindex>
+              <EntryName>Target Board Euler Orientation</EntryName>
               <SubentryName>Yaw Value</SubentryName>
               <TypeId>Integer16</TypeId>
               <ValueString>
@@ -8600,7 +8828,7 @@ Remap Codes:
             <Entry>
               <Index>9286</Index>
               <Subindex>0</Subindex>
-              <EntryName>IMU Temperatures</EntryName>
+              <EntryName>Target Board IMU Temperatures</EntryName>
               <SubentryName>Highest Subindex</SubentryName>
               <TypeId>Unsigned8</TypeId>
               <ValueString>0x02</ValueString>
@@ -8623,7 +8851,7 @@ Remap Codes:
             <Entry>
               <Index>9286</Index>
               <Subindex>1</Subindex>
-              <EntryName>IMU Temperatures</EntryName>
+              <EntryName>Target Board IMU Temperatures</EntryName>
               <SubentryName>IMU Temperature</SubentryName>
               <TypeId>Integer8</TypeId>
               <ValueString>
@@ -8647,7 +8875,7 @@ Remap Codes:
             <Entry>
               <Index>9286</Index>
               <Subindex>2</Subindex>
-              <EntryName>IMU Temperatures</EntryName>
+              <EntryName>Target Board IMU Temperatures</EntryName>
               <SubentryName>IMU Error Temperature</SubentryName>
               <TypeId>Integer8</TypeId>
               <ValueString>0x01</ValueString>
