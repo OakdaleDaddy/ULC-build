@@ -8,8 +8,8 @@ CreatedBy=Ben Artes
 CreationTime=11:08AM
 CreationDate=06-24-2016
 ModifiedBy=Unknown
-ModificationTime=10:56AM
-ModificationDate=03-02-2017
+ModificationTime=10:41AM
+ModificationDate=03-09-2017
 
 [Comments]
 Lines=1
@@ -468,26 +468,27 @@ SupportedObjects=409
 409=0x7FFF
 
 [ManufacturerObjects]
-SupportedObjects=19
-1=0x2301
-2=0x2302
-3=0x2303
-4=0x2304
-5=0x2310
-6=0x2311
-7=0x2400
-8=0x2401
-9=0x2402
-10=0x2403
-11=0x2404
-12=0x2410
-13=0x2411
-14=0x2440
-15=0x2441
-16=0x2443
-17=0x2444
-18=0x2445
-19=0x2446
+SupportedObjects=20
+1=0x2000
+2=0x2301
+3=0x2302
+4=0x2303
+5=0x2304
+6=0x2310
+7=0x2311
+8=0x2400
+9=0x2401
+10=0x2402
+11=0x2403
+12=0x2404
+13=0x2410
+14=0x2411
+15=0x2440
+16=0x2441
+17=0x2443
+18=0x2444
+19=0x2445
+20=0x2446
 
 [1000]
 ParameterName=Device Type
@@ -622,7 +623,7 @@ DataType=0x0009
 LowLimit=
 HighLimit=
 AccessType=const
-DefaultValue=ANA2
+DefaultValue=E4MB
 PDOMapping=0
 ObjFlags=0x00
 
@@ -3322,7 +3323,7 @@ DataType=0x0005
 LowLimit=
 HighLimit=
 AccessType=rw
-DefaultValue=0x02
+DefaultValue=0x03
 PDOMapping=0
 ObjFlags=0x00
 
@@ -3355,7 +3356,7 @@ DataType=0x0007
 LowLimit=
 HighLimit=
 AccessType=rw
-DefaultValue=0
+DefaultValue=0x2000008
 PDOMapping=0
 ObjFlags=0x00
 
@@ -3470,7 +3471,7 @@ DataType=0x0007
 LowLimit=
 HighLimit=
 AccessType=rw
-DefaultValue=0x23050108
+DefaultValue=0x23110108
 PDOMapping=0
 ObjFlags=0x00
 
@@ -3530,7 +3531,7 @@ DataType=0x0005
 LowLimit=
 HighLimit=
 AccessType=rw
-DefaultValue=0x02
+DefaultValue=0x03
 PDOMapping=0
 ObjFlags=0x00
 
@@ -3563,7 +3564,7 @@ DataType=0x0007
 LowLimit=
 HighLimit=
 AccessType=rw
-DefaultValue=0x00000000
+DefaultValue=0x24450110
 PDOMapping=0
 ObjFlags=0x00
 
@@ -3634,7 +3635,7 @@ DataType=0x0005
 LowLimit=
 HighLimit=
 AccessType=rw
-DefaultValue=0x02
+DefaultValue=0x04
 PDOMapping=0
 ObjFlags=0x00
 
@@ -3667,7 +3668,7 @@ DataType=0x0007
 LowLimit=
 HighLimit=
 AccessType=rw
-DefaultValue=0x00000000
+DefaultValue=0x24450210
 PDOMapping=0
 ObjFlags=0x00
 
@@ -3678,7 +3679,7 @@ DataType=0x0007
 LowLimit=
 HighLimit=
 AccessType=rw
-DefaultValue=0x00000000
+DefaultValue=0x24450310
 PDOMapping=0
 ObjFlags=0x00
 
@@ -3895,6 +3896,17 @@ DefaultValue=
 PDOMapping=0
 ObjFlags=0x00
 
+[2000]
+ParameterName=DC Link Voltage Byte
+ObjectType=0x07
+DataType=0x0005
+LowLimit=0x00
+HighLimit=0xFF
+AccessType=ro
+DefaultValue=
+PDOMapping=1
+ObjFlags=0x00
+
 [2301]
 ParameterName=Camera Select
 ObjectType=0x07
@@ -4036,19 +4048,19 @@ ObjectType=0x07
 DataType=0x0002
 LowLimit=0x80
 HighLimit=0x7F
-AccessType=rw
+AccessType=ro
 DefaultValue=0x02
 PDOMapping=1
 ObjFlags=0x00
 
 [2311sub2]
-ParameterName=MCu Error Temperature
+ParameterName=MCU Error Temperature
 ObjectType=0x07
 DataType=0x0002
 LowLimit=0x80
 HighLimit=0x7F
 AccessType=rw
-DefaultValue=0x01
+DefaultValue=70
 PDOMapping=1
 ObjFlags=0x00
 
@@ -4521,7 +4533,7 @@ ObjectType=0x07
 DataType=0x0006
 LowLimit=0x0000
 HighLimit=0xFFFF
-AccessType=rw
+AccessType=rww
 DefaultValue=
 PDOMapping=1
 ObjFlags=0x00
@@ -5326,7 +5338,7 @@ DataType=0x0006
 LowLimit=0x0000
 HighLimit=0xFFFF
 AccessType=rw
-DefaultValue=0x0
+DefaultValue=2000
 PDOMapping=1
 ObjFlags=0x00
 
@@ -5337,7 +5349,7 @@ DataType=0x0006
 LowLimit=0x0
 HighLimit=0xFFFF
 AccessType=rw
-DefaultValue=0x0
+DefaultValue=2000
 PDOMapping=1
 ObjFlags=0x00
 
@@ -5359,7 +5371,7 @@ DataType=0x0007
 LowLimit=0x00
 HighLimit=0xFFFFFFFF
 AccessType=rw
-DefaultValue=0x0
+DefaultValue=1000
 PDOMapping=1
 ObjFlags=0x00
 
@@ -5370,7 +5382,7 @@ DataType=0x0007
 LowLimit=0x00000000
 HighLimit=0xFFFFFFFF
 AccessType=rw
-DefaultValue=0x0
+DefaultValue=1000
 PDOMapping=1
 ObjFlags=0x00
 
@@ -5413,7 +5425,7 @@ ObjectType=0x07
 DataType=0x0004
 LowLimit=0x80000000
 HighLimit=0x7FFFFFFF
-AccessType=rw
+AccessType=rww
 DefaultValue=0
 PDOMapping=1
 ObjFlags=0x00
@@ -6291,7 +6303,7 @@ ObjectType=0x07
 DataType=0x0004
 LowLimit=0x80000000
 HighLimit=0x7FFFFFFF
-AccessType=rw
+AccessType=rww
 DefaultValue=
 PDOMapping=1
 ObjFlags=0x00
@@ -6309,8 +6321,8 @@ ObjFlags=0x00
 
 [6410]
 ParameterName=0 Motor Data
-SubNumber=3
-ObjectType=0x08
+SubNumber=4
+ObjectType=0x09
 
 [6410sub0]
 ParameterName=Highest Subindex
@@ -6319,7 +6331,7 @@ DataType=0x0005
 LowLimit=
 HighLimit=
 AccessType=const
-DefaultValue=0x02
+DefaultValue=0x03
 PDOMapping=0
 ObjFlags=0x00
 
@@ -6341,8 +6353,19 @@ DataType=0x0002
 LowLimit=0x80
 HighLimit=0x7F
 AccessType=rw
-DefaultValue=
+DefaultValue=70
 PDOMapping=1
+ObjFlags=0x00
+
+[6410sub3]
+ParameterName=Motor Peak Current Limit
+ObjectType=0x07
+DataType=0x0007
+LowLimit=0x00000000
+HighLimit=0xFFFFFFFF
+AccessType=rw
+DefaultValue=3000
+PDOMapping=0
 ObjFlags=0x00
 
 [6502]
@@ -7200,7 +7223,7 @@ DataType=0x0006
 LowLimit=0x0000
 HighLimit=0xFFFF
 AccessType=rw
-DefaultValue=0x0
+DefaultValue=1000
 PDOMapping=1
 ObjFlags=0x00
 
@@ -7211,7 +7234,7 @@ DataType=0x0006
 LowLimit=0x0
 HighLimit=0xFFFF
 AccessType=rw
-DefaultValue=
+DefaultValue=1000
 PDOMapping=1
 ObjFlags=0x00
 
@@ -7287,7 +7310,7 @@ ObjectType=0x07
 DataType=0x0004
 LowLimit=0x80000000
 HighLimit=0x7FFFFFFF
-AccessType=rw
+AccessType=rww
 DefaultValue=0
 PDOMapping=1
 ObjFlags=0x00
@@ -8154,7 +8177,7 @@ ObjectType=0x07
 DataType=0x0004
 LowLimit=0x80000000
 HighLimit=0x7FFFFFFF
-AccessType=rw
+AccessType=rww
 DefaultValue=
 PDOMapping=1
 ObjFlags=0x00
@@ -8172,8 +8195,8 @@ ObjFlags=0x00
 
 [6C10]
 ParameterName=1 Motor Data
-SubNumber=3
-ObjectType=0x08
+SubNumber=4
+ObjectType=0x09
 
 [6C10sub0]
 ParameterName=Highest Subindex
@@ -8182,7 +8205,7 @@ DataType=0x0005
 LowLimit=
 HighLimit=
 AccessType=const
-DefaultValue=0x02
+DefaultValue=0x03
 PDOMapping=0
 ObjFlags=0x00
 
@@ -8204,8 +8227,19 @@ DataType=0x0002
 LowLimit=0x80
 HighLimit=0x7F
 AccessType=rw
-DefaultValue=
+DefaultValue=70
 PDOMapping=1
+ObjFlags=0x00
+
+[6C10sub3]
+ParameterName=Motor Peak Current Limit
+ObjectType=0x07
+DataType=0x0007
+LowLimit=0x00000000
+HighLimit=0xFFFFFFFF
+AccessType=rw
+DefaultValue=3000
+PDOMapping=0
 ObjFlags=0x00
 
 [6D02]
@@ -8490,7 +8524,7 @@ DataType=0x0006
 LowLimit=0x0000
 HighLimit=0xFFFF
 AccessType=rw
-DefaultValue=0x0
+DefaultValue=2000
 PDOMapping=1
 ObjFlags=0x00
 
@@ -8501,7 +8535,7 @@ DataType=0x0006
 LowLimit=0x0
 HighLimit=0xFFFF
 AccessType=rw
-DefaultValue=
+DefaultValue=2000
 PDOMapping=1
 ObjFlags=0x00
 
@@ -8523,7 +8557,7 @@ DataType=0x0007
 LowLimit=0x00
 HighLimit=0xFFFFFFFF
 AccessType=rw
-DefaultValue=
+DefaultValue=1000
 PDOMapping=1
 ObjFlags=0x00
 
@@ -8534,7 +8568,7 @@ DataType=0x0007
 LowLimit=0x00000000
 HighLimit=0xFFFFFFFF
 AccessType=rw
-DefaultValue=0x0
+DefaultValue=1000
 PDOMapping=1
 ObjFlags=0x00
 
@@ -9770,7 +9804,7 @@ DataType=0x0006
 LowLimit=0x0000
 HighLimit=0xFFFF
 AccessType=rw
-DefaultValue=0x0
+DefaultValue=1000
 PDOMapping=1
 ObjFlags=0x00
 
@@ -9781,7 +9815,7 @@ DataType=0x0006
 LowLimit=0x0
 HighLimit=0xFFFF
 AccessType=rw
-DefaultValue=
+DefaultValue=1000
 PDOMapping=1
 ObjFlags=0x00
 
@@ -9803,7 +9837,7 @@ DataType=0x0007
 LowLimit=0x00
 HighLimit=0xFFFFFFFF
 AccessType=rw
-DefaultValue=
+DefaultValue=1000
 PDOMapping=1
 ObjFlags=0x00
 

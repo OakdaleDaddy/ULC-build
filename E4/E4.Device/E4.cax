@@ -4,9 +4,9 @@
     <AbsolutePaths>false</AbsolutePaths>
     <Version>2</Version>
   </Project>
-  <ProjectForm>
-    <GUID>be58bbc8-afa5-4847-bfa2-006f042f6ae7</GUID>
-  </ProjectForm>
+  <OutputForm>
+    <GUID>46707f07-8d0c-4ec5-a50a-f4981e6cc102</GUID>
+  </OutputForm>
   <Preferences>
     <ProcessImageOffset>0</ProcessImageOffset>
     <MaxMacroSize>16384</MaxMacroSize>
@@ -41,18 +41,18 @@
     <DocumentTableColumn2Width>75</DocumentTableColumn2Width>
     <DocumentCenterTables>false</DocumentCenterTables>
   </Preferences>
-  <OutputForm>
-    <GUID>46707f07-8d0c-4ec5-a50a-f4981e6cc102</GUID>
-  </OutputForm>
+  <ProjectForm>
+    <GUID>be58bbc8-afa5-4847-bfa2-006f042f6ae7</GUID>
+  </ProjectForm>
   <MainForm>
-    <Width>1216</Width>
-    <Height>1896</Height>
+    <Width>1936</Width>
+    <Height>1176</Height>
     <State>Maximized</State>
     <Layout>&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;Layout&gt;
-  &lt;Window Guid="46707f07-8d0c-4ec5-a50a-f4981e6cc102" LastFocused="131316622773831269" DockedSize="142" PopupSize="0" FloatingLocation="-1, -1" FloatingSize="250, 400" LastOpenDockSituation="Docked" LastFixedDockSituation="Docked" LastFixedDockLocation="Bottom" LastFloatingWindowGuid="00000000-0000-0000-0000-000000000000" LastDockContainerCount="1" LastDockContainerIndex="0" DockedWorkingSize="250, 400" DockedWindowGroupGuid="2fe96a78-66f5-49d8-bd2e-73c6e53e24be" DockedIndexInWindowGroup="0" DockedSplitPath="0" DocumentWorkingSize="250, 400" DocumentWindowGroupGuid="00000000-0000-0000-0000-000000000000" DocumentIndexInWindowGroup="0" DocumentSplitPath="0" FloatingWorkingSize="250, 400" FloatingWindowGroupGuid="00000000-0000-0000-0000-000000000000" FloatingIndexInWindowGroup="0" FloatingSplitPath="0" /&gt;
+  &lt;Window Guid="46707f07-8d0c-4ec5-a50a-f4981e6cc102" LastFocused="131333785921257060" DockedSize="142" PopupSize="0" FloatingLocation="-1, -1" FloatingSize="250, 400" LastOpenDockSituation="Docked" LastFixedDockSituation="Docked" LastFixedDockLocation="Bottom" LastFloatingWindowGuid="00000000-0000-0000-0000-000000000000" LastDockContainerCount="1" LastDockContainerIndex="0" DockedWorkingSize="250, 400" DockedWindowGroupGuid="2fe96a78-66f5-49d8-bd2e-73c6e53e24be" DockedIndexInWindowGroup="0" DockedSplitPath="0" DocumentWorkingSize="250, 400" DocumentWindowGroupGuid="00000000-0000-0000-0000-000000000000" DocumentIndexInWindowGroup="0" DocumentSplitPath="0" FloatingWorkingSize="250, 400" FloatingWindowGroupGuid="00000000-0000-0000-0000-000000000000" FloatingIndexInWindowGroup="0" FloatingSplitPath="0" /&gt;
   &lt;Window Guid="be58bbc8-afa5-4847-bfa2-006f042f6ae7" LastFocused="131285527852434000" DockedSize="180" PopupSize="0" FloatingLocation="-1, -1" FloatingSize="250, 400" LastOpenDockSituation="Docked" LastFixedDockSituation="Docked" LastFixedDockLocation="Left" LastFloatingWindowGuid="00000000-0000-0000-0000-000000000000" LastDockContainerCount="1" LastDockContainerIndex="0" DockedWorkingSize="250, 400" DockedWindowGroupGuid="ca25dd0e-afae-4aac-ab5d-be1f6ace7432" DockedIndexInWindowGroup="0" DockedSplitPath="0" DocumentWorkingSize="250, 400" DocumentWindowGroupGuid="00000000-0000-0000-0000-000000000000" DocumentIndexInWindowGroup="0" DocumentSplitPath="0" FloatingWorkingSize="250, 400" FloatingWindowGroupGuid="00000000-0000-0000-0000-000000000000" FloatingIndexInWindowGroup="0" FloatingSplitPath="0" /&gt;
-  &lt;Window Guid="5ab19427-e4c6-47d8-a185-7f5a07e291e0" LastFocused="131329437700741269" DockedSize="200" PopupSize="0" FloatingLocation="-1, -1" FloatingSize="550, 400" LastOpenDockSituation="Document" LastFixedDockSituation="Document" LastFixedDockLocation="Right" LastFloatingWindowGuid="00000000-0000-0000-0000-000000000000" LastDockContainerCount="0" LastDockContainerIndex="0" DockedWorkingSize="250, 400" DockedWindowGroupGuid="00000000-0000-0000-0000-000000000000" DockedIndexInWindowGroup="0" DockedSplitPath="0" DocumentWorkingSize="250, 400" DocumentWindowGroupGuid="5262380c-a784-47e4-a19f-12e5eba7bae0" DocumentIndexInWindowGroup="0" DocumentSplitPath="0" FloatingWorkingSize="250, 400" FloatingWindowGroupGuid="00000000-0000-0000-0000-000000000000" FloatingIndexInWindowGroup="0" FloatingSplitPath="0" /&gt;
+  &lt;Window Guid="5ab19427-e4c6-47d8-a185-7f5a07e291e0" LastFocused="131335472304720000" DockedSize="200" PopupSize="0" FloatingLocation="-1, -1" FloatingSize="550, 400" LastOpenDockSituation="Document" LastFixedDockSituation="Document" LastFixedDockLocation="Right" LastFloatingWindowGuid="00000000-0000-0000-0000-000000000000" LastDockContainerCount="0" LastDockContainerIndex="0" DockedWorkingSize="250, 400" DockedWindowGroupGuid="00000000-0000-0000-0000-000000000000" DockedIndexInWindowGroup="0" DockedSplitPath="0" DocumentWorkingSize="250, 400" DocumentWindowGroupGuid="5262380c-a784-47e4-a19f-12e5eba7bae0" DocumentIndexInWindowGroup="0" DocumentSplitPath="0" FloatingWorkingSize="250, 400" FloatingWindowGroupGuid="00000000-0000-0000-0000-000000000000" FloatingIndexInWindowGroup="0" FloatingSplitPath="0" /&gt;
   &lt;Container Dock="2" ContentSize="142"&gt;
     &lt;SplitLayoutSystem WorkingSize="250, 400" SplitMode="1"&gt;
       &lt;ControlLayoutSystem WorkingSize="250, 400" Guid="2fe96a78-66f5-49d8-bd2e-73c6e53e24be" Collapsed="0" SelectedControl="46707f07-8d0c-4ec5-a50a-f4981e6cc102"&gt;
@@ -387,7 +387,7 @@
               <SubentryName>
               </SubentryName>
               <TypeId>VisibleString</TypeId>
-              <ValueString>ANA2</ValueString>
+              <ValueString>E4MB</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>4</MaxSize>
               <AccessType>Const</AccessType>
@@ -6404,7 +6404,7 @@
               <EntryName>Transmit PDO Mapping 4</EntryName>
               <SubentryName>Number of Entries</SubentryName>
               <TypeId>Unsigned8</TypeId>
-              <ValueString>0x02</ValueString>
+              <ValueString>0x03</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
               <AccessType>ReadWrite</AccessType>
@@ -6482,7 +6482,7 @@
               <EntryName>Transmit PDO Mapping 4</EntryName>
               <SubentryName>Mapping 3</SubentryName>
               <TypeId>Unsigned32</TypeId>
-              <ValueString>0</ValueString>
+              <ValueString>0x2000008</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
               <AccessType>ReadWrite</AccessType>
@@ -6742,7 +6742,7 @@
               <EntryName>Transmit PDO Mapping 5</EntryName>
               <SubentryName>Mapping 4</SubentryName>
               <TypeId>Unsigned32</TypeId>
-              <ValueString>0x23050108</ValueString>
+              <ValueString>0x23110108</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
               <AccessType>ReadWrite</AccessType>
@@ -6872,7 +6872,7 @@
               <EntryName>Transmit PDO Mapping 6</EntryName>
               <SubentryName>Number of Entries</SubentryName>
               <TypeId>Unsigned8</TypeId>
-              <ValueString>0x02</ValueString>
+              <ValueString>0x03</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
               <AccessType>ReadWrite</AccessType>
@@ -6950,7 +6950,7 @@
               <EntryName>Transmit PDO Mapping 6</EntryName>
               <SubentryName>Mapping 3</SubentryName>
               <TypeId>Unsigned32</TypeId>
-              <ValueString>0x00000000</ValueString>
+              <ValueString>0x24450110</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
               <AccessType>ReadWrite</AccessType>
@@ -7106,7 +7106,7 @@
               <EntryName>Transmit PDO Mapping 7</EntryName>
               <SubentryName>Number of Entries</SubentryName>
               <TypeId>Unsigned8</TypeId>
-              <ValueString>0x02</ValueString>
+              <ValueString>0x04</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
               <AccessType>ReadWrite</AccessType>
@@ -7184,7 +7184,7 @@
               <EntryName>Transmit PDO Mapping 7</EntryName>
               <SubentryName>Mapping 3</SubentryName>
               <TypeId>Unsigned32</TypeId>
-              <ValueString>0x00000000</ValueString>
+              <ValueString>0x24450210</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
               <AccessType>ReadWrite</AccessType>
@@ -7210,7 +7210,7 @@
               <EntryName>Transmit PDO Mapping 7</EntryName>
               <SubentryName>Mapping 4</SubentryName>
               <TypeId>Unsigned32</TypeId>
-              <ValueString>0x00000000</ValueString>
+              <ValueString>0x24450310</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
               <AccessType>ReadWrite</AccessType>
@@ -7703,6 +7703,31 @@
               </Comments>
             </Entry>
             <Entry>
+              <Index>8192</Index>
+              <Subindex>0</Subindex>
+              <EntryName>DC Link Voltage Byte</EntryName>
+              <SubentryName>
+              </SubentryName>
+              <TypeId>Unsigned8</TypeId>
+              <ValueString>
+              </ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>ReadOnly</AccessType>
+              <HighLimitString>0xFF</HighLimitString>
+              <LowLimitString>0x00</LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>true</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>37df27b6-17b0-4652-9b4b-1b5500a4de3f</GroupId>
+              <Comments>DC Link Voltage in 0.5 Volt Units.  Updated with 0x6079 etc</Comments>
+            </Entry>
+            <Entry>
               <Index>8961</Index>
               <Subindex>0</Subindex>
               <EntryName>Camera Select</EntryName>
@@ -7958,7 +7983,7 @@
               <ValueString>0x02</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
-              <AccessType>ReadWrite</AccessType>
+              <AccessType>ReadOnly</AccessType>
               <HighLimitString>0x7F</HighLimitString>
               <LowLimitString>0x80</LowLimitString>
               <ObjectType>Var</ObjectType>
@@ -7977,9 +8002,9 @@
               <Index>8977</Index>
               <Subindex>2</Subindex>
               <EntryName>MCU Temperature</EntryName>
-              <SubentryName>MCu Error Temperature</SubentryName>
+              <SubentryName>MCU Error Temperature</SubentryName>
               <TypeId>Integer8</TypeId>
-              <ValueString>0x01</ValueString>
+              <ValueString>70</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
               <AccessType>ReadWrite</AccessType>
@@ -8957,7 +8982,7 @@ Remap Codes:
               </ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
-              <AccessType>ReadWrite</AccessType>
+              <AccessType>ReadWriteWrite</AccessType>
               <HighLimitString>0xFFFF</HighLimitString>
               <LowLimitString>0x0000</LowLimitString>
               <ObjectType>Var</ObjectType>
@@ -10680,7 +10705,7 @@ Remap Codes:
               <SubentryName>
               </SubentryName>
               <TypeId>Unsigned16</TypeId>
-              <ValueString>0x0</ValueString>
+              <ValueString>2000</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
               <AccessType>ReadWrite</AccessType>
@@ -10704,7 +10729,7 @@ Remap Codes:
               <SubentryName>
               </SubentryName>
               <TypeId>Unsigned16</TypeId>
-              <ValueString>0x0</ValueString>
+              <ValueString>2000</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
               <AccessType>ReadWrite</AccessType>
@@ -10753,7 +10778,7 @@ Remap Codes:
               <SubentryName>
               </SubentryName>
               <TypeId>Unsigned32</TypeId>
-              <ValueString>0x0</ValueString>
+              <ValueString>1000</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
               <AccessType>ReadWrite</AccessType>
@@ -10777,7 +10802,7 @@ Remap Codes:
               <SubentryName>
               </SubentryName>
               <TypeId>Unsigned32</TypeId>
-              <ValueString>0x0</ValueString>
+              <ValueString>1000</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
               <AccessType>ReadWrite</AccessType>
@@ -10877,7 +10902,7 @@ Remap Codes:
               <ValueString>0</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
-              <AccessType>ReadWrite</AccessType>
+              <AccessType>ReadWriteWrite</AccessType>
               <HighLimitString>0x7FFFFFFF</HighLimitString>
               <LowLimitString>0x80000000</LowLimitString>
               <ObjectType>Var</ObjectType>
@@ -12694,7 +12719,7 @@ Remap Codes:
               </ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
-              <AccessType>ReadWrite</AccessType>
+              <AccessType>ReadWriteWrite</AccessType>
               <HighLimitString>0x7FFFFFFF</HighLimitString>
               <LowLimitString>0x80000000</LowLimitString>
               <ObjectType>Var</ObjectType>
@@ -12740,7 +12765,7 @@ Remap Codes:
               <EntryName>0 Motor Data</EntryName>
               <SubentryName>Highest Subindex</SubentryName>
               <TypeId>Unsigned8</TypeId>
-              <ValueString>0x02</ValueString>
+              <ValueString>0x03</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
               <AccessType>Const</AccessType>
@@ -12790,8 +12815,7 @@ Remap Codes:
               <EntryName>0 Motor Data</EntryName>
               <SubentryName>Motor Error Temperature</SubentryName>
               <TypeId>Integer8</TypeId>
-              <ValueString>
-              </ValueString>
+              <ValueString>70</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
               <AccessType>ReadWrite</AccessType>
@@ -12807,6 +12831,29 @@ Remap Codes:
               <TypeODIndex>0</TypeODIndex>
               <GroupId>76d40953-0a57-4359-b3e1-bcd2fffbfad8</GroupId>
               <Comments>Degrees Celsius</Comments>
+            </Entry>
+            <Entry>
+              <Index>25616</Index>
+              <Subindex>3</Subindex>
+              <EntryName>0 Motor Data</EntryName>
+              <SubentryName>Motor Peak Current Limit</SubentryName>
+              <TypeId>Unsigned32</TypeId>
+              <ValueString>3000</ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>ReadWrite</AccessType>
+              <HighLimitString>0xFFFFFFFF</HighLimitString>
+              <LowLimitString>0x00000000</LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>false</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>76d40953-0a57-4359-b3e1-bcd2fffbfad8</GroupId>
+              <Comments>Hardware Imposed Peak Current Limit in mA</Comments>
             </Entry>
             <Entry>
               <Index>25858</Index>
@@ -14664,7 +14711,7 @@ Remap Codes:
               <SubentryName>
               </SubentryName>
               <TypeId>Unsigned16</TypeId>
-              <ValueString>0x0</ValueString>
+              <ValueString>1000</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
               <AccessType>ReadWrite</AccessType>
@@ -14688,8 +14735,7 @@ Remap Codes:
               <SubentryName>
               </SubentryName>
               <TypeId>Unsigned16</TypeId>
-              <ValueString>
-              </ValueString>
+              <ValueString>1000</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
               <AccessType>ReadWrite</AccessType>
@@ -14866,7 +14912,7 @@ Remap Codes:
               <ValueString>0</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
-              <AccessType>ReadWrite</AccessType>
+              <AccessType>ReadWriteWrite</AccessType>
               <HighLimitString>0x7FFFFFFF</HighLimitString>
               <LowLimitString>0x80000000</LowLimitString>
               <ObjectType>Var</ObjectType>
@@ -16676,7 +16722,7 @@ Remap Codes:
               </ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
-              <AccessType>ReadWrite</AccessType>
+              <AccessType>ReadWriteWrite</AccessType>
               <HighLimitString>0x7FFFFFFF</HighLimitString>
               <LowLimitString>0x80000000</LowLimitString>
               <ObjectType>Var</ObjectType>
@@ -16725,7 +16771,7 @@ Remap Codes:
               <EntryName>1 Motor Data</EntryName>
               <SubentryName>Highest Subindex</SubentryName>
               <TypeId>Unsigned8</TypeId>
-              <ValueString>0x02</ValueString>
+              <ValueString>0x03</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
               <AccessType>Const</AccessType>
@@ -16775,8 +16821,7 @@ Remap Codes:
               <EntryName>1 Motor Data</EntryName>
               <SubentryName>Motor Error Temperature</SubentryName>
               <TypeId>Integer8</TypeId>
-              <ValueString>
-              </ValueString>
+              <ValueString>70</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
               <AccessType>ReadWrite</AccessType>
@@ -16792,6 +16837,29 @@ Remap Codes:
               <TypeODIndex>0</TypeODIndex>
               <GroupId>af41a9e0-fbae-41af-8192-4b37606a603c</GroupId>
               <Comments>Degrees Celsius</Comments>
+            </Entry>
+            <Entry>
+              <Index>27664</Index>
+              <Subindex>3</Subindex>
+              <EntryName>1 Motor Data</EntryName>
+              <SubentryName>Motor Peak Current Limit</SubentryName>
+              <TypeId>Unsigned32</TypeId>
+              <ValueString>3000</ValueString>
+              <NoTableEntryGeneration>false</NoTableEntryGeneration>
+              <MaxSize>0</MaxSize>
+              <AccessType>ReadWrite</AccessType>
+              <HighLimitString>0xFFFFFFFF</HighLimitString>
+              <LowLimitString>0x00000000</LowLimitString>
+              <ObjectType>Var</ObjectType>
+              <PDOMapping>false</PDOMapping>
+              <RefuseReadonScan>false</RefuseReadonScan>
+              <RefuseWriteonDownload>false</RefuseWriteonDownload>
+              <Denotation>
+              </Denotation>
+              <Hidden>false</Hidden>
+              <TypeODIndex>0</TypeODIndex>
+              <GroupId>af41a9e0-fbae-41af-8192-4b37606a603c</GroupId>
+              <Comments>Hardware Imposed Peak Current Limit in mA</Comments>
             </Entry>
             <Entry>
               <Index>27906</Index>
@@ -17456,7 +17524,7 @@ Remap Codes:
               <SubentryName>
               </SubentryName>
               <TypeId>Unsigned16</TypeId>
-              <ValueString>0x0</ValueString>
+              <ValueString>2000</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
               <AccessType>ReadWrite</AccessType>
@@ -17480,8 +17548,7 @@ Remap Codes:
               <SubentryName>
               </SubentryName>
               <TypeId>Unsigned16</TypeId>
-              <ValueString>
-              </ValueString>
+              <ValueString>2000</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
               <AccessType>ReadWrite</AccessType>
@@ -17531,8 +17598,7 @@ Remap Codes:
               <SubentryName>
               </SubentryName>
               <TypeId>Unsigned32</TypeId>
-              <ValueString>
-              </ValueString>
+              <ValueString>1000</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
               <AccessType>ReadWrite</AccessType>
@@ -17557,7 +17623,7 @@ Remap Codes:
               <SubentryName>
               </SubentryName>
               <TypeId>Unsigned32</TypeId>
-              <ValueString>0x0</ValueString>
+              <ValueString>1000</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
               <AccessType>ReadWrite</AccessType>
@@ -20235,7 +20301,7 @@ Remap Codes:
               <SubentryName>
               </SubentryName>
               <TypeId>Unsigned16</TypeId>
-              <ValueString>0x0</ValueString>
+              <ValueString>1000</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
               <AccessType>ReadWrite</AccessType>
@@ -20259,8 +20325,7 @@ Remap Codes:
               <SubentryName>
               </SubentryName>
               <TypeId>Unsigned16</TypeId>
-              <ValueString>
-              </ValueString>
+              <ValueString>1000</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
               <AccessType>ReadWrite</AccessType>
@@ -20310,8 +20375,7 @@ Remap Codes:
               <SubentryName>
               </SubentryName>
               <TypeId>Unsigned32</TypeId>
-              <ValueString>
-              </ValueString>
+              <ValueString>1000</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
               <AccessType>ReadWrite</AccessType>
@@ -22248,7 +22312,7 @@ Remap Codes:
           <NumberofRPDOs>8</NumberofRPDOs>
           <NumberofTPDOs>8</NumberofTPDOs>
           <CompactPDO>0</CompactPDO>
-          <NodeId>57</NodeId>
+          <NodeId>50</NodeId>
           <NodeName>Main Board</NodeName>
           <Baudrate>50</Baudrate>
           <NetNumber>1</NetNumber>
