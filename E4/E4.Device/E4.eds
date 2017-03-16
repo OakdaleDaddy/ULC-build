@@ -8,8 +8,8 @@ CreatedBy=Ben Artes
 CreationTime=11:08AM
 CreationDate=06-24-2016
 ModifiedBy=Unknown
-ModificationTime=10:41AM
-ModificationDate=03-09-2017
+ModificationTime=04:44PM
+ModificationDate=03-15-2017
 
 [Comments]
 Lines=1
@@ -468,7 +468,7 @@ SupportedObjects=409
 409=0x7FFF
 
 [ManufacturerObjects]
-SupportedObjects=20
+SupportedObjects=21
 1=0x2000
 2=0x2301
 3=0x2302
@@ -481,14 +481,15 @@ SupportedObjects=20
 10=0x2402
 11=0x2403
 12=0x2404
-13=0x2410
-14=0x2411
-15=0x2440
-16=0x2441
-17=0x2443
-18=0x2444
-19=0x2445
-20=0x2446
+13=0x2405
+14=0x2410
+15=0x2411
+16=0x2440
+17=0x2441
+18=0x2443
+19=0x2444
+20=0x2445
+21=0x2446
 
 [1000]
 ParameterName=Device Type
@@ -1610,8 +1611,8 @@ ObjectType=0x07
 DataType=0x0005
 LowLimit=
 HighLimit=
-AccessType=rw
-DefaultValue=0x04
+AccessType=const
+DefaultValue=0x08
 PDOMapping=0
 ObjFlags=0x00
 
@@ -1714,8 +1715,8 @@ ObjectType=0x07
 DataType=0x0005
 LowLimit=
 HighLimit=
-AccessType=rw
-DefaultValue=0x02
+AccessType=const
+DefaultValue=0x08
 PDOMapping=0
 ObjFlags=0x00
 
@@ -1818,8 +1819,8 @@ ObjectType=0x07
 DataType=0x0005
 LowLimit=
 HighLimit=
-AccessType=rw
-DefaultValue=0x02
+AccessType=const
+DefaultValue=0x08
 PDOMapping=0
 ObjFlags=0x00
 
@@ -1922,8 +1923,8 @@ ObjectType=0x07
 DataType=0x0005
 LowLimit=
 HighLimit=
-AccessType=rw
-DefaultValue=0x00
+AccessType=const
+DefaultValue=0x08
 PDOMapping=0
 ObjFlags=0x00
 
@@ -2026,8 +2027,8 @@ ObjectType=0x07
 DataType=0x0005
 LowLimit=
 HighLimit=
-AccessType=rw
-DefaultValue=0x00
+AccessType=const
+DefaultValue=0x08
 PDOMapping=0
 ObjFlags=0x00
 
@@ -2130,8 +2131,8 @@ ObjectType=0x07
 DataType=0x0005
 LowLimit=
 HighLimit=
-AccessType=rw
-DefaultValue=0x00
+AccessType=const
+DefaultValue=0x08
 PDOMapping=0
 ObjFlags=0x00
 
@@ -2234,8 +2235,8 @@ ObjectType=0x07
 DataType=0x0005
 LowLimit=
 HighLimit=
-AccessType=rw
-DefaultValue=0x00
+AccessType=const
+DefaultValue=0x08
 PDOMapping=0
 ObjFlags=0x00
 
@@ -2338,8 +2339,8 @@ ObjectType=0x07
 DataType=0x0005
 LowLimit=
 HighLimit=
-AccessType=rw
-DefaultValue=0x00
+AccessType=const
+DefaultValue=0x08
 PDOMapping=0
 ObjFlags=0x00
 
@@ -3011,7 +3012,7 @@ DataType=0x0005
 LowLimit=
 HighLimit=
 AccessType=rw
-DefaultValue=0x04
+DefaultValue=0x08
 PDOMapping=0
 ObjFlags=0x00
 
@@ -3115,7 +3116,7 @@ DataType=0x0005
 LowLimit=
 HighLimit=
 AccessType=rw
-DefaultValue=0x02
+DefaultValue=0x08
 PDOMapping=0
 ObjFlags=0x00
 
@@ -3219,7 +3220,7 @@ DataType=0x0005
 LowLimit=
 HighLimit=
 AccessType=rw
-DefaultValue=0x02
+DefaultValue=0x08
 PDOMapping=0
 ObjFlags=0x00
 
@@ -3323,7 +3324,7 @@ DataType=0x0005
 LowLimit=
 HighLimit=
 AccessType=rw
-DefaultValue=0x03
+DefaultValue=0x08
 PDOMapping=0
 ObjFlags=0x00
 
@@ -3427,7 +3428,7 @@ DataType=0x0005
 LowLimit=
 HighLimit=
 AccessType=rw
-DefaultValue=0x04
+DefaultValue=0x08
 PDOMapping=0
 ObjFlags=0x00
 
@@ -3531,7 +3532,7 @@ DataType=0x0005
 LowLimit=
 HighLimit=
 AccessType=rw
-DefaultValue=0x03
+DefaultValue=0x04
 PDOMapping=0
 ObjFlags=0x00
 
@@ -3542,7 +3543,7 @@ DataType=0x0007
 LowLimit=
 HighLimit=
 AccessType=rw
-DefaultValue=0x24020020
+DefaultValue=0x24050008
 PDOMapping=0
 ObjFlags=0x00
 
@@ -3553,7 +3554,7 @@ DataType=0x0007
 LowLimit=
 HighLimit=
 AccessType=rw
-DefaultValue=0x24100108
+DefaultValue=0x24020008
 PDOMapping=0
 ObjFlags=0x00
 
@@ -3564,7 +3565,7 @@ DataType=0x0007
 LowLimit=
 HighLimit=
 AccessType=rw
-DefaultValue=0x24450110
+DefaultValue=0x24100108
 PDOMapping=0
 ObjFlags=0x00
 
@@ -3575,7 +3576,7 @@ DataType=0x0007
 LowLimit=
 HighLimit=
 AccessType=rw
-DefaultValue=0x00000000
+DefaultValue=0x24450110
 PDOMapping=0
 ObjFlags=0x00
 
@@ -4088,12 +4089,39 @@ ObjFlags=0x00
 
 [2402]
 ParameterName=Laser Measured Distance (mm)
+SubNumber=3
+ObjectType=0x08
+
+[2402sub0]
+ParameterName=Highest Subindex
+ObjectType=0x07
+DataType=0x0005
+LowLimit=0x02
+HighLimit=130
+AccessType=const
+DefaultValue=0x02
+PDOMapping=1
+ObjFlags=0x00
+
+[2402sub1]
+ParameterName=Avg Laser Measured Distance (mm)
 ObjectType=0x07
 DataType=0x0007
 LowLimit=0x00000000
 HighLimit=0xFFFFFFFF
 AccessType=ro
-DefaultValue=0
+DefaultValue=0x00000000
+PDOMapping=1
+ObjFlags=0x00
+
+[2402sub2]
+ParameterName=Laser Measured Distance (mm) 1
+ObjectType=0x07
+DataType=0x0007
+LowLimit=0x00000000
+HighLimit=0xFFFFFFFF
+AccessType=ro
+DefaultValue=0x00000000
 PDOMapping=1
 ObjFlags=0x00
 
@@ -4143,6 +4171,17 @@ LowLimit=0x00
 HighLimit=0xFF
 AccessType=rw
 DefaultValue=
+PDOMapping=1
+ObjFlags=0x00
+
+[2405]
+ParameterName=Laser Status Byte
+ObjectType=0x07
+DataType=0x0005
+LowLimit=0x00
+HighLimit=0xFF
+AccessType=rw
+DefaultValue=0x00
 PDOMapping=1
 ObjFlags=0x00
 
@@ -5140,7 +5179,7 @@ DataType=0x0002
 LowLimit=0x80
 HighLimit=0x7F
 AccessType=rw
-DefaultValue=
+DefaultValue=-1
 PDOMapping=1
 ObjFlags=0x00
 
@@ -5151,7 +5190,7 @@ DataType=0x0002
 LowLimit=0x80
 HighLimit=0x7F
 AccessType=ro
-DefaultValue=
+DefaultValue=-1
 PDOMapping=1
 ObjFlags=0x00
 
@@ -7025,7 +7064,7 @@ DataType=0x0002
 LowLimit=0x80
 HighLimit=0x7F
 AccessType=rww
-DefaultValue=
+DefaultValue=-1
 PDOMapping=1
 ObjFlags=0x00
 
@@ -7036,7 +7075,7 @@ DataType=0x0002
 LowLimit=0x80
 HighLimit=0x7F
 AccessType=rwr
-DefaultValue=
+DefaultValue=-1
 PDOMapping=1
 ObjFlags=0x00
 
@@ -8370,7 +8409,7 @@ DataType=0x0002
 LowLimit=0x80
 HighLimit=0x7F
 AccessType=rw
-DefaultValue=
+DefaultValue=-1
 PDOMapping=1
 ObjFlags=0x00
 
@@ -8381,7 +8420,7 @@ DataType=0x0002
 LowLimit=0x80
 HighLimit=0x7F
 AccessType=ro
-DefaultValue=
+DefaultValue=-1
 PDOMapping=1
 ObjFlags=0x00
 
@@ -8524,7 +8563,7 @@ DataType=0x0006
 LowLimit=0x0000
 HighLimit=0xFFFF
 AccessType=rw
-DefaultValue=2000
+DefaultValue=4000
 PDOMapping=1
 ObjFlags=0x00
 
@@ -8535,7 +8574,7 @@ DataType=0x0006
 LowLimit=0x0
 HighLimit=0xFFFF
 AccessType=rw
-DefaultValue=2000
+DefaultValue=4000
 PDOMapping=1
 ObjFlags=0x00
 
@@ -9650,7 +9689,7 @@ DataType=0x0002
 LowLimit=0x80
 HighLimit=0x7F
 AccessType=rw
-DefaultValue=
+DefaultValue=-1
 PDOMapping=1
 ObjFlags=0x00
 
@@ -9661,7 +9700,7 @@ DataType=0x0002
 LowLimit=0x80
 HighLimit=0x7F
 AccessType=ro
-DefaultValue=
+DefaultValue=-1
 PDOMapping=1
 ObjFlags=0x00
 
