@@ -8,8 +8,8 @@ CreatedBy=Ben Artes
 CreationTime=11:08AM
 CreationDate=06-24-2016
 ModifiedBy=Unknown
-ModificationTime=04:08PM
-ModificationDate=02-14-2017
+ModificationTime=06:23PM
+ModificationDate=02-23-2017
 
 [Comments]
 Lines=1
@@ -468,23 +468,25 @@ SupportedObjects=409
 409=0x7FFF
 
 [ManufacturerObjects]
-SupportedObjects=16
+SupportedObjects=18
 1=0x2301
 2=0x2302
 3=0x2303
 4=0x2304
 5=0x2305
-6=0x2400
-7=0x2401
-8=0x2402
-9=0x2403
-10=0x2404
-11=0x2405
-12=0x2410
-13=0x2411
-14=0x2440
-15=0x2441
-16=0x2446
+6=0x2310
+7=0x2311
+8=0x2400
+9=0x2401
+10=0x2402
+11=0x2403
+12=0x2404
+13=0x2405
+14=0x2410
+15=0x2411
+16=0x2440
+17=0x2441
+18=0x2446
 
 [1000]
 ParameterName=Device Type
@@ -3905,18 +3907,34 @@ ObjFlags=0x00
 
 [2302]
 ParameterName=Camera Default Intensity
+SubNumber=2
+ObjectType=0x08
+
+[2302sub0]
+ParameterName=Highest Subindex
 ObjectType=0x07
-DataType=0x0007
+DataType=0x0005
 LowLimit=0X00000000
 HighLimit=0Xffffffff
-AccessType=rw
+AccessType=const
 DefaultValue=0x01
+PDOMapping=1
+ObjFlags=0x00
+
+[2302sub1]
+ParameterName=Default Intensity
+ObjectType=0x07
+DataType=0x0007
+LowLimit=0x00000000
+HighLimit=0xffffffff
+AccessType=rw
+DefaultValue=858993459
 PDOMapping=1
 ObjFlags=0x00
 
 [2303]
 ParameterName=Camera LED Intensity
-SubNumber=5
+SubNumber=2
 ObjectType=0x08
 
 [2303sub0]
@@ -3926,7 +3944,7 @@ DataType=0x0005
 LowLimit=0
 HighLimit=
 AccessType=const
-DefaultValue=0x04
+DefaultValue=0x01
 PDOMapping=0
 ObjFlags=0x00
 
@@ -3941,40 +3959,77 @@ DefaultValue=3355443
 PDOMapping=0
 ObjFlags=0x00
 
-[2303sub2]
-ParameterName=Intensity 1
-ObjectType=0x07
-DataType=0x0007
-LowLimit=0x00000000
-HighLimit=0xFFFFFFFF
-AccessType=rw
-DefaultValue=3355443
-PDOMapping=0
-ObjFlags=0x00
-
-[2303sub3]
-ParameterName=Intensity 2
-ObjectType=0x07
-DataType=0x0007
-LowLimit=0x00000000
-HighLimit=0xFFFFFFFF
-AccessType=rw
-DefaultValue=3355443
-PDOMapping=0
-ObjFlags=0x00
-
-[2303sub4]
-ParameterName=Intensity 3
-ObjectType=0x07
-DataType=0x0007
-LowLimit=0x00000000
-HighLimit=0xFFFFFFFF
-AccessType=rw
-DefaultValue=3355443
-PDOMapping=0
-ObjFlags=0x00
-
 [2304]
+ParameterName=Camera LED Channel Mask
+SubNumber=2
+ObjectType=0x08
+
+[2304sub0]
+ParameterName=Highest Subindex
+ObjectType=0x07
+DataType=0x0005
+LowLimit=
+HighLimit=
+AccessType=const
+DefaultValue=0x01
+PDOMapping=0
+ObjFlags=0x00
+
+[2304sub1]
+ParameterName=Camera LED Channel Mask
+ObjectType=0x07
+DataType=0x0005
+LowLimit=0x00
+HighLimit=0xFF
+AccessType=rw
+DefaultValue=0x00
+PDOMapping=1
+ObjFlags=0x00
+
+[2305]
+ParameterName=Camera LED Fault Registers
+SubNumber=2
+ObjectType=0x08
+
+[2305sub0]
+ParameterName=Highest Subindex
+ObjectType=0x07
+DataType=0x0005
+LowLimit=
+HighLimit=
+AccessType=const
+DefaultValue=0x01
+PDOMapping=0
+ObjFlags=0x00
+
+[2305sub1]
+ParameterName=Camera LED Fault Register
+ObjectType=0x07
+DataType=0x0005
+LowLimit=0x80
+HighLimit=0x7F
+AccessType=rw
+DefaultValue=
+PDOMapping=1
+ObjFlags=0x00
+
+[2310]
+ParameterName=Outputs
+SubNumber=2
+ObjectType=0x08
+
+[2310sub0]
+ParameterName=Highest Subindex
+ObjectType=0x07
+DataType=0x0005
+LowLimit=
+HighLimit=
+AccessType=const
+DefaultValue=0x01
+PDOMapping=0
+ObjFlags=0x00
+
+[2310sub1]
 ParameterName=Outputs
 ObjectType=0x07
 DataType=0x0005
@@ -3985,12 +4040,12 @@ DefaultValue=0x00
 PDOMapping=1
 ObjFlags=0x00
 
-[2305]
+[2311]
 ParameterName=MCU Temperature
 SubNumber=3
 ObjectType=0x08
 
-[2305sub0]
+[2311sub0]
 ParameterName=Highest Subindex
 ObjectType=0x07
 DataType=0x0005
@@ -3998,28 +4053,28 @@ LowLimit=
 HighLimit=
 AccessType=const
 DefaultValue=0x02
-PDOMapping=0
+PDOMapping=1
 ObjFlags=0x00
 
-[2305sub1]
+[2311sub1]
 ParameterName=MCU Temperature
 ObjectType=0x07
 DataType=0x0002
 LowLimit=0x80
 HighLimit=0x7F
-AccessType=ro
-DefaultValue=
+AccessType=rw
+DefaultValue=0x02
 PDOMapping=1
 ObjFlags=0x00
 
-[2305sub2]
-ParameterName=MCU Error Temperature
+[2311sub2]
+ParameterName=MCu Error Temperature
 ObjectType=0x07
 DataType=0x0002
 LowLimit=0x80
 HighLimit=0x7F
 AccessType=rw
-DefaultValue=
+DefaultValue=0x01
 PDOMapping=1
 ObjFlags=0x00
 
@@ -5971,8 +6026,8 @@ ObjFlags=0x00
 ParameterName=Proportional Gain Coefficient(KP)
 ObjectType=0x07
 DataType=0x0004
-LowLimit=
-HighLimit=
+LowLimit=0x80000000
+HighLimit=0x7FFFFFFF
 AccessType=rw
 DefaultValue=
 PDOMapping=1
@@ -5982,8 +6037,8 @@ ObjFlags=0x00
 ParameterName=Integral Gain Coefficient(KI)
 ObjectType=0x07
 DataType=0x0004
-LowLimit=
-HighLimit=
+LowLimit=0x80000000
+HighLimit=0x7FFFFFFF
 AccessType=rw
 DefaultValue=
 PDOMapping=1
@@ -6013,7 +6068,7 @@ ObjFlags=0x00
 
 [60FB]
 ParameterName=0 Position Control Parameter Set
-SubNumber=2
+SubNumber=4
 ObjectType=0x08
 
 [60FBsub0]
@@ -6023,16 +6078,38 @@ DataType=0x0005
 LowLimit=
 HighLimit=
 AccessType=const
-DefaultValue=0x01
+DefaultValue=0x03
 PDOMapping=0
 ObjFlags=0x00
 
 [60FBsub1]
-ParameterName=New Subentry
+ParameterName=Proportional Gain Coefficient(KP)
 ObjectType=0x07
-DataType=0x0007
-LowLimit=
-HighLimit=
+DataType=0x0004
+LowLimit=0x80000000
+HighLimit=0x7FFFFFFF
+AccessType=rw
+DefaultValue=
+PDOMapping=1
+ObjFlags=0x00
+
+[60FBsub2]
+ParameterName=Integral Gain Coefficient(KI)
+ObjectType=0x07
+DataType=0x0004
+LowLimit=0x80000000
+HighLimit=0x7FFFFFFF
+AccessType=rw
+DefaultValue=
+PDOMapping=1
+ObjFlags=0x00
+
+[60FBsub3]
+ParameterName=Derivative Gain Coefficient(KD)
+ObjectType=0x07
+DataType=0x0004
+LowLimit=0x80000000
+HighLimit=0x7FFFFFFF
 AccessType=rw
 DefaultValue=
 PDOMapping=1
@@ -6164,7 +6241,7 @@ ObjectType=0x07
 DataType=0x0007
 LowLimit=
 HighLimit=
-AccessType=const
+AccessType=ro
 DefaultValue=
 PDOMapping=1
 ObjFlags=0x00
@@ -8027,7 +8104,7 @@ ObjectType=0x07
 DataType=0x0007
 LowLimit=
 HighLimit=
-AccessType=const
+AccessType=ro
 DefaultValue=
 PDOMapping=1
 ObjFlags=0x00
@@ -9307,7 +9384,7 @@ ObjectType=0x07
 DataType=0x0007
 LowLimit=
 HighLimit=
-AccessType=const
+AccessType=ro
 DefaultValue=
 PDOMapping=1
 ObjFlags=0x00
@@ -10499,7 +10576,7 @@ ObjectType=0x07
 DataType=0x0007
 LowLimit=
 HighLimit=
-AccessType=const
+AccessType=ro
 DefaultValue=
 PDOMapping=1
 ObjFlags=0x00
