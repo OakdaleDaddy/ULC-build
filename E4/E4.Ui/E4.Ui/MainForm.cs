@@ -1530,7 +1530,19 @@
          bool request = !DeviceCommunication.Instance.GetLaserAim();
          DeviceCommunication.Instance.SetLaserAim(request);
       }
-      
+
+      private void LaserSetupButton_Click(object sender, EventArgs e)
+      {
+         Button button = (Button)sender;
+
+         LaserSetupForm laserSetupForm = new LaserSetupForm();
+
+         this.SetDialogLocation(button, laserSetupForm);
+         this.DimBackground();
+         laserSetupForm.ShowDialog();
+         this.LightBackground();
+      }
+
       private void LaserRangeJoystickEnableButton_Click(object sender, EventArgs e)
       {
          if (JoystickApplications.laser != this.joystickApplication)

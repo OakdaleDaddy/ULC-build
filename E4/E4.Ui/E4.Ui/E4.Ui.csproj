@@ -59,6 +59,12 @@
     <Compile Include="IpAddressEntryForm.designer.cs">
       <DependentUpon>IpAddressEntryForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="LaserSetupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LaserSetupForm.Designer.cs">
+      <DependentUpon>LaserSetupForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainCommunicationBus.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -89,6 +95,7 @@
     <Compile Include="Parameters\OsdParameters.cs" />
     <Compile Include="Parameters\ParameterAccessor.cs" />
     <Compile Include="Parameters\TargetBusParameters.cs" />
+    <Compile Include="Parameters\ValueParameter.cs" />
     <Compile Include="PopupDimmerForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -110,6 +117,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="IpAddressEntryForm.resx">
       <DependentUpon>IpAddressEntryForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LaserSetupForm.resx">
+      <DependentUpon>LaserSetupForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

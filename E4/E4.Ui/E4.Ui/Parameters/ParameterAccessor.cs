@@ -26,6 +26,9 @@
       public int JoystickDeadband;
       public int JoystickIdleBand;
 
+      public ValueParameter LaserSampleTime;
+      public ValueParameter LaserSampleCount;
+
       public OsdParameters Osd;
 
       #endregion
@@ -58,7 +61,7 @@
 
       private void AssignDefaults()
       {
-         this.VersionCount = 1; // update after each addition
+         this.VersionCount = 2; // update after each addition
 
          this.MainBus = new MainBusParameters();
          this.MainBus.BusInterface = BusInterfaces.PCIA;
@@ -84,6 +87,9 @@
 
          this.JoystickDeadband = 5000;
          this.JoystickIdleBand = 4000;
+
+         this.LaserSampleTime = new ValueParameter("LaserSampleTime", "s", 2, 0.15, 3.75, 0.15, 0.9, 0.9);
+         this.LaserSampleCount = new ValueParameter("LaserSampleCount", "", 0, 1, 128, 1, 4, 4);
 
          this.Osd = new OsdParameters();
          this.SetOsdDefaults(ref this.Osd);
@@ -181,6 +187,22 @@
             if (reader.Read())
             {
                result = int.Parse(reader.Value.Trim());
+            }
+         }
+         catch { }
+
+         return (result);
+      }
+
+      private double ReadDouble(XmlReader reader)
+      {
+         double result = double.NaN;
+
+         try
+         {
+            if (reader.Read())
+            {
+               result = double.Parse(reader.Value.Trim());
             }
          }
          catch { }
@@ -414,6 +436,72 @@
          return (result);
       }
 
+      private ValueParameter ReadValueParameters(XmlReader reader)
+      {
+         ValueParameter result = null;
+         bool readResult = true;
+
+         string name = "";
+         string unit = "";
+         int precision = 0;
+         double minimumValue = 0;
+         double maximumValue = 0;
+         double stepValue = 0;
+         double defaultValue = 0;
+         double operationalValue = 0;
+
+         for (; readResult; )
+         {
+            readResult = reader.Read();
+
+            if (reader.IsStartElement())
+            {
+               if ("Name" == reader.Name)
+               {
+                  name = this.ReadString(reader);
+               }
+               else if ("Unit" == reader.Name)
+               {
+                  unit = this.ReadString(reader);
+               }
+               else if ("Precision" == reader.Name)
+               {
+                  precision = this.ReadInt(reader);
+               }
+               else if ("MinimumValue" == reader.Name)
+               {
+                  minimumValue = this.ReadDouble(reader);
+               }
+               else if ("MaximumValue" == reader.Name)
+               {
+                  maximumValue = this.ReadDouble(reader);
+               }
+               else if ("StepValue" == reader.Name)
+               {
+                  stepValue = this.ReadDouble(reader);
+               }
+               else if ("DefaultValue" == reader.Name)
+               {
+                  defaultValue = this.ReadDouble(reader);
+               }
+               else if ("OperationalValue" == reader.Name)
+               {
+                  operationalValue = this.ReadDouble(reader);
+               }
+            }
+            else
+            {
+               if ("Value" == reader.Name)
+               {
+                  result = new ValueParameter(name, unit, precision, minimumValue, maximumValue, stepValue, defaultValue, operationalValue);
+                  break;
+               }
+            }
+         }
+
+         return (result);
+      }
+
       private OsdParameters ReadOsdParameters(XmlReader reader)
       {
          OsdParameters temp = new OsdParameters();
@@ -548,6 +636,19 @@
                      {
                         this.JoystickIdleBand = this.ReadInt(reader);
                      }
+                     else if ("Value" == reader.Name)
+                     {
+                        ValueParameter valueParameter = this.ReadValueParameters(reader);
+
+                        if ("LaserSampleTime" == valueParameter.Name)
+                        {
+                           this.LaserSampleTime = valueParameter;
+                        }
+                        else if ("LaserSampleCount" == valueParameter.Name)
+                        {
+                           this.LaserSampleCount = valueParameter;
+                        }
+                     }
                      else if ("Osd" == reader.Name)
                      {
                         OsdParameters osdParameters = this.ReadOsdParameters(reader);
@@ -585,6 +686,22 @@
       {
          string fileValue = (false != value) ? "1" : "0";
          writer.WriteElementString(tag, fileValue);
+      }
+
+      private void WriteValueParameters(XmlWriter writer, ValueParameter valueParameter)
+      {
+         writer.WriteStartElement("Value");
+
+         this.WriteElement(writer, "Name", valueParameter.Name);
+         this.WriteElement(writer, "Unit", valueParameter.Unit);
+         this.WriteElement(writer, "Precision", valueParameter.Precision);
+         this.WriteElement(writer, "MinimumValue", valueParameter.MinimumValue);
+         this.WriteElement(writer, "MaximumValue", valueParameter.MaximumValue);
+         this.WriteElement(writer, "StepValue", valueParameter.StepValue);
+         this.WriteElement(writer, "DefaultValue", valueParameter.DefaultValue);
+         this.WriteElement(writer, "OperationalValue", valueParameter.OperationalValue);
+
+         writer.WriteEndElement();
       }
 
       private void WriteMainBusParameters(XmlWriter writer, MainBusParameters mainBusParameters)
@@ -683,6 +800,9 @@
 
             this.WriteElement(writer, "JoystickDeadband", this.JoystickDeadband);
             this.WriteElement(writer, "JoystickIdleBand", this.JoystickIdleBand);
+
+            this.WriteValueParameters(writer, this.LaserSampleTime);
+            this.WriteValueParameters(writer, this.LaserSampleCount);
 
             this.WriteOsdParameters(writer, this.Osd);
 
