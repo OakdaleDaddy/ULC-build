@@ -228,6 +228,22 @@
 
       #endregion
 
+      #region Laser Functions
+
+      private bool laserOn;
+
+      public void SetLaserAim(bool on)
+      {
+         this.laserOn = on;
+      }
+
+      public bool GetLaserAim()
+      {
+         return (this.laserOn);
+      }
+
+      #endregion
+
       #endregion
    }
 }

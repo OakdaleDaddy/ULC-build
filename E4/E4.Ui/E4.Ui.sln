@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E4.PCANLight", "E4.PCANLigh
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E4.BusSim", "E4.BusSim\E4.BusSim.csproj", "{257F078E-A65A-4D36-A38F-156DC60D025A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E4.Ui.ControlTest", "E4.Ui.ControlTest\E4.Ui.ControlTest.csproj", "{4D28ABDB-8626-4718-B19C-996D76240A4B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,10 @@ Global
 		{257F078E-A65A-4D36-A38F-156DC60D025A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{257F078E-A65A-4D36-A38F-156DC60D025A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{257F078E-A65A-4D36-A38F-156DC60D025A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D28ABDB-8626-4718-B19C-996D76240A4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D28ABDB-8626-4718-B19C-996D76240A4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D28ABDB-8626-4718-B19C-996D76240A4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D28ABDB-8626-4718-B19C-996D76240A4B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

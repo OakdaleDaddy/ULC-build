@@ -19,6 +19,14 @@
 
       private delegate void ProcessHandler();
 
+      private enum JoystickApplications
+      {
+         none,
+         main,
+         target,
+         laser,
+      }
+
       #endregion
 
       #region Fields
@@ -33,6 +41,8 @@
       private bool indicatorFlasher;
       private bool messageFlasher;
       private int messageFlashCount;
+
+      private JoystickApplications joystickApplication;
 
       private PopupDimmerForm dimmerForm;
 
@@ -132,6 +142,30 @@
 
       #endregion
 
+      #region Joystick 
+
+      private void UpdateJoystickApplicationButtons()
+      {
+         if (JoystickApplications.none == this.joystickApplication)
+         {
+            this.LaserRangeJoystickEnableButton.Text = "ENABLE JOYSTICK";
+         }
+         else if (JoystickApplications.main == this.joystickApplication)
+         {
+            this.LaserRangeJoystickEnableButton.Text = "ENABLE JOYSTICK";
+         }
+         else if (JoystickApplications.target == this.joystickApplication)
+         {
+            this.LaserRangeJoystickEnableButton.Text = "ENABLE JOYSTICK";
+         }
+         else if (JoystickApplications.laser == this.joystickApplication)
+         {
+            this.LaserRangeJoystickEnableButton.Text = "DISABLE JOYSTICK";
+         }
+      }
+
+      #endregion
+
       #endregion
 
       #region Process Functions
@@ -139,6 +173,9 @@
       private void ProcessStart()
       {
          this.processStopped = false;
+
+         this.joystickApplication = JoystickApplications.none;
+
          this.UpdateTimer.Interval = 1;
          this.Process = this.ProcessShow;
       }
@@ -152,6 +189,18 @@
          this.StopAllButton.Refresh();
 
          this.UpdateTimer.Interval = 1;
+
+         this.LaserRangeJoystickXRequestIndicator.Position = 0;
+         this.LaserRangeJoystickXRequestIndicator.MaximumPosition = 32767 - ParameterAccessor.Instance.JoystickDeadband;
+         this.LaserRangeJoystickXRequestIndicator.MinimumPosition = -32767 + ParameterAccessor.Instance.JoystickDeadband;
+
+         this.LaserRangeJoystickYRequestIndicator.Position = 0;
+         this.LaserRangeJoystickYRequestIndicator.MaximumPosition = 32767 - ParameterAccessor.Instance.JoystickDeadband;
+         this.LaserRangeJoystickYRequestIndicator.MinimumPosition = -32767 + ParameterAccessor.Instance.JoystickDeadband;
+
+         this.LaserScannerJoystickYRequestIndicator.Position = 0;
+         this.LaserScannerJoystickYRequestIndicator.MaximumPosition = 32767 - ParameterAccessor.Instance.JoystickDeadband;
+         this.LaserScannerJoystickYRequestIndicator.MinimumPosition = -32767 + ParameterAccessor.Instance.JoystickDeadband;
 
          this.MainStatusTextBox.Width = (this.TargetStatusTextBox.Left + this.TargetStatusTextBox.Width - this.MainStatusTextBox.Left);
          this.TargetStatusTextBox.Visible = false;
@@ -286,6 +335,101 @@
          }
 
          #endregion
+
+         #region Joystick and Movement
+
+         Joystick.Instance.Update();
+
+         if (false != Joystick.Instance.Valid)
+         {
+            #region Joystick Idle
+
+            //bool joystickXIdle = false;
+            //bool joystickYIdle = false;
+            //bool joystickThrottleIdle = false;
+
+
+
+            int joystickXAxis = (int)(((Joystick.Instance.XAxis) - 32767) * -1);
+            int joystickYAxis = (int)(((Joystick.Instance.YAxis) - 32767) * -1);
+            int joystickThrottle = (int)(((Joystick.Instance.Throttle) - 32767) * -1);
+            //int joystickThrottle = (int)(65535 - Joystick.Instance.Throttle);
+
+            int joystickDeadband = ParameterAccessor.Instance.JoystickDeadband;
+
+            if (joystickXAxis > joystickDeadband)
+            {
+               joystickXAxis -= joystickDeadband;
+            }
+            else if (joystickXAxis < -joystickDeadband)
+            {
+               joystickXAxis += joystickDeadband;
+            }
+            else
+            {
+               joystickXAxis = 0;
+            }
+
+            if (joystickYAxis > joystickDeadband)
+            {
+               joystickYAxis -= joystickDeadband;
+            }
+            else if (joystickYAxis < -joystickDeadband)
+            {
+               joystickYAxis += joystickDeadband;
+            }
+            else
+            {
+               joystickYAxis = 0;
+            }
+
+            if (joystickThrottle > joystickDeadband)
+            {
+               joystickThrottle -= joystickDeadband;
+            }
+            else if (joystickThrottle < -joystickDeadband)
+            {
+               joystickThrottle += joystickDeadband;
+            }
+            else
+            {
+               joystickThrottle = 0;
+            }
+
+            this.LaserRangeJoystickXRequestIndicator.Position = joystickXAxis;
+            this.LaserRangeJoystickYRequestIndicator.Position = joystickYAxis;
+            this.LaserScannerJoystickYRequestIndicator.Position = joystickThrottle;
+
+            this.LaserRangeYawTextPanel.ValueText = string.Format("{0}", joystickXAxis);
+            this.LaserRangePitchTextPanel.ValueText = string.Format("{0}", joystickYAxis);
+            this.LaserScannerPitchTextPanel.ValueText = string.Format("{0}", joystickThrottle);
+
+            if (this.joystickApplication != JoystickApplications.laser)
+            {
+               if ((0 != joystickXAxis) ||
+                   (0 != joystickYAxis) ||
+                   (0 != joystickThrottle))
+               {            
+                  this.LaserRangeJoystickEnableButton.Enabled = false;
+               }
+               else
+               {
+                  this.LaserRangeJoystickEnableButton.Enabled = true;
+               }
+            }
+
+            #endregion
+         }
+
+         #endregion
+
+         #region Laser
+
+         bool laserAimActive = DeviceCommunication.Instance.GetLaserAim();
+         this.LaserAimButton.BackColor = (false != laserAimActive) ? Color.LimeGreen : Color.FromArgb(171, 171, 171);
+
+         #endregion
+
 
 #if false
          // update readings
@@ -1375,6 +1519,30 @@
       private void TickProcess()
       {
          this.Process();
+      }
+
+      #endregion
+      
+      #region Laser Actions
+
+      private void LaserAimButton_Click(object sender, EventArgs e)
+      {
+         bool request = !DeviceCommunication.Instance.GetLaserAim();
+         DeviceCommunication.Instance.SetLaserAim(request);
+      }
+      
+      private void LaserRangeJoystickEnableButton_Click(object sender, EventArgs e)
+      {
+         if (JoystickApplications.laser != this.joystickApplication)
+         {
+            this.joystickApplication = JoystickApplications.laser;
+         }
+         else
+         {
+            this.joystickApplication = JoystickApplications.none;
+         }
+
+         this.UpdateJoystickApplicationButtons();
       }
 
       #endregion
