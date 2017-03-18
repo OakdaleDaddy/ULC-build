@@ -11,6 +11,13 @@ namespace E4.CAN
    {
       #region Definition
 
+      public enum UsageModes
+      {
+         undefined,
+         laser,
+         target,
+      }
+
       public enum MotorModes
       {
          off,
@@ -25,6 +32,7 @@ namespace E4.CAN
       #region Fields
 
       private bool active;
+      private UsageModes usageMode;
 
       private UInt16 bldc0ControlWord;
       private MotorModes bldc0Mode;
@@ -57,6 +65,98 @@ namespace E4.CAN
          double result = (reading < 127) ? reading : -256 + reading;
          return (result);
       }
+
+      private void ProcessBldc0Status()
+      {
+         bool bldc0Operational = ((this.Bldc0Status & 0x0004) != 0) ? true : false;
+
+         if (false != bldc0Operational)
+         {
+            if (MotorModes.position == this.bldc0Mode)
+            {
+               this.Bldc0PositionAttained = ((this.Bldc0Status & 0x0400) != 0) ? true : false;
+            }
+            else if (MotorModes.velocity == this.bldc0Mode)
+            {
+               this.Bldc0VelocityAttained = ((this.Bldc0Status & 0x0400) != 0) ? true : false;
+            }
+         }
+      }
+
+      private void ProcessBldc1Status()
+      {
+         bool bldc1Operational = ((this.Bldc1Status & 0x0004) != 0) ? true : false;
+
+         if (false != bldc1Operational)
+         {
+            if (MotorModes.position == this.bldc1Mode)
+            {
+               this.Bldc1PositionAttained = ((this.Bldc1Status & 0x0400) != 0) ? true : false;
+            }
+            else if (MotorModes.velocity == this.bldc1Mode)
+            {
+               this.Bldc1VelocityAttained = ((this.Bldc1Status & 0x0400) != 0) ? true : false;
+            }
+         }
+      }
+
+      private void ProcessStepper0Status()
+      {
+         bool stepper0Operational = ((this.Stepper0Status & 0x0004) != 0) ? true : false;
+
+         if (false != stepper0Operational)
+         {
+            this.Stepper0HomeDefined = ((this.Stepper0Status & 0x0100) != 0) ? true : false;
+
+            if (MotorModes.position == this.stepper0Mode)
+            {
+               this.Stepper0PositionAttained = ((this.Stepper0Status & 0x0400) != 0) ? true : false;
+            }
+            else if (MotorModes.homing == this.stepper0Mode)
+            {
+               if (((this.stepper0ControlWord & 0x0010) != 0) &&
+                   ((this.Stepper0Status & 0x0400) != 0))
+               {
+                  this.Stepper0HomingAttained = true;
+               }
+               else
+               {
+                  this.Stepper0HomingAttained = false;
+               }
+            }
+         }
+      }
+
+      private void ProcessStepper1Status()
+      {
+         bool stepper1Operational = ((this.Stepper1Status & 0x0004) != 0) ? true : false;
+
+         if (false != stepper1Operational)
+         {
+            this.Stepper1HomeDefined = ((this.Stepper0Status & 0x0100) != 0) ? true : false;
+
+            if (MotorModes.position == this.stepper1Mode)
+            {
+               this.Stepper1PositionAttained = ((this.Stepper1Status & 0x0400) != 0) ? true : false;
+            }
+            else if (MotorModes.homing == this.stepper1Mode)
+            {
+               if (((this.stepper1ControlWord & 0x0010) != 0) &&
+                   ((this.Stepper1Status & 0x0400) != 0))
+               {
+                  this.Stepper1HomingAttained = true;
+               }
+               else
+               {
+                  this.Stepper1HomingAttained = false;
+               }
+            }
+         }
+      }
+
+
+
+
 
       private bool EmitRpo1()
       {
@@ -235,6 +335,24 @@ namespace E4.CAN
       public byte LaserReadingCount { set; get; }
       public byte LaserScannerPosition { set; get; }
 
+      public bool LaserMeasurementActivity
+      {
+         get
+         {
+            bool result = ((this.LaserStatusByte & 0x02) != 0) ? true : false;
+            return (result);
+         }
+      }
+
+      public bool LaserMeasurementReady
+      {
+         get
+         {
+            bool result = ((this.LaserStatusByte & 0x01) != 0) ? true : false;
+            return (result);
+         }
+      }
+
       #endregion
 
       #region Overrides
@@ -291,67 +409,90 @@ namespace E4.CAN
             }
             else if (COBTypes.TPDO1 == frameType)
             {
-               if ((null != msg) && (msg.Length >= 8))
+               if (UsageModes.laser == this.usageMode)
                {
-                  this.Bldc0Status = BitConverter.ToUInt16(msg, 0);
-                  this.Bldc0ActualCurrent = BitConverter.ToInt16(msg, 2);
-                  this.Bldc1Status = BitConverter.ToUInt16(msg, 4);
-                  this.Bldc1ActualCurrent = BitConverter.ToInt16(msg, 6);
-
-
-                  bool bldc0Operational = ((this.Bldc0Status & 0x0004) != 0) ? true : false;
-
-                  if (false != bldc0Operational)
+                  if ((null != msg) && (msg.Length >= 8))
                   {
-                     if (MotorModes.position == this.bldc0Mode)
-                     {
-                        this.Bldc0PositionAttained = ((this.Bldc0Status & 0x0400) != 0) ? true : false;
-                     }
-                     else if (MotorModes.velocity == this.bldc0Mode)
-                     {
-                        this.Bldc0VelocityAttained = ((this.Bldc0Status & 0x0400) != 0) ? true : false;
-                     }
+                     this.Bldc0Status = BitConverter.ToUInt16(msg, 0);
+                     this.Bldc0ActualCurrent = BitConverter.ToInt16(msg, 2);
+                     this.Bldc1Status = BitConverter.ToUInt16(msg, 4);
+                     this.Bldc1ActualCurrent = BitConverter.ToInt16(msg, 6);
+
+                     this.ProcessBldc0Status();
+                     this.ProcessBldc1Status();
                   }
-
-
-                  bool bldc1Operational = ((this.Bldc1Status & 0x0004) != 0) ? true : false;
-
-                  if (false != bldc1Operational)
+               }
+               else if (UsageModes.target == this.usageMode)
+               {
+                  if ((null != msg) && (msg.Length >= 8))
                   {
-                     if (MotorModes.position == this.bldc1Mode)
-                     {
-                        this.Bldc1PositionAttained = ((this.Bldc1Status & 0x0400) != 0) ? true : false;
-                     }
-                     else if (MotorModes.velocity == this.bldc1Mode)
-                     {
-                        this.Bldc1VelocityAttained = ((this.Bldc1Status & 0x0400) != 0) ? true : false;
-                     }
+                     this.Bldc0Status = BitConverter.ToUInt16(msg, 0);
+                     this.Bldc0ActualCurrent = BitConverter.ToInt16(msg, 2);
+                     this.Bldc1Status = BitConverter.ToUInt16(msg, 4);
+                     this.Bldc1ActualCurrent = BitConverter.ToInt16(msg, 6);
+
+                     this.ProcessBldc0Status();
+                     this.ProcessBldc1Status();
                   }
                }
             }
             else if (COBTypes.TPDO2 == frameType)
             {
-               if ((null != msg) && (msg.Length >= 8))
+               if (UsageModes.laser == this.usageMode)
                {
-                  this.Bldc0ActualVelocity = BitConverter.ToInt32(msg, 0);
-                  this.Bldc1ActualVelocity = BitConverter.ToInt32(msg, 4);
+                  if ((null != msg) && (msg.Length >= 8))
+                  {
+                     this.Bldc0ActualVelocity = BitConverter.ToInt32(msg, 0);
+                     this.Bldc1ActualVelocity = BitConverter.ToInt32(msg, 4);
+                  }
+               }
+               else if (UsageModes.target == this.usageMode)
+               {
+                  if ((null != msg) && (msg.Length >= 8))
+                  {
+                     this.Bldc0ActualVelocity = BitConverter.ToInt32(msg, 0);
+                     this.Bldc1ActualVelocity = BitConverter.ToInt32(msg, 4);
+                  }
                }
             }
             else if (COBTypes.TPDO3 == frameType)
             {
-               if ((null != msg) && (msg.Length >= 8))
+               if (UsageModes.laser == this.usageMode)
                {
-                  this.Bldc0ActualPosition = BitConverter.ToInt32(msg, 0);
-                  this.Bldc1ActualPosition = BitConverter.ToInt32(msg, 4);
-               }               
+                  if ((null != msg) && (msg.Length >= 8))
+                  {
+                     this.Bldc0ActualPosition = BitConverter.ToInt32(msg, 0);
+                     this.Bldc1ActualPosition = BitConverter.ToInt32(msg, 4);
+                  }
+               }
+               else if (UsageModes.target == this.usageMode)
+               {
+                  if ((null != msg) && (msg.Length >= 8))
+                  {
+                     this.Bldc0ActualPosition = BitConverter.ToInt32(msg, 0);
+                     this.Bldc1ActualPosition = BitConverter.ToInt32(msg, 4);
+                  }
+               }
             }
             else if (COBTypes.TPDO4 == frameType)
             {
-               if ((null != msg) && (msg.Length >= 3))
+               if (UsageModes.laser == this.usageMode)
                {
-                  this.Bldc0Temperature = this.GetSignedTemperature(msg[0]);
-                  this.Bldc1Temperature = this.GetSignedTemperature(msg[1]);
-                  this.DcLinkVoltage = msg[2];
+                  if ((null != msg) && (msg.Length >= 3))
+                  {
+                     this.Bldc0Temperature = this.GetSignedTemperature(msg[0]);
+                     this.Bldc1Temperature = this.GetSignedTemperature(msg[1]);
+                     this.DcLinkVoltage = msg[2];
+                  }
+               }
+               else if (UsageModes.target == this.usageMode)
+               {
+                  if ((null != msg) && (msg.Length >= 3))
+                  {
+                     this.Bldc0Temperature = this.GetSignedTemperature(msg[0]);
+                     this.Bldc1Temperature = this.GetSignedTemperature(msg[1]);
+                     this.DcLinkVoltage = msg[2];
+                  }
                }
             }
          }
@@ -359,80 +500,67 @@ namespace E4.CAN
          {
             if (COBTypes.TPDO1 == frameType) // TPDO5
             {
-               if ((null != msg) && (msg.Length >= 7))
-               {                  
-                  this.MainBoardImuRoll = ((double)BitConverter.ToInt16(msg, 0) / 16);
-                  this.MainBoardImuPitch = ((double)BitConverter.ToInt16(msg, 2) / 16);
-                  this.MainBoardImuYaw = ((double)BitConverter.ToInt16(msg, 4) / 16);
-                  this.McuTemperature = this.GetSignedTemperature(msg[6]);
+               if (UsageModes.laser == this.usageMode)
+               {
+                  if ((null != msg) && (msg.Length >= 7))
+                  {
+                     this.MainBoardImuRoll = ((double)BitConverter.ToInt16(msg, 0) / 16);
+                     this.MainBoardImuPitch = ((double)BitConverter.ToInt16(msg, 2) / 16);
+                     this.MainBoardImuYaw = ((double)BitConverter.ToInt16(msg, 4) / 16);
+                     this.McuTemperature = this.GetSignedTemperature(msg[6]);
+                  }
+               }
+               else if (UsageModes.target == this.usageMode)
+               {
+                  if ((null != msg) && (msg.Length >= 7))
+                  {
+                     this.MainBoardImuRoll = ((double)BitConverter.ToInt16(msg, 0) / 16);
+                     this.MainBoardImuPitch = ((double)BitConverter.ToInt16(msg, 2) / 16);
+                     this.MainBoardImuYaw = ((double)BitConverter.ToInt16(msg, 4) / 16);
+                     this.McuTemperature = this.GetSignedTemperature(msg[6]);
+                  }
                }
             }
             else if (COBTypes.TPDO2 == frameType) // TPDO6
             {
-               if ((null != msg) && (msg.Length >= 5))
+               if (UsageModes.laser == this.usageMode)
                {
-                  this.LaserStatusByte = msg[0];
-                  this.LaserReadingCount = msg[1];
-                  this.LaserScannerPosition = msg[2];
-                  this.TargetBoardImuRoll = ((double)BitConverter.ToInt16(msg, 3) / 16);
+                  if ((null != msg) && (msg.Length >= 2))
+                  {
+                     this.LaserStatusByte = msg[0];
+                     this.LaserReadingCount = (byte)(msg[1] - 1);
+                  }
+               }
+               else if (UsageModes.target == this.usageMode)
+               {
+                  if ((null != msg) && (msg.Length >= 7))
+                  {
+                     this.TargetBoardImuRoll = ((double)BitConverter.ToInt16(msg, 0) / 16);
+                     this.TargetBoardImuPitch = ((double)BitConverter.ToInt16(msg, 2) / 16);
+                     this.TargetBoardImuYaw = ((double)BitConverter.ToInt16(msg, 4) / 16);
+                     this.LaserScannerPosition = msg[6];
+                  }
                }
             }
             else if (COBTypes.TPDO3 == frameType) // TPDO7
             {
-               if ((null != msg) && (msg.Length >= 8))
+               if (UsageModes.laser == this.usageMode)
                {
-                  this.Stepper0Status = BitConverter.ToUInt16(msg, 0);
-                  this.Stepper1Status = BitConverter.ToUInt16(msg, 2);
-                  this.TargetBoardImuPitch = ((double)BitConverter.ToInt16(msg, 4) / 16);
-                  this.TargetBoardImuYaw = ((double)BitConverter.ToInt16(msg, 6) / 16);
-
-                  bool stepper0Operational = ((this.Stepper0Status & 0x0004) != 0) ? true : false;
-
-                  if (false != stepper0Operational)
+                  if ((null != msg) && (msg.Length >= 4))
                   {
-                     this.Stepper0HomeDefined = ((this.Stepper0Status & 0x0100) != 0) ? true : false;
+                     this.Stepper0Status = BitConverter.ToUInt16(msg, 0);
+                     this.Stepper1Status = BitConverter.ToUInt16(msg, 2);
 
-                     if (MotorModes.position == this.stepper0Mode)
-                     {
-                        this.Stepper0PositionAttained = ((this.Stepper0Status & 0x0400) != 0) ? true : false;
-                     }
-                     else if (MotorModes.homing == this.stepper0Mode)
-                     {
-                        if (((this.stepper0ControlWord & 0x0010) != 0) && 
-                            ((this.Stepper0Status & 0x0400) != 0))
-                        {
-                           this.Stepper0HomingAttained = true;
-                        }
-                        else
-                        {
-                           this.Stepper0HomingAttained = false;
-                        }
-                     }
+                     this.ProcessStepper0Status();
+                     this.ProcessStepper1Status();
                   }
-
-
-                  bool stepper1Operational = ((this.Stepper1Status & 0x0004) != 0) ? true : false;
-
-                  if (false != stepper1Operational)
+                  else if (UsageModes.target == this.usageMode)
                   {
-                     this.Stepper1HomeDefined = ((this.Stepper0Status & 0x0100) != 0) ? true : false;
+                     this.Stepper0Status = BitConverter.ToUInt16(msg, 0);
+                     this.Stepper1Status = BitConverter.ToUInt16(msg, 2);
 
-                     if (MotorModes.position == this.stepper1Mode)
-                     {
-                        this.Stepper1PositionAttained = ((this.Stepper1Status & 0x0400) != 0) ? true : false;
-                     }
-                     else if (MotorModes.homing == this.stepper1Mode)
-                     {
-                        if (((this.stepper1ControlWord & 0x0010) != 0) &&
-                            ((this.Stepper1Status & 0x0400) != 0))
-                        {
-                           this.Stepper1HomingAttained = true;
-                        }
-                        else
-                        {
-                           this.Stepper1HomingAttained = false;
-                        }
-                     }
+                     this.ProcessStepper0Status();
+                     this.ProcessStepper1Status();
                   }
                }
             }
@@ -469,125 +597,240 @@ namespace E4.CAN
 
       public override void Initialize()
       {
+         this.usageMode = UsageModes.undefined;
          base.Initialize();
       }
 
-      public override bool Configure()
+      public bool Configure(UsageModes usage)
       {
          bool result = false;
 
          if (null == this.FaultReason)
          {
             result = true;
+            this.usageMode = usage;
 
-            // set TPDO1 on change with 200mS inhibit time
-            result &= this.SetTPDOEnable(1, false);
-            result &= this.SetTPDOMapCount(1, 0);
-            result &= this.SetTPDOType(1, 254);
-            result &= this.SetTPDOInhibitTime(1, 200);
-            result &= this.SetTPDOMap(1, 1, 0x6041, 0x00, 2); // BLDC0 status word
-            result &= this.SetTPDOMap(1, 2, 0x6078, 0x00, 2); // BLDC0 current actual
-            result &= this.SetTPDOMap(1, 3, 0x6841, 0x00, 2); // BLDC1 status word
-            result &= this.SetTPDOMap(1, 4, 0x6878, 0x00, 2); // BLDC1 current actual
-            result &= this.SetTPDOMapCount(1, 4);
-            result &= this.SetTPDOEnable(1, true);
+            if (UsageModes.laser == this.usageMode)
+            {
+               // set TPDO1 on change with 200mS inhibit time
+               result &= this.SetTPDOEnable(1, false);
+               result &= this.SetTPDOMapCount(1, 0);
+               result &= this.SetTPDOType(1, 254);
+               result &= this.SetTPDOInhibitTime(1, 200);
+               result &= this.SetTPDOMap(1, 1, 0x6041, 0x00, 2); // BLDC0 status word
+               result &= this.SetTPDOMap(1, 2, 0x6078, 0x00, 2); // BLDC0 current actual
+               result &= this.SetTPDOMap(1, 3, 0x6841, 0x00, 2); // BLDC1 status word
+               result &= this.SetTPDOMap(1, 4, 0x6878, 0x00, 2); // BLDC1 current actual
+               result &= this.SetTPDOMapCount(1, 4);
+               result &= this.SetTPDOEnable(1, true);
 
-            // set TPDO2 on change with 200mS inhibit time
-            result &= this.SetTPDOEnable(2, false);
-            result &= this.SetTPDOMapCount(2, 0);
-            result &= this.SetTPDOType(2, 254);
-            result &= this.SetTPDOInhibitTime(2, 200);
-            result &= this.SetTPDOMap(2, 1, 0x606C, 0x00, 4); // BLDC0 velocity actual value
-            result &= this.SetTPDOMap(2, 2, 0x686C, 0x00, 4); // BLDC1 velocity actual value
-            result &= this.SetTPDOMapCount(2, 2);
-            result &= this.SetTPDOEnable(2, true);
+               // set TPDO2 on change with 200mS inhibit time
+               result &= this.SetTPDOEnable(2, false);
+               result &= this.SetTPDOMapCount(2, 0);
+               result &= this.SetTPDOType(2, 254);
+               result &= this.SetTPDOInhibitTime(2, 200);
+               result &= this.SetTPDOMap(2, 1, 0x606C, 0x00, 4); // BLDC0 velocity actual value
+               result &= this.SetTPDOMap(2, 2, 0x686C, 0x00, 4); // BLDC1 velocity actual value
+               result &= this.SetTPDOMapCount(2, 2);
+               result &= this.SetTPDOEnable(2, true);
 
-            // set TPDO3 on change with 200mS inhibit time
-            result &= this.SetTPDOEnable(3, false);
-            result &= this.SetTPDOMapCount(3, 0);
-            result &= this.SetTPDOType(3, 254);
-            result &= this.SetTPDOInhibitTime(3, 200);
-            result &= this.SetTPDOMap(3, 1, 0x6064, 0x00, 4); // BLDC0 position actual value
-            result &= this.SetTPDOMap(3, 2, 0x6864, 0x00, 4); // BLDC1 position actual value
-            result &= this.SetTPDOMapCount(3, 2);
-            result &= this.SetTPDOEnable(3, true);
+               // set TPDO3 on change with 200mS inhibit time
+               result &= this.SetTPDOEnable(3, false);
+               result &= this.SetTPDOMapCount(3, 0);
+               result &= this.SetTPDOType(3, 254);
+               result &= this.SetTPDOInhibitTime(3, 200);
+               result &= this.SetTPDOMap(3, 1, 0x6064, 0x00, 4); // BLDC0 position actual value
+               result &= this.SetTPDOMap(3, 2, 0x6864, 0x00, 4); // BLDC1 position actual value
+               result &= this.SetTPDOMapCount(3, 2);
+               result &= this.SetTPDOEnable(3, true);
 
-            // set TPDO4 on change with 200mS inhibit time
-            result &= this.SetTPDOEnable(4, false);
-            result &= this.SetTPDOMapCount(4, 0);
-            result &= this.SetTPDOType(4, 254);
-            result &= this.SetTPDOInhibitTime(4, 200);
-            result &= this.SetTPDOMap(4, 1, 0x6410, 0x01, 1); // BLDC0 temperature
-            result &= this.SetTPDOMap(4, 2, 0x6C10, 0x01, 1); // BLDC1 temperature
-            result &= this.SetTPDOMap(4, 3, 0x2000, 0x00, 1); // DC Link Voltage
-            result &= this.SetTPDOMapCount(4, 3);
-            result &= this.SetTPDOEnable(4, true);
+               // set TPDO4 on change with 200mS inhibit time
+               result &= this.SetTPDOEnable(4, false);
+               result &= this.SetTPDOMapCount(4, 0);
+               result &= this.SetTPDOType(4, 254);
+               result &= this.SetTPDOInhibitTime(4, 200);
+               result &= this.SetTPDOMap(4, 1, 0x6410, 0x01, 1); // BLDC0 temperature
+               result &= this.SetTPDOMap(4, 2, 0x6C10, 0x01, 1); // BLDC1 temperature
+               result &= this.SetTPDOMap(4, 3, 0x2000, 0x00, 1); // DC Link Voltage
+               result &= this.SetTPDOMapCount(4, 3);
+               result &= this.SetTPDOEnable(4, true);
 
-            // set TPDO5 on change with 200mS inhibit time
-            result &= this.SetTPDOEnable(5, false);
-            result &= this.SetTPDOMapCount(5, 0);
-            result &= this.SetTPDOType(5, 254);
-            result &= this.SetTPDOInhibitTime(5, 200);
-            result &= this.SetTPDOMap(5, 1, 0x2441, 0x01, 2); // Main Board IMU roll
-            result &= this.SetTPDOMap(5, 2, 0x2441, 0x02, 2); // Main Board IMU pitch
-            result &= this.SetTPDOMap(5, 3, 0x2441, 0x03, 2); // Main Board IMU yaw
-            result &= this.SetTPDOMap(5, 4, 0x2311, 0x01, 1); // MCU temperature
-            result &= this.SetTPDOMapCount(5, 4);
-            result &= this.SetTPDOEnable(5, true);
+               // set TPDO5 on change with 200mS inhibit time
+               result &= this.SetTPDOEnable(5, false);
+               result &= this.SetTPDOMapCount(5, 0);
+               result &= this.SetTPDOType(5, 254);
+               result &= this.SetTPDOInhibitTime(5, 200);
+               result &= this.SetTPDOMap(5, 1, 0x2441, 0x01, 2); // Main Board IMU roll
+               result &= this.SetTPDOMap(5, 2, 0x2441, 0x02, 2); // Main Board IMU pitch
+               result &= this.SetTPDOMap(5, 3, 0x2441, 0x03, 2); // Main Board IMU yaw
+               result &= this.SetTPDOMap(5, 4, 0x2311, 0x01, 1); // MCU temperature
+               result &= this.SetTPDOMapCount(5, 4);
+               result &= this.SetTPDOEnable(5, true);
 
-            // set TPDO6 on change with 200mS inhibit time
-            result &= this.SetTPDOEnable(6, false);
-            result &= this.SetTPDOMapCount(6, 0);
-            result &= this.SetTPDOType(6, 254);
-            result &= this.SetTPDOInhibitTime(6, 200);
-            result &= this.SetTPDOMap(6, 1, 0x2405, 0x00, 1); // laser status byte
-            result &= this.SetTPDOMap(6, 2, 0x2402, 0x00, 1); // laser measured highest count
-            result &= this.SetTPDOMap(6, 3, 0x2410, 0x01, 1); // laser scanner position
-            result &= this.SetTPDOMap(6, 4, 0x2445, 0x01, 2); // Target Board IMU roll
-            result &= this.SetTPDOMapCount(6, 4);
-            result &= this.SetTPDOEnable(6, true);
+               // set TPDO6 on change with 200mS inhibit time
+               result &= this.SetTPDOEnable(6, false);
+               result &= this.SetTPDOMapCount(6, 0);
+               result &= this.SetTPDOType(6, 254);
+               result &= this.SetTPDOInhibitTime(6, 200);
+               result &= this.SetTPDOMap(6, 1, 0x2405, 0x00, 1); // laser status byte
+               result &= this.SetTPDOMap(6, 2, 0x2402, 0x00, 1); // laser measured highest count
+               result &= this.SetTPDOMapCount(6, 2);
+               result &= this.SetTPDOEnable(6, true);
 
-            // set TPDO7 on change with 200mS inhibit time
-            result &= this.SetTPDOEnable(7, false);
-            result &= this.SetTPDOMapCount(7, 0);
-            result &= this.SetTPDOType(7, 254);
-            result &= this.SetTPDOInhibitTime(7, 200);
-            result &= this.SetTPDOMap(7, 1, 0x7041, 0x00, 2); // stepper0 status word
-            result &= this.SetTPDOMap(7, 2, 0x7841, 0x00, 2); // stepper1 status word
-            result &= this.SetTPDOMap(7, 3, 0x2445, 0x02, 2); // Target Board IMU pitch
-            result &= this.SetTPDOMap(7, 4, 0x2445, 0x03, 2); // Target Board IMU yaw
-            result &= this.SetTPDOMapCount(7, 4);
-            result &= this.SetTPDOEnable(7, true);
+               // set TPDO7 on change with 200mS inhibit time
+               result &= this.SetTPDOEnable(7, false);
+               result &= this.SetTPDOMapCount(7, 0);
+               result &= this.SetTPDOType(7, 254);
+               result &= this.SetTPDOInhibitTime(7, 200);
+               result &= this.SetTPDOMap(7, 1, 0x7041, 0x00, 2); // stepper0 status word
+               result &= this.SetTPDOMap(7, 2, 0x7841, 0x00, 2); // stepper1 status word
+               result &= this.SetTPDOMapCount(7, 2);
+               result &= this.SetTPDOEnable(7, true);
 
 
-            // set RPDO1 every SYNC
-            result &= this.SetRPDOEnable(1, false);
-            result &= this.SetRPDOMapCount(1, 0);
-            result &= this.SetRPDOType(1, 1);
-            result &= this.SetRPDOMap(1, 1, 0x6040, 0, 2); // BLDC0 control word
-            result &= this.SetRPDOMap(1, 2, 0x6071, 0, 2); // BLDC0 target torque
-            result &= this.SetRPDOMap(1, 3, 0x6840, 0, 2); // BLDC1 control word
-            result &= this.SetRPDOMap(1, 4, 0x6871, 0, 2); // BLDC1 target torque
-            result &= this.SetRPDOMapCount(1, 4);
-            result &= this.SetRPDOEnable(1, true);
+               // set RPDO1 every SYNC
+               result &= this.SetRPDOEnable(1, false);
+               result &= this.SetRPDOMapCount(1, 0);
+               result &= this.SetRPDOType(1, 1);
+               result &= this.SetRPDOMap(1, 1, 0x6040, 0, 2); // BLDC0 control word
+               result &= this.SetRPDOMap(1, 2, 0x6071, 0, 2); // BLDC0 target torque
+               result &= this.SetRPDOMap(1, 3, 0x6840, 0, 2); // BLDC1 control word
+               result &= this.SetRPDOMap(1, 4, 0x6871, 0, 2); // BLDC1 target torque
+               result &= this.SetRPDOMapCount(1, 4);
+               result &= this.SetRPDOEnable(1, true);
 
-            // set RPDO2 every SYNC
-            result &= this.SetRPDOEnable(2, false);
-            result &= this.SetRPDOMapCount(2, 0);
-            result &= this.SetRPDOType(2, 1);
-            result &= this.SetRPDOMap(2, 1, 0x60FF, 0, 4); // BLDC0 target velocity
-            result &= this.SetRPDOMap(2, 2, 0x68FF, 0, 4); // BLDC1 target velocity
-            result &= this.SetRPDOMapCount(2, 2);
-            result &= this.SetRPDOEnable(2, true);
+               // set RPDO2 every SYNC
+               result &= this.SetRPDOEnable(2, false);
+               result &= this.SetRPDOMapCount(2, 0);
+               result &= this.SetRPDOType(2, 1);
+               result &= this.SetRPDOMap(2, 1, 0x60FF, 0, 4); // BLDC0 target velocity
+               result &= this.SetRPDOMap(2, 2, 0x68FF, 0, 4); // BLDC1 target velocity
+               result &= this.SetRPDOMapCount(2, 2);
+               result &= this.SetRPDOEnable(2, true);
 
-            // set RPDO3 every SYNC
-            result &= this.SetRPDOEnable(3, false);
-            result &= this.SetRPDOMapCount(3, 0);
-            result &= this.SetRPDOType(3, 1);
-            result &= this.SetRPDOMap(3, 1, 0x607A, 0, 4); // BLDC0 target position
-            result &= this.SetRPDOMap(3, 2, 0x687A, 0, 4); // BLDC1 target position
-            result &= this.SetRPDOMapCount(3, 2);
-            result &= this.SetRPDOEnable(3, true);
+               // set RPDO3 every SYNC
+               result &= this.SetRPDOEnable(3, false);
+               result &= this.SetRPDOMapCount(3, 0);
+               result &= this.SetRPDOType(3, 1);
+               result &= this.SetRPDOMap(3, 1, 0x607A, 0, 4); // BLDC0 target position
+               result &= this.SetRPDOMap(3, 2, 0x687A, 0, 4); // BLDC1 target position
+               result &= this.SetRPDOMapCount(3, 2);
+               result &= this.SetRPDOEnable(3, true);
+            }
+            else if (UsageModes.target == this.usageMode)
+            {
+               // set TPDO1 on change with 200mS inhibit time
+               result &= this.SetTPDOEnable(1, false);
+               result &= this.SetTPDOMapCount(1, 0);
+               result &= this.SetTPDOType(1, 254);
+               result &= this.SetTPDOInhibitTime(1, 200);
+               result &= this.SetTPDOMap(1, 1, 0x6041, 0x00, 2); // BLDC0 status word
+               result &= this.SetTPDOMap(1, 2, 0x6078, 0x00, 2); // BLDC0 current actual
+               result &= this.SetTPDOMap(1, 3, 0x6841, 0x00, 2); // BLDC1 status word
+               result &= this.SetTPDOMap(1, 4, 0x6878, 0x00, 2); // BLDC1 current actual
+               result &= this.SetTPDOMapCount(1, 4);
+               result &= this.SetTPDOEnable(1, true);
+
+               // set TPDO2 on change with 200mS inhibit time
+               result &= this.SetTPDOEnable(2, false);
+               result &= this.SetTPDOMapCount(2, 0);
+               result &= this.SetTPDOType(2, 254);
+               result &= this.SetTPDOInhibitTime(2, 200);
+               result &= this.SetTPDOMap(2, 1, 0x606C, 0x00, 4); // BLDC0 velocity actual value
+               result &= this.SetTPDOMap(2, 2, 0x686C, 0x00, 4); // BLDC1 velocity actual value
+               result &= this.SetTPDOMapCount(2, 2);
+               result &= this.SetTPDOEnable(2, true);
+
+               // set TPDO3 on change with 200mS inhibit time
+               result &= this.SetTPDOEnable(3, false);
+               result &= this.SetTPDOMapCount(3, 0);
+               result &= this.SetTPDOType(3, 254);
+               result &= this.SetTPDOInhibitTime(3, 200);
+               result &= this.SetTPDOMap(3, 1, 0x6064, 0x00, 4); // BLDC0 position actual value
+               result &= this.SetTPDOMap(3, 2, 0x6864, 0x00, 4); // BLDC1 position actual value
+               result &= this.SetTPDOMapCount(3, 2);
+               result &= this.SetTPDOEnable(3, true);
+
+               // set TPDO4 on change with 200mS inhibit time
+               result &= this.SetTPDOEnable(4, false);
+               result &= this.SetTPDOMapCount(4, 0);
+               result &= this.SetTPDOType(4, 254);
+               result &= this.SetTPDOInhibitTime(4, 200);
+               result &= this.SetTPDOMap(4, 1, 0x6410, 0x01, 1); // BLDC0 temperature
+               result &= this.SetTPDOMap(4, 2, 0x6C10, 0x01, 1); // BLDC1 temperature
+               result &= this.SetTPDOMap(4, 3, 0x2000, 0x00, 1); // DC Link Voltage
+               result &= this.SetTPDOMapCount(4, 3);
+               result &= this.SetTPDOEnable(4, true);
+
+               // set TPDO5 on change with 200mS inhibit time
+               result &= this.SetTPDOEnable(5, false);
+               result &= this.SetTPDOMapCount(5, 0);
+               result &= this.SetTPDOType(5, 254);
+               result &= this.SetTPDOInhibitTime(5, 200);
+               result &= this.SetTPDOMap(5, 1, 0x2441, 0x01, 2); // Main Board IMU roll
+               result &= this.SetTPDOMap(5, 2, 0x2441, 0x02, 2); // Main Board IMU pitch
+               result &= this.SetTPDOMap(5, 3, 0x2441, 0x03, 2); // Main Board IMU yaw
+               result &= this.SetTPDOMap(5, 4, 0x2311, 0x01, 1); // MCU temperature
+               result &= this.SetTPDOMapCount(5, 4);
+               result &= this.SetTPDOEnable(5, true);
+
+               // set TPDO6 on change with 200mS inhibit time
+               result &= this.SetTPDOEnable(6, false);
+               result &= this.SetTPDOMapCount(6, 0);
+               result &= this.SetTPDOType(6, 254);
+               result &= this.SetTPDOInhibitTime(6, 200);
+               result &= this.SetTPDOMap(6, 1, 0x2445, 0x01, 2); // Target Board IMU roll
+               result &= this.SetTPDOMap(6, 2, 0x2445, 0x02, 2); // Target Board IMU pitch
+               result &= this.SetTPDOMap(6, 3, 0x2445, 0x03, 2); // Target Board IMU yaw
+               result &= this.SetTPDOMap(6, 4, 0x2410, 0x01, 1); // laser scanner position
+               result &= this.SetTPDOMapCount(6, 4);
+               result &= this.SetTPDOEnable(6, true);
+
+               // set TPDO7 on change with 200mS inhibit time
+               result &= this.SetTPDOEnable(7, false);
+               result &= this.SetTPDOMapCount(7, 0);
+               result &= this.SetTPDOType(7, 254);
+               result &= this.SetTPDOInhibitTime(7, 200);
+               result &= this.SetTPDOMap(7, 1, 0x7041, 0x00, 2); // stepper0 status word
+               result &= this.SetTPDOMap(7, 2, 0x7841, 0x00, 2); // stepper1 status word
+               result &= this.SetTPDOMapCount(7, 2);
+               result &= this.SetTPDOEnable(7, true);
+
+
+               // set RPDO1 every SYNC
+               result &= this.SetRPDOEnable(1, false);
+               result &= this.SetRPDOMapCount(1, 0);
+               result &= this.SetRPDOType(1, 1);
+               result &= this.SetRPDOMap(1, 1, 0x6040, 0, 2); // BLDC0 control word
+               result &= this.SetRPDOMap(1, 2, 0x6071, 0, 2); // BLDC0 target torque
+               result &= this.SetRPDOMap(1, 3, 0x6840, 0, 2); // BLDC1 control word
+               result &= this.SetRPDOMap(1, 4, 0x6871, 0, 2); // BLDC1 target torque
+               result &= this.SetRPDOMapCount(1, 4);
+               result &= this.SetRPDOEnable(1, true);
+
+               // set RPDO2 every SYNC
+               result &= this.SetRPDOEnable(2, false);
+               result &= this.SetRPDOMapCount(2, 0);
+               result &= this.SetRPDOType(2, 1);
+               result &= this.SetRPDOMap(2, 1, 0x60FF, 0, 4); // BLDC0 target velocity
+               result &= this.SetRPDOMap(2, 2, 0x68FF, 0, 4); // BLDC1 target velocity
+               result &= this.SetRPDOMapCount(2, 2);
+               result &= this.SetRPDOEnable(2, true);
+
+               // set RPDO3 every SYNC
+               result &= this.SetRPDOEnable(3, false);
+               result &= this.SetRPDOMapCount(3, 0);
+               result &= this.SetRPDOType(3, 1);
+               result &= this.SetRPDOMap(3, 1, 0x607A, 0, 4); // BLDC0 target position
+               result &= this.SetRPDOMap(3, 2, 0x687A, 0, 4); // BLDC1 target position
+               result &= this.SetRPDOMapCount(3, 2);
+               result &= this.SetRPDOEnable(3, true);
+            }
+            else
+            {
+               this.SetFault("usage undefined", false);
+               result = false;
+            }
 
             result &= base.Configure();
          }
@@ -920,6 +1163,27 @@ namespace E4.CAN
             temperature = upload.Data[0];
             result = true;
          }
+
+         return (result);
+      }
+
+      public bool StartLaserMeasurement(int sampleCount, double sampleTime)
+      {
+         bool result = true;
+         byte timeToMeasureBits = (byte)(sampleTime / 0.150);
+         byte sampleCountBits = (byte)((sampleCount > 0) ? (sampleCount - 1) : 0);
+         byte controlValue = (byte)(0x80 | sampleCountBits);
+
+         result &= this.SetLaserTimeToMeasure(timeToMeasureBits);
+         result &= this.SetLaserControlByte(0x00);
+         result &= this.SetLaserControlByte(controlValue);
+         
+         return (result);
+      }
+
+      public bool CancelLaserMeasurement()
+      {
+         bool result = this.SetLaserControlByte(0x00);
 
          return (result);
       }

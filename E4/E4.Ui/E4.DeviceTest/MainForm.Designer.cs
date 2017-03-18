@@ -80,6 +80,10 @@ namespace E4.DeviceTest
          this.DownloadActiveNodeIdTextBox = new System.Windows.Forms.TextBox();
          this.label51 = new System.Windows.Forms.Label();
          this.MainTabPage = new System.Windows.Forms.TabPage();
+         this.label85 = new System.Windows.Forms.Label();
+         this.label86 = new System.Windows.Forms.Label();
+         this.E4MainLaserCountTextBox = new System.Windows.Forms.TextBox();
+         this.label84 = new System.Windows.Forms.Label();
          this.label68 = new System.Windows.Forms.Label();
          this.label69 = new System.Windows.Forms.Label();
          this.E4MainTargetBoardIcuYawTextBox = new System.Windows.Forms.TextBox();
@@ -468,10 +472,8 @@ namespace E4.DeviceTest
          this.label64 = new System.Windows.Forms.Label();
          this.ControlSplitter = new System.Windows.Forms.Splitter();
          this.MainActivityPanel = new System.Windows.Forms.Panel();
-         this.label84 = new System.Windows.Forms.Label();
-         this.label85 = new System.Windows.Forms.Label();
-         this.label86 = new System.Windows.Forms.Label();
-         this.E4MainLaserCountTextBox = new System.Windows.Forms.TextBox();
+         this.E4MainUsageComboBox = new System.Windows.Forms.ComboBox();
+         this.label87 = new System.Windows.Forms.Label();
          this.MainStatusStrip.SuspendLayout();
          this.MainTabControl.SuspendLayout();
          this.ControlTabPage.SuspendLayout();
@@ -694,7 +696,7 @@ namespace E4.DeviceTest
          this.ControlTabPage.Location = new System.Drawing.Point(4, 22);
          this.ControlTabPage.Name = "ControlTabPage";
          this.ControlTabPage.Padding = new System.Windows.Forms.Padding(3);
-         this.ControlTabPage.Size = new System.Drawing.Size(734, 268);
+         this.ControlTabPage.Size = new System.Drawing.Size(734, 311);
          this.ControlTabPage.TabIndex = 0;
          this.ControlTabPage.Text = "Control";
          this.ControlTabPage.UseVisualStyleBackColor = true;
@@ -871,7 +873,7 @@ namespace E4.DeviceTest
          this.DownloadTabPage.Location = new System.Drawing.Point(4, 22);
          this.DownloadTabPage.Name = "DownloadTabPage";
          this.DownloadTabPage.Padding = new System.Windows.Forms.Padding(3);
-         this.DownloadTabPage.Size = new System.Drawing.Size(734, 268);
+         this.DownloadTabPage.Size = new System.Drawing.Size(734, 311);
          this.DownloadTabPage.TabIndex = 11;
          this.DownloadTabPage.Text = "Download";
          this.DownloadTabPage.UseVisualStyleBackColor = true;
@@ -1007,6 +1009,8 @@ namespace E4.DeviceTest
          // 
          // MainTabPage
          // 
+         this.MainTabPage.Controls.Add(this.E4MainUsageComboBox);
+         this.MainTabPage.Controls.Add(this.label87);
          this.MainTabPage.Controls.Add(this.label85);
          this.MainTabPage.Controls.Add(this.label86);
          this.MainTabPage.Controls.Add(this.E4MainLaserCountTextBox);
@@ -1048,6 +1052,42 @@ namespace E4.DeviceTest
          this.MainTabPage.TabIndex = 12;
          this.MainTabPage.Text = "Main";
          this.MainTabPage.UseVisualStyleBackColor = true;
+         // 
+         // label85
+         // 
+         this.label85.AutoSize = true;
+         this.label85.Location = new System.Drawing.Point(515, 77);
+         this.label85.Name = "label85";
+         this.label85.Size = new System.Drawing.Size(13, 13);
+         this.label85.TabIndex = 408;
+         this.label85.Text = "h";
+         // 
+         // label86
+         // 
+         this.label86.AutoSize = true;
+         this.label86.Location = new System.Drawing.Point(425, 80);
+         this.label86.Name = "label86";
+         this.label86.Size = new System.Drawing.Size(64, 13);
+         this.label86.TabIndex = 407;
+         this.label86.Text = "Laser Count";
+         // 
+         // E4MainLaserCountTextBox
+         // 
+         this.E4MainLaserCountTextBox.Location = new System.Drawing.Point(491, 77);
+         this.E4MainLaserCountTextBox.Name = "E4MainLaserCountTextBox";
+         this.E4MainLaserCountTextBox.Size = new System.Drawing.Size(25, 20);
+         this.E4MainLaserCountTextBox.TabIndex = 406;
+         this.E4MainLaserCountTextBox.Text = "FF";
+         this.E4MainLaserCountTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+         // 
+         // label84
+         // 
+         this.label84.AutoSize = true;
+         this.label84.Location = new System.Drawing.Point(398, 77);
+         this.label84.Name = "label84";
+         this.label84.Size = new System.Drawing.Size(13, 13);
+         this.label84.TabIndex = 405;
+         this.label84.Text = "h";
          // 
          // label68
          // 
@@ -1163,7 +1203,7 @@ namespace E4.DeviceTest
          this.E4MainHeartbeatsTabPage.Location = new System.Drawing.Point(4, 22);
          this.E4MainHeartbeatsTabPage.Name = "E4MainHeartbeatsTabPage";
          this.E4MainHeartbeatsTabPage.Padding = new System.Windows.Forms.Padding(3);
-         this.E4MainHeartbeatsTabPage.Size = new System.Drawing.Size(720, 156);
+         this.E4MainHeartbeatsTabPage.Size = new System.Drawing.Size(720, 178);
          this.E4MainHeartbeatsTabPage.TabIndex = 0;
          this.E4MainHeartbeatsTabPage.Text = "Heartbeats";
          this.E4MainHeartbeatsTabPage.UseVisualStyleBackColor = true;
@@ -1253,7 +1293,7 @@ namespace E4.DeviceTest
          this.E4MainCameraTabPage.Location = new System.Drawing.Point(4, 22);
          this.E4MainCameraTabPage.Name = "E4MainCameraTabPage";
          this.E4MainCameraTabPage.Padding = new System.Windows.Forms.Padding(3);
-         this.E4MainCameraTabPage.Size = new System.Drawing.Size(720, 156);
+         this.E4MainCameraTabPage.Size = new System.Drawing.Size(720, 178);
          this.E4MainCameraTabPage.TabIndex = 1;
          this.E4MainCameraTabPage.Text = "Camera";
          this.E4MainCameraTabPage.UseVisualStyleBackColor = true;
@@ -1417,7 +1457,7 @@ namespace E4.DeviceTest
          this.E4MainImuTabPage.Location = new System.Drawing.Point(4, 22);
          this.E4MainImuTabPage.Name = "E4MainImuTabPage";
          this.E4MainImuTabPage.Padding = new System.Windows.Forms.Padding(3);
-         this.E4MainImuTabPage.Size = new System.Drawing.Size(720, 156);
+         this.E4MainImuTabPage.Size = new System.Drawing.Size(720, 178);
          this.E4MainImuTabPage.TabIndex = 6;
          this.E4MainImuTabPage.Text = "IMU";
          this.E4MainImuTabPage.UseVisualStyleBackColor = true;
@@ -1838,7 +1878,7 @@ namespace E4.DeviceTest
          this.E4MainBldc0TabPage.Location = new System.Drawing.Point(4, 22);
          this.E4MainBldc0TabPage.Name = "E4MainBldc0TabPage";
          this.E4MainBldc0TabPage.Padding = new System.Windows.Forms.Padding(3);
-         this.E4MainBldc0TabPage.Size = new System.Drawing.Size(720, 156);
+         this.E4MainBldc0TabPage.Size = new System.Drawing.Size(720, 178);
          this.E4MainBldc0TabPage.TabIndex = 2;
          this.E4MainBldc0TabPage.Text = "BLDC0";
          this.E4MainBldc0TabPage.UseVisualStyleBackColor = true;
@@ -1915,7 +1955,7 @@ namespace E4.DeviceTest
          this.E4MainBldc0Panel.Controls.Add(this.E4MainBldc0VelocityGroupBox);
          this.E4MainBldc0Panel.Location = new System.Drawing.Point(3, 32);
          this.E4MainBldc0Panel.Name = "E4MainBldc0Panel";
-         this.E4MainBldc0Panel.Size = new System.Drawing.Size(714, 121);
+         this.E4MainBldc0Panel.Size = new System.Drawing.Size(714, 143);
          this.E4MainBldc0Panel.TabIndex = 416;
          this.E4MainBldc0Panel.Scroll += new System.Windows.Forms.ScrollEventHandler(this.E4MainBldc0Panel_Scroll);
          // 
@@ -2689,7 +2729,7 @@ namespace E4.DeviceTest
          this.E4MainBldc1TabPage.Location = new System.Drawing.Point(4, 22);
          this.E4MainBldc1TabPage.Name = "E4MainBldc1TabPage";
          this.E4MainBldc1TabPage.Padding = new System.Windows.Forms.Padding(3);
-         this.E4MainBldc1TabPage.Size = new System.Drawing.Size(720, 156);
+         this.E4MainBldc1TabPage.Size = new System.Drawing.Size(720, 178);
          this.E4MainBldc1TabPage.TabIndex = 3;
          this.E4MainBldc1TabPage.Text = "BLDC1";
          this.E4MainBldc1TabPage.UseVisualStyleBackColor = true;
@@ -2766,7 +2806,7 @@ namespace E4.DeviceTest
          this.E4MainBldc1Panel.Controls.Add(this.E4MainBldc1VelocityGroupBox);
          this.E4MainBldc1Panel.Location = new System.Drawing.Point(3, 32);
          this.E4MainBldc1Panel.Name = "E4MainBldc1Panel";
-         this.E4MainBldc1Panel.Size = new System.Drawing.Size(714, 121);
+         this.E4MainBldc1Panel.Size = new System.Drawing.Size(714, 143);
          this.E4MainBldc1Panel.TabIndex = 417;
          this.E4MainBldc1Panel.Scroll += new System.Windows.Forms.ScrollEventHandler(this.E4MainBldc1Panel_Scroll);
          // 
@@ -3539,7 +3579,7 @@ namespace E4.DeviceTest
          this.E4MainStepper0TabPage.Location = new System.Drawing.Point(4, 22);
          this.E4MainStepper0TabPage.Name = "E4MainStepper0TabPage";
          this.E4MainStepper0TabPage.Padding = new System.Windows.Forms.Padding(3);
-         this.E4MainStepper0TabPage.Size = new System.Drawing.Size(720, 156);
+         this.E4MainStepper0TabPage.Size = new System.Drawing.Size(720, 178);
          this.E4MainStepper0TabPage.TabIndex = 4;
          this.E4MainStepper0TabPage.Text = "Stepper0";
          this.E4MainStepper0TabPage.UseVisualStyleBackColor = true;
@@ -3565,7 +3605,7 @@ namespace E4.DeviceTest
          this.E4MainStepper0Panel.Controls.Add(this.E4MainStepper0EditHelperButton);
          this.E4MainStepper0Panel.Location = new System.Drawing.Point(3, 32);
          this.E4MainStepper0Panel.Name = "E4MainStepper0Panel";
-         this.E4MainStepper0Panel.Size = new System.Drawing.Size(714, 121);
+         this.E4MainStepper0Panel.Size = new System.Drawing.Size(714, 143);
          this.E4MainStepper0Panel.TabIndex = 440;
          this.E4MainStepper0Panel.Scroll += new System.Windows.Forms.ScrollEventHandler(this.E4MainStepper0Panel_Scroll);
          // 
@@ -4126,7 +4166,7 @@ namespace E4.DeviceTest
          this.E4MainStepper1TabPage.Location = new System.Drawing.Point(4, 22);
          this.E4MainStepper1TabPage.Name = "E4MainStepper1TabPage";
          this.E4MainStepper1TabPage.Padding = new System.Windows.Forms.Padding(3);
-         this.E4MainStepper1TabPage.Size = new System.Drawing.Size(720, 156);
+         this.E4MainStepper1TabPage.Size = new System.Drawing.Size(720, 178);
          this.E4MainStepper1TabPage.TabIndex = 5;
          this.E4MainStepper1TabPage.Text = "Stepper1";
          this.E4MainStepper1TabPage.UseVisualStyleBackColor = true;
@@ -4152,7 +4192,7 @@ namespace E4.DeviceTest
          this.E4MainStepper1Panel.Controls.Add(this.E4MainStepper1EditHelperButton);
          this.E4MainStepper1Panel.Location = new System.Drawing.Point(3, 32);
          this.E4MainStepper1Panel.Name = "E4MainStepper1Panel";
-         this.E4MainStepper1Panel.Size = new System.Drawing.Size(714, 121);
+         this.E4MainStepper1Panel.Size = new System.Drawing.Size(714, 143);
          this.E4MainStepper1Panel.TabIndex = 441;
          this.E4MainStepper1Panel.Scroll += new System.Windows.Forms.ScrollEventHandler(this.E4MainStepper1Panel_Scroll);
          // 
@@ -4703,7 +4743,7 @@ namespace E4.DeviceTest
          this.E4MainDebugTabPage.Location = new System.Drawing.Point(4, 22);
          this.E4MainDebugTabPage.Name = "E4MainDebugTabPage";
          this.E4MainDebugTabPage.Padding = new System.Windows.Forms.Padding(3);
-         this.E4MainDebugTabPage.Size = new System.Drawing.Size(720, 156);
+         this.E4MainDebugTabPage.Size = new System.Drawing.Size(720, 178);
          this.E4MainDebugTabPage.TabIndex = 8;
          this.E4MainDebugTabPage.Text = "Debug";
          this.E4MainDebugTabPage.UseVisualStyleBackColor = true;
@@ -4877,7 +4917,7 @@ namespace E4.DeviceTest
          // 
          // E4MainConfigButton
          // 
-         this.E4MainConfigButton.Location = new System.Drawing.Point(70, 6);
+         this.E4MainConfigButton.Location = new System.Drawing.Point(191, 6);
          this.E4MainConfigButton.Name = "E4MainConfigButton";
          this.E4MainConfigButton.Size = new System.Drawing.Size(46, 23);
          this.E4MainConfigButton.TabIndex = 99;
@@ -4904,7 +4944,7 @@ namespace E4.DeviceTest
          // 
          // E4MainResetButton
          // 
-         this.E4MainResetButton.Location = new System.Drawing.Point(226, 6);
+         this.E4MainResetButton.Location = new System.Drawing.Point(139, 32);
          this.E4MainResetButton.Name = "E4MainResetButton";
          this.E4MainResetButton.Size = new System.Drawing.Size(46, 23);
          this.E4MainResetButton.TabIndex = 96;
@@ -4914,7 +4954,7 @@ namespace E4.DeviceTest
          // 
          // E4MainStopButton
          // 
-         this.E4MainStopButton.Location = new System.Drawing.Point(174, 6);
+         this.E4MainStopButton.Location = new System.Drawing.Point(87, 32);
          this.E4MainStopButton.Name = "E4MainStopButton";
          this.E4MainStopButton.Size = new System.Drawing.Size(46, 23);
          this.E4MainStopButton.TabIndex = 95;
@@ -4924,7 +4964,7 @@ namespace E4.DeviceTest
          // 
          // E4MainStartButton
          // 
-         this.E4MainStartButton.Location = new System.Drawing.Point(122, 6);
+         this.E4MainStartButton.Location = new System.Drawing.Point(35, 32);
          this.E4MainStartButton.Name = "E4MainStartButton";
          this.E4MainStartButton.Size = new System.Drawing.Size(46, 23);
          this.E4MainStartButton.TabIndex = 94;
@@ -4959,41 +4999,26 @@ namespace E4.DeviceTest
          this.MainActivityPanel.Size = new System.Drawing.Size(742, 118);
          this.MainActivityPanel.TabIndex = 45;
          // 
-         // label84
+         // E4MainUsageComboBox
          // 
-         this.label84.AutoSize = true;
-         this.label84.Location = new System.Drawing.Point(398, 77);
-         this.label84.Name = "label84";
-         this.label84.Size = new System.Drawing.Size(13, 13);
-         this.label84.TabIndex = 405;
-         this.label84.Text = "h";
+         this.E4MainUsageComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+         this.E4MainUsageComboBox.FormattingEnabled = true;
+         this.E4MainUsageComboBox.Items.AddRange(new object[] {
+            "laser",
+            "target"});
+         this.E4MainUsageComboBox.Location = new System.Drawing.Point(110, 8);
+         this.E4MainUsageComboBox.Name = "E4MainUsageComboBox";
+         this.E4MainUsageComboBox.Size = new System.Drawing.Size(75, 21);
+         this.E4MainUsageComboBox.TabIndex = 410;
          // 
-         // label85
+         // label87
          // 
-         this.label85.AutoSize = true;
-         this.label85.Location = new System.Drawing.Point(515, 77);
-         this.label85.Name = "label85";
-         this.label85.Size = new System.Drawing.Size(13, 13);
-         this.label85.TabIndex = 408;
-         this.label85.Text = "h";
-         // 
-         // label86
-         // 
-         this.label86.AutoSize = true;
-         this.label86.Location = new System.Drawing.Point(425, 80);
-         this.label86.Name = "label86";
-         this.label86.Size = new System.Drawing.Size(64, 13);
-         this.label86.TabIndex = 407;
-         this.label86.Text = "Laser Count";
-         // 
-         // E4MainLaserCountTextBox
-         // 
-         this.E4MainLaserCountTextBox.Location = new System.Drawing.Point(491, 77);
-         this.E4MainLaserCountTextBox.Name = "E4MainLaserCountTextBox";
-         this.E4MainLaserCountTextBox.Size = new System.Drawing.Size(25, 20);
-         this.E4MainLaserCountTextBox.TabIndex = 406;
-         this.E4MainLaserCountTextBox.Text = "FF";
-         this.E4MainLaserCountTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+         this.label87.AutoSize = true;
+         this.label87.Location = new System.Drawing.Point(70, 11);
+         this.label87.Name = "label87";
+         this.label87.Size = new System.Drawing.Size(38, 13);
+         this.label87.TabIndex = 409;
+         this.label87.Text = "Usage";
          // 
          // MainForm
          // 
@@ -5518,6 +5543,8 @@ namespace E4.DeviceTest
       private System.Windows.Forms.Label label86;
       private System.Windows.Forms.TextBox E4MainLaserCountTextBox;
       private System.Windows.Forms.Label label84;
+      private System.Windows.Forms.ComboBox E4MainUsageComboBox;
+      private System.Windows.Forms.Label label87;
    }
 }
 

@@ -49,6 +49,16 @@
 
       private UlcRoboticsE4Main mainBoard;
 
+      private bool laserAimSetPoint;
+      private bool laserAimRequested;
+      private bool needLaserMeasurementStart;
+      private bool needLaserMeasurementCancel;
+      private bool laserMeasureStartRequested;
+      private bool laserMeasureCancelRequested;
+      private bool laserBecameActive;
+      private int laserSampleCount;
+      private double laserMeasurement;
+
       #endregion
 
       #region Helper Functions
@@ -278,6 +288,16 @@
       private void InitializeMainBoard()
       {
          this.mainBoard.Initialize();
+
+         this.laserAimSetPoint = false;
+         this.laserAimRequested = false;
+         this.needLaserMeasurementStart = false;
+         this.needLaserMeasurementCancel = false;
+         this.laserMeasureStartRequested = false;
+         this.laserMeasureCancelRequested = false;
+         this.laserBecameActive = false;
+         this.laserSampleCount = 0;
+         this.laserMeasurement = 0;
       }
 
       private void StartMainBoard()
@@ -285,7 +305,7 @@
          this.mainBoard.SetConsumerHeartbeat((UInt16)ParameterAccessor.Instance.MainBus.ConsumerHeartbeatRate, (byte)ParameterAccessor.Instance.MainBus.ControllerBusId);
          this.mainBoard.SetProducerHeartbeat((UInt16)ParameterAccessor.Instance.MainBus.ProducerHeartbeatRate);
 
-         this.mainBoard.Configure();
+         this.mainBoard.Configure(UlcRoboticsE4Main.UsageModes.laser);
          this.mainBoard.Start();
 
          Thread.Sleep(50);
@@ -300,6 +320,66 @@
             {
                // stop motors...
             }
+
+            #region Laser Control 
+
+            if (this.laserAimSetPoint != this.laserAimRequested)
+            {
+               if (false != this.laserAimSetPoint)
+               {
+                  this.mainBoard.SetLaserAimOn();
+               }
+               else
+               {
+                  this.mainBoard.SetLaserAimOff();
+               }
+
+               this.laserAimRequested = this.laserAimSetPoint;
+            }
+
+            if ((false != this.needLaserMeasurementStart) &&
+                (false == this.laserMeasureStartRequested))
+            {
+               this.laserSampleCount = (int)ParameterAccessor.Instance.LaserSampleCount.OperationalValue;
+               this.mainBoard.StartLaserMeasurement(this.laserSampleCount, ParameterAccessor.Instance.LaserSampleTime.OperationalValue);
+               this.laserMeasureStartRequested = true;
+
+               this.laserBecameActive = false;
+               this.needLaserMeasurementCancel = false;
+               this.laserMeasureCancelRequested = false;
+            }
+
+            if ((false != this.needLaserMeasurementCancel) &&
+                (false == this.laserMeasureCancelRequested))
+            {
+               this.mainBoard.CancelLaserMeasurement();
+               this.laserMeasureCancelRequested = true;
+
+               this.needLaserMeasurementStart = false;
+               this.laserMeasureStartRequested = false;
+            }
+
+            bool laserMeasurementActive = this.mainBoard.LaserMeasurementActivity;
+
+            if (false != laserMeasurementActive)
+            {
+               this.laserBecameActive = true;
+            }
+
+            if ((false != this.laserMeasureStartRequested) &&
+                (false != this.laserBecameActive) &&
+                (false == laserMeasurementActive))
+            {
+               UInt32 laserMeasurementCounts = 0;
+               this.mainBoard.GetLaserDistance(ref laserMeasurementCounts);
+               this.laserMeasurement = laserMeasurementCounts * ParameterAccessor.Instance.LaserMeasurementConstant.OperationalValue;
+
+               this.needLaserMeasurementStart = false;
+               this.laserMeasureStartRequested = false;
+            }
+
+            #endregion
+
          }
       }
 
@@ -772,6 +852,71 @@
       {
          Tracer.WriteHigh(TraceGroup.MBUS, "", "Stop All");
          this.stopAll = true;
+      }
+
+      #endregion
+
+      #region Laser Functions
+
+      public void SetLaserAim(bool on)
+      {
+         this.laserAimSetPoint = on;
+      }
+
+      public bool GetLaserAim()
+      {
+         return (this.laserAimRequested);
+      }
+
+      public void StartLaserMeasurement()
+      {
+         this.needLaserMeasurementStart = true;
+      }
+
+      public void CancelLaserMeasurement()
+      {
+         this.needLaserMeasurementCancel = true;
+      }
+
+      public bool GetLaserMeasurementActivity()
+      {
+         bool result = false;
+
+         if (false != this.running)
+         {
+            result = this.mainBoard.LaserMeasurementActivity;
+         }
+
+         return (result);
+      }
+
+      public int GetLaserSampleRemainingCount()
+      {
+         int result = 0;
+
+         if (false != this.running)
+         {
+            result = this.laserSampleCount - this.mainBoard.LaserReadingCount;
+         }
+
+         return (result);
+      }
+
+      public bool GetLaserMeasurementReady()
+      {
+         bool result = false;
+
+         if (false != this.running)
+         {
+            result = this.mainBoard.LaserMeasurementReady;
+         }
+
+         return (result);
+      }
+
+      public double GetLaserMeasurement()
+      {
+         return (this.laserMeasurement);
       }
 
       #endregion

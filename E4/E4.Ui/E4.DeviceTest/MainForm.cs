@@ -748,12 +748,22 @@ namespace E4.DeviceTest
       private void E4MainConfigButton_Click(object sender, EventArgs e)
       {
          byte nodeId = 0;
+         UlcRoboticsE4Main.UsageModes usageMode = UlcRoboticsE4Main.UsageModes.undefined;
+
+         if (this.E4MainUsageComboBox.Text == "laser")
+         {
+            usageMode = UlcRoboticsE4Main.UsageModes.laser;
+         }
+         else if (this.E4MainUsageComboBox.Text == "target")
+         {
+            usageMode = UlcRoboticsE4Main.UsageModes.target;
+         }
 
          if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
          {
             this.e4Main.NodeId = nodeId;
 
-            bool result = this.e4Main.Configure();
+            bool result = this.e4Main.Configure(usageMode);
 
             if (false != result)
             {
@@ -4634,6 +4644,8 @@ namespace E4.DeviceTest
 
          this.HeartbeatActivityButton.Text = "Start";
          this.heartbeatActive = false;
+
+         this.E4MainUsageComboBox.SelectedIndex = 0;
 
          this.E4MainBldc0ModeComboBox.SelectedIndex = 0;
          this.E4MainBldc0TuningVelocityRadioButton.Checked = true;

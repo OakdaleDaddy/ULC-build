@@ -230,16 +230,44 @@
 
       #region Laser Functions
 
-      private bool laserOn;
-
       public void SetLaserAim(bool on)
       {
-         this.laserOn = on;
+         MainCommunicationBus.Instance.SetLaserAim(on);      
       }
 
       public bool GetLaserAim()
       {
-         return (this.laserOn);
+         return (MainCommunicationBus.Instance.GetLaserAim());
+      }
+
+      public void StartLaserMeasurement()
+      {
+         MainCommunicationBus.Instance.StartLaserMeasurement();      
+      }
+
+      public void CancelLaserMeasurement()
+      {
+         MainCommunicationBus.Instance.CancelLaserMeasurement();      
+      }
+
+      public bool GetLaserMeasurementActivity()
+      {
+         return (MainCommunicationBus.Instance.GetLaserMeasurementActivity());
+      }
+
+      public int GetLaserSampleRemainingCount()
+      {
+         return (MainCommunicationBus.Instance.GetLaserSampleRemainingCount());
+      }
+
+      public bool GetLaserMeasurementReady()
+      {
+         return (MainCommunicationBus.Instance.GetLaserMeasurementReady());
+      }
+
+      public double GetLaserMeasurement()
+      {
+         return (MainCommunicationBus.Instance.GetLaserMeasurement());
       }
 
       #endregion

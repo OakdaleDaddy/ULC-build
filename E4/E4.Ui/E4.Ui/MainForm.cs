@@ -44,6 +44,8 @@
 
       private JoystickApplications joystickApplication;
 
+      private bool laserMeasurementRequested;
+
       private PopupDimmerForm dimmerForm;
 
       #endregion
@@ -57,6 +59,13 @@
       #region Helper Functions
 
       #region General Functions
+
+      private string GetValueText(double operationalValue, ValueParameter parameter)
+      {
+         string doubleFormat = "N" + parameter.Precision.ToString();
+         string result = operationalValue.ToString(doubleFormat) + " " + parameter.Unit;
+         return (result);
+      }
 
       private int GetAbsoluteLeft(Control control)
       {
@@ -172,9 +181,20 @@
 
       private void ProcessStart()
       {
+         // zero-initialize fields
+
          this.processStopped = false;
 
+         this.indicatorFlasher = false;
+         this.messageFlasher = false;
+         this.messageFlashCount = 0;
+
          this.joystickApplication = JoystickApplications.none;
+
+         this.laserMeasurementRequested = false;
+
+
+         // set next state
 
          this.UpdateTimer.Interval = 1;
          this.Process = this.ProcessShow;
@@ -182,13 +202,55 @@
       
       private void ProcessShow()
       {
+         // set version
+
+         string versionString = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+         this.VersionLabel.Text = versionString;
+
+
          // clear display
+
+         this.LaserScannerPitchTextPanel.ValueText = "";
+         this.LaserRangePitchTextPanel.ValueText = "";
+         this.LaserRangeYawTextPanel.ValueText = "";
+
+         this.LaserMeasurementValuePanel.ValueText = "";
+         this.LaserMeasureButton.Text = "MEASURE";
          
          this.StopAllPanel.BackColor = Color.FromArgb(64, 64, 64);
          this.StopAllPanel.Refresh();
          this.StopAllButton.Refresh();
 
+
+         // set next state
+
          this.UpdateTimer.Interval = 1;
+
+         this.MainStatusTextBox.Width = (this.TargetStatusTextBox.Left + this.TargetStatusTextBox.Width - this.MainStatusTextBox.Left);
+         this.TargetStatusTextBox.Visible = false;
+
+         this.Process = this.ProcessStarting;
+      }
+
+      private void ProcessStarting()
+      {
+         // read parameters
+
+         ParameterAccessor.Instance.Read(Application.ExecutablePath);
+         this.traceListener.SetDestination(ParameterAccessor.Instance.Trace.Address, ParameterAccessor.Instance.Trace.Port);
+         Tracer.WriteHigh(TraceGroup.UI, null, "starting");
+
+
+         // process parameters
+
+         if ((0 == ParameterAccessor.Instance.MainBus.ConsumerHeartbeatRate) ||
+             (0 == ParameterAccessor.Instance.MainBus.ProducerHeartbeatRate) ||
+             (0 == ParameterAccessor.Instance.TargetBus.ConsumerHeartbeatRate) ||
+             (0 == ParameterAccessor.Instance.TargetBus.ProducerHeartbeatRate))
+         {
+            this.HeartbeatsDisabledLabel.Visible = true;
+         }
+
 
          this.LaserRangeJoystickXRequestIndicator.Position = 0;
          this.LaserRangeJoystickXRequestIndicator.MaximumPosition = 32767 - ParameterAccessor.Instance.JoystickDeadband;
@@ -202,37 +264,10 @@
          this.LaserScannerJoystickYRequestIndicator.MaximumPosition = 32767 - ParameterAccessor.Instance.JoystickDeadband;
          this.LaserScannerJoystickYRequestIndicator.MinimumPosition = -32767 + ParameterAccessor.Instance.JoystickDeadband;
 
-         this.MainStatusTextBox.Width = (this.TargetStatusTextBox.Left + this.TargetStatusTextBox.Width - this.MainStatusTextBox.Left);
-         this.TargetStatusTextBox.Visible = false;
-
-         this.Process = this.ProcessStarting;
-      }
-
-      private void ProcessStarting()
-      {
-         string versionString = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
-         this.VersionLabel.Text = versionString;
-
-
-         ParameterAccessor.Instance.Read(Application.ExecutablePath);
-         this.traceListener.SetDestination(ParameterAccessor.Instance.Trace.Address, ParameterAccessor.Instance.Trace.Port);
-         Tracer.WriteHigh(TraceGroup.UI, null, "starting");
-
-         if ((0 == ParameterAccessor.Instance.MainBus.ConsumerHeartbeatRate) ||
-             (0 == ParameterAccessor.Instance.MainBus.ProducerHeartbeatRate) ||
-             (0 == ParameterAccessor.Instance.TargetBus.ConsumerHeartbeatRate) ||
-             (0 == ParameterAccessor.Instance.TargetBus.ProducerHeartbeatRate))
-         {
-            this.HeartbeatsDisabledLabel.Visible = true;
-         }
-
-         this.indicatorFlasher = false;
-         this.messageFlasher = false;
-         this.messageFlashCount = 0;
-
-         // zero initialize fields
-
          DeviceCommunication.Instance.Start();
+
+
+         // set next state
 
          this.MainStatusTextBox.Text = "starting";
          this.MainStatusTextBox.BackColor = Color.Yellow;
@@ -425,8 +460,55 @@
 
          #region Laser
 
-         bool laserAimActive = DeviceCommunication.Instance.GetLaserAim();
-         this.LaserAimButton.BackColor = (false != laserAimActive) ? Color.LimeGreen : Color.FromArgb(171, 171, 171);
+         string laserMeasureFault = MainCommunicationBus.Instance.GetFaultStatus(MainCommunicationBus.BusComponentId.MainBoard);
+
+         if (null == laserMeasureFault)
+         {
+            this.LaserMeasureButton.BackColor = Color.FromArgb(171, 171, 171);
+            
+            bool laserAimActive = DeviceCommunication.Instance.GetLaserAim();
+            this.LaserAimButton.BackColor = (false != laserAimActive) ? Color.LimeGreen : Color.FromArgb(171, 171, 171);
+
+            bool laserReadingReady = DeviceCommunication.Instance.GetLaserMeasurementReady();
+            bool laserMeasureActive = DeviceCommunication.Instance.GetLaserMeasurementActivity();
+
+            if (false != this.laserMeasurementRequested)
+            {
+               if (false != laserReadingReady)
+               {
+                  double laserMeasurement = DeviceCommunication.Instance.GetLaserMeasurement();
+                  this.LaserMeasurementValuePanel.ValueText = this.GetValueText(laserMeasurement, ParameterAccessor.Instance.LaserMeasurementConstant);
+                  this.LaserTitleLabel.Text = "LASER MEASURE - COMPLETE";
+
+                  this.LaserMeasureButton.Text = "MEASURE";
+               }
+               else
+               {
+                  if (false != laserMeasureActive)
+                  {
+                     int laserMeasureRemainingCount = DeviceCommunication.Instance.GetLaserSampleRemainingCount();
+                     string laserMeasureStatusText = string.Format("LASER MEASURE - READING ({0})", laserMeasureRemainingCount);
+                     this.LaserTitleLabel.Text = laserMeasureStatusText;
+                  }
+                  else
+                  {
+                     string laserMeasureStatusText = string.Format("LASER MEASURE - STARTING");
+                  }
+
+                  this.LaserMeasureButton.Text = "CANCEL";
+               }
+            }
+            else
+            {
+               this.LaserTitleLabel.Text = "LASER MEASURE";
+               this.LaserMeasureButton.Text = "MEASURE";
+            }
+         }
+         else
+         {
+            this.LaserMeasureButton.BackColor = Color.Red;
+            this.LaserTitleLabel.Text = "LASER MEASURE - FAULTED";
+         }
 
          #endregion
 
@@ -1525,12 +1607,6 @@
       
       #region Laser Actions
 
-      private void LaserAimButton_Click(object sender, EventArgs e)
-      {
-         bool request = !DeviceCommunication.Instance.GetLaserAim();
-         DeviceCommunication.Instance.SetLaserAim(request);
-      }
-
       private void LaserSetupButton_Click(object sender, EventArgs e)
       {
          Button button = (Button)sender;
@@ -1541,6 +1617,28 @@
          this.DimBackground();
          laserSetupForm.ShowDialog();
          this.LightBackground();
+      }
+
+      private void LaserAimButton_Click(object sender, EventArgs e)
+      {
+         bool request = !DeviceCommunication.Instance.GetLaserAim();
+         DeviceCommunication.Instance.SetLaserAim(request);
+      }
+
+      private void LaserMeasureButton_Click(object sender, EventArgs e)
+      {
+         bool laserMeasureActivity = DeviceCommunication.Instance.GetLaserMeasurementActivity();
+
+         if (false == laserMeasureActivity)
+         {
+            DeviceCommunication.Instance.StartLaserMeasurement();
+            this.laserMeasurementRequested = true;
+         }
+         else
+         {
+            DeviceCommunication.Instance.CancelLaserMeasurement();
+            this.laserMeasurementRequested = false;
+         }
       }
 
       private void LaserRangeJoystickEnableButton_Click(object sender, EventArgs e)

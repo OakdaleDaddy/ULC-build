@@ -28,6 +28,7 @@
 
       public ValueParameter LaserSampleTime;
       public ValueParameter LaserSampleCount;
+      public ValueParameter LaserMeasurementConstant;
 
       public OsdParameters Osd;
 
@@ -61,7 +62,7 @@
 
       private void AssignDefaults()
       {
-         this.VersionCount = 2; // update after each addition
+         this.VersionCount = 4; // update after each addition
 
          this.MainBus = new MainBusParameters();
          this.MainBus.BusInterface = BusInterfaces.PCIA;
@@ -90,6 +91,7 @@
 
          this.LaserSampleTime = new ValueParameter("LaserSampleTime", "s", 2, 0.15, 3.75, 0.15, 0.9, 0.9);
          this.LaserSampleCount = new ValueParameter("LaserSampleCount", "", 0, 1, 128, 1, 4, 4);
+         this.LaserMeasurementConstant = new ValueParameter("LaserMeasurementConstant", "mm", 0, 1, 1, 1, 1, 1);
 
          this.Osd = new OsdParameters();
          this.SetOsdDefaults(ref this.Osd);
@@ -648,6 +650,10 @@
                         {
                            this.LaserSampleCount = valueParameter;
                         }
+                        else if ("LaserMeasurementConstant" == valueParameter.Name)
+                        {
+                           this.LaserMeasurementConstant = valueParameter;
+                        }
                      }
                      else if ("Osd" == reader.Name)
                      {
@@ -803,6 +809,7 @@
 
             this.WriteValueParameters(writer, this.LaserSampleTime);
             this.WriteValueParameters(writer, this.LaserSampleCount);
+            this.WriteValueParameters(writer, this.LaserMeasurementConstant);
 
             this.WriteOsdParameters(writer, this.Osd);
 

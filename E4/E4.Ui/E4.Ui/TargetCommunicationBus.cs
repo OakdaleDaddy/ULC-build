@@ -285,7 +285,7 @@
          this.targetBoard.SetConsumerHeartbeat((UInt16)ParameterAccessor.Instance.TargetBus.ConsumerHeartbeatRate, (byte)ParameterAccessor.Instance.TargetBus.ControllerBusId);
          this.targetBoard.SetProducerHeartbeat((UInt16)ParameterAccessor.Instance.TargetBus.ProducerHeartbeatRate);
 
-         this.targetBoard.Configure();
+         this.targetBoard.Configure(UlcRoboticsE4Main.UsageModes.target);
          this.targetBoard.Start();
 
          Thread.Sleep(50);
