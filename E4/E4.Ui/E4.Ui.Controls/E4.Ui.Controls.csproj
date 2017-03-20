@@ -71,6 +71,9 @@
     <Compile Include="RotatableLabel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ScannerIndicator.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="TextPanel.cs">
       <SubType>Component</SubType>
     </Compile>

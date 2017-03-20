@@ -744,7 +744,7 @@
          this.WriteElement(writer, "ProducerHeartbeatRate", targetBusParameters.ProducerHeartbeatRate);
          this.WriteElement(writer, "ControllerBusId", targetBusParameters.ControllerBusId);
 
-         this.WriteElement(writer, "TargetBoardMainBusId", targetBusParameters.TargetBoardBusId);
+         this.WriteElement(writer, "TargetBoardBusId", targetBusParameters.TargetBoardBusId);
 
          this.WriteElement(writer, "ControllerTraceMask", targetBusParameters.ControllerTraceMask);
          this.WriteElement(writer, "TargetBoardTraceMask", targetBusParameters.TargetBoardTraceMask);

@@ -12,10 +12,62 @@ namespace E4.Ui.ControlTest
 {
    public partial class MainForm : Form
    {
-      public MainForm()
+      #region Scanner Indicator Events
+
+      private void FaultCheckBox_CheckedChanged(object sender, EventArgs e)
       {
-         InitializeComponent();
+         if (false != this.FaultCheckBox.Checked)
+         {
+            this.TestScannerIndicator.MissColor = Color.Red;
+            this.TestScannerIndicator.BackColor = Color.Red;
+            this.TestScannerIndicator.CoordinateValue = 0;
+         }
+         else
+         {
+            this.TestScannerIndicator.MissColor = Color.FromArgb(140, 0, 0);
+            this.TestScannerIndicator.BackColor = Color.FromKnownColor(KnownColor.ControlDark);
+            byte value = (byte)((this.XTrackBar.Value << 4) | (16 - this.YTrackBar.Value));
+            this.TestScannerIndicator.CoordinateValue = value;
+         }
       }
+
+      private void ZeroCheckBox_CheckedChanged(object sender, EventArgs e)
+      {
+         if (false == this.FaultCheckBox.Checked)
+         {
+            if (false != this.ZeroCheckBox.Checked)
+            {
+               this.TestScannerIndicator.CoordinateValue = 0;
+            }
+            else
+            {
+               byte value = (byte)((this.XTrackBar.Value << 4) | (16 - this.YTrackBar.Value));
+               this.TestScannerIndicator.CoordinateValue = value;
+            }
+         }
+      }
+
+      private void XTrackBar_Scroll(object sender, EventArgs e)
+      {
+         if (false == this.FaultCheckBox.Checked)
+         {
+            byte value = (byte)((this.XTrackBar.Value << 4) | (16 - this.YTrackBar.Value));
+            this.TestScannerIndicator.CoordinateValue = value;
+         }
+      }
+
+      private void YTrackBar_Scroll(object sender, EventArgs e)
+      {
+         if (false == this.FaultCheckBox.Checked)
+         {
+            byte value = (byte)((this.XTrackBar.Value << 4) | (16 - this.YTrackBar.Value));
+            this.TestScannerIndicator.CoordinateValue = value;
+         }
+      }
+
+      #endregion
+
+      #region Position Indicator Events
 
       private void SetButton_Click(object sender, EventArgs e)
       {
@@ -26,5 +78,21 @@ namespace E4.Ui.ControlTest
             this.TestPositionIndicator.Position = value;
          }
       }
+
+      #endregion
+
+      #region Constructor
+
+      public MainForm()
+      {
+         this.InitializeComponent();
+
+         this.FaultCheckBox_CheckedChanged(this, EventArgs.Empty);
+         this.XTrackBar_Scroll(this, EventArgs.Empty);
+      }
+
+      #endregion
+
+
    }
 }

@@ -216,7 +216,11 @@
 
          this.LaserMeasurementValuePanel.ValueText = "";
          this.LaserMeasureButton.Text = "MEASURE";
-         
+
+         this.LaserScannerIndicator.MissColor = Color.FromKnownColor(KnownColor.ControlDark);
+         this.LaserScannerIndicator.BackColor = Color.FromKnownColor(KnownColor.ControlDark);
+         this.LaserScannerIndicator.CoordinateValue = 0;
+
          this.StopAllPanel.BackColor = Color.FromArgb(64, 64, 64);
          this.StopAllPanel.Refresh();
          this.StopAllButton.Refresh();
@@ -509,6 +513,21 @@
             this.LaserMeasureButton.BackColor = Color.Red;
             this.LaserTitleLabel.Text = "LASER MEASURE - FAULTED";
          }
+
+         string laserScannerFault = TargetCommunicationBus.Instance.GetFaultStatus(TargetCommunicationBus.BusComponentId.TargetBoard);
+
+         if (null == laserScannerFault)
+         {
+            this.LaserScannerIndicator.MissColor = Color.FromArgb(140, 0, 0);
+            this.LaserScannerIndicator.BackColor = Color.FromKnownColor(KnownColor.ControlDark);
+            this.LaserScannerIndicator.CoordinateValue = DeviceCommunication.Instance.GetLaserScannerCoordinates();
+         }
+         else
+         {
+            this.LaserScannerIndicator.MissColor = Color.Red;
+            this.LaserScannerIndicator.BackColor = Color.Red;
+            this.LaserScannerIndicator.CoordinateValue = 0;
+         }         
 
          #endregion
 

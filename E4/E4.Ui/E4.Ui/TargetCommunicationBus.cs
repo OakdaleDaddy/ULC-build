@@ -275,12 +275,12 @@
 
       #region Main Board Functions
 
-      private void InitializeMainBoard()
+      private void InitializeTargetBoard()
       {
          this.targetBoard.Initialize();
       }
 
-      private void StartMainBoard()
+      private void StartTargetBoard()
       {
          this.targetBoard.SetConsumerHeartbeat((UInt16)ParameterAccessor.Instance.TargetBus.ConsumerHeartbeatRate, (byte)ParameterAccessor.Instance.TargetBus.ControllerBusId);
          this.targetBoard.SetProducerHeartbeat((UInt16)ParameterAccessor.Instance.TargetBus.ProducerHeartbeatRate);
@@ -291,7 +291,7 @@
          Thread.Sleep(50);
       }
 
-      private void UpdateMainBoard()
+      private void UpdateTargetBoard()
       {
          if ((null == this.targetBoard.FaultReason) &&
              (null == this.targetBoard.Warning))
@@ -343,7 +343,7 @@
 
          this.stopAll = false;
 
-         this.InitializeMainBoard();
+         this.InitializeTargetBoard();
       }
 
       private void StartBus()
@@ -432,11 +432,11 @@
 
                if (BusComponentId.TargetBoard == id)
                {
-                  this.InitializeMainBoard();
+                  this.InitializeTargetBoard();
                   this.targetBoard.Initialize();
                   this.targetBoard.Reset();
                   this.WaitDeviceHeartbeat(this.targetBoard);
-                  this.StartMainBoard();
+                  this.StartTargetBoard();
                }
 
                if (null != request.OnComplete)
@@ -501,13 +501,13 @@
          this.controllerServiced = true;
          this.controllerHeartbeatLimit = DateTime.Now.AddMilliseconds(ParameterAccessor.Instance.TargetBus.ProducerHeartbeatRate);
 
-         this.StartMainBoard();
+         this.StartTargetBoard();
 
          this.ready = true;
 
          for (; this.execute; )
          {
-            this.UpdateMainBoard();
+            this.UpdateTargetBoard();
             this.UpdateDeviceReset();
             this.UpdateDeviceClearWarning();
 
@@ -772,6 +772,15 @@
       {
          Tracer.WriteHigh(TraceGroup.TBUS, "", "Stop All");
          this.stopAll = true;
+      }
+
+      #endregion
+
+      #region Laser Functions
+
+      public UInt32 GetLaserScannerCoordinates()
+      {
+         return (this.targetBoard.LaserScannerPosition);
       }
 
       #endregion

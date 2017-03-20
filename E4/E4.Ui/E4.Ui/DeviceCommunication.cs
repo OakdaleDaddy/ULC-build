@@ -270,6 +270,11 @@
          return (MainCommunicationBus.Instance.GetLaserMeasurement());
       }
 
+      public UInt32 GetLaserScannerCoordinates()
+      {
+         return (TargetCommunicationBus.Instance.GetLaserScannerCoordinates());
+      }
+
       #endregion
 
       #endregion
