@@ -153,34 +153,18 @@ namespace E4.CAN
             }
          }
       }
-
-
-
-
-
+      
       private bool EmitRpo1()
       {
-         byte[] bldc0ControlWordData = BitConverter.GetBytes(this.bldc0ControlWord);
          byte[] bldc0TargetTorqueData = BitConverter.GetBytes(this.bldc0TargetTorque);
-         byte[] bldc1ControlWordData = BitConverter.GetBytes(this.bldc1ControlWord);
          byte[] bldc1TargetTorqueData = BitConverter.GetBytes(this.bldc1TargetTorque);
 
-         byte[] pdoData = new byte[bldc0ControlWordData.Length + bldc0TargetTorqueData.Length + bldc1ControlWordData.Length + bldc1TargetTorqueData.Length];
+         byte[] pdoData = new byte[bldc0TargetTorqueData.Length + bldc1TargetTorqueData.Length];
          int index = 0;
-
-         for (int i = 0; i < bldc0ControlWordData.Length; i++)
-         {
-            pdoData[index++] = bldc0ControlWordData[i];
-         }
 
          for (int i = 0; i < bldc0TargetTorqueData.Length; i++)
          {
             pdoData[index++] = bldc0TargetTorqueData[i];
-         }
-
-         for (int i = 0; i < bldc1ControlWordData.Length; i++)
-         {
-            pdoData[index++] = bldc1ControlWordData[i];
          }
 
          for (int i = 0; i < bldc1TargetTorqueData.Length; i++)
@@ -554,13 +538,13 @@ namespace E4.CAN
                      this.ProcessStepper0Status();
                      this.ProcessStepper1Status();
                   }
-                  else if (UsageModes.target == this.usageMode)
+               }
+               else if (UsageModes.target == this.usageMode)
+               {
+                  if ((null != msg) && (msg.Length >= 2))
                   {
                      this.Stepper0Status = BitConverter.ToUInt16(msg, 0);
-                     this.Stepper1Status = BitConverter.ToUInt16(msg, 2);
-
                      this.ProcessStepper0Status();
-                     this.ProcessStepper1Status();
                   }
                }
             }
@@ -692,11 +676,9 @@ namespace E4.CAN
                result &= this.SetRPDOEnable(1, false);
                result &= this.SetRPDOMapCount(1, 0);
                result &= this.SetRPDOType(1, 1);
-               result &= this.SetRPDOMap(1, 1, 0x6040, 0, 2); // BLDC0 control word
-               result &= this.SetRPDOMap(1, 2, 0x6071, 0, 2); // BLDC0 target torque
-               result &= this.SetRPDOMap(1, 3, 0x6840, 0, 2); // BLDC1 control word
-               result &= this.SetRPDOMap(1, 4, 0x6871, 0, 2); // BLDC1 target torque
-               result &= this.SetRPDOMapCount(1, 4);
+               result &= this.SetRPDOMap(1, 1, 0x6071, 0, 2); // BLDC0 target torque
+               result &= this.SetRPDOMap(1, 2, 0x6871, 0, 2); // BLDC1 target torque
+               result &= this.SetRPDOMapCount(1, 2);
                result &= this.SetRPDOEnable(1, true);
 
                // set RPDO2 every SYNC
@@ -792,8 +774,7 @@ namespace E4.CAN
                result &= this.SetTPDOType(7, 254);
                result &= this.SetTPDOInhibitTime(7, 200);
                result &= this.SetTPDOMap(7, 1, 0x7041, 0x00, 2); // stepper0 status word
-               result &= this.SetTPDOMap(7, 2, 0x7841, 0x00, 2); // stepper1 status word
-               result &= this.SetTPDOMapCount(7, 2);
+               result &= this.SetTPDOMapCount(7, 1);
                result &= this.SetTPDOEnable(7, true);
 
 
@@ -801,11 +782,9 @@ namespace E4.CAN
                result &= this.SetRPDOEnable(1, false);
                result &= this.SetRPDOMapCount(1, 0);
                result &= this.SetRPDOType(1, 1);
-               result &= this.SetRPDOMap(1, 1, 0x6040, 0, 2); // BLDC0 control word
-               result &= this.SetRPDOMap(1, 2, 0x6071, 0, 2); // BLDC0 target torque
-               result &= this.SetRPDOMap(1, 3, 0x6840, 0, 2); // BLDC1 control word
-               result &= this.SetRPDOMap(1, 4, 0x6871, 0, 2); // BLDC1 target torque
-               result &= this.SetRPDOMapCount(1, 4);
+               result &= this.SetRPDOMap(1, 1, 0x6071, 0, 2); // BLDC0 target torque
+               result &= this.SetRPDOMap(1, 2, 0x6871, 0, 2); // BLDC1 target torque
+               result &= this.SetRPDOMapCount(1, 2);
                result &= this.SetRPDOEnable(1, true);
 
                // set RPDO2 every SYNC
