@@ -123,17 +123,27 @@ namespace E4.CAN
       public int ControlWordLocation { set; get; } // 0x6040
       public int SetOperationalModeLocation { set; get; } // 0x6060
 
+      public int HomeOffsetLocation { set; get; } // 0x607C
+      public int HomingMethodLocation { set; get; } // 0x6098
+      public int HomingSwitchSpeedLocation { set; get; } // 0x6099-1
+      public int HomingZeroSpeedLocation { set; get; } // 0x6099-2
+      public int HomingAccelerationLocation { set; get; } // 0x609A
+
       public int TargetPositionLocation { set; get; } // 0x607A
       public int ProfileVelocityLocation { set; get; } // 0x6081
       public int ProfileAccelerationLocation { set; get; } // 0x6083
       public int ProfileDecelerationLocation { set; get; } // 0x6084
 
+      public int ActualPositionLocation { set; get; } // 0x6064
       public int PositionWindowLocation { set; get; } // 0x6067
       public int PositionWindowTimeLocation { set; get; } // 0x6068
       public int PositionKpLocation { set; get; } // 0x60FB-01
       public int PositionKiLocation { set; get; } // 0x60FB-02
       public int PositionKdLocation { set; get; } // 0x60FB-03
 
+      public int ActualCurrentLocation { set; get; } // 0x6078
+
+      public int ActualVelocityLocation { set; get; } // 0x606C
       public int VelocityWindowLocation { set; get; } // 0x606D
       public int VelocityWindowTimeLocation { set; get; } // 0x606E
       public int VelocityThresholdLocation { set; get; } // 0x606F
@@ -253,9 +263,23 @@ namespace E4.CAN
 
          if (false != operational)
          {
+            this.homeDefined = ((this.Status & 0x0100) != 0) ? true : false;
+
             if (Modes.position == this.mode)
             {
                this.positionAttained = ((this.Status & 0x0400) != 0) ? true : false;
+            }
+            else if (Modes.homing == this.mode)
+            {
+               if (((this.controlWord & 0x0010) != 0) &&
+                   ((this.Status & 0x0400) != 0))
+               {
+                  this.homingAttained = true;
+               }
+               else
+               {
+                  this.homingAttained = false;
+               }
             }
             else if (Modes.velocity == this.mode)
             {
@@ -287,6 +311,13 @@ namespace E4.CAN
             result &= this.SetControlWord((UInt16)(0x7 | relativePositionBit));
             result &= this.ExchangeSdoDownload(this.SetOperationalModeLocation, 1, 1);
             result &= this.SetControlWord((UInt16)(0xF | relativePositionBit));
+         }
+         else if (Modes.homing == mode)
+         {
+            result &= this.SetControlWord(0x6);
+            result &= this.SetControlWord(0x7);
+            result &= this.ExchangeSdoDownload(this.SetOperationalModeLocation, 1, 6);
+            result &= this.SetControlWord(0xF);
          }
          else if (Modes.velocity == mode)
          {
@@ -321,6 +352,51 @@ namespace E4.CAN
          if (false != result)
          {
             this.mode = Modes.off;
+         }
+
+         return (result);
+      }
+
+      public bool GetActualPosition(ref Int32 actualPosition)
+      {
+         bool result = false;
+         SDOUpload upload = this.CreateSdoUpload(this.ActualPositionLocation);
+         bool actionResult = this.ExchangeCommAction(upload);
+
+         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
+         {
+            actualPosition = BitConverter.ToInt32(upload.Data, 0);
+            result = true;
+         }
+
+         return (result);
+      }
+
+      public bool GetActualVelocity(ref Int32 actualPosition)
+      {
+         bool result = false;
+         SDOUpload upload = this.CreateSdoUpload(this.ActualVelocityLocation);
+         bool actionResult = this.ExchangeCommAction(upload);
+
+         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
+         {
+            actualPosition = BitConverter.ToInt32(upload.Data, 0);
+            result = true;
+         }
+
+         return (result);
+      }
+
+      public bool GetActualCurrent(ref Int16 actualPosition)
+      {
+         bool result = false;
+         SDOUpload upload = this.CreateSdoUpload(this.ActualCurrentLocation);
+         bool actionResult = this.ExchangeCommAction(upload);
+
+         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 2))
+         {
+            actualPosition = BitConverter.ToInt16(upload.Data, 0);
+            result = true;
          }
 
          return (result);
@@ -780,6 +856,203 @@ namespace E4.CAN
          bool result = true;
 
          result &= this.ExchangeSdoDownload(this.VelocityThresholdTimeLocation, 2, (UInt32)velocityThresholdTime);
+
+         return (result);
+      }
+
+      public bool StartHoming()
+      {
+         bool result = true;
+
+         if (Modes.homing == this.Mode)
+         {
+            UInt16 controlWord = this.controlWord;
+            controlWord |= 0x0010;
+            result &= this.SetControlWord(controlWord);
+
+            if (false != result)
+            {
+               this.homingAttained = false;
+            }
+         }
+         else
+         {
+            result = false;
+         }
+
+         return (result);
+      }
+
+      public bool StopHoming()
+      {
+         bool result = true;
+
+         if (Modes.homing == this.Mode)
+         {
+            UInt16 controlWord = this.controlWord;
+            controlWord &= 0xFFEF;
+            result &= this.SetControlWord(controlWord);
+         }
+         else
+         {
+            result = false;
+         }
+
+         return (result);
+      }
+
+      public bool HaltHoming()
+      {
+         bool result = true;
+
+         if (Modes.homing == this.Mode)
+         {
+            UInt16 controlWord = this.controlWord;
+            controlWord |= 0x0100;
+            result &= this.SetControlWord(controlWord);
+         }
+         else
+         {
+            result = false;
+         }
+
+         return (result);
+      }
+
+      public bool RunHoming()
+      {
+         bool result = true;
+
+         if (Modes.homing == this.Mode)
+         {
+            UInt16 controlWord = this.controlWord;
+            controlWord &= 0xFEFF;
+            result &= this.SetControlWord(controlWord);
+         }
+         else
+         {
+            result = false;
+         }
+
+         return (result);
+      }
+
+      public bool GetHomingMethod(ref byte homingMethod)
+      {
+         bool result = false;
+         SDOUpload upload = this.CreateSdoUpload(this.HomingMethodLocation);
+         bool actionResult = this.ExchangeCommAction(upload);
+
+         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 1))
+         {
+            homingMethod = upload.Data[0];
+            result = true;
+         }
+
+         return (result);
+      }
+
+      public bool SetHomingMethod(byte homingMethod)
+      {
+         bool result = true;
+
+         result &= this.ExchangeSdoDownload(this.HomingMethodLocation, 1, (UInt32)homingMethod);
+
+         return (result);
+      }
+
+      public bool GetHomingSwitchSpeed(ref UInt32 homingSwitchSpeed)
+      {
+         bool result = false;
+         SDOUpload upload = this.CreateSdoUpload(this.HomingSwitchSpeedLocation);
+         bool actionResult = this.ExchangeCommAction(upload);
+
+         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
+         {
+            homingSwitchSpeed = BitConverter.ToUInt32(upload.Data, 0);
+            result = true;
+         }
+
+         return (result);
+      }
+
+      public bool SetHomingSwitchSpeed(UInt32 homingSwitchSpeed)
+      {
+         bool result = true;
+
+         result &= this.ExchangeSdoDownload(this.HomingSwitchSpeedLocation, 4, (UInt32)homingSwitchSpeed);
+
+         return (result);
+      }
+
+      public bool GetHomingZeroSpeed(ref UInt32 homingZeroSpeed)
+      {
+         bool result = false;
+         SDOUpload upload = this.CreateSdoUpload(this.HomingZeroSpeedLocation);
+         bool actionResult = this.ExchangeCommAction(upload);
+
+         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
+         {
+            homingZeroSpeed = BitConverter.ToUInt32(upload.Data, 0);
+            result = true;
+         }
+
+         return (result);
+      }
+
+      public bool SetHomingZeroSpeed(UInt32 homingZeroSpeed)
+      {
+         bool result = true;
+
+         result &= this.ExchangeSdoDownload(this.HomingZeroSpeedLocation, 4, (UInt32)homingZeroSpeed);
+
+         return (result);
+      }
+
+      public bool GetHomingAcceleration(ref UInt32 homingAcceleration)
+      {
+         bool result = false;
+         SDOUpload upload = this.CreateSdoUpload(this.HomingAccelerationLocation);
+         bool actionResult = this.ExchangeCommAction(upload);
+
+         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
+         {
+            homingAcceleration = BitConverter.ToUInt32(upload.Data, 0);
+            result = true;
+         }
+
+         return (result);
+      }
+
+      public bool SetHomingAcceleration(UInt32 homingAcceleration)
+      {
+         bool result = true;
+
+         result &= this.ExchangeSdoDownload(this.HomingAccelerationLocation, 4, (UInt32)homingAcceleration);
+
+         return (result);
+      }
+
+      public bool GetHomeOffset(ref Int32 homeOffset)
+      {
+         bool result = false;
+         SDOUpload upload = this.CreateSdoUpload(this.HomeOffsetLocation);
+         bool actionResult = this.ExchangeCommAction(upload);
+
+         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
+         {
+            homeOffset = BitConverter.ToInt32(upload.Data, 0);
+            result = true;
+         }
+
+         return (result);
+      }
+
+      public bool SetHomeOffset(Int32 homeOffset)
+      {
+         bool result = true;
+
+         result &= this.ExchangeSdoDownload(this.HomeOffsetLocation, 4, (UInt32)homeOffset);
 
          return (result);
       }

@@ -34,25 +34,10 @@ namespace E4.CAN
       private bool active;
       private UsageModes usageMode;
 
-      private UInt16 bldc1ControlWord;
-      private MotorModes bldc1Mode;
-      private Int16 bldc1TargetTorque;
-      private Int32 bldc1TargetVelocity;
-      private Int32 bldc1TargetPosition;
-      private bool bldc1TargetPositionRelative;
-
-      private UInt16 stepper0ControlWord;
-      private MotorModes stepper0Mode;
-      private bool stepper0TargetPositionRelative;
-
-      private UInt16 stepper1ControlWord;
-      private MotorModes stepper1Mode;
-      private bool stepper1TargetPositionRelative;
-
       private MotorComponent bldc0;
-//      private MotorComponent bldc1;
-      //private MotorComponent stepper0;
-      //private MotorComponent stepper1;
+      private MotorComponent bldc1;
+      private MotorComponent stepper0;
+      private MotorComponent stepper1;
 
       #endregion
 
@@ -64,81 +49,10 @@ namespace E4.CAN
          return (result);
       }
 
-      private void ProcessBldc1Status()
-      {
-         bool bldc1Operational = ((this.Bldc1Status & 0x0004) != 0) ? true : false;
-
-         if (false != bldc1Operational)
-         {
-            if (MotorModes.position == this.bldc1Mode)
-            {
-               this.Bldc1PositionAttained = ((this.Bldc1Status & 0x0400) != 0) ? true : false;
-            }
-            else if (MotorModes.velocity == this.bldc1Mode)
-            {
-               this.Bldc1VelocityAttained = ((this.Bldc1Status & 0x0400) != 0) ? true : false;
-            }
-         }
-      }
-
-      private void ProcessStepper0Status()
-      {
-         bool stepper0Operational = ((this.Stepper0Status & 0x0004) != 0) ? true : false;
-
-         if (false != stepper0Operational)
-         {
-            this.Stepper0HomeDefined = ((this.Stepper0Status & 0x0100) != 0) ? true : false;
-
-            if (MotorModes.position == this.stepper0Mode)
-            {
-               this.Stepper0PositionAttained = ((this.Stepper0Status & 0x0400) != 0) ? true : false;
-            }
-            else if (MotorModes.homing == this.stepper0Mode)
-            {
-               if (((this.stepper0ControlWord & 0x0010) != 0) &&
-                   ((this.Stepper0Status & 0x0400) != 0))
-               {
-                  this.Stepper0HomingAttained = true;
-               }
-               else
-               {
-                  this.Stepper0HomingAttained = false;
-               }
-            }
-         }
-      }
-
-      private void ProcessStepper1Status()
-      {
-         bool stepper1Operational = ((this.Stepper1Status & 0x0004) != 0) ? true : false;
-
-         if (false != stepper1Operational)
-         {
-            this.Stepper1HomeDefined = ((this.Stepper0Status & 0x0100) != 0) ? true : false;
-
-            if (MotorModes.position == this.stepper1Mode)
-            {
-               this.Stepper1PositionAttained = ((this.Stepper1Status & 0x0400) != 0) ? true : false;
-            }
-            else if (MotorModes.homing == this.stepper1Mode)
-            {
-               if (((this.stepper1ControlWord & 0x0010) != 0) &&
-                   ((this.Stepper1Status & 0x0400) != 0))
-               {
-                  this.Stepper1HomingAttained = true;
-               }
-               else
-               {
-                  this.Stepper1HomingAttained = false;
-               }
-            }
-         }
-      }
-      
       private bool EmitRpo1()
       {
          byte[] bldc0TargetTorqueData = BitConverter.GetBytes(this.Bldc0.TargetTorque);
-         byte[] bldc1TargetTorqueData = BitConverter.GetBytes(this.bldc1TargetTorque);
+         byte[] bldc1TargetTorqueData = BitConverter.GetBytes(this.Bldc1.TargetTorque);
 
          byte[] pdoData = new byte[bldc0TargetTorqueData.Length + bldc1TargetTorqueData.Length];
          int index = 0;
@@ -160,7 +74,7 @@ namespace E4.CAN
       private bool EmitRpo2()
       {
          byte[] bldc0TargetVelocityData = BitConverter.GetBytes(this.Bldc0.TargetVelocity);
-         byte[] bldc1TargetVelocityData = BitConverter.GetBytes(this.bldc1TargetVelocity);
+         byte[] bldc1TargetVelocityData = BitConverter.GetBytes(this.Bldc1.TargetVelocity);
 
          byte[] pdoData = new byte[bldc0TargetVelocityData.Length + bldc1TargetVelocityData.Length];
          int index = 0;
@@ -182,7 +96,7 @@ namespace E4.CAN
       private bool EmitRpo3()
       {
          byte[] bldc0TargetPositionData = BitConverter.GetBytes(this.Bldc0.TargetPosition);
-         byte[] bldc1TargetPositionData = BitConverter.GetBytes(this.bldc1TargetPosition);
+         byte[] bldc1TargetPositionData = BitConverter.GetBytes(this.Bldc1.TargetPosition);
 
          byte[] pdoData = new byte[bldc0TargetPositionData.Length + bldc1TargetPositionData.Length];
          int index = 0;
@@ -198,48 +112,6 @@ namespace E4.CAN
          }
 
          bool result = this.ExchangeCommAction(new PDO3Emit(pdoData));
-         return (result);
-      }
-
-      private bool SetBldc1ControlWord(UInt16 controlWord)
-      {
-         bool result = true;
-
-         result &= this.ExchangeCommAction(new SDODownload(0x6840, 0, 2, controlWord));
-
-         if (false != result)
-         {
-            this.bldc1ControlWord = controlWord;
-         }
-
-         return (result);
-      }
-
-      private bool SetStepper0ControlWord(UInt16 controlWord)
-      {
-         bool result = true;
-
-         result &= this.ExchangeCommAction(new SDODownload(0x7040, 0, 2, controlWord));
-
-         if (false != result)
-         {
-            this.stepper0ControlWord = controlWord;
-         }
-
-         return (result);
-      }
-
-      private bool SetStepper1ControlWord(UInt16 controlWord)
-      {
-         bool result = true;
-
-         result &= this.ExchangeCommAction(new SDODownload(0x7840, 0, 2, controlWord));
-
-         if (false != result)
-         {
-            this.stepper1ControlWord = controlWord;
-         }
-
          return (result);
       }
 
@@ -260,59 +132,44 @@ namespace E4.CAN
          }
       }
 
-      #region BLDC1
-
-      public UInt16 Bldc1Status { set; get; }
-      public Int16 Bldc1ActualCurrent { set; get; }
-      public Int32 Bldc1ActualVelocity { set; get; }
-      public Int32 Bldc1ActualPosition { set; get; }
-      public double Bldc1Temperature { set; get; }
-      public bool Bldc1PositionAttained { set; get; }
-      public bool Bldc1VelocityAttained { set; get; }
-
-      public MotorModes Bldc1MotorMode
+      public MotorComponent Bldc1
       {
          get
          {
-            return (this.bldc1Mode);
+            if (null == this.bldc1)
+            {
+               this.bldc1 = new MotorComponent();
+            }
+
+            return (this.bldc1);
          }
       }
 
-      #endregion
-
-      #region Stepper0
-
-      public UInt16 Stepper0Status { set; get; }
-      public bool Stepper0PositionAttained { set; get; }
-      public bool Stepper0HomingAttained { set; get; }
-      public bool Stepper0HomeDefined { set; get; }
-
-      public MotorModes Stepper0MotorMode
+      public MotorComponent Stepper0
       {
          get
          {
-            return (this.stepper0Mode);
+            if (null == this.stepper0)
+            {
+               this.stepper0 = new MotorComponent();
+            }
+
+            return (this.stepper0);
          }
       }
 
-      #endregion
-
-      #region Stepper1
-
-      public UInt16 Stepper1Status { set; get; }
-      public bool Stepper1PositionAttained { set; get; }
-      public bool Stepper1HomingAttained { set; get; }
-      public bool Stepper1HomeDefined { set; get; }
-
-      public MotorModes Stepper1MotorMode
+      public MotorComponent Stepper1
       {
          get
          {
-            return (this.stepper1Mode);
+            if (null == this.stepper1)
+            {
+               this.stepper1 = new MotorComponent();
+            }
+
+            return (this.stepper1);
          }
       }
-
-      #endregion
 
       #region General
 
@@ -411,11 +268,11 @@ namespace E4.CAN
                   {
                      this.Bldc0.Status = BitConverter.ToUInt16(msg, 0);
                      this.Bldc0.ActualCurrent = BitConverter.ToInt16(msg, 2);
-                     this.Bldc1Status = BitConverter.ToUInt16(msg, 4);
-                     this.Bldc1ActualCurrent = BitConverter.ToInt16(msg, 6);
+                     this.Bldc1.Status = BitConverter.ToUInt16(msg, 4);
+                     this.Bldc1.ActualCurrent = BitConverter.ToInt16(msg, 6);
 
                      this.Bldc0.ProcessStatus();
-                     this.ProcessBldc1Status();
+                     this.Bldc1.ProcessStatus();
                   }
                }
                else if (UsageModes.target == this.usageMode)
@@ -424,11 +281,11 @@ namespace E4.CAN
                   {
                      this.Bldc0.Status = BitConverter.ToUInt16(msg, 0);
                      this.Bldc0.ActualCurrent = BitConverter.ToInt16(msg, 2);
-                     this.Bldc1Status = BitConverter.ToUInt16(msg, 4);
-                     this.Bldc1ActualCurrent = BitConverter.ToInt16(msg, 6);
+                     this.Bldc1.Status = BitConverter.ToUInt16(msg, 4);
+                     this.Bldc1.ActualCurrent = BitConverter.ToInt16(msg, 6);
 
                      this.Bldc0.ProcessStatus();
-                     this.ProcessBldc1Status();
+                     this.Bldc1.ProcessStatus();
                   }
                }
             }
@@ -439,7 +296,7 @@ namespace E4.CAN
                   if ((null != msg) && (msg.Length >= 8))
                   {
                      this.Bldc0.ActualVelocity = BitConverter.ToInt32(msg, 0);
-                     this.Bldc1ActualVelocity = BitConverter.ToInt32(msg, 4);
+                     this.Bldc1.ActualVelocity = BitConverter.ToInt32(msg, 4);
                   }
                }
                else if (UsageModes.target == this.usageMode)
@@ -447,7 +304,7 @@ namespace E4.CAN
                   if ((null != msg) && (msg.Length >= 8))
                   {
                      this.Bldc0.ActualVelocity = BitConverter.ToInt32(msg, 0);
-                     this.Bldc1ActualVelocity = BitConverter.ToInt32(msg, 4);
+                     this.Bldc1.ActualVelocity = BitConverter.ToInt32(msg, 4);
                   }
                }
             }
@@ -458,7 +315,7 @@ namespace E4.CAN
                   if ((null != msg) && (msg.Length >= 8))
                   {
                      this.Bldc0.ActualPosition = BitConverter.ToInt32(msg, 0);
-                     this.Bldc1ActualPosition = BitConverter.ToInt32(msg, 4);
+                     this.Bldc1.ActualPosition = BitConverter.ToInt32(msg, 4);
                   }
                }
                else if (UsageModes.target == this.usageMode)
@@ -466,7 +323,7 @@ namespace E4.CAN
                   if ((null != msg) && (msg.Length >= 8))
                   {
                      this.Bldc0.ActualPosition = BitConverter.ToInt32(msg, 0);
-                     this.Bldc1ActualPosition = BitConverter.ToInt32(msg, 4);
+                     this.Bldc1.ActualPosition = BitConverter.ToInt32(msg, 4);
                   }
                }
             }
@@ -477,7 +334,7 @@ namespace E4.CAN
                   if ((null != msg) && (msg.Length >= 3))
                   {
                      this.Bldc0.Temperature = this.GetSignedTemperature(msg[0]);
-                     this.Bldc1Temperature = this.GetSignedTemperature(msg[1]);
+                     this.Bldc1.Temperature = this.GetSignedTemperature(msg[1]);
                      this.DcLinkVoltage = msg[2];
                   }
                }
@@ -486,7 +343,7 @@ namespace E4.CAN
                   if ((null != msg) && (msg.Length >= 3))
                   {
                      this.Bldc0.Temperature = this.GetSignedTemperature(msg[0]);
-                     this.Bldc1Temperature = this.GetSignedTemperature(msg[1]);
+                     this.Bldc1.Temperature = this.GetSignedTemperature(msg[1]);
                      this.DcLinkVoltage = msg[2];
                   }
                }
@@ -544,19 +401,19 @@ namespace E4.CAN
                {
                   if ((null != msg) && (msg.Length >= 4))
                   {
-                     this.Stepper0Status = BitConverter.ToUInt16(msg, 0);
-                     this.Stepper1Status = BitConverter.ToUInt16(msg, 2);
+                     this.Stepper0.Status = BitConverter.ToUInt16(msg, 0);
+                     this.Stepper1.Status = BitConverter.ToUInt16(msg, 2);
 
-                     this.ProcessStepper0Status();
-                     this.ProcessStepper1Status();
+                     this.Stepper0.ProcessStatus();
+                     this.Stepper1.ProcessStatus();
                   }
                }
                else if (UsageModes.target == this.usageMode)
                {
                   if ((null != msg) && (msg.Length >= 2))
                   {
-                     this.Stepper0Status = BitConverter.ToUInt16(msg, 0);
-                     this.ProcessStepper0Status();
+                     this.Stepper0.Status = BitConverter.ToUInt16(msg, 0);
+                     this.Stepper0.ProcessStatus();
                   }
                }
             }
@@ -581,7 +438,7 @@ namespace E4.CAN
       public UlcRoboticsE4Main(string name, byte nodeId)
          : base(name, nodeId)
       {
-         this.bldc1TargetTorque = 0;
+         #region BLDC0 Initialization
 
          this.Bldc0.OnCommExchange = new MotorComponent.CommExchangeHandler(this.ExchangeCommAction);
          this.Bldc0.OnTargetPositionSchedule = new MotorComponent.TargetPositionScheduleHandler(this.EmitRpo3);
@@ -609,6 +466,93 @@ namespace E4.CAN
          this.Bldc0.VelocityKiLocation = 0x0060F902;
          this.Bldc0.VelocityKdLocation = 0x0060F903;
          this.Bldc0.TargetVelocityLocation = 0x0060FF00;
+
+         #endregion
+
+         #region BLDC1 Initialization
+
+         this.Bldc1.OnCommExchange = new MotorComponent.CommExchangeHandler(this.ExchangeCommAction);
+         this.Bldc1.OnTargetPositionSchedule = new MotorComponent.TargetPositionScheduleHandler(this.EmitRpo3);
+         this.Bldc1.OnTargetVelocitySchedule = new MotorComponent.TargetVelocityScheduleHandler(this.EmitRpo2);
+
+         this.Bldc1.ControlWordLocation = 0x00684000;
+         this.Bldc1.SetOperationalModeLocation = 0x00686000;
+
+         this.Bldc1.TargetPositionLocation = 0x00687A00;
+         this.Bldc1.ProfileVelocityLocation = 0x00688100;
+         this.Bldc1.ProfileAccelerationLocation = 0x00688300;
+         this.Bldc1.ProfileDecelerationLocation = 0x00688400;
+
+         this.Bldc1.PositionWindowLocation = 0x00686700;
+         this.Bldc1.PositionWindowTimeLocation = 0x00686800;
+         this.Bldc1.PositionKpLocation = 0x0068FB01;
+         this.Bldc1.PositionKiLocation = 0x0068FB02;
+         this.Bldc1.PositionKdLocation = 0x0068FB03;
+
+         this.Bldc1.VelocityWindowLocation = 0x00686D00;
+         this.Bldc1.VelocityWindowTimeLocation = 0x00686E00;
+         this.Bldc1.VelocityThresholdLocation = 0x00686F00;
+         this.Bldc1.VelocityThresholdTimeLocation = 0x00687000;
+         this.Bldc1.VelocityKpLocation = 0x0068F901;
+         this.Bldc1.VelocityKiLocation = 0x0068F902;
+         this.Bldc1.VelocityKdLocation = 0x0068F903;
+         this.Bldc1.TargetVelocityLocation = 0x0068FF00;
+
+         #endregion
+
+         #region Stepper0 Initialization
+
+         this.Stepper0.OnCommExchange = new MotorComponent.CommExchangeHandler(this.ExchangeCommAction);
+
+         this.Stepper0.ControlWordLocation = 0x00704000;
+         this.Stepper0.SetOperationalModeLocation = 0x00706000;
+
+         this.Stepper0.HomeOffsetLocation = 0x00707C00;
+         this.Stepper0.HomingMethodLocation = 0x00709800;
+         this.Stepper0.HomingSwitchSpeedLocation = 0x00709901;
+         this.Stepper0.HomingZeroSpeedLocation = 0x00709902;
+         this.Stepper0.HomingAccelerationLocation = 0x00709A00;
+
+         this.Stepper0.TargetPositionLocation = 0x00707A00;
+         this.Stepper0.ProfileVelocityLocation = 0x00708100;
+         this.Stepper0.ProfileAccelerationLocation = 0x00708300;
+         this.Stepper0.ProfileDecelerationLocation = 0x00708400;
+
+         this.Stepper0.ActualPositionLocation = 0x00706400;
+
+         this.Stepper0.ActualCurrentLocation = 0x00707800;
+
+         this.Stepper0.ActualVelocityLocation = 0x00706C00;
+         this.Stepper0.TargetVelocityLocation = 0x0070FF00;
+
+         #endregion
+
+         #region Stepper1 Initialization
+
+         this.Stepper1.OnCommExchange = new MotorComponent.CommExchangeHandler(this.ExchangeCommAction);
+
+         this.Stepper1.ControlWordLocation = 0x00784000;
+         this.Stepper1.SetOperationalModeLocation = 0x00786000;
+
+         this.Stepper1.HomeOffsetLocation = 0x00787C00;
+         this.Stepper1.HomingMethodLocation = 0x00789800;
+         this.Stepper1.HomingSwitchSpeedLocation = 0x00789901;
+         this.Stepper1.HomingZeroSpeedLocation = 0x00789902;
+         this.Stepper1.HomingAccelerationLocation = 0x00789A00;
+
+         this.Stepper1.TargetPositionLocation = 0x00787A00;
+         this.Stepper1.ProfileVelocityLocation = 0x00788100;
+         this.Stepper1.ProfileAccelerationLocation = 0x00788300;
+         this.Stepper1.ProfileDecelerationLocation = 0x00788400;
+
+         this.Stepper1.ActualPositionLocation = 0x00786400;
+
+         this.Stepper1.ActualCurrentLocation = 0x00787800;
+
+         this.Stepper1.ActualVelocityLocation = 0x00786C00;
+         this.Stepper1.TargetVelocityLocation = 0x0078FF00;
+
+         #endregion
       }
 
       #endregion
@@ -881,20 +825,9 @@ namespace E4.CAN
          this.active = false;
 
          this.Bldc0.Reset();
-
-         this.Bldc1PositionAttained = false;
-         this.Bldc1VelocityAttained = false;
-         this.bldc1TargetPositionRelative = false;
-
-         this.Stepper0PositionAttained = false;
-         this.Stepper0HomingAttained = false;
-         this.Stepper0HomeDefined = false;
-         this.stepper0TargetPositionRelative = false;
-
-         this.Stepper1PositionAttained = false;
-         this.Stepper1HomingAttained = false;
-         this.Stepper1HomeDefined = false;
-         this.stepper1TargetPositionRelative = false;
+         this.Bldc1.Reset();
+         this.Stepper0.Reset();
+         this.Stepper1.Reset();
       }
 
       public override void Update()
@@ -1236,1374 +1169,6 @@ namespace E4.CAN
             temperature = upload.Data[0];
             result = true;
          }
-
-         return (result);
-      }
-
-      #endregion
-
-      #region BLDL0 Functions
-      
-      #endregion
-
-      #region BLDC1 Functions
-
-      public bool SetBldc1Mode(MotorModes mode)
-      {
-         bool result = true;
-
-         if (mode != this.bldc1Mode)
-         {
-            this.Bldc1PositionAttained = false;
-            this.Bldc1VelocityAttained = false;
-         }
-
-         if (MotorModes.off == mode)
-         {
-            result &= this.SetBldc1ControlWord(0x0);
-         }
-         else if (MotorModes.position == mode)
-         {
-            int relativePositionBit = (false != this.bldc1TargetPositionRelative) ? 0x0040 : 0;
-
-            result &= this.SetBldc1ControlWord((UInt16)(0x6 | relativePositionBit));
-            result &= this.SetBldc1ControlWord((UInt16)(0x7 | relativePositionBit));
-            result &= this.ExchangeCommAction(new SDODownload(0x6060, 0, 1, (byte)1));
-            result &= this.SetBldc1ControlWord((UInt16)(0xF | relativePositionBit));
-         }
-         else if (MotorModes.velocity == mode)
-         {            
-            result &= this.SetBldc1ControlWord(0x6);
-            result &= this.SetBldc1ControlWord(0x7);
-            result &= this.ExchangeCommAction(new SDODownload(0x6860, 0, 1, (byte)3));
-            result &= this.SetBldc1ControlWord(0xF);
-         }
-         else
-         {
-            result = false;
-         }
-
-         if (false != result)
-         {
-            this.bldc1Mode = mode;
-         }
-
-         return (result);
-      }
-
-      public bool ClearBldc1Fault()
-      {
-         bool result = true;
-
-         this.Bldc1PositionAttained = false;
-         this.Bldc1VelocityAttained = false;
-
-         result &= this.SetBldc1ControlWord(0x80);
-         result &= this.SetBldc1ControlWord(0x0);
-
-         if (false != result)
-         {
-            this.bldc1Mode = MotorModes.off;
-         }
-
-         return (result);
-      }
-
-      public bool GetBldc1TargetPosition(ref Int32 targetPosition, ref bool positionRelative)
-      {
-         bool result = false;
-         SDOUpload upload = new SDOUpload(0x687A, 0);
-         this.pendingAction = upload;
-         bool actionResult = this.ExchangeCommAction(this.pendingAction);
-
-         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
-         {
-            targetPosition = BitConverter.ToInt32(upload.Data, 0);
-            this.bldc1TargetPosition = targetPosition;
-            positionRelative = this.bldc1TargetPositionRelative;
-            result = true;
-         }
-
-         return (result);
-      }
-
-      public bool SetBldc1TargetPosition(Int32 targetPosition, bool positionRelative)
-      {
-         bool result = true;
-
-         if (positionRelative != this.bldc1TargetPositionRelative)
-         {
-            UInt16 controlWord = this.bldc1ControlWord;
-
-            if (false != positionRelative)
-            {
-               controlWord |= 0x0040;
-            }
-            else
-            {
-               controlWord &= 0xFFBF;
-            }
-
-            result &= this.SetBldc1ControlWord(controlWord);
-         }
-
-         result &= this.ExchangeCommAction(new SDODownload(0x687A, 0, 4, (UInt32)targetPosition));
-
-         if (false != result)
-         {
-            this.bldc1TargetPosition = targetPosition;
-            this.bldc1TargetPositionRelative = positionRelative;
-         }
-
-         return (result);
-      }
-
-      public bool ScheduleBldc1TargetPosition(Int32 targetPosition)
-      {
-         bool result = true;
-
-         this.bldc1TargetPosition = targetPosition;
-         result = this.EmitRpo3();
-
-         return (result);
-      }
-
-      public bool GetBldc1TargetVelocity(ref Int32 targetVelocity)
-      {
-         bool result = false;
-         SDOUpload upload = new SDOUpload(0x68FF, 0);
-         this.pendingAction = upload;
-         bool actionResult = this.ExchangeCommAction(this.pendingAction);
-
-         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
-         {
-            targetVelocity = BitConverter.ToInt32(upload.Data, 0);
-            this.bldc1TargetVelocity = targetVelocity;
-            result = true;
-         }
-
-         return (result);
-      }
-
-      public bool SetBldc1TargetVelocity(Int32 targetVelocity)
-      {
-         bool result = true;
-
-         result &= this.ExchangeCommAction(new SDODownload(0x68FF, 0, 4, (UInt32)targetVelocity));
-
-         if (false != result)
-         {
-            this.bldc1TargetVelocity = targetVelocity;
-         }
-
-         return (result);
-      }
-
-      public bool ScheduleBldc1TargetVelocity(Int32 targetVelocity)
-      {
-         bool result = true;
-
-         this.bldc1TargetVelocity = targetVelocity;
-         result = this.EmitRpo2();
-
-         return (result);
-      }
-
-      public bool GetBldc1ProfileVelocity(ref Int32 profileVelocity)
-      {
-         bool result = false;
-         SDOUpload upload = new SDOUpload(0x6881, 0);
-         this.pendingAction = upload;
-         bool actionResult = this.ExchangeCommAction(this.pendingAction);
-
-         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
-         {
-            profileVelocity = BitConverter.ToInt32(upload.Data, 0);
-            result = true;
-         }
-
-         return (result);
-      }
-
-      public bool SetBldc1ProfileVelocity(Int32 profileVelocity)
-      {
-         bool result = true;
-
-         result &= this.ExchangeCommAction(new SDODownload(0x6881, 0, 4, (UInt32)profileVelocity));
-
-         return (result);
-      }
-
-      public bool GetBldc1ProfileAcceleration(ref Int32 profileAcceleration)
-      {
-         bool result = false;
-         SDOUpload upload = new SDOUpload(0x6883, 0);
-         this.pendingAction = upload;
-         bool actionResult = this.ExchangeCommAction(this.pendingAction);
-
-         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
-         {
-            profileAcceleration = BitConverter.ToInt32(upload.Data, 0);
-            result = true;
-         }
-
-         return (result);
-      }
-
-      public bool SetBldc1ProfileAcceleration(Int32 profileAcceleration)
-      {
-         bool result = true;
-
-         result &= this.ExchangeCommAction(new SDODownload(0x6883, 0, 4, (UInt32)profileAcceleration));
-
-         return (result);
-      }
-
-      public bool GetBldc1ProfileDeceleration(ref Int32 profileDeceleration)
-      {
-         bool result = false;
-         SDOUpload upload = new SDOUpload(0x6884, 0);
-         this.pendingAction = upload;
-         bool actionResult = this.ExchangeCommAction(this.pendingAction);
-
-         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
-         {
-            profileDeceleration = BitConverter.ToInt32(upload.Data, 0);
-            result = true;
-         }
-
-         return (result);
-      }
-
-      public bool SetBldc1ProfileDeceleration(Int32 profileDeceleration)
-      {
-         bool result = true;
-
-         result &= this.ExchangeCommAction(new SDODownload(0x6884, 0, 4, (UInt32)profileDeceleration));
-
-         return (result);
-      }
-
-      public bool GetBldc1VelocityKp(ref Int32 motorKp)
-      {
-         bool result = false;
-         SDOUpload upload = new SDOUpload(0x68F9, 0x01);
-         this.pendingAction = upload;
-         bool actionResult = this.ExchangeCommAction(this.pendingAction);
-
-         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
-         {
-            motorKp = BitConverter.ToInt32(upload.Data, 0);
-            result = true;
-         }
-
-         return (result);
-      }
-
-      public bool SetBldc1VelocityKp(Int32 motorKp)
-      {
-         bool result = true;
-
-         result &= this.ExchangeCommAction(new SDODownload(0x68F9, 0x01, 4, (UInt32)motorKp));
-
-         return (result);
-      }
-
-      public bool GetBldc1VelocityKi(ref Int32 motorKi)
-      {
-         bool result = false;
-         SDOUpload upload = new SDOUpload(0x68F9, 0x02);
-         this.pendingAction = upload;
-         bool actionResult = this.ExchangeCommAction(this.pendingAction);
-
-         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
-         {
-            motorKi = BitConverter.ToInt32(upload.Data, 0);
-            result = true;
-         }
-
-         return (result);
-      }
-
-      public bool SetBldc1VelocityKi(Int32 motorKi)
-      {
-         bool result = true;
-
-         result &= this.ExchangeCommAction(new SDODownload(0x68F9, 0x02, 4, (UInt32)motorKi));
-
-         return (result);
-      }
-
-      public bool GetBldc1VelocityKd(ref Int32 motorKd)
-      {
-         bool result = false;
-         SDOUpload upload = new SDOUpload(0x68F9, 0x03);
-         this.pendingAction = upload;
-         bool actionResult = this.ExchangeCommAction(this.pendingAction);
-
-         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
-         {
-            motorKd = BitConverter.ToInt32(upload.Data, 0);
-            result = true;
-         }
-
-         return (result);
-      }
-
-      public bool SetBldc1VelocityKd(Int32 motorKd)
-      {
-         bool result = true;
-
-         result &= this.ExchangeCommAction(new SDODownload(0x68F9, 0x03, 4, (UInt32)motorKd));
-
-         return (result);
-      }
-
-      public bool GetBldc1PositionKp(ref Int32 motorKp)
-      {
-         bool result = false;
-         SDOUpload upload = new SDOUpload(0x68FB, 0x01);
-         this.pendingAction = upload;
-         bool actionResult = this.ExchangeCommAction(this.pendingAction);
-
-         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
-         {
-            motorKp = BitConverter.ToInt32(upload.Data, 0);
-            result = true;
-         }
-
-         return (result);
-      }
-
-      public bool SetBldc1PositionKp(Int32 motorKp)
-      {
-         bool result = true;
-
-         result &= this.ExchangeCommAction(new SDODownload(0x68FB, 0x01, 4, (UInt32)motorKp));
-
-         return (result);
-      }
-
-      public bool GetBldc1PositionKi(ref Int32 motorKi)
-      {
-         bool result = false;
-         SDOUpload upload = new SDOUpload(0x68FB, 0x02);
-         this.pendingAction = upload;
-         bool actionResult = this.ExchangeCommAction(this.pendingAction);
-
-         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
-         {
-            motorKi = BitConverter.ToInt32(upload.Data, 0);
-            result = true;
-         }
-
-         return (result);
-      }
-
-      public bool SetBldc1PositionKi(Int32 motorKi)
-      {
-         bool result = true;
-
-         result &= this.ExchangeCommAction(new SDODownload(0x68FB, 0x02, 4, (UInt32)motorKi));
-
-         return (result);
-      }
-
-      public bool GetBldc1PositionKd(ref Int32 motorKd)
-      {
-         bool result = false;
-         SDOUpload upload = new SDOUpload(0x68FB, 0x03);
-         this.pendingAction = upload;
-         bool actionResult = this.ExchangeCommAction(this.pendingAction);
-
-         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
-         {
-            motorKd = BitConverter.ToInt32(upload.Data, 0);
-            result = true;
-         }
-
-         return (result);
-      }
-
-      public bool SetBldc1PositionKd(Int32 motorKd)
-      {
-         bool result = true;
-
-         result &= this.ExchangeCommAction(new SDODownload(0x68FB, 0x03, 4, (UInt32)motorKd));
-
-         return (result);
-      }
-
-      public bool GetBldc1PositionWindow(ref UInt32 positionWindow)
-      {
-         bool result = false;
-         SDOUpload upload = new SDOUpload(0x6867, 0);
-         this.pendingAction = upload;
-         bool actionResult = this.ExchangeCommAction(this.pendingAction);
-
-         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
-         {
-            positionWindow = BitConverter.ToUInt32(upload.Data, 0);
-            result = true;
-         }
-
-         return (result);
-      }
-
-      public bool SetBldc1PositionWindow(UInt32 positionWindow)
-      {
-         bool result = true;
-
-         result &= this.ExchangeCommAction(new SDODownload(0x6867, 0, 4, (UInt32)positionWindow));
-
-         return (result);
-      }
-
-      public bool GetBldc1PositionWindowTime(ref UInt16 positionWindowTime)
-      {
-         bool result = false;
-         SDOUpload upload = new SDOUpload(0x6868, 0);
-         this.pendingAction = upload;
-         bool actionResult = this.ExchangeCommAction(this.pendingAction);
-
-         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 2))
-         {
-            positionWindowTime = BitConverter.ToUInt16(upload.Data, 0);
-            result = true;
-         }
-
-         return (result);
-      }
-
-      public bool SetBldc1PositionWindowTime(UInt16 positionWindowTime)
-      {
-         bool result = true;
-
-         result &= this.ExchangeCommAction(new SDODownload(0x6868, 0, 2, (UInt32)positionWindowTime));
-
-         return (result);
-      }
-
-      public bool GetBldc1VelocityWindow(ref UInt16 velocityWindow)
-      {
-         bool result = false;
-         SDOUpload upload = new SDOUpload(0x686D, 0);
-         this.pendingAction = upload;
-         bool actionResult = this.ExchangeCommAction(this.pendingAction);
-
-         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 2))
-         {
-            velocityWindow = BitConverter.ToUInt16(upload.Data, 0);
-            result = true;
-         }
-
-         return (result);
-      }
-
-      public bool SetBldc1VelocityWindow(UInt16 velocityWindow)
-      {
-         bool result = true;
-
-         result &= this.ExchangeCommAction(new SDODownload(0x686D, 0, 2, (UInt32)velocityWindow));
-
-         return (result);
-      }
-
-      public bool GetBldc1VelocityWindowTime(ref UInt16 velocityWindowTime)
-      {
-         bool result = false;
-         SDOUpload upload = new SDOUpload(0x686E, 0);
-         this.pendingAction = upload;
-         bool actionResult = this.ExchangeCommAction(this.pendingAction);
-
-         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 2))
-         {
-            velocityWindowTime = BitConverter.ToUInt16(upload.Data, 0);
-            result = true;
-         }
-
-         return (result);
-      }
-
-      public bool SetBldc1VelocityWindowTime(UInt16 velocityWindowTime)
-      {
-         bool result = true;
-
-         result &= this.ExchangeCommAction(new SDODownload(0x686E, 0, 2, (UInt32)velocityWindowTime));
-
-         return (result);
-      }
-
-      public bool GetBldc1VelocityThreshold(ref UInt16 velocityThreshold)
-      {
-         bool result = false;
-         SDOUpload upload = new SDOUpload(0x686F, 0);
-         this.pendingAction = upload;
-         bool actionResult = this.ExchangeCommAction(this.pendingAction);
-
-         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 2))
-         {
-            velocityThreshold = BitConverter.ToUInt16(upload.Data, 0);
-            result = true;
-         }
-
-         return (result);
-      }
-
-      public bool SetBldc1VelocityThreshold(UInt16 velocityThreshold)
-      {
-         bool result = true;
-
-         result &= this.ExchangeCommAction(new SDODownload(0x686F, 0, 2, (UInt32)velocityThreshold));
-
-         return (result);
-      }
-
-      public bool GetBldc1VelocityThresholdTime(ref UInt16 velocityThresholdTime)
-      {
-         bool result = false;
-         SDOUpload upload = new SDOUpload(0x6870, 0);
-         this.pendingAction = upload;
-         bool actionResult = this.ExchangeCommAction(this.pendingAction);
-
-         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 2))
-         {
-            velocityThresholdTime = BitConverter.ToUInt16(upload.Data, 0);
-            result = true;
-         }
-
-         return (result);
-      }
-
-      public bool SetBldc1VelocityThresholdTime(UInt16 velocityThresholdTime)
-      {
-         bool result = true;
-
-         result &= this.ExchangeCommAction(new SDODownload(0x6870, 0, 2, (UInt32)velocityThresholdTime));
-
-         return (result);
-      }
-
-      #endregion
-
-      #region Stepper0 Functions
-
-      public bool SetStepper0Mode(MotorModes mode)
-      {
-         bool result = true;
-
-         if (mode != this.stepper0Mode)
-         {
-            this.Stepper0PositionAttained = false;
-            this.Stepper0HomingAttained = false;
-         }
-
-         if (MotorModes.off == mode)
-         {
-            result &= this.SetStepper0ControlWord(0x0);
-         }
-         else if (MotorModes.position == mode)
-         {
-            int relativePositionBit = (false != this.stepper0TargetPositionRelative) ? 0x0040 : 0;
-
-            result &= this.SetStepper0ControlWord((UInt16)(0x6 | relativePositionBit));
-            result &= this.SetStepper0ControlWord((UInt16)(0x7 | relativePositionBit));
-            result &= this.ExchangeCommAction(new SDODownload(0x6060, 0, 1, (byte)1));
-            result &= this.SetStepper0ControlWord((UInt16)(0xF | relativePositionBit));
-         }
-         else if (MotorModes.homing == mode)
-         {
-            result &= this.SetStepper0ControlWord(0x6);
-            result &= this.SetStepper0ControlWord(0x7);
-            result &= this.ExchangeCommAction(new SDODownload(0x7060, 0, 1, (byte)6));
-            result &= this.SetStepper0ControlWord(0xF);
-         }
-         else
-         {
-            result = false;
-         }
-
-         if (false != result)
-         {
-            this.stepper0Mode = mode;
-         }
-
-         return (result);
-      }
-
-      public bool ClearStepper0Fault()
-      {
-         bool result = true;
-
-         this.Stepper0PositionAttained = false;
-         this.Stepper0HomingAttained = false;
-
-         result &= this.SetStepper0ControlWord(0x80);
-         result &= this.SetStepper0ControlWord(0x0);
-
-         if (false != result)
-         {
-            this.stepper0Mode = MotorModes.off;
-         }
-
-         return (result);
-      }
-
-      public bool GetStepper0ActualPosition(ref Int32 actualPosition)
-      {
-         bool result = false;
-         SDOUpload upload = new SDOUpload(0x7064, 0);
-         this.pendingAction = upload;
-         bool actionResult = this.ExchangeCommAction(this.pendingAction);
-
-         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
-         {
-            actualPosition = BitConverter.ToInt32(upload.Data, 0);
-            result = true;
-         }
-
-         return (result);
-      }
-
-      public bool GetStepper0ActualVelocity(ref Int32 actualPosition)
-      {
-         bool result = false;
-         SDOUpload upload = new SDOUpload(0x706C, 0);
-         this.pendingAction = upload;
-         bool actionResult = this.ExchangeCommAction(this.pendingAction);
-
-         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
-         {
-            actualPosition = BitConverter.ToInt32(upload.Data, 0);
-            result = true;
-         }
-
-         return (result);
-      }
-
-      public bool GetStepper0ActualCurrent(ref Int16 actualPosition)
-      {
-         bool result = false;
-         SDOUpload upload = new SDOUpload(0x7078, 0);
-         this.pendingAction = upload;
-         bool actionResult = this.ExchangeCommAction(this.pendingAction);
-
-         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 2))
-         {
-            actualPosition = BitConverter.ToInt16(upload.Data, 0);
-            result = true;
-         }
-
-         return (result);
-      }
-
-      public bool GetStepper0TargetPosition(ref Int32 targetPosition, ref bool positionRelative)
-      {
-         bool result = false;
-         SDOUpload upload = new SDOUpload(0x707A, 0);
-         this.pendingAction = upload;
-         bool actionResult = this.ExchangeCommAction(this.pendingAction);
-
-         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
-         {
-            targetPosition = BitConverter.ToInt32(upload.Data, 0);
-            positionRelative = this.stepper0TargetPositionRelative;
-            result = true;
-         }
-
-         return (result);
-      }
-
-      public bool SetStepper0TargetPosition(Int32 targetPosition, bool positionRelative)
-      {
-         bool result = true;
-
-         if (positionRelative != this.stepper0TargetPositionRelative)
-         {
-            UInt16 controlWord = this.stepper0ControlWord;
-
-            if (false != positionRelative)
-            {
-               controlWord |= 0x0040;
-            }
-            else
-            {
-               controlWord &= 0xFFBF;
-            }
-
-            result &= this.SetStepper0ControlWord(controlWord);
-         }
-
-         result &= this.ExchangeCommAction(new SDODownload(0x707A, 0, 4, (UInt32)targetPosition));
-
-         if (false != result)
-         {
-            this.stepper0TargetPositionRelative = positionRelative;
-         }
-
-         return (result);
-      }
-
-      public bool GetStepper0ProfileVelocity(ref Int32 profileVelocity)
-      {
-         bool result = false;
-         SDOUpload upload = new SDOUpload(0x7081, 0);
-         this.pendingAction = upload;
-         bool actionResult = this.ExchangeCommAction(this.pendingAction);
-
-         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
-         {
-            profileVelocity = BitConverter.ToInt32(upload.Data, 0);
-            result = true;
-         }
-
-         return (result);
-      }
-
-      public bool SetStepper0ProfileVelocity(Int32 profileVelocity)
-      {
-         bool result = true;
-
-         result &= this.ExchangeCommAction(new SDODownload(0x7081, 0, 4, (UInt32)profileVelocity));
-
-         return (result);
-      }
-
-      public bool GetStepper0ProfileAcceleration(ref Int32 profileAcceleration)
-      {
-         bool result = false;
-         SDOUpload upload = new SDOUpload(0x7083, 0);
-         this.pendingAction = upload;
-         bool actionResult = this.ExchangeCommAction(this.pendingAction);
-
-         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
-         {
-            profileAcceleration = BitConverter.ToInt32(upload.Data, 0);
-            result = true;
-         }
-
-         return (result);
-      }
-
-      public bool SetStepper0ProfileAcceleration(Int32 profileAcceleration)
-      {
-         bool result = true;
-
-         result &= this.ExchangeCommAction(new SDODownload(0x7083, 0, 4, (UInt32)profileAcceleration));
-
-         return (result);
-      }
-
-      public bool StartStepper0Homing()
-      {
-         bool result = true;
-
-         if (MotorModes.homing == this.stepper0Mode)
-         {
-            UInt16 controlWord = this.stepper0ControlWord;
-            controlWord |= 0x0010;
-            result &= this.SetStepper0ControlWord(controlWord);
-
-            if (false != result)
-            {
-               this.Stepper0HomingAttained = false;
-            }
-         }
-         else
-         {
-            result = false;
-         }
-
-         return (result);
-      }
-
-      public bool StopStepper0Homing()
-      {
-         bool result = true;
-
-         if (MotorModes.homing == this.stepper0Mode)
-         {
-            UInt16 controlWord = this.stepper0ControlWord;
-            controlWord &= 0xFFEF;
-            result &= this.SetStepper0ControlWord(controlWord);
-         }
-         else
-         {
-            result = false;
-         }
-
-         return (result);
-      }
-
-      public bool HaltStepper0Homing()
-      {
-         bool result = true;
-
-         if (MotorModes.homing == this.stepper0Mode)
-         {
-            UInt16 controlWord = this.stepper0ControlWord;
-            controlWord |= 0x0100;
-            result &= this.SetStepper0ControlWord(controlWord);
-         }
-         else
-         {
-            result = false;
-         }
-
-         return (result);
-      }
-
-      public bool RunStepper0Homing()
-      {
-         bool result = true;
-
-         if (MotorModes.homing == this.stepper0Mode)
-         {
-            UInt16 controlWord = this.stepper0ControlWord;
-            controlWord &= 0xFEFF;
-            result &= this.SetStepper0ControlWord(controlWord);
-         }
-         else
-         {
-            result = false;
-         }
-
-         return (result);
-      }
-
-      public bool GetStepper0HomingMethod(ref byte homingMethod)
-      {
-         bool result = false;
-         SDOUpload upload = new SDOUpload(0x7098, 0);
-         this.pendingAction = upload;
-         bool actionResult = this.ExchangeCommAction(this.pendingAction);
-
-         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 1))
-         {
-            homingMethod = upload.Data[0];
-            result = true;
-         }
-
-         return (result);
-      }
-
-      public bool SetStepper0HomingMethod(byte homingMethod)
-      {
-         bool result = true;
-
-         result &= this.ExchangeCommAction(new SDODownload(0x7098, 0, 1, (UInt32)homingMethod));
-
-         return (result);
-      }         
-
-      public bool GetStepper0HomingSwitchSpeed(ref UInt32 homingSwitchSpeed)
-      {
-         bool result = false;
-         SDOUpload upload = new SDOUpload(0x7099, 0x01);
-         this.pendingAction = upload;
-         bool actionResult = this.ExchangeCommAction(this.pendingAction);
-
-         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
-         {
-            homingSwitchSpeed = BitConverter.ToUInt32(upload.Data, 0);
-            result = true;
-         }
-
-         return (result);
-      }
-
-      public bool SetStepper0HomingSwitchSpeed(UInt32 homingSwitchSpeed)
-      {
-         bool result = true;
-
-         result &= this.ExchangeCommAction(new SDODownload(0x7099, 0x01, 4, (UInt32)homingSwitchSpeed));
-
-         return (result);
-      }
-
-      public bool GetStepper0HomingZeroSpeed(ref UInt32 homingZeroSpeed)
-      {
-         bool result = false;
-         SDOUpload upload = new SDOUpload(0x7099, 0x02);
-         this.pendingAction = upload;
-         bool actionResult = this.ExchangeCommAction(this.pendingAction);
-
-         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
-         {
-            homingZeroSpeed = BitConverter.ToUInt32(upload.Data, 0);
-            result = true;
-         }
-
-         return (result);
-      }
-
-      public bool SetStepper0HomingZeroSpeed(UInt32 homingZeroSpeed)
-      {
-         bool result = true;
-
-         result &= this.ExchangeCommAction(new SDODownload(0x7099, 0x02, 4, (UInt32)homingZeroSpeed));
-
-         return (result);
-      }
-
-      public bool GetStepper0HomingAcceleration(ref UInt32 homingAcceleration)
-      {
-         bool result = false;
-         SDOUpload upload = new SDOUpload(0x709A, 0);
-         this.pendingAction = upload;
-         bool actionResult = this.ExchangeCommAction(this.pendingAction);
-
-         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
-         {
-            homingAcceleration = BitConverter.ToUInt32(upload.Data, 0);
-            result = true;
-         }
-
-         return (result);
-      }
-
-      public bool SetStepper0HomingAcceleration(UInt32 homingAcceleration)
-      {
-         bool result = true;
-
-         result &= this.ExchangeCommAction(new SDODownload(0x709A, 0, 4, (UInt32)homingAcceleration));
-
-         return (result);
-      }
-
-      public bool GetStepper0HomeOffset(ref Int32 homeOffset)
-      {
-         bool result = false;
-         SDOUpload upload = new SDOUpload(0x707C, 0);
-         this.pendingAction = upload;
-         bool actionResult = this.ExchangeCommAction(this.pendingAction);
-
-         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
-         {
-            homeOffset = BitConverter.ToInt32(upload.Data, 0);
-            result = true;
-         }
-
-         return (result);
-      }
-
-      public bool SetStepper0HomeOffset(Int32 homeOffset)
-      {
-         bool result = true;
-
-         result &= this.ExchangeCommAction(new SDODownload(0x707C, 0, 4, (UInt32)homeOffset));
-
-         return (result);
-      }
-
-      #endregion
-
-      #region Stepper1 Functions
-
-      public bool ClearStepper1Fault()
-      {
-         bool result = true;
-
-         this.Stepper0PositionAttained = false;
-         this.Stepper0HomingAttained = false;
-
-         result &= this.SetStepper1ControlWord(0x80);
-         result &= this.SetStepper1ControlWord(0x0);
-
-         if (false != result)
-         {
-            this.stepper1Mode = MotorModes.off;
-         }
-
-         return (result);
-      }
-
-      public bool SetStepper1Mode(MotorModes mode)
-      {
-         bool result = true;
-
-         if (mode != this.stepper1Mode)
-         {
-            this.Stepper1PositionAttained = false;
-            this.Stepper1HomingAttained = false;
-         }
-
-         if (MotorModes.off == mode)
-         {
-            result &= this.SetStepper1ControlWord(0x0);
-         }
-         else if (MotorModes.position == mode)
-         {
-            int relativePositionBit = (false != this.stepper1TargetPositionRelative) ? 0x0040 : 0;
-
-            result &= this.SetStepper1ControlWord((UInt16)(0x6 | relativePositionBit));
-            result &= this.SetStepper1ControlWord((UInt16)(0x7 | relativePositionBit));
-            result &= this.ExchangeCommAction(new SDODownload(0x6060, 0, 1, (byte)1));
-            result &= this.SetStepper1ControlWord((UInt16)(0xF | relativePositionBit));
-         }
-         else if (MotorModes.homing == mode)
-         {
-            result &= this.SetStepper1ControlWord(0x6);
-            result &= this.SetStepper1ControlWord(0x7);
-            result &= this.ExchangeCommAction(new SDODownload(0x7860, 0, 1, (byte)6));
-            result &= this.SetStepper1ControlWord(0xF);
-         }
-         else
-         {
-            result = false;
-         }
-
-         if (false != result)
-         {
-            this.stepper1Mode = mode;
-         }
-
-         return (result);
-      }
-
-      public bool GetStepper1ActualPosition(ref Int32 actualPosition)
-      {
-         bool result = false;
-         SDOUpload upload = new SDOUpload(0x7864, 0);
-         this.pendingAction = upload;
-         bool actionResult = this.ExchangeCommAction(this.pendingAction);
-
-         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
-         {
-            actualPosition = BitConverter.ToInt32(upload.Data, 0);
-            result = true;
-         }
-
-         return (result);
-      }
-
-      public bool GetStepper1ActualVelocity(ref Int32 actualPosition)
-      {
-         bool result = false;
-         SDOUpload upload = new SDOUpload(0x786C, 0);
-         this.pendingAction = upload;
-         bool actionResult = this.ExchangeCommAction(this.pendingAction);
-
-         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
-         {
-            actualPosition = BitConverter.ToInt32(upload.Data, 0);
-            result = true;
-         }
-
-         return (result);
-      }
-
-      public bool GetStepper1ActualCurrent(ref Int16 actualPosition)
-      {
-         bool result = false;
-         SDOUpload upload = new SDOUpload(0x7878, 0);
-         this.pendingAction = upload;
-         bool actionResult = this.ExchangeCommAction(this.pendingAction);
-
-         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 2))
-         {
-            actualPosition = BitConverter.ToInt16(upload.Data, 0);
-            result = true;
-         }
-
-         return (result);
-      }
-
-      public bool GetStepper1TargetPosition(ref Int32 targetPosition, ref bool positionRelative)
-      {
-         bool result = false;
-         SDOUpload upload = new SDOUpload(0x787A, 0);
-         this.pendingAction = upload;
-         bool actionResult = this.ExchangeCommAction(this.pendingAction);
-
-         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
-         {
-            targetPosition = BitConverter.ToInt32(upload.Data, 0);
-            positionRelative = stepper1TargetPositionRelative;
-            result = true;
-         }
-
-         return (result);
-      }
-
-      public bool SetStepper1TargetPosition(Int32 targetPosition, bool positionRelative)
-      {
-         bool result = true;
-
-         if (positionRelative != this.stepper1TargetPositionRelative)
-         {
-            UInt16 controlWord = this.stepper1ControlWord;
-
-            if (false != positionRelative)
-            {
-               controlWord |= 0x0040;
-            }
-            else
-            {
-               controlWord &= 0xFFBF;
-            }
-
-            result &= this.SetStepper1ControlWord(controlWord);
-         }
-
-         result &= this.ExchangeCommAction(new SDODownload(0x787A, 0, 4, (UInt32)targetPosition));
-
-         if (false != result)
-         {
-            this.stepper1TargetPositionRelative = positionRelative;
-         }
-
-         return (result);
-      }
-
-      public bool GetStepper1ProfileVelocity(ref Int32 profileVelocity)
-      {
-         bool result = false;
-         SDOUpload upload = new SDOUpload(0x7881, 0);
-         this.pendingAction = upload;
-         bool actionResult = this.ExchangeCommAction(this.pendingAction);
-
-         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
-         {
-            profileVelocity = BitConverter.ToInt32(upload.Data, 0);
-            result = true;
-         }
-
-         return (result);
-      }
-
-      public bool SetStepper1ProfileVelocity(Int32 profileVelocity)
-      {
-         bool result = true;
-
-         result &= this.ExchangeCommAction(new SDODownload(0x7881, 0, 4, (UInt32)profileVelocity));
-
-         return (result);
-      }
-
-      public bool GetStepper1ProfileAcceleration(ref Int32 profileAcceleration)
-      {
-         bool result = false;
-         SDOUpload upload = new SDOUpload(0x7883, 0);
-         this.pendingAction = upload;
-         bool actionResult = this.ExchangeCommAction(this.pendingAction);
-
-         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
-         {
-            profileAcceleration = BitConverter.ToInt32(upload.Data, 0);
-            result = true;
-         }
-
-         return (result);
-      }
-
-      public bool SetStepper1ProfileAcceleration(Int32 profileAcceleration)
-      {
-         bool result = true;
-
-         result &= this.ExchangeCommAction(new SDODownload(0x7883, 0, 4, (UInt32)profileAcceleration));
-
-         return (result);
-      }
-
-      public bool StartStepper1Homing()
-      {
-         bool result = true;
-
-         if (MotorModes.homing == this.stepper1Mode)
-         {
-            UInt16 controlWord = this.stepper1ControlWord;
-            controlWord |= 0x0010;
-            result &= this.SetStepper1ControlWord(controlWord);
-
-            if (false != result)
-            {
-               this.Stepper1HomingAttained = false;
-            }
-         }
-         else
-         {
-            result = false;
-         }
-
-         return (result);
-      }
-
-      public bool StopStepper1Homing()
-      {
-         bool result = true;
-
-         if (MotorModes.homing == this.stepper1Mode)
-         {
-            UInt16 controlWord = this.stepper1ControlWord;
-            controlWord &= 0xFFEF;
-            result &= this.SetStepper1ControlWord(controlWord);
-         }
-         else
-         {
-            result = false;
-         }
-
-         return (result);
-      }
-
-      public bool HaltStepper1Homing()
-      {
-         bool result = true;
-
-         if (MotorModes.homing == this.stepper1Mode)
-         {
-            UInt16 controlWord = this.stepper1ControlWord;
-            controlWord |= 0x0100;
-            result &= this.SetStepper1ControlWord(controlWord);
-         }
-         else
-         {
-            result = false;
-         }
-
-         return (result);
-      }
-
-      public bool RunStepper1Homing()
-      {
-         bool result = true;
-
-         if (MotorModes.homing == this.stepper1Mode)
-         {
-            UInt16 controlWord = this.stepper1ControlWord;
-            controlWord &= 0xFEFF;
-            result &= this.SetStepper1ControlWord(controlWord);
-         }
-         else
-         {
-            result = false;
-         }
-
-         return (result);
-      }
-
-      public bool GetStepper1HomingMethod(ref byte homingMethod)
-      {
-         bool result = false;
-         SDOUpload upload = new SDOUpload(0x7898, 0);
-         this.pendingAction = upload;
-         bool actionResult = this.ExchangeCommAction(this.pendingAction);
-
-         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 1))
-         {
-            homingMethod = upload.Data[0];
-            result = true;
-         }
-
-         return (result);
-      }
-
-      public bool SetStepper1HomingMethod(byte homingMethod)
-      {
-         bool result = true;
-
-         result &= this.ExchangeCommAction(new SDODownload(0x7898, 0, 1, (UInt32)homingMethod));
-
-         return (result);
-      }
-
-      public bool GetStepper1HomingSwitchSpeed(ref UInt32 homingSwitchSpeed)
-      {
-         bool result = false;
-         SDOUpload upload = new SDOUpload(0x7899, 0x01);
-         this.pendingAction = upload;
-         bool actionResult = this.ExchangeCommAction(this.pendingAction);
-
-         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
-         {
-            homingSwitchSpeed = BitConverter.ToUInt32(upload.Data, 0);
-            result = true;
-         }
-
-         return (result);
-      }
-
-      public bool SetStepper1HomingSwitchSpeed(UInt32 homingSwitchSpeed)
-      {
-         bool result = true;
-
-         result &= this.ExchangeCommAction(new SDODownload(0x7899, 0x01, 4, (UInt32)homingSwitchSpeed));
-
-         return (result);
-      }
-
-      public bool GetStepper1HomingZeroSpeed(ref UInt32 homingZeroSpeed)
-      {
-         bool result = false;
-         SDOUpload upload = new SDOUpload(0x7899, 0x02);
-         this.pendingAction = upload;
-         bool actionResult = this.ExchangeCommAction(this.pendingAction);
-
-         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
-         {
-            homingZeroSpeed = BitConverter.ToUInt32(upload.Data, 0);
-            result = true;
-         }
-
-         return (result);
-      }
-
-      public bool SetStepper1HomingZeroSpeed(UInt32 homingZeroSpeed)
-      {
-         bool result = true;
-
-         result &= this.ExchangeCommAction(new SDODownload(0x7899, 0x02, 4, (UInt32)homingZeroSpeed));
-
-         return (result);
-      }
-
-      public bool GetStepper1HomingAcceleration(ref UInt32 homingAcceleration)
-      {
-         bool result = false;
-         SDOUpload upload = new SDOUpload(0x789A, 0);
-         this.pendingAction = upload;
-         bool actionResult = this.ExchangeCommAction(this.pendingAction);
-
-         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
-         {
-            homingAcceleration = BitConverter.ToUInt32(upload.Data, 0);
-            result = true;
-         }
-
-         return (result);
-      }
-
-      public bool SetStepper1HomingAcceleration(UInt32 homingAcceleration)
-      {
-         bool result = true;
-
-         result &= this.ExchangeCommAction(new SDODownload(0x789A, 0, 4, (UInt32)homingAcceleration));
-
-         return (result);
-      }
-
-      public bool GetStepper1HomeOffset(ref Int32 homeOffset)
-      {
-         bool result = false;
-         SDOUpload upload = new SDOUpload(0x787C, 0);
-         this.pendingAction = upload;
-         bool actionResult = this.ExchangeCommAction(this.pendingAction);
-
-         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
-         {
-            homeOffset = BitConverter.ToInt32(upload.Data, 0);
-            result = true;
-         }
-
-         return (result);
-      }
-
-      public bool SetStepper1HomeOffset(Int32 homeOffset)
-      {
-         bool result = true;
-
-         result &= this.ExchangeCommAction(new SDODownload(0x787C, 0, 4, (UInt32)homeOffset));
 
          return (result);
       }

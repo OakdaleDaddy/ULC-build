@@ -2314,25 +2314,25 @@ namespace E4.DeviceTest
       private void SetE4MainBldc1ModeButton_Click(object sender, EventArgs e)
       {
          byte nodeId = 0;
-         UlcRoboticsE4Main.MotorModes mode = UlcRoboticsE4Main.MotorModes.undefined;
+         MotorComponent.Modes mode = MotorComponent.Modes.undefined;
 
          if (this.E4MainBldc1ModeComboBox.Text == "off")
          {
-            mode = UlcRoboticsE4Main.MotorModes.off;
+            mode = MotorComponent.Modes.off;
          }
          else if (this.E4MainBldc1ModeComboBox.Text == "position")
          {
-            mode = UlcRoboticsE4Main.MotorModes.position;
+            mode = MotorComponent.Modes.position;
          }
          else if (this.E4MainBldc1ModeComboBox.Text == "velocity")
          {
-            mode = UlcRoboticsE4Main.MotorModes.velocity;
+            mode = MotorComponent.Modes.velocity;
          }
 
          if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.SetBldc1Mode(mode);
+            bool result = this.e4Main.Bldc1.SetMode(mode);
 
             if (false != result)
             {
@@ -2356,7 +2356,7 @@ namespace E4.DeviceTest
          if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
          {
             this.e4Main.NodeId = nodeId;
-            this.e4Main.ClearBldc1Fault();
+            this.e4Main.Bldc1.ClearFault();
             this.StatusLabel.Text = "BLDC1 fault cleared.";
          }
          else
@@ -2378,7 +2378,7 @@ namespace E4.DeviceTest
             this.e4Main.NodeId = nodeId;
             Int32 targetPosition = 0;
             bool targetPositionRelative = false;
-            bool success = this.e4Main.GetBldc1TargetPosition(ref targetPosition, ref targetPositionRelative);
+            bool success = this.e4Main.Bldc1.GetTargetPosition(ref targetPosition, ref targetPositionRelative);
 
             if (false != success)
             {
@@ -2407,7 +2407,7 @@ namespace E4.DeviceTest
              (Int32.TryParse(this.E4MainBldc1TargetPositionTextBox.Text, out targetPosition) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.SetBldc1TargetPosition(targetPosition, targetPositionRelative);
+            bool result = this.e4Main.Bldc1.SetTargetPosition(targetPosition, targetPositionRelative);
 
             if (false != result)
             {
@@ -2433,7 +2433,7 @@ namespace E4.DeviceTest
              (Int32.TryParse(this.E4MainBldc1TargetPositionTextBox.Text, out targetPosition) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.ScheduleBldc1TargetPosition(targetPosition);
+            bool result = this.e4Main.Bldc1.ScheduleTargetPosition(targetPosition);
 
             if (false != result)
             {
@@ -2458,7 +2458,7 @@ namespace E4.DeviceTest
          {
             this.e4Main.NodeId = nodeId;
             Int32 profileVelocity = 0;
-            bool success = this.e4Main.GetBldc1ProfileVelocity(ref profileVelocity);
+            bool success = this.e4Main.Bldc1.GetProfileVelocity(ref profileVelocity);
 
             if (false != success)
             {
@@ -2485,7 +2485,7 @@ namespace E4.DeviceTest
              (Int32.TryParse(this.E4MainBldc1ProfileVelocityTextBox.Text, out profileVelocity) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.SetBldc1ProfileVelocity(profileVelocity);
+            bool result = this.e4Main.Bldc1.SetProfileVelocity(profileVelocity);
 
             if (false != result)
             {
@@ -2514,7 +2514,7 @@ namespace E4.DeviceTest
          {
             this.e4Main.NodeId = nodeId;
             Int32 targetVelocity = 0;
-            bool success = this.e4Main.GetBldc1TargetVelocity(ref targetVelocity);
+            bool success = this.e4Main.Bldc1.GetTargetVelocity(ref targetVelocity);
 
             if (false != success)
             {
@@ -2541,7 +2541,7 @@ namespace E4.DeviceTest
              (Int32.TryParse(this.E4MainBldc1TargetVelocityTextBox.Text, out targetVelocity) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.SetBldc1TargetVelocity(targetVelocity);
+            bool result = this.e4Main.Bldc1.SetTargetVelocity(targetVelocity);
 
             if (false != result)
             {
@@ -2567,7 +2567,7 @@ namespace E4.DeviceTest
              (Int32.TryParse(this.E4MainBldc1TargetVelocityTextBox.Text, out targetVelocity) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.ScheduleBldc1TargetVelocity(targetVelocity);
+            bool result = this.e4Main.Bldc1.ScheduleTargetVelocity(targetVelocity);
 
             if (false != result)
             {
@@ -2592,7 +2592,7 @@ namespace E4.DeviceTest
          {
             this.e4Main.NodeId = nodeId;
             Int32 profileAcceleration = 0;
-            bool success = this.e4Main.GetBldc1ProfileAcceleration(ref profileAcceleration);
+            bool success = this.e4Main.Bldc1.GetProfileAcceleration(ref profileAcceleration);
 
             if (false != success)
             {
@@ -2619,7 +2619,7 @@ namespace E4.DeviceTest
              (Int32.TryParse(this.E4MainBldc1ProfileAccelerationTextBox.Text, out profileAcceleration) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.SetBldc1ProfileAcceleration(profileAcceleration);
+            bool result = this.e4Main.Bldc1.SetProfileAcceleration(profileAcceleration);
 
             if (false != result)
             {
@@ -2644,7 +2644,7 @@ namespace E4.DeviceTest
          {
             this.e4Main.NodeId = nodeId;
             Int32 profileDeceleration = 0;
-            bool success = this.e4Main.GetBldc1ProfileDeceleration(ref profileDeceleration);
+            bool success = this.e4Main.Bldc1.GetProfileDeceleration(ref profileDeceleration);
 
             if (false != success)
             {
@@ -2671,7 +2671,7 @@ namespace E4.DeviceTest
              (Int32.TryParse(this.E4MainBldc1ProfileDecelerationTextBox.Text, out profileDeceleration) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.SetBldc1ProfileDeceleration(profileDeceleration);
+            bool result = this.e4Main.Bldc1.SetProfileDeceleration(profileDeceleration);
 
             if (false != result)
             {
@@ -2700,7 +2700,7 @@ namespace E4.DeviceTest
          {
             this.e4Main.NodeId = nodeId;
             Int32 motorKp = 0;
-            bool success = (false != this.E4MainBldc1TuningVelocityRadioButton.Checked) ? this.e4Main.GetBldc1VelocityKp(ref motorKp) : this.e4Main.GetBldc1PositionKp(ref motorKp);
+            bool success = (false != this.E4MainBldc1TuningVelocityRadioButton.Checked) ? this.e4Main.Bldc1.GetVelocityKp(ref motorKp) : this.e4Main.Bldc1.GetPositionKp(ref motorKp);
 
             if (false != success)
             {
@@ -2727,7 +2727,7 @@ namespace E4.DeviceTest
              (Int32.TryParse(this.E4MainBldc1KpTextBox.Text, out motorKp) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = (false != this.E4MainBldc1TuningVelocityRadioButton.Checked) ? this.e4Main.SetBldc1VelocityKp(motorKp) : this.e4Main.SetBldc1PositionKp(motorKp);
+            bool result = (false != this.E4MainBldc1TuningVelocityRadioButton.Checked) ? this.e4Main.Bldc1.SetVelocityKp(motorKp) : this.e4Main.Bldc1.SetPositionKp(motorKp);
 
             if (false != result)
             {
@@ -2752,7 +2752,7 @@ namespace E4.DeviceTest
          {
             this.e4Main.NodeId = nodeId;
             Int32 motorKi = 0;
-            bool success = (false != this.E4MainBldc1TuningVelocityRadioButton.Checked) ? this.e4Main.GetBldc1VelocityKi(ref motorKi) : this.e4Main.GetBldc1PositionKi(ref motorKi);
+            bool success = (false != this.E4MainBldc1TuningVelocityRadioButton.Checked) ? this.e4Main.Bldc1.GetVelocityKi(ref motorKi) : this.e4Main.Bldc1.GetPositionKi(ref motorKi);
 
             if (false != success)
             {
@@ -2779,7 +2779,7 @@ namespace E4.DeviceTest
              (Int32.TryParse(this.E4MainBldc1KiTextBox.Text, out motorKi) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = (false != this.E4MainBldc1TuningVelocityRadioButton.Checked) ? this.e4Main.SetBldc1VelocityKi(motorKi) : this.e4Main.SetBldc1PositionKi(motorKi);
+            bool result = (false != this.E4MainBldc1TuningVelocityRadioButton.Checked) ? this.e4Main.Bldc1.SetVelocityKi(motorKi) : this.e4Main.Bldc1.SetPositionKi(motorKi);
 
             if (false != result)
             {
@@ -2804,7 +2804,7 @@ namespace E4.DeviceTest
          {
             this.e4Main.NodeId = nodeId;
             Int32 motorKd = 0;
-            bool success = (false != this.E4MainBldc1TuningVelocityRadioButton.Checked) ? this.e4Main.GetBldc1VelocityKd(ref motorKd) : this.e4Main.GetBldc1PositionKd(ref motorKd);
+            bool success = (false != this.E4MainBldc1TuningVelocityRadioButton.Checked) ? this.e4Main.Bldc1.GetVelocityKd(ref motorKd) : this.e4Main.Bldc1.GetPositionKd(ref motorKd);
 
             if (false != success)
             {
@@ -2831,7 +2831,7 @@ namespace E4.DeviceTest
              (Int32.TryParse(this.E4MainBldc1KdTextBox.Text, out motorKd) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = (false != this.E4MainBldc1TuningVelocityRadioButton.Checked) ? this.e4Main.SetBldc1VelocityKd(motorKd) : this.e4Main.SetBldc1PositionKd(motorKd);
+            bool result = (false != this.E4MainBldc1TuningVelocityRadioButton.Checked) ? this.e4Main.Bldc1.SetVelocityKd(motorKd) : this.e4Main.Bldc1.SetPositionKd(motorKd);
 
             if (false != result)
             {
@@ -2856,7 +2856,7 @@ namespace E4.DeviceTest
          {
             this.e4Main.NodeId = nodeId;
             UInt32 positionWindow = 0;
-            bool success = this.e4Main.GetBldc1PositionWindow(ref positionWindow);
+            bool success = this.e4Main.Bldc1.GetPositionWindow(ref positionWindow);
 
             if (false != success)
             {
@@ -2883,7 +2883,7 @@ namespace E4.DeviceTest
              (UInt32.TryParse(this.E4MainBldc1PositionWindowTextBox.Text, out positionWindow) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.SetBldc1PositionWindow(positionWindow);
+            bool result = this.e4Main.Bldc1.SetPositionWindow(positionWindow);
 
             if (false != result)
             {
@@ -2908,7 +2908,7 @@ namespace E4.DeviceTest
          {
             this.e4Main.NodeId = nodeId;
             UInt16 positionWindowTime = 0;
-            bool success = this.e4Main.GetBldc1PositionWindowTime(ref positionWindowTime);
+            bool success = this.e4Main.Bldc1.GetPositionWindowTime(ref positionWindowTime);
 
             if (false != success)
             {
@@ -2935,7 +2935,7 @@ namespace E4.DeviceTest
              (UInt16.TryParse(this.E4MainBldc1PositionWindowTimeTextBox.Text, out positionWindowTime) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.SetBldc1PositionWindowTime(positionWindowTime);
+            bool result = this.e4Main.Bldc1.SetPositionWindowTime(positionWindowTime);
 
             if (false != result)
             {
@@ -2960,7 +2960,7 @@ namespace E4.DeviceTest
          {
             this.e4Main.NodeId = nodeId;
             UInt16 velocityWindow = 0;
-            bool success = this.e4Main.GetBldc1VelocityWindow(ref velocityWindow);
+            bool success = this.e4Main.Bldc1.GetVelocityWindow(ref velocityWindow);
 
             if (false != success)
             {
@@ -2987,7 +2987,7 @@ namespace E4.DeviceTest
              (UInt16.TryParse(this.E4MainBldc1VelocityWindowTextBox.Text, out velocityWindow) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.SetBldc1VelocityWindow(velocityWindow);
+            bool result = this.e4Main.Bldc1.SetVelocityWindow(velocityWindow);
 
             if (false != result)
             {
@@ -3012,7 +3012,7 @@ namespace E4.DeviceTest
          {
             this.e4Main.NodeId = nodeId;
             UInt16 velocityWindowTime = 0;
-            bool success = this.e4Main.GetBldc1VelocityWindowTime(ref velocityWindowTime);
+            bool success = this.e4Main.Bldc1.GetVelocityWindowTime(ref velocityWindowTime);
 
             if (false != success)
             {
@@ -3039,7 +3039,7 @@ namespace E4.DeviceTest
              (UInt16.TryParse(this.E4MainBldc1VelocityWindowTimeTextBox.Text, out velocityWindowTime) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.SetBldc1VelocityWindowTime(velocityWindowTime);
+            bool result = this.e4Main.Bldc1.SetVelocityWindowTime(velocityWindowTime);
 
             if (false != result)
             {
@@ -3064,7 +3064,7 @@ namespace E4.DeviceTest
          {
             this.e4Main.NodeId = nodeId;
             UInt16 velocityThreshold = 0;
-            bool success = this.e4Main.GetBldc1VelocityThreshold(ref velocityThreshold);
+            bool success = this.e4Main.Bldc1.GetVelocityThreshold(ref velocityThreshold);
 
             if (false != success)
             {
@@ -3091,7 +3091,7 @@ namespace E4.DeviceTest
              (UInt16.TryParse(this.E4MainBldc1VelocityThresholdTextBox.Text, out velocityThreshold) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.SetBldc1VelocityThreshold(velocityThreshold);
+            bool result = this.e4Main.Bldc1.SetVelocityThreshold(velocityThreshold);
 
             if (false != result)
             {
@@ -3116,7 +3116,7 @@ namespace E4.DeviceTest
          {
             this.e4Main.NodeId = nodeId;
             UInt16 velocityThresholdTime = 0;
-            bool success = this.e4Main.GetBldc1VelocityThresholdTime(ref velocityThresholdTime);
+            bool success = this.e4Main.Bldc1.GetVelocityThresholdTime(ref velocityThresholdTime);
 
             if (false != success)
             {
@@ -3143,7 +3143,7 @@ namespace E4.DeviceTest
              (UInt16.TryParse(this.E4MainBldc1VelocityThresholdTimeTextBox.Text, out velocityThresholdTime) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.SetBldc1VelocityThresholdTime(velocityThresholdTime);
+            bool result = this.e4Main.Bldc1.SetVelocityThresholdTime(velocityThresholdTime);
 
             if (false != result)
             {
@@ -3171,25 +3171,25 @@ namespace E4.DeviceTest
       private void SetE4MainStepper0ModeButton_Click(object sender, EventArgs e)
       {
          byte nodeId = 0;
-         UlcRoboticsE4Main.MotorModes mode = UlcRoboticsE4Main.MotorModes.undefined;
+         MotorComponent.Modes mode = MotorComponent.Modes.undefined;
 
          if (this.E4MainStepper0ModeComboBox.Text == "off")
          {
-            mode = UlcRoboticsE4Main.MotorModes.off;
+            mode = MotorComponent.Modes.off;
          }
          else if (this.E4MainStepper0ModeComboBox.Text == "position")
          {
-            mode = UlcRoboticsE4Main.MotorModes.position;
+            mode = MotorComponent.Modes.position;
          }
          else if (this.E4MainStepper0ModeComboBox.Text == "homing")
          {
-            mode = UlcRoboticsE4Main.MotorModes.homing;
+            mode = MotorComponent.Modes.homing;
          }
 
          if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.SetStepper0Mode(mode);
+            bool result = this.e4Main.Stepper0.SetMode(mode);
 
             if (false != result)
             {
@@ -3213,7 +3213,7 @@ namespace E4.DeviceTest
          if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
          {
             this.e4Main.NodeId = nodeId;
-            this.e4Main.ClearStepper0Fault();
+            this.e4Main.Stepper0.ClearFault();
             this.StatusLabel.Text = "Stepper0 fault cleared.";
          }
          else
@@ -3232,9 +3232,9 @@ namespace E4.DeviceTest
             Int32 actualPosition = 0;
             Int32 actualVelocity = 0;
             Int16 actualCurrent = 0;
-            bool success = this.e4Main.GetStepper0ActualPosition(ref actualPosition);
-            success = success && this.e4Main.GetStepper0ActualVelocity(ref actualVelocity);
-            success = success && this.e4Main.GetStepper0ActualCurrent(ref actualCurrent);
+            bool success = this.e4Main.Stepper0.GetActualPosition(ref actualPosition);
+            success = success && this.e4Main.Stepper0.GetActualVelocity(ref actualVelocity);
+            success = success && this.e4Main.Stepper0.GetActualCurrent(ref actualCurrent);
 
             if (false != success)
             {
@@ -3267,7 +3267,7 @@ namespace E4.DeviceTest
             this.e4Main.NodeId = nodeId;
             Int32 targetPosition = 0;
             bool targetPositionRelative = false;
-            bool success = this.e4Main.GetStepper0TargetPosition(ref targetPosition, ref targetPositionRelative);
+            bool success = this.e4Main.Stepper0.GetTargetPosition(ref targetPosition, ref targetPositionRelative);
 
             if (false != success)
             {
@@ -3296,7 +3296,7 @@ namespace E4.DeviceTest
              (Int32.TryParse(this.E4MainStepper0TargetPositionTextBox.Text, out targetPosition) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.SetStepper0TargetPosition(targetPosition, targetPositionRelative);
+            bool result = this.e4Main.Stepper0.SetTargetPosition(targetPosition, targetPositionRelative);
 
             if (false != result)
             {
@@ -3321,7 +3321,7 @@ namespace E4.DeviceTest
          {
             this.e4Main.NodeId = nodeId;
             Int32 profileAcceleration = 0;
-            bool success = this.e4Main.GetStepper0ProfileAcceleration(ref profileAcceleration);
+            bool success = this.e4Main.Stepper0.GetProfileAcceleration(ref profileAcceleration);
 
             if (false != success)
             {
@@ -3348,7 +3348,7 @@ namespace E4.DeviceTest
              (Int32.TryParse(this.E4MainStepper0ProfileAccelerationTextBox.Text, out profileAcceleration) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.SetStepper0ProfileAcceleration(profileAcceleration);
+            bool result = this.e4Main.Stepper0.SetProfileAcceleration(profileAcceleration);
 
             if (false != result)
             {
@@ -3373,7 +3373,7 @@ namespace E4.DeviceTest
          {
             this.e4Main.NodeId = nodeId;
             Int32 profileVelocity = 0;
-            bool success = this.e4Main.GetStepper0ProfileVelocity(ref profileVelocity);
+            bool success = this.e4Main.Stepper0.GetProfileVelocity(ref profileVelocity);
 
             if (false != success)
             {
@@ -3400,7 +3400,7 @@ namespace E4.DeviceTest
              (Int32.TryParse(this.E4MainStepper0ProfileVelocityTextBox.Text, out profileVelocity) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.SetStepper0ProfileVelocity(profileVelocity);
+            bool result = this.e4Main.Stepper0.SetProfileVelocity(profileVelocity);
 
             if (false != result)
             {
@@ -3428,7 +3428,7 @@ namespace E4.DeviceTest
          if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.StartStepper0Homing();
+            bool result = this.e4Main.Stepper0.StartHoming();
 
             if (false != result)
             {
@@ -3452,7 +3452,7 @@ namespace E4.DeviceTest
          if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.StopStepper0Homing();
+            bool result = this.e4Main.Stepper0.StopHoming();
 
             if (false != result)
             {
@@ -3476,7 +3476,7 @@ namespace E4.DeviceTest
          if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.HaltStepper0Homing();
+            bool result = this.e4Main.Stepper0.HaltHoming();
 
             if (false != result)
             {
@@ -3500,7 +3500,7 @@ namespace E4.DeviceTest
          if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.RunStepper0Homing();
+            bool result = this.e4Main.Stepper0.RunHoming();
 
             if (false != result)
             {
@@ -3525,7 +3525,7 @@ namespace E4.DeviceTest
          {
             this.e4Main.NodeId = nodeId;
             byte homingMethod = 0;
-            bool success = this.e4Main.GetStepper0HomingMethod(ref homingMethod);
+            bool success = this.e4Main.Stepper0.GetHomingMethod(ref homingMethod);
 
             if (false != success)
             {
@@ -3552,7 +3552,7 @@ namespace E4.DeviceTest
              (byte.TryParse(this.E4MainStepper0HomingMethodTextBox.Text, out homingMethod) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.SetStepper0HomingMethod(homingMethod);
+            bool result = this.e4Main.Stepper0.SetHomingMethod(homingMethod);
 
             if (false != result)
             {
@@ -3577,7 +3577,7 @@ namespace E4.DeviceTest
          {
             this.e4Main.NodeId = nodeId;
             UInt32 homingSwitchSpeed = 0;
-            bool success = this.e4Main.GetStepper0HomingSwitchSpeed(ref homingSwitchSpeed);
+            bool success = this.e4Main.Stepper0.GetHomingSwitchSpeed(ref homingSwitchSpeed);
 
             if (false != success)
             {
@@ -3604,7 +3604,7 @@ namespace E4.DeviceTest
              (UInt32.TryParse(this.E4MainStepper0HomingSwitchSpeedTextBox.Text, out homingSwitchSpeed) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.SetStepper0HomingSwitchSpeed(homingSwitchSpeed);
+            bool result = this.e4Main.Stepper0.SetHomingSwitchSpeed(homingSwitchSpeed);
 
             if (false != result)
             {
@@ -3629,7 +3629,7 @@ namespace E4.DeviceTest
          {
             this.e4Main.NodeId = nodeId;
             UInt32 homingZeroSpeed = 0;
-            bool success = this.e4Main.GetStepper0HomingZeroSpeed(ref homingZeroSpeed);
+            bool success = this.e4Main.Stepper0.GetHomingZeroSpeed(ref homingZeroSpeed);
 
             if (false != success)
             {
@@ -3656,7 +3656,7 @@ namespace E4.DeviceTest
              (UInt32.TryParse(this.E4MainStepper0HomingZeroSpeedTextBox.Text, out homingZeroSpeed) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.SetStepper0HomingZeroSpeed(homingZeroSpeed);
+            bool result = this.e4Main.Stepper0.SetHomingZeroSpeed(homingZeroSpeed);
 
             if (false != result)
             {
@@ -3681,7 +3681,7 @@ namespace E4.DeviceTest
          {
             this.e4Main.NodeId = nodeId;
             UInt32 homingAcceleration = 0;
-            bool success = this.e4Main.GetStepper0HomingAcceleration(ref homingAcceleration);
+            bool success = this.e4Main.Stepper0.GetHomingAcceleration(ref homingAcceleration);
 
             if (false != success)
             {
@@ -3708,7 +3708,7 @@ namespace E4.DeviceTest
              (UInt32.TryParse(this.E4MainStepper0HomingAccelerationTextBox.Text, out homingAcceleration) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.SetStepper0HomingAcceleration(homingAcceleration);
+            bool result = this.e4Main.Stepper0.SetHomingAcceleration(homingAcceleration);
 
             if (false != result)
             {
@@ -3733,7 +3733,7 @@ namespace E4.DeviceTest
          {
             this.e4Main.NodeId = nodeId;
             Int32 homeOffset = 0;
-            bool success = this.e4Main.GetStepper0HomeOffset(ref homeOffset);
+            bool success = this.e4Main.Stepper0.GetHomeOffset(ref homeOffset);
 
             if (false != success)
             {
@@ -3760,7 +3760,7 @@ namespace E4.DeviceTest
              (Int32.TryParse(this.E4MainStepper0HomeOffsetTextBox.Text, out homeOffset) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.SetStepper0HomeOffset(homeOffset);
+            bool result = this.e4Main.Stepper0.SetHomeOffset(homeOffset);
 
             if (false != result)
             {
@@ -3788,25 +3788,25 @@ namespace E4.DeviceTest
       private void SetE4MainStepper1ModeButton_Click(object sender, EventArgs e)
       {
          byte nodeId = 0;
-         UlcRoboticsE4Main.MotorModes mode = UlcRoboticsE4Main.MotorModes.undefined;
+         MotorComponent.Modes mode = MotorComponent.Modes.undefined;
 
          if (this.E4MainStepper1ModeComboBox.Text == "off")
          {
-            mode = UlcRoboticsE4Main.MotorModes.off;
+            mode = MotorComponent.Modes.off;
          }
          else if (this.E4MainStepper1ModeComboBox.Text == "position")
          {
-            mode = UlcRoboticsE4Main.MotorModes.position;
+            mode = MotorComponent.Modes.position;
          }
          else if (this.E4MainStepper1ModeComboBox.Text == "homing")
          {
-            mode = UlcRoboticsE4Main.MotorModes.homing;
+            mode = MotorComponent.Modes.homing;
          }
 
          if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.SetStepper1Mode(mode);
+            bool result = this.e4Main.Stepper1.SetMode(mode);
 
             if (false != result)
             {
@@ -3830,7 +3830,7 @@ namespace E4.DeviceTest
          if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
          {
             this.e4Main.NodeId = nodeId;
-            this.e4Main.ClearStepper1Fault();
+            this.e4Main.Stepper1.ClearFault();
             this.StatusLabel.Text = "Stepper1 fault cleared.";
          }
          else
@@ -3849,9 +3849,9 @@ namespace E4.DeviceTest
             Int32 actualPosition = 0;
             Int32 actualVelocity = 0;
             Int16 actualCurrent = 0;
-            bool success = this.e4Main.GetStepper1ActualPosition(ref actualPosition);
-            success = success && this.e4Main.GetStepper1ActualVelocity(ref actualVelocity);
-            success = success && this.e4Main.GetStepper1ActualCurrent(ref actualCurrent);
+            bool success = this.e4Main.Stepper1.GetActualPosition(ref actualPosition);
+            success = success && this.e4Main.Stepper1.GetActualVelocity(ref actualVelocity);
+            success = success && this.e4Main.Stepper1.GetActualCurrent(ref actualCurrent);
 
             if (false != success)
             {
@@ -3884,7 +3884,7 @@ namespace E4.DeviceTest
             this.e4Main.NodeId = nodeId;
             Int32 targetPosition = 0;
             bool targetPositionRelative = false;
-            bool success = this.e4Main.GetStepper1TargetPosition(ref targetPosition, ref targetPositionRelative);
+            bool success = this.e4Main.Stepper1.GetTargetPosition(ref targetPosition, ref targetPositionRelative);
 
             if (false != success)
             {
@@ -3913,7 +3913,7 @@ namespace E4.DeviceTest
              (Int32.TryParse(this.E4MainStepper1TargetPositionTextBox.Text, out targetPosition) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.SetStepper1TargetPosition(targetPosition, targetPositionRelative);
+            bool result = this.e4Main.Stepper1.SetTargetPosition(targetPosition, targetPositionRelative);
 
             if (false != result)
             {
@@ -3938,7 +3938,7 @@ namespace E4.DeviceTest
          {
             this.e4Main.NodeId = nodeId;
             Int32 profileAcceleration = 0;
-            bool success = this.e4Main.GetStepper1ProfileAcceleration(ref profileAcceleration);
+            bool success = this.e4Main.Stepper1.GetProfileAcceleration(ref profileAcceleration);
 
             if (false != success)
             {
@@ -3965,7 +3965,7 @@ namespace E4.DeviceTest
              (Int32.TryParse(this.E4MainStepper1ProfileAccelerationTextBox.Text, out profileAcceleration) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.SetStepper1ProfileAcceleration(profileAcceleration);
+            bool result = this.e4Main.Stepper1.SetProfileAcceleration(profileAcceleration);
 
             if (false != result)
             {
@@ -3990,7 +3990,7 @@ namespace E4.DeviceTest
          {
             this.e4Main.NodeId = nodeId;
             Int32 profileVelocity = 0;
-            bool success = this.e4Main.GetStepper1ProfileVelocity(ref profileVelocity);
+            bool success = this.e4Main.Stepper1.GetProfileVelocity(ref profileVelocity);
 
             if (false != success)
             {
@@ -4017,7 +4017,7 @@ namespace E4.DeviceTest
              (Int32.TryParse(this.E4MainStepper1ProfileVelocityTextBox.Text, out profileVelocity) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.SetStepper1ProfileVelocity(profileVelocity);
+            bool result = this.e4Main.Stepper1.SetProfileVelocity(profileVelocity);
 
             if (false != result)
             {
@@ -4045,7 +4045,7 @@ namespace E4.DeviceTest
          if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.StartStepper1Homing();
+            bool result = this.e4Main.Stepper1.StartHoming();
 
             if (false != result)
             {
@@ -4069,7 +4069,7 @@ namespace E4.DeviceTest
          if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.StopStepper1Homing();
+            bool result = this.e4Main.Stepper1.StopHoming();
 
             if (false != result)
             {
@@ -4093,7 +4093,7 @@ namespace E4.DeviceTest
          if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.HaltStepper1Homing();
+            bool result = this.e4Main.Stepper1.HaltHoming();
 
             if (false != result)
             {
@@ -4117,7 +4117,7 @@ namespace E4.DeviceTest
          if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.RunStepper1Homing();
+            bool result = this.e4Main.Stepper1.RunHoming();
 
             if (false != result)
             {
@@ -4142,7 +4142,7 @@ namespace E4.DeviceTest
          {
             this.e4Main.NodeId = nodeId;
             byte homingMethod = 0;
-            bool success = this.e4Main.GetStepper1HomingMethod(ref homingMethod);
+            bool success = this.e4Main.Stepper1.GetHomingMethod(ref homingMethod);
 
             if (false != success)
             {
@@ -4169,7 +4169,7 @@ namespace E4.DeviceTest
              (byte.TryParse(this.E4MainStepper1HomingMethodTextBox.Text, out homingMethod) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.SetStepper1HomingMethod(homingMethod);
+            bool result = this.e4Main.Stepper1.SetHomingMethod(homingMethod);
 
             if (false != result)
             {
@@ -4194,7 +4194,7 @@ namespace E4.DeviceTest
          {
             this.e4Main.NodeId = nodeId;
             UInt32 homingSwitchSpeed = 0;
-            bool success = this.e4Main.GetStepper1HomingSwitchSpeed(ref homingSwitchSpeed);
+            bool success = this.e4Main.Stepper1.GetHomingSwitchSpeed(ref homingSwitchSpeed);
 
             if (false != success)
             {
@@ -4221,7 +4221,7 @@ namespace E4.DeviceTest
              (UInt32.TryParse(this.E4MainStepper1HomingSwitchSpeedTextBox.Text, out homingSwitchSpeed) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.SetStepper1HomingSwitchSpeed(homingSwitchSpeed);
+            bool result = this.e4Main.Stepper1.SetHomingSwitchSpeed(homingSwitchSpeed);
 
             if (false != result)
             {
@@ -4246,7 +4246,7 @@ namespace E4.DeviceTest
          {
             this.e4Main.NodeId = nodeId;
             UInt32 homingZeroSpeed = 0;
-            bool success = this.e4Main.GetStepper1HomingZeroSpeed(ref homingZeroSpeed);
+            bool success = this.e4Main.Stepper1.GetHomingZeroSpeed(ref homingZeroSpeed);
 
             if (false != success)
             {
@@ -4273,7 +4273,7 @@ namespace E4.DeviceTest
              (UInt32.TryParse(this.E4MainStepper1HomingZeroSpeedTextBox.Text, out homingZeroSpeed) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.SetStepper1HomingZeroSpeed(homingZeroSpeed);
+            bool result = this.e4Main.Stepper1.SetHomingZeroSpeed(homingZeroSpeed);
 
             if (false != result)
             {
@@ -4298,7 +4298,7 @@ namespace E4.DeviceTest
          {
             this.e4Main.NodeId = nodeId;
             UInt32 homingAcceleration = 0;
-            bool success = this.e4Main.GetStepper1HomingAcceleration(ref homingAcceleration);
+            bool success = this.e4Main.Stepper1.GetHomingAcceleration(ref homingAcceleration);
 
             if (false != success)
             {
@@ -4325,7 +4325,7 @@ namespace E4.DeviceTest
              (UInt32.TryParse(this.E4MainStepper1HomingAccelerationTextBox.Text, out homingAcceleration) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.SetStepper1HomingAcceleration(homingAcceleration);
+            bool result = this.e4Main.Stepper1.SetHomingAcceleration(homingAcceleration);
 
             if (false != result)
             {
@@ -4350,7 +4350,7 @@ namespace E4.DeviceTest
          {
             this.e4Main.NodeId = nodeId;
             Int32 homeOffset = 0;
-            bool success = this.e4Main.GetStepper1HomeOffset(ref homeOffset);
+            bool success = this.e4Main.Stepper1.GetHomeOffset(ref homeOffset);
 
             if (false != success)
             {
@@ -4377,7 +4377,7 @@ namespace E4.DeviceTest
              (Int32.TryParse(this.E4MainStepper1HomeOffsetTextBox.Text, out homeOffset) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.SetStepper1HomeOffset(homeOffset);
+            bool result = this.e4Main.Stepper1.SetHomeOffset(homeOffset);
 
             if (false != result)
             {
@@ -4550,21 +4550,21 @@ namespace E4.DeviceTest
          this.E4MainBldc0PositionAttainedLabel.BackColor = (null != this.e4Main.Warning) ? Color.Yellow : ((false != this.e4Main.Bldc0.PositionAttained) ? Color.LimeGreen : Color.DarkSlateGray); ;
          this.E4MainBldc0VelocityAttainedLabel.BackColor = (null != this.e4Main.Warning) ? Color.Yellow : ((false != this.e4Main.Bldc0.VelocityAttained) ? Color.LimeGreen : Color.DarkSlateGray); ;
 
-         this.E4MainBldc1TemperatureTextBox.Text = string.Format("{0:0}", this.e4Main.Bldc1Temperature);
-         this.E4MainBldc1StatusTextBox.Text = string.Format("{0:X4}", this.e4Main.Bldc1Status);
-         this.E4MainBldc1ActualPositionTextBox.Text = string.Format("{0}", this.e4Main.Bldc1ActualPosition);
-         this.E4MainBldc1ActualVelocityTextBox.Text = string.Format("{0}", this.e4Main.Bldc1ActualVelocity);
-         this.E4MainBldc1ActualCurrentTextBox.Text = string.Format("{0}", this.e4Main.Bldc1ActualCurrent);
-         this.E4MainBldc1PositionAttainedLabel.BackColor = (null != this.e4Main.Warning) ? Color.Yellow : ((false != this.e4Main.Bldc1PositionAttained) ? Color.LimeGreen : Color.DarkSlateGray); ;
-         this.E4MainBldc1VelocityAttainedLabel.BackColor = (null != this.e4Main.Warning) ? Color.Yellow : ((false != this.e4Main.Bldc1VelocityAttained) ? Color.LimeGreen : Color.DarkSlateGray); ;
+         this.E4MainBldc1TemperatureTextBox.Text = string.Format("{0:0}", this.e4Main.Bldc1.Temperature);
+         this.E4MainBldc1StatusTextBox.Text = string.Format("{0:X4}", this.e4Main.Bldc1.Status);
+         this.E4MainBldc1ActualPositionTextBox.Text = string.Format("{0}", this.e4Main.Bldc1.ActualPosition);
+         this.E4MainBldc1ActualVelocityTextBox.Text = string.Format("{0}", this.e4Main.Bldc1.ActualVelocity);
+         this.E4MainBldc1ActualCurrentTextBox.Text = string.Format("{0}", this.e4Main.Bldc1.ActualCurrent);
+         this.E4MainBldc1PositionAttainedLabel.BackColor = (null != this.e4Main.Warning) ? Color.Yellow : ((false != this.e4Main.Bldc1.PositionAttained) ? Color.LimeGreen : Color.DarkSlateGray); ;
+         this.E4MainBldc1VelocityAttainedLabel.BackColor = (null != this.e4Main.Warning) ? Color.Yellow : ((false != this.e4Main.Bldc1.VelocityAttained) ? Color.LimeGreen : Color.DarkSlateGray); ;
 
-         this.E4MainStepper0StatusTextBox.Text = string.Format("{0:X4}", this.e4Main.Stepper0Status);
-         this.E4MainStepper0PositionAttainedLabel.BackColor = (null != this.e4Main.Warning) ? Color.Yellow : ((false != this.e4Main.Stepper0PositionAttained) ? Color.LimeGreen : Color.DarkSlateGray); ;
-         this.E4MainStepper0HomingAttainedLabel.BackColor = (null != this.e4Main.Warning) ? Color.Yellow : ((false != this.e4Main.Stepper0HomingAttained) ? Color.LimeGreen : Color.DarkSlateGray); ;
+         this.E4MainStepper0StatusTextBox.Text = string.Format("{0:X4}", this.e4Main.Stepper0.Status);
+         this.E4MainStepper0PositionAttainedLabel.BackColor = (null != this.e4Main.Warning) ? Color.Yellow : ((false != this.e4Main.Stepper0.PositionAttained) ? Color.LimeGreen : Color.DarkSlateGray); ;
+         this.E4MainStepper0HomingAttainedLabel.BackColor = (null != this.e4Main.Warning) ? Color.Yellow : ((false != this.e4Main.Stepper0.HomingAttained) ? Color.LimeGreen : Color.DarkSlateGray); ;
 
-         this.E4MainStepper1StatusTextBox.Text = string.Format("{0:X4}", this.e4Main.Stepper1Status);
-         this.E4MainStepper1PositionAttainedLabel.BackColor = (null != this.e4Main.Warning) ? Color.Yellow : ((false != this.e4Main.Stepper1PositionAttained) ? Color.LimeGreen : Color.DarkSlateGray); ;
-         this.E4MainStepper1HomingAttainedLabel.BackColor = (null != this.e4Main.Warning) ? Color.Yellow : ((false != this.e4Main.Stepper1HomingAttained) ? Color.LimeGreen : Color.DarkSlateGray); ;
+         this.E4MainStepper1StatusTextBox.Text = string.Format("{0:X4}", this.e4Main.Stepper1.Status);
+         this.E4MainStepper1PositionAttainedLabel.BackColor = (null != this.e4Main.Warning) ? Color.Yellow : ((false != this.e4Main.Stepper1.PositionAttained) ? Color.LimeGreen : Color.DarkSlateGray); ;
+         this.E4MainStepper1HomingAttainedLabel.BackColor = (null != this.e4Main.Warning) ? Color.Yellow : ((false != this.e4Main.Stepper1.HomingAttained) ? Color.LimeGreen : Color.DarkSlateGray); ;
 
          #endregion
       }
