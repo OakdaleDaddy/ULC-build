@@ -320,6 +320,13 @@
             {
                // stop motors...
             }
+            else
+            {
+               //this.UpdateBldc(this.mainBoard.Bldc0, this.bldc0Status, this.bldc0Parameters);
+               //this.UpdateBldc(this.mainBoard.Bldc1, this.bldc1Status, this.bldc1Parameters);
+               //this.UpdateStepper(this.mainBoard.Stepper0, this.stepper0Status, this.stepper0Parameters);
+               //this.UpdateStepper(this.mainBoard.Stepper1, this.stepper1Status, this.stepper1Parameters);
+            }
 
             #region Laser Control 
 

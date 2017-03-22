@@ -1457,25 +1457,25 @@ namespace E4.DeviceTest
       private void SetE4MainBldc0ModeButton_Click(object sender, EventArgs e)
       {
          byte nodeId = 0;
-         UlcRoboticsE4Main.MotorModes mode = UlcRoboticsE4Main.MotorModes.undefined;
+         MotorComponent.Modes mode = MotorComponent.Modes.undefined;
 
          if (this.E4MainBldc0ModeComboBox.Text == "off")
          {
-            mode = UlcRoboticsE4Main.MotorModes.off;
+            mode = MotorComponent.Modes.off;
          }
          else if (this.E4MainBldc0ModeComboBox.Text == "position")
          {
-            mode = UlcRoboticsE4Main.MotorModes.position;
+            mode = MotorComponent.Modes.position;
          }
          else if (this.E4MainBldc0ModeComboBox.Text == "velocity")
          {
-            mode = UlcRoboticsE4Main.MotorModes.velocity;
+            mode = MotorComponent.Modes.velocity;
          }
 
          if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.SetBldc0Mode(mode);
+            bool result = this.e4Main.Bldc0.SetMode(mode);
 
             if (false != result)
             {
@@ -1499,7 +1499,7 @@ namespace E4.DeviceTest
          if (byte.TryParse(this.E4MainActiveNodeIdTextBox.Text, out nodeId) != false)
          {
             this.e4Main.NodeId = nodeId;
-            this.e4Main.ClearBldc0Fault();
+            this.e4Main.Bldc0.ClearFault();
             this.StatusLabel.Text = "BLDC0 fault cleared.";
          }
          else
@@ -1521,7 +1521,7 @@ namespace E4.DeviceTest
             this.e4Main.NodeId = nodeId;
             Int32 targetPosition = 0;
             bool targetPositionRelative = false;
-            bool success = this.e4Main.GetBldc0TargetPosition(ref targetPosition, ref targetPositionRelative);
+            bool success = this.e4Main.Bldc0.GetTargetPosition(ref targetPosition, ref targetPositionRelative);
 
             if (false != success)
             {
@@ -1550,7 +1550,7 @@ namespace E4.DeviceTest
              (Int32.TryParse(this.E4MainBldc0TargetPositionTextBox.Text, out targetPosition) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.SetBldc0TargetPosition(targetPosition, targetPositionRelative);
+            bool result = this.e4Main.Bldc0.SetTargetPosition(targetPosition, targetPositionRelative);
 
             if (false != result)
             {
@@ -1576,7 +1576,7 @@ namespace E4.DeviceTest
              (Int32.TryParse(this.E4MainBldc0TargetPositionTextBox.Text, out targetPosition) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.ScheduleBldc0TargetPosition(targetPosition);
+            bool result = this.e4Main.Bldc0.ScheduleTargetPosition(targetPosition);
 
             if (false != result)
             {
@@ -1601,7 +1601,7 @@ namespace E4.DeviceTest
          {
             this.e4Main.NodeId = nodeId;
             Int32 profileVelocity = 0;
-            bool success = this.e4Main.GetBldc0ProfileVelocity(ref profileVelocity);
+            bool success = this.e4Main.Bldc0.GetProfileVelocity(ref profileVelocity);
 
             if (false != success)
             {
@@ -1628,7 +1628,7 @@ namespace E4.DeviceTest
              (Int32.TryParse(this.E4MainBldc0ProfileVelocityTextBox.Text, out profileVelocity) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.SetBldc0ProfileVelocity(profileVelocity);
+            bool result = this.e4Main.Bldc0.SetProfileVelocity(profileVelocity);
 
             if (false != result)
             {
@@ -1657,7 +1657,7 @@ namespace E4.DeviceTest
          {
             this.e4Main.NodeId = nodeId;
             Int32 targetVelocity = 0;
-            bool success = this.e4Main.GetBldc0TargetVelocity(ref targetVelocity);
+            bool success = this.e4Main.Bldc0.GetTargetVelocity(ref targetVelocity);
 
             if (false != success)
             {
@@ -1684,7 +1684,7 @@ namespace E4.DeviceTest
              (Int32.TryParse(this.E4MainBldc0TargetVelocityTextBox.Text, out targetVelocity) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.SetBldc0TargetVelocity(targetVelocity);
+            bool result = this.e4Main.Bldc0.SetTargetVelocity(targetVelocity);
 
             if (false != result)
             {
@@ -1710,7 +1710,7 @@ namespace E4.DeviceTest
              (Int32.TryParse(this.E4MainBldc0TargetVelocityTextBox.Text, out targetVelocity) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.ScheduleBldc0TargetVelocity(targetVelocity);
+            bool result = this.e4Main.Bldc0.ScheduleTargetVelocity(targetVelocity);
 
             if (false != result)
             {
@@ -1735,7 +1735,7 @@ namespace E4.DeviceTest
          {
             this.e4Main.NodeId = nodeId;
             Int32 profileAcceleration = 0;
-            bool success = this.e4Main.GetBldc0ProfileAcceleration(ref profileAcceleration);
+            bool success = this.e4Main.Bldc0.GetProfileAcceleration(ref profileAcceleration);
 
             if (false != success)
             {
@@ -1762,7 +1762,7 @@ namespace E4.DeviceTest
              (Int32.TryParse(this.E4MainBldc0ProfileAccelerationTextBox.Text, out profileAcceleration) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.SetBldc0ProfileAcceleration(profileAcceleration);
+            bool result = this.e4Main.Bldc0.SetProfileAcceleration(profileAcceleration);
 
             if (false != result)
             {
@@ -1787,7 +1787,7 @@ namespace E4.DeviceTest
          {
             this.e4Main.NodeId = nodeId;
             Int32 profileDeceleration = 0;
-            bool success = this.e4Main.GetBldc0ProfileDeceleration(ref profileDeceleration);
+            bool success = this.e4Main.Bldc0.GetProfileDeceleration(ref profileDeceleration);
 
             if (false != success)
             {
@@ -1814,7 +1814,7 @@ namespace E4.DeviceTest
              (Int32.TryParse(this.E4MainBldc0ProfileDecelerationTextBox.Text, out profileDeceleration) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.SetBldc0ProfileDeceleration(profileDeceleration);
+            bool result = this.e4Main.Bldc0.SetProfileDeceleration(profileDeceleration);
 
             if (false != result)
             {
@@ -1843,7 +1843,7 @@ namespace E4.DeviceTest
          {
             this.e4Main.NodeId = nodeId;
             Int32 motorKp = 0;
-            bool success = (false != this.E4MainBldc0TuningVelocityRadioButton.Checked) ? this.e4Main.GetBldc0VelocityKp(ref motorKp) : this.e4Main.GetBldc0PositionKp(ref motorKp);
+            bool success = (false != this.E4MainBldc0TuningVelocityRadioButton.Checked) ? this.e4Main.Bldc0.GetVelocityKp(ref motorKp) : this.e4Main.Bldc0.GetPositionKp(ref motorKp);
 
             if (false != success)
             {
@@ -1870,7 +1870,7 @@ namespace E4.DeviceTest
              (Int32.TryParse(this.E4MainBldc0KpTextBox.Text, out motorKp) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = (false != this.E4MainBldc0TuningVelocityRadioButton.Checked) ? this.e4Main.SetBldc0VelocityKp(motorKp) : this.e4Main.SetBldc0PositionKp(motorKp);
+            bool result = (false != this.E4MainBldc0TuningVelocityRadioButton.Checked) ? this.e4Main.Bldc0.SetVelocityKp(motorKp) : this.e4Main.Bldc0.SetPositionKp(motorKp);
 
             if (false != result)
             {
@@ -1895,7 +1895,7 @@ namespace E4.DeviceTest
          {
             this.e4Main.NodeId = nodeId;
             Int32 motorKi = 0;
-            bool success = (false != this.E4MainBldc0TuningVelocityRadioButton.Checked) ? this.e4Main.GetBldc0VelocityKi(ref motorKi) : this.e4Main.GetBldc0PositionKi(ref motorKi);
+            bool success = (false != this.E4MainBldc0TuningVelocityRadioButton.Checked) ? this.e4Main.Bldc0.GetVelocityKi(ref motorKi) : this.e4Main.Bldc0.GetPositionKi(ref motorKi);
 
             if (false != success)
             {
@@ -1922,7 +1922,7 @@ namespace E4.DeviceTest
              (Int32.TryParse(this.E4MainBldc0KiTextBox.Text, out motorKi) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = (false != this.E4MainBldc0TuningVelocityRadioButton.Checked) ? this.e4Main.SetBldc0VelocityKi(motorKi) : this.e4Main.SetBldc0PositionKi(motorKi);
+            bool result = (false != this.E4MainBldc0TuningVelocityRadioButton.Checked) ? this.e4Main.Bldc0.SetVelocityKi(motorKi) : this.e4Main.Bldc0.SetPositionKi(motorKi);
 
             if (false != result)
             {
@@ -1947,7 +1947,7 @@ namespace E4.DeviceTest
          {
             this.e4Main.NodeId = nodeId;
             Int32 motorKd = 0;
-            bool success = (false != this.E4MainBldc0TuningVelocityRadioButton.Checked) ? this.e4Main.GetBldc0VelocityKd(ref motorKd) : this.e4Main.GetBldc0PositionKd(ref motorKd);
+            bool success = (false != this.E4MainBldc0TuningVelocityRadioButton.Checked) ? this.e4Main.Bldc0.GetVelocityKd(ref motorKd) : this.e4Main.Bldc0.GetPositionKd(ref motorKd);
 
             if (false != success)
             {
@@ -1974,7 +1974,7 @@ namespace E4.DeviceTest
              (Int32.TryParse(this.E4MainBldc0KdTextBox.Text, out motorKd) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = (false != this.E4MainBldc0TuningVelocityRadioButton.Checked) ? this.e4Main.SetBldc0VelocityKd(motorKd) : this.e4Main.SetBldc0PositionKd(motorKd);
+            bool result = (false != this.E4MainBldc0TuningVelocityRadioButton.Checked) ? this.e4Main.Bldc0.SetVelocityKd(motorKd) : this.e4Main.Bldc0.SetPositionKd(motorKd);
 
             if (false != result)
             {
@@ -1999,7 +1999,7 @@ namespace E4.DeviceTest
          {
             this.e4Main.NodeId = nodeId;
             UInt32 positionWindow = 0;
-            bool success = this.e4Main.GetBldc0PositionWindow(ref positionWindow);
+            bool success = this.e4Main.Bldc0.GetPositionWindow(ref positionWindow);
 
             if (false != success)
             {
@@ -2026,7 +2026,7 @@ namespace E4.DeviceTest
              (UInt32.TryParse(this.E4MainBldc0PositionWindowTextBox.Text, out positionWindow) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.SetBldc0PositionWindow(positionWindow);
+            bool result = this.e4Main.Bldc0.SetPositionWindow(positionWindow);
 
             if (false != result)
             {
@@ -2051,7 +2051,7 @@ namespace E4.DeviceTest
          {
             this.e4Main.NodeId = nodeId;
             UInt16 positionWindowTime = 0;
-            bool success = this.e4Main.GetBldc0PositionWindowTime(ref positionWindowTime);
+            bool success = this.e4Main.Bldc0.GetPositionWindowTime(ref positionWindowTime);
 
             if (false != success)
             {
@@ -2078,7 +2078,7 @@ namespace E4.DeviceTest
              (UInt16.TryParse(this.E4MainBldc0PositionWindowTimeTextBox.Text, out positionWindowTime) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.SetBldc0PositionWindowTime(positionWindowTime);
+            bool result = this.e4Main.Bldc0.SetPositionWindowTime(positionWindowTime);
 
             if (false != result)
             {
@@ -2103,7 +2103,7 @@ namespace E4.DeviceTest
          {
             this.e4Main.NodeId = nodeId;
             UInt16 velocityWindow = 0;
-            bool success = this.e4Main.GetBldc0VelocityWindow(ref velocityWindow);
+            bool success = this.e4Main.Bldc0.GetVelocityWindow(ref velocityWindow);
 
             if (false != success)
             {
@@ -2130,7 +2130,7 @@ namespace E4.DeviceTest
              (UInt16.TryParse(this.E4MainBldc0VelocityWindowTextBox.Text, out velocityWindow) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.SetBldc0VelocityWindow(velocityWindow);
+            bool result = this.e4Main.Bldc0.SetVelocityWindow(velocityWindow);
 
             if (false != result)
             {
@@ -2155,7 +2155,7 @@ namespace E4.DeviceTest
          {
             this.e4Main.NodeId = nodeId;
             UInt16 velocityWindowTime = 0;
-            bool success = this.e4Main.GetBldc0VelocityWindowTime(ref velocityWindowTime);
+            bool success = this.e4Main.Bldc0.GetVelocityWindowTime(ref velocityWindowTime);
 
             if (false != success)
             {
@@ -2182,7 +2182,7 @@ namespace E4.DeviceTest
              (UInt16.TryParse(this.E4MainBldc0VelocityWindowTimeTextBox.Text, out velocityWindowTime) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.SetBldc0VelocityWindowTime(velocityWindowTime);
+            bool result = this.e4Main.Bldc0.SetVelocityWindowTime(velocityWindowTime);
 
             if (false != result)
             {
@@ -2207,7 +2207,7 @@ namespace E4.DeviceTest
          {
             this.e4Main.NodeId = nodeId;
             UInt16 velocityThreshold = 0;
-            bool success = this.e4Main.GetBldc0VelocityThreshold(ref velocityThreshold);
+            bool success = this.e4Main.Bldc0.GetVelocityThreshold(ref velocityThreshold);
 
             if (false != success)
             {
@@ -2234,7 +2234,7 @@ namespace E4.DeviceTest
              (UInt16.TryParse(this.E4MainBldc0VelocityThresholdTextBox.Text, out velocityThreshold) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.SetBldc0VelocityThreshold(velocityThreshold);
+            bool result = this.e4Main.Bldc0.SetVelocityThreshold(velocityThreshold);
 
             if (false != result)
             {
@@ -2259,7 +2259,7 @@ namespace E4.DeviceTest
          {
             this.e4Main.NodeId = nodeId;
             UInt16 velocityThresholdTime = 0;
-            bool success = this.e4Main.GetBldc0VelocityThresholdTime(ref velocityThresholdTime);
+            bool success = this.e4Main.Bldc0.GetVelocityThresholdTime(ref velocityThresholdTime);
 
             if (false != success)
             {
@@ -2286,7 +2286,7 @@ namespace E4.DeviceTest
              (UInt16.TryParse(this.E4MainBldc0VelocityThresholdTimeTextBox.Text, out velocityThresholdTime) != false))
          {
             this.e4Main.NodeId = nodeId;
-            bool result = this.e4Main.SetBldc0VelocityThresholdTime(velocityThresholdTime);
+            bool result = this.e4Main.Bldc0.SetVelocityThresholdTime(velocityThresholdTime);
 
             if (false != result)
             {
@@ -4542,13 +4542,13 @@ namespace E4.DeviceTest
          this.E4MainLaserCountTextBox.Text = string.Format("{0:X2}", this.e4Main.LaserReadingCount);         
          this.E4MainLaserScannerTextBox.Text = string.Format("{0:X2}", this.e4Main.LaserScannerPosition);
 
-         this.E4MainBldc0TemperatureTextBox.Text = string.Format("{0:0}", this.e4Main.Bldc0Temperature);
-         this.E4MainBldc0StatusTextBox.Text = string.Format("{0:X4}", this.e4Main.Bldc0Status);
-         this.E4MainBldc0ActualPositionTextBox.Text = string.Format("{0}", this.e4Main.Bldc0ActualPosition);
-         this.E4MainBldc0ActualVelocityTextBox.Text = string.Format("{0}", this.e4Main.Bldc0ActualVelocity);
-         this.E4MainBldc0ActualCurrentTextBox.Text = string.Format("{0}", this.e4Main.Bldc0ActualCurrent);         
-         this.E4MainBldc0PositionAttainedLabel.BackColor = (null != this.e4Main.Warning) ? Color.Yellow : ((false != this.e4Main.Bldc0PositionAttained) ? Color.LimeGreen : Color.DarkSlateGray); ;
-         this.E4MainBldc0VelocityAttainedLabel.BackColor = (null != this.e4Main.Warning) ? Color.Yellow : ((false != this.e4Main.Bldc0VelocityAttained) ? Color.LimeGreen : Color.DarkSlateGray); ;
+         this.E4MainBldc0TemperatureTextBox.Text = string.Format("{0:0}", this.e4Main.Bldc0.Temperature);
+         this.E4MainBldc0StatusTextBox.Text = string.Format("{0:X4}", this.e4Main.Bldc0.Status);
+         this.E4MainBldc0ActualPositionTextBox.Text = string.Format("{0}", this.e4Main.Bldc0.ActualPosition);
+         this.E4MainBldc0ActualVelocityTextBox.Text = string.Format("{0}", this.e4Main.Bldc0.ActualVelocity);
+         this.E4MainBldc0ActualCurrentTextBox.Text = string.Format("{0}", this.e4Main.Bldc0.ActualCurrent);         
+         this.E4MainBldc0PositionAttainedLabel.BackColor = (null != this.e4Main.Warning) ? Color.Yellow : ((false != this.e4Main.Bldc0.PositionAttained) ? Color.LimeGreen : Color.DarkSlateGray); ;
+         this.E4MainBldc0VelocityAttainedLabel.BackColor = (null != this.e4Main.Warning) ? Color.Yellow : ((false != this.e4Main.Bldc0.VelocityAttained) ? Color.LimeGreen : Color.DarkSlateGray); ;
 
          this.E4MainBldc1TemperatureTextBox.Text = string.Format("{0:0}", this.e4Main.Bldc1Temperature);
          this.E4MainBldc1StatusTextBox.Text = string.Format("{0:X4}", this.e4Main.Bldc1Status);

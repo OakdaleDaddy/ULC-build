@@ -43,6 +43,7 @@
     <Compile Include="CommAction.cs" />
     <Compile Include="CommActionTypes.cs" />
     <Compile Include="Device.cs" />
+    <Compile Include="MotorComponent.cs" />
     <Compile Include="NetworkRequest.cs" />
     <Compile Include="PDO1Emit.cs" />
     <Compile Include="PDO2Emit.cs" />
