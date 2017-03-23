@@ -30,6 +30,10 @@
       public ValueParameter LaserSampleCount;
       public ValueParameter LaserMeasurementConstant;
 
+      public StepperMotorParameters LaserXStepper;
+      public StepperMotorParameters LaserYStepper;
+      public StepperMotorParameters TargetStepper;
+
       public OsdParameters Osd;
 
       #endregion

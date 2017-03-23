@@ -116,6 +116,8 @@ namespace E4.CAN
 
       #region Definition Properties
 
+      public string Name { set; get; }
+
       public CommExchangeHandler OnCommExchange { set; get; }
       public TargetPositionScheduleHandler OnTargetPositionSchedule { set; get; }
       public TargetVelocityScheduleHandler OnTargetVelocitySchedule { set; get; }

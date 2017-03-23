@@ -52,6 +52,7 @@
     </Compile>
     <Compile Include="Definitions\DeviceClearWarningRequest.cs" />
     <Compile Include="Definitions\DeviceRestartRequest.cs" />
+    <Compile Include="Definitions\MotorStatus.cs" />
     <Compile Include="DeviceCommunication.cs" />
     <Compile Include="IpAddressEntryForm.cs">
       <SubType>Form</SubType>
@@ -94,6 +95,7 @@
     <Compile Include="Parameters\MainBusParameters.cs" />
     <Compile Include="Parameters\OsdParameters.cs" />
     <Compile Include="Parameters\ParameterAccessor.cs" />
+    <Compile Include="Parameters\StepperMotorParameters.cs" />
     <Compile Include="Parameters\TargetBusParameters.cs" />
     <Compile Include="Parameters\ValueParameter.cs" />
     <Compile Include="PopupDimmerForm.cs">

@@ -440,6 +440,8 @@ namespace E4.CAN
       {
          #region BLDC0 Initialization
 
+         this.Bldc0.Name = "bldc0";
+
          this.Bldc0.OnCommExchange = new MotorComponent.CommExchangeHandler(this.ExchangeCommAction);
          this.Bldc0.OnTargetPositionSchedule = new MotorComponent.TargetPositionScheduleHandler(this.EmitRpo3);
          this.Bldc0.OnTargetVelocitySchedule = new MotorComponent.TargetVelocityScheduleHandler(this.EmitRpo2);
@@ -470,6 +472,8 @@ namespace E4.CAN
          #endregion
 
          #region BLDC1 Initialization
+
+         this.Bldc1.Name = "bldc1";
 
          this.Bldc1.OnCommExchange = new MotorComponent.CommExchangeHandler(this.ExchangeCommAction);
          this.Bldc1.OnTargetPositionSchedule = new MotorComponent.TargetPositionScheduleHandler(this.EmitRpo3);
@@ -502,6 +506,8 @@ namespace E4.CAN
 
          #region Stepper0 Initialization
 
+         this.Stepper0.Name = "stepper0";
+
          this.Stepper0.OnCommExchange = new MotorComponent.CommExchangeHandler(this.ExchangeCommAction);
 
          this.Stepper0.ControlWordLocation = 0x00704000;
@@ -528,6 +534,8 @@ namespace E4.CAN
          #endregion
 
          #region Stepper1 Initialization
+
+         this.Stepper1.Name = "stepper1";
 
          this.Stepper1.OnCommExchange = new MotorComponent.CommExchangeHandler(this.ExchangeCommAction);
 

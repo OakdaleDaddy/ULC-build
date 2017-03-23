@@ -49,6 +49,11 @@
 
       private UlcRoboticsE4Main mainBoard;
 
+      private MotorStatus bldc0Status;
+      private MotorStatus bldc1Status;
+      private MotorStatus stepper0Status;
+      private MotorStatus stepper1Status;
+
       private bool laserAimSetPoint;
       private bool laserAimRequested;
       private bool needLaserMeasurementStart;
@@ -97,6 +102,11 @@
             device.OnFault = new Device.FaultHandler(this.DeviceFault);
             device.OnWarning = new Device.WarningHandler(this.DeviceWarning);
          }
+
+         this.bldc0Status = new MotorStatus();
+         this.bldc1Status = new MotorStatus();
+         this.stepper0Status = new MotorStatus();
+         this.stepper1Status = new MotorStatus();
       }
 
       private void SendControllerHeartBeat()
@@ -298,6 +308,11 @@
          this.laserBecameActive = false;
          this.laserSampleCount = 0;
          this.laserMeasurement = 0;
+
+         this.bldc0Status.Initialize();
+         this.bldc1Status.Initialize();
+         this.stepper0Status.Initialize();
+         this.stepper1Status.Initialize();
       }
 
       private void StartMainBoard()
@@ -311,24 +326,96 @@
          Thread.Sleep(50);
       }
 
+      private void UpdateStepper(MotorComponent motor, MotorStatus status, StepperMotorParameters parameters)
+      {
+         bool processed = false;
+
+         if (false != this.stopAll)
+         {
+            if (MotorComponent.Modes.homing == motor.Mode)
+            {
+               motor.StopHoming();
+            }
+
+            if (MotorComponent.Modes.off != motor.Mode)
+            {
+               motor.SetMode(MotorComponent.Modes.off);
+            }
+         }
+         else if (false != status.homeNeeded)
+         {
+            status.homeNeeded = false;     
+
+            motor.SetHomeOffset(parameters.HomeOffset);
+            motor.SetMode(MotorComponent.Modes.homing);
+            motor.StartHoming();
+            Tracer.WriteHigh(TraceGroup.MBUS, "", "{0} homing", motor.Name);
+
+            status.requestIssued = true;
+            status.positionRequested = 0;
+            status.velocityRequested = 0;
+            processed = true;
+         }
+         else if ((false != motor.HomingAttained) && (MotorComponent.Modes.position != motor.Mode))
+         {
+            motor.SetMode(MotorComponent.Modes.position);
+            Tracer.WriteHigh(TraceGroup.MBUS, "", "{0} position mode", motor.Name);
+            processed = true;         }
+         else
+         {
+            // position mode only
+
+            int neededPosition;
+
+            if (status.positionNeeded > 0)
+            {
+               neededPosition = parameters.Maximum;
+            }
+            else if (status.positionNeeded > 0)
+            {
+               neededPosition = -parameters.Maximum;
+            }
+            else
+            {
+               neededPosition = 0;
+            }
+
+            if (status.velocityRequested != status.velocityNeeded)
+            {
+               motor.SetProfileVelocity(status.velocityNeeded);
+               status.velocityRequested = status.velocityNeeded;
+            }
+
+            if (status.positionRequested != neededPosition)
+            {
+               motor.SetTargetPosition(neededPosition, false);
+            }
+
+            processed = true;
+         }
+
+         if (false == status.requestEvaluated)
+         {
+            status.requestMissed = (false == processed) ? true : false;
+            status.requestEvaluated = true;
+         }
+      }
+
       private void UpdateMainBoard()
       {
          if ((null == this.mainBoard.FaultReason) &&
              (null == this.mainBoard.Warning))
          {
-            if (false != this.stopAll)
-            {
-               // stop motors...
-            }
-            else
-            {
-               //this.UpdateBldc(this.mainBoard.Bldc0, this.bldc0Status, this.bldc0Parameters);
-               //this.UpdateBldc(this.mainBoard.Bldc1, this.bldc1Status, this.bldc1Parameters);
-               //this.UpdateStepper(this.mainBoard.Stepper0, this.stepper0Status, this.stepper0Parameters);
-               //this.UpdateStepper(this.mainBoard.Stepper1, this.stepper1Status, this.stepper1Parameters);
-            }
+            #region Motor Control
 
-            #region Laser Control 
+            //this.UpdateBldc(this.mainBoard.Bldc0, this.bldc0Status, this.bldc0Parameters);
+            //this.UpdateBldc(this.mainBoard.Bldc1, this.bldc1Status, this.bldc1Parameters);
+            this.UpdateStepper(this.mainBoard.Stepper0, this.stepper0Status, ParameterAccessor.Instance.LaserXStepper);
+            this.UpdateStepper(this.mainBoard.Stepper1, this.stepper1Status, ParameterAccessor.Instance.LaserYStepper);
+
+            #endregion
+
+            #region Laser Control
 
             if (this.laserAimSetPoint != this.laserAimRequested)
             {
