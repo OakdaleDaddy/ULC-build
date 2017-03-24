@@ -66,7 +66,7 @@
 
       private void AssignDefaults()
       {
-         this.VersionCount = 4; // update after each addition
+         this.VersionCount = 5; // update after each addition
 
          this.MainBus = new MainBusParameters();
          this.MainBus.BusInterface = BusInterfaces.PCIA;
@@ -96,6 +96,42 @@
          this.LaserSampleTime = new ValueParameter("LaserSampleTime", "s", 2, 0.15, 3.75, 0.15, 0.9, 0.9);
          this.LaserSampleCount = new ValueParameter("LaserSampleCount", "", 0, 1, 128, 1, 4, 4);
          this.LaserMeasurementConstant = new ValueParameter("LaserMeasurementConstant", "mm", 0, 1, 1, 1, 1, 1);
+
+         this.LaserXStepper = new StepperMotorParameters();
+         this.LaserXStepper.Location = "LaserXStepper";
+         this.LaserXStepper.HomeOffset = 2000;
+         this.LaserXStepper.HomingSwitchVelocity = 1000;
+         this.LaserXStepper.HomingZeroVelocity = 500;
+         this.LaserXStepper.HomingAcceleration = 200;
+         this.LaserXStepper.ProfileVelocity = 500;
+         this.LaserXStepper.ProfileAcceleration = 200;
+         this.LaserXStepper.MaximumPosition = 10000;
+         this.LaserXStepper.CenterPosition = 5000;
+         this.LaserXStepper.MinimumPosition = 0;
+
+         this.LaserYStepper = new StepperMotorParameters();
+         this.LaserYStepper.Location = "LaserYStepper";
+         this.LaserYStepper.HomeOffset = 2000;
+         this.LaserYStepper.HomingSwitchVelocity = 1000;
+         this.LaserYStepper.HomingZeroVelocity = 500;
+         this.LaserYStepper.HomingAcceleration = 200;
+         this.LaserYStepper.ProfileVelocity = 500;
+         this.LaserYStepper.ProfileAcceleration = 200;
+         this.LaserYStepper.MaximumPosition = 10000;
+         this.LaserYStepper.CenterPosition = 5000;
+         this.LaserYStepper.MinimumPosition = 0;
+
+         this.TargetStepper = new StepperMotorParameters();
+         this.TargetStepper.Location = "TargetStepper";
+         this.TargetStepper.HomeOffset = 2000;
+         this.TargetStepper.HomingSwitchVelocity = 1000;
+         this.TargetStepper.HomingZeroVelocity = 500;
+         this.TargetStepper.HomingAcceleration = 200;
+         this.TargetStepper.ProfileVelocity = 500;
+         this.TargetStepper.ProfileAcceleration = 200;
+         this.TargetStepper.MaximumPosition = 10000;
+         this.TargetStepper.CenterPosition = 5000;
+         this.TargetStepper.MinimumPosition = 0;
 
          this.Osd = new OsdParameters();
          this.SetOsdDefaults(ref this.Osd);
@@ -508,6 +544,72 @@
          return (result);
       }
 
+      private StepperMotorParameters ReadStepperMotorParameters(XmlReader reader)
+      {
+         StepperMotorParameters temp = new StepperMotorParameters();
+         StepperMotorParameters result = new StepperMotorParameters();
+         bool readResult = true;
+
+         for (; readResult; )
+         {
+            readResult = reader.Read();
+
+            if (reader.IsStartElement())
+            {
+               if ("Location" == reader.Name)
+               {
+                  temp.Location = this.ReadString(reader);
+               }
+               else if ("HomeOffset" == reader.Name)
+               {
+                  temp.HomeOffset = this.ReadInt(reader);
+               }
+               else if ("HomingSwitchVelocity" == reader.Name)
+               {
+                  temp.HomingSwitchVelocity = this.ReadInt(reader);
+               }
+               else if ("HomingZeroVelocity" == reader.Name)
+               {
+                  temp.HomingZeroVelocity = this.ReadInt(reader);
+               }
+               else if ("HomingAcceleration" == reader.Name)
+               {
+                  temp.HomingAcceleration = this.ReadInt(reader);
+               }
+               else if ("ProfileVelocity" == reader.Name)
+               {
+                  temp.ProfileVelocity = this.ReadInt(reader);
+               }
+               else if ("ProfileAcceleration" == reader.Name)
+               {
+                  temp.ProfileAcceleration = this.ReadInt(reader);
+               }
+               else if ("MaximumPosition" == reader.Name)
+               {
+                  temp.MaximumPosition = this.ReadInt(reader);
+               }
+               else if ("CenterPosition" == reader.Name)
+               {
+                  temp.CenterPosition = this.ReadInt(reader);
+               }
+               else if ("MinimumPosition" == reader.Name)
+               {
+                  temp.MinimumPosition = this.ReadInt(reader);
+               }
+            }
+            else
+            {
+               if ("StepperMotorParameters" == reader.Name)
+               {
+                  result = temp;
+                  break;
+               }
+            }
+         }
+
+         return (result);
+      }
+
       private OsdParameters ReadOsdParameters(XmlReader reader)
       {
          OsdParameters temp = new OsdParameters();
@@ -659,6 +761,26 @@
                            this.LaserMeasurementConstant = valueParameter;
                         }
                      }
+                     else if ("StepperMotorParameters" == reader.Name)
+                     {
+                        StepperMotorParameters stepperMotorParameters = this.ReadStepperMotorParameters(reader);
+
+                        if (null != stepperMotorParameters)
+                        {
+                           if ("LaserXStepper" == stepperMotorParameters.Location)
+                           {
+                              this.LaserXStepper = stepperMotorParameters;
+                           }
+                           else if ("LaserYStepper" == stepperMotorParameters.Location)
+                           {
+                              this.LaserYStepper = stepperMotorParameters;
+                           }
+                           else if ("TargetStepper" == stepperMotorParameters.Location)
+                           {
+                              this.TargetStepper = stepperMotorParameters;
+                           }
+                        }
+                     }
                      else if ("Osd" == reader.Name)
                      {
                         OsdParameters osdParameters = this.ReadOsdParameters(reader);
@@ -768,6 +890,27 @@
          writer.WriteEndElement();
       }
 
+      private void WriteStepperMotorParameters(XmlWriter writer, StepperMotorParameters stepperMotorParameters)
+      {
+         writer.WriteStartElement("StepperMotorParameters");
+
+         this.WriteElement(writer, "Location", stepperMotorParameters.Location);
+
+         this.WriteElement(writer, "HomeOffset", stepperMotorParameters.HomeOffset);
+         this.WriteElement(writer, "HomingSwitchVelocity", stepperMotorParameters.HomingSwitchVelocity);
+         this.WriteElement(writer, "HomingZeroVelocity", stepperMotorParameters.HomingZeroVelocity);
+         this.WriteElement(writer, "HomingAcceleration", stepperMotorParameters.HomingAcceleration);         
+
+         this.WriteElement(writer, "ProfileVelocity", stepperMotorParameters.ProfileVelocity);
+         this.WriteElement(writer, "ProfileAcceleration", stepperMotorParameters.ProfileAcceleration);
+
+         this.WriteElement(writer, "MaximumPosition", stepperMotorParameters.MaximumPosition);
+         this.WriteElement(writer, "CenterPosition", stepperMotorParameters.CenterPosition);
+         this.WriteElement(writer, "MinimumPosition", stepperMotorParameters.MinimumPosition);
+
+         writer.WriteEndElement();
+      }
+
       private void WriteOsdParameters(XmlWriter writer, OsdParameters osdParameters)
       {
          writer.WriteStartElement("Osd");
@@ -814,6 +957,10 @@
             this.WriteValueParameters(writer, this.LaserSampleTime);
             this.WriteValueParameters(writer, this.LaserSampleCount);
             this.WriteValueParameters(writer, this.LaserMeasurementConstant);
+
+            this.WriteStepperMotorParameters(writer, this.LaserXStepper);
+            this.WriteStepperMotorParameters(writer, this.LaserYStepper);
+            this.WriteStepperMotorParameters(writer, this.TargetStepper);
 
             this.WriteOsdParameters(writer, this.Osd);
 

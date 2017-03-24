@@ -67,6 +67,18 @@
          return (result);
       }
 
+      private string GetValueText(int value, string unit = "")
+      {
+         string result = value.ToString();
+
+         if ("" != unit)
+         {
+            result += (" " + unit);
+         }
+
+         return (result);
+      }
+
       private int GetAbsoluteLeft(Control control)
       {
          int result = 0;
@@ -210,16 +222,22 @@
 
          // clear display
 
-         this.LaserScannerPitchTextPanel.ValueText = "";
-         this.LaserRangePitchTextPanel.ValueText = "";
-         this.LaserRangeYawTextPanel.ValueText = "";
+         this.SensorPitchPanel.ValueText = "";
+         this.SensorPitchTickPanel.ValueText = this.GetValueText(DeviceCommunication.Instance.GetTargetStepperActualPosition());
+         
+         this.LaserPitchPanel.ValueText = "";
+         this.LaserPitchTickPanel.ValueText = this.GetValueText(DeviceCommunication.Instance.GetLaserStepperYActualPosition());
 
+         this.LaserYawPanel.ValueText = "";
+         this.LaserYawTickPanel.ValueText = this.GetValueText(DeviceCommunication.Instance.GetLaserStepperXActualPosition());
+
+         this.LaserTitleLabel.Text = "LASER MEASURE";
          this.LaserMeasurementValuePanel.ValueText = "";
          this.LaserMeasureButton.Text = "MEASURE";
 
-         this.LaserScannerIndicator.MissColor = Color.FromKnownColor(KnownColor.ControlDark);
-         this.LaserScannerIndicator.BackColor = Color.FromKnownColor(KnownColor.ControlDark);
-         this.LaserScannerIndicator.CoordinateValue = 0;
+         this.SensorIndicator.MissColor = Color.FromKnownColor(KnownColor.ControlDark);
+         this.SensorIndicator.BackColor = Color.FromKnownColor(KnownColor.ControlDark);
+         this.SensorIndicator.CoordinateValue = 0;
 
          this.StopAllPanel.BackColor = Color.FromArgb(64, 64, 64);
          this.StopAllPanel.Refresh();
@@ -439,11 +457,48 @@
             this.LaserRangeJoystickYRequestIndicator.Position = joystickYAxis;
             this.LaserScannerJoystickYRequestIndicator.Position = joystickThrottle;
 
-            this.LaserRangeYawTextPanel.ValueText = string.Format("{0}", joystickXAxis);
-            this.LaserRangePitchTextPanel.ValueText = string.Format("{0}", joystickYAxis);
-            this.LaserScannerPitchTextPanel.ValueText = string.Format("{0}", joystickThrottle);
+            this.LaserYawPanel.ValueText = string.Format("{0}", joystickXAxis);
+            this.LaserPitchPanel.ValueText = string.Format("{0}", joystickYAxis);
+            this.SensorPitchPanel.ValueText = string.Format("{0}", joystickThrottle);
 
-            if (this.joystickApplication != JoystickApplications.laser)
+            if (JoystickApplications.laser == this.joystickApplication)
+            {
+               int targetStepperPosition = DeviceCommunication.Instance.GetTargetStepperActualPosition();
+               int laserStepperXPosition = DeviceCommunication.Instance.GetLaserStepperXActualPosition();
+               int laserStepperYPosition = DeviceCommunication.Instance.GetLaserStepperYActualPosition();
+
+               if (joystickThrottle > 0)
+               {
+                  targetStepperPosition = ParameterAccessor.Instance.TargetStepper.MaximumPosition;
+               }
+               else if (joystickThrottle < 0)
+               {
+                  targetStepperPosition = ParameterAccessor.Instance.TargetStepper.MinimumPosition;
+               }
+
+               if (joystickXAxis > 0)
+               {
+                  laserStepperXPosition = ParameterAccessor.Instance.LaserXStepper.MaximumPosition;
+               }
+               else if (joystickXAxis < 0)
+               {
+                  laserStepperXPosition = ParameterAccessor.Instance.LaserXStepper.MinimumPosition;
+               }
+
+               if (joystickYAxis > 0)
+               {
+                  laserStepperYPosition = ParameterAccessor.Instance.LaserYStepper.MaximumPosition;
+               }
+               else if (joystickYAxis < 0)
+               {
+                  laserStepperYPosition = ParameterAccessor.Instance.LaserYStepper.MinimumPosition;
+               }
+
+               DeviceCommunication.Instance.SetTargetStepperPosition(targetStepperPosition);
+               DeviceCommunication.Instance.SetLaserStepperXPosition(laserStepperXPosition);
+               DeviceCommunication.Instance.SetLaserStepperYPosition(laserStepperYPosition);
+            }
+            else if (this.joystickApplication != JoystickApplications.laser)
             {
                if ((0 != joystickXAxis) ||
                    (0 != joystickYAxis) ||
@@ -465,6 +520,10 @@
          #region Laser
 
          string laserMeasureFault = MainCommunicationBus.Instance.GetFaultStatus(MainCommunicationBus.BusComponentId.MainBoard);
+
+         this.SensorPitchTickPanel.ValueText = this.GetValueText(DeviceCommunication.Instance.GetTargetStepperActualPosition());
+         this.LaserPitchTickPanel.ValueText = this.GetValueText(DeviceCommunication.Instance.GetLaserStepperYActualPosition());
+         this.LaserYawTickPanel.ValueText = this.GetValueText(DeviceCommunication.Instance.GetLaserStepperXActualPosition());
 
          if (null == laserMeasureFault)
          {
@@ -518,15 +577,15 @@
 
          if (null == laserScannerFault)
          {
-            this.LaserScannerIndicator.MissColor = Color.FromArgb(140, 0, 0);
-            this.LaserScannerIndicator.BackColor = Color.FromKnownColor(KnownColor.ControlDark);
-            this.LaserScannerIndicator.CoordinateValue = DeviceCommunication.Instance.GetLaserScannerCoordinates();
+            this.SensorIndicator.MissColor = Color.FromArgb(140, 0, 0);
+            this.SensorIndicator.BackColor = Color.FromKnownColor(KnownColor.ControlDark);
+            this.SensorIndicator.CoordinateValue = DeviceCommunication.Instance.GetLaserScannerCoordinates();
          }
          else
          {
-            this.LaserScannerIndicator.MissColor = Color.Red;
-            this.LaserScannerIndicator.BackColor = Color.Red;
-            this.LaserScannerIndicator.CoordinateValue = 0;
+            this.SensorIndicator.MissColor = Color.Red;
+            this.SensorIndicator.BackColor = Color.Red;
+            this.SensorIndicator.CoordinateValue = 0;
          }         
 
          #endregion
@@ -1626,6 +1685,78 @@
       
       #region Laser Actions
 
+      private void SensorUpButton_MouseDown(object sender, MouseEventArgs e)
+      {
+         int position = ParameterAccessor.Instance.TargetStepper.MaximumPosition;
+         DeviceCommunication.Instance.SetTargetStepperPosition(position);
+      }
+
+      private void SensorUpButton_MouseUp(object sender, MouseEventArgs e)
+      {
+         int position = DeviceCommunication.Instance.GetTargetStepperActualPosition();
+         DeviceCommunication.Instance.SetTargetStepperPosition(position);
+      }
+
+      private void SensorDownButton_MouseDown(object sender, MouseEventArgs e)
+      {
+         int position = ParameterAccessor.Instance.TargetStepper.MinimumPosition;
+         DeviceCommunication.Instance.SetTargetStepperPosition(position);
+      }
+
+      private void SensorDownButton_MouseUp(object sender, MouseEventArgs e)
+      {
+         int position = DeviceCommunication.Instance.GetTargetStepperActualPosition();
+         DeviceCommunication.Instance.SetTargetStepperPosition(position);
+      }
+
+      private void LaserUpButton_MouseDown(object sender, MouseEventArgs e)
+      {
+         int position = ParameterAccessor.Instance.LaserYStepper.MaximumPosition;
+         DeviceCommunication.Instance.SetLaserStepperYPosition(position);
+      }
+
+      private void LaserUpButton_MouseUp(object sender, MouseEventArgs e)
+      {
+         int position = DeviceCommunication.Instance.GetLaserStepperYActualPosition();
+         DeviceCommunication.Instance.SetLaserStepperYPosition(position);
+      }
+
+      private void LaserDownButton_MouseDown(object sender, MouseEventArgs e)
+      {
+         int position = ParameterAccessor.Instance.LaserYStepper.MinimumPosition;
+         DeviceCommunication.Instance.SetLaserStepperYPosition(position);
+      }
+
+      private void LaserDownButton_MouseUp(object sender, MouseEventArgs e)
+      {
+         int position = DeviceCommunication.Instance.GetLaserStepperYActualPosition();
+         DeviceCommunication.Instance.SetLaserStepperYPosition(position);
+      }
+
+      private void LaserLeftButton_MouseDown(object sender, MouseEventArgs e)
+      {
+         int position = ParameterAccessor.Instance.LaserXStepper.MaximumPosition;
+         DeviceCommunication.Instance.SetLaserStepperXPosition(position);
+      }
+
+      private void LaserLeftButton_MouseUp(object sender, MouseEventArgs e)
+      {
+         int position = DeviceCommunication.Instance.GetLaserStepperXActualPosition();
+         DeviceCommunication.Instance.SetLaserStepperXPosition(position);
+      }
+
+      private void LaserRightButton_MouseDown(object sender, MouseEventArgs e)
+      {
+         int position = ParameterAccessor.Instance.LaserXStepper.MinimumPosition;
+         DeviceCommunication.Instance.SetLaserStepperXPosition(position);
+      }
+
+      private void LaserRightButton_MouseUp(object sender, MouseEventArgs e)
+      {
+         int position = DeviceCommunication.Instance.GetLaserStepperXActualPosition();
+         DeviceCommunication.Instance.SetLaserStepperXPosition(position);
+      }
+      
       private void LaserSetupButton_Click(object sender, EventArgs e)
       {
          Button button = (Button)sender;

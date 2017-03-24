@@ -49,10 +49,10 @@
 
       private UlcRoboticsE4Main mainBoard;
 
-      private MotorStatus bldc0Status;
-      private MotorStatus bldc1Status;
-      private MotorStatus stepper0Status;
-      private MotorStatus stepper1Status;
+      //private StepperMotorStatus bldc0Status;
+      //private StepperMotorStatus bldc1Status;
+      private StepperMotorStatus stepper0Status;
+      private StepperMotorStatus stepper1Status;
 
       private bool laserAimSetPoint;
       private bool laserAimRequested;
@@ -103,10 +103,10 @@
             device.OnWarning = new Device.WarningHandler(this.DeviceWarning);
          }
 
-         this.bldc0Status = new MotorStatus();
-         this.bldc1Status = new MotorStatus();
-         this.stepper0Status = new MotorStatus();
-         this.stepper1Status = new MotorStatus();
+         //this.bldc0Status = new StepperMotorStatus();
+         //this.bldc1Status = new StepperMotorStatus();
+         this.stepper0Status = new StepperMotorStatus();
+         this.stepper1Status = new StepperMotorStatus();
       }
 
       private void SendControllerHeartBeat()
@@ -309,8 +309,8 @@
          this.laserSampleCount = 0;
          this.laserMeasurement = 0;
 
-         this.bldc0Status.Initialize();
-         this.bldc1Status.Initialize();
+         //this.bldc0Status.Initialize();
+         //this.bldc1Status.Initialize();
          this.stepper0Status.Initialize();
          this.stepper1Status.Initialize();
       }
@@ -324,12 +324,13 @@
          this.mainBoard.Start();
 
          Thread.Sleep(50);
+
+         this.stepper0Status.homeNeeded = (false == mainBoard.Stepper0.HomingAttained) ? true : false;
+         this.stepper1Status.homeNeeded = (false == mainBoard.Stepper1.HomingAttained) ? true : false;
       }
 
-      private void UpdateStepper(MotorComponent motor, MotorStatus status, StepperMotorParameters parameters)
+      private void UpdateStepper(MotorComponent motor, StepperMotorStatus status, StepperMotorParameters parameters)
       {
-         bool processed = false;
-
          if (false != this.stopAll)
          {
             if (MotorComponent.Modes.homing == motor.Mode)
@@ -347,57 +348,35 @@
             status.homeNeeded = false;     
 
             motor.SetHomeOffset(parameters.HomeOffset);
+            motor.SetHomingSwitchSpeed((UInt32)parameters.HomingSwitchVelocity);
+            motor.SetHomingZeroSpeed((UInt32)parameters.HomingZeroVelocity);
+            motor.SetHomingAcceleration((UInt32)parameters.HomingAcceleration);
             motor.SetMode(MotorComponent.Modes.homing);
             motor.StartHoming();
             Tracer.WriteHigh(TraceGroup.MBUS, "", "{0} homing", motor.Name);
 
-            status.requestIssued = true;
             status.positionRequested = 0;
-            status.velocityRequested = 0;
-            processed = true;
          }
          else if ((false != motor.HomingAttained) && (MotorComponent.Modes.position != motor.Mode))
          {
             motor.SetMode(MotorComponent.Modes.position);
+            motor.SetProfileVelocity(parameters.ProfileVelocity);
+            motor.SetProfileAcceleration(parameters.ProfileAcceleration);
             Tracer.WriteHigh(TraceGroup.MBUS, "", "{0} position mode", motor.Name);
-            processed = true;         }
+         }
          else
          {
-            // position mode only
-
-            int neededPosition;
-
-            if (status.positionNeeded > 0)
+            if (status.positionRequested != status.positionNeeded)
             {
-               neededPosition = parameters.Maximum;
+               motor.SetTargetPosition(status.positionNeeded, false);
+               status.positionRequested = status.positionNeeded;
             }
-            else if (status.positionNeeded > 0)
-            {
-               neededPosition = -parameters.Maximum;
-            }
-            else
-            {
-               neededPosition = 0;
-            }
-
-            if (status.velocityRequested != status.velocityNeeded)
-            {
-               motor.SetProfileVelocity(status.velocityNeeded);
-               status.velocityRequested = status.velocityNeeded;
-            }
-
-            if (status.positionRequested != neededPosition)
-            {
-               motor.SetTargetPosition(neededPosition, false);
-            }
-
-            processed = true;
          }
 
-         if (false == status.requestEvaluated)
+         if (DateTime.Now > status.readTimeLimit)
          {
-            status.requestMissed = (false == processed) ? true : false;
-            status.requestEvaluated = true;
+            motor.GetActualPosition(ref status.actualPosition);
+            status.readTimeLimit = DateTime.Now.AddMilliseconds(250);
          }
       }
 
@@ -1011,6 +990,32 @@
       public double GetLaserMeasurement()
       {
          return (this.laserMeasurement);
+      }
+
+      #endregion
+
+      #region Laser Stepper Functions
+
+      public void SetLaserStepperXPosition(int position)
+      {
+         this.stepper0Status.positionNeeded = position;
+      }
+
+      public void SetLaserStepperYPosition(int position)
+      {
+         this.stepper1Status.positionNeeded = position;
+      }
+
+      public int GetLaserStepperXActualPosition()
+      {
+         int result = this.stepper0Status.actualPosition;
+         return (result);
+      }
+
+      public int GetLaserStepperYActualPosition()
+      {
+         int result = this.stepper1Status.actualPosition;
+         return (result);
       }
 
       #endregion

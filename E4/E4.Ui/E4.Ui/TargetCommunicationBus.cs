@@ -785,6 +785,21 @@
 
       #endregion
 
+      #region Laser Stepper Functions
+
+      public void SetTargetStepperPosition(int position)
+      {
+         //this.stepper0Status.positionNeeded = position;
+      }
+
+      public int GetTargetStepperActualPosition()
+      {
+         int result = this.targetBoard.Stepper0.ActualPosition;
+         return (result);
+      }
+
+      #endregion
+
       #endregion
    }
 }

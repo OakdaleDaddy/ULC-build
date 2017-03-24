@@ -60,12 +60,13 @@
          this.label17 = new System.Windows.Forms.Label();
          this.HeartbeatsDisabledLabel = new System.Windows.Forms.Label();
          this.LaserRangePanel = new System.Windows.Forms.Panel();
+         this.SensorIndicator = new E4.Ui.Controls.ScannerIndicator();
          this.label28 = new System.Windows.Forms.Label();
          this.e4Button1 = new E4.Ui.Controls.E4Button();
          this.LaserMeasurementValuePanel = new E4.Ui.Controls.TextPanel();
-         this.textPanel3 = new E4.Ui.Controls.TextPanel();
-         this.textPanel2 = new E4.Ui.Controls.TextPanel();
-         this.textPanel1 = new E4.Ui.Controls.TextPanel();
+         this.LaserYawTickPanel = new E4.Ui.Controls.TextPanel();
+         this.LaserPitchTickPanel = new E4.Ui.Controls.TextPanel();
+         this.SensorPitchTickPanel = new E4.Ui.Controls.TextPanel();
          this.LaserTitleLabel = new System.Windows.Forms.Label();
          this.LaserScannerJoystickYRequestIndicator = new E4.Ui.Controls.PositionIndicator();
          this.LaserRangeJoystickXRequestIndicator = new E4.Ui.Controls.PositionIndicator();
@@ -74,18 +75,18 @@
          this.LaserMeasureButton = new E4.Ui.Controls.E4Button();
          this.LaserRangeJoystickEnableButton = new E4.Ui.Controls.E4Button();
          this.LaserAimButton = new E4.Ui.Controls.E4Button();
-         this.LaserScannerPitchTextPanel = new E4.Ui.Controls.TextPanel();
+         this.SensorPitchPanel = new E4.Ui.Controls.TextPanel();
          this.rotatableLabel3 = new E4.Ui.Controls.RotatableLabel();
-         this.upDownButton1 = new E4.Ui.Controls.UpDownButton();
-         this.upDownButton2 = new E4.Ui.Controls.UpDownButton();
-         this.LaserRangePitchTextPanel = new E4.Ui.Controls.TextPanel();
-         this.upDownButton4 = new E4.Ui.Controls.UpDownButton();
-         this.LaserRangeYawTextPanel = new E4.Ui.Controls.TextPanel();
+         this.SensorUpButton = new E4.Ui.Controls.UpDownButton();
+         this.SensorDownButton = new E4.Ui.Controls.UpDownButton();
+         this.LaserPitchPanel = new E4.Ui.Controls.TextPanel();
+         this.LaserUpButton = new E4.Ui.Controls.UpDownButton();
+         this.LaserYawPanel = new E4.Ui.Controls.TextPanel();
          this.rotatableLabel1 = new E4.Ui.Controls.RotatableLabel();
-         this.leftRightButton2 = new E4.Ui.Controls.LeftRightButton();
+         this.LaserLeftButton = new E4.Ui.Controls.LeftRightButton();
          this.rotatableLabel2 = new E4.Ui.Controls.RotatableLabel();
-         this.upDownButton5 = new E4.Ui.Controls.UpDownButton();
-         this.leftRightButton3 = new E4.Ui.Controls.LeftRightButton();
+         this.LaserDownButton = new E4.Ui.Controls.UpDownButton();
+         this.LaserRightButton = new E4.Ui.Controls.LeftRightButton();
          this.ControlPanel = new E4.Ui.Controls.BorderedPanel();
          this.WriteOsdButton = new E4.Ui.Controls.E4Button();
          this.SystemStatusButton = new E4.Ui.Controls.E4Button();
@@ -100,7 +101,6 @@
          this.valueButton1 = new E4.Ui.Controls.ValueButton();
          this.directionalValuePanel1 = new E4.Ui.Controls.DirectionalValuePanel();
          this.TitleSpacerPanel = new System.Windows.Forms.Panel();
-         this.LaserScannerIndicator = new E4.Ui.Controls.ScannerIndicator();
          this.MainMotorPanel.SuspendLayout();
          this.CameraControlPanel.SuspendLayout();
          this.panel1.SuspendLayout();
@@ -702,13 +702,13 @@
          // LaserRangePanel
          // 
          this.LaserRangePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-         this.LaserRangePanel.Controls.Add(this.LaserScannerIndicator);
+         this.LaserRangePanel.Controls.Add(this.SensorIndicator);
          this.LaserRangePanel.Controls.Add(this.label28);
          this.LaserRangePanel.Controls.Add(this.e4Button1);
          this.LaserRangePanel.Controls.Add(this.LaserMeasurementValuePanel);
-         this.LaserRangePanel.Controls.Add(this.textPanel3);
-         this.LaserRangePanel.Controls.Add(this.textPanel2);
-         this.LaserRangePanel.Controls.Add(this.textPanel1);
+         this.LaserRangePanel.Controls.Add(this.LaserYawTickPanel);
+         this.LaserRangePanel.Controls.Add(this.LaserPitchTickPanel);
+         this.LaserRangePanel.Controls.Add(this.SensorPitchTickPanel);
          this.LaserRangePanel.Controls.Add(this.LaserTitleLabel);
          this.LaserRangePanel.Controls.Add(this.LaserScannerJoystickYRequestIndicator);
          this.LaserRangePanel.Controls.Add(this.LaserRangeJoystickXRequestIndicator);
@@ -717,22 +717,41 @@
          this.LaserRangePanel.Controls.Add(this.LaserMeasureButton);
          this.LaserRangePanel.Controls.Add(this.LaserRangeJoystickEnableButton);
          this.LaserRangePanel.Controls.Add(this.LaserAimButton);
-         this.LaserRangePanel.Controls.Add(this.LaserScannerPitchTextPanel);
+         this.LaserRangePanel.Controls.Add(this.SensorPitchPanel);
          this.LaserRangePanel.Controls.Add(this.rotatableLabel3);
-         this.LaserRangePanel.Controls.Add(this.upDownButton1);
-         this.LaserRangePanel.Controls.Add(this.upDownButton2);
-         this.LaserRangePanel.Controls.Add(this.LaserRangePitchTextPanel);
-         this.LaserRangePanel.Controls.Add(this.upDownButton4);
-         this.LaserRangePanel.Controls.Add(this.LaserRangeYawTextPanel);
+         this.LaserRangePanel.Controls.Add(this.SensorUpButton);
+         this.LaserRangePanel.Controls.Add(this.SensorDownButton);
+         this.LaserRangePanel.Controls.Add(this.LaserPitchPanel);
+         this.LaserRangePanel.Controls.Add(this.LaserUpButton);
+         this.LaserRangePanel.Controls.Add(this.LaserYawPanel);
          this.LaserRangePanel.Controls.Add(this.rotatableLabel1);
-         this.LaserRangePanel.Controls.Add(this.leftRightButton2);
+         this.LaserRangePanel.Controls.Add(this.LaserLeftButton);
          this.LaserRangePanel.Controls.Add(this.rotatableLabel2);
-         this.LaserRangePanel.Controls.Add(this.upDownButton5);
-         this.LaserRangePanel.Controls.Add(this.leftRightButton3);
+         this.LaserRangePanel.Controls.Add(this.LaserDownButton);
+         this.LaserRangePanel.Controls.Add(this.LaserRightButton);
          this.LaserRangePanel.Location = new System.Drawing.Point(365, 99);
          this.LaserRangePanel.Name = "LaserRangePanel";
          this.LaserRangePanel.Size = new System.Drawing.Size(728, 507);
          this.LaserRangePanel.TabIndex = 191;
+         // 
+         // SensorIndicator
+         // 
+         this.SensorIndicator.BackColor = System.Drawing.SystemColors.ControlDark;
+         this.SensorIndicator.ControlEdgeColor = System.Drawing.Color.Black;
+         this.SensorIndicator.ControlEdgeWeight = 2;
+         this.SensorIndicator.CoordinateBits = 4;
+         this.SensorIndicator.CoordinateValue = ((uint)(33u));
+         this.SensorIndicator.GridColor = System.Drawing.Color.DarkGray;
+         this.SensorIndicator.GridWeight = 1;
+         this.SensorIndicator.IndicatorEdgeColor = System.Drawing.SystemColors.ControlDarkDark;
+         this.SensorIndicator.IndicatorEdgeWeight = 2;
+         this.SensorIndicator.Location = new System.Drawing.Point(34, 42);
+         this.SensorIndicator.MissColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+         this.SensorIndicator.MissWeight = 5;
+         this.SensorIndicator.Name = "SensorIndicator";
+         this.SensorIndicator.Size = new System.Drawing.Size(213, 213);
+         this.SensorIndicator.TabIndex = 170;
+         this.SensorIndicator.TickColor = System.Drawing.Color.FromArgb(((int)(((byte)(193)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
          // 
          // label28
          // 
@@ -773,50 +792,50 @@
          this.LaserMeasurementValuePanel.ValueText = "# mm";
          this.LaserMeasurementValuePanel.ValueTextAlign = System.Drawing.ContentAlignment.MiddleCenter;
          // 
-         // textPanel3
+         // LaserYawTickPanel
          // 
-         this.textPanel3.BackColor = System.Drawing.Color.Black;
-         this.textPanel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-         this.textPanel3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-         this.textPanel3.ForeColor = System.Drawing.Color.White;
-         this.textPanel3.HoldTimeoutEnable = false;
-         this.textPanel3.HoldTimeoutInterval = 0;
-         this.textPanel3.Location = new System.Drawing.Point(598, 92);
-         this.textPanel3.Name = "textPanel3";
-         this.textPanel3.Size = new System.Drawing.Size(112, 44);
-         this.textPanel3.TabIndex = 165;
-         this.textPanel3.ValueText = "#### ticks";
-         this.textPanel3.ValueTextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         this.LaserYawTickPanel.BackColor = System.Drawing.Color.Black;
+         this.LaserYawTickPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+         this.LaserYawTickPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+         this.LaserYawTickPanel.ForeColor = System.Drawing.Color.White;
+         this.LaserYawTickPanel.HoldTimeoutEnable = false;
+         this.LaserYawTickPanel.HoldTimeoutInterval = 0;
+         this.LaserYawTickPanel.Location = new System.Drawing.Point(598, 92);
+         this.LaserYawTickPanel.Name = "LaserYawTickPanel";
+         this.LaserYawTickPanel.Size = new System.Drawing.Size(112, 44);
+         this.LaserYawTickPanel.TabIndex = 165;
+         this.LaserYawTickPanel.ValueText = "#### ticks";
+         this.LaserYawTickPanel.ValueTextAlign = System.Drawing.ContentAlignment.MiddleCenter;
          // 
-         // textPanel2
+         // LaserPitchTickPanel
          // 
-         this.textPanel2.BackColor = System.Drawing.Color.Black;
-         this.textPanel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-         this.textPanel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-         this.textPanel2.ForeColor = System.Drawing.Color.White;
-         this.textPanel2.HoldTimeoutEnable = false;
-         this.textPanel2.HoldTimeoutInterval = 0;
-         this.textPanel2.Location = new System.Drawing.Point(598, 42);
-         this.textPanel2.Name = "textPanel2";
-         this.textPanel2.Size = new System.Drawing.Size(112, 44);
-         this.textPanel2.TabIndex = 164;
-         this.textPanel2.ValueText = "#### ticks";
-         this.textPanel2.ValueTextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         this.LaserPitchTickPanel.BackColor = System.Drawing.Color.Black;
+         this.LaserPitchTickPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+         this.LaserPitchTickPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+         this.LaserPitchTickPanel.ForeColor = System.Drawing.Color.White;
+         this.LaserPitchTickPanel.HoldTimeoutEnable = false;
+         this.LaserPitchTickPanel.HoldTimeoutInterval = 0;
+         this.LaserPitchTickPanel.Location = new System.Drawing.Point(598, 42);
+         this.LaserPitchTickPanel.Name = "LaserPitchTickPanel";
+         this.LaserPitchTickPanel.Size = new System.Drawing.Size(112, 44);
+         this.LaserPitchTickPanel.TabIndex = 164;
+         this.LaserPitchTickPanel.ValueText = "#### ticks";
+         this.LaserPitchTickPanel.ValueTextAlign = System.Drawing.ContentAlignment.MiddleCenter;
          // 
-         // textPanel1
+         // SensorPitchTickPanel
          // 
-         this.textPanel1.BackColor = System.Drawing.Color.Black;
-         this.textPanel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-         this.textPanel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-         this.textPanel1.ForeColor = System.Drawing.Color.White;
-         this.textPanel1.HoldTimeoutEnable = false;
-         this.textPanel1.HoldTimeoutInterval = 0;
-         this.textPanel1.Location = new System.Drawing.Point(301, 92);
-         this.textPanel1.Name = "textPanel1";
-         this.textPanel1.Size = new System.Drawing.Size(112, 44);
-         this.textPanel1.TabIndex = 163;
-         this.textPanel1.ValueText = "#### ticks";
-         this.textPanel1.ValueTextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         this.SensorPitchTickPanel.BackColor = System.Drawing.Color.Black;
+         this.SensorPitchTickPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+         this.SensorPitchTickPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+         this.SensorPitchTickPanel.ForeColor = System.Drawing.Color.White;
+         this.SensorPitchTickPanel.HoldTimeoutEnable = false;
+         this.SensorPitchTickPanel.HoldTimeoutInterval = 0;
+         this.SensorPitchTickPanel.Location = new System.Drawing.Point(301, 92);
+         this.SensorPitchTickPanel.Name = "SensorPitchTickPanel";
+         this.SensorPitchTickPanel.Size = new System.Drawing.Size(112, 44);
+         this.SensorPitchTickPanel.TabIndex = 163;
+         this.SensorPitchTickPanel.ValueText = "#### ticks";
+         this.SensorPitchTickPanel.ValueTextAlign = System.Drawing.ContentAlignment.MiddleCenter;
          // 
          // LaserTitleLabel
          // 
@@ -936,20 +955,20 @@
          this.LaserAimButton.UseVisualStyleBackColor = false;
          this.LaserAimButton.Click += new System.EventHandler(this.LaserAimButton_Click);
          // 
-         // LaserScannerPitchTextPanel
+         // SensorPitchPanel
          // 
-         this.LaserScannerPitchTextPanel.BackColor = System.Drawing.Color.Black;
-         this.LaserScannerPitchTextPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-         this.LaserScannerPitchTextPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-         this.LaserScannerPitchTextPanel.ForeColor = System.Drawing.Color.White;
-         this.LaserScannerPitchTextPanel.HoldTimeoutEnable = false;
-         this.LaserScannerPitchTextPanel.HoldTimeoutInterval = 0;
-         this.LaserScannerPitchTextPanel.Location = new System.Drawing.Point(301, 42);
-         this.LaserScannerPitchTextPanel.Name = "LaserScannerPitchTextPanel";
-         this.LaserScannerPitchTextPanel.Size = new System.Drawing.Size(112, 44);
-         this.LaserScannerPitchTextPanel.TabIndex = 147;
-         this.LaserScannerPitchTextPanel.ValueText = "#### ticks";
-         this.LaserScannerPitchTextPanel.ValueTextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         this.SensorPitchPanel.BackColor = System.Drawing.Color.Black;
+         this.SensorPitchPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+         this.SensorPitchPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+         this.SensorPitchPanel.ForeColor = System.Drawing.Color.White;
+         this.SensorPitchPanel.HoldTimeoutEnable = false;
+         this.SensorPitchPanel.HoldTimeoutInterval = 0;
+         this.SensorPitchPanel.Location = new System.Drawing.Point(301, 42);
+         this.SensorPitchPanel.Name = "SensorPitchPanel";
+         this.SensorPitchPanel.Size = new System.Drawing.Size(112, 44);
+         this.SensorPitchPanel.TabIndex = 147;
+         this.SensorPitchPanel.ValueText = "#### ticks";
+         this.SensorPitchPanel.ValueTextAlign = System.Drawing.ContentAlignment.MiddleCenter;
          // 
          // rotatableLabel3
          // 
@@ -962,116 +981,122 @@
          this.rotatableLabel3.Text = "PITCH";
          this.rotatableLabel3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
          // 
-         // upDownButton1
+         // SensorUpButton
          // 
-         this.upDownButton1.ArrowColor = System.Drawing.Color.Black;
-         this.upDownButton1.ArrowHighlightColor = System.Drawing.Color.DarkGray;
-         this.upDownButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.upDownButton1.DisabledArrowColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-         this.upDownButton1.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
-         this.upDownButton1.DisabledForeColor = System.Drawing.Color.Silver;
-         this.upDownButton1.EdgeSpace = 8;
-         this.upDownButton1.ForeColor = System.Drawing.SystemColors.HighlightText;
-         this.upDownButton1.HighLightOffset = 7;
-         this.upDownButton1.HighlightVisible = true;
-         this.upDownButton1.HighLightWeight = 2;
-         this.upDownButton1.HoldArrorColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-         this.upDownButton1.HoldRepeat = true;
-         this.upDownButton1.HoldRepeatInterval = 100;
-         this.upDownButton1.HoldTimeoutInterval = 100;
-         this.upDownButton1.Location = new System.Drawing.Point(327, 153);
-         this.upDownButton1.Name = "upDownButton1";
-         this.upDownButton1.Size = new System.Drawing.Size(69, 69);
-         this.upDownButton1.TabIndex = 145;
-         this.upDownButton1.Text = "upDownButton1";
-         this.upDownButton1.TextOffset = 0;
-         this.upDownButton1.TextVisible = false;
-         this.upDownButton1.UpDown = true;
-         this.upDownButton1.UseVisualStyleBackColor = false;
+         this.SensorUpButton.ArrowColor = System.Drawing.Color.Black;
+         this.SensorUpButton.ArrowHighlightColor = System.Drawing.Color.DarkGray;
+         this.SensorUpButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.SensorUpButton.DisabledArrowColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+         this.SensorUpButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
+         this.SensorUpButton.DisabledForeColor = System.Drawing.Color.Silver;
+         this.SensorUpButton.EdgeSpace = 8;
+         this.SensorUpButton.ForeColor = System.Drawing.SystemColors.HighlightText;
+         this.SensorUpButton.HighLightOffset = 7;
+         this.SensorUpButton.HighlightVisible = true;
+         this.SensorUpButton.HighLightWeight = 2;
+         this.SensorUpButton.HoldArrorColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+         this.SensorUpButton.HoldRepeat = true;
+         this.SensorUpButton.HoldRepeatInterval = 100;
+         this.SensorUpButton.HoldTimeoutInterval = 100;
+         this.SensorUpButton.Location = new System.Drawing.Point(327, 153);
+         this.SensorUpButton.Name = "SensorUpButton";
+         this.SensorUpButton.Size = new System.Drawing.Size(69, 69);
+         this.SensorUpButton.TabIndex = 145;
+         this.SensorUpButton.Text = "upDownButton1";
+         this.SensorUpButton.TextOffset = 0;
+         this.SensorUpButton.TextVisible = false;
+         this.SensorUpButton.UpDown = true;
+         this.SensorUpButton.UseVisualStyleBackColor = false;
+         this.SensorUpButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SensorUpButton_MouseDown);
+         this.SensorUpButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.SensorUpButton_MouseUp);
          // 
-         // upDownButton2
+         // SensorDownButton
          // 
-         this.upDownButton2.ArrowColor = System.Drawing.Color.Black;
-         this.upDownButton2.ArrowHighlightColor = System.Drawing.Color.DarkGray;
-         this.upDownButton2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.upDownButton2.DisabledArrowColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-         this.upDownButton2.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
-         this.upDownButton2.DisabledForeColor = System.Drawing.Color.Silver;
-         this.upDownButton2.EdgeSpace = 8;
-         this.upDownButton2.ForeColor = System.Drawing.SystemColors.HighlightText;
-         this.upDownButton2.HighLightOffset = 7;
-         this.upDownButton2.HighlightVisible = true;
-         this.upDownButton2.HighLightWeight = 2;
-         this.upDownButton2.HoldArrorColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-         this.upDownButton2.HoldRepeat = true;
-         this.upDownButton2.HoldRepeatInterval = 100;
-         this.upDownButton2.HoldTimeoutInterval = 100;
-         this.upDownButton2.Location = new System.Drawing.Point(327, 295);
-         this.upDownButton2.Name = "upDownButton2";
-         this.upDownButton2.Size = new System.Drawing.Size(69, 69);
-         this.upDownButton2.TabIndex = 146;
-         this.upDownButton2.Text = "upDownButton2";
-         this.upDownButton2.TextOffset = 0;
-         this.upDownButton2.TextVisible = false;
-         this.upDownButton2.UpDown = false;
-         this.upDownButton2.UseVisualStyleBackColor = false;
+         this.SensorDownButton.ArrowColor = System.Drawing.Color.Black;
+         this.SensorDownButton.ArrowHighlightColor = System.Drawing.Color.DarkGray;
+         this.SensorDownButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.SensorDownButton.DisabledArrowColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+         this.SensorDownButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
+         this.SensorDownButton.DisabledForeColor = System.Drawing.Color.Silver;
+         this.SensorDownButton.EdgeSpace = 8;
+         this.SensorDownButton.ForeColor = System.Drawing.SystemColors.HighlightText;
+         this.SensorDownButton.HighLightOffset = 7;
+         this.SensorDownButton.HighlightVisible = true;
+         this.SensorDownButton.HighLightWeight = 2;
+         this.SensorDownButton.HoldArrorColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+         this.SensorDownButton.HoldRepeat = true;
+         this.SensorDownButton.HoldRepeatInterval = 100;
+         this.SensorDownButton.HoldTimeoutInterval = 100;
+         this.SensorDownButton.Location = new System.Drawing.Point(327, 295);
+         this.SensorDownButton.Name = "SensorDownButton";
+         this.SensorDownButton.Size = new System.Drawing.Size(69, 69);
+         this.SensorDownButton.TabIndex = 146;
+         this.SensorDownButton.Text = "upDownButton2";
+         this.SensorDownButton.TextOffset = 0;
+         this.SensorDownButton.TextVisible = false;
+         this.SensorDownButton.UpDown = false;
+         this.SensorDownButton.UseVisualStyleBackColor = false;
+         this.SensorDownButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SensorDownButton_MouseDown);
+         this.SensorDownButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.SensorDownButton_MouseUp);
          // 
-         // LaserRangePitchTextPanel
+         // LaserPitchPanel
          // 
-         this.LaserRangePitchTextPanel.BackColor = System.Drawing.Color.Black;
-         this.LaserRangePitchTextPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-         this.LaserRangePitchTextPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-         this.LaserRangePitchTextPanel.ForeColor = System.Drawing.Color.White;
-         this.LaserRangePitchTextPanel.HoldTimeoutEnable = false;
-         this.LaserRangePitchTextPanel.HoldTimeoutInterval = 0;
-         this.LaserRangePitchTextPanel.Location = new System.Drawing.Point(480, 42);
-         this.LaserRangePitchTextPanel.Name = "LaserRangePitchTextPanel";
-         this.LaserRangePitchTextPanel.Size = new System.Drawing.Size(112, 44);
-         this.LaserRangePitchTextPanel.TabIndex = 18;
-         this.LaserRangePitchTextPanel.ValueText = "#### ticks";
-         this.LaserRangePitchTextPanel.ValueTextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         this.LaserPitchPanel.BackColor = System.Drawing.Color.Black;
+         this.LaserPitchPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+         this.LaserPitchPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+         this.LaserPitchPanel.ForeColor = System.Drawing.Color.White;
+         this.LaserPitchPanel.HoldTimeoutEnable = false;
+         this.LaserPitchPanel.HoldTimeoutInterval = 0;
+         this.LaserPitchPanel.Location = new System.Drawing.Point(480, 42);
+         this.LaserPitchPanel.Name = "LaserPitchPanel";
+         this.LaserPitchPanel.Size = new System.Drawing.Size(112, 44);
+         this.LaserPitchPanel.TabIndex = 18;
+         this.LaserPitchPanel.ValueText = "#### ticks";
+         this.LaserPitchPanel.ValueTextAlign = System.Drawing.ContentAlignment.MiddleCenter;
          // 
-         // upDownButton4
+         // LaserUpButton
          // 
-         this.upDownButton4.ArrowColor = System.Drawing.Color.Black;
-         this.upDownButton4.ArrowHighlightColor = System.Drawing.Color.DarkGray;
-         this.upDownButton4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.upDownButton4.DisabledArrowColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-         this.upDownButton4.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
-         this.upDownButton4.DisabledForeColor = System.Drawing.Color.Silver;
-         this.upDownButton4.EdgeSpace = 8;
-         this.upDownButton4.ForeColor = System.Drawing.SystemColors.HighlightText;
-         this.upDownButton4.HighLightOffset = 7;
-         this.upDownButton4.HighlightVisible = true;
-         this.upDownButton4.HighLightWeight = 2;
-         this.upDownButton4.HoldArrorColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-         this.upDownButton4.HoldRepeat = true;
-         this.upDownButton4.HoldRepeatInterval = 100;
-         this.upDownButton4.HoldTimeoutInterval = 100;
-         this.upDownButton4.Location = new System.Drawing.Point(566, 153);
-         this.upDownButton4.Name = "upDownButton4";
-         this.upDownButton4.Size = new System.Drawing.Size(69, 69);
-         this.upDownButton4.TabIndex = 15;
-         this.upDownButton4.Text = "upDownButton4";
-         this.upDownButton4.TextOffset = 0;
-         this.upDownButton4.TextVisible = false;
-         this.upDownButton4.UpDown = true;
-         this.upDownButton4.UseVisualStyleBackColor = false;
+         this.LaserUpButton.ArrowColor = System.Drawing.Color.Black;
+         this.LaserUpButton.ArrowHighlightColor = System.Drawing.Color.DarkGray;
+         this.LaserUpButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.LaserUpButton.DisabledArrowColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+         this.LaserUpButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
+         this.LaserUpButton.DisabledForeColor = System.Drawing.Color.Silver;
+         this.LaserUpButton.EdgeSpace = 8;
+         this.LaserUpButton.ForeColor = System.Drawing.SystemColors.HighlightText;
+         this.LaserUpButton.HighLightOffset = 7;
+         this.LaserUpButton.HighlightVisible = true;
+         this.LaserUpButton.HighLightWeight = 2;
+         this.LaserUpButton.HoldArrorColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+         this.LaserUpButton.HoldRepeat = true;
+         this.LaserUpButton.HoldRepeatInterval = 100;
+         this.LaserUpButton.HoldTimeoutInterval = 100;
+         this.LaserUpButton.Location = new System.Drawing.Point(566, 153);
+         this.LaserUpButton.Name = "LaserUpButton";
+         this.LaserUpButton.Size = new System.Drawing.Size(69, 69);
+         this.LaserUpButton.TabIndex = 15;
+         this.LaserUpButton.Text = "upDownButton4";
+         this.LaserUpButton.TextOffset = 0;
+         this.LaserUpButton.TextVisible = false;
+         this.LaserUpButton.UpDown = true;
+         this.LaserUpButton.UseVisualStyleBackColor = false;
+         this.LaserUpButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.LaserUpButton_MouseDown);
+         this.LaserUpButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.LaserUpButton_MouseUp);
          // 
-         // LaserRangeYawTextPanel
+         // LaserYawPanel
          // 
-         this.LaserRangeYawTextPanel.BackColor = System.Drawing.Color.Black;
-         this.LaserRangeYawTextPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-         this.LaserRangeYawTextPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-         this.LaserRangeYawTextPanel.ForeColor = System.Drawing.Color.White;
-         this.LaserRangeYawTextPanel.HoldTimeoutEnable = false;
-         this.LaserRangeYawTextPanel.HoldTimeoutInterval = 0;
-         this.LaserRangeYawTextPanel.Location = new System.Drawing.Point(480, 92);
-         this.LaserRangeYawTextPanel.Name = "LaserRangeYawTextPanel";
-         this.LaserRangeYawTextPanel.Size = new System.Drawing.Size(112, 44);
-         this.LaserRangeYawTextPanel.TabIndex = 21;
-         this.LaserRangeYawTextPanel.ValueText = "#### ticks";
-         this.LaserRangeYawTextPanel.ValueTextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         this.LaserYawPanel.BackColor = System.Drawing.Color.Black;
+         this.LaserYawPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+         this.LaserYawPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+         this.LaserYawPanel.ForeColor = System.Drawing.Color.White;
+         this.LaserYawPanel.HoldTimeoutEnable = false;
+         this.LaserYawPanel.HoldTimeoutInterval = 0;
+         this.LaserYawPanel.Location = new System.Drawing.Point(480, 92);
+         this.LaserYawPanel.Name = "LaserYawPanel";
+         this.LaserYawPanel.Size = new System.Drawing.Size(112, 44);
+         this.LaserYawPanel.TabIndex = 21;
+         this.LaserYawPanel.ValueText = "#### ticks";
+         this.LaserYawPanel.ValueTextAlign = System.Drawing.ContentAlignment.MiddleCenter;
          // 
          // rotatableLabel1
          // 
@@ -1084,31 +1109,33 @@
          this.rotatableLabel1.Text = "PITCH";
          this.rotatableLabel1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
          // 
-         // leftRightButton2
+         // LaserLeftButton
          // 
-         this.leftRightButton2.ArrowColor = System.Drawing.Color.Black;
-         this.leftRightButton2.ArrowHighlightColor = System.Drawing.Color.DarkGray;
-         this.leftRightButton2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.leftRightButton2.DisabledArrowColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-         this.leftRightButton2.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
-         this.leftRightButton2.DisabledForeColor = System.Drawing.Color.Silver;
-         this.leftRightButton2.EdgeSpace = 8;
-         this.leftRightButton2.HighLightOffset = 7;
-         this.leftRightButton2.HighlightVisible = true;
-         this.leftRightButton2.HighLightWeight = 2;
-         this.leftRightButton2.HoldArrorColor = System.Drawing.Color.Gray;
-         this.leftRightButton2.HoldRepeat = false;
-         this.leftRightButton2.HoldRepeatInterval = 0;
-         this.leftRightButton2.HoldTimeoutInterval = 0;
-         this.leftRightButton2.LeftRight = true;
-         this.leftRightButton2.Location = new System.Drawing.Point(495, 224);
-         this.leftRightButton2.Name = "leftRightButton2";
-         this.leftRightButton2.Size = new System.Drawing.Size(69, 69);
-         this.leftRightButton2.TabIndex = 14;
-         this.leftRightButton2.Text = "leftRightButton2";
-         this.leftRightButton2.TextOffset = 0;
-         this.leftRightButton2.TextVisible = false;
-         this.leftRightButton2.UseVisualStyleBackColor = false;
+         this.LaserLeftButton.ArrowColor = System.Drawing.Color.Black;
+         this.LaserLeftButton.ArrowHighlightColor = System.Drawing.Color.DarkGray;
+         this.LaserLeftButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.LaserLeftButton.DisabledArrowColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+         this.LaserLeftButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
+         this.LaserLeftButton.DisabledForeColor = System.Drawing.Color.Silver;
+         this.LaserLeftButton.EdgeSpace = 8;
+         this.LaserLeftButton.HighLightOffset = 7;
+         this.LaserLeftButton.HighlightVisible = true;
+         this.LaserLeftButton.HighLightWeight = 2;
+         this.LaserLeftButton.HoldArrorColor = System.Drawing.Color.Gray;
+         this.LaserLeftButton.HoldRepeat = false;
+         this.LaserLeftButton.HoldRepeatInterval = 0;
+         this.LaserLeftButton.HoldTimeoutInterval = 0;
+         this.LaserLeftButton.LeftRight = true;
+         this.LaserLeftButton.Location = new System.Drawing.Point(495, 224);
+         this.LaserLeftButton.Name = "LaserLeftButton";
+         this.LaserLeftButton.Size = new System.Drawing.Size(69, 69);
+         this.LaserLeftButton.TabIndex = 14;
+         this.LaserLeftButton.Text = "leftRightButton2";
+         this.LaserLeftButton.TextOffset = 0;
+         this.LaserLeftButton.TextVisible = false;
+         this.LaserLeftButton.UseVisualStyleBackColor = false;
+         this.LaserLeftButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.LaserLeftButton_MouseDown);
+         this.LaserLeftButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.LaserLeftButton_MouseUp);
          // 
          // rotatableLabel2
          // 
@@ -1121,58 +1148,62 @@
          this.rotatableLabel2.Text = "YAW";
          this.rotatableLabel2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
          // 
-         // upDownButton5
+         // LaserDownButton
          // 
-         this.upDownButton5.ArrowColor = System.Drawing.Color.Black;
-         this.upDownButton5.ArrowHighlightColor = System.Drawing.Color.DarkGray;
-         this.upDownButton5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.upDownButton5.DisabledArrowColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-         this.upDownButton5.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
-         this.upDownButton5.DisabledForeColor = System.Drawing.Color.Silver;
-         this.upDownButton5.EdgeSpace = 8;
-         this.upDownButton5.ForeColor = System.Drawing.SystemColors.HighlightText;
-         this.upDownButton5.HighLightOffset = 7;
-         this.upDownButton5.HighlightVisible = true;
-         this.upDownButton5.HighLightWeight = 2;
-         this.upDownButton5.HoldArrorColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-         this.upDownButton5.HoldRepeat = true;
-         this.upDownButton5.HoldRepeatInterval = 100;
-         this.upDownButton5.HoldTimeoutInterval = 100;
-         this.upDownButton5.Location = new System.Drawing.Point(566, 295);
-         this.upDownButton5.Name = "upDownButton5";
-         this.upDownButton5.Size = new System.Drawing.Size(69, 69);
-         this.upDownButton5.TabIndex = 16;
-         this.upDownButton5.Text = "upDownButton5";
-         this.upDownButton5.TextOffset = 0;
-         this.upDownButton5.TextVisible = false;
-         this.upDownButton5.UpDown = false;
-         this.upDownButton5.UseVisualStyleBackColor = false;
+         this.LaserDownButton.ArrowColor = System.Drawing.Color.Black;
+         this.LaserDownButton.ArrowHighlightColor = System.Drawing.Color.DarkGray;
+         this.LaserDownButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.LaserDownButton.DisabledArrowColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+         this.LaserDownButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
+         this.LaserDownButton.DisabledForeColor = System.Drawing.Color.Silver;
+         this.LaserDownButton.EdgeSpace = 8;
+         this.LaserDownButton.ForeColor = System.Drawing.SystemColors.HighlightText;
+         this.LaserDownButton.HighLightOffset = 7;
+         this.LaserDownButton.HighlightVisible = true;
+         this.LaserDownButton.HighLightWeight = 2;
+         this.LaserDownButton.HoldArrorColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+         this.LaserDownButton.HoldRepeat = true;
+         this.LaserDownButton.HoldRepeatInterval = 100;
+         this.LaserDownButton.HoldTimeoutInterval = 100;
+         this.LaserDownButton.Location = new System.Drawing.Point(566, 295);
+         this.LaserDownButton.Name = "LaserDownButton";
+         this.LaserDownButton.Size = new System.Drawing.Size(69, 69);
+         this.LaserDownButton.TabIndex = 16;
+         this.LaserDownButton.Text = "upDownButton5";
+         this.LaserDownButton.TextOffset = 0;
+         this.LaserDownButton.TextVisible = false;
+         this.LaserDownButton.UpDown = false;
+         this.LaserDownButton.UseVisualStyleBackColor = false;
+         this.LaserDownButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.LaserDownButton_MouseDown);
+         this.LaserDownButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.LaserDownButton_MouseUp);
          // 
-         // leftRightButton3
+         // LaserRightButton
          // 
-         this.leftRightButton3.ArrowColor = System.Drawing.Color.Black;
-         this.leftRightButton3.ArrowHighlightColor = System.Drawing.Color.DarkGray;
-         this.leftRightButton3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.leftRightButton3.DisabledArrowColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-         this.leftRightButton3.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
-         this.leftRightButton3.DisabledForeColor = System.Drawing.Color.Silver;
-         this.leftRightButton3.EdgeSpace = 8;
-         this.leftRightButton3.HighLightOffset = 7;
-         this.leftRightButton3.HighlightVisible = true;
-         this.leftRightButton3.HighLightWeight = 2;
-         this.leftRightButton3.HoldArrorColor = System.Drawing.Color.Gray;
-         this.leftRightButton3.HoldRepeat = false;
-         this.leftRightButton3.HoldRepeatInterval = 0;
-         this.leftRightButton3.HoldTimeoutInterval = 0;
-         this.leftRightButton3.LeftRight = false;
-         this.leftRightButton3.Location = new System.Drawing.Point(637, 224);
-         this.leftRightButton3.Name = "leftRightButton3";
-         this.leftRightButton3.Size = new System.Drawing.Size(69, 69);
-         this.leftRightButton3.TabIndex = 17;
-         this.leftRightButton3.Text = "leftRightButton3";
-         this.leftRightButton3.TextOffset = 0;
-         this.leftRightButton3.TextVisible = false;
-         this.leftRightButton3.UseVisualStyleBackColor = false;
+         this.LaserRightButton.ArrowColor = System.Drawing.Color.Black;
+         this.LaserRightButton.ArrowHighlightColor = System.Drawing.Color.DarkGray;
+         this.LaserRightButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.LaserRightButton.DisabledArrowColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+         this.LaserRightButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
+         this.LaserRightButton.DisabledForeColor = System.Drawing.Color.Silver;
+         this.LaserRightButton.EdgeSpace = 8;
+         this.LaserRightButton.HighLightOffset = 7;
+         this.LaserRightButton.HighlightVisible = true;
+         this.LaserRightButton.HighLightWeight = 2;
+         this.LaserRightButton.HoldArrorColor = System.Drawing.Color.Gray;
+         this.LaserRightButton.HoldRepeat = false;
+         this.LaserRightButton.HoldRepeatInterval = 0;
+         this.LaserRightButton.HoldTimeoutInterval = 0;
+         this.LaserRightButton.LeftRight = false;
+         this.LaserRightButton.Location = new System.Drawing.Point(637, 224);
+         this.LaserRightButton.Name = "LaserRightButton";
+         this.LaserRightButton.Size = new System.Drawing.Size(69, 69);
+         this.LaserRightButton.TabIndex = 17;
+         this.LaserRightButton.Text = "leftRightButton3";
+         this.LaserRightButton.TextOffset = 0;
+         this.LaserRightButton.TextVisible = false;
+         this.LaserRightButton.UseVisualStyleBackColor = false;
+         this.LaserRightButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.LaserRightButton_MouseDown);
+         this.LaserRightButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.LaserRightButton_MouseUp);
          // 
          // ControlPanel
          // 
@@ -1421,25 +1452,6 @@
          this.TitleSpacerPanel.Size = new System.Drawing.Size(1262, 38);
          this.TitleSpacerPanel.TabIndex = 193;
          // 
-         // LaserScannerIndicator
-         // 
-         this.LaserScannerIndicator.BackColor = System.Drawing.SystemColors.ControlDark;
-         this.LaserScannerIndicator.ControlEdgeColor = System.Drawing.Color.Black;
-         this.LaserScannerIndicator.ControlEdgeWeight = 2;
-         this.LaserScannerIndicator.CoordinateBits = 4;
-         this.LaserScannerIndicator.CoordinateValue = ((uint)(33u));
-         this.LaserScannerIndicator.GridColor = System.Drawing.Color.DarkGray;
-         this.LaserScannerIndicator.GridWeight = 1;
-         this.LaserScannerIndicator.IndicatorEdgeColor = System.Drawing.SystemColors.ControlDarkDark;
-         this.LaserScannerIndicator.IndicatorEdgeWeight = 2;
-         this.LaserScannerIndicator.Location = new System.Drawing.Point(34, 42);
-         this.LaserScannerIndicator.MissColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-         this.LaserScannerIndicator.MissWeight = 5;
-         this.LaserScannerIndicator.Name = "LaserScannerIndicator";
-         this.LaserScannerIndicator.Size = new System.Drawing.Size(213, 213);
-         this.LaserScannerIndicator.TabIndex = 170;
-         this.LaserScannerIndicator.TickColor = System.Drawing.Color.FromArgb(((int)(((byte)(193)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-         // 
          // MainForm
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1505,12 +1517,12 @@
       private Controls.E4Button SystemStatusButton;
       private System.Windows.Forms.Panel StopAllPanel;
       private Controls.E4Button StopAllButton;
-      private Controls.LeftRightButton leftRightButton2;
-      private Controls.UpDownButton upDownButton5;
-      private Controls.UpDownButton upDownButton4;
-      private Controls.LeftRightButton leftRightButton3;
-      private Controls.TextPanel LaserRangePitchTextPanel;
-      private Controls.TextPanel LaserRangeYawTextPanel;
+      private Controls.LeftRightButton LaserLeftButton;
+      private Controls.UpDownButton LaserDownButton;
+      private Controls.UpDownButton LaserUpButton;
+      private Controls.LeftRightButton LaserRightButton;
+      private Controls.TextPanel LaserPitchPanel;
+      private Controls.TextPanel LaserYawPanel;
       private Controls.RotatableLabel rotatableLabel2;
       private Controls.RotatableLabel rotatableLabel1;
       private System.Windows.Forms.Timer UpdateTimer;
@@ -1529,19 +1541,19 @@
       private Controls.E4Button LaserMeasureButton;
       private Controls.E4Button LaserRangeJoystickEnableButton;
       private Controls.E4Button LaserAimButton;
-      private Controls.TextPanel LaserScannerPitchTextPanel;
+      private Controls.TextPanel SensorPitchPanel;
       private Controls.RotatableLabel rotatableLabel3;
-      private Controls.UpDownButton upDownButton1;
-      private Controls.UpDownButton upDownButton2;
+      private Controls.UpDownButton SensorUpButton;
+      private Controls.UpDownButton SensorDownButton;
       private Controls.PositionIndicator LaserScannerJoystickYRequestIndicator;
       private Controls.PositionIndicator LaserRangeJoystickXRequestIndicator;
       private Controls.PositionIndicator LaserRangeJoystickYRequestIndicator;
       private System.Windows.Forms.Label LaserTitleLabel;
       private Controls.E4Button e4Button1;
       private Controls.TextPanel LaserMeasurementValuePanel;
-      private Controls.TextPanel textPanel3;
-      private Controls.TextPanel textPanel2;
-      private Controls.TextPanel textPanel1;
+      private Controls.TextPanel LaserYawTickPanel;
+      private Controls.TextPanel LaserPitchTickPanel;
+      private Controls.TextPanel SensorPitchTickPanel;
       private System.Windows.Forms.Panel panel3;
       private Controls.HoldButton holdButton1;
       private Controls.HoldButton holdButton2;
@@ -1552,7 +1564,7 @@
       private Controls.DirectionalValuePanel directionalValuePanel1;
       private System.Windows.Forms.Panel TitleSpacerPanel;
       private System.Windows.Forms.Label label28;
-      private Controls.ScannerIndicator LaserScannerIndicator;
+      private Controls.ScannerIndicator SensorIndicator;
    }
 }
 
