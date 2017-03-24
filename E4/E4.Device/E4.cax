@@ -51,8 +51,8 @@
     <Layout>&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;Layout&gt;
   &lt;Window Guid="46707f07-8d0c-4ec5-a50a-f4981e6cc102" LastFocused="131340837498190003" DockedSize="142" PopupSize="0" FloatingLocation="-1, -1" FloatingSize="250, 400" LastOpenDockSituation="Docked" LastFixedDockSituation="Docked" LastFixedDockLocation="Bottom" LastFloatingWindowGuid="00000000-0000-0000-0000-000000000000" LastDockContainerCount="1" LastDockContainerIndex="0" DockedWorkingSize="250, 400" DockedWindowGroupGuid="2fe96a78-66f5-49d8-bd2e-73c6e53e24be" DockedIndexInWindowGroup="0" DockedSplitPath="0" DocumentWorkingSize="250, 400" DocumentWindowGroupGuid="00000000-0000-0000-0000-000000000000" DocumentIndexInWindowGroup="0" DocumentSplitPath="0" FloatingWorkingSize="250, 400" FloatingWindowGroupGuid="00000000-0000-0000-0000-000000000000" FloatingIndexInWindowGroup="0" FloatingSplitPath="0" /&gt;
-  &lt;Window Guid="be58bbc8-afa5-4847-bfa2-006f042f6ae7" LastFocused="131342579664440003" DockedSize="180" PopupSize="0" FloatingLocation="-1, -1" FloatingSize="250, 400" LastOpenDockSituation="Docked" LastFixedDockSituation="Docked" LastFixedDockLocation="Left" LastFloatingWindowGuid="00000000-0000-0000-0000-000000000000" LastDockContainerCount="1" LastDockContainerIndex="0" DockedWorkingSize="250, 400" DockedWindowGroupGuid="ca25dd0e-afae-4aac-ab5d-be1f6ace7432" DockedIndexInWindowGroup="0" DockedSplitPath="0" DocumentWorkingSize="250, 400" DocumentWindowGroupGuid="00000000-0000-0000-0000-000000000000" DocumentIndexInWindowGroup="0" DocumentSplitPath="0" FloatingWorkingSize="250, 400" FloatingWindowGroupGuid="00000000-0000-0000-0000-000000000000" FloatingIndexInWindowGroup="0" FloatingSplitPath="0" /&gt;
-  &lt;Window Guid="5ab19427-e4c6-47d8-a185-7f5a07e291e0" LastFocused="131342579833020003" DockedSize="200" PopupSize="0" FloatingLocation="-1, -1" FloatingSize="550, 400" LastOpenDockSituation="Document" LastFixedDockSituation="Document" LastFixedDockLocation="Right" LastFloatingWindowGuid="00000000-0000-0000-0000-000000000000" LastDockContainerCount="0" LastDockContainerIndex="0" DockedWorkingSize="250, 400" DockedWindowGroupGuid="00000000-0000-0000-0000-000000000000" DockedIndexInWindowGroup="0" DockedSplitPath="0" DocumentWorkingSize="250, 400" DocumentWindowGroupGuid="5262380c-a784-47e4-a19f-12e5eba7bae0" DocumentIndexInWindowGroup="0" DocumentSplitPath="0" FloatingWorkingSize="250, 400" FloatingWindowGroupGuid="00000000-0000-0000-0000-000000000000" FloatingIndexInWindowGroup="0" FloatingSplitPath="0" /&gt;
+  &lt;Window Guid="be58bbc8-afa5-4847-bfa2-006f042f6ae7" LastFocused="131347610813080003" DockedSize="180" PopupSize="0" FloatingLocation="-1, -1" FloatingSize="250, 400" LastOpenDockSituation="Docked" LastFixedDockSituation="Docked" LastFixedDockLocation="Left" LastFloatingWindowGuid="00000000-0000-0000-0000-000000000000" LastDockContainerCount="1" LastDockContainerIndex="0" DockedWorkingSize="250, 400" DockedWindowGroupGuid="ca25dd0e-afae-4aac-ab5d-be1f6ace7432" DockedIndexInWindowGroup="0" DockedSplitPath="0" DocumentWorkingSize="250, 400" DocumentWindowGroupGuid="00000000-0000-0000-0000-000000000000" DocumentIndexInWindowGroup="0" DocumentSplitPath="0" FloatingWorkingSize="250, 400" FloatingWindowGroupGuid="00000000-0000-0000-0000-000000000000" FloatingIndexInWindowGroup="0" FloatingSplitPath="0" /&gt;
+  &lt;Window Guid="5ab19427-e4c6-47d8-a185-7f5a07e291e0" LastFocused="131347610945540003" DockedSize="200" PopupSize="0" FloatingLocation="-1, -1" FloatingSize="550, 400" LastOpenDockSituation="Document" LastFixedDockSituation="Document" LastFixedDockLocation="Right" LastFloatingWindowGuid="00000000-0000-0000-0000-000000000000" LastDockContainerCount="0" LastDockContainerIndex="0" DockedWorkingSize="250, 400" DockedWindowGroupGuid="00000000-0000-0000-0000-000000000000" DockedIndexInWindowGroup="0" DockedSplitPath="0" DocumentWorkingSize="250, 400" DocumentWindowGroupGuid="5262380c-a784-47e4-a19f-12e5eba7bae0" DocumentIndexInWindowGroup="0" DocumentSplitPath="0" FloatingWorkingSize="250, 400" FloatingWindowGroupGuid="00000000-0000-0000-0000-000000000000" FloatingIndexInWindowGroup="0" FloatingSplitPath="0" /&gt;
   &lt;Container Dock="2" ContentSize="142"&gt;
     &lt;SplitLayoutSystem WorkingSize="250, 400" SplitMode="1"&gt;
       &lt;ControlLayoutSystem WorkingSize="250, 400" Guid="2fe96a78-66f5-49d8-bd2e-73c6e53e24be" Collapsed="0" SelectedControl="46707f07-8d0c-4ec5-a50a-f4981e6cc102"&gt;
@@ -2574,7 +2574,7 @@
               <EntryName>Receive PDO Mapping 1</EntryName>
               <SubentryName>Number of Entries</SubentryName>
               <TypeId>Unsigned8</TypeId>
-              <ValueString>0x04</ValueString>
+              <ValueString>0x02</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
               <AccessType>Const</AccessType>
@@ -2600,7 +2600,7 @@
               <EntryName>Receive PDO Mapping 1</EntryName>
               <SubentryName>Mapping 1</SubentryName>
               <TypeId>Unsigned32</TypeId>
-              <ValueString>0x60400010</ValueString>
+              <ValueString>0x60710010</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
               <AccessType>ReadWrite</AccessType>
@@ -2626,7 +2626,7 @@
               <EntryName>Receive PDO Mapping 1</EntryName>
               <SubentryName>Mapping 2</SubentryName>
               <TypeId>Unsigned32</TypeId>
-              <ValueString>0x60710010</ValueString>
+              <ValueString>0x68710010</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
               <AccessType>ReadWrite</AccessType>
@@ -2652,7 +2652,7 @@
               <EntryName>Receive PDO Mapping 1</EntryName>
               <SubentryName>Mapping 3</SubentryName>
               <TypeId>Unsigned32</TypeId>
-              <ValueString>0x68400010</ValueString>
+              <ValueString>0x00000000</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
               <AccessType>ReadWrite</AccessType>
@@ -2678,7 +2678,7 @@
               <EntryName>Receive PDO Mapping 1</EntryName>
               <SubentryName>Mapping 4</SubentryName>
               <TypeId>Unsigned32</TypeId>
-              <ValueString>0x68710010</ValueString>
+              <ValueString>0x00000000</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
               <AccessType>ReadWrite</AccessType>
@@ -2704,7 +2704,7 @@
               <EntryName>Receive PDO Mapping 1</EntryName>
               <SubentryName>Mapping 5</SubentryName>
               <TypeId>Unsigned32</TypeId>
-              <ValueString>0</ValueString>
+              <ValueString>0x00000000</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
               <AccessType>ReadWrite</AccessType>
@@ -2730,7 +2730,7 @@
               <EntryName>Receive PDO Mapping 1</EntryName>
               <SubentryName>Mapping 6</SubentryName>
               <TypeId>Unsigned32</TypeId>
-              <ValueString>0</ValueString>
+              <ValueString>0x00000000</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
               <AccessType>ReadWrite</AccessType>
@@ -2756,7 +2756,7 @@
               <EntryName>Receive PDO Mapping 1</EntryName>
               <SubentryName>Mapping 7</SubentryName>
               <TypeId>Unsigned32</TypeId>
-              <ValueString>0</ValueString>
+              <ValueString>0x00000000</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
               <AccessType>ReadWrite</AccessType>
@@ -2782,7 +2782,7 @@
               <EntryName>Receive PDO Mapping 1</EntryName>
               <SubentryName>Mapping 8</SubentryName>
               <TypeId>Unsigned32</TypeId>
-              <ValueString>0</ValueString>
+              <ValueString>0x00000000</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
               <AccessType>ReadWrite</AccessType>
@@ -6872,7 +6872,7 @@
               <EntryName>Transmit PDO Mapping 6</EntryName>
               <SubentryName>Number of Entries</SubentryName>
               <TypeId>Unsigned8</TypeId>
-              <ValueString>0x02</ValueString>
+              <ValueString>0x03</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
               <AccessType>ReadWrite</AccessType>
@@ -6924,7 +6924,7 @@
               <EntryName>Transmit PDO Mapping 6</EntryName>
               <SubentryName>Mapping 2</SubentryName>
               <TypeId>Unsigned32</TypeId>
-              <ValueString>0x24020008</ValueString>
+              <ValueString>0x24020108</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
               <AccessType>ReadWrite</AccessType>
@@ -6950,7 +6950,7 @@
               <EntryName>Transmit PDO Mapping 6</EntryName>
               <SubentryName>Mapping 3</SubentryName>
               <TypeId>Unsigned32</TypeId>
-              <ValueString>0x24450310</ValueString>
+              <ValueString>0x24020220</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
               <AccessType>ReadWrite</AccessType>
@@ -6976,7 +6976,7 @@
               <EntryName>Transmit PDO Mapping 6</EntryName>
               <SubentryName>Mapping 4</SubentryName>
               <TypeId>Unsigned32</TypeId>
-              <ValueString>0x24100108</ValueString>
+              <ValueString>0x00000000</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
               <AccessType>ReadWrite</AccessType>
@@ -8052,12 +8052,12 @@
               <EntryName>Laser Time To Measure</EntryName>
               <SubentryName>
               </SubentryName>
-              <TypeId>Unsigned8</TypeId>
+              <TypeId>Unsigned16</TypeId>
               <ValueString>0x00</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
               <AccessType>ReadWrite</AccessType>
-              <HighLimitString>25</HighLimitString>
+              <HighLimitString>1000</HighLimitString>
               <LowLimitString>0x00</LowLimitString>
               <ObjectType>Var</ObjectType>
               <PDOMapping>true</PDOMapping>
@@ -8068,7 +8068,7 @@
               <Hidden>false</Hidden>
               <TypeODIndex>0</TypeODIndex>
               <GroupId>34fb1968-65ef-4b6c-839d-1cfc9a0ea87e</GroupId>
-              <Comments>range 1..25 and corresponds to ~1..25 * 150mS.  Poorer surface reflective targets require longer time.  If too short a time is used a Poor Surface Reflectivity / insufficient time will be generated (no details on this error code yet).</Comments>
+              <Comments>Measurement Frequency in Hz 0 = Automatic</Comments>
             </Entry>
             <Entry>
               <Index>9218</Index>
@@ -8080,7 +8080,7 @@
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
               <AccessType>Const</AccessType>
-              <HighLimitString>130</HighLimitString>
+              <HighLimitString>0x02</HighLimitString>
               <LowLimitString>0x02</LowLimitString>
               <ObjectType>Var</ObjectType>
               <PDOMapping>true</PDOMapping>
@@ -8098,14 +8098,14 @@
               <Index>9218</Index>
               <Subindex>1</Subindex>
               <EntryName>Laser Measured Distance (mm)</EntryName>
-              <SubentryName>Avg Laser Measured Distance (mm)</SubentryName>
-              <TypeId>Unsigned32</TypeId>
-              <ValueString>0x00000000</ValueString>
+              <SubentryName>Current Sample Number</SubentryName>
+              <TypeId>Unsigned8</TypeId>
+              <ValueString>0x00</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
               <MaxSize>0</MaxSize>
               <AccessType>ReadOnly</AccessType>
-              <HighLimitString>0xFFFFFFFF</HighLimitString>
-              <LowLimitString>0x00000000</LowLimitString>
+              <HighLimitString>0x7F</HighLimitString>
+              <LowLimitString>0x00</LowLimitString>
               <ObjectType>Var</ObjectType>
               <PDOMapping>true</PDOMapping>
               <RefuseReadonScan>false</RefuseReadonScan>
@@ -8115,13 +8115,14 @@
               <Hidden>false</Hidden>
               <TypeODIndex>0</TypeODIndex>
               <GroupId>34fb1968-65ef-4b6c-839d-1cfc9a0ea87e</GroupId>
-              <Comments>0x00 Highest Subindex will be dynamic, indicate number of measurements + 1; 0x01 Avg Laser Measured Distance will be average of all elements currently listed in 0x2402, 0x02 will be first measurement, 0x03 will be second measurement, etc.  It will ALWAYS be valid to read 0x00, 0x01, and 0x02 though they may return 0.  0x00 Highest subindex should be PDO Mappable and can be used to calculate the number of successful measurements since most recent trigger.  (If 0x00 being PDO Mappable causes issues we can always create a new entry…)</Comments>
+              <Comments>
+              </Comments>
             </Entry>
             <Entry>
               <Index>9218</Index>
               <Subindex>2</Subindex>
               <EntryName>Laser Measured Distance (mm)</EntryName>
-              <SubentryName>Laser Measured Distance (mm) 1</SubentryName>
+              <SubentryName>Most Recent Laser Measured Distance (mm)</SubentryName>
               <TypeId>Unsigned32</TypeId>
               <ValueString>0x00000000</ValueString>
               <NoTableEntryGeneration>false</NoTableEntryGeneration>
