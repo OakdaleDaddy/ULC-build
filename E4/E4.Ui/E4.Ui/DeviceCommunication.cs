@@ -265,9 +265,9 @@
          return (MainCommunicationBus.Instance.GetLaserMeasurementReady());
       }
 
-      public double GetLaserMeasurement()
+      public double GetAverageLaserMeasurement()
       {
-         return (MainCommunicationBus.Instance.GetLaserMeasurement());
+         return (MainCommunicationBus.Instance.GetAverageLaserMeasurement());
       }
 
       public UInt32 GetLaserScannerCoordinates()

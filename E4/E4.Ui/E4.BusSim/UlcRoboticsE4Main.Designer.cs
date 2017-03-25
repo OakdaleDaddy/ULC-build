@@ -133,12 +133,12 @@
          this.TargetBoardImuErrorTemperatureLabel = new System.Windows.Forms.Label();
          this.LaserRangeFinderTabPage = new System.Windows.Forms.TabPage();
          this.LaserRangeFinderProcessImagePanel = new System.Windows.Forms.Panel();
+         this.LaserMeasureSampleNumberLabel = new System.Windows.Forms.Label();
          this.LaserScannerProcessImageTabPage = new System.Windows.Forms.TabPage();
          this.LaserScannerProcessImagePanel = new System.Windows.Forms.Panel();
          this.McuProcessImageTabPage = new System.Windows.Forms.TabPage();
          this.McuProcessImagePanel = new System.Windows.Forms.Panel();
          this.DcLinkVoltageByteLabel = new System.Windows.Forms.Label();
-         this.LaserMeasuredDistanceHighestLabel = new System.Windows.Forms.Label();
          this.CommunicationProcessImagePanel.SuspendLayout();
          this.MainTabControl.SuspendLayout();
          this.InterfaceTabPage.SuspendLayout();
@@ -567,9 +567,9 @@
          this.LaserMeasuredDistanceLabel.AutoSize = true;
          this.LaserMeasuredDistanceLabel.Location = new System.Drawing.Point(3, 63);
          this.LaserMeasuredDistanceLabel.Name = "LaserMeasuredDistanceLabel";
-         this.LaserMeasuredDistanceLabel.Size = new System.Drawing.Size(191, 13);
+         this.LaserMeasuredDistanceLabel.Size = new System.Drawing.Size(200, 13);
          this.LaserMeasuredDistanceLabel.TabIndex = 206;
-         this.LaserMeasuredDistanceLabel.Text = "0x2402 Laser Measured Distance (mm)";
+         this.LaserMeasuredDistanceLabel.Text = "0x2402-2 Laser Measured Distance (mm)";
          this.LaserMeasuredDistanceLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
          // 
          // LaserScannerPositionLabel
@@ -1460,7 +1460,7 @@
          // 
          this.LaserRangeFinderProcessImagePanel.AutoScroll = true;
          this.LaserRangeFinderProcessImagePanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-         this.LaserRangeFinderProcessImagePanel.Controls.Add(this.LaserMeasuredDistanceHighestLabel);
+         this.LaserRangeFinderProcessImagePanel.Controls.Add(this.LaserMeasureSampleNumberLabel);
          this.LaserRangeFinderProcessImagePanel.Controls.Add(this.LaserAimEnableLabel);
          this.LaserRangeFinderProcessImagePanel.Controls.Add(this.LaserTimeToMeasureLabel);
          this.LaserRangeFinderProcessImagePanel.Controls.Add(this.LaserTemperatureLabel);
@@ -1473,6 +1473,16 @@
          this.LaserRangeFinderProcessImagePanel.Size = new System.Drawing.Size(300, 188);
          this.LaserRangeFinderProcessImagePanel.TabIndex = 0;
          this.LaserRangeFinderProcessImagePanel.Scroll += new System.Windows.Forms.ScrollEventHandler(this.LaserRangeFinderProcessImagePanel_Scroll);
+         // 
+         // LaserMeasureSampleNumberLabel
+         // 
+         this.LaserMeasureSampleNumberLabel.AutoSize = true;
+         this.LaserMeasureSampleNumberLabel.Location = new System.Drawing.Point(3, 43);
+         this.LaserMeasureSampleNumberLabel.Name = "LaserMeasureSampleNumberLabel";
+         this.LaserMeasureSampleNumberLabel.Size = new System.Drawing.Size(158, 13);
+         this.LaserMeasureSampleNumberLabel.TabIndex = 207;
+         this.LaserMeasureSampleNumberLabel.Text = "0x2402-1 Laser Sample Number";
+         this.LaserMeasureSampleNumberLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
          // 
          // LaserScannerProcessImageTabPage
          // 
@@ -1532,16 +1542,6 @@
          this.DcLinkVoltageByteLabel.TabIndex = 221;
          this.DcLinkVoltageByteLabel.Text = "0x2000 DC Link Voltage Byte";
          this.DcLinkVoltageByteLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-         // 
-         // LaserMeasuredDistanceHighestLabel
-         // 
-         this.LaserMeasuredDistanceHighestLabel.AutoSize = true;
-         this.LaserMeasuredDistanceHighestLabel.Location = new System.Drawing.Point(3, 43);
-         this.LaserMeasuredDistanceHighestLabel.Name = "LaserMeasuredDistanceHighestLabel";
-         this.LaserMeasuredDistanceHighestLabel.Size = new System.Drawing.Size(205, 13);
-         this.LaserMeasuredDistanceHighestLabel.TabIndex = 207;
-         this.LaserMeasuredDistanceHighestLabel.Text = "0x2402 Laser Measured Distance Highest";
-         this.LaserMeasuredDistanceHighestLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
          // 
          // UlcRoboticsE4Main
          // 
@@ -1700,6 +1700,6 @@
       private System.Windows.Forms.Button SerLaserRangeTemperatureButton;
       private System.Windows.Forms.Label label13;
       private System.Windows.Forms.TextBox LaserRangeTemperatureTextBox;
-      private System.Windows.Forms.Label LaserMeasuredDistanceHighestLabel;
+      private System.Windows.Forms.Label LaserMeasureSampleNumberLabel;
    }
 }

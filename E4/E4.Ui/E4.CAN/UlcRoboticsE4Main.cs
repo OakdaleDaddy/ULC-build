@@ -39,6 +39,9 @@ namespace E4.CAN
       private MotorComponent stepper0;
       private MotorComponent stepper1;
 
+      private UInt32[] laserDistanceMeasurements;
+      private byte laserDistanceMeasurementCount;
+
       #endregion
 
       #region Helper Functions
@@ -183,7 +186,8 @@ namespace E4.CAN
       public byte DcLinkVoltage { set; get; }
 
       public byte LaserStatusByte { set; get; }
-      public byte LaserReadingCount { set; get; }
+      public byte LaserSampleNumber { set; get; }
+      public UInt32 LaserMeasuredDistance { set; get; }
       public byte LaserScannerPosition { set; get; }
 
       public bool LaserMeasurementActivity
@@ -378,10 +382,20 @@ namespace E4.CAN
             {
                if (UsageModes.laser == this.usageMode)
                {
-                  if ((null != msg) && (msg.Length >= 2))
+                  if ((null != msg) && (msg.Length >= 6))
                   {
                      this.LaserStatusByte = msg[0];
-                     this.LaserReadingCount = (byte)(msg[1] - 1);
+                     this.LaserSampleNumber = msg[1];
+                     UInt32 measuredSample = BitConverter.ToUInt32(msg, 2);
+
+                     int storageIndex = this.LaserSampleNumber - 1;
+
+                     if ((storageIndex > 0) && (storageIndex < this.laserDistanceMeasurements.Length))
+                     {
+                        this.laserDistanceMeasurements[storageIndex] = measuredSample;
+                     }
+
+                     this.LaserMeasuredDistance = measuredSample;                  
                   }
                }
                else if (UsageModes.target == this.usageMode)
@@ -561,6 +575,8 @@ namespace E4.CAN
          this.Stepper1.TargetVelocityLocation = 0x0078FF00;
 
          #endregion
+
+         this.laserDistanceMeasurements = new UInt32[128];
       }
 
       #endregion
@@ -647,8 +663,9 @@ namespace E4.CAN
                result &= this.SetTPDOType(6, 254);
                result &= this.SetTPDOInhibitTime(6, 200);
                result &= this.SetTPDOMap(6, 1, 0x2405, 0x00, 1); // laser status byte
-               result &= this.SetTPDOMap(6, 2, 0x2402, 0x00, 1); // laser measured highest count
-               result &= this.SetTPDOMapCount(6, 2);
+               result &= this.SetTPDOMap(6, 2, 0x2402, 0x01, 1); // laser measure sample
+               result &= this.SetTPDOMap(6, 3, 0x2402, 0x02, 4); // laser measured distance
+               result &= this.SetTPDOMapCount(6, 3);
                result &= this.SetTPDOEnable(6, true);
 
                // set TPDO7 on change with 200mS inhibit time
@@ -836,6 +853,13 @@ namespace E4.CAN
          this.Bldc1.Reset();
          this.Stepper0.Reset();
          this.Stepper1.Reset();
+
+         for (int i = 0; i < this.laserDistanceMeasurements.Length; i++)
+         {
+            this.laserDistanceMeasurements[i] = 0;
+         }
+
+         laserDistanceMeasurementCount = 0;
       }
 
       public override void Update()
@@ -1095,7 +1119,7 @@ namespace E4.CAN
       public bool GetLaserDistance(ref UInt32 distance)
       {
          bool result = false;
-         SDOUpload upload = new SDOUpload(0x2402, 0x01);
+         SDOUpload upload = new SDOUpload(0x2402, 0x02);
          this.pendingAction = upload;
          bool actionResult = this.ExchangeCommAction(this.pendingAction);
 
@@ -1127,7 +1151,7 @@ namespace E4.CAN
       public bool StartLaserMeasurement(int sampleCount, double sampleTime)
       {
          bool result = true;
-         byte timeToMeasureBits = (byte)(sampleTime / 0.150);
+         byte timeToMeasureBits = (byte)(sampleTime / 0.100);
          byte sampleCountBits = (byte)((sampleCount > 0) ? (sampleCount - 1) : 0);
          byte controlValue = (byte)(0x80 | sampleCountBits);
 
@@ -1141,6 +1165,26 @@ namespace E4.CAN
       public bool CancelLaserMeasurement()
       {
          bool result = this.SetLaserControlByte(0x00);
+
+         return (result);
+      }
+
+      public UInt32 GetAverageLaserDistance()
+      {
+         UInt32 result = this.LaserMeasuredDistance;
+         byte sampleCount = this.laserDistanceMeasurementCount;
+
+         if (0 != sampleCount)
+         {
+            UInt64 total = 0;
+
+            for (int i = 0; i < sampleCount; i++)
+            {
+               total += this.laserDistanceMeasurements[i];
+            }
+
+            result = (UInt32)(total / sampleCount);
+         }
 
          return (result);
       }

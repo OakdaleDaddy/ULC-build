@@ -65,7 +65,7 @@ namespace E4.BusSim
 
       private byte laserAimEnable;
       private byte laserTimeToMeasure;
-      private byte laserMeasuredDistanceHighest;
+      private byte laserMeasureSampleNumber;
       private UInt32 laserMeasuredDistance;
       private byte laserTemperature;
       private byte laserErrorTemperature;
@@ -97,7 +97,6 @@ namespace E4.BusSim
       private int activeLaserTimeToMeasure;
       private int laserReadingCount;
       private int laserReadingLimit;
-      private UInt32[] laserReadings;
       private DateTime laserReadingTimeLimit;
 
       private byte nvNodeId;
@@ -205,8 +204,8 @@ namespace E4.BusSim
              (0x2000 == index) ||
              (0x2400 == index) ||
              (0x2401 == index) ||
-             ((0x2402 == index) && (0x00 == subIndex)) ||
              ((0x2402 == index) && (0x01 == subIndex)) ||
+             ((0x2402 == index) && (0x02 == subIndex)) ||
              ((0x2403 == index) && (0x01 == subIndex)) ||
              ((0x2403 == index) && (0x02 == subIndex)) ||
              (0x2404 == index) ||
@@ -257,7 +256,7 @@ namespace E4.BusSim
              (0x2000 == index) ||
              (0x2400 == index) ||
              (0x2401 == index) ||
-             ((0x2402 == index) && (0x00 == subIndex)) ||
+             ((0x2402 == index) && (0x01 == subIndex)) ||
              ((0x2403 == index) && (0x01 == subIndex)) ||
              ((0x2403 == index) && (0x02 == subIndex)) ||
              (0x2404 == index) ||
@@ -283,7 +282,7 @@ namespace E4.BusSim
          }
          else if ((0x1002 == index) ||
                   ((0x2302 == index) && (0x01 == subIndex)) ||
-                  ((0x2402 == index) && (0x01 == subIndex)))
+                  ((0x2402 == index) && (0x02 == subIndex)))
          {
             result = 4;
          }
@@ -828,16 +827,16 @@ namespace E4.BusSim
          }
       }
 
-      private byte LaserMeasuredDistanceHighest
+      private byte LaserMeasureSampleNumber
       {
          set
          {
-            this.SetValue(0x2402, 0x00, LaserMeasuredDistanceHighestLabel, "Laser Measured Distance Highest", ref this.laserMeasuredDistanceHighest, value, 2);
+            this.SetValue(0x2402, 0x01, LaserMeasureSampleNumberLabel, "Laser Measure Sample Number", ref this.laserMeasureSampleNumber, value, 2);
          }
 
          get
          {
-            return (this.laserMeasuredDistanceHighest);
+            return (this.laserMeasureSampleNumber);
          }
       }
 
@@ -845,7 +844,7 @@ namespace E4.BusSim
       {
          set
          {
-            this.SetValue(0x2402, 0x01, LaserMeasuredDistanceLabel, "Laser Measured Distance (mm)", ref this.laserMeasuredDistance, value, 8);
+            this.SetValue(0x2402, 0x02, LaserMeasuredDistanceLabel, "Laser Measured Distance (mm)", ref this.laserMeasuredDistance, value, 8);
          }
 
          get
@@ -1097,6 +1096,7 @@ namespace E4.BusSim
       private UInt32 GetLaserMeasuredDistance()
       {
          UInt32 result = 0;
+         UInt32 laserMeasuredDistance = 0;
 
          if (UInt32.TryParse(this.LaserMeasuredDistanceTextBox.Text, out laserMeasuredDistance) != false)
          {
@@ -1110,14 +1110,8 @@ namespace E4.BusSim
       {
          this.laserMeasureActive = false;
          this.laserMeasureExecuted = false;
-         this.LaserMeasuredDistanceHighest = 1;
+         this.LaserMeasureSampleNumber = 0;
          this.LaserMeasuredDistance = 0;
-
-         for (int i = 0; i < this.laserReadings.Length; i++)
-         {
-            this.laserReadings[i] = 0;
-         }
-
          this.LaserStatusByte = 0x00;
       }
 
@@ -1198,7 +1192,7 @@ namespace E4.BusSim
 
             this.LaserAimEnable = 0;
             this.LaserTimeToMeasure = 6;
-            this.LaserMeasuredDistanceHighest = 1;
+            this.LaserMeasureSampleNumber = 1;
             this.LaserMeasuredDistance = 0;
             this.LaserErrorTemperature = 85;
             this.LaserControlByte = 0;
@@ -1527,25 +1521,15 @@ namespace E4.BusSim
          }
          else if (0x2402 == index)
          {
-            if (0x00 == subIndex)
+            if (0x01 == subIndex)
             {
-               dataLength = this.MoveDeviceData(buffer, this.LaserMeasuredDistanceHighest);
+               dataLength = this.MoveDeviceData(buffer, this.LaserMeasureSampleNumber);
                valid = true;
             }
-            else if (0x01 == subIndex)
+            else if (0x02 == subIndex)
             {
                dataLength = this.MoveDeviceData(buffer, this.LaserMeasuredDistance);
                valid = true;
-            }
-            else 
-            {
-               int readingIndex = subIndex - 2;
-
-               if ((readingIndex < this.laserReadingCount) && (readingIndex < this.laserReadings.Length))
-               {
-                  dataLength = this.MoveDeviceData(buffer, this.laserReadings[readingIndex]);
-                  valid = true;
-               }
             }
          }
          else if ((0x2403 == index) && (0x00 == subIndex))
@@ -2385,9 +2369,6 @@ namespace E4.BusSim
             this.motors[i].CreateLabels();         
          }
 
-         this.laserReadings = new UInt32[128];
-
-
          this.Motor0Motor.Dock = DockStyle.Fill;
          this.Motor1Motor.Dock = DockStyle.Fill;
          this.Motor2Motor.Dock = DockStyle.Fill;
@@ -2636,7 +2617,7 @@ namespace E4.BusSim
                {
                   if (false == laserControl)
                   {
-                     if (1 != this.LaserMeasuredDistanceHighest)
+                     if (0 != this.laserReadingCount)
                      {
                         this.ResetLaserMeasurements();
                      }
@@ -2645,9 +2626,9 @@ namespace E4.BusSim
                   {
                      this.activeLaserTimeToMeasure = (0 == this.LaserTimeToMeasure) ? 1 : this.LaserTimeToMeasure;
                      this.laserReadingCount = 0;
-                     this.LaserMeasuredDistanceHighest = (byte)(this.laserReadingCount + 1);
+                     this.LaserMeasureSampleNumber = (byte)(this.laserReadingCount);
                      this.laserReadingLimit = (laserControlCache & 0x7F) + 1;
-                     this.laserReadingTimeLimit = now.AddMilliseconds(this.activeLaserTimeToMeasure * 150);
+                     this.laserReadingTimeLimit = now.AddMilliseconds(this.activeLaserTimeToMeasure * 100);
                      this.laserMeasureActive = true;
 
                      this.LaserStatusByte = 0x02;
@@ -2661,24 +2642,16 @@ namespace E4.BusSim
                   }
                   else if (now > this.laserReadingTimeLimit)
                   {
-                     this.laserReadings[this.laserReadingCount] = this.GetLaserMeasuredDistance();
+                     this.LaserMeasuredDistance = this.GetLaserMeasuredDistance();
                      this.laserReadingCount++;
-                     this.LaserMeasuredDistanceHighest = (byte)(this.laserReadingCount + 1);
-
+                     this.LaserMeasureSampleNumber = (byte)(this.laserReadingCount);
+                      
                      if (this.laserReadingCount < this.laserReadingLimit)
                      {
-                        this.laserReadingTimeLimit = this.laserReadingTimeLimit.AddMilliseconds(this.activeLaserTimeToMeasure * 150);
+                        this.laserReadingTimeLimit = this.laserReadingTimeLimit.AddMilliseconds(this.activeLaserTimeToMeasure * 100);
                      }
                      else
                      {
-                        UInt64 laserTotal = 0;
-
-                        for (int i = 0; i < this.laserReadingLimit; i++)
-                        {
-                           laserTotal += this.laserReadings[i];
-                        }
-
-                        this.LaserMeasuredDistance = (UInt32)(laserTotal / (UInt32)this.laserReadingLimit);
                         this.laserMeasureActive = false;
                         this.laserMeasureExecuted = true;
                         this.LaserStatusByte = 0x01;

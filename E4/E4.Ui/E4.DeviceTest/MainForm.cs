@@ -4539,7 +4539,8 @@ namespace E4.DeviceTest
          this.E4MainTargetBoardIcuYawTextBox.Text = string.Format("{0:0.0}", this.e4Main.TargetBoardImuYaw);
 
          this.E4MainLaserStatusTextBox.Text = string.Format("{0:X2}", this.e4Main.LaserStatusByte);
-         this.E4MainLaserCountTextBox.Text = string.Format("{0:X2}", this.e4Main.LaserReadingCount);         
+         this.E4MainLaserSampleCountTextBox.Text = string.Format("{0:X2}", this.e4Main.LaserSampleNumber);
+         this.E4MainLaserDistanceTextBox.Text = string.Format("{0}", this.e4Main.LaserMeasuredDistance);
          this.E4MainLaserScannerTextBox.Text = string.Format("{0:X2}", this.e4Main.LaserScannerPosition);
 
          this.E4MainBldc0TemperatureTextBox.Text = string.Format("{0:0}", this.e4Main.Bldc0.Temperature);

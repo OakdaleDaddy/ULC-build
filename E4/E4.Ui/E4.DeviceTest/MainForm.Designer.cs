@@ -80,9 +80,10 @@ namespace E4.DeviceTest
          this.DownloadActiveNodeIdTextBox = new System.Windows.Forms.TextBox();
          this.label51 = new System.Windows.Forms.Label();
          this.MainTabPage = new System.Windows.Forms.TabPage();
-         this.label85 = new System.Windows.Forms.Label();
+         this.E4MainUsageComboBox = new System.Windows.Forms.ComboBox();
+         this.label87 = new System.Windows.Forms.Label();
          this.label86 = new System.Windows.Forms.Label();
-         this.E4MainLaserCountTextBox = new System.Windows.Forms.TextBox();
+         this.E4MainLaserSampleCountTextBox = new System.Windows.Forms.TextBox();
          this.label84 = new System.Windows.Forms.Label();
          this.label68 = new System.Windows.Forms.Label();
          this.label69 = new System.Windows.Forms.Label();
@@ -472,8 +473,8 @@ namespace E4.DeviceTest
          this.label64 = new System.Windows.Forms.Label();
          this.ControlSplitter = new System.Windows.Forms.Splitter();
          this.MainActivityPanel = new System.Windows.Forms.Panel();
-         this.E4MainUsageComboBox = new System.Windows.Forms.ComboBox();
-         this.label87 = new System.Windows.Forms.Label();
+         this.E4MainLaserDistanceTextBox = new System.Windows.Forms.TextBox();
+         this.label88 = new System.Windows.Forms.Label();
          this.MainStatusStrip.SuspendLayout();
          this.MainTabControl.SuspendLayout();
          this.ControlTabPage.SuspendLayout();
@@ -1009,11 +1010,12 @@ namespace E4.DeviceTest
          // 
          // MainTabPage
          // 
+         this.MainTabPage.Controls.Add(this.E4MainLaserDistanceTextBox);
+         this.MainTabPage.Controls.Add(this.label88);
          this.MainTabPage.Controls.Add(this.E4MainUsageComboBox);
          this.MainTabPage.Controls.Add(this.label87);
-         this.MainTabPage.Controls.Add(this.label85);
          this.MainTabPage.Controls.Add(this.label86);
-         this.MainTabPage.Controls.Add(this.E4MainLaserCountTextBox);
+         this.MainTabPage.Controls.Add(this.E4MainLaserSampleCountTextBox);
          this.MainTabPage.Controls.Add(this.label84);
          this.MainTabPage.Controls.Add(this.label68);
          this.MainTabPage.Controls.Add(this.label69);
@@ -1053,37 +1055,49 @@ namespace E4.DeviceTest
          this.MainTabPage.Text = "Main";
          this.MainTabPage.UseVisualStyleBackColor = true;
          // 
-         // label85
+         // E4MainUsageComboBox
          // 
-         this.label85.AutoSize = true;
-         this.label85.Location = new System.Drawing.Point(515, 77);
-         this.label85.Name = "label85";
-         this.label85.Size = new System.Drawing.Size(13, 13);
-         this.label85.TabIndex = 408;
-         this.label85.Text = "h";
+         this.E4MainUsageComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+         this.E4MainUsageComboBox.FormattingEnabled = true;
+         this.E4MainUsageComboBox.Items.AddRange(new object[] {
+            "laser",
+            "target"});
+         this.E4MainUsageComboBox.Location = new System.Drawing.Point(110, 8);
+         this.E4MainUsageComboBox.Name = "E4MainUsageComboBox";
+         this.E4MainUsageComboBox.Size = new System.Drawing.Size(75, 21);
+         this.E4MainUsageComboBox.TabIndex = 410;
+         // 
+         // label87
+         // 
+         this.label87.AutoSize = true;
+         this.label87.Location = new System.Drawing.Point(70, 11);
+         this.label87.Name = "label87";
+         this.label87.Size = new System.Drawing.Size(38, 13);
+         this.label87.TabIndex = 409;
+         this.label87.Text = "Usage";
          // 
          // label86
          // 
          this.label86.AutoSize = true;
-         this.label86.Location = new System.Drawing.Point(425, 80);
+         this.label86.Location = new System.Drawing.Point(290, 80);
          this.label86.Name = "label86";
-         this.label86.Size = new System.Drawing.Size(64, 13);
+         this.label86.Size = new System.Drawing.Size(71, 13);
          this.label86.TabIndex = 407;
-         this.label86.Text = "Laser Count";
+         this.label86.Text = "Laser Sample";
          // 
-         // E4MainLaserCountTextBox
+         // E4MainLaserSampleCountTextBox
          // 
-         this.E4MainLaserCountTextBox.Location = new System.Drawing.Point(491, 77);
-         this.E4MainLaserCountTextBox.Name = "E4MainLaserCountTextBox";
-         this.E4MainLaserCountTextBox.Size = new System.Drawing.Size(25, 20);
-         this.E4MainLaserCountTextBox.TabIndex = 406;
-         this.E4MainLaserCountTextBox.Text = "FF";
-         this.E4MainLaserCountTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+         this.E4MainLaserSampleCountTextBox.Location = new System.Drawing.Point(363, 77);
+         this.E4MainLaserSampleCountTextBox.Name = "E4MainLaserSampleCountTextBox";
+         this.E4MainLaserSampleCountTextBox.Size = new System.Drawing.Size(31, 20);
+         this.E4MainLaserSampleCountTextBox.TabIndex = 406;
+         this.E4MainLaserSampleCountTextBox.Text = "FF";
+         this.E4MainLaserSampleCountTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
          // 
          // label84
          // 
          this.label84.AutoSize = true;
-         this.label84.Location = new System.Drawing.Point(398, 77);
+         this.label84.Location = new System.Drawing.Point(271, 77);
          this.label84.Name = "label84";
          this.label84.Size = new System.Drawing.Size(13, 13);
          this.label84.TabIndex = 405;
@@ -4817,7 +4831,7 @@ namespace E4.DeviceTest
          // label8
          // 
          this.label8.AutoSize = true;
-         this.label8.Location = new System.Drawing.Point(306, 80);
+         this.label8.Location = new System.Drawing.Point(179, 80);
          this.label8.Name = "label8";
          this.label8.Size = new System.Drawing.Size(66, 13);
          this.label8.TabIndex = 279;
@@ -4825,7 +4839,7 @@ namespace E4.DeviceTest
          // 
          // E4MainLaserStatusTextBox
          // 
-         this.E4MainLaserStatusTextBox.Location = new System.Drawing.Point(374, 77);
+         this.E4MainLaserStatusTextBox.Location = new System.Drawing.Point(247, 77);
          this.E4MainLaserStatusTextBox.Name = "E4MainLaserStatusTextBox";
          this.E4MainLaserStatusTextBox.Size = new System.Drawing.Size(25, 20);
          this.E4MainLaserStatusTextBox.TabIndex = 278;
@@ -4999,26 +5013,21 @@ namespace E4.DeviceTest
          this.MainActivityPanel.Size = new System.Drawing.Size(742, 118);
          this.MainActivityPanel.TabIndex = 45;
          // 
-         // E4MainUsageComboBox
+         // E4MainLaserDistanceTextBox
          // 
-         this.E4MainUsageComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-         this.E4MainUsageComboBox.FormattingEnabled = true;
-         this.E4MainUsageComboBox.Items.AddRange(new object[] {
-            "laser",
-            "target"});
-         this.E4MainUsageComboBox.Location = new System.Drawing.Point(110, 8);
-         this.E4MainUsageComboBox.Name = "E4MainUsageComboBox";
-         this.E4MainUsageComboBox.Size = new System.Drawing.Size(75, 21);
-         this.E4MainUsageComboBox.TabIndex = 410;
+         this.E4MainLaserDistanceTextBox.Location = new System.Drawing.Point(480, 77);
+         this.E4MainLaserDistanceTextBox.Name = "E4MainLaserDistanceTextBox";
+         this.E4MainLaserDistanceTextBox.Size = new System.Drawing.Size(59, 20);
+         this.E4MainLaserDistanceTextBox.TabIndex = 411;
          // 
-         // label87
+         // label88
          // 
-         this.label87.AutoSize = true;
-         this.label87.Location = new System.Drawing.Point(70, 11);
-         this.label87.Name = "label87";
-         this.label87.Size = new System.Drawing.Size(38, 13);
-         this.label87.TabIndex = 409;
-         this.label87.Text = "Usage";
+         this.label88.AutoSize = true;
+         this.label88.Location = new System.Drawing.Point(400, 80);
+         this.label88.Name = "label88";
+         this.label88.Size = new System.Drawing.Size(78, 13);
+         this.label88.TabIndex = 412;
+         this.label88.Text = "Laser Distance";
          // 
          // MainForm
          // 
@@ -5539,12 +5548,13 @@ namespace E4.DeviceTest
       private System.Windows.Forms.Label label83;
       private System.Windows.Forms.TextBox E4MainBldc1PositionWindowTextBox;
       private System.Windows.Forms.Button SetE4MainBldc1PositionWindowButton;
-      private System.Windows.Forms.Label label85;
       private System.Windows.Forms.Label label86;
-      private System.Windows.Forms.TextBox E4MainLaserCountTextBox;
+      private System.Windows.Forms.TextBox E4MainLaserSampleCountTextBox;
       private System.Windows.Forms.Label label84;
       private System.Windows.Forms.ComboBox E4MainUsageComboBox;
       private System.Windows.Forms.Label label87;
+      private System.Windows.Forms.TextBox E4MainLaserDistanceTextBox;
+      private System.Windows.Forms.Label label88;
    }
 }
 

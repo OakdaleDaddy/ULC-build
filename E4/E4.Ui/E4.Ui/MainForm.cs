@@ -46,6 +46,8 @@
 
       private bool laserMeasurementRequested;
 
+      private bool laserMeasurementRecorded;
+
       private PopupDimmerForm dimmerForm;
 
       #endregion
@@ -539,7 +541,8 @@
             {
                if (false != laserReadingReady)
                {
-                  double laserMeasurement = DeviceCommunication.Instance.GetLaserMeasurement();
+                  double laserMeasurement = DeviceCommunication.Instance.GetAverageLaserMeasurement();
+                  this.LaserMeasurementValuePanel.BackColor = Color.Black;
                   this.LaserMeasurementValuePanel.ValueText = this.GetValueText(laserMeasurement, ParameterAccessor.Instance.LaserMeasurementConstant);
                   this.LaserTitleLabel.Text = "LASER MEASURE - COMPLETE";
 
@@ -547,6 +550,8 @@
                }
                else
                {
+                  this.LaserMeasurementValuePanel.BackColor = (false != this.messageFlasher) ? Color.DodgerBlue : Color.SteelBlue;
+
                   if (false != laserMeasureActive)
                   {
                      int laserMeasureRemainingCount = DeviceCommunication.Instance.GetLaserSampleRemainingCount();
@@ -556,6 +561,8 @@
                   else
                   {
                      string laserMeasureStatusText = string.Format("LASER MEASURE - STARTING");
+                     this.LaserMeasurementValuePanel.ValueText = "";
+                     this.laserMeasurementRecorded = false;
                   }
 
                   this.LaserMeasureButton.Text = "CANCEL";
@@ -565,6 +572,7 @@
             {
                this.LaserTitleLabel.Text = "LASER MEASURE";
                this.LaserMeasureButton.Text = "MEASURE";
+               this.LaserMeasurementValuePanel.BackColor = Color.Black;
             }
          }
          else
@@ -572,6 +580,9 @@
             this.LaserMeasureButton.BackColor = Color.Red;
             this.LaserTitleLabel.Text = "LASER MEASURE - FAULTED";
          }
+
+
+         this.RecordLaserMeasurementButton.Enabled = ((DeviceCommunication.Instance.GetLaserMeasurementReady() != false) && (false == this.laserMeasurementRecorded)) ? true : false;
 
          string laserScannerFault = TargetCommunicationBus.Instance.GetFaultStatus(TargetCommunicationBus.BusComponentId.TargetBoard);
 
@@ -1756,7 +1767,12 @@
          int position = DeviceCommunication.Instance.GetLaserStepperXActualPosition();
          DeviceCommunication.Instance.SetLaserStepperXPosition(position);
       }
-      
+
+      private void RecordLaserMeasurementButton_Click(object sender, EventArgs e)
+      {
+         this.laserMeasurementRecorded = true;
+      }
+
       private void LaserSetupButton_Click(object sender, EventArgs e)
       {
          Button button = (Button)sender;

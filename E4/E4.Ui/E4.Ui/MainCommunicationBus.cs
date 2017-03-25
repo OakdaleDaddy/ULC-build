@@ -62,7 +62,7 @@
       private bool laserMeasureCancelRequested;
       private bool laserBecameActive;
       private int laserSampleCount;
-      private double laserMeasurement;
+      private double laserAverageMeasurement;
 
       #endregion
 
@@ -307,7 +307,7 @@
          this.laserMeasureCancelRequested = false;
          this.laserBecameActive = false;
          this.laserSampleCount = 0;
-         this.laserMeasurement = 0;
+         this.laserAverageMeasurement = 0;
 
          //this.bldc0Status.Initialize();
          //this.bldc1Status.Initialize();
@@ -443,9 +443,8 @@
                 (false != this.laserBecameActive) &&
                 (false == laserMeasurementActive))
             {
-               UInt32 laserMeasurementCounts = 0;
-               this.mainBoard.GetLaserDistance(ref laserMeasurementCounts);
-               this.laserMeasurement = laserMeasurementCounts * ParameterAccessor.Instance.LaserMeasurementConstant.OperationalValue;
+               UInt32 laserMeasurementCounts = this.mainBoard.GetAverageLaserDistance();
+               this.laserAverageMeasurement = laserMeasurementCounts * ParameterAccessor.Instance.LaserMeasurementConstant.OperationalValue;
 
                this.needLaserMeasurementStart = false;
                this.laserMeasureStartRequested = false;
@@ -969,7 +968,7 @@
 
          if (false != this.running)
          {
-            result = this.laserSampleCount - this.mainBoard.LaserReadingCount;
+            result = this.laserSampleCount - this.mainBoard.LaserSampleNumber;
          }
 
          return (result);
@@ -987,9 +986,9 @@
          return (result);
       }
 
-      public double GetLaserMeasurement()
+      public double GetAverageLaserMeasurement()
       {
-         return (this.laserMeasurement);
+         return (this.laserAverageMeasurement);
       }
 
       #endregion

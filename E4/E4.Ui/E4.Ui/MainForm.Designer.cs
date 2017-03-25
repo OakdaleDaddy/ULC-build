@@ -62,7 +62,7 @@
          this.LaserRangePanel = new System.Windows.Forms.Panel();
          this.SensorIndicator = new E4.Ui.Controls.ScannerIndicator();
          this.label28 = new System.Windows.Forms.Label();
-         this.e4Button1 = new E4.Ui.Controls.E4Button();
+         this.RecordLaserMeasurementButton = new E4.Ui.Controls.E4Button();
          this.LaserMeasurementValuePanel = new E4.Ui.Controls.TextPanel();
          this.LaserYawTickPanel = new E4.Ui.Controls.TextPanel();
          this.LaserPitchTickPanel = new E4.Ui.Controls.TextPanel();
@@ -704,7 +704,7 @@
          this.LaserRangePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
          this.LaserRangePanel.Controls.Add(this.SensorIndicator);
          this.LaserRangePanel.Controls.Add(this.label28);
-         this.LaserRangePanel.Controls.Add(this.e4Button1);
+         this.LaserRangePanel.Controls.Add(this.RecordLaserMeasurementButton);
          this.LaserRangePanel.Controls.Add(this.LaserMeasurementValuePanel);
          this.LaserRangePanel.Controls.Add(this.LaserYawTickPanel);
          this.LaserRangePanel.Controls.Add(this.LaserPitchTickPanel);
@@ -763,19 +763,20 @@
          this.label28.Text = "MEASUREMENT";
          this.label28.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
          // 
-         // e4Button1
+         // RecordLaserMeasurementButton
          // 
-         this.e4Button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.e4Button1.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
-         this.e4Button1.DisabledForeColor = System.Drawing.Color.Silver;
-         this.e4Button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
-         this.e4Button1.HoldArrorColor = System.Drawing.Color.Gray;
-         this.e4Button1.Location = new System.Drawing.Point(150, 277);
-         this.e4Button1.Name = "e4Button1";
-         this.e4Button1.Size = new System.Drawing.Size(107, 67);
-         this.e4Button1.TabIndex = 168;
-         this.e4Button1.Text = "RECORD";
-         this.e4Button1.UseVisualStyleBackColor = false;
+         this.RecordLaserMeasurementButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.RecordLaserMeasurementButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
+         this.RecordLaserMeasurementButton.DisabledForeColor = System.Drawing.Color.Silver;
+         this.RecordLaserMeasurementButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
+         this.RecordLaserMeasurementButton.HoldArrorColor = System.Drawing.Color.Gray;
+         this.RecordLaserMeasurementButton.Location = new System.Drawing.Point(150, 277);
+         this.RecordLaserMeasurementButton.Name = "RecordLaserMeasurementButton";
+         this.RecordLaserMeasurementButton.Size = new System.Drawing.Size(107, 67);
+         this.RecordLaserMeasurementButton.TabIndex = 168;
+         this.RecordLaserMeasurementButton.Text = "RECORD";
+         this.RecordLaserMeasurementButton.UseVisualStyleBackColor = false;
+         this.RecordLaserMeasurementButton.Click += new System.EventHandler(this.RecordLaserMeasurementButton_Click);
          // 
          // LaserMeasurementValuePanel
          // 
@@ -1549,7 +1550,7 @@
       private Controls.PositionIndicator LaserRangeJoystickXRequestIndicator;
       private Controls.PositionIndicator LaserRangeJoystickYRequestIndicator;
       private System.Windows.Forms.Label LaserTitleLabel;
-      private Controls.E4Button e4Button1;
+      private Controls.E4Button RecordLaserMeasurementButton;
       private Controls.TextPanel LaserMeasurementValuePanel;
       private Controls.TextPanel LaserYawTickPanel;
       private Controls.TextPanel LaserPitchTickPanel;
