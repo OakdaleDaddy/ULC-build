@@ -2225,6 +2225,8 @@
          {
             this.homeDefined = false;
 
+            this.PositionActualValue = 0;
+
             this.MotorErrorCode = 0;
             this.DigitalInputs = 0;
             this.MotorTemperature = 23;
@@ -2252,7 +2254,6 @@
          this.HomingZeroSpeed = 500;
          this.HomingAcceleration = 100;
 
-         this.PositionActualValue = 0;
          this.PositionWindow = 0;
          this.PositionWindowTime = 0;
          this.PositionControlParameterHighest = 3;

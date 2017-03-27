@@ -18,7 +18,7 @@
 
       private int VersionCount;
 
-      public MainBusParameters MainBus;
+      public LaserBusParameters LaserBus;
       public TargetBusParameters TargetBus;
 
       public IpEndpointParameters Trace;
@@ -68,15 +68,15 @@
       {
          this.VersionCount = 5; // update after each addition
 
-         this.MainBus = new MainBusParameters();
-         this.MainBus.BusInterface = BusInterfaces.PCIA;
-         this.MainBus.BitRate = 50000;
-         this.MainBus.ConsumerHeartbeatRate = 3500;
-         this.MainBus.ProducerHeartbeatRate = 1000;         
-         this.MainBus.ControllerBusId = 80;
-         this.MainBus.MainBoardBusId = 32;         
-         this.MainBus.ControllerTraceMask = 0;
-         this.MainBus.MainBoardTraceMask = 1;
+         this.LaserBus = new LaserBusParameters();
+         this.LaserBus.BusInterface = BusInterfaces.PCIA;
+         this.LaserBus.BitRate = 50000;
+         this.LaserBus.ConsumerHeartbeatRate = 3500;
+         this.LaserBus.ProducerHeartbeatRate = 1000;
+         this.LaserBus.ControllerBusId = 80;
+         this.LaserBus.LaserBoardBusId = 32;
+         this.LaserBus.ControllerTraceMask = 0;
+         this.LaserBus.MainBoardTraceMask = 1;
          
          this.TargetBus = new TargetBusParameters();
          this.TargetBus.BusInterface = BusInterfaces.PCIB;
@@ -268,9 +268,9 @@
          return (result);
       }
 
-      private MainBusParameters ReadMainBusParameters(XmlReader reader)
+      private LaserBusParameters ReadLaserBusParameters(XmlReader reader)
       {
-         MainBusParameters result = null;
+         LaserBusParameters result = null;
          bool readResult = true;
 
          BusInterfaces busInterface = BusInterfaces.USBA;
@@ -280,7 +280,7 @@
          int producerHeartbeatRate = 0;
          int controllerBusId = 0;
 
-         int mainBoardBusId = 0;
+         int laserBoardBusId = 0;
 
          int controllerTraceMask = 0;
          int mainBoardTraceMask = 0;
@@ -311,9 +311,9 @@
                {
                   controllerBusId = this.ReadInt(reader);
                }
-               else if ("MainBoardBusId" == reader.Name)
+               else if ("LaserBoardBusId" == reader.Name)
                {
-                  mainBoardBusId = this.ReadInt(reader);
+                  laserBoardBusId = this.ReadInt(reader);
                }
                else if ("ControllerTraceMask" == reader.Name)
                {
@@ -326,9 +326,9 @@
             }
             else
             {
-               if ("MainBus" == reader.Name)
+               if ("LaserBus" == reader.Name)
                {
-                  result = new MainBusParameters();
+                  result = new LaserBusParameters();
 
                   result.BusInterface = busInterface;
                   result.BitRate = bitRate;
@@ -337,7 +337,7 @@
                   result.ProducerHeartbeatRate = producerHeartbeatRate;
                   result.ControllerBusId = controllerBusId;
 
-                  result.MainBoardBusId = mainBoardBusId;
+                  result.LaserBoardBusId = laserBoardBusId;
 
                   result.ControllerTraceMask = controllerTraceMask;
                   result.MainBoardTraceMask = mainBoardTraceMask;
@@ -706,13 +706,13 @@
                      {
                         this.VersionCount = this.ReadInt(reader);
                      }
-                     else if ("MainBus" == reader.Name)
+                     else if ("LaserBus" == reader.Name)
                      {
-                        MainBusParameters mainBusParameters = this.ReadMainBusParameters(reader);
+                        LaserBusParameters mainBusParameters = this.ReadLaserBusParameters(reader);
 
                         if (null != mainBusParameters)
                         {
-                           this.MainBus = mainBusParameters;
+                           this.LaserBus = mainBusParameters;
                         }
                      }
                      else if ("TargetBus" == reader.Name)
@@ -836,23 +836,23 @@
          writer.WriteEndElement();
       }
 
-      private void WriteMainBusParameters(XmlWriter writer, MainBusParameters mainBusParameters)
+      private void WriteLaserBusParameters(XmlWriter writer, LaserBusParameters laserBusParameters)
       {
-         writer.WriteStartElement("MainBus");
+         writer.WriteStartElement("LaserBus");
 
          writer.WriteComment("BusInterface from {USBA, USBB, PCIA, PCIB}");
-         this.WriteElement(writer, "BusInterface", mainBusParameters.BusInterface.ToString());
-         this.WriteElement(writer, "BitRate", mainBusParameters.BitRate);
+         this.WriteElement(writer, "BusInterface", laserBusParameters.BusInterface.ToString());
+         this.WriteElement(writer, "BitRate", laserBusParameters.BitRate);
 
          writer.WriteComment("set heartbeat rates to 0 to disable, restore consumer to 3500 and producer to 1000 (3:1)");
-         this.WriteElement(writer, "ConsumerHeartbeatRate", mainBusParameters.ConsumerHeartbeatRate);
-         this.WriteElement(writer, "ProducerHeartbeatRate", mainBusParameters.ProducerHeartbeatRate);
-         this.WriteElement(writer, "ControllerBusId", mainBusParameters.ControllerBusId);
+         this.WriteElement(writer, "ConsumerHeartbeatRate", laserBusParameters.ConsumerHeartbeatRate);
+         this.WriteElement(writer, "ProducerHeartbeatRate", laserBusParameters.ProducerHeartbeatRate);
+         this.WriteElement(writer, "ControllerBusId", laserBusParameters.ControllerBusId);
 
-         this.WriteElement(writer, "MainBoardBusId", mainBusParameters.MainBoardBusId);
+         this.WriteElement(writer, "LaserBoardBusId", laserBusParameters.LaserBoardBusId);
 
-         this.WriteElement(writer, "ControllerTraceMask", mainBusParameters.ControllerTraceMask);
-         this.WriteElement(writer, "MainBoardTraceMask", mainBusParameters.MainBoardTraceMask);
+         this.WriteElement(writer, "ControllerTraceMask", laserBusParameters.ControllerTraceMask);
+         this.WriteElement(writer, "MainBoardTraceMask", laserBusParameters.MainBoardTraceMask);
 
          writer.WriteEndElement();
       }
@@ -946,7 +946,7 @@
 
             this.WriteElement(writer, "VersionCount", this.VersionCount.ToString());
 
-            this.WriteMainBusParameters(writer, this.MainBus);
+            this.WriteLaserBusParameters(writer, this.LaserBus);
             this.WriteTargetBusParameters(writer, this.TargetBus);
 
             this.WriteIpEndpointParameters(writer, this.Trace);

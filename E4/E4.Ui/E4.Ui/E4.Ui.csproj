@@ -66,7 +66,7 @@
     <Compile Include="LaserSetupForm.Designer.cs">
       <DependentUpon>LaserSetupForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainCommunicationBus.cs" />
+    <Compile Include="LaserCommunicationBus.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -92,7 +92,7 @@
       <DependentUpon>OsdForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Parameters\IpEndpointParameters.cs" />
-    <Compile Include="Parameters\MainBusParameters.cs" />
+    <Compile Include="Parameters\LaserBusParameters.cs" />
     <Compile Include="Parameters\OsdParameters.cs" />
     <Compile Include="Parameters\ParameterAccessor.cs" />
     <Compile Include="Parameters\StepperMotorParameters.cs" />

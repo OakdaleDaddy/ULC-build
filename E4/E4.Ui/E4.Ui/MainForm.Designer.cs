@@ -30,11 +30,11 @@
       {
          this.components = new System.ComponentModel.Container();
          this.TitleLabel = new System.Windows.Forms.Label();
-         this.MainMotorPanel = new System.Windows.Forms.Panel();
+         this.TargetMotorPanel = new System.Windows.Forms.Panel();
          this.MainWheelManualDisplayButton = new E4.Ui.Controls.HoldButton();
          this.MainWheelMotorSetupButton = new E4.Ui.Controls.HoldButton();
          this.MainWheelSpeedToggleButton = new E4.Ui.Controls.ValueToggleButton();
-         this.MainWheelTitleLabel = new System.Windows.Forms.Label();
+         this.TargetWheelTitleLabel = new System.Windows.Forms.Label();
          this.MainWheelOffButton = new E4.Ui.Controls.HoldButton();
          this.MainWheelMoveButton = new E4.Ui.Controls.ValueButton();
          this.TxDirectionPanel = new E4.Ui.Controls.DirectionalValuePanel();
@@ -92,16 +92,18 @@
          this.SystemStatusButton = new E4.Ui.Controls.E4Button();
          this.SystemResetButton = new E4.Ui.Controls.HoldButton();
          this.ExitButton = new E4.Ui.Controls.HoldButton();
-         this.panel3 = new System.Windows.Forms.Panel();
+         this.LaserMotorPanel = new System.Windows.Forms.Panel();
          this.holdButton1 = new E4.Ui.Controls.HoldButton();
          this.holdButton2 = new E4.Ui.Controls.HoldButton();
          this.valueToggleButton1 = new E4.Ui.Controls.ValueToggleButton();
-         this.label1 = new System.Windows.Forms.Label();
+         this.LaserWheelTitleLabel = new System.Windows.Forms.Label();
          this.holdButton3 = new E4.Ui.Controls.HoldButton();
          this.valueButton1 = new E4.Ui.Controls.ValueButton();
          this.directionalValuePanel1 = new E4.Ui.Controls.DirectionalValuePanel();
          this.TitleSpacerPanel = new System.Windows.Forms.Panel();
-         this.MainMotorPanel.SuspendLayout();
+         this.SensorCenterButton = new E4.Ui.Controls.HoldButton();
+         this.TargetCenterButton = new E4.Ui.Controls.HoldButton();
+         this.TargetMotorPanel.SuspendLayout();
          this.CameraControlPanel.SuspendLayout();
          this.panel1.SuspendLayout();
          this.panel2.SuspendLayout();
@@ -109,7 +111,7 @@
          this.StatusPanel.SuspendLayout();
          this.LaserRangePanel.SuspendLayout();
          this.ControlPanel.SuspendLayout();
-         this.panel3.SuspendLayout();
+         this.LaserMotorPanel.SuspendLayout();
          this.SuspendLayout();
          // 
          // TitleLabel
@@ -125,20 +127,20 @@
          this.TitleLabel.Text = "    Element 4";
          this.TitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
          // 
-         // MainMotorPanel
+         // TargetMotorPanel
          // 
-         this.MainMotorPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(80)))), ((int)(((byte)(96)))));
-         this.MainMotorPanel.Controls.Add(this.MainWheelManualDisplayButton);
-         this.MainMotorPanel.Controls.Add(this.MainWheelMotorSetupButton);
-         this.MainMotorPanel.Controls.Add(this.MainWheelSpeedToggleButton);
-         this.MainMotorPanel.Controls.Add(this.MainWheelTitleLabel);
-         this.MainMotorPanel.Controls.Add(this.MainWheelOffButton);
-         this.MainMotorPanel.Controls.Add(this.MainWheelMoveButton);
-         this.MainMotorPanel.Controls.Add(this.TxDirectionPanel);
-         this.MainMotorPanel.Location = new System.Drawing.Point(1154, 99);
-         this.MainMotorPanel.Name = "MainMotorPanel";
-         this.MainMotorPanel.Size = new System.Drawing.Size(328, 371);
-         this.MainMotorPanel.TabIndex = 6;
+         this.TargetMotorPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(80)))), ((int)(((byte)(96)))));
+         this.TargetMotorPanel.Controls.Add(this.MainWheelManualDisplayButton);
+         this.TargetMotorPanel.Controls.Add(this.MainWheelMotorSetupButton);
+         this.TargetMotorPanel.Controls.Add(this.MainWheelSpeedToggleButton);
+         this.TargetMotorPanel.Controls.Add(this.TargetWheelTitleLabel);
+         this.TargetMotorPanel.Controls.Add(this.MainWheelOffButton);
+         this.TargetMotorPanel.Controls.Add(this.MainWheelMoveButton);
+         this.TargetMotorPanel.Controls.Add(this.TxDirectionPanel);
+         this.TargetMotorPanel.Location = new System.Drawing.Point(1154, 99);
+         this.TargetMotorPanel.Name = "TargetMotorPanel";
+         this.TargetMotorPanel.Size = new System.Drawing.Size(328, 371);
+         this.TargetMotorPanel.TabIndex = 6;
          // 
          // MainWheelManualDisplayButton
          // 
@@ -206,15 +208,15 @@
          this.MainWheelSpeedToggleButton.Text = "SPEED";
          this.MainWheelSpeedToggleButton.UseVisualStyleBackColor = false;
          // 
-         // MainWheelTitleLabel
+         // TargetWheelTitleLabel
          // 
-         this.MainWheelTitleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.MainWheelTitleLabel.Location = new System.Drawing.Point(3, 8);
-         this.MainWheelTitleLabel.Name = "MainWheelTitleLabel";
-         this.MainWheelTitleLabel.Size = new System.Drawing.Size(301, 23);
-         this.MainWheelTitleLabel.TabIndex = 140;
-         this.MainWheelTitleLabel.Text = "MAIN WHEELS";
-         this.MainWheelTitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         this.TargetWheelTitleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.TargetWheelTitleLabel.Location = new System.Drawing.Point(3, 8);
+         this.TargetWheelTitleLabel.Name = "TargetWheelTitleLabel";
+         this.TargetWheelTitleLabel.Size = new System.Drawing.Size(301, 23);
+         this.TargetWheelTitleLabel.TabIndex = 140;
+         this.TargetWheelTitleLabel.Text = "TARGET WHEELS";
+         this.TargetWheelTitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
          // 
          // MainWheelOffButton
          // 
@@ -702,6 +704,8 @@
          // LaserRangePanel
          // 
          this.LaserRangePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+         this.LaserRangePanel.Controls.Add(this.TargetCenterButton);
+         this.LaserRangePanel.Controls.Add(this.SensorCenterButton);
          this.LaserRangePanel.Controls.Add(this.SensorIndicator);
          this.LaserRangePanel.Controls.Add(this.label28);
          this.LaserRangePanel.Controls.Add(this.RecordLaserMeasurementButton);
@@ -1284,20 +1288,20 @@
          this.ExitButton.UseVisualStyleBackColor = false;
          this.ExitButton.HoldTimeout += new E4.Ui.Controls.HoldTimeoutHandler(this.ExitButton_HoldTimeout);
          // 
-         // panel3
+         // LaserMotorPanel
          // 
-         this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(80)))), ((int)(((byte)(96)))));
-         this.panel3.Controls.Add(this.holdButton1);
-         this.panel3.Controls.Add(this.holdButton2);
-         this.panel3.Controls.Add(this.valueToggleButton1);
-         this.panel3.Controls.Add(this.label1);
-         this.panel3.Controls.Add(this.holdButton3);
-         this.panel3.Controls.Add(this.valueButton1);
-         this.panel3.Controls.Add(this.directionalValuePanel1);
-         this.panel3.Location = new System.Drawing.Point(12, 99);
-         this.panel3.Name = "panel3";
-         this.panel3.Size = new System.Drawing.Size(328, 371);
-         this.panel3.TabIndex = 192;
+         this.LaserMotorPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(80)))), ((int)(((byte)(96)))));
+         this.LaserMotorPanel.Controls.Add(this.holdButton1);
+         this.LaserMotorPanel.Controls.Add(this.holdButton2);
+         this.LaserMotorPanel.Controls.Add(this.valueToggleButton1);
+         this.LaserMotorPanel.Controls.Add(this.LaserWheelTitleLabel);
+         this.LaserMotorPanel.Controls.Add(this.holdButton3);
+         this.LaserMotorPanel.Controls.Add(this.valueButton1);
+         this.LaserMotorPanel.Controls.Add(this.directionalValuePanel1);
+         this.LaserMotorPanel.Location = new System.Drawing.Point(12, 99);
+         this.LaserMotorPanel.Name = "LaserMotorPanel";
+         this.LaserMotorPanel.Size = new System.Drawing.Size(328, 371);
+         this.LaserMotorPanel.TabIndex = 192;
          // 
          // holdButton1
          // 
@@ -1365,15 +1369,15 @@
          this.valueToggleButton1.Text = "SPEED";
          this.valueToggleButton1.UseVisualStyleBackColor = false;
          // 
-         // label1
+         // LaserWheelTitleLabel
          // 
-         this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.label1.Location = new System.Drawing.Point(3, 8);
-         this.label1.Name = "label1";
-         this.label1.Size = new System.Drawing.Size(301, 23);
-         this.label1.TabIndex = 140;
-         this.label1.Text = "MAIN WHEELS";
-         this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         this.LaserWheelTitleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.LaserWheelTitleLabel.Location = new System.Drawing.Point(3, 8);
+         this.LaserWheelTitleLabel.Name = "LaserWheelTitleLabel";
+         this.LaserWheelTitleLabel.Size = new System.Drawing.Size(301, 23);
+         this.LaserWheelTitleLabel.TabIndex = 140;
+         this.LaserWheelTitleLabel.Text = "LASER WHEELS";
+         this.LaserWheelTitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
          // 
          // holdButton3
          // 
@@ -1453,6 +1457,40 @@
          this.TitleSpacerPanel.Size = new System.Drawing.Size(1262, 38);
          this.TitleSpacerPanel.TabIndex = 193;
          // 
+         // SensorCenterButton
+         // 
+         this.SensorCenterButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.SensorCenterButton.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
+         this.SensorCenterButton.DisabledForeColor = System.Drawing.Color.Gray;
+         this.SensorCenterButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
+         this.SensorCenterButton.ForeColor = System.Drawing.Color.Black;
+         this.SensorCenterButton.HoldArrorColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+         this.SensorCenterButton.HoldTimeoutEnable = true;
+         this.SensorCenterButton.HoldTimeoutInterval = 100;
+         this.SensorCenterButton.Location = new System.Drawing.Point(328, 225);
+         this.SensorCenterButton.Name = "SensorCenterButton";
+         this.SensorCenterButton.Size = new System.Drawing.Size(67, 67);
+         this.SensorCenterButton.TabIndex = 174;
+         this.SensorCenterButton.UseVisualStyleBackColor = false;
+         this.SensorCenterButton.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.SensorCenterButton_HelpRequested);
+         // 
+         // TargetCenterButton
+         // 
+         this.TargetCenterButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.TargetCenterButton.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
+         this.TargetCenterButton.DisabledForeColor = System.Drawing.Color.Gray;
+         this.TargetCenterButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
+         this.TargetCenterButton.ForeColor = System.Drawing.Color.Black;
+         this.TargetCenterButton.HoldArrorColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+         this.TargetCenterButton.HoldTimeoutEnable = true;
+         this.TargetCenterButton.HoldTimeoutInterval = 100;
+         this.TargetCenterButton.Location = new System.Drawing.Point(567, 225);
+         this.TargetCenterButton.Name = "TargetCenterButton";
+         this.TargetCenterButton.Size = new System.Drawing.Size(67, 67);
+         this.TargetCenterButton.TabIndex = 175;
+         this.TargetCenterButton.UseVisualStyleBackColor = false;
+         this.TargetCenterButton.HoldTimeout += new E4.Ui.Controls.HoldTimeoutHandler(this.TargetCenterButton_HoldTimeout);
+         // 
          // MainForm
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1460,7 +1498,7 @@
          this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
          this.ClientSize = new System.Drawing.Size(1920, 1092);
          this.Controls.Add(this.TitleSpacerPanel);
-         this.Controls.Add(this.panel3);
+         this.Controls.Add(this.LaserMotorPanel);
          this.Controls.Add(this.LaserRangePanel);
          this.Controls.Add(this.HeartbeatsDisabledLabel);
          this.Controls.Add(this.StatusPanel);
@@ -1470,7 +1508,7 @@
          this.Controls.Add(this.panel2);
          this.Controls.Add(this.panel1);
          this.Controls.Add(this.CameraControlPanel);
-         this.Controls.Add(this.MainMotorPanel);
+         this.Controls.Add(this.TargetMotorPanel);
          this.Controls.Add(this.TitleLabel);
          this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
          this.Name = "MainForm";
@@ -1478,7 +1516,7 @@
          this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
          this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
          this.Shown += new System.EventHandler(this.MainForm_Shown);
-         this.MainMotorPanel.ResumeLayout(false);
+         this.TargetMotorPanel.ResumeLayout(false);
          this.CameraControlPanel.ResumeLayout(false);
          this.panel1.ResumeLayout(false);
          this.panel2.ResumeLayout(false);
@@ -1487,7 +1525,7 @@
          this.StatusPanel.PerformLayout();
          this.LaserRangePanel.ResumeLayout(false);
          this.ControlPanel.ResumeLayout(false);
-         this.panel3.ResumeLayout(false);
+         this.LaserMotorPanel.ResumeLayout(false);
          this.ResumeLayout(false);
 
       }
@@ -1495,7 +1533,7 @@
       #endregion
 
       private System.Windows.Forms.Label TitleLabel;
-      private System.Windows.Forms.Panel MainMotorPanel;
+      private System.Windows.Forms.Panel TargetMotorPanel;
       private Controls.DirectionalValuePanel TxDirectionPanel;
       private Controls.ValueButton MainWheelMoveButton;
       private Controls.HoldButton MainWheelOffButton;
@@ -1533,7 +1571,7 @@
       private System.Windows.Forms.Label label17;
       private System.Windows.Forms.Label HeartbeatsDisabledLabel;
       private Controls.E4Button WriteOsdButton;
-      private System.Windows.Forms.Label MainWheelTitleLabel;
+      private System.Windows.Forms.Label TargetWheelTitleLabel;
       private System.Windows.Forms.Panel LaserRangePanel;
       private Controls.ValueToggleButton MainWheelSpeedToggleButton;
       private Controls.HoldButton MainWheelMotorSetupButton;
@@ -1555,17 +1593,19 @@
       private Controls.TextPanel LaserYawTickPanel;
       private Controls.TextPanel LaserPitchTickPanel;
       private Controls.TextPanel SensorPitchTickPanel;
-      private System.Windows.Forms.Panel panel3;
+      private System.Windows.Forms.Panel LaserMotorPanel;
       private Controls.HoldButton holdButton1;
       private Controls.HoldButton holdButton2;
       private Controls.ValueToggleButton valueToggleButton1;
-      private System.Windows.Forms.Label label1;
+      private System.Windows.Forms.Label LaserWheelTitleLabel;
       private Controls.HoldButton holdButton3;
       private Controls.ValueButton valueButton1;
       private Controls.DirectionalValuePanel directionalValuePanel1;
       private System.Windows.Forms.Panel TitleSpacerPanel;
       private System.Windows.Forms.Label label28;
       private Controls.ScannerIndicator SensorIndicator;
+      private Controls.HoldButton TargetCenterButton;
+      private Controls.HoldButton SensorCenterButton;
    }
 }
 

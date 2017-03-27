@@ -9,7 +9,7 @@
    using E4.PCANLight;
    using E4.Utilities;
 
-   public class MainCommunicationBus
+   public class LaserCommunicationBus
    {
       #region Definitions
 
@@ -18,14 +18,14 @@
       public enum BusComponentId
       {
          Bus,
-         MainBoard,
+         LaserBoard,
       }
 
       #endregion
 
       #region Fields
 
-      private static MainCommunicationBus instance = null;
+      private static LaserCommunicationBus instance = null;
 
       private bool execute;
       private Thread thread;
@@ -47,7 +47,7 @@
 
       private ArrayList deviceList;
 
-      private UlcRoboticsE4Main mainBoard;
+      private UlcRoboticsE4Main laserBoard;
 
       //private StepperMotorStatus bldc0Status;
       //private StepperMotorStatus bldc1Status;
@@ -89,10 +89,10 @@
          this.controllerServiced = false;
          this.stopAll = false;
 
-         this.mainBoard = new UlcRoboticsE4Main("main board", (byte)ParameterAccessor.Instance.MainBus.MainBoardBusId);
+         this.laserBoard = new UlcRoboticsE4Main("laser board", (byte)ParameterAccessor.Instance.LaserBus.LaserBoardBusId);
 
          this.deviceList = new ArrayList();
-         this.deviceList.Add(this.mainBoard);
+         this.deviceList.Add(this.laserBoard);
          
          foreach (Device device in this.deviceList)
          {
@@ -111,7 +111,7 @@
 
       private void SendControllerHeartBeat()
       {
-         int cobId = (int)(((int)COBTypes.ERROR << 7) | (ParameterAccessor.Instance.MainBus.ControllerBusId & 0x7F));
+         int cobId = (int)(((int)COBTypes.ERROR << 7) | (ParameterAccessor.Instance.LaserBus.ControllerBusId & 0x7F));
          byte[] heartbeatMsg = new byte[1];
 
          heartbeatMsg[0] = 5;
@@ -128,13 +128,13 @@
 
       #region Properties
 
-      public static MainCommunicationBus Instance
+      public static LaserCommunicationBus Instance
       {
          get
          {
             if (instance == null)
             {
-               instance = new MainCommunicationBus();
+               instance = new LaserCommunicationBus();
                instance.Initialize();
             }
 
@@ -224,12 +224,12 @@
 
       private void UpdateControllerHeartbeat()
       {
-         if ((0 != ParameterAccessor.Instance.MainBus.ProducerHeartbeatRate) &&
+         if ((0 != ParameterAccessor.Instance.LaserBus.ProducerHeartbeatRate) &&
              (false != this.controllerServiced) &&
              (DateTime.Now > this.controllerHeartbeatLimit))
          {
             this.SendControllerHeartBeat();
-            this.controllerHeartbeatLimit = this.controllerHeartbeatLimit.AddMilliseconds(ParameterAccessor.Instance.MainBus.ProducerHeartbeatRate);
+            this.controllerHeartbeatLimit = this.controllerHeartbeatLimit.AddMilliseconds(ParameterAccessor.Instance.LaserBus.ProducerHeartbeatRate);
          }
       }
 
@@ -293,11 +293,11 @@
 
       #endregion
 
-      #region Main Board Functions
+      #region Laser Board Functions
 
-      private void InitializeMainBoard()
+      private void InitializeLaserBoard()
       {
-         this.mainBoard.Initialize();
+         this.laserBoard.Initialize();
 
          this.laserAimSetPoint = false;
          this.laserAimRequested = false;
@@ -315,20 +315,31 @@
          this.stepper1Status.Initialize();
       }
 
-      private void StartMainBoard()
+      private void StartLaserBoard()
       {
-         this.mainBoard.SetConsumerHeartbeat((UInt16)ParameterAccessor.Instance.MainBus.ConsumerHeartbeatRate, (byte)ParameterAccessor.Instance.MainBus.ControllerBusId);
-         this.mainBoard.SetProducerHeartbeat((UInt16)ParameterAccessor.Instance.MainBus.ProducerHeartbeatRate);
+         this.laserBoard.SetConsumerHeartbeat((UInt16)ParameterAccessor.Instance.LaserBus.ConsumerHeartbeatRate, (byte)ParameterAccessor.Instance.LaserBus.ControllerBusId);
+         this.laserBoard.SetProducerHeartbeat((UInt16)ParameterAccessor.Instance.LaserBus.ProducerHeartbeatRate);
 
-         this.mainBoard.Configure(UlcRoboticsE4Main.UsageModes.laser);
-         this.mainBoard.Start();
+         this.laserBoard.Configure(UlcRoboticsE4Main.UsageModes.laser);
+         this.laserBoard.Start();
 
          Thread.Sleep(50);
 
-         this.stepper0Status.homeNeeded = (false == mainBoard.Stepper0.HomingAttained) ? true : false;
-         this.stepper1Status.homeNeeded = (false == mainBoard.Stepper1.HomingAttained) ? true : false;
+         this.stepper0Status.homeNeeded = (false == laserBoard.Stepper0.HomingAttained) ? true : false;
+         this.stepper1Status.homeNeeded = (false == laserBoard.Stepper1.HomingAttained) ? true : false;
       }
 
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="motor"></param>
+      /// <param name="status"></param>
+      /// <param name="parameters"></param>
+      /// <remarks>
+      /// request stop if stop all is requested
+      /// request home if home is not defined
+      /// request center after home is defined
+      /// </remarks>
       private void UpdateStepper(MotorComponent motor, StepperMotorStatus status, StepperMotorParameters parameters)
       {
          if (false != this.stopAll)
@@ -345,7 +356,8 @@
          }
          else if (false != status.homeNeeded)
          {
-            status.homeNeeded = false;     
+            status.homeNeeded = false;
+            status.centerNeeded = true;
 
             motor.SetHomeOffset(parameters.HomeOffset);
             motor.SetHomingSwitchSpeed((UInt32)parameters.HomingSwitchVelocity);
@@ -364,12 +376,37 @@
             motor.SetProfileAcceleration(parameters.ProfileAcceleration);
             Tracer.WriteHigh(TraceGroup.MBUS, "", "{0} position mode", motor.Name);
          }
+         else if (false != status.centerNeeded)
+         {
+            status.positionNeeded = parameters.CenterPosition;
+
+            if (status.positionRequested != status.positionNeeded)
+            {
+               motor.SetTargetPosition(status.positionNeeded, false);
+               status.positionRequested = status.positionNeeded;
+               status.actualNeeded = true;
+               Tracer.WriteHigh(TraceGroup.MBUS, "", "{0} position requested {1}", motor.Name, status.positionRequested);
+            }
+            else if ((false != motor.PositionAttained) && (false != status.actualNeeded))
+            {
+               status.centerNeeded = false;
+               motor.GetActualPosition(ref status.actualPosition);
+               status.actualNeeded = false;
+            }         
+         }
          else
          {
             if (status.positionRequested != status.positionNeeded)
             {
                motor.SetTargetPosition(status.positionNeeded, false);
                status.positionRequested = status.positionNeeded;
+               status.actualNeeded = true;
+               Tracer.WriteHigh(TraceGroup.MBUS, "", "{0} position requested {1}", motor.Name, status.positionRequested);
+            }
+            else if ((false != motor.PositionAttained) && (false != status.actualNeeded))
+            {
+               motor.GetActualPosition(ref status.actualPosition);
+               status.actualNeeded = false;
             }
          }
 
@@ -380,17 +417,17 @@
          }
       }
 
-      private void UpdateMainBoard()
+      private void UpdateLaserBoard()
       {
-         if ((null == this.mainBoard.FaultReason) &&
-             (null == this.mainBoard.Warning))
+         if ((null == this.laserBoard.FaultReason) &&
+             (null == this.laserBoard.Warning))
          {
             #region Motor Control
 
-            //this.UpdateBldc(this.mainBoard.Bldc0, this.bldc0Status, this.bldc0Parameters);
-            //this.UpdateBldc(this.mainBoard.Bldc1, this.bldc1Status, this.bldc1Parameters);
-            this.UpdateStepper(this.mainBoard.Stepper0, this.stepper0Status, ParameterAccessor.Instance.LaserXStepper);
-            this.UpdateStepper(this.mainBoard.Stepper1, this.stepper1Status, ParameterAccessor.Instance.LaserYStepper);
+            //this.UpdateBldc(this.laserBoard.Bldc0, this.bldc0Status, this.bldc0Parameters);
+            //this.UpdateBldc(this.laserBoard.Bldc1, this.bldc1Status, this.bldc1Parameters);
+            this.UpdateStepper(this.laserBoard.Stepper0, this.stepper0Status, ParameterAccessor.Instance.LaserXStepper);
+            this.UpdateStepper(this.laserBoard.Stepper1, this.stepper1Status, ParameterAccessor.Instance.LaserYStepper);
 
             #endregion
 
@@ -400,11 +437,11 @@
             {
                if (false != this.laserAimSetPoint)
                {
-                  this.mainBoard.SetLaserAimOn();
+                  this.laserBoard.SetLaserAimOn();
                }
                else
                {
-                  this.mainBoard.SetLaserAimOff();
+                  this.laserBoard.SetLaserAimOff();
                }
 
                this.laserAimRequested = this.laserAimSetPoint;
@@ -414,7 +451,7 @@
                 (false == this.laserMeasureStartRequested))
             {
                this.laserSampleCount = (int)ParameterAccessor.Instance.LaserSampleCount.OperationalValue;
-               this.mainBoard.StartLaserMeasurement(this.laserSampleCount, ParameterAccessor.Instance.LaserSampleTime.OperationalValue);
+               this.laserBoard.StartLaserMeasurement(this.laserSampleCount, ParameterAccessor.Instance.LaserSampleTime.OperationalValue);
                this.laserMeasureStartRequested = true;
 
                this.laserBecameActive = false;
@@ -425,14 +462,14 @@
             if ((false != this.needLaserMeasurementCancel) &&
                 (false == this.laserMeasureCancelRequested))
             {
-               this.mainBoard.CancelLaserMeasurement();
+               this.laserBoard.CancelLaserMeasurement();
                this.laserMeasureCancelRequested = true;
 
                this.needLaserMeasurementStart = false;
                this.laserMeasureStartRequested = false;
             }
 
-            bool laserMeasurementActive = this.mainBoard.LaserMeasurementActivity;
+            bool laserMeasurementActive = this.laserBoard.LaserMeasurementActivity;
 
             if (false != laserMeasurementActive)
             {
@@ -443,7 +480,7 @@
                 (false != this.laserBecameActive) &&
                 (false == laserMeasurementActive))
             {
-               UInt32 laserMeasurementCounts = this.mainBoard.GetAverageLaserDistance();
+               UInt32 laserMeasurementCounts = this.laserBoard.GetAverageLaserDistance();
                this.laserAverageMeasurement = laserMeasurementCounts * ParameterAccessor.Instance.LaserMeasurementConstant.OperationalValue;
 
                this.needLaserMeasurementStart = false;
@@ -488,14 +525,14 @@
          this.deviceResetQueue.Clear();
          this.deviceClearWarningQueue.Clear();
 
-         this.mainBoard.NodeId = (byte)ParameterAccessor.Instance.MainBus.MainBoardBusId;
+         this.laserBoard.NodeId = (byte)ParameterAccessor.Instance.LaserBus.LaserBoardBusId;
 
-         this.TraceMask = ParameterAccessor.Instance.MainBus.ControllerTraceMask;
-         this.mainBoard.TraceMask = ParameterAccessor.Instance.MainBus.MainBoardTraceMask;
+         this.TraceMask = ParameterAccessor.Instance.LaserBus.ControllerTraceMask;
+         this.laserBoard.TraceMask = ParameterAccessor.Instance.LaserBus.MainBoardTraceMask;
 
          this.stopAll = false;
 
-         this.InitializeMainBoard();
+         this.InitializeLaserBoard();
       }
 
       private void StartBus()
@@ -504,8 +541,8 @@
 
          if (false == this.busReady)
          {
-            this.busInterfaceId = ParameterAccessor.Instance.MainBus.BusInterface;
-            CANResult startResult = PCANLight.Start(this.busInterfaceId, ParameterAccessor.Instance.MainBus.BitRate, FramesType.INIT_TYPE_ST, TraceGroup.MBUS, this.BusReceiveHandler);
+            this.busInterfaceId = ParameterAccessor.Instance.LaserBus.BusInterface;
+            CANResult startResult = PCANLight.Start(this.busInterfaceId, ParameterAccessor.Instance.LaserBus.BitRate, FramesType.INIT_TYPE_ST, TraceGroup.MBUS, this.BusReceiveHandler);
             this.busReady = (CANResult.ERR_OK == startResult);
          }
 
@@ -582,13 +619,13 @@
             {
                BusComponentId id = (BusComponentId)request.Id;
 
-               if (BusComponentId.MainBoard == id)
+               if (BusComponentId.LaserBoard == id)
                {
-                  this.InitializeMainBoard();
-                  this.mainBoard.Initialize();
-                  this.mainBoard.Reset();
-                  this.WaitDeviceHeartbeat(this.mainBoard);
-                  this.StartMainBoard();
+                  this.InitializeLaserBoard();
+                  this.laserBoard.Initialize();
+                  this.laserBoard.Reset();
+                  this.WaitDeviceHeartbeat(this.laserBoard);
+                  this.StartLaserBoard();
                }
 
                if (null != request.OnComplete)
@@ -628,9 +665,9 @@
             {
                BusComponentId id = (BusComponentId)request.Id;
 
-               if (BusComponentId.MainBoard == id)
+               if (BusComponentId.LaserBoard == id)
                {
-                  this.mainBoard.ClearWarning();
+                  this.laserBoard.ClearWarning();
                }
 
                if (null != request.OnComplete)
@@ -651,15 +688,15 @@
       private void ExecuteProcessLoop()
       {
          this.controllerServiced = true;
-         this.controllerHeartbeatLimit = DateTime.Now.AddMilliseconds(ParameterAccessor.Instance.MainBus.ProducerHeartbeatRate);
+         this.controllerHeartbeatLimit = DateTime.Now.AddMilliseconds(ParameterAccessor.Instance.LaserBus.ProducerHeartbeatRate);
 
-         this.StartMainBoard();
+         this.StartLaserBoard();
 
          this.ready = true;
 
          for (; this.execute; )
          {
-            this.UpdateMainBoard();
+            this.UpdateLaserBoard();
             this.UpdateDeviceReset();
             this.UpdateDeviceClearWarning();
 
@@ -675,8 +712,8 @@
          Thread.Sleep(200);
          PCANLight.Stop(this.busInterfaceId);
 
-         ParameterAccessor.Instance.MainBus.ControllerTraceMask = this.TraceMask;
-         ParameterAccessor.Instance.MainBus.MainBoardTraceMask = this.mainBoard.TraceMask;
+         ParameterAccessor.Instance.LaserBus.ControllerTraceMask = this.TraceMask;
+         ParameterAccessor.Instance.LaserBus.MainBoardTraceMask = this.laserBoard.TraceMask;
       }
 
       private void Process()
@@ -728,7 +765,7 @@
 
       #region Constructor
 
-      private MainCommunicationBus()
+      private LaserCommunicationBus()
       {
       }
 
@@ -796,11 +833,11 @@
          {
             if (this.GetFaultStatus(BusComponentId.Bus) != null)
             {
-               result = "main communication offline";
+               result = "laser communication offline";
             }
-            else if (this.GetFaultStatus(BusComponentId.MainBoard) != null)
+            else if (this.GetFaultStatus(BusComponentId.LaserBoard) != null)
             {
-               result = "main board offline";
+               result = "laser board offline";
             }
          }
 
@@ -822,9 +859,9 @@
             {
                result = this.busStatus;
             }
-            else if (BusComponentId.MainBoard == id)
+            else if (BusComponentId.LaserBoard == id)
             {
-               result = this.mainBoard.FaultReason;
+               result = this.laserBoard.FaultReason;
             }
          }
          else
@@ -848,11 +885,11 @@
          {
             if (this.GetWarningStatus(BusComponentId.Bus) != null)
             {
-               result = "main communication offline";
+               result = "laser communication offline";
             }
-            else if (this.GetWarningStatus(BusComponentId.MainBoard) != null)
+            else if (this.GetWarningStatus(BusComponentId.LaserBoard) != null)
             {
-               result = "main board offline";
+               result = "laser board offline";
             }
          }
 
@@ -873,9 +910,9 @@
             if (BusComponentId.Bus == id)
             {
             }
-            else if (BusComponentId.MainBoard == id)
+            else if (BusComponentId.LaserBoard == id)
             {
-               result = this.mainBoard.Warning;
+               result = this.laserBoard.Warning;
             }
          }
          else
@@ -893,9 +930,9 @@
 
          if (false != this.Running)
          {
-            if (BusComponentId.MainBoard == id)
+            if (BusComponentId.LaserBoard == id)
             {
-               result = this.mainBoard;
+               result = this.laserBoard;
             }
          }
 
@@ -956,7 +993,7 @@
 
          if (false != this.running)
          {
-            result = this.mainBoard.LaserMeasurementActivity;
+            result = this.laserBoard.LaserMeasurementActivity;
          }
 
          return (result);
@@ -968,7 +1005,7 @@
 
          if (false != this.running)
          {
-            result = this.laserSampleCount - this.mainBoard.LaserSampleNumber;
+            result = this.laserSampleCount - this.laserBoard.LaserSampleNumber;
          }
 
          return (result);
@@ -980,7 +1017,7 @@
 
          if (false != this.running)
          {
-            result = this.mainBoard.LaserMeasurementReady;
+            result = this.laserBoard.LaserMeasurementReady;
          }
 
          return (result);
@@ -1014,6 +1051,32 @@
       public int GetLaserStepperYActualPosition()
       {
          int result = this.stepper1Status.actualPosition;
+         return (result);      
+      }
+
+      public bool LaserXPositionObtained()
+      {
+         bool result = false;
+
+         if ((this.stepper0Status.positionRequested == this.stepper0Status.positionNeeded) &&
+             (false != this.laserBoard.Stepper0.PositionAttained))
+         {
+            result = true;
+         }
+
+         return (result);
+      }
+
+      public bool LaserYPositionObtained()
+      {
+         bool result = false;
+
+         if ((this.stepper1Status.positionRequested == this.stepper1Status.positionNeeded) &&
+             (false != this.laserBoard.Stepper1.PositionAttained))
+         {
+            result = true;
+         }
+
          return (result);
       }
 

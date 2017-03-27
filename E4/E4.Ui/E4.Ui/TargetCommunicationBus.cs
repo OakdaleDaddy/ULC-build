@@ -49,6 +49,8 @@
 
       private UlcRoboticsE4Main targetBoard;
 
+      private StepperMotorStatus stepperStatus;
+
       #endregion
 
       #region Helper Functions
@@ -87,6 +89,8 @@
             device.OnFault = new Device.FaultHandler(this.DeviceFault);
             device.OnWarning = new Device.WarningHandler(this.DeviceWarning);
          }
+
+         this.stepperStatus = new StepperMotorStatus();
       }
 
       private void SendControllerHeartBeat()
@@ -273,11 +277,13 @@
 
       #endregion
 
-      #region Main Board Functions
+      #region Target Board Functions
 
       private void InitializeTargetBoard()
       {
          this.targetBoard.Initialize();
+
+         this.stepperStatus.Initialize();
       }
 
       private void StartTargetBoard()
@@ -289,6 +295,61 @@
          this.targetBoard.Start();
 
          Thread.Sleep(50);
+
+         this.stepperStatus.homeNeeded = (false == targetBoard.Stepper0.HomingAttained) ? true : false;
+      }
+
+      private void UpdateStepper(MotorComponent motor, StepperMotorStatus status, StepperMotorParameters parameters)
+      {
+         if (false != this.stopAll)
+         {
+            if (MotorComponent.Modes.homing == motor.Mode)
+            {
+               motor.StopHoming();
+            }
+
+            if (MotorComponent.Modes.off != motor.Mode)
+            {
+               motor.SetMode(MotorComponent.Modes.off);
+            }
+         }
+         else if (false != status.homeNeeded)
+         {
+            status.homeNeeded = false;
+
+            motor.SetHomeOffset(parameters.HomeOffset);
+            motor.SetHomingSwitchSpeed((UInt32)parameters.HomingSwitchVelocity);
+            motor.SetHomingZeroSpeed((UInt32)parameters.HomingZeroVelocity);
+            motor.SetHomingAcceleration((UInt32)parameters.HomingAcceleration);
+            motor.SetMode(MotorComponent.Modes.homing);
+            motor.StartHoming();
+            Tracer.WriteHigh(TraceGroup.MBUS, "", "{0} homing", motor.Name);
+
+            status.positionRequested = 0;
+         }
+         else if ((false != motor.HomingAttained) && (MotorComponent.Modes.position != motor.Mode))
+         {
+            motor.SetMode(MotorComponent.Modes.position);
+            motor.SetProfileVelocity(parameters.ProfileVelocity);
+            motor.SetProfileAcceleration(parameters.ProfileAcceleration);
+            status.positionNeeded = parameters.CenterPosition;
+            Tracer.WriteHigh(TraceGroup.MBUS, "", "{0} position mode", motor.Name);
+         }
+         else
+         {
+            if (status.positionRequested != status.positionNeeded)
+            {
+               motor.SetTargetPosition(status.positionNeeded, false);
+               status.positionRequested = status.positionNeeded;
+               Tracer.WriteHigh(TraceGroup.MBUS, "", "{0} position requested {1}", motor.Name, status.positionRequested);
+            }
+         }
+
+         if (DateTime.Now > status.readTimeLimit)
+         {
+            motor.GetActualPosition(ref status.actualPosition);
+            status.readTimeLimit = DateTime.Now.AddMilliseconds(250);
+         }
       }
 
       private void UpdateTargetBoard()
@@ -296,10 +357,11 @@
          if ((null == this.targetBoard.FaultReason) &&
              (null == this.targetBoard.Warning))
          {
-            if (false != this.stopAll)
-            {
-               // stop motors...
-            }
+            #region Motor Control
+
+            this.UpdateStepper(this.targetBoard.Stepper0, this.stepperStatus, ParameterAccessor.Instance.TargetStepper);
+
+            #endregion
          }
       }
 
@@ -789,12 +851,25 @@
 
       public void SetTargetStepperPosition(int position)
       {
-         //this.stepper0Status.positionNeeded = position;
+         this.stepperStatus.positionNeeded = position;
       }
 
       public int GetTargetStepperActualPosition()
       {
          int result = this.targetBoard.Stepper0.ActualPosition;
+         return (result);
+      }
+
+      public bool TargetPositionObtained()
+      {
+         bool result = false;
+
+         if ((this.stepperStatus.positionRequested == this.stepperStatus.positionNeeded) &&
+             (false != this.targetBoard.Stepper0.PositionAttained))
+         {
+            result = true;
+         }
+
          return (result);
       }
 

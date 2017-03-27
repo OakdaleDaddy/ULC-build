@@ -84,7 +84,7 @@
             VideoStampOsd.Instance.Configure(ParameterAccessor.Instance.Osd);
             Tracer.WriteHigh(TraceGroup.COMM, null, "osd init complete");
 
-            MainCommunicationBus.Instance.Start();
+            LaserCommunicationBus.Instance.Start();
             TargetCommunicationBus.Instance.Start();
 
             bool waiting = true;
@@ -95,7 +95,7 @@
 
                Thread.Sleep(50);
 
-               busReady = (busReady && MainCommunicationBus.Instance.Ready);
+               busReady = (busReady && LaserCommunicationBus.Instance.Ready);
                busReady = (busReady && TargetCommunicationBus.Instance.Ready);
 
                waiting = (waiting && this.execute);
@@ -111,7 +111,7 @@
 
          try
          {
-            MainCommunicationBus.Instance.Stop();
+            LaserCommunicationBus.Instance.Stop();
             TargetCommunicationBus.Instance.Stop();
 
             bool waiting = true;
@@ -123,7 +123,7 @@
 
                Thread.Sleep(50);
 
-               busRunning = (busRunning || MainCommunicationBus.Instance.Running);
+               busRunning = (busRunning || LaserCommunicationBus.Instance.Running);
                busRunning = (busRunning || TargetCommunicationBus.Instance.Running);
 
                waiting = (waiting && busRunning);
@@ -185,19 +185,19 @@
 
       public void Service()
       {
-         MainCommunicationBus.Instance.Service();
+         LaserCommunicationBus.Instance.Service();
          TargetCommunicationBus.Instance.Service();
       }
 
       public string GetMainFaultStatus()
       {
-         string result = MainCommunicationBus.Instance.GetFaultStatus();
+         string result = LaserCommunicationBus.Instance.GetFaultStatus();
          return (result);
       }
 
       public string GetMainWarningStatus()
       {
-         string result = MainCommunicationBus.Instance.GetWarningStatus();
+         string result = LaserCommunicationBus.Instance.GetWarningStatus();
          return (result);
       }
 
@@ -222,7 +222,7 @@
          }
 #endif
 
-         MainCommunicationBus.Instance.StopAll();
+         LaserCommunicationBus.Instance.StopAll();
          TargetCommunicationBus.Instance.StopAll();
       }
 
@@ -232,42 +232,42 @@
 
       public void SetLaserAim(bool on)
       {
-         MainCommunicationBus.Instance.SetLaserAim(on);      
+         LaserCommunicationBus.Instance.SetLaserAim(on);      
       }
 
       public bool GetLaserAim()
       {
-         return (MainCommunicationBus.Instance.GetLaserAim());
+         return (LaserCommunicationBus.Instance.GetLaserAim());
       }
 
       public void StartLaserMeasurement()
       {
-         MainCommunicationBus.Instance.StartLaserMeasurement();      
+         LaserCommunicationBus.Instance.StartLaserMeasurement();      
       }
 
       public void CancelLaserMeasurement()
       {
-         MainCommunicationBus.Instance.CancelLaserMeasurement();      
+         LaserCommunicationBus.Instance.CancelLaserMeasurement();      
       }
 
       public bool GetLaserMeasurementActivity()
       {
-         return (MainCommunicationBus.Instance.GetLaserMeasurementActivity());
+         return (LaserCommunicationBus.Instance.GetLaserMeasurementActivity());
       }
 
       public int GetLaserSampleRemainingCount()
       {
-         return (MainCommunicationBus.Instance.GetLaserSampleRemainingCount());
+         return (LaserCommunicationBus.Instance.GetLaserSampleRemainingCount());
       }
 
       public bool GetLaserMeasurementReady()
       {
-         return (MainCommunicationBus.Instance.GetLaserMeasurementReady());
+         return (LaserCommunicationBus.Instance.GetLaserMeasurementReady());
       }
 
       public double GetAverageLaserMeasurement()
       {
-         return (MainCommunicationBus.Instance.GetAverageLaserMeasurement());
+         return (LaserCommunicationBus.Instance.GetAverageLaserMeasurement());
       }
 
       public UInt32 GetLaserScannerCoordinates()
@@ -281,12 +281,12 @@
 
       public void SetLaserStepperXPosition(int position)
       {
-         MainCommunicationBus.Instance.SetLaserStepperXPosition(position);
+         LaserCommunicationBus.Instance.SetLaserStepperXPosition(position);
       }
 
       public void SetLaserStepperYPosition(int position)
       {
-         MainCommunicationBus.Instance.SetLaserStepperYPosition(position);
+         LaserCommunicationBus.Instance.SetLaserStepperYPosition(position);
       }
 
       public void SetTargetStepperPosition(int position)
@@ -296,17 +296,32 @@
 
       public int GetLaserStepperXActualPosition()
       {
-         return(MainCommunicationBus.Instance.GetLaserStepperXActualPosition());
+         return(LaserCommunicationBus.Instance.GetLaserStepperXActualPosition());
       }
 
       public int GetLaserStepperYActualPosition()
       {
-         return (MainCommunicationBus.Instance.GetLaserStepperYActualPosition());
+         return (LaserCommunicationBus.Instance.GetLaserStepperYActualPosition());
       }
 
       public int GetTargetStepperActualPosition()
       {
          return (TargetCommunicationBus.Instance.GetTargetStepperActualPosition());
+      }
+
+      public bool LaserXPositionObtained()
+      {
+         return (LaserCommunicationBus.Instance.LaserXPositionObtained());
+      }
+
+      public bool LaserYPositionObtained()
+      {
+         return (LaserCommunicationBus.Instance.LaserYPositionObtained());
+      }
+
+      public bool TargetPositionObtained()
+      {
+         return (TargetCommunicationBus.Instance.TargetPositionObtained());
       }
 
       #endregion

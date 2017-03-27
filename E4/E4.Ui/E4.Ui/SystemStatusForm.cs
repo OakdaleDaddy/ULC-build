@@ -237,8 +237,8 @@
       private void UpdateText()
       {
          this.SetComponentText(Joystick.Instance.FaultReason, null, null, this.JoystickStatusTextBox);
-         this.SetComponentText(MainCommunicationBus.BusComponentId.Bus, MainCommunicationBus.Instance.GetStatus, MainCommunicationBus.Instance.GetDevice, this.MainBusStatusTextBox);
-         this.SetComponentText(MainCommunicationBus.BusComponentId.MainBoard, MainCommunicationBus.Instance.GetStatus, MainCommunicationBus.Instance.GetDevice, this.MainBoardStatusTextBox);
+         this.SetComponentText(LaserCommunicationBus.BusComponentId.Bus, LaserCommunicationBus.Instance.GetStatus, LaserCommunicationBus.Instance.GetDevice, this.MainBusStatusTextBox);
+         this.SetComponentText(LaserCommunicationBus.BusComponentId.LaserBoard, LaserCommunicationBus.Instance.GetStatus, LaserCommunicationBus.Instance.GetDevice, this.LaserBoardStatusTextBox);
 
          this.SetComponentText(TargetCommunicationBus.BusComponentId.Bus, TargetCommunicationBus.Instance.GetStatus, TargetCommunicationBus.Instance.GetDevice, this.TargetBusStatusTextBox);
          this.SetComponentText(TargetCommunicationBus.BusComponentId.TargetBoard, TargetCommunicationBus.Instance.GetStatus, TargetCommunicationBus.Instance.GetDevice, this.TargetBoardStatusTextBox);
@@ -277,14 +277,14 @@
 
       #region User Events
 
-      private void MainBoardLabel_Click(object sender, EventArgs e)
+      private void LaserBoardLabel_Click(object sender, EventArgs e)
       {
-         this.LaunchCANDeviceInformationForm(this.MainBoardLabel, MainCommunicationBus.BusComponentId.MainBoard, MainCommunicationBus.Instance.GetDevice, MainCommunicationBus.Instance.RestartDevice, MainCommunicationBus.Instance.ClearDeviceWarning);
+         this.LaunchCANDeviceInformationForm(this.LaserBoardLabel, LaserCommunicationBus.BusComponentId.LaserBoard, LaserCommunicationBus.Instance.GetDevice, LaserCommunicationBus.Instance.RestartDevice, LaserCommunicationBus.Instance.ClearDeviceWarning);
       }
 
       private void TargetBoardLabel_Click(object sender, EventArgs e)
       {
-         this.LaunchCANDeviceInformationForm(this.MainBoardLabel, TargetCommunicationBus.BusComponentId.TargetBoard, TargetCommunicationBus.Instance.GetDevice, TargetCommunicationBus.Instance.RestartDevice, TargetCommunicationBus.Instance.ClearDeviceWarning);
+         this.LaunchCANDeviceInformationForm(this.TargetBoardLabel, TargetCommunicationBus.BusComponentId.TargetBoard, TargetCommunicationBus.Instance.GetDevice, TargetCommunicationBus.Instance.RestartDevice, TargetCommunicationBus.Instance.ClearDeviceWarning);
       }
 
       private void TriggerDefaultsButton_HoldTimeout(object sender, Controls.HoldTimeoutEventArgs e)
@@ -365,8 +365,8 @@
 
       private void MainBusHeartbeatButton_Click(object sender, EventArgs e)
       {
-         MainCommunicationBus.Instance.TraceHB = !MainCommunicationBus.Instance.TraceHB;
-         this.SetLogSelect(this.MainBusHeartbeatButton, MainCommunicationBus.Instance.TraceHB);
+         LaserCommunicationBus.Instance.TraceHB = !LaserCommunicationBus.Instance.TraceHB;
+         this.SetLogSelect(this.MainBusHeartbeatButton, LaserCommunicationBus.Instance.TraceHB);
       }
 
       private void TargetBusHeartbeatButton_Click(object sender, EventArgs e)
@@ -414,7 +414,7 @@
          this.ShowSettings();
          this.UpdateTimer.Enabled = true;
 
-         this.SetLogSelect(this.MainBusHeartbeatButton, MainCommunicationBus.Instance.TraceHB);
+         this.SetLogSelect(this.MainBusHeartbeatButton, LaserCommunicationBus.Instance.TraceHB);
          this.SetLogSelect(this.TargetBusHeartbeatButton, TargetCommunicationBus.Instance.TraceHB);
       }
 
