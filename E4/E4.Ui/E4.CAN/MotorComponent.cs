@@ -903,38 +903,24 @@ namespace E4.CAN
          return (result);
       }
 
-      public bool HaltHoming()
+      public bool Halt()
       {
          bool result = true;
 
-         if (Modes.homing == this.Mode)
-         {
-            UInt16 controlWord = this.controlWord;
-            controlWord |= 0x0100;
-            result &= this.SetControlWord(controlWord);
-         }
-         else
-         {
-            result = false;
-         }
+         UInt16 controlWord = this.controlWord;
+         controlWord |= 0x0100;
+         result &= this.SetControlWord(controlWord);
 
          return (result);
       }
 
-      public bool RunHoming()
+      public bool Run()
       {
          bool result = true;
 
-         if (Modes.homing == this.Mode)
-         {
-            UInt16 controlWord = this.controlWord;
-            controlWord &= 0xFEFF;
-            result &= this.SetControlWord(controlWord);
-         }
-         else
-         {
-            result = false;
-         }
+         UInt16 controlWord = this.controlWord;
+         controlWord &= 0xFEFF;
+         result &= this.SetControlWord(controlWord);
 
          return (result);
       }

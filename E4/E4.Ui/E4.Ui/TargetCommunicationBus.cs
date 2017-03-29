@@ -849,9 +849,19 @@
 
       #region Laser Stepper Functions
 
+      public void SetTargetCenter()
+      {
+         this.stepperStatus.centerNeeded = true;
+      }
+
       public void SetTargetStepperPosition(int position)
       {
          this.stepperStatus.positionNeeded = position;
+      }
+
+      public void StopTargetStepper()
+      {
+         this.stepperStatus.stopNeeded = true;
       }
 
       public int GetTargetStepperActualPosition()
@@ -862,14 +872,7 @@
 
       public bool TargetPositionObtained()
       {
-         bool result = false;
-
-         if ((this.stepperStatus.positionRequested == this.stepperStatus.positionNeeded) &&
-             (false != this.targetBoard.Stepper0.PositionAttained))
-         {
-            result = true;
-         }
-
+         bool result = this.targetBoard.Stepper0.PositionAttained;
          return (result);
       }
 

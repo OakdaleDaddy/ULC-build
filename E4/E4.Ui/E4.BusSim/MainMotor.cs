@@ -32,7 +32,7 @@
          notReadyToSwitchOnFaulted,
       }
 
-      private enum HomingHaltStates
+      private enum HaltStates
       {
          notHalted,
          halting,
@@ -64,7 +64,7 @@
       private DateTime updateTime;
       private DateTime lastUpdateTime;
 
-      private HomingHaltStates homingHaltState;
+      private HaltStates haltState;
       private HomingRunStates homingRunState;
       private double activeHomingAcceleration;
       private double activeHomingTargetVelocity;
@@ -496,7 +496,7 @@
             {
                //this.positionFault = false;
                //this.ErrorCode = 0;
-               this.homingHaltState = HomingHaltStates.notHalted;
+               this.haltState = HaltStates.notHalted;
                this.homingRunState = HomingRunStates.idle;
             }
          }
@@ -561,7 +561,14 @@
          {
             if (1 == this.GetMode)
             {
-               if (this.TargetPosition == this.PositionActualValue)
+               if ((this.ControlWord & 0x0100) != 0)
+               {
+                  if (0 == this.VelocityActualValue)
+                  {
+                     result |= 0x400;
+                  }
+               }
+               else if (this.TargetPosition == this.PositionActualValue)
                {
                   result |= 0x400;
                }
@@ -630,32 +637,71 @@
 
       private void UpdatePositionMode(double targetPosition, double velocityTarget, double acceleration, double deceleration, double elapsedSeconds)
       {
-         if (this.PositionActualValue != targetPosition)
+         bool halted = ((this.ControlWord & 0x0100) != 0) ? true : false;
+
+         if (HaltStates.notHalted == this.haltState)
          {
-            double remaining = targetPosition - this.PositionActualValue;
-
-            if (this.PositionActualValue > targetPosition)
+            if (false != halted)
             {
-               velocityTarget = -velocityTarget;
-            }
-
-            if (0 != this.VelocityActualValue)
-            {
-               double timeRemaining = Math.Abs(remaining) / Math.Abs(this.VelocityActualValue);
-               double timeForSlow = (Math.Abs(this.VelocityActualValue) - 10) / deceleration;
-
-               if (timeRemaining < timeForSlow)
+               if (0 == this.VelocityActualValue)
                {
-                  velocityTarget = (remaining > 0) ? 10 : -10;
+                  this.haltState = HaltStates.halted;
+               }
+               else
+               {
+                  this.activeHomingAcceleration = this.HomingAcceleration;
+                  this.activeHomingTargetVelocity = 0;
+
+                  this.haltState = HaltStates.halting;
                }
             }
+            else
+            {
+               if (this.PositionActualValue != targetPosition)
+               {
+                  double remaining = targetPosition - this.PositionActualValue;
 
-            this.UpdateVelocity(velocityTarget, acceleration, deceleration, elapsedSeconds);
-            this.UpdatePosition(elapsedSeconds);
+                  if (this.PositionActualValue > targetPosition)
+                  {
+                     velocityTarget = -velocityTarget;
+                  }
+
+                  if (0 != this.VelocityActualValue)
+                  {
+                     double timeRemaining = Math.Abs(remaining) / Math.Abs(this.VelocityActualValue);
+                     double timeForSlow = (Math.Abs(this.VelocityActualValue) - 10) / deceleration;
+
+                     if (timeRemaining < timeForSlow)
+                     {
+                        velocityTarget = (remaining > 0) ? 10 : -10;
+                     }
+                  }
+
+                  this.UpdateVelocity(velocityTarget, acceleration, deceleration, elapsedSeconds);
+                  this.UpdatePosition(elapsedSeconds);
+               }
+               else
+               {
+                  this.VelocityActualValue = 0;
+               }
+            }
          }
-         else
+         else if (HaltStates.halting == this.haltState)
          {
-            this.VelocityActualValue = 0;
+            this.UpdateVelocity(0, acceleration, deceleration, elapsedSeconds);
+            this.UpdatePosition(elapsedSeconds);
+
+            if (0 == this.VelocityActualValue)
+            {
+               this.haltState = HaltStates.halted;
+            }
+         }
+         else if (HaltStates.halted == this.haltState)
+         {
+            if (false == halted)
+            {
+               this.haltState = HaltStates.notHalted;
+            }
          }
       }
 
@@ -672,23 +718,23 @@
 
          this.UpdatePositionMode(this.activeHomingTargetPosition, this.activeHomingTargetVelocity, this.activeHomingAcceleration, this.activeHomingAcceleration, elapsedSeconds);
 
-         if ((HomingHaltStates.notHalted == this.homingHaltState))
+         if (HaltStates.notHalted == this.haltState)
          {
-            if ((false != halted))
+            if (false != halted)
             {
-               if ((0 == this.VelocityActualValue))
+               if (0 == this.VelocityActualValue)
                {
-                  this.homingHaltState = HomingHaltStates.halted;
+                  this.haltState = HaltStates.halted;
                }
                else
                {
                   this.activeHomingAcceleration = this.HomingAcceleration;
                   this.activeHomingTargetVelocity = 0;
 
-                  this.homingHaltState = HomingHaltStates.halting;
+                  this.haltState = HaltStates.halting;
                }
             }
-            else if ((HomingRunStates.idle == this.homingRunState))
+            else if (HomingRunStates.idle == this.homingRunState)
             {
                if ((false != active))
                {
@@ -701,11 +747,11 @@
             }
             else
             {
-               if ((false == active))
+               if (false == active)
                {
                   this.homingRunState = HomingRunStates.idle;
                }
-               else if ((HomingRunStates.toSwitch == this.homingRunState))
+               else if (HomingRunStates.toSwitch == this.homingRunState)
                {
                   if (false != this.homingSwitchActive)
                   {
@@ -714,8 +760,12 @@
 
                      this.homingRunState = HomingRunStates.stopFromToSwitch;
                   }
+                  else
+                  {
+                     this.activeHomingTargetVelocity = this.HomingSwitchSpeed;
+                  }
                }
-               else if ((HomingRunStates.stopFromToSwitch == this.homingRunState))
+               else if (HomingRunStates.stopFromToSwitch == this.homingRunState)
                {
                   if (0 == this.VelocityActualValue)
                   {
@@ -725,8 +775,12 @@
 
                      this.homingRunState = HomingRunStates.fromSwitch;
                   }
+                  else
+                  {
+                     this.activeHomingTargetVelocity = 0;
+                  }
                }
-               else if ((HomingRunStates.fromSwitch == this.homingRunState))
+               else if (HomingRunStates.fromSwitch == this.homingRunState)
                {
                   if (false == this.homingSwitchActive)
                   {
@@ -735,8 +789,12 @@
 
                      this.homingRunState = HomingRunStates.stopFromFromSwitch;
                   }
+                  else
+                  {
+                     this.activeHomingTargetVelocity = this.HomingZeroSpeed;
+                  }
                }
-               else if ((HomingRunStates.stopFromFromSwitch == this.homingRunState))
+               else if (HomingRunStates.stopFromFromSwitch == this.homingRunState)
                {
                   if (0 == this.VelocityActualValue)
                   {
@@ -746,10 +804,14 @@
 
                      this.homingRunState = HomingRunStates.moveOffset;
                   }
+                  else
+                  {
+                     this.activeHomingTargetVelocity = 0;
+                  }
                }
-               else if ((HomingRunStates.moveOffset == this.homingRunState))
+               else if (HomingRunStates.moveOffset == this.homingRunState)
                {
-                  if ((this.activeHomingTargetPosition == this.PositionActualValue))
+                  if (this.activeHomingTargetPosition == this.PositionActualValue)
                   {
                      this.activeHomingAcceleration = this.HomingAcceleration;
                      this.activeHomingTargetVelocity = 0;
@@ -762,24 +824,24 @@
                      this.homingRunState = HomingRunStates.attained;
                   }
                }
-               else if ((HomingRunStates.attained == this.homingRunState))
+               else if (HomingRunStates.attained == this.homingRunState)
                {
                }
             }
          }
-         else if ((HomingHaltStates.halting == this.homingHaltState))
+         else if (HaltStates.halting == this.haltState)
          {
             if (0 == this.VelocityActualValue)
             {
-               this.homingHaltState = HomingHaltStates.halted;
+               this.haltState = HaltStates.halted;
             }
          }
-         else if ((HomingHaltStates.halted == this.homingHaltState))
+         else if (HaltStates.halted == this.haltState)
          {
-            if ((false == halted))
+            if (false == halted)
             {
                this.homingRunState = HomingRunStates.idle;
-               this.homingHaltState = HomingHaltStates.notHalted;
+               this.haltState = HaltStates.notHalted;
             }
          }
       }

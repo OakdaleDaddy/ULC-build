@@ -279,19 +279,44 @@
 
       #region Laser Stepper Functions
 
+      public void SetLaserCenter()
+      {
+         LaserCommunicationBus.Instance.SetLaserCenter();
+      }
+
       public void SetLaserStepperXPosition(int position)
       {
          LaserCommunicationBus.Instance.SetLaserStepperXPosition(position);
       }
+
+      public void StopLaserStepperX()
+      {
+         LaserCommunicationBus.Instance.StopLaserStepperX();
+      }      
 
       public void SetLaserStepperYPosition(int position)
       {
          LaserCommunicationBus.Instance.SetLaserStepperYPosition(position);
       }
 
+      public void StopLaserStepperY()
+      {
+         LaserCommunicationBus.Instance.StopLaserStepperY();
+      }
+
+      public void SetTargetCenter()
+      {
+         TargetCommunicationBus.Instance.SetTargetCenter();
+      }
+
       public void SetTargetStepperPosition(int position)
       {
          TargetCommunicationBus.Instance.SetTargetStepperPosition(position);
+      }
+
+      public void StopTargetStepper()
+      {
+         TargetCommunicationBus.Instance.StopTargetStepper();
       }
 
       public int GetLaserStepperXActualPosition()

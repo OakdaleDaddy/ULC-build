@@ -80,6 +80,8 @@ namespace E4.DeviceTest
          this.DownloadActiveNodeIdTextBox = new System.Windows.Forms.TextBox();
          this.label51 = new System.Windows.Forms.Label();
          this.MainTabPage = new System.Windows.Forms.TabPage();
+         this.E4MainLaserDistanceTextBox = new System.Windows.Forms.TextBox();
+         this.label88 = new System.Windows.Forms.Label();
          this.E4MainUsageComboBox = new System.Windows.Forms.ComboBox();
          this.label87 = new System.Windows.Forms.Label();
          this.label86 = new System.Windows.Forms.Label();
@@ -162,6 +164,8 @@ namespace E4.DeviceTest
          this.label60 = new System.Windows.Forms.Label();
          this.label59 = new System.Windows.Forms.Label();
          this.E4MainBldc0TabPage = new System.Windows.Forms.TabPage();
+         this.RunE4MainBldc0Button = new System.Windows.Forms.Button();
+         this.HaltE4MainBldc0Button = new System.Windows.Forms.Button();
          this.ClearE4MainBldc0FaultButton = new System.Windows.Forms.Button();
          this.E4MainBldc0ActualCurrentTextBox = new System.Windows.Forms.TextBox();
          this.label93 = new System.Windows.Forms.Label();
@@ -331,11 +335,10 @@ namespace E4.DeviceTest
          this.label25 = new System.Windows.Forms.Label();
          this.E4MainStepper0TabPage = new System.Windows.Forms.TabPage();
          this.ClearE4MainStepper0FaultButton = new System.Windows.Forms.Button();
+         this.RunE4MainStepper0Button = new System.Windows.Forms.Button();
          this.E4MainStepper0Panel = new System.Windows.Forms.Panel();
          this.E4MainStepper0HomingGroupBox = new System.Windows.Forms.GroupBox();
          this.E4MainStepper0HomingAttainedLabel = new System.Windows.Forms.Label();
-         this.RunE4MainStepper0HomingButton = new System.Windows.Forms.Button();
-         this.HaltE4MainStepper0HomingButton = new System.Windows.Forms.Button();
          this.StopE4MainStepper0HomingButton = new System.Windows.Forms.Button();
          this.StartE4MainStepper0HomingButton = new System.Windows.Forms.Button();
          this.SetE4MainStepper0HomeOffsetButton = new System.Windows.Forms.Button();
@@ -374,6 +377,7 @@ namespace E4.DeviceTest
          this.label42 = new System.Windows.Forms.Label();
          this.SetE4MainStepper0TargetPositionButton = new System.Windows.Forms.Button();
          this.E4MainStepper0EditHelperButton = new System.Windows.Forms.Button();
+         this.HaltE4MainStepper0Button = new System.Windows.Forms.Button();
          this.ReadE4MainStepper0PvtButton = new System.Windows.Forms.Button();
          this.E4MainStepper0ActualCurrentTextBox = new System.Windows.Forms.TextBox();
          this.label26 = new System.Windows.Forms.Label();
@@ -389,11 +393,10 @@ namespace E4.DeviceTest
          this.label32 = new System.Windows.Forms.Label();
          this.E4MainStepper1TabPage = new System.Windows.Forms.TabPage();
          this.ClearE4MainStepper1FaultButton = new System.Windows.Forms.Button();
+         this.RunE4MainStepper1Button = new System.Windows.Forms.Button();
          this.E4MainStepper1Panel = new System.Windows.Forms.Panel();
          this.E4MainStepper1HomingGroupBox = new System.Windows.Forms.GroupBox();
          this.E4MainStepper1HomingAttainedLabel = new System.Windows.Forms.Label();
-         this.RunE4MainStepper1HomingButton = new System.Windows.Forms.Button();
-         this.HaltE4MainStepper1HomingButton = new System.Windows.Forms.Button();
          this.StopE4MainStepper1HomingButton = new System.Windows.Forms.Button();
          this.StartE4MainStepper1HomingButton = new System.Windows.Forms.Button();
          this.SetE4MainStepper1HomeOffsetButton = new System.Windows.Forms.Button();
@@ -432,6 +435,7 @@ namespace E4.DeviceTest
          this.label48 = new System.Windows.Forms.Label();
          this.SetE4MainStepper1TargetPositionButton = new System.Windows.Forms.Button();
          this.E4MainStepper1EditHelperButton = new System.Windows.Forms.Button();
+         this.HaltE4MainStepper1Button = new System.Windows.Forms.Button();
          this.ReadE4MainStepper1PvtButton = new System.Windows.Forms.Button();
          this.E4MainStepper1ActualCurrentTextBox = new System.Windows.Forms.TextBox();
          this.label33 = new System.Windows.Forms.Label();
@@ -473,8 +477,8 @@ namespace E4.DeviceTest
          this.label64 = new System.Windows.Forms.Label();
          this.ControlSplitter = new System.Windows.Forms.Splitter();
          this.MainActivityPanel = new System.Windows.Forms.Panel();
-         this.E4MainLaserDistanceTextBox = new System.Windows.Forms.TextBox();
-         this.label88 = new System.Windows.Forms.Label();
+         this.RunE4MainBldc1Button = new System.Windows.Forms.Button();
+         this.HaltE4MainBldc1Button = new System.Windows.Forms.Button();
          this.MainStatusStrip.SuspendLayout();
          this.MainTabControl.SuspendLayout();
          this.ControlTabPage.SuspendLayout();
@@ -1054,6 +1058,22 @@ namespace E4.DeviceTest
          this.MainTabPage.TabIndex = 12;
          this.MainTabPage.Text = "Main";
          this.MainTabPage.UseVisualStyleBackColor = true;
+         // 
+         // E4MainLaserDistanceTextBox
+         // 
+         this.E4MainLaserDistanceTextBox.Location = new System.Drawing.Point(480, 77);
+         this.E4MainLaserDistanceTextBox.Name = "E4MainLaserDistanceTextBox";
+         this.E4MainLaserDistanceTextBox.Size = new System.Drawing.Size(59, 20);
+         this.E4MainLaserDistanceTextBox.TabIndex = 411;
+         // 
+         // label88
+         // 
+         this.label88.AutoSize = true;
+         this.label88.Location = new System.Drawing.Point(400, 80);
+         this.label88.Name = "label88";
+         this.label88.Size = new System.Drawing.Size(78, 13);
+         this.label88.TabIndex = 412;
+         this.label88.Text = "Laser Distance";
          // 
          // E4MainUsageComboBox
          // 
@@ -1873,6 +1893,8 @@ namespace E4.DeviceTest
          // 
          // E4MainBldc0TabPage
          // 
+         this.E4MainBldc0TabPage.Controls.Add(this.RunE4MainBldc0Button);
+         this.E4MainBldc0TabPage.Controls.Add(this.HaltE4MainBldc0Button);
          this.E4MainBldc0TabPage.Controls.Add(this.ClearE4MainBldc0FaultButton);
          this.E4MainBldc0TabPage.Controls.Add(this.E4MainBldc0ActualCurrentTextBox);
          this.E4MainBldc0TabPage.Controls.Add(this.label93);
@@ -1896,6 +1918,26 @@ namespace E4.DeviceTest
          this.E4MainBldc0TabPage.TabIndex = 2;
          this.E4MainBldc0TabPage.Text = "BLDC0";
          this.E4MainBldc0TabPage.UseVisualStyleBackColor = true;
+         // 
+         // RunE4MainBldc0Button
+         // 
+         this.RunE4MainBldc0Button.Location = new System.Drawing.Point(167, 30);
+         this.RunE4MainBldc0Button.Name = "RunE4MainBldc0Button";
+         this.RunE4MainBldc0Button.Size = new System.Drawing.Size(35, 23);
+         this.RunE4MainBldc0Button.TabIndex = 426;
+         this.RunE4MainBldc0Button.Text = "Run";
+         this.RunE4MainBldc0Button.UseVisualStyleBackColor = true;
+         this.RunE4MainBldc0Button.Click += new System.EventHandler(this.RunE4MainBldc0Button_Click);
+         // 
+         // HaltE4MainBldc0Button
+         // 
+         this.HaltE4MainBldc0Button.Location = new System.Drawing.Point(126, 30);
+         this.HaltE4MainBldc0Button.Name = "HaltE4MainBldc0Button";
+         this.HaltE4MainBldc0Button.Size = new System.Drawing.Size(35, 23);
+         this.HaltE4MainBldc0Button.TabIndex = 425;
+         this.HaltE4MainBldc0Button.Text = "Halt";
+         this.HaltE4MainBldc0Button.UseVisualStyleBackColor = true;
+         this.HaltE4MainBldc0Button.Click += new System.EventHandler(this.HaltE4MainBldc0Button_Click);
          // 
          // ClearE4MainBldc0FaultButton
          // 
@@ -1967,9 +2009,9 @@ namespace E4.DeviceTest
          this.E4MainBldc0Panel.Controls.Add(this.E4MainBldc0EditHelperButton);
          this.E4MainBldc0Panel.Controls.Add(this.E4MainBldc0PositionGroupBox);
          this.E4MainBldc0Panel.Controls.Add(this.E4MainBldc0VelocityGroupBox);
-         this.E4MainBldc0Panel.Location = new System.Drawing.Point(3, 32);
+         this.E4MainBldc0Panel.Location = new System.Drawing.Point(3, 56);
          this.E4MainBldc0Panel.Name = "E4MainBldc0Panel";
-         this.E4MainBldc0Panel.Size = new System.Drawing.Size(714, 143);
+         this.E4MainBldc0Panel.Size = new System.Drawing.Size(714, 119);
          this.E4MainBldc0Panel.TabIndex = 416;
          this.E4MainBldc0Panel.Scroll += new System.Windows.Forms.ScrollEventHandler(this.E4MainBldc0Panel_Scroll);
          // 
@@ -2724,6 +2766,8 @@ namespace E4.DeviceTest
          // 
          // E4MainBldc1TabPage
          // 
+         this.E4MainBldc1TabPage.Controls.Add(this.RunE4MainBldc1Button);
+         this.E4MainBldc1TabPage.Controls.Add(this.HaltE4MainBldc1Button);
          this.E4MainBldc1TabPage.Controls.Add(this.ClearE4MainBldc1FaultButton);
          this.E4MainBldc1TabPage.Controls.Add(this.E4MainBldc1ActualCurrentTextBox);
          this.E4MainBldc1TabPage.Controls.Add(this.label20);
@@ -2818,9 +2862,9 @@ namespace E4.DeviceTest
          this.E4MainBldc1Panel.Controls.Add(this.E4MainBldc1EditHelperButton);
          this.E4MainBldc1Panel.Controls.Add(this.E4MainBldc1PositionGroupBox);
          this.E4MainBldc1Panel.Controls.Add(this.E4MainBldc1VelocityGroupBox);
-         this.E4MainBldc1Panel.Location = new System.Drawing.Point(3, 32);
+         this.E4MainBldc1Panel.Location = new System.Drawing.Point(3, 56);
          this.E4MainBldc1Panel.Name = "E4MainBldc1Panel";
-         this.E4MainBldc1Panel.Size = new System.Drawing.Size(714, 143);
+         this.E4MainBldc1Panel.Size = new System.Drawing.Size(714, 119);
          this.E4MainBldc1Panel.TabIndex = 417;
          this.E4MainBldc1Panel.Scroll += new System.Windows.Forms.ScrollEventHandler(this.E4MainBldc1Panel_Scroll);
          // 
@@ -3576,7 +3620,9 @@ namespace E4.DeviceTest
          // E4MainStepper0TabPage
          // 
          this.E4MainStepper0TabPage.Controls.Add(this.ClearE4MainStepper0FaultButton);
+         this.E4MainStepper0TabPage.Controls.Add(this.RunE4MainStepper0Button);
          this.E4MainStepper0TabPage.Controls.Add(this.E4MainStepper0Panel);
+         this.E4MainStepper0TabPage.Controls.Add(this.HaltE4MainStepper0Button);
          this.E4MainStepper0TabPage.Controls.Add(this.ReadE4MainStepper0PvtButton);
          this.E4MainStepper0TabPage.Controls.Add(this.E4MainStepper0ActualCurrentTextBox);
          this.E4MainStepper0TabPage.Controls.Add(this.label26);
@@ -3608,6 +3654,16 @@ namespace E4.DeviceTest
          this.ClearE4MainStepper0FaultButton.UseVisualStyleBackColor = true;
          this.ClearE4MainStepper0FaultButton.Click += new System.EventHandler(this.ClearE4MainStepper0FaultButton_Click);
          // 
+         // RunE4MainStepper0Button
+         // 
+         this.RunE4MainStepper0Button.Location = new System.Drawing.Point(167, 30);
+         this.RunE4MainStepper0Button.Name = "RunE4MainStepper0Button";
+         this.RunE4MainStepper0Button.Size = new System.Drawing.Size(35, 23);
+         this.RunE4MainStepper0Button.TabIndex = 409;
+         this.RunE4MainStepper0Button.Text = "Run";
+         this.RunE4MainStepper0Button.UseVisualStyleBackColor = true;
+         this.RunE4MainStepper0Button.Click += new System.EventHandler(this.RunE4MainStepper0Button_Click);
+         // 
          // E4MainStepper0Panel
          // 
          this.E4MainStepper0Panel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -3617,17 +3673,15 @@ namespace E4.DeviceTest
          this.E4MainStepper0Panel.Controls.Add(this.E4MainStepper0HomingGroupBox);
          this.E4MainStepper0Panel.Controls.Add(this.E4MainStepper0PositionGroupBox);
          this.E4MainStepper0Panel.Controls.Add(this.E4MainStepper0EditHelperButton);
-         this.E4MainStepper0Panel.Location = new System.Drawing.Point(3, 32);
+         this.E4MainStepper0Panel.Location = new System.Drawing.Point(3, 56);
          this.E4MainStepper0Panel.Name = "E4MainStepper0Panel";
-         this.E4MainStepper0Panel.Size = new System.Drawing.Size(714, 143);
+         this.E4MainStepper0Panel.Size = new System.Drawing.Size(714, 119);
          this.E4MainStepper0Panel.TabIndex = 440;
          this.E4MainStepper0Panel.Scroll += new System.Windows.Forms.ScrollEventHandler(this.E4MainStepper0Panel_Scroll);
          // 
          // E4MainStepper0HomingGroupBox
          // 
          this.E4MainStepper0HomingGroupBox.Controls.Add(this.E4MainStepper0HomingAttainedLabel);
-         this.E4MainStepper0HomingGroupBox.Controls.Add(this.RunE4MainStepper0HomingButton);
-         this.E4MainStepper0HomingGroupBox.Controls.Add(this.HaltE4MainStepper0HomingButton);
          this.E4MainStepper0HomingGroupBox.Controls.Add(this.StopE4MainStepper0HomingButton);
          this.E4MainStepper0HomingGroupBox.Controls.Add(this.StartE4MainStepper0HomingButton);
          this.E4MainStepper0HomingGroupBox.Controls.Add(this.SetE4MainStepper0HomeOffsetButton);
@@ -3665,26 +3719,6 @@ namespace E4.DeviceTest
          this.E4MainStepper0HomingAttainedLabel.Size = new System.Drawing.Size(27, 12);
          this.E4MainStepper0HomingAttainedLabel.TabIndex = 410;
          this.E4MainStepper0HomingAttainedLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         // 
-         // RunE4MainStepper0HomingButton
-         // 
-         this.RunE4MainStepper0HomingButton.Location = new System.Drawing.Point(179, 15);
-         this.RunE4MainStepper0HomingButton.Name = "RunE4MainStepper0HomingButton";
-         this.RunE4MainStepper0HomingButton.Size = new System.Drawing.Size(46, 23);
-         this.RunE4MainStepper0HomingButton.TabIndex = 409;
-         this.RunE4MainStepper0HomingButton.Text = "Run";
-         this.RunE4MainStepper0HomingButton.UseVisualStyleBackColor = true;
-         this.RunE4MainStepper0HomingButton.Click += new System.EventHandler(this.RunE4MainStepper0HomingButton_Click);
-         // 
-         // HaltE4MainStepper0HomingButton
-         // 
-         this.HaltE4MainStepper0HomingButton.Location = new System.Drawing.Point(127, 15);
-         this.HaltE4MainStepper0HomingButton.Name = "HaltE4MainStepper0HomingButton";
-         this.HaltE4MainStepper0HomingButton.Size = new System.Drawing.Size(46, 23);
-         this.HaltE4MainStepper0HomingButton.TabIndex = 408;
-         this.HaltE4MainStepper0HomingButton.Text = "Halt";
-         this.HaltE4MainStepper0HomingButton.UseVisualStyleBackColor = true;
-         this.HaltE4MainStepper0HomingButton.Click += new System.EventHandler(this.HaltE4MainStepper0HomingButton_Click);
          // 
          // StopE4MainStepper0HomingButton
          // 
@@ -4045,6 +4079,16 @@ namespace E4.DeviceTest
          this.E4MainStepper0EditHelperButton.Text = "button1";
          this.E4MainStepper0EditHelperButton.UseVisualStyleBackColor = true;
          // 
+         // HaltE4MainStepper0Button
+         // 
+         this.HaltE4MainStepper0Button.Location = new System.Drawing.Point(126, 30);
+         this.HaltE4MainStepper0Button.Name = "HaltE4MainStepper0Button";
+         this.HaltE4MainStepper0Button.Size = new System.Drawing.Size(35, 23);
+         this.HaltE4MainStepper0Button.TabIndex = 408;
+         this.HaltE4MainStepper0Button.Text = "Halt";
+         this.HaltE4MainStepper0Button.UseVisualStyleBackColor = true;
+         this.HaltE4MainStepper0Button.Click += new System.EventHandler(this.HaltE4MainStepper0Button_Click);
+         // 
          // ReadE4MainStepper0PvtButton
          // 
          this.ReadE4MainStepper0PvtButton.Location = new System.Drawing.Point(583, 4);
@@ -4154,7 +4198,7 @@ namespace E4.DeviceTest
          // label32
          // 
          this.label32.AutoSize = true;
-         this.label32.Location = new System.Drawing.Point(321, 6);
+         this.label32.Location = new System.Drawing.Point(322, 8);
          this.label32.Name = "label32";
          this.label32.Size = new System.Drawing.Size(13, 13);
          this.label32.TabIndex = 437;
@@ -4163,7 +4207,9 @@ namespace E4.DeviceTest
          // E4MainStepper1TabPage
          // 
          this.E4MainStepper1TabPage.Controls.Add(this.ClearE4MainStepper1FaultButton);
+         this.E4MainStepper1TabPage.Controls.Add(this.RunE4MainStepper1Button);
          this.E4MainStepper1TabPage.Controls.Add(this.E4MainStepper1Panel);
+         this.E4MainStepper1TabPage.Controls.Add(this.HaltE4MainStepper1Button);
          this.E4MainStepper1TabPage.Controls.Add(this.ReadE4MainStepper1PvtButton);
          this.E4MainStepper1TabPage.Controls.Add(this.E4MainStepper1ActualCurrentTextBox);
          this.E4MainStepper1TabPage.Controls.Add(this.label33);
@@ -4195,6 +4241,16 @@ namespace E4.DeviceTest
          this.ClearE4MainStepper1FaultButton.UseVisualStyleBackColor = true;
          this.ClearE4MainStepper1FaultButton.Click += new System.EventHandler(this.ClearE4MainStepper1FaultButton_Click);
          // 
+         // RunE4MainStepper1Button
+         // 
+         this.RunE4MainStepper1Button.Location = new System.Drawing.Point(167, 30);
+         this.RunE4MainStepper1Button.Name = "RunE4MainStepper1Button";
+         this.RunE4MainStepper1Button.Size = new System.Drawing.Size(35, 23);
+         this.RunE4MainStepper1Button.TabIndex = 409;
+         this.RunE4MainStepper1Button.Text = "Run";
+         this.RunE4MainStepper1Button.UseVisualStyleBackColor = true;
+         this.RunE4MainStepper1Button.Click += new System.EventHandler(this.RunE4MainStepper1Button_Click);
+         // 
          // E4MainStepper1Panel
          // 
          this.E4MainStepper1Panel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -4204,17 +4260,15 @@ namespace E4.DeviceTest
          this.E4MainStepper1Panel.Controls.Add(this.E4MainStepper1HomingGroupBox);
          this.E4MainStepper1Panel.Controls.Add(this.E4MainStepper1PositionGroupBox);
          this.E4MainStepper1Panel.Controls.Add(this.E4MainStepper1EditHelperButton);
-         this.E4MainStepper1Panel.Location = new System.Drawing.Point(3, 32);
+         this.E4MainStepper1Panel.Location = new System.Drawing.Point(3, 56);
          this.E4MainStepper1Panel.Name = "E4MainStepper1Panel";
-         this.E4MainStepper1Panel.Size = new System.Drawing.Size(714, 143);
+         this.E4MainStepper1Panel.Size = new System.Drawing.Size(714, 119);
          this.E4MainStepper1Panel.TabIndex = 441;
          this.E4MainStepper1Panel.Scroll += new System.Windows.Forms.ScrollEventHandler(this.E4MainStepper1Panel_Scroll);
          // 
          // E4MainStepper1HomingGroupBox
          // 
          this.E4MainStepper1HomingGroupBox.Controls.Add(this.E4MainStepper1HomingAttainedLabel);
-         this.E4MainStepper1HomingGroupBox.Controls.Add(this.RunE4MainStepper1HomingButton);
-         this.E4MainStepper1HomingGroupBox.Controls.Add(this.HaltE4MainStepper1HomingButton);
          this.E4MainStepper1HomingGroupBox.Controls.Add(this.StopE4MainStepper1HomingButton);
          this.E4MainStepper1HomingGroupBox.Controls.Add(this.StartE4MainStepper1HomingButton);
          this.E4MainStepper1HomingGroupBox.Controls.Add(this.SetE4MainStepper1HomeOffsetButton);
@@ -4252,26 +4306,6 @@ namespace E4.DeviceTest
          this.E4MainStepper1HomingAttainedLabel.Size = new System.Drawing.Size(27, 12);
          this.E4MainStepper1HomingAttainedLabel.TabIndex = 410;
          this.E4MainStepper1HomingAttainedLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         // 
-         // RunE4MainStepper1HomingButton
-         // 
-         this.RunE4MainStepper1HomingButton.Location = new System.Drawing.Point(179, 15);
-         this.RunE4MainStepper1HomingButton.Name = "RunE4MainStepper1HomingButton";
-         this.RunE4MainStepper1HomingButton.Size = new System.Drawing.Size(46, 23);
-         this.RunE4MainStepper1HomingButton.TabIndex = 409;
-         this.RunE4MainStepper1HomingButton.Text = "Run";
-         this.RunE4MainStepper1HomingButton.UseVisualStyleBackColor = true;
-         this.RunE4MainStepper1HomingButton.Click += new System.EventHandler(this.RunE4MainStepper1HomingButton_Click);
-         // 
-         // HaltE4MainStepper1HomingButton
-         // 
-         this.HaltE4MainStepper1HomingButton.Location = new System.Drawing.Point(127, 15);
-         this.HaltE4MainStepper1HomingButton.Name = "HaltE4MainStepper1HomingButton";
-         this.HaltE4MainStepper1HomingButton.Size = new System.Drawing.Size(46, 23);
-         this.HaltE4MainStepper1HomingButton.TabIndex = 408;
-         this.HaltE4MainStepper1HomingButton.Text = "Halt";
-         this.HaltE4MainStepper1HomingButton.UseVisualStyleBackColor = true;
-         this.HaltE4MainStepper1HomingButton.Click += new System.EventHandler(this.HaltE4MainStepper1HomingButton_Click);
          // 
          // StopE4MainStepper1HomingButton
          // 
@@ -4631,6 +4665,16 @@ namespace E4.DeviceTest
          this.E4MainStepper1EditHelperButton.TabIndex = 420;
          this.E4MainStepper1EditHelperButton.Text = "button1";
          this.E4MainStepper1EditHelperButton.UseVisualStyleBackColor = true;
+         // 
+         // HaltE4MainStepper1Button
+         // 
+         this.HaltE4MainStepper1Button.Location = new System.Drawing.Point(126, 30);
+         this.HaltE4MainStepper1Button.Name = "HaltE4MainStepper1Button";
+         this.HaltE4MainStepper1Button.Size = new System.Drawing.Size(35, 23);
+         this.HaltE4MainStepper1Button.TabIndex = 408;
+         this.HaltE4MainStepper1Button.Text = "Halt";
+         this.HaltE4MainStepper1Button.UseVisualStyleBackColor = true;
+         this.HaltE4MainStepper1Button.Click += new System.EventHandler(this.HaltE4MainStepper1Button_Click);
          // 
          // ReadE4MainStepper1PvtButton
          // 
@@ -5013,21 +5057,25 @@ namespace E4.DeviceTest
          this.MainActivityPanel.Size = new System.Drawing.Size(742, 118);
          this.MainActivityPanel.TabIndex = 45;
          // 
-         // E4MainLaserDistanceTextBox
+         // RunE4MainBldc1Button
          // 
-         this.E4MainLaserDistanceTextBox.Location = new System.Drawing.Point(480, 77);
-         this.E4MainLaserDistanceTextBox.Name = "E4MainLaserDistanceTextBox";
-         this.E4MainLaserDistanceTextBox.Size = new System.Drawing.Size(59, 20);
-         this.E4MainLaserDistanceTextBox.TabIndex = 411;
+         this.RunE4MainBldc1Button.Location = new System.Drawing.Point(167, 30);
+         this.RunE4MainBldc1Button.Name = "RunE4MainBldc1Button";
+         this.RunE4MainBldc1Button.Size = new System.Drawing.Size(35, 23);
+         this.RunE4MainBldc1Button.TabIndex = 432;
+         this.RunE4MainBldc1Button.Text = "Run";
+         this.RunE4MainBldc1Button.UseVisualStyleBackColor = true;
+         this.RunE4MainBldc1Button.Click += new System.EventHandler(this.RunE4MainBldc1Button_Click);
          // 
-         // label88
+         // HaltE4MainBldc1Button
          // 
-         this.label88.AutoSize = true;
-         this.label88.Location = new System.Drawing.Point(400, 80);
-         this.label88.Name = "label88";
-         this.label88.Size = new System.Drawing.Size(78, 13);
-         this.label88.TabIndex = 412;
-         this.label88.Text = "Laser Distance";
+         this.HaltE4MainBldc1Button.Location = new System.Drawing.Point(126, 30);
+         this.HaltE4MainBldc1Button.Name = "HaltE4MainBldc1Button";
+         this.HaltE4MainBldc1Button.Size = new System.Drawing.Size(35, 23);
+         this.HaltE4MainBldc1Button.TabIndex = 431;
+         this.HaltE4MainBldc1Button.Text = "Halt";
+         this.HaltE4MainBldc1Button.UseVisualStyleBackColor = true;
+         this.HaltE4MainBldc1Button.Click += new System.EventHandler(this.HaltE4MainBldc1Button_Click);
          // 
          // MainForm
          // 
@@ -5380,8 +5428,8 @@ namespace E4.DeviceTest
       private System.Windows.Forms.Button SetE4MainStepper1TargetPositionButton;
       private System.Windows.Forms.GroupBox E4MainStepper0HomingGroupBox;
       private System.Windows.Forms.Label E4MainStepper0HomingAttainedLabel;
-      private System.Windows.Forms.Button RunE4MainStepper0HomingButton;
-      private System.Windows.Forms.Button HaltE4MainStepper0HomingButton;
+      private System.Windows.Forms.Button RunE4MainStepper0Button;
+      private System.Windows.Forms.Button HaltE4MainStepper0Button;
       private System.Windows.Forms.Button StopE4MainStepper0HomingButton;
       private System.Windows.Forms.Button StartE4MainStepper0HomingButton;
       private System.Windows.Forms.Button SetE4MainStepper0HomeOffsetButton;
@@ -5406,8 +5454,8 @@ namespace E4.DeviceTest
       private System.Windows.Forms.TextBox E4MainStepper0HomeOffsetTextBox;
       private System.Windows.Forms.GroupBox E4MainStepper1HomingGroupBox;
       private System.Windows.Forms.Label E4MainStepper1HomingAttainedLabel;
-      private System.Windows.Forms.Button RunE4MainStepper1HomingButton;
-      private System.Windows.Forms.Button HaltE4MainStepper1HomingButton;
+      private System.Windows.Forms.Button RunE4MainStepper1Button;
+      private System.Windows.Forms.Button HaltE4MainStepper1Button;
       private System.Windows.Forms.Button StopE4MainStepper1HomingButton;
       private System.Windows.Forms.Button StartE4MainStepper1HomingButton;
       private System.Windows.Forms.Button SetE4MainStepper1HomeOffsetButton;
@@ -5555,6 +5603,10 @@ namespace E4.DeviceTest
       private System.Windows.Forms.Label label87;
       private System.Windows.Forms.TextBox E4MainLaserDistanceTextBox;
       private System.Windows.Forms.Label label88;
+      private System.Windows.Forms.Button RunE4MainBldc0Button;
+      private System.Windows.Forms.Button HaltE4MainBldc0Button;
+      private System.Windows.Forms.Button RunE4MainBldc1Button;
+      private System.Windows.Forms.Button HaltE4MainBldc1Button;
    }
 }
 
