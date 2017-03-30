@@ -1,4 +1,5 @@
-﻿namespace E4.Ui.Controls
+﻿
+namespace E4.Ui.Controls
 {
    using System;
    using System.Drawing;

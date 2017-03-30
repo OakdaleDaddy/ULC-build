@@ -275,6 +275,11 @@
          return (TargetCommunicationBus.Instance.GetLaserScannerCoordinates());
       }
 
+      public double GetTargetPitch()
+      {
+         return (TargetCommunicationBus.Instance.GetTargetPitch());
+      }
+
       #endregion
 
       #region Laser Stepper Functions

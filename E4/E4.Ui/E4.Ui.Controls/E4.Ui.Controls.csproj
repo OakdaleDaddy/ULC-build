@@ -77,6 +77,12 @@
     <Compile Include="TextPanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="TransparentLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TransparentPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UpDownButton.cs">
       <SubType>Component</SubType>
     </Compile>

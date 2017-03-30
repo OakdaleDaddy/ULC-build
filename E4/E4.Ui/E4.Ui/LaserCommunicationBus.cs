@@ -329,30 +329,8 @@
          this.stepper1Status.homeNeeded = (false == laserBoard.Stepper1.HomingAttained) ? true : false;
       }
 
-      /// <summary>
-      /// 
-      /// </summary>
-      /// <param name="motor"></param>
-      /// <param name="status"></param>
-      /// <param name="parameters"></param>
-      /// <remarks>
-      /// request stop if stop all is requested
-      /// request home if home is not defined
-      /// request center after home is defined
-      /// </remarks>
       private void UpdateStepper(MotorComponent motor, StepperMotorStatus status, StepperMotorParameters parameters)
       {
-         //       off,
-         //       stopped
-
-         //       startHoming,
-         //       homing,
-
-         //       startPosition
-         //       positioning,
-         //       centering,
-         //       stopping,
-
          DateTime now = DateTime.Now;
          bool positionObtained = false;
 

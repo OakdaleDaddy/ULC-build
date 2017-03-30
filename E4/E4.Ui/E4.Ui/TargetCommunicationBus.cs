@@ -301,6 +301,14 @@
 
       private void UpdateStepper(MotorComponent motor, StepperMotorStatus status, StepperMotorParameters parameters)
       {
+         DateTime now = DateTime.Now;
+         bool positionObtained = false;
+
+         if (now > status.positionInvalidTimeLimit)
+         {
+            positionObtained = motor.PositionAttained;
+         }
+
          if (false != this.stopAll)
          {
             if (MotorComponent.Modes.homing == motor.Mode)
@@ -312,8 +320,26 @@
             {
                motor.SetMode(MotorComponent.Modes.off);
             }
+
+            status.state = StepperMotorStatus.States.stopped;
          }
-         else if (false != status.homeNeeded)
+         else if (status.state == StepperMotorStatus.States.off)
+         {
+            if (false != status.homeNeeded)
+            {
+               status.state = StepperMotorStatus.States.startHoming;
+            }
+            else
+            {
+               status.state = StepperMotorStatus.States.startPosition;
+            }
+         }
+         else if (status.state == StepperMotorStatus.States.stopped)
+         {
+            // nothing, reset needed to clear
+         }
+
+         else if (status.state == StepperMotorStatus.States.startHoming)
          {
             status.homeNeeded = false;
 
@@ -321,34 +347,127 @@
             motor.SetHomingSwitchSpeed((UInt32)parameters.HomingSwitchVelocity);
             motor.SetHomingZeroSpeed((UInt32)parameters.HomingZeroVelocity);
             motor.SetHomingAcceleration((UInt32)parameters.HomingAcceleration);
+
             motor.SetMode(MotorComponent.Modes.homing);
             motor.StartHoming();
-            Tracer.WriteHigh(TraceGroup.MBUS, "", "{0} homing", motor.Name);
 
-            status.positionRequested = 0;
+            Tracer.WriteHigh(TraceGroup.MBUS, "", "{0} homing mode", motor.Name);
+
+            positionObtained = false;
+            status.positionInvalidTimeLimit = now.AddMilliseconds(250);
+            status.actualNeeded = true;
+            status.state = StepperMotorStatus.States.homing;
          }
-         else if ((false != motor.HomingAttained) && (MotorComponent.Modes.position != motor.Mode))
+         else if (status.state == StepperMotorStatus.States.homing)
          {
-            motor.SetMode(MotorComponent.Modes.position);
-            motor.SetProfileVelocity(parameters.ProfileVelocity);
-            motor.SetProfileAcceleration(parameters.ProfileAcceleration);
-            status.positionNeeded = parameters.CenterPosition;
-            Tracer.WriteHigh(TraceGroup.MBUS, "", "{0} position mode", motor.Name);
-         }
-         else
-         {
-            if (status.positionRequested != status.positionNeeded)
+            if (false != motor.HomingAttained)
             {
-               motor.SetTargetPosition(status.positionNeeded, false);
-               status.positionRequested = status.positionNeeded;
-               Tracer.WriteHigh(TraceGroup.MBUS, "", "{0} position requested {1}", motor.Name, status.positionRequested);
+               status.centerNeeded = true;
+               status.state = StepperMotorStatus.States.startPosition;
             }
          }
 
-         if (DateTime.Now > status.readTimeLimit)
+         else if (status.state == StepperMotorStatus.States.startPosition)
+         {
+            motor.SetProfileVelocity(parameters.ProfileVelocity);
+            motor.SetProfileAcceleration(parameters.ProfileAcceleration);
+            motor.SetMode(MotorComponent.Modes.position);
+
+            Tracer.WriteHigh(TraceGroup.MBUS, "", "{0} position mode", motor.Name);
+
+            status.state = StepperMotorStatus.States.positioning;
+         }
+         else if (status.state == StepperMotorStatus.States.positioning)
+         {
+            if (false != status.homeNeeded)
+            {
+               status.state = StepperMotorStatus.States.startHoming;
+            }
+            else if (false != status.centerNeeded)
+            {
+               status.centerNeeded = false;
+
+               status.positionNeeded = parameters.CenterPosition;
+               motor.SetTargetPosition(status.positionNeeded, false);
+               status.positionRequested = status.positionNeeded;
+
+               Tracer.WriteHigh(TraceGroup.MBUS, "", "{0} position {1}", motor.Name, status.positionRequested);
+
+               positionObtained = false;
+               status.positionInvalidTimeLimit = now.AddMilliseconds(250);
+               status.actualNeeded = true;
+               status.state = StepperMotorStatus.States.centering;
+            }
+            else if (false != status.stopNeeded)
+            {
+               status.stopNeeded = false;
+
+               motor.Halt();
+               status.positionRequested = status.positionNeeded;
+               Tracer.WriteHigh(TraceGroup.MBUS, "", "{0} stop", motor.Name);
+
+               positionObtained = false;
+               status.positionInvalidTimeLimit = now.AddMilliseconds(250);
+               status.actualNeeded = true;
+               status.state = StepperMotorStatus.States.stopping;
+            }
+            else if (status.positionRequested != status.positionNeeded)
+            {
+               motor.SetTargetPosition(status.positionNeeded, false);
+               status.positionRequested = status.positionNeeded;
+
+               Tracer.WriteHigh(TraceGroup.MBUS, "", "{0} position {1}", motor.Name, status.positionRequested);
+
+               positionObtained = false;
+               status.positionInvalidTimeLimit = now.AddMilliseconds(250);
+               status.actualNeeded = true;
+            }
+         }
+         else if (status.state == StepperMotorStatus.States.centering)
+         {
+            if (false != positionObtained)
+            {
+               motor.GetActualPosition(ref status.actualPosition);
+
+               status.positionNeeded = status.actualPosition;
+               status.positionRequested = status.positionNeeded;
+
+               Tracer.WriteHigh(TraceGroup.MBUS, "", "{0} centered at {1}", motor.Name, status.actualPosition);
+
+               status.state = StepperMotorStatus.States.positioning;
+            }
+         }
+         else if (status.state == StepperMotorStatus.States.stopping)
+         {
+            if (false != positionObtained)
+            {
+               motor.GetActualPosition(ref status.actualPosition);
+
+               status.positionNeeded = status.actualPosition;
+               motor.SetTargetPosition(status.positionNeeded, false);
+               status.positionRequested = status.positionNeeded;
+
+               motor.Run();
+
+               Tracer.WriteHigh(TraceGroup.MBUS, "", "{0} stopped at {1}", motor.Name, status.actualPosition);
+
+               status.state = StepperMotorStatus.States.positioning;
+            }
+         }
+
+         if ((false != status.actualNeeded) &&
+             (now > status.readTimeLimit))
          {
             motor.GetActualPosition(ref status.actualPosition);
-            status.readTimeLimit = DateTime.Now.AddMilliseconds(250);
+
+            if (false != positionObtained)
+            {
+               status.actualNeeded = false;
+            }
+            else
+            {
+               status.readTimeLimit = now.AddMilliseconds(250);
+            }
          }
       }
 
@@ -845,6 +964,11 @@
          return (this.targetBoard.LaserScannerPosition);
       }
 
+      public double GetTargetPitch()
+      {
+         return (this.targetBoard.TargetBoardImuPitch);
+      }
+
       #endregion
 
       #region Laser Stepper Functions
@@ -866,7 +990,7 @@
 
       public int GetTargetStepperActualPosition()
       {
-         int result = this.targetBoard.Stepper0.ActualPosition;
+         int result = this.stepperStatus.actualPosition;
          return (result);
       }
 

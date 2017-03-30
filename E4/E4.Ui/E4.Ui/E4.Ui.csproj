@@ -60,6 +60,12 @@
     <Compile Include="IpAddressEntryForm.designer.cs">
       <DependentUpon>IpAddressEntryForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="LaserRobotMovementSetupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LaserRobotMovementSetupForm.Designer.cs">
+      <DependentUpon>LaserRobotMovementSetupForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="LaserSetupForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -113,12 +119,21 @@
       <DependentUpon>SystemStatusForm.cs</DependentUpon>
     </Compile>
     <Compile Include="TargetCommunicationBus.cs" />
+    <Compile Include="TargetRobotMovementSetupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TargetRobotMovementSetupForm.Designer.cs">
+      <DependentUpon>TargetRobotMovementSetupForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="VideoStampOsd.cs" />
     <EmbeddedResource Include="CANDeviceInformationForm.resx">
       <DependentUpon>CANDeviceInformationForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="IpAddressEntryForm.resx">
       <DependentUpon>IpAddressEntryForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LaserRobotMovementSetupForm.resx">
+      <DependentUpon>LaserRobotMovementSetupForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LaserSetupForm.resx">
       <DependentUpon>LaserSetupForm.cs</DependentUpon>
@@ -150,6 +165,9 @@
     </Compile>
     <EmbeddedResource Include="SystemStatusForm.resx">
       <DependentUpon>SystemStatusForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TargetRobotMovementSetupForm.resx">
+      <DependentUpon>TargetRobotMovementSetupForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

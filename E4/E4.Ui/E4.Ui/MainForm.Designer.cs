@@ -31,8 +31,8 @@
          this.components = new System.ComponentModel.Container();
          this.TitleLabel = new System.Windows.Forms.Label();
          this.TargetMotorPanel = new System.Windows.Forms.Panel();
-         this.MainWheelManualDisplayButton = new E4.Ui.Controls.HoldButton();
-         this.MainWheelMotorSetupButton = new E4.Ui.Controls.HoldButton();
+         this.TargetRobotMovementJoystickEnableButton = new E4.Ui.Controls.HoldButton();
+         this.TargetRobotMotorSetupButton = new E4.Ui.Controls.HoldButton();
          this.MainWheelSpeedToggleButton = new E4.Ui.Controls.ValueToggleButton();
          this.TargetWheelTitleLabel = new System.Windows.Forms.Label();
          this.MainWheelOffButton = new E4.Ui.Controls.HoldButton();
@@ -60,6 +60,8 @@
          this.label17 = new System.Windows.Forms.Label();
          this.HeartbeatsDisabledLabel = new System.Windows.Forms.Label();
          this.LaserRangePanel = new System.Windows.Forms.Panel();
+         this.TargetCenterButton = new E4.Ui.Controls.HoldButton();
+         this.SensorCenterButton = new E4.Ui.Controls.HoldButton();
          this.SensorIndicator = new E4.Ui.Controls.ScannerIndicator();
          this.label28 = new System.Windows.Forms.Label();
          this.RecordLaserMeasurementButton = new E4.Ui.Controls.E4Button();
@@ -73,15 +75,13 @@
          this.LaserRangeJoystickYRequestIndicator = new E4.Ui.Controls.PositionIndicator();
          this.LaserSetupButton = new E4.Ui.Controls.E4Button();
          this.LaserMeasureButton = new E4.Ui.Controls.E4Button();
-         this.LaserRangeJoystickEnableButton = new E4.Ui.Controls.E4Button();
+         this.LaserJoystickEnableButton = new E4.Ui.Controls.E4Button();
          this.LaserAimButton = new E4.Ui.Controls.E4Button();
          this.SensorPitchPanel = new E4.Ui.Controls.TextPanel();
          this.rotatableLabel3 = new E4.Ui.Controls.RotatableLabel();
          this.SensorUpButton = new E4.Ui.Controls.UpDownButton();
          this.SensorDownButton = new E4.Ui.Controls.UpDownButton();
-         this.LaserPitchPanel = new E4.Ui.Controls.TextPanel();
          this.LaserUpButton = new E4.Ui.Controls.UpDownButton();
-         this.LaserYawPanel = new E4.Ui.Controls.TextPanel();
          this.rotatableLabel1 = new E4.Ui.Controls.RotatableLabel();
          this.LaserLeftButton = new E4.Ui.Controls.LeftRightButton();
          this.rotatableLabel2 = new E4.Ui.Controls.RotatableLabel();
@@ -93,16 +93,14 @@
          this.SystemResetButton = new E4.Ui.Controls.HoldButton();
          this.ExitButton = new E4.Ui.Controls.HoldButton();
          this.LaserMotorPanel = new System.Windows.Forms.Panel();
-         this.holdButton1 = new E4.Ui.Controls.HoldButton();
-         this.holdButton2 = new E4.Ui.Controls.HoldButton();
+         this.LaserRobotMovementJoystickEnableButton = new E4.Ui.Controls.HoldButton();
+         this.LaserRobotMotorSetupButton = new E4.Ui.Controls.HoldButton();
          this.valueToggleButton1 = new E4.Ui.Controls.ValueToggleButton();
          this.LaserWheelTitleLabel = new System.Windows.Forms.Label();
          this.holdButton3 = new E4.Ui.Controls.HoldButton();
          this.valueButton1 = new E4.Ui.Controls.ValueButton();
          this.directionalValuePanel1 = new E4.Ui.Controls.DirectionalValuePanel();
          this.TitleSpacerPanel = new System.Windows.Forms.Panel();
-         this.SensorCenterButton = new E4.Ui.Controls.HoldButton();
-         this.TargetCenterButton = new E4.Ui.Controls.HoldButton();
          this.TargetMotorPanel.SuspendLayout();
          this.CameraControlPanel.SuspendLayout();
          this.panel1.SuspendLayout();
@@ -130,8 +128,8 @@
          // TargetMotorPanel
          // 
          this.TargetMotorPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(80)))), ((int)(((byte)(96)))));
-         this.TargetMotorPanel.Controls.Add(this.MainWheelManualDisplayButton);
-         this.TargetMotorPanel.Controls.Add(this.MainWheelMotorSetupButton);
+         this.TargetMotorPanel.Controls.Add(this.TargetRobotMovementJoystickEnableButton);
+         this.TargetMotorPanel.Controls.Add(this.TargetRobotMotorSetupButton);
          this.TargetMotorPanel.Controls.Add(this.MainWheelSpeedToggleButton);
          this.TargetMotorPanel.Controls.Add(this.TargetWheelTitleLabel);
          this.TargetMotorPanel.Controls.Add(this.MainWheelOffButton);
@@ -142,39 +140,41 @@
          this.TargetMotorPanel.Size = new System.Drawing.Size(328, 371);
          this.TargetMotorPanel.TabIndex = 6;
          // 
-         // MainWheelManualDisplayButton
+         // TargetRobotMovementJoystickEnableButton
          // 
-         this.MainWheelManualDisplayButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.MainWheelManualDisplayButton.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
-         this.MainWheelManualDisplayButton.DisabledForeColor = System.Drawing.Color.Gray;
-         this.MainWheelManualDisplayButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
-         this.MainWheelManualDisplayButton.ForeColor = System.Drawing.Color.Black;
-         this.MainWheelManualDisplayButton.HoldArrorColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-         this.MainWheelManualDisplayButton.HoldTimeoutEnable = false;
-         this.MainWheelManualDisplayButton.HoldTimeoutInterval = 100;
-         this.MainWheelManualDisplayButton.Location = new System.Drawing.Point(172, 267);
-         this.MainWheelManualDisplayButton.Name = "MainWheelManualDisplayButton";
-         this.MainWheelManualDisplayButton.Size = new System.Drawing.Size(107, 80);
-         this.MainWheelManualDisplayButton.TabIndex = 143;
-         this.MainWheelManualDisplayButton.Text = "JOYSTICK DRIVE";
-         this.MainWheelManualDisplayButton.UseVisualStyleBackColor = false;
+         this.TargetRobotMovementJoystickEnableButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.TargetRobotMovementJoystickEnableButton.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
+         this.TargetRobotMovementJoystickEnableButton.DisabledForeColor = System.Drawing.Color.Gray;
+         this.TargetRobotMovementJoystickEnableButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
+         this.TargetRobotMovementJoystickEnableButton.ForeColor = System.Drawing.Color.Black;
+         this.TargetRobotMovementJoystickEnableButton.HoldArrorColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+         this.TargetRobotMovementJoystickEnableButton.HoldTimeoutEnable = false;
+         this.TargetRobotMovementJoystickEnableButton.HoldTimeoutInterval = 100;
+         this.TargetRobotMovementJoystickEnableButton.Location = new System.Drawing.Point(172, 267);
+         this.TargetRobotMovementJoystickEnableButton.Name = "TargetRobotMovementJoystickEnableButton";
+         this.TargetRobotMovementJoystickEnableButton.Size = new System.Drawing.Size(107, 80);
+         this.TargetRobotMovementJoystickEnableButton.TabIndex = 143;
+         this.TargetRobotMovementJoystickEnableButton.Text = "JOYSTICK DRIVE";
+         this.TargetRobotMovementJoystickEnableButton.UseVisualStyleBackColor = false;
+         this.TargetRobotMovementJoystickEnableButton.Click += new System.EventHandler(this.TargetRobotMovementJoystickEnableButton_Click);
          // 
-         // MainWheelMotorSetupButton
+         // TargetRobotMotorSetupButton
          // 
-         this.MainWheelMotorSetupButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.MainWheelMotorSetupButton.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
-         this.MainWheelMotorSetupButton.DisabledForeColor = System.Drawing.Color.Gray;
-         this.MainWheelMotorSetupButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
-         this.MainWheelMotorSetupButton.ForeColor = System.Drawing.Color.Black;
-         this.MainWheelMotorSetupButton.HoldArrorColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-         this.MainWheelMotorSetupButton.HoldTimeoutEnable = false;
-         this.MainWheelMotorSetupButton.HoldTimeoutInterval = 100;
-         this.MainWheelMotorSetupButton.Location = new System.Drawing.Point(38, 267);
-         this.MainWheelMotorSetupButton.Name = "MainWheelMotorSetupButton";
-         this.MainWheelMotorSetupButton.Size = new System.Drawing.Size(107, 80);
-         this.MainWheelMotorSetupButton.TabIndex = 142;
-         this.MainWheelMotorSetupButton.Text = "MOTOR SETUP";
-         this.MainWheelMotorSetupButton.UseVisualStyleBackColor = false;
+         this.TargetRobotMotorSetupButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.TargetRobotMotorSetupButton.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
+         this.TargetRobotMotorSetupButton.DisabledForeColor = System.Drawing.Color.Gray;
+         this.TargetRobotMotorSetupButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
+         this.TargetRobotMotorSetupButton.ForeColor = System.Drawing.Color.Black;
+         this.TargetRobotMotorSetupButton.HoldArrorColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+         this.TargetRobotMotorSetupButton.HoldTimeoutEnable = false;
+         this.TargetRobotMotorSetupButton.HoldTimeoutInterval = 100;
+         this.TargetRobotMotorSetupButton.Location = new System.Drawing.Point(38, 267);
+         this.TargetRobotMotorSetupButton.Name = "TargetRobotMotorSetupButton";
+         this.TargetRobotMotorSetupButton.Size = new System.Drawing.Size(107, 80);
+         this.TargetRobotMotorSetupButton.TabIndex = 142;
+         this.TargetRobotMotorSetupButton.Text = "MOTOR SETUP";
+         this.TargetRobotMotorSetupButton.UseVisualStyleBackColor = false;
+         this.TargetRobotMotorSetupButton.Click += new System.EventHandler(this.TargetRobotMotorSetupButton_Click);
          // 
          // MainWheelSpeedToggleButton
          // 
@@ -719,15 +719,13 @@
          this.LaserRangePanel.Controls.Add(this.LaserRangeJoystickYRequestIndicator);
          this.LaserRangePanel.Controls.Add(this.LaserSetupButton);
          this.LaserRangePanel.Controls.Add(this.LaserMeasureButton);
-         this.LaserRangePanel.Controls.Add(this.LaserRangeJoystickEnableButton);
+         this.LaserRangePanel.Controls.Add(this.LaserJoystickEnableButton);
          this.LaserRangePanel.Controls.Add(this.LaserAimButton);
          this.LaserRangePanel.Controls.Add(this.SensorPitchPanel);
          this.LaserRangePanel.Controls.Add(this.rotatableLabel3);
          this.LaserRangePanel.Controls.Add(this.SensorUpButton);
          this.LaserRangePanel.Controls.Add(this.SensorDownButton);
-         this.LaserRangePanel.Controls.Add(this.LaserPitchPanel);
          this.LaserRangePanel.Controls.Add(this.LaserUpButton);
-         this.LaserRangePanel.Controls.Add(this.LaserYawPanel);
          this.LaserRangePanel.Controls.Add(this.rotatableLabel1);
          this.LaserRangePanel.Controls.Add(this.LaserLeftButton);
          this.LaserRangePanel.Controls.Add(this.rotatableLabel2);
@@ -737,6 +735,40 @@
          this.LaserRangePanel.Name = "LaserRangePanel";
          this.LaserRangePanel.Size = new System.Drawing.Size(728, 507);
          this.LaserRangePanel.TabIndex = 191;
+         // 
+         // TargetCenterButton
+         // 
+         this.TargetCenterButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.TargetCenterButton.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
+         this.TargetCenterButton.DisabledForeColor = System.Drawing.Color.Gray;
+         this.TargetCenterButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
+         this.TargetCenterButton.ForeColor = System.Drawing.Color.Black;
+         this.TargetCenterButton.HoldArrorColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+         this.TargetCenterButton.HoldTimeoutEnable = true;
+         this.TargetCenterButton.HoldTimeoutInterval = 100;
+         this.TargetCenterButton.Location = new System.Drawing.Point(567, 225);
+         this.TargetCenterButton.Name = "TargetCenterButton";
+         this.TargetCenterButton.Size = new System.Drawing.Size(67, 67);
+         this.TargetCenterButton.TabIndex = 175;
+         this.TargetCenterButton.UseVisualStyleBackColor = false;
+         this.TargetCenterButton.HoldTimeout += new E4.Ui.Controls.HoldTimeoutHandler(this.TargetCenterButton_HoldTimeout);
+         // 
+         // SensorCenterButton
+         // 
+         this.SensorCenterButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.SensorCenterButton.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
+         this.SensorCenterButton.DisabledForeColor = System.Drawing.Color.Gray;
+         this.SensorCenterButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
+         this.SensorCenterButton.ForeColor = System.Drawing.Color.Black;
+         this.SensorCenterButton.HoldArrorColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+         this.SensorCenterButton.HoldTimeoutEnable = true;
+         this.SensorCenterButton.HoldTimeoutInterval = 100;
+         this.SensorCenterButton.Location = new System.Drawing.Point(328, 225);
+         this.SensorCenterButton.Name = "SensorCenterButton";
+         this.SensorCenterButton.Size = new System.Drawing.Size(67, 67);
+         this.SensorCenterButton.TabIndex = 174;
+         this.SensorCenterButton.UseVisualStyleBackColor = false;
+         this.SensorCenterButton.HoldTimeout += new E4.Ui.Controls.HoldTimeoutHandler(this.SensorCenterButton_HoldTimeout);
          // 
          // SensorIndicator
          // 
@@ -805,7 +837,7 @@
          this.LaserYawTickPanel.ForeColor = System.Drawing.Color.White;
          this.LaserYawTickPanel.HoldTimeoutEnable = false;
          this.LaserYawTickPanel.HoldTimeoutInterval = 0;
-         this.LaserYawTickPanel.Location = new System.Drawing.Point(598, 92);
+         this.LaserYawTickPanel.Location = new System.Drawing.Point(544, 92);
          this.LaserYawTickPanel.Name = "LaserYawTickPanel";
          this.LaserYawTickPanel.Size = new System.Drawing.Size(112, 44);
          this.LaserYawTickPanel.TabIndex = 165;
@@ -820,7 +852,7 @@
          this.LaserPitchTickPanel.ForeColor = System.Drawing.Color.White;
          this.LaserPitchTickPanel.HoldTimeoutEnable = false;
          this.LaserPitchTickPanel.HoldTimeoutInterval = 0;
-         this.LaserPitchTickPanel.Location = new System.Drawing.Point(598, 42);
+         this.LaserPitchTickPanel.Location = new System.Drawing.Point(544, 42);
          this.LaserPitchTickPanel.Name = "LaserPitchTickPanel";
          this.LaserPitchTickPanel.Size = new System.Drawing.Size(112, 44);
          this.LaserPitchTickPanel.TabIndex = 164;
@@ -835,7 +867,7 @@
          this.SensorPitchTickPanel.ForeColor = System.Drawing.Color.White;
          this.SensorPitchTickPanel.HoldTimeoutEnable = false;
          this.SensorPitchTickPanel.HoldTimeoutInterval = 0;
-         this.SensorPitchTickPanel.Location = new System.Drawing.Point(301, 92);
+         this.SensorPitchTickPanel.Location = new System.Drawing.Point(305, 92);
          this.SensorPitchTickPanel.Name = "SensorPitchTickPanel";
          this.SensorPitchTickPanel.Size = new System.Drawing.Size(112, 44);
          this.SensorPitchTickPanel.TabIndex = 163;
@@ -930,20 +962,20 @@
          this.LaserMeasureButton.UseVisualStyleBackColor = false;
          this.LaserMeasureButton.Click += new System.EventHandler(this.LaserMeasureButton_Click);
          // 
-         // LaserRangeJoystickEnableButton
+         // LaserJoystickEnableButton
          // 
-         this.LaserRangeJoystickEnableButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.LaserRangeJoystickEnableButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
-         this.LaserRangeJoystickEnableButton.DisabledForeColor = System.Drawing.Color.Silver;
-         this.LaserRangeJoystickEnableButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
-         this.LaserRangeJoystickEnableButton.HoldArrorColor = System.Drawing.Color.Gray;
-         this.LaserRangeJoystickEnableButton.Location = new System.Drawing.Point(584, 408);
-         this.LaserRangeJoystickEnableButton.Name = "LaserRangeJoystickEnableButton";
-         this.LaserRangeJoystickEnableButton.Size = new System.Drawing.Size(107, 80);
-         this.LaserRangeJoystickEnableButton.TabIndex = 151;
-         this.LaserRangeJoystickEnableButton.Text = "ENABLE JOYSTICK";
-         this.LaserRangeJoystickEnableButton.UseVisualStyleBackColor = false;
-         this.LaserRangeJoystickEnableButton.Click += new System.EventHandler(this.LaserRangeJoystickEnableButton_Click);
+         this.LaserJoystickEnableButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.LaserJoystickEnableButton.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
+         this.LaserJoystickEnableButton.DisabledForeColor = System.Drawing.Color.Gray;
+         this.LaserJoystickEnableButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
+         this.LaserJoystickEnableButton.HoldArrorColor = System.Drawing.Color.Gray;
+         this.LaserJoystickEnableButton.Location = new System.Drawing.Point(584, 408);
+         this.LaserJoystickEnableButton.Name = "LaserJoystickEnableButton";
+         this.LaserJoystickEnableButton.Size = new System.Drawing.Size(107, 80);
+         this.LaserJoystickEnableButton.TabIndex = 151;
+         this.LaserJoystickEnableButton.Text = "JOYSTICK DRIVE";
+         this.LaserJoystickEnableButton.UseVisualStyleBackColor = false;
+         this.LaserJoystickEnableButton.Click += new System.EventHandler(this.LaserJoystickEnableButton_Click);
          // 
          // LaserAimButton
          // 
@@ -968,7 +1000,7 @@
          this.SensorPitchPanel.ForeColor = System.Drawing.Color.White;
          this.SensorPitchPanel.HoldTimeoutEnable = false;
          this.SensorPitchPanel.HoldTimeoutInterval = 0;
-         this.SensorPitchPanel.Location = new System.Drawing.Point(301, 42);
+         this.SensorPitchPanel.Location = new System.Drawing.Point(305, 42);
          this.SensorPitchPanel.Name = "SensorPitchPanel";
          this.SensorPitchPanel.Size = new System.Drawing.Size(112, 44);
          this.SensorPitchPanel.TabIndex = 147;
@@ -979,7 +1011,7 @@
          // 
          this.rotatableLabel3.Angle = 90;
          this.rotatableLabel3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Bold);
-         this.rotatableLabel3.Location = new System.Drawing.Point(280, 38);
+         this.rotatableLabel3.Location = new System.Drawing.Point(284, 38);
          this.rotatableLabel3.Name = "rotatableLabel3";
          this.rotatableLabel3.Size = new System.Drawing.Size(62, 52);
          this.rotatableLabel3.TabIndex = 148;
@@ -1044,21 +1076,6 @@
          this.SensorDownButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SensorDownButton_MouseDown);
          this.SensorDownButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.SensorDownButton_MouseUp);
          // 
-         // LaserPitchPanel
-         // 
-         this.LaserPitchPanel.BackColor = System.Drawing.Color.Black;
-         this.LaserPitchPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-         this.LaserPitchPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-         this.LaserPitchPanel.ForeColor = System.Drawing.Color.White;
-         this.LaserPitchPanel.HoldTimeoutEnable = false;
-         this.LaserPitchPanel.HoldTimeoutInterval = 0;
-         this.LaserPitchPanel.Location = new System.Drawing.Point(480, 42);
-         this.LaserPitchPanel.Name = "LaserPitchPanel";
-         this.LaserPitchPanel.Size = new System.Drawing.Size(112, 44);
-         this.LaserPitchPanel.TabIndex = 18;
-         this.LaserPitchPanel.ValueText = "#### ticks";
-         this.LaserPitchPanel.ValueTextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         // 
          // LaserUpButton
          // 
          this.LaserUpButton.ArrowColor = System.Drawing.Color.Black;
@@ -1088,26 +1105,11 @@
          this.LaserUpButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.LaserUpButton_MouseDown);
          this.LaserUpButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.LaserUpButton_MouseUp);
          // 
-         // LaserYawPanel
-         // 
-         this.LaserYawPanel.BackColor = System.Drawing.Color.Black;
-         this.LaserYawPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-         this.LaserYawPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-         this.LaserYawPanel.ForeColor = System.Drawing.Color.White;
-         this.LaserYawPanel.HoldTimeoutEnable = false;
-         this.LaserYawPanel.HoldTimeoutInterval = 0;
-         this.LaserYawPanel.Location = new System.Drawing.Point(480, 92);
-         this.LaserYawPanel.Name = "LaserYawPanel";
-         this.LaserYawPanel.Size = new System.Drawing.Size(112, 44);
-         this.LaserYawPanel.TabIndex = 21;
-         this.LaserYawPanel.ValueText = "#### ticks";
-         this.LaserYawPanel.ValueTextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         // 
          // rotatableLabel1
          // 
          this.rotatableLabel1.Angle = 90;
          this.rotatableLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Bold);
-         this.rotatableLabel1.Location = new System.Drawing.Point(459, 38);
+         this.rotatableLabel1.Location = new System.Drawing.Point(523, 38);
          this.rotatableLabel1.Name = "rotatableLabel1";
          this.rotatableLabel1.Size = new System.Drawing.Size(62, 52);
          this.rotatableLabel1.TabIndex = 19;
@@ -1146,7 +1148,7 @@
          // 
          this.rotatableLabel2.Angle = 90;
          this.rotatableLabel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Bold);
-         this.rotatableLabel2.Location = new System.Drawing.Point(459, 88);
+         this.rotatableLabel2.Location = new System.Drawing.Point(523, 88);
          this.rotatableLabel2.Name = "rotatableLabel2";
          this.rotatableLabel2.Size = new System.Drawing.Size(62, 52);
          this.rotatableLabel2.TabIndex = 20;
@@ -1291,8 +1293,8 @@
          // LaserMotorPanel
          // 
          this.LaserMotorPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(80)))), ((int)(((byte)(96)))));
-         this.LaserMotorPanel.Controls.Add(this.holdButton1);
-         this.LaserMotorPanel.Controls.Add(this.holdButton2);
+         this.LaserMotorPanel.Controls.Add(this.LaserRobotMovementJoystickEnableButton);
+         this.LaserMotorPanel.Controls.Add(this.LaserRobotMotorSetupButton);
          this.LaserMotorPanel.Controls.Add(this.valueToggleButton1);
          this.LaserMotorPanel.Controls.Add(this.LaserWheelTitleLabel);
          this.LaserMotorPanel.Controls.Add(this.holdButton3);
@@ -1303,39 +1305,41 @@
          this.LaserMotorPanel.Size = new System.Drawing.Size(328, 371);
          this.LaserMotorPanel.TabIndex = 192;
          // 
-         // holdButton1
+         // LaserRobotMovementJoystickEnableButton
          // 
-         this.holdButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.holdButton1.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
-         this.holdButton1.DisabledForeColor = System.Drawing.Color.Gray;
-         this.holdButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
-         this.holdButton1.ForeColor = System.Drawing.Color.Black;
-         this.holdButton1.HoldArrorColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-         this.holdButton1.HoldTimeoutEnable = false;
-         this.holdButton1.HoldTimeoutInterval = 100;
-         this.holdButton1.Location = new System.Drawing.Point(172, 267);
-         this.holdButton1.Name = "holdButton1";
-         this.holdButton1.Size = new System.Drawing.Size(107, 80);
-         this.holdButton1.TabIndex = 143;
-         this.holdButton1.Text = "JOYSTICK DRIVE";
-         this.holdButton1.UseVisualStyleBackColor = false;
+         this.LaserRobotMovementJoystickEnableButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.LaserRobotMovementJoystickEnableButton.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
+         this.LaserRobotMovementJoystickEnableButton.DisabledForeColor = System.Drawing.Color.Gray;
+         this.LaserRobotMovementJoystickEnableButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
+         this.LaserRobotMovementJoystickEnableButton.ForeColor = System.Drawing.Color.Black;
+         this.LaserRobotMovementJoystickEnableButton.HoldArrorColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+         this.LaserRobotMovementJoystickEnableButton.HoldTimeoutEnable = false;
+         this.LaserRobotMovementJoystickEnableButton.HoldTimeoutInterval = 100;
+         this.LaserRobotMovementJoystickEnableButton.Location = new System.Drawing.Point(172, 267);
+         this.LaserRobotMovementJoystickEnableButton.Name = "LaserRobotMovementJoystickEnableButton";
+         this.LaserRobotMovementJoystickEnableButton.Size = new System.Drawing.Size(107, 80);
+         this.LaserRobotMovementJoystickEnableButton.TabIndex = 143;
+         this.LaserRobotMovementJoystickEnableButton.Text = "JOYSTICK DRIVE";
+         this.LaserRobotMovementJoystickEnableButton.UseVisualStyleBackColor = false;
+         this.LaserRobotMovementJoystickEnableButton.Click += new System.EventHandler(this.LaserRobotMovementJoystickEnableButton_Click);
          // 
-         // holdButton2
+         // LaserRobotMotorSetupButton
          // 
-         this.holdButton2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.holdButton2.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
-         this.holdButton2.DisabledForeColor = System.Drawing.Color.Gray;
-         this.holdButton2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
-         this.holdButton2.ForeColor = System.Drawing.Color.Black;
-         this.holdButton2.HoldArrorColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-         this.holdButton2.HoldTimeoutEnable = false;
-         this.holdButton2.HoldTimeoutInterval = 100;
-         this.holdButton2.Location = new System.Drawing.Point(38, 267);
-         this.holdButton2.Name = "holdButton2";
-         this.holdButton2.Size = new System.Drawing.Size(107, 80);
-         this.holdButton2.TabIndex = 142;
-         this.holdButton2.Text = "MOTOR SETUP";
-         this.holdButton2.UseVisualStyleBackColor = false;
+         this.LaserRobotMotorSetupButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.LaserRobotMotorSetupButton.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
+         this.LaserRobotMotorSetupButton.DisabledForeColor = System.Drawing.Color.Gray;
+         this.LaserRobotMotorSetupButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
+         this.LaserRobotMotorSetupButton.ForeColor = System.Drawing.Color.Black;
+         this.LaserRobotMotorSetupButton.HoldArrorColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+         this.LaserRobotMotorSetupButton.HoldTimeoutEnable = false;
+         this.LaserRobotMotorSetupButton.HoldTimeoutInterval = 100;
+         this.LaserRobotMotorSetupButton.Location = new System.Drawing.Point(38, 267);
+         this.LaserRobotMotorSetupButton.Name = "LaserRobotMotorSetupButton";
+         this.LaserRobotMotorSetupButton.Size = new System.Drawing.Size(107, 80);
+         this.LaserRobotMotorSetupButton.TabIndex = 142;
+         this.LaserRobotMotorSetupButton.Text = "MOTOR SETUP";
+         this.LaserRobotMotorSetupButton.UseVisualStyleBackColor = false;
+         this.LaserRobotMotorSetupButton.Click += new System.EventHandler(this.LaserRobotMotorSetupButton_Click);
          // 
          // valueToggleButton1
          // 
@@ -1457,40 +1461,6 @@
          this.TitleSpacerPanel.Size = new System.Drawing.Size(1262, 38);
          this.TitleSpacerPanel.TabIndex = 193;
          // 
-         // SensorCenterButton
-         // 
-         this.SensorCenterButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.SensorCenterButton.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
-         this.SensorCenterButton.DisabledForeColor = System.Drawing.Color.Gray;
-         this.SensorCenterButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
-         this.SensorCenterButton.ForeColor = System.Drawing.Color.Black;
-         this.SensorCenterButton.HoldArrorColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-         this.SensorCenterButton.HoldTimeoutEnable = true;
-         this.SensorCenterButton.HoldTimeoutInterval = 100;
-         this.SensorCenterButton.Location = new System.Drawing.Point(328, 225);
-         this.SensorCenterButton.Name = "SensorCenterButton";
-         this.SensorCenterButton.Size = new System.Drawing.Size(67, 67);
-         this.SensorCenterButton.TabIndex = 174;
-         this.SensorCenterButton.UseVisualStyleBackColor = false;
-         this.SensorCenterButton.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.SensorCenterButton_HelpRequested);
-         // 
-         // TargetCenterButton
-         // 
-         this.TargetCenterButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.TargetCenterButton.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
-         this.TargetCenterButton.DisabledForeColor = System.Drawing.Color.Gray;
-         this.TargetCenterButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
-         this.TargetCenterButton.ForeColor = System.Drawing.Color.Black;
-         this.TargetCenterButton.HoldArrorColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-         this.TargetCenterButton.HoldTimeoutEnable = true;
-         this.TargetCenterButton.HoldTimeoutInterval = 100;
-         this.TargetCenterButton.Location = new System.Drawing.Point(567, 225);
-         this.TargetCenterButton.Name = "TargetCenterButton";
-         this.TargetCenterButton.Size = new System.Drawing.Size(67, 67);
-         this.TargetCenterButton.TabIndex = 175;
-         this.TargetCenterButton.UseVisualStyleBackColor = false;
-         this.TargetCenterButton.HoldTimeout += new E4.Ui.Controls.HoldTimeoutHandler(this.TargetCenterButton_HoldTimeout);
-         // 
          // MainForm
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1560,8 +1530,6 @@
       private Controls.UpDownButton LaserDownButton;
       private Controls.UpDownButton LaserUpButton;
       private Controls.LeftRightButton LaserRightButton;
-      private Controls.TextPanel LaserPitchPanel;
-      private Controls.TextPanel LaserYawPanel;
       private Controls.RotatableLabel rotatableLabel2;
       private Controls.RotatableLabel rotatableLabel1;
       private System.Windows.Forms.Timer UpdateTimer;
@@ -1574,11 +1542,11 @@
       private System.Windows.Forms.Label TargetWheelTitleLabel;
       private System.Windows.Forms.Panel LaserRangePanel;
       private Controls.ValueToggleButton MainWheelSpeedToggleButton;
-      private Controls.HoldButton MainWheelMotorSetupButton;
-      private Controls.HoldButton MainWheelManualDisplayButton;
+      private Controls.HoldButton TargetRobotMotorSetupButton;
+      private Controls.HoldButton TargetRobotMovementJoystickEnableButton;
       private Controls.E4Button LaserSetupButton;
       private Controls.E4Button LaserMeasureButton;
-      private Controls.E4Button LaserRangeJoystickEnableButton;
+      private Controls.E4Button LaserJoystickEnableButton;
       private Controls.E4Button LaserAimButton;
       private Controls.TextPanel SensorPitchPanel;
       private Controls.RotatableLabel rotatableLabel3;
@@ -1594,8 +1562,8 @@
       private Controls.TextPanel LaserPitchTickPanel;
       private Controls.TextPanel SensorPitchTickPanel;
       private System.Windows.Forms.Panel LaserMotorPanel;
-      private Controls.HoldButton holdButton1;
-      private Controls.HoldButton holdButton2;
+      private Controls.HoldButton LaserRobotMovementJoystickEnableButton;
+      private Controls.HoldButton LaserRobotMotorSetupButton;
       private Controls.ValueToggleButton valueToggleButton1;
       private System.Windows.Forms.Label LaserWheelTitleLabel;
       private Controls.HoldButton holdButton3;

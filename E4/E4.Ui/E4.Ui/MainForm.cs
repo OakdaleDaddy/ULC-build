@@ -22,9 +22,9 @@
       private enum JoystickApplications
       {
          none,
-         main,
-         target,
-         laser,
+         laserRobot,
+         targetRobot,
+         laserAim,
       }
 
       #endregion
@@ -86,6 +86,12 @@
             result += (" " + unit);
          }
 
+         return (result);
+      }
+
+      private string GetValueText(double value, string doubleFormat, string unit)
+      {
+         string result = value.ToString(doubleFormat) + " " + unit;
          return (result);
       }
 
@@ -179,19 +185,47 @@
       {
          if (JoystickApplications.none == this.joystickApplication)
          {
-            this.LaserRangeJoystickEnableButton.Text = "ENABLE JOYSTICK";
+            this.LaserRobotMovementJoystickEnableButton.Text = "JOYSTICK DRIVE";
+            this.LaserRobotMovementJoystickEnableButton.BackColor = Color.FromArgb(171, 171, 171);
+
+            this.LaserJoystickEnableButton.Text = "JOYSTICK DRIVE";
+            this.LaserJoystickEnableButton.BackColor = Color.FromArgb(171, 171, 171);
+
+            this.TargetRobotMovementJoystickEnableButton.Text = "JOYSTICK DRIVE";
+            this.TargetRobotMovementJoystickEnableButton.BackColor = Color.FromArgb(171, 171, 171);
          }
-         else if (JoystickApplications.main == this.joystickApplication)
+         else if (JoystickApplications.laserRobot == this.joystickApplication)
          {
-            this.LaserRangeJoystickEnableButton.Text = "ENABLE JOYSTICK";
+            this.LaserRobotMovementJoystickEnableButton.Text = "RELEASE JOYSTICK";
+            this.LaserRobotMovementJoystickEnableButton.BackColor = Color.Lime;
+
+            this.LaserJoystickEnableButton.Text = "JOYSTICK DRIVE";
+            this.LaserJoystickEnableButton.BackColor = Color.FromArgb(171, 171, 171);
+
+            this.TargetRobotMovementJoystickEnableButton.Text = "JOYSTICK DRIVE";
+            this.TargetRobotMovementJoystickEnableButton.BackColor = Color.FromArgb(171, 171, 171);
          }
-         else if (JoystickApplications.target == this.joystickApplication)
+         else if (JoystickApplications.targetRobot == this.joystickApplication)
          {
-            this.LaserRangeJoystickEnableButton.Text = "ENABLE JOYSTICK";
+            this.LaserRobotMovementJoystickEnableButton.Text = "JOYSTICK DRIVE";
+            this.LaserRobotMovementJoystickEnableButton.BackColor = Color.FromArgb(171, 171, 171);
+            
+            this.LaserJoystickEnableButton.Text = "JOYSTICK DRIVE";
+            this.LaserJoystickEnableButton.BackColor = Color.FromArgb(171, 171, 171);
+
+            this.TargetRobotMovementJoystickEnableButton.Text = "RELEASE JOYSTICK";
+            this.TargetRobotMovementJoystickEnableButton.BackColor = Color.Lime;
          }
-         else if (JoystickApplications.laser == this.joystickApplication)
+         else if (JoystickApplications.laserAim == this.joystickApplication)
          {
-            this.LaserRangeJoystickEnableButton.Text = "DISABLE JOYSTICK";
+            this.LaserRobotMovementJoystickEnableButton.Text = "JOYSTICK DRIVE";
+            this.LaserRobotMovementJoystickEnableButton.BackColor = Color.FromArgb(171, 171, 171);
+
+            this.LaserJoystickEnableButton.Text = "RELEASE JOYSTICK";
+            this.LaserJoystickEnableButton.BackColor = Color.Lime;
+
+            this.TargetRobotMovementJoystickEnableButton.Text = "JOYSTICK DRIVE";
+            this.TargetRobotMovementJoystickEnableButton.BackColor = Color.FromArgb(171, 171, 171);
          }
       }
 
@@ -242,14 +276,11 @@
 
          // clear display
 
+         this.LaserPitchTickPanel.ValueText = this.GetValueText(DeviceCommunication.Instance.GetLaserStepperYActualPosition());
+         this.LaserYawTickPanel.ValueText = this.GetValueText(DeviceCommunication.Instance.GetLaserStepperXActualPosition());
+
          this.SensorPitchPanel.ValueText = "";
          this.SensorPitchTickPanel.ValueText = this.GetValueText(DeviceCommunication.Instance.GetTargetStepperActualPosition());
-         
-         this.LaserPitchPanel.ValueText = "";
-         this.LaserPitchTickPanel.ValueText = this.GetValueText(DeviceCommunication.Instance.GetLaserStepperYActualPosition());
-
-         this.LaserYawPanel.ValueText = "";
-         this.LaserYawTickPanel.ValueText = this.GetValueText(DeviceCommunication.Instance.GetLaserStepperXActualPosition());
 
          this.LaserTitleLabel.Text = "LASER MEASURE";
          this.LaserMeasurementValuePanel.ValueText = "";
@@ -481,29 +512,50 @@
             this.LaserRangeJoystickYRequestIndicator.Position = joystickYAxis;
             this.LaserScannerJoystickYRequestIndicator.Position = joystickThrottle;
 
-            this.LaserYawPanel.ValueText = string.Format("{0}", joystickXAxis);
-            this.LaserPitchPanel.ValueText = string.Format("{0}", joystickYAxis);
-            this.SensorPitchPanel.ValueText = string.Format("{0}", joystickThrottle);
-
-
-
-            if (JoystickApplications.laser == this.joystickApplication)
+            if (JoystickApplications.none != this.joystickApplication)
             {
                joystickXChange = joystickXAxis;
                joystickYChange = joystickYAxis;
                joystickThrottleChange = joystickThrottle;
             }
-            else if (this.joystickApplication != JoystickApplications.laser)
+
+            if (this.joystickApplication != JoystickApplications.laserRobot)
+            {
+               if ((0 != joystickXAxis) ||
+                   (0 != joystickYAxis))
+               {
+                  this.LaserRobotMovementJoystickEnableButton.Enabled = false;
+               }
+               else
+               {
+                  this.LaserRobotMovementJoystickEnableButton.Enabled = true;
+               }
+            }
+
+            if (this.joystickApplication != JoystickApplications.targetRobot)
+            {
+               if ((0 != joystickXAxis) ||
+                   (0 != joystickYAxis))
+               {
+                  this.TargetRobotMovementJoystickEnableButton.Enabled = false;
+               }
+               else
+               {
+                  this.TargetRobotMovementJoystickEnableButton.Enabled = true;
+               }
+            }
+
+            if (this.joystickApplication != JoystickApplications.laserAim)
             {
                if ((0 != joystickXAxis) ||
                    (0 != joystickYAxis) ||
                    (0 != joystickThrottle))
                {            
-                  this.LaserRangeJoystickEnableButton.Enabled = false;
+                  this.LaserJoystickEnableButton.Enabled = false;
                }
                else
                {
-                  this.LaserRangeJoystickEnableButton.Enabled = true;
+                  this.LaserJoystickEnableButton.Enabled = true;
                }
             }
 
@@ -515,12 +567,16 @@
          #region Laser Measurement
 
          string laserMeasureFault = LaserCommunicationBus.Instance.GetFaultStatus(LaserCommunicationBus.BusComponentId.LaserBoard);
+         string targetMeasureFault = TargetCommunicationBus.Instance.GetFaultStatus(TargetCommunicationBus.BusComponentId.TargetBoard);
 
-         this.SensorPitchTickPanel.ValueText = this.GetValueText(DeviceCommunication.Instance.GetTargetStepperActualPosition());
          this.LaserPitchTickPanel.ValueText = this.GetValueText(DeviceCommunication.Instance.GetLaserStepperYActualPosition());
          this.LaserYawTickPanel.ValueText = this.GetValueText(DeviceCommunication.Instance.GetLaserStepperXActualPosition());
 
-         if (null == laserMeasureFault)
+         double targetPitchValue = DeviceCommunication.Instance.GetTargetPitch();
+         this.SensorPitchPanel.ValueText = this.GetValueText(targetPitchValue, "N1", "°");
+         this.SensorPitchTickPanel.ValueText = this.GetValueText(DeviceCommunication.Instance.GetTargetStepperActualPosition());
+
+         if ((null == laserMeasureFault) && (null == targetMeasureFault))
          {
             this.LaserMeasureButton.BackColor = Color.FromArgb(171, 171, 171);
             
@@ -590,9 +646,7 @@
             this.SensorIndicator.MissColor = Color.Red;
             this.SensorIndicator.BackColor = Color.Red;
             this.SensorIndicator.CoordinateValue = 0;
-         }         
-
-
+         }
 
          #endregion
 
@@ -606,7 +660,7 @@
          int laserYChange = this.laserYButtonChange;
          int targetChange = this.targetButtonChange;
 
-         if (JoystickApplications.laser == this.joystickApplication)
+         if (JoystickApplications.laserAim == this.joystickApplication)
          {
             laserXChange = joystickXChange;
             laserYChange = joystickYChange;
@@ -1775,8 +1829,68 @@
       }
 
       #endregion
-      
-      #region Laser Actions
+
+      #region Laser Robot Movement Events
+
+      private void LaserRobotMotorSetupButton_Click(object sender, EventArgs e)
+      {
+         Button button = (Button)sender;
+
+         LaserRobotMovementSetupForm laserRobotMovementSetupForm = new LaserRobotMovementSetupForm();
+
+         this.SetDialogLocation(button, laserRobotMovementSetupForm);
+         this.DimBackground();
+         laserRobotMovementSetupForm.ShowDialog();
+         this.LightBackground();
+      }
+
+      private void LaserRobotMovementJoystickEnableButton_Click(object sender, EventArgs e)
+      {
+         if (JoystickApplications.laserRobot != this.joystickApplication)
+         {
+            this.joystickApplication = JoystickApplications.laserRobot;
+         }
+         else
+         {
+            this.joystickApplication = JoystickApplications.none;
+         }
+
+         this.UpdateJoystickApplicationButtons();
+      }
+
+      #endregion
+
+      #region Target Robot Movement Events
+
+      private void TargetRobotMotorSetupButton_Click(object sender, EventArgs e)
+      {
+         Button button = (Button)sender;
+         
+         TargetRobotMovementSetupForm targetRobotMovementSetupForm = new TargetRobotMovementSetupForm();
+
+         this.SetDialogLocation(button, targetRobotMovementSetupForm);
+         this.DimBackground();
+         targetRobotMovementSetupForm.ShowDialog();
+         this.LightBackground();
+      }
+
+      private void TargetRobotMovementJoystickEnableButton_Click(object sender, EventArgs e)
+      {
+         if (JoystickApplications.targetRobot != this.joystickApplication)
+         {
+            this.joystickApplication = JoystickApplications.targetRobot;
+         }
+         else
+         {
+            this.joystickApplication = JoystickApplications.none;
+         }
+
+         this.UpdateJoystickApplicationButtons();
+      }
+
+      #endregion
+
+      #region Laser Actions Events
 
       private void SensorUpButton_MouseDown(object sender, MouseEventArgs e)
       {
@@ -1798,11 +1912,11 @@
          this.targetButtonChange = 0;      
       }
 
-      private void SensorCenterButton_HelpRequested(object sender, HelpEventArgs hlpevent)
+      private void SensorCenterButton_HoldTimeout(object sender, Controls.HoldTimeoutEventArgs e)
       {
          DeviceCommunication.Instance.SetTargetCenter();
       }
-      
+
       private void LaserUpButton_MouseDown(object sender, MouseEventArgs e)
       {
          this.laserYButtonChange = 1;
@@ -1887,11 +2001,11 @@
          }
       }
 
-      private void LaserRangeJoystickEnableButton_Click(object sender, EventArgs e)
+      private void LaserJoystickEnableButton_Click(object sender, EventArgs e)
       {
-         if (JoystickApplications.laser != this.joystickApplication)
+         if (JoystickApplications.laserAim != this.joystickApplication)
          {
-            this.joystickApplication = JoystickApplications.laser;
+            this.joystickApplication = JoystickApplications.laserAim;
          }
          else
          {
