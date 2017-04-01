@@ -41,13 +41,15 @@
       private Queue deviceResetQueue;
       private Queue deviceClearWarningQueue;
 
-      private DateTime controllerHeartbeatLimit;
-      private bool controllerServiced;
-      private bool stopAll;
+      private UlcRoboticsE4Main laserBoard;
 
       private ArrayList deviceList;
 
-      private UlcRoboticsE4Main laserBoard;
+      private DateTime controllerHeartbeatLimit;
+      private bool controllerServiced;
+      private bool stopAll;
+      
+      private MovementModes laserMovementMode;
 
       //private StepperMotorStatus bldc0Status;
       //private StepperMotorStatus bldc1Status;
@@ -85,10 +87,6 @@
          this.deviceResetQueue = new Queue();
          this.deviceClearWarningQueue = new Queue();
 
-         this.controllerHeartbeatLimit = DateTime.Now.AddSeconds(30);
-         this.controllerServiced = false;
-         this.stopAll = false;
-
          this.laserBoard = new UlcRoboticsE4Main("laser board", (byte)ParameterAccessor.Instance.LaserBus.LaserBoardBusId);
 
          this.deviceList = new ArrayList();
@@ -102,6 +100,12 @@
             device.OnFault = new Device.FaultHandler(this.DeviceFault);
             device.OnWarning = new Device.WarningHandler(this.DeviceWarning);
          }
+
+         this.controllerHeartbeatLimit = DateTime.Now.AddSeconds(30);
+         this.controllerServiced = false;
+         this.stopAll = false;
+
+         this.laserMovementMode = MovementModes.off;
 
          //this.bldc0Status = new StepperMotorStatus();
          //this.bldc1Status = new StepperMotorStatus();
@@ -185,7 +189,7 @@
             sb.AppendFormat("{0:X2}", data[i]);
          }
 
-         Tracer.WriteMedium(TraceGroup.MBUS, "", "rx {0:X3} {1}", cobId, sb.ToString());
+         Tracer.WriteMedium(TraceGroup.LBUS, "", "rx {0:X3} {1}", cobId, sb.ToString());
       }
 
       private void DeviceTraceTransmit(int cobId, byte[] data)
@@ -197,7 +201,7 @@
             sb.AppendFormat("{0:X2}", data[i]);
          }
 
-         Tracer.WriteMedium(TraceGroup.MBUS, "", "tx {0:X3} {1}", cobId, sb.ToString());
+         Tracer.WriteMedium(TraceGroup.LBUS, "", "tx {0:X3} {1}", cobId, sb.ToString());
       }
 
       private bool DeviceTransmit(int id, byte[] data)
@@ -210,12 +214,12 @@
 
       private void DeviceFault(string name, int nodeId, string reason)
       {
-         Tracer.WriteError(TraceGroup.MBUS, "", "fault with \"{0}\", node={1}, reason={2}", name, nodeId, reason);
+         Tracer.WriteError(TraceGroup.LBUS, "", "fault with \"{0}\", node={1}, reason={2}", name, nodeId, reason);
       }
 
       private void DeviceWarning(string name, int nodeId, string reason)
       {
-         Tracer.WriteError(TraceGroup.MBUS, "", "warning with \"{0}\", node={1}, reason={2}", name, nodeId, reason);
+         Tracer.WriteError(TraceGroup.LBUS, "", "warning with \"{0}\", node={1}, reason={2}", name, nodeId, reason);
       }
 
       #endregion
@@ -380,8 +384,8 @@
             
             motor.SetMode(MotorComponent.Modes.homing);
             motor.StartHoming();
-            
-            Tracer.WriteHigh(TraceGroup.MBUS, "", "{0} homing mode", motor.Name);
+
+            Tracer.WriteHigh(TraceGroup.LBUS, "", "{0} homing mode", motor.Name);
 
             positionObtained = false;
             status.positionInvalidTimeLimit = now.AddMilliseconds(250);
@@ -403,7 +407,7 @@
             motor.SetProfileAcceleration(parameters.ProfileAcceleration);
             motor.SetMode(MotorComponent.Modes.position);
 
-            Tracer.WriteHigh(TraceGroup.MBUS, "", "{0} position mode", motor.Name);
+            Tracer.WriteHigh(TraceGroup.LBUS, "", "{0} position mode", motor.Name);
 
             status.state = StepperMotorStatus.States.positioning;
          }
@@ -421,7 +425,7 @@
                motor.SetTargetPosition(status.positionNeeded, false);
                status.positionRequested = status.positionNeeded;
 
-               Tracer.WriteHigh(TraceGroup.MBUS, "", "{0} position {1}", motor.Name, status.positionRequested);
+               Tracer.WriteHigh(TraceGroup.LBUS, "", "{0} position {1}", motor.Name, status.positionRequested);
 
                positionObtained = false;
                status.positionInvalidTimeLimit = now.AddMilliseconds(250);
@@ -434,7 +438,7 @@
 
                motor.Halt();
                status.positionRequested = status.positionNeeded;
-               Tracer.WriteHigh(TraceGroup.MBUS, "", "{0} stop", motor.Name);
+               Tracer.WriteHigh(TraceGroup.LBUS, "", "{0} stop", motor.Name);
 
                positionObtained = false;
                status.positionInvalidTimeLimit = now.AddMilliseconds(250);
@@ -446,7 +450,7 @@
                motor.SetTargetPosition(status.positionNeeded, false);
                status.positionRequested = status.positionNeeded;
 
-               Tracer.WriteHigh(TraceGroup.MBUS, "", "{0} position {1}", motor.Name, status.positionRequested);
+               Tracer.WriteHigh(TraceGroup.LBUS, "", "{0} position {1}", motor.Name, status.positionRequested);
 
                positionObtained = false;
                status.positionInvalidTimeLimit = now.AddMilliseconds(250);
@@ -462,7 +466,7 @@
                status.positionNeeded = status.actualPosition;
                status.positionRequested = status.positionNeeded;
 
-               Tracer.WriteHigh(TraceGroup.MBUS, "", "{0} centered at {1}", motor.Name, status.actualPosition);
+               Tracer.WriteHigh(TraceGroup.LBUS, "", "{0} centered at {1}", motor.Name, status.actualPosition);
 
                status.state = StepperMotorStatus.States.positioning;
             }
@@ -479,7 +483,7 @@
 
                motor.Run();
 
-               Tracer.WriteHigh(TraceGroup.MBUS, "", "{0} stopped at {1}", motor.Name, status.actualPosition);
+               Tracer.WriteHigh(TraceGroup.LBUS, "", "{0} stopped at {1}", motor.Name, status.actualPosition);
 
                status.state = StepperMotorStatus.States.positioning;
             }
@@ -626,7 +630,7 @@
          if (false == this.busReady)
          {
             this.busInterfaceId = ParameterAccessor.Instance.LaserBus.BusInterface;
-            CANResult startResult = PCANLight.Start(this.busInterfaceId, ParameterAccessor.Instance.LaserBus.BitRate, FramesType.INIT_TYPE_ST, TraceGroup.MBUS, this.BusReceiveHandler);
+            CANResult startResult = PCANLight.Start(this.busInterfaceId, ParameterAccessor.Instance.LaserBus.BitRate, FramesType.INIT_TYPE_ST, TraceGroup.LBUS, this.BusReceiveHandler);
             this.busReady = (CANResult.ERR_OK == startResult);
          }
 
@@ -669,7 +673,7 @@
          else
          {
             this.busStatus = "interface failure";
-            Tracer.WriteMedium(TraceGroup.MBUS, "", "bus failure");
+            Tracer.WriteMedium(TraceGroup.LBUS, "", "bus failure");
 
             foreach (Device device in this.deviceList)
             {
@@ -805,7 +809,7 @@
          try
          {
             this.running = true;
-            Tracer.WriteHigh(TraceGroup.MBUS, null, "start");
+            Tracer.WriteHigh(TraceGroup.LBUS, null, "start");
 
             this.InitializeValues();
 
@@ -821,7 +825,7 @@
          }
          catch (Exception preException)
          {
-            Tracer.WriteError(TraceGroup.MBUS, null, "process exception {0}", preException.Message);
+            Tracer.WriteError(TraceGroup.LBUS, null, "process exception {0}", preException.Message);
          }
 
          try
@@ -838,10 +842,10 @@
          }
          catch (Exception postException)
          {
-            Tracer.WriteError(TraceGroup.MBUS, null, "post process exception {0}", postException.Message);
+            Tracer.WriteError(TraceGroup.LBUS, null, "post process exception {0}", postException.Message);
          }
 
-         Tracer.WriteHigh(TraceGroup.MBUS, null, "stop");
+         Tracer.WriteHigh(TraceGroup.LBUS, null, "stop");
          this.running = false;
       }
 
@@ -1043,8 +1047,108 @@
 
       public void StopAll()
       {
-         Tracer.WriteHigh(TraceGroup.MBUS, "", "Stop All");
+         Tracer.WriteHigh(TraceGroup.LBUS, "", "Stop All");
          this.stopAll = true;
+      }
+
+      #endregion
+
+      #region Laser Movement Functions
+
+      public void SetLaserMovementMode(MovementModes mode)
+      {
+         Tracer.WriteHigh(TraceGroup.LBUS, "", "requested laser movement mode={0}", mode);
+         this.laserMovementMode = mode;
+      }
+
+      public void SetLaserMovementRequest(double request, bool triggered)
+      {
+         // todo
+      }
+
+      public MovementModes GetLaserMovementMode()
+      {
+         return (this.laserMovementMode);
+      }
+
+      public double GetLaserMovementValue()
+      {
+         double result = 0;
+         int count = 0;
+
+         //MovementForwardControls cumulativeForwardControl = this.GetMovementForwardControl(); // applicable to all motors: velocity, current, or openLoop
+
+         //this.EvaluateMovementMotorValue(cumulativeForwardControl, this.frontUpperWheel, ParameterAccessor.Instance.FrontUpperMovementMotor, this.frontUpperWheelStatus, ref result, ref count);
+         //this.EvaluateMovementMotorValue(cumulativeForwardControl, this.frontLowerWheel, ParameterAccessor.Instance.FrontLowerMovementMotor, this.frontLowerWheelStatus, ref result, ref count);
+         //this.EvaluateMovementMotorValue(cumulativeForwardControl, this.rearUpperWheel, ParameterAccessor.Instance.RearUpperMovementMotor, this.rearUpperWheelStatus, ref result, ref count);
+         //this.EvaluateMovementMotorValue(cumulativeForwardControl, this.rearLowerWheel, ParameterAccessor.Instance.RearLowerMovementMotor, this.rearLowerWheelStatus, ref result, ref count);
+
+         if (0 != count)
+         {
+            result /= count;
+         }
+
+         return (result);
+      }
+
+      public bool GetLaserMovementActivated()
+      {
+         bool result = false; // todo
+         return (result);
+      }
+
+      #endregion
+
+      #region Laser Stepper Functions
+
+      public void SetLaserCenter()
+      {
+         this.stepper0Status.centerNeeded = true;
+         this.stepper1Status.centerNeeded = true;
+      }
+
+      public void SetLaserStepperXPosition(int position)
+      {
+         this.stepper0Status.positionNeeded = position;
+      }
+
+      public void StopLaserStepperX()
+      {
+         this.stepper0Status.stopNeeded = true;
+      }
+
+      public void SetLaserStepperYPosition(int position)
+      {
+         this.stepper1Status.positionNeeded = position;
+      }
+
+      public void StopLaserStepperY()
+      {
+         this.stepper1Status.stopNeeded = true;
+      }
+
+      public int GetLaserStepperXActualPosition()
+      {
+         int result = this.stepper0Status.actualPosition;
+         return (result);
+      }
+
+      public int GetLaserStepperYActualPosition()
+      {
+         int result = this.stepper1Status.actualPosition;
+         return (result);      
+      }
+
+      public bool LaserXPositionObtained()
+      {
+         bool result = this.laserBoard.Stepper0.PositionAttained;
+         return (result);
+      }
+
+      public bool LaserYPositionObtained()
+      {
+         bool result = this.laserBoard.Stepper1.PositionAttained;
+         return (result);
       }
 
       #endregion
@@ -1110,60 +1214,6 @@
       public double GetAverageLaserMeasurement()
       {
          return (this.laserAverageMeasurement);
-      }
-
-      #endregion
-
-      #region Laser Stepper Functions
-
-      public void SetLaserCenter()
-      {
-         this.stepper0Status.centerNeeded = true;
-         this.stepper1Status.centerNeeded = true;
-      }
-
-      public void SetLaserStepperXPosition(int position)
-      {
-         this.stepper0Status.positionNeeded = position;
-      }
-
-      public void StopLaserStepperX()
-      {
-         this.stepper0Status.stopNeeded = true;
-      }
-
-      public void SetLaserStepperYPosition(int position)
-      {
-         this.stepper1Status.positionNeeded = position;
-      }
-
-      public void StopLaserStepperY()
-      {
-         this.stepper1Status.stopNeeded = true;
-      }
-
-      public int GetLaserStepperXActualPosition()
-      {
-         int result = this.stepper0Status.actualPosition;
-         return (result);
-      }
-
-      public int GetLaserStepperYActualPosition()
-      {
-         int result = this.stepper1Status.actualPosition;
-         return (result);      
-      }
-
-      public bool LaserXPositionObtained()
-      {
-         bool result = this.laserBoard.Stepper0.PositionAttained;
-         return (result);
-      }
-
-      public bool LaserYPositionObtained()
-      {
-         bool result = this.laserBoard.Stepper1.PositionAttained;
-         return (result);
       }
 
       #endregion

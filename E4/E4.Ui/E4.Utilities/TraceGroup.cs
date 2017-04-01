@@ -8,7 +8,7 @@
       UI,
       PARAM,
       CANBUS,
-      MBUS,
+      LBUS,
       TBUS,
    }
 
@@ -24,7 +24,7 @@
             case TraceGroup.UI: prefix = "UI: "; break;
             case TraceGroup.PARAM: prefix = "PARAM: "; break;
             case TraceGroup.CANBUS: prefix = "CAN: "; break;
-            case TraceGroup.MBUS: prefix = "MBUS: "; break;
+            case TraceGroup.LBUS: prefix = "LBUS: "; break;
             case TraceGroup.TBUS: prefix = "TBUS: "; break;
          }
 

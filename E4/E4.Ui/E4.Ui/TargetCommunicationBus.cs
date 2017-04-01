@@ -41,13 +41,15 @@
       private Queue deviceResetQueue;
       private Queue deviceClearWarningQueue;
 
+      private UlcRoboticsE4Main targetBoard;
+
+      private ArrayList deviceList;
+
       private DateTime controllerHeartbeatLimit;
       private bool controllerServiced;
       private bool stopAll;
 
-      private ArrayList deviceList;
-
-      private UlcRoboticsE4Main targetBoard;
+      private MovementModes targetMovementMode;
 
       private StepperMotorStatus stepperStatus;
 
@@ -72,10 +74,6 @@
          this.deviceResetQueue = new Queue();
          this.deviceClearWarningQueue = new Queue();
 
-         this.controllerHeartbeatLimit = DateTime.Now.AddSeconds(30);
-         this.controllerServiced = false;
-         this.stopAll = false;
-
          this.targetBoard = new UlcRoboticsE4Main("target board", (byte)ParameterAccessor.Instance.TargetBus.TargetBoardBusId);
 
          this.deviceList = new ArrayList();
@@ -89,6 +87,12 @@
             device.OnFault = new Device.FaultHandler(this.DeviceFault);
             device.OnWarning = new Device.WarningHandler(this.DeviceWarning);
          }
+
+         this.controllerHeartbeatLimit = DateTime.Now.AddSeconds(30);
+         this.controllerServiced = false;
+         this.stopAll = false;
+
+         this.targetMovementMode = MovementModes.off;
 
          this.stepperStatus = new StepperMotorStatus();
       }
@@ -351,7 +355,7 @@
             motor.SetMode(MotorComponent.Modes.homing);
             motor.StartHoming();
 
-            Tracer.WriteHigh(TraceGroup.MBUS, "", "{0} homing mode", motor.Name);
+            Tracer.WriteHigh(TraceGroup.TBUS, "", "{0} homing mode", motor.Name);
 
             positionObtained = false;
             status.positionInvalidTimeLimit = now.AddMilliseconds(250);
@@ -373,7 +377,7 @@
             motor.SetProfileAcceleration(parameters.ProfileAcceleration);
             motor.SetMode(MotorComponent.Modes.position);
 
-            Tracer.WriteHigh(TraceGroup.MBUS, "", "{0} position mode", motor.Name);
+            Tracer.WriteHigh(TraceGroup.TBUS, "", "{0} position mode", motor.Name);
 
             status.state = StepperMotorStatus.States.positioning;
          }
@@ -391,7 +395,7 @@
                motor.SetTargetPosition(status.positionNeeded, false);
                status.positionRequested = status.positionNeeded;
 
-               Tracer.WriteHigh(TraceGroup.MBUS, "", "{0} position {1}", motor.Name, status.positionRequested);
+               Tracer.WriteHigh(TraceGroup.TBUS, "", "{0} position {1}", motor.Name, status.positionRequested);
 
                positionObtained = false;
                status.positionInvalidTimeLimit = now.AddMilliseconds(250);
@@ -404,7 +408,7 @@
 
                motor.Halt();
                status.positionRequested = status.positionNeeded;
-               Tracer.WriteHigh(TraceGroup.MBUS, "", "{0} stop", motor.Name);
+               Tracer.WriteHigh(TraceGroup.TBUS, "", "{0} stop", motor.Name);
 
                positionObtained = false;
                status.positionInvalidTimeLimit = now.AddMilliseconds(250);
@@ -416,7 +420,7 @@
                motor.SetTargetPosition(status.positionNeeded, false);
                status.positionRequested = status.positionNeeded;
 
-               Tracer.WriteHigh(TraceGroup.MBUS, "", "{0} position {1}", motor.Name, status.positionRequested);
+               Tracer.WriteHigh(TraceGroup.TBUS, "", "{0} position {1}", motor.Name, status.positionRequested);
 
                positionObtained = false;
                status.positionInvalidTimeLimit = now.AddMilliseconds(250);
@@ -432,7 +436,7 @@
                status.positionNeeded = status.actualPosition;
                status.positionRequested = status.positionNeeded;
 
-               Tracer.WriteHigh(TraceGroup.MBUS, "", "{0} centered at {1}", motor.Name, status.actualPosition);
+               Tracer.WriteHigh(TraceGroup.TBUS, "", "{0} centered at {1}", motor.Name, status.actualPosition);
 
                status.state = StepperMotorStatus.States.positioning;
             }
@@ -449,7 +453,7 @@
 
                motor.Run();
 
-               Tracer.WriteHigh(TraceGroup.MBUS, "", "{0} stopped at {1}", motor.Name, status.actualPosition);
+               Tracer.WriteHigh(TraceGroup.TBUS, "", "{0} stopped at {1}", motor.Name, status.actualPosition);
 
                status.state = StepperMotorStatus.States.positioning;
             }
@@ -957,21 +961,72 @@
 
       #endregion
 
-      #region Laser Functions
+      #region Target Movement Functions
 
-      public UInt32 GetLaserScannerCoordinates()
+      public void SetTargetMovementMode(MovementModes mode)
       {
-         return (this.targetBoard.LaserScannerPosition);
+         Tracer.WriteHigh(TraceGroup.TBUS, "", "requested target movement mode={0}", mode);
+         this.targetMovementMode = mode;
       }
 
-      public double GetTargetPitch()
+      public void SetTargetMovementRequest(double request, bool triggered)
       {
-         return (this.targetBoard.TargetBoardImuPitch);
+#if false
+         triggered &= (NicBotComm.Instance.IsMacroActive() == false) ? true : false;
+
+         if (UlcRoboticsNicbotMain.Modes.inspect == this.robotMain.Mode)
+         {
+            if (false != this.sensorBlockInterlockEnabled)
+            {
+               bool lowerPivotMode = this.IsLowerPivotMode();
+
+               if (false == lowerPivotMode)
+               {
+                  bool sensorBlockIn = this.GetSolenoidActive(Solenoids.sensorBlockIn) && !this.GetSolenoidActive(Solenoids.sensorBlockOut);
+                  triggered &= sensorBlockIn;
+               }
+            }
+         }
+
+         this.movementRequest = request;
+         this.movementTriggered = triggered;
+#endif
+      }
+      
+      public MovementModes GetTargetMovementMode()
+      {
+         return (this.targetMovementMode);
+      }
+
+      public double GetTargetMovementValue()
+      {
+         double result = 0;
+         int count = 0;
+
+         //MovementForwardControls cumulativeForwardControl = this.GetMovementForwardControl(); // applicable to all motors: velocity, current, or openLoop
+
+         //this.EvaluateMovementMotorValue(cumulativeForwardControl, this.frontUpperWheel, ParameterAccessor.Instance.FrontUpperMovementMotor, this.frontUpperWheelStatus, ref result, ref count);
+         //this.EvaluateMovementMotorValue(cumulativeForwardControl, this.frontLowerWheel, ParameterAccessor.Instance.FrontLowerMovementMotor, this.frontLowerWheelStatus, ref result, ref count);
+         //this.EvaluateMovementMotorValue(cumulativeForwardControl, this.rearUpperWheel, ParameterAccessor.Instance.RearUpperMovementMotor, this.rearUpperWheelStatus, ref result, ref count);
+         //this.EvaluateMovementMotorValue(cumulativeForwardControl, this.rearLowerWheel, ParameterAccessor.Instance.RearLowerMovementMotor, this.rearLowerWheelStatus, ref result, ref count);
+
+         if (0 != count)
+         {
+            result /= count;
+         }
+
+         return (result);
+      }
+
+      public bool GetTargetMovementActivated()
+      {
+         bool result = false;// ((false != this.movementTriggered) && (MovementModes.move == this.movementMode)) ? true : false;
+         return (result);
       }
 
       #endregion
 
-      #region Laser Stepper Functions
+      #region Target Stepper Functions
 
       public void SetTargetCenter()
       {
@@ -998,6 +1053,20 @@
       {
          bool result = this.targetBoard.Stepper0.PositionAttained;
          return (result);
+      }
+
+      #endregion
+
+      #region Target Functions
+
+      public UInt32 GetTargetScannerCoordinates()
+      {
+         return (this.targetBoard.LaserScannerPosition);
+      }
+
+      public double GetTargetPitch()
+      {
+         return (this.targetBoard.TargetBoardImuPitch);
       }
 
       #endregion

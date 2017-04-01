@@ -29,24 +29,24 @@
       private void InitializeComponent()
       {
          this.MainPanel = new E4.Ui.Controls.BorderedPanel();
-         this.TitleLabel = new System.Windows.Forms.Label();
-         this.BackButton = new E4.Ui.Controls.E4Button();
+         this.WheelDrivePanel = new E4.Ui.Controls.TransparentPanel();
+         this.RearDirectionToggleButton = new E4.Ui.Controls.ValueToggleButton();
+         this.FrontDirectionToggleButton = new E4.Ui.Controls.ValueToggleButton();
+         this.RearStateCycleButton = new E4.Ui.Controls.ValueCycleButton();
+         this.transparentLabel1 = new E4.Ui.Controls.TransparentLabel();
+         this.FrontStateCycleButton = new E4.Ui.Controls.ValueCycleButton();
          this.MaxSpeedValueButton = new E4.Ui.Controls.ValueButton();
          this.LowSpeedScaleValueButton = new E4.Ui.Controls.ValueButton();
          this.RearPanel = new E4.Ui.Controls.BorderedPanel();
          this.label6 = new System.Windows.Forms.Label();
          this.FrontPanel = new E4.Ui.Controls.BorderedPanel();
          this.label1 = new System.Windows.Forms.Label();
-         this.WheelDrivePanel = new E4.Ui.Controls.TransparentPanel();
-         this.valueToggleButton1 = new E4.Ui.Controls.ValueToggleButton();
-         this.FrontDirectionToggleButton = new E4.Ui.Controls.ValueToggleButton();
-         this.RearStateCycleButton = new E4.Ui.Controls.ValueCycleButton();
-         this.transparentLabel1 = new E4.Ui.Controls.TransparentLabel();
-         this.FrontStateCycleButton = new E4.Ui.Controls.ValueCycleButton();
+         this.TitleLabel = new System.Windows.Forms.Label();
+         this.BackButton = new E4.Ui.Controls.E4Button();
          this.MainPanel.SuspendLayout();
+         this.WheelDrivePanel.SuspendLayout();
          this.RearPanel.SuspendLayout();
          this.FrontPanel.SuspendLayout();
-         this.WheelDrivePanel.SuspendLayout();
          this.SuspendLayout();
          // 
          // MainPanel
@@ -65,141 +65,10 @@
          this.MainPanel.Size = new System.Drawing.Size(451, 355);
          this.MainPanel.TabIndex = 0;
          // 
-         // TitleLabel
-         // 
-         this.TitleLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-         this.TitleLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-         this.TitleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.TitleLabel.ForeColor = System.Drawing.SystemColors.GradientActiveCaption;
-         this.TitleLabel.Location = new System.Drawing.Point(16, 16);
-         this.TitleLabel.Name = "TitleLabel";
-         this.TitleLabel.Size = new System.Drawing.Size(419, 36);
-         this.TitleLabel.TabIndex = 134;
-         this.TitleLabel.Text = "LASER WHEEL MOTOR SETUP";
-         this.TitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         this.TitleLabel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TitleLabel_MouseDown);
-         this.TitleLabel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TitleLabel_MouseMove);
-         this.TitleLabel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TitleLabel_MouseUp);
-         // 
-         // BackButton
-         // 
-         this.BackButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.BackButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
-         this.BackButton.DisabledForeColor = System.Drawing.Color.Silver;
-         this.BackButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
-         this.BackButton.HoldArrorColor = System.Drawing.Color.Gray;
-         this.BackButton.Location = new System.Drawing.Point(317, 272);
-         this.BackButton.Name = "BackButton";
-         this.BackButton.Size = new System.Drawing.Size(107, 67);
-         this.BackButton.TabIndex = 5;
-         this.BackButton.Text = "BACK";
-         this.BackButton.UseVisualStyleBackColor = false;
-         this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
-         // 
-         // MaxSpeedValueButton
-         // 
-         this.MaxSpeedValueButton.ArrowWidth = 0;
-         this.MaxSpeedValueButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.MaxSpeedValueButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
-         this.MaxSpeedValueButton.DisabledForeColor = System.Drawing.Color.Silver;
-         this.MaxSpeedValueButton.DisabledValueBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-         this.MaxSpeedValueButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.MaxSpeedValueButton.HoldArrorColor = System.Drawing.Color.Gray;
-         this.MaxSpeedValueButton.HoldTimeoutInterval = 0;
-         this.MaxSpeedValueButton.LeftArrowBackColor = System.Drawing.Color.Black;
-         this.MaxSpeedValueButton.LeftArrowVisible = false;
-         this.MaxSpeedValueButton.Location = new System.Drawing.Point(317, 68);
-         this.MaxSpeedValueButton.Name = "MaxSpeedValueButton";
-         this.MaxSpeedValueButton.RightArrowBackColor = System.Drawing.Color.Black;
-         this.MaxSpeedValueButton.RightArrowVisible = false;
-         this.MaxSpeedValueButton.Size = new System.Drawing.Size(107, 90);
-         this.MaxSpeedValueButton.TabIndex = 209;
-         this.MaxSpeedValueButton.Text = "MAX      SPEED";
-         this.MaxSpeedValueButton.UseVisualStyleBackColor = false;
-         this.MaxSpeedValueButton.ValueBackColor = System.Drawing.Color.Black;
-         this.MaxSpeedValueButton.ValueEdgeHeight = 8;
-         this.MaxSpeedValueButton.ValueFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
-         this.MaxSpeedValueButton.ValueForeColor = System.Drawing.Color.White;
-         this.MaxSpeedValueButton.ValueHeight = 22;
-         this.MaxSpeedValueButton.ValueText = "### RPM";
-         this.MaxSpeedValueButton.ValueWidth = 80;
-         // 
-         // LowSpeedScaleValueButton
-         // 
-         this.LowSpeedScaleValueButton.ArrowWidth = 0;
-         this.LowSpeedScaleValueButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.LowSpeedScaleValueButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
-         this.LowSpeedScaleValueButton.DisabledForeColor = System.Drawing.Color.Silver;
-         this.LowSpeedScaleValueButton.DisabledValueBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-         this.LowSpeedScaleValueButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.LowSpeedScaleValueButton.HoldArrorColor = System.Drawing.Color.Gray;
-         this.LowSpeedScaleValueButton.HoldTimeoutInterval = 0;
-         this.LowSpeedScaleValueButton.LeftArrowBackColor = System.Drawing.Color.Black;
-         this.LowSpeedScaleValueButton.LeftArrowVisible = false;
-         this.LowSpeedScaleValueButton.Location = new System.Drawing.Point(317, 166);
-         this.LowSpeedScaleValueButton.Name = "LowSpeedScaleValueButton";
-         this.LowSpeedScaleValueButton.RightArrowBackColor = System.Drawing.Color.Black;
-         this.LowSpeedScaleValueButton.RightArrowVisible = false;
-         this.LowSpeedScaleValueButton.Size = new System.Drawing.Size(107, 90);
-         this.LowSpeedScaleValueButton.TabIndex = 208;
-         this.LowSpeedScaleValueButton.Text = "LOW SPEED SCALE";
-         this.LowSpeedScaleValueButton.UseVisualStyleBackColor = false;
-         this.LowSpeedScaleValueButton.ValueBackColor = System.Drawing.Color.Black;
-         this.LowSpeedScaleValueButton.ValueEdgeHeight = 8;
-         this.LowSpeedScaleValueButton.ValueFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
-         this.LowSpeedScaleValueButton.ValueForeColor = System.Drawing.Color.White;
-         this.LowSpeedScaleValueButton.ValueHeight = 22;
-         this.LowSpeedScaleValueButton.ValueText = "## %";
-         this.LowSpeedScaleValueButton.ValueWidth = 80;
-         // 
-         // RearPanel
-         // 
-         this.RearPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-         this.RearPanel.Controls.Add(this.label6);
-         this.RearPanel.EdgeWeight = 2;
-         this.RearPanel.Location = new System.Drawing.Point(172, 68);
-         this.RearPanel.Name = "RearPanel";
-         this.RearPanel.Size = new System.Drawing.Size(129, 271);
-         this.RearPanel.TabIndex = 207;
-         // 
-         // label6
-         // 
-         this.label6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(96)))), ((int)(((byte)(96)))));
-         this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.label6.ForeColor = System.Drawing.SystemColors.GradientActiveCaption;
-         this.label6.Location = new System.Drawing.Point(2, 2);
-         this.label6.Name = "label6";
-         this.label6.Size = new System.Drawing.Size(124, 51);
-         this.label6.TabIndex = 154;
-         this.label6.Text = "REAR";
-         this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         // 
-         // FrontPanel
-         // 
-         this.FrontPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-         this.FrontPanel.Controls.Add(this.label1);
-         this.FrontPanel.EdgeWeight = 2;
-         this.FrontPanel.Location = new System.Drawing.Point(27, 68);
-         this.FrontPanel.Name = "FrontPanel";
-         this.FrontPanel.Size = new System.Drawing.Size(129, 271);
-         this.FrontPanel.TabIndex = 206;
-         // 
-         // label1
-         // 
-         this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(96)))), ((int)(((byte)(96)))));
-         this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.label1.ForeColor = System.Drawing.SystemColors.GradientActiveCaption;
-         this.label1.Location = new System.Drawing.Point(2, 2);
-         this.label1.Name = "label1";
-         this.label1.Size = new System.Drawing.Size(124, 51);
-         this.label1.TabIndex = 155;
-         this.label1.Text = "FRONT";
-         this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         // 
          // WheelDrivePanel
          // 
          this.WheelDrivePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(76)))), ((int)(((byte)(52)))));
-         this.WheelDrivePanel.Controls.Add(this.valueToggleButton1);
+         this.WheelDrivePanel.Controls.Add(this.RearDirectionToggleButton);
          this.WheelDrivePanel.Controls.Add(this.FrontDirectionToggleButton);
          this.WheelDrivePanel.Controls.Add(this.RearStateCycleButton);
          this.WheelDrivePanel.Controls.Add(this.transparentLabel1);
@@ -211,37 +80,38 @@
          this.WheelDrivePanel.Size = new System.Drawing.Size(274, 210);
          this.WheelDrivePanel.TabIndex = 210;
          // 
-         // valueToggleButton1
+         // RearDirectionToggleButton
          // 
-         this.valueToggleButton1.AutomaticToggle = true;
-         this.valueToggleButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.valueToggleButton1.DisabledBackColor = System.Drawing.Color.Black;
-         this.valueToggleButton1.DisabledForeColor = System.Drawing.Color.Gray;
-         this.valueToggleButton1.DisabledOptionBackColor = System.Drawing.Color.Black;
-         this.valueToggleButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold);
-         this.valueToggleButton1.HoldArrorColor = System.Drawing.Color.Gray;
-         this.valueToggleButton1.HoldEnable = false;
-         this.valueToggleButton1.HoldTimeoutInterval = 0;
-         this.valueToggleButton1.Location = new System.Drawing.Point(156, 135);
-         this.valueToggleButton1.Name = "valueToggleButton1";
-         this.valueToggleButton1.OptionASelected = true;
-         this.valueToggleButton1.OptionAText = "NORMAL";
-         this.valueToggleButton1.OptionBSelected = false;
-         this.valueToggleButton1.OptionBText = "INVERSE";
-         this.valueToggleButton1.OptionCenterWidth = 0;
-         this.valueToggleButton1.OptionEdgeHeight = 8;
-         this.valueToggleButton1.OptionHeight = 22;
-         this.valueToggleButton1.OptionNonSelectedBackColor = System.Drawing.Color.Black;
-         this.valueToggleButton1.OptionNonSelectedFont = new System.Drawing.Font("Microsoft Sans Serif", 6.75F);
-         this.valueToggleButton1.OptionNonSelectedForeColor = System.Drawing.SystemColors.ControlDark;
-         this.valueToggleButton1.OptionSelectedBackColor = System.Drawing.Color.Lime;
-         this.valueToggleButton1.OptionSelectedFont = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold);
-         this.valueToggleButton1.OptionSelectedForeColor = System.Drawing.Color.Black;
-         this.valueToggleButton1.OptionWidth = 50;
-         this.valueToggleButton1.Size = new System.Drawing.Size(107, 67);
-         this.valueToggleButton1.TabIndex = 159;
-         this.valueToggleButton1.Text = "DIRECTION";
-         this.valueToggleButton1.UseVisualStyleBackColor = false;
+         this.RearDirectionToggleButton.AutomaticToggle = true;
+         this.RearDirectionToggleButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.RearDirectionToggleButton.DisabledBackColor = System.Drawing.Color.Black;
+         this.RearDirectionToggleButton.DisabledForeColor = System.Drawing.Color.Gray;
+         this.RearDirectionToggleButton.DisabledOptionBackColor = System.Drawing.Color.Black;
+         this.RearDirectionToggleButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold);
+         this.RearDirectionToggleButton.HoldArrorColor = System.Drawing.Color.Gray;
+         this.RearDirectionToggleButton.HoldEnable = false;
+         this.RearDirectionToggleButton.HoldTimeoutInterval = 0;
+         this.RearDirectionToggleButton.Location = new System.Drawing.Point(156, 135);
+         this.RearDirectionToggleButton.Name = "RearDirectionToggleButton";
+         this.RearDirectionToggleButton.OptionASelected = true;
+         this.RearDirectionToggleButton.OptionAText = "NORMAL";
+         this.RearDirectionToggleButton.OptionBSelected = false;
+         this.RearDirectionToggleButton.OptionBText = "INVERSE";
+         this.RearDirectionToggleButton.OptionCenterWidth = 0;
+         this.RearDirectionToggleButton.OptionEdgeHeight = 8;
+         this.RearDirectionToggleButton.OptionHeight = 22;
+         this.RearDirectionToggleButton.OptionNonSelectedBackColor = System.Drawing.Color.Black;
+         this.RearDirectionToggleButton.OptionNonSelectedFont = new System.Drawing.Font("Microsoft Sans Serif", 6.75F);
+         this.RearDirectionToggleButton.OptionNonSelectedForeColor = System.Drawing.SystemColors.ControlDark;
+         this.RearDirectionToggleButton.OptionSelectedBackColor = System.Drawing.Color.Lime;
+         this.RearDirectionToggleButton.OptionSelectedFont = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold);
+         this.RearDirectionToggleButton.OptionSelectedForeColor = System.Drawing.Color.Black;
+         this.RearDirectionToggleButton.OptionWidth = 50;
+         this.RearDirectionToggleButton.Size = new System.Drawing.Size(107, 67);
+         this.RearDirectionToggleButton.TabIndex = 159;
+         this.RearDirectionToggleButton.Text = "DIRECTION";
+         this.RearDirectionToggleButton.UseVisualStyleBackColor = false;
+         this.RearDirectionToggleButton.Click += new System.EventHandler(this.RearDirectionToggleButton_Click);
          // 
          // FrontDirectionToggleButton
          // 
@@ -274,6 +144,7 @@
          this.FrontDirectionToggleButton.TabIndex = 158;
          this.FrontDirectionToggleButton.Text = "DIRECTION";
          this.FrontDirectionToggleButton.UseVisualStyleBackColor = false;
+         this.FrontDirectionToggleButton.Click += new System.EventHandler(this.FrontDirectionToggleButton_Click);
          // 
          // RearStateCycleButton
          // 
@@ -356,6 +227,139 @@
          this.FrontStateCycleButton.TimedSelection = true;
          this.FrontStateCycleButton.UseVisualStyleBackColor = false;
          // 
+         // MaxSpeedValueButton
+         // 
+         this.MaxSpeedValueButton.ArrowWidth = 0;
+         this.MaxSpeedValueButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.MaxSpeedValueButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
+         this.MaxSpeedValueButton.DisabledForeColor = System.Drawing.Color.Silver;
+         this.MaxSpeedValueButton.DisabledValueBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+         this.MaxSpeedValueButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.MaxSpeedValueButton.HoldArrorColor = System.Drawing.Color.Gray;
+         this.MaxSpeedValueButton.HoldTimeoutInterval = 0;
+         this.MaxSpeedValueButton.LeftArrowBackColor = System.Drawing.Color.Black;
+         this.MaxSpeedValueButton.LeftArrowVisible = false;
+         this.MaxSpeedValueButton.Location = new System.Drawing.Point(317, 68);
+         this.MaxSpeedValueButton.Name = "MaxSpeedValueButton";
+         this.MaxSpeedValueButton.RightArrowBackColor = System.Drawing.Color.Black;
+         this.MaxSpeedValueButton.RightArrowVisible = false;
+         this.MaxSpeedValueButton.Size = new System.Drawing.Size(107, 90);
+         this.MaxSpeedValueButton.TabIndex = 209;
+         this.MaxSpeedValueButton.Text = "MAX      SPEED";
+         this.MaxSpeedValueButton.UseVisualStyleBackColor = false;
+         this.MaxSpeedValueButton.ValueBackColor = System.Drawing.Color.Black;
+         this.MaxSpeedValueButton.ValueEdgeHeight = 8;
+         this.MaxSpeedValueButton.ValueFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+         this.MaxSpeedValueButton.ValueForeColor = System.Drawing.Color.White;
+         this.MaxSpeedValueButton.ValueHeight = 22;
+         this.MaxSpeedValueButton.ValueText = "### RPM";
+         this.MaxSpeedValueButton.ValueWidth = 80;
+         this.MaxSpeedValueButton.Click += new System.EventHandler(this.MaxSpeedValueButton_Click);
+         // 
+         // LowSpeedScaleValueButton
+         // 
+         this.LowSpeedScaleValueButton.ArrowWidth = 0;
+         this.LowSpeedScaleValueButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.LowSpeedScaleValueButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
+         this.LowSpeedScaleValueButton.DisabledForeColor = System.Drawing.Color.Silver;
+         this.LowSpeedScaleValueButton.DisabledValueBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+         this.LowSpeedScaleValueButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.LowSpeedScaleValueButton.HoldArrorColor = System.Drawing.Color.Gray;
+         this.LowSpeedScaleValueButton.HoldTimeoutInterval = 0;
+         this.LowSpeedScaleValueButton.LeftArrowBackColor = System.Drawing.Color.Black;
+         this.LowSpeedScaleValueButton.LeftArrowVisible = false;
+         this.LowSpeedScaleValueButton.Location = new System.Drawing.Point(317, 166);
+         this.LowSpeedScaleValueButton.Name = "LowSpeedScaleValueButton";
+         this.LowSpeedScaleValueButton.RightArrowBackColor = System.Drawing.Color.Black;
+         this.LowSpeedScaleValueButton.RightArrowVisible = false;
+         this.LowSpeedScaleValueButton.Size = new System.Drawing.Size(107, 90);
+         this.LowSpeedScaleValueButton.TabIndex = 208;
+         this.LowSpeedScaleValueButton.Text = "LOW SPEED SCALE";
+         this.LowSpeedScaleValueButton.UseVisualStyleBackColor = false;
+         this.LowSpeedScaleValueButton.ValueBackColor = System.Drawing.Color.Black;
+         this.LowSpeedScaleValueButton.ValueEdgeHeight = 8;
+         this.LowSpeedScaleValueButton.ValueFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+         this.LowSpeedScaleValueButton.ValueForeColor = System.Drawing.Color.White;
+         this.LowSpeedScaleValueButton.ValueHeight = 22;
+         this.LowSpeedScaleValueButton.ValueText = "## %";
+         this.LowSpeedScaleValueButton.ValueWidth = 80;
+         this.LowSpeedScaleValueButton.Click += new System.EventHandler(this.LowSpeedScaleValueButton_Click);
+         // 
+         // RearPanel
+         // 
+         this.RearPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+         this.RearPanel.Controls.Add(this.label6);
+         this.RearPanel.EdgeWeight = 2;
+         this.RearPanel.Location = new System.Drawing.Point(172, 68);
+         this.RearPanel.Name = "RearPanel";
+         this.RearPanel.Size = new System.Drawing.Size(129, 271);
+         this.RearPanel.TabIndex = 207;
+         // 
+         // label6
+         // 
+         this.label6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(96)))), ((int)(((byte)(96)))));
+         this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.label6.ForeColor = System.Drawing.SystemColors.GradientActiveCaption;
+         this.label6.Location = new System.Drawing.Point(2, 2);
+         this.label6.Name = "label6";
+         this.label6.Size = new System.Drawing.Size(124, 51);
+         this.label6.TabIndex = 154;
+         this.label6.Text = "REAR";
+         this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         // 
+         // FrontPanel
+         // 
+         this.FrontPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+         this.FrontPanel.Controls.Add(this.label1);
+         this.FrontPanel.EdgeWeight = 2;
+         this.FrontPanel.Location = new System.Drawing.Point(27, 68);
+         this.FrontPanel.Name = "FrontPanel";
+         this.FrontPanel.Size = new System.Drawing.Size(129, 271);
+         this.FrontPanel.TabIndex = 206;
+         // 
+         // label1
+         // 
+         this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(96)))), ((int)(((byte)(96)))));
+         this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.label1.ForeColor = System.Drawing.SystemColors.GradientActiveCaption;
+         this.label1.Location = new System.Drawing.Point(2, 2);
+         this.label1.Name = "label1";
+         this.label1.Size = new System.Drawing.Size(124, 51);
+         this.label1.TabIndex = 155;
+         this.label1.Text = "FRONT";
+         this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         // 
+         // TitleLabel
+         // 
+         this.TitleLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+         this.TitleLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+         this.TitleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.TitleLabel.ForeColor = System.Drawing.SystemColors.GradientActiveCaption;
+         this.TitleLabel.Location = new System.Drawing.Point(16, 16);
+         this.TitleLabel.Name = "TitleLabel";
+         this.TitleLabel.Size = new System.Drawing.Size(419, 36);
+         this.TitleLabel.TabIndex = 134;
+         this.TitleLabel.Text = "LASER WHEEL MOTOR SETUP";
+         this.TitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         this.TitleLabel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TitleLabel_MouseDown);
+         this.TitleLabel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TitleLabel_MouseMove);
+         this.TitleLabel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TitleLabel_MouseUp);
+         // 
+         // BackButton
+         // 
+         this.BackButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.BackButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
+         this.BackButton.DisabledForeColor = System.Drawing.Color.Silver;
+         this.BackButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
+         this.BackButton.HoldArrorColor = System.Drawing.Color.Gray;
+         this.BackButton.Location = new System.Drawing.Point(317, 272);
+         this.BackButton.Name = "BackButton";
+         this.BackButton.Size = new System.Drawing.Size(107, 67);
+         this.BackButton.TabIndex = 5;
+         this.BackButton.Text = "BACK";
+         this.BackButton.UseVisualStyleBackColor = false;
+         this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
+         // 
          // LaserRobotMovementSetupForm
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -366,10 +370,11 @@
          this.Name = "LaserRobotMovementSetupForm";
          this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
          this.Text = "LaserRobotMovementSetupForm";
+         this.Shown += new System.EventHandler(this.LaserRobotMovementSetupForm_Shown);
          this.MainPanel.ResumeLayout(false);
+         this.WheelDrivePanel.ResumeLayout(false);
          this.RearPanel.ResumeLayout(false);
          this.FrontPanel.ResumeLayout(false);
-         this.WheelDrivePanel.ResumeLayout(false);
          this.ResumeLayout(false);
 
       }
@@ -386,7 +391,7 @@
       private Controls.BorderedPanel FrontPanel;
       private System.Windows.Forms.Label label1;
       private Controls.TransparentPanel WheelDrivePanel;
-      private Controls.ValueToggleButton valueToggleButton1;
+      private Controls.ValueToggleButton RearDirectionToggleButton;
       private Controls.ValueToggleButton FrontDirectionToggleButton;
       private Controls.ValueCycleButton RearStateCycleButton;
       private Controls.TransparentLabel transparentLabel1;

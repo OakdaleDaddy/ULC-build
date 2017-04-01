@@ -228,56 +228,31 @@
 
       #endregion
 
-      #region Laser Functions
+      #region Laser Movement Functions
 
-      public void SetLaserAim(bool on)
+      public void SetLaserMovementMode(MovementModes mode)
       {
-         LaserCommunicationBus.Instance.SetLaserAim(on);      
+         LaserCommunicationBus.Instance.SetLaserMovementMode(mode);
       }
 
-      public bool GetLaserAim()
+      public void SetLaserMovementRequest(double request, bool triggered)
       {
-         return (LaserCommunicationBus.Instance.GetLaserAim());
+         LaserCommunicationBus.Instance.SetLaserMovementRequest(request, triggered);
       }
 
-      public void StartLaserMeasurement()
+      public MovementModes GetLaserMovementMode()
       {
-         LaserCommunicationBus.Instance.StartLaserMeasurement();      
+         return (LaserCommunicationBus.Instance.GetLaserMovementMode());
       }
 
-      public void CancelLaserMeasurement()
+      public double GetLaserMovementValue()
       {
-         LaserCommunicationBus.Instance.CancelLaserMeasurement();      
+         return (LaserCommunicationBus.Instance.GetLaserMovementValue());
       }
 
-      public bool GetLaserMeasurementActivity()
+      public bool GetLaserMovementActivated()
       {
-         return (LaserCommunicationBus.Instance.GetLaserMeasurementActivity());
-      }
-
-      public int GetLaserSampleRemainingCount()
-      {
-         return (LaserCommunicationBus.Instance.GetLaserSampleRemainingCount());
-      }
-
-      public bool GetLaserMeasurementReady()
-      {
-         return (LaserCommunicationBus.Instance.GetLaserMeasurementReady());
-      }
-
-      public double GetAverageLaserMeasurement()
-      {
-         return (LaserCommunicationBus.Instance.GetAverageLaserMeasurement());
-      }
-
-      public UInt32 GetLaserScannerCoordinates()
-      {
-         return (TargetCommunicationBus.Instance.GetLaserScannerCoordinates());
-      }
-
-      public double GetTargetPitch()
-      {
-         return (TargetCommunicationBus.Instance.GetTargetPitch());
+         return (LaserCommunicationBus.Instance.GetLaserMovementActivated());
       }
 
       #endregion
@@ -309,6 +284,59 @@
          LaserCommunicationBus.Instance.StopLaserStepperY();
       }
 
+      public int GetLaserStepperXActualPosition()
+      {
+         return(LaserCommunicationBus.Instance.GetLaserStepperXActualPosition());
+      }
+
+      public int GetLaserStepperYActualPosition()
+      {
+         return (LaserCommunicationBus.Instance.GetLaserStepperYActualPosition());
+      }
+
+      public bool LaserXPositionObtained()
+      {
+         return (LaserCommunicationBus.Instance.LaserXPositionObtained());
+      }
+
+      public bool LaserYPositionObtained()
+      {
+         return (LaserCommunicationBus.Instance.LaserYPositionObtained());
+      }
+
+      #endregion
+
+      #region Target Movement Functions
+
+      public void SetTargetMovementMode(MovementModes mode)
+      {
+         TargetCommunicationBus.Instance.SetTargetMovementMode(mode);
+      }
+
+      public void SetTargetMovementRequest(double request, bool triggered)
+      {
+         TargetCommunicationBus.Instance.SetTargetMovementRequest(request, triggered);
+      }
+
+      public MovementModes GetTargetMovementMode()
+      {
+         return (TargetCommunicationBus.Instance.GetTargetMovementMode());
+      }
+
+      public double GetTargetMovementValue()
+      {
+         return (TargetCommunicationBus.Instance.GetTargetMovementValue());
+      }
+
+      public bool GetTargetMovementActivated()
+      {
+         return (TargetCommunicationBus.Instance.GetTargetMovementActivated());
+      }
+
+      #endregion
+
+      #region Target Stepper Functions
+      
       public void SetTargetCenter()
       {
          TargetCommunicationBus.Instance.SetTargetCenter();
@@ -324,34 +352,68 @@
          TargetCommunicationBus.Instance.StopTargetStepper();
       }
 
-      public int GetLaserStepperXActualPosition()
-      {
-         return(LaserCommunicationBus.Instance.GetLaserStepperXActualPosition());
-      }
-
-      public int GetLaserStepperYActualPosition()
-      {
-         return (LaserCommunicationBus.Instance.GetLaserStepperYActualPosition());
-      }
-
       public int GetTargetStepperActualPosition()
       {
          return (TargetCommunicationBus.Instance.GetTargetStepperActualPosition());
       }
 
-      public bool LaserXPositionObtained()
-      {
-         return (LaserCommunicationBus.Instance.LaserXPositionObtained());
-      }
-
-      public bool LaserYPositionObtained()
-      {
-         return (LaserCommunicationBus.Instance.LaserYPositionObtained());
-      }
-
       public bool TargetPositionObtained()
       {
          return (TargetCommunicationBus.Instance.TargetPositionObtained());
+      }
+
+      #endregion
+
+      #region Laser Functions
+
+      public void SetLaserAim(bool on)
+      {
+         LaserCommunicationBus.Instance.SetLaserAim(on);
+      }
+
+      public bool GetLaserAim()
+      {
+         return (LaserCommunicationBus.Instance.GetLaserAim());
+      }
+
+      public void StartLaserMeasurement()
+      {
+         LaserCommunicationBus.Instance.StartLaserMeasurement();
+      }
+
+      public void CancelLaserMeasurement()
+      {
+         LaserCommunicationBus.Instance.CancelLaserMeasurement();
+      }
+
+      public bool GetLaserMeasurementActivity()
+      {
+         return (LaserCommunicationBus.Instance.GetLaserMeasurementActivity());
+      }
+
+      public int GetLaserSampleRemainingCount()
+      {
+         return (LaserCommunicationBus.Instance.GetLaserSampleRemainingCount());
+      }
+
+      public bool GetLaserMeasurementReady()
+      {
+         return (LaserCommunicationBus.Instance.GetLaserMeasurementReady());
+      }
+
+      public double GetAverageLaserMeasurement()
+      {
+         return (LaserCommunicationBus.Instance.GetAverageLaserMeasurement());
+      }
+
+      public UInt32 GetTargetScannerCoordinates()
+      {
+         return (TargetCommunicationBus.Instance.GetTargetScannerCoordinates());
+      }
+
+      public double GetTargetPitch()
+      {
+         return (TargetCommunicationBus.Instance.GetTargetPitch());
       }
 
       #endregion
