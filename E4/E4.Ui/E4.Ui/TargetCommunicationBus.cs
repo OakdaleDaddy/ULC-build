@@ -50,7 +50,9 @@
       private bool stopAll;
 
       private MovementModes targetMovementMode;
-
+      private double targetMovementRequest;
+      private bool targetMovementTriggered;
+      
       private StepperMotorStatus stepperStatus;
 
       #endregion
@@ -93,6 +95,8 @@
          this.stopAll = false;
 
          this.targetMovementMode = MovementModes.off;
+         this.targetMovementRequest = 0;
+         this.targetMovementTriggered = false;
 
          this.stepperStatus = new StepperMotorStatus();
       }
@@ -308,7 +312,7 @@
          DateTime now = DateTime.Now;
          bool positionObtained = false;
 
-         if (now > status.positionInvalidTimeLimit)
+         if (now > status.statusInvalidTimeLimit)
          {
             positionObtained = motor.PositionAttained;
          }
@@ -358,7 +362,7 @@
             Tracer.WriteHigh(TraceGroup.TBUS, "", "{0} homing mode", motor.Name);
 
             positionObtained = false;
-            status.positionInvalidTimeLimit = now.AddMilliseconds(250);
+            status.statusInvalidTimeLimit = now.AddMilliseconds(250);
             status.actualNeeded = true;
             status.state = StepperMotorStatus.States.homing;
          }
@@ -398,7 +402,7 @@
                Tracer.WriteHigh(TraceGroup.TBUS, "", "{0} position {1}", motor.Name, status.positionRequested);
 
                positionObtained = false;
-               status.positionInvalidTimeLimit = now.AddMilliseconds(250);
+               status.statusInvalidTimeLimit = now.AddMilliseconds(250);
                status.actualNeeded = true;
                status.state = StepperMotorStatus.States.centering;
             }
@@ -411,7 +415,7 @@
                Tracer.WriteHigh(TraceGroup.TBUS, "", "{0} stop", motor.Name);
 
                positionObtained = false;
-               status.positionInvalidTimeLimit = now.AddMilliseconds(250);
+               status.statusInvalidTimeLimit = now.AddMilliseconds(250);
                status.actualNeeded = true;
                status.state = StepperMotorStatus.States.stopping;
             }
@@ -423,7 +427,7 @@
                Tracer.WriteHigh(TraceGroup.TBUS, "", "{0} position {1}", motor.Name, status.positionRequested);
 
                positionObtained = false;
-               status.positionInvalidTimeLimit = now.AddMilliseconds(250);
+               status.statusInvalidTimeLimit = now.AddMilliseconds(250);
                status.actualNeeded = true;
             }
          }
@@ -971,31 +975,19 @@
 
       public void SetTargetMovementRequest(double request, bool triggered)
       {
-#if false
-         triggered &= (NicBotComm.Instance.IsMacroActive() == false) ? true : false;
-
-         if (UlcRoboticsNicbotMain.Modes.inspect == this.robotMain.Mode)
-         {
-            if (false != this.sensorBlockInterlockEnabled)
-            {
-               bool lowerPivotMode = this.IsLowerPivotMode();
-
-               if (false == lowerPivotMode)
-               {
-                  bool sensorBlockIn = this.GetSolenoidActive(Solenoids.sensorBlockIn) && !this.GetSolenoidActive(Solenoids.sensorBlockOut);
-                  triggered &= sensorBlockIn;
-               }
-            }
-         }
-
-         this.movementRequest = request;
-         this.movementTriggered = triggered;
-#endif
+         this.targetMovementRequest = request;
+         this.targetMovementTriggered = triggered;
       }
       
       public MovementModes GetTargetMovementMode()
       {
          return (this.targetMovementMode);
+      }
+
+      public void GetTargetMovementRequestValues(ref ValueParameter movementParameter, ref double movementRequestValue)
+      {
+         movementParameter = ParameterAccessor.Instance.TargetWheelMaximumSpeed;
+         movementRequestValue = this.targetMovementRequest * movementParameter.OperationalValue;
       }
 
       public double GetTargetMovementValue()
@@ -1005,8 +997,8 @@
 
          //MovementForwardControls cumulativeForwardControl = this.GetMovementForwardControl(); // applicable to all motors: velocity, current, or openLoop
 
-         //this.EvaluateMovementMotorValue(cumulativeForwardControl, this.frontUpperWheel, ParameterAccessor.Instance.FrontUpperMovementMotor, this.frontUpperWheelStatus, ref result, ref count);
-         //this.EvaluateMovementMotorValue(cumulativeForwardControl, this.frontLowerWheel, ParameterAccessor.Instance.FrontLowerMovementMotor, this.frontLowerWheelStatus, ref result, ref count);
+         //this.EvaluateTargetMovementValue(cumulativeForwardControl, this.frontUpperWheel, ParameterAccessor.Instance.FrontUpperMovementMotor, this.frontUpperWheelStatus, ref result, ref count);
+         //this.EvaluateTargetMovementValue(cumulativeForwardControl, this.frontLowerWheel, ParameterAccessor.Instance.FrontLowerMovementMotor, this.frontLowerWheelStatus, ref result, ref count);
          //this.EvaluateMovementMotorValue(cumulativeForwardControl, this.rearUpperWheel, ParameterAccessor.Instance.RearUpperMovementMotor, this.rearUpperWheelStatus, ref result, ref count);
          //this.EvaluateMovementMotorValue(cumulativeForwardControl, this.rearLowerWheel, ParameterAccessor.Instance.RearLowerMovementMotor, this.rearLowerWheelStatus, ref result, ref count);
 
@@ -1020,7 +1012,7 @@
 
       public bool GetTargetMovementActivated()
       {
-         bool result = false;// ((false != this.movementTriggered) && (MovementModes.move == this.movementMode)) ? true : false;
+         bool result = ((false != this.targetMovementTriggered) && (MovementModes.move == this.targetMovementMode)) ? true : false;
          return (result);
       }
 

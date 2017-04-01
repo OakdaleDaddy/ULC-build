@@ -1,15 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
+﻿
 namespace E4.Ui
 {
+   using System;
+   using System.Collections.Generic;
+   using System.ComponentModel;
+   using System.Data;
+   using System.Drawing;
+   using System.Linq;
+   using System.Text;
+   using System.Threading.Tasks;
+   using System.Windows.Forms;
+
    public partial class LaserRobotMovementSetupForm : Form
    {
       #region Fields
@@ -22,6 +23,70 @@ namespace E4.Ui
       #endregion
 
       #region Helper Functions
+
+      private int GetMotorSelectionValue(WheelMotorStates motorState)
+      {
+         int result = 0;
+
+         if (WheelMotorStates.enabled == motorState)
+         {
+            result = 1;
+         }
+         else if (WheelMotorStates.disabled == motorState)
+         {
+            result = 2;
+         }
+         else if (WheelMotorStates.locked == motorState)
+         {
+            result = 3;
+         }
+         else
+         {
+            result = 0;
+         }
+
+         return (result);
+      }
+
+      private void SetMovementButtons(Controls.ValueCycleButton stateButton, Controls.ValueToggleButton directionButton, WheelMotorParameters parameters)
+      {
+         int motorStateOption = this.GetMotorSelectionValue(parameters.MotorState);
+
+         stateButton.TimedSelection = false;
+         stateButton.SelectedOption = motorStateOption;
+         stateButton.TimedSelection = true;
+
+         directionButton.OptionBSelected = parameters.RequestInverted;
+      }
+
+      private void SetMovementMotorState(WheelMotorParameters parameters, int selectedOption)
+      {
+         if (1 == selectedOption)
+         {
+            parameters.MotorState = WheelMotorStates.enabled;
+         }
+         else if (2 == selectedOption)
+         {
+            parameters.MotorState = WheelMotorStates.disabled;
+         }
+         else
+         {
+            parameters.MotorState = WheelMotorStates.locked;
+         }
+      }
+
+      private void ShowMotorState(Controls.ValueCycleButton button, WheelMotorStates motorState, bool ignoreSelectionTimeout)
+      {
+         bool timedSelection;
+
+         if ((false != button.SelectionTimedOut) || (false != ignoreSelectionTimeout))
+         {
+            timedSelection = button.TimedSelection;
+            button.TimedSelection = false;
+            button.SelectedOption = this.GetMotorSelectionValue(motorState);
+            button.TimedSelection = timedSelection;
+         }
+      }
 
       private string GetValueText(ValueParameter parameter)
       {
@@ -141,11 +206,55 @@ namespace E4.Ui
 
       #region User Events
 
+      private void FrontStateCycleButton_MouseClick(object sender, MouseEventArgs e)
+      {
+         int selectedOption = (this.FrontStateCycleButton.SelectedOption < 3) ? this.FrontStateCycleButton.SelectedOption + 1 : 1;
+         this.FrontStateCycleButton.SelectedOption = selectedOption;
+      }
+
+      private void FrontStateCycleButton_HoldTimeout(object sender, Controls.HoldTimeoutEventArgs e)
+      {
+         if (false == this.FrontStateCycleButton.SelectionTimedOut)
+         {
+            int selectedOption = this.FrontStateCycleButton.SelectedOption;
+            this.SetMovementMotorState(ParameterAccessor.Instance.LaserFrontWheel, selectedOption);
+            this.ShowMotorState(this.FrontStateCycleButton, ParameterAccessor.Instance.LaserFrontWheel.MotorState, true);
+            e.Handled = true;
+         }
+      }
+
+      private void FrontStateCycleButton_SelectionTimeout(object sender, EventArgs e)
+      {
+         this.ShowMotorState(this.FrontStateCycleButton, ParameterAccessor.Instance.LaserFrontWheel.MotorState, false);
+      }
+
       private void FrontDirectionToggleButton_Click(object sender, EventArgs e)
       {
          bool selectedOption = !this.FrontDirectionToggleButton.OptionBSelected;
          ParameterAccessor.Instance.LaserFrontWheel.RequestInverted = selectedOption;
          this.FrontDirectionToggleButton.OptionBSelected = selectedOption;
+      }
+
+      private void RearStateCycleButton_MouseClick(object sender, MouseEventArgs e)
+      {
+         int selectedOption = (this.RearStateCycleButton.SelectedOption < 3) ? this.RearStateCycleButton.SelectedOption + 1 : 1;
+         this.RearStateCycleButton.SelectedOption = selectedOption;
+      }
+
+      private void RearStateCycleButton_HoldTimeout(object sender, Controls.HoldTimeoutEventArgs e)
+      {
+         if (false == this.RearStateCycleButton.SelectionTimedOut)
+         {
+            int selectedOption = this.RearStateCycleButton.SelectedOption;
+            this.SetMovementMotorState(ParameterAccessor.Instance.LaserRearWheel, selectedOption);
+            this.ShowMotorState(this.RearStateCycleButton, ParameterAccessor.Instance.LaserRearWheel.MotorState, true);
+            e.Handled = true;
+         }
+      }
+
+      private void RearStateCycleButton_SelectionTimeout(object sender, EventArgs e)
+      {
+         this.ShowMotorState(this.RearStateCycleButton, ParameterAccessor.Instance.LaserRearWheel.MotorState, false);
       }
 
       private void RearDirectionToggleButton_Click(object sender, EventArgs e)
@@ -178,8 +287,8 @@ namespace E4.Ui
 
       private void LaserRobotMovementSetupForm_Shown(object sender, EventArgs e)
       {
-         this.FrontDirectionToggleButton.OptionBSelected = ParameterAccessor.Instance.LaserFrontWheel.RequestInverted;
-         this.RearDirectionToggleButton.OptionBSelected = ParameterAccessor.Instance.LaserRearWheel.RequestInverted;
+         this.SetMovementButtons(this.FrontStateCycleButton, this.FrontDirectionToggleButton, ParameterAccessor.Instance.LaserFrontWheel);
+         this.SetMovementButtons(this.RearStateCycleButton, this.RearDirectionToggleButton, ParameterAccessor.Instance.LaserRearWheel);
 
          this.MaxSpeedValueButton.ValueText = this.GetValueText(ParameterAccessor.Instance.LaserWheelMaximumSpeed);
          this.LowSpeedScaleValueButton.ValueText = this.GetValueText(ParameterAccessor.Instance.LaserWheelLowSpeedScale);

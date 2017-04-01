@@ -50,9 +50,11 @@
       private bool stopAll;
       
       private MovementModes laserMovementMode;
-
-      //private StepperMotorStatus bldc0Status;
-      //private StepperMotorStatus bldc1Status;
+      private double laserMovementRequest;
+      private bool laserMovementTriggered;
+      
+      private WheelMotorStatus wheel0Status;
+      private WheelMotorStatus wheel1Status;
       private StepperMotorStatus stepper0Status;
       private StepperMotorStatus stepper1Status;
 
@@ -106,9 +108,11 @@
          this.stopAll = false;
 
          this.laserMovementMode = MovementModes.off;
+         this.laserMovementRequest = 0;
+         this.laserMovementTriggered = false;
 
-         //this.bldc0Status = new StepperMotorStatus();
-         //this.bldc1Status = new StepperMotorStatus();
+         this.wheel0Status = new WheelMotorStatus();
+         this.wheel1Status = new WheelMotorStatus();
          this.stepper0Status = new StepperMotorStatus();
          this.stepper1Status = new StepperMotorStatus();
       }
@@ -313,8 +317,8 @@
          this.laserSampleCount = 0;
          this.laserAverageMeasurement = 0;
 
-         //this.bldc0Status.Initialize();
-         //this.bldc1Status.Initialize();
+         this.wheel0Status.Initialize();
+         this.wheel1Status.Initialize();
          this.stepper0Status.Initialize();
          this.stepper1Status.Initialize();
       }
@@ -333,12 +337,115 @@
          this.stepper1Status.homeNeeded = (false == laserBoard.Stepper1.HomingAttained) ? true : false;
       }
 
+      private void UpdateWheel(MotorComponent motor, WheelMotorStatus status, WheelMotorParameters parameters)
+      {
+         DateTime now = DateTime.Now;
+         bool positionObtained = false;
+
+         if (now > status.statusInvalidTimeLimit)
+         {
+            positionObtained = motor.PositionAttained;
+         }
+
+         if (false != this.stopAll)
+         {
+            if (MotorComponent.Modes.off != motor.Mode)
+            {
+               motor.SetMode(MotorComponent.Modes.off);
+            }
+
+            status.state = WheelMotorStatus.States.stopped;
+         }
+         else if (status.state == WheelMotorStatus.States.off)
+         {
+            // position vs velocity ? 
+            status.state = WheelMotorStatus.States.startVelocity;
+         }
+         else if (status.state == WheelMotorStatus.States.stopped)
+         {
+            // nothing, reset needed to clear
+         }
+
+         else if (status.state == WheelMotorStatus.States.startPosition)
+         {
+            motor.SetProfileVelocity(parameters.ProfileVelocity);
+            motor.SetProfileAcceleration(parameters.ProfileAcceleration);
+            motor.SetMode(MotorComponent.Modes.position);
+
+            Tracer.WriteHigh(TraceGroup.LBUS, "", "{0} position mode", motor.Name);
+
+            status.state = WheelMotorStatus.States.positioning;
+         }
+         else if (status.state == WheelMotorStatus.States.positioning)
+         {
+            if (false != status.stopNeeded)
+            {
+               status.stopNeeded = false;
+
+               motor.Halt();
+               status.positionRequested = status.positionNeeded;
+               Tracer.WriteHigh(TraceGroup.LBUS, "", "{0} stop", motor.Name);
+
+               positionObtained = false;
+               status.statusInvalidTimeLimit = now.AddMilliseconds(250);
+               status.state = WheelMotorStatus.States.stopping;
+            }
+            else if (status.positionRequested != status.positionNeeded)
+            {
+               motor.SetTargetPosition(status.positionNeeded, false);
+               status.positionRequested = status.positionNeeded;
+
+               Tracer.WriteHigh(TraceGroup.LBUS, "", "{0} position {1}", motor.Name, status.positionRequested);
+
+               positionObtained = false;
+               status.statusInvalidTimeLimit = now.AddMilliseconds(250);
+            }
+         }
+         else if (status.state == WheelMotorStatus.States.stopping)
+         {
+            if (false != positionObtained)
+            {
+               status.positionNeeded = motor.ActualPositionLocation;
+               motor.SetTargetPosition(status.positionNeeded, false);
+               status.positionRequested = status.positionNeeded;
+
+               motor.Run();
+
+               Tracer.WriteHigh(TraceGroup.LBUS, "", "{0} stopped at {1}", motor.Name, motor.ActualPositionLocation);
+
+               status.state = WheelMotorStatus.States.positioning;
+            }
+         }
+      
+         else if (status.state == WheelMotorStatus.States.startVelocity)
+         {
+            motor.SetProfileVelocity(parameters.ProfileVelocity);
+            motor.SetProfileAcceleration(parameters.ProfileAcceleration);
+            motor.SetProfileDeceleration(parameters.ProfileDeceleration);
+            motor.SetMode(MotorComponent.Modes.velocity);
+
+            Tracer.WriteHigh(TraceGroup.LBUS, "", "{0} velocity mode", motor.Name);
+
+            status.state = WheelMotorStatus.States.velocity;
+         }
+         else if (status.state == WheelMotorStatus.States.velocity)
+         {
+            if (status.velocityRequested != status.velocityNeeded)
+            {
+               motor.SetTargetVelocity((int)status.velocityNeeded); // todo fix
+               status.velocityRequested = status.velocityNeeded;
+
+               Tracer.WriteHigh(TraceGroup.LBUS, "", "{0} velocity {1}", motor.Name, status.velocityRequested);
+            }
+         }
+      }
+
       private void UpdateStepper(MotorComponent motor, StepperMotorStatus status, StepperMotorParameters parameters)
       {
          DateTime now = DateTime.Now;
          bool positionObtained = false;
 
-         if (now > status.positionInvalidTimeLimit)
+         if (now > status.statusInvalidTimeLimit)
          {
             positionObtained = motor.PositionAttained;
          }
@@ -388,7 +495,7 @@
             Tracer.WriteHigh(TraceGroup.LBUS, "", "{0} homing mode", motor.Name);
 
             positionObtained = false;
-            status.positionInvalidTimeLimit = now.AddMilliseconds(250);
+            status.statusInvalidTimeLimit = now.AddMilliseconds(250);
             status.actualNeeded = true;
             status.state = StepperMotorStatus.States.homing;
          }
@@ -428,7 +535,7 @@
                Tracer.WriteHigh(TraceGroup.LBUS, "", "{0} position {1}", motor.Name, status.positionRequested);
 
                positionObtained = false;
-               status.positionInvalidTimeLimit = now.AddMilliseconds(250);
+               status.statusInvalidTimeLimit = now.AddMilliseconds(250);
                status.actualNeeded = true;
                status.state = StepperMotorStatus.States.centering;
             }
@@ -441,7 +548,7 @@
                Tracer.WriteHigh(TraceGroup.LBUS, "", "{0} stop", motor.Name);
 
                positionObtained = false;
-               status.positionInvalidTimeLimit = now.AddMilliseconds(250);
+               status.statusInvalidTimeLimit = now.AddMilliseconds(250);
                status.actualNeeded = true;
                status.state = StepperMotorStatus.States.stopping;
             }
@@ -453,7 +560,7 @@
                Tracer.WriteHigh(TraceGroup.LBUS, "", "{0} position {1}", motor.Name, status.positionRequested);
 
                positionObtained = false;
-               status.positionInvalidTimeLimit = now.AddMilliseconds(250);
+               status.statusInvalidTimeLimit = now.AddMilliseconds(250);
                status.actualNeeded = true;
             }
          } 
@@ -512,8 +619,8 @@
          {
             #region Motor Control
 
-            //this.UpdateBldc(this.laserBoard.Bldc0, this.bldc0Status, this.bldc0Parameters);
-            //this.UpdateBldc(this.laserBoard.Bldc1, this.bldc1Status, this.bldc1Parameters);
+            this.UpdateWheel(this.laserBoard.Bldc0, this.wheel0Status, ParameterAccessor.Instance.LaserFrontWheel);
+            this.UpdateWheel(this.laserBoard.Bldc1, this.wheel1Status, ParameterAccessor.Instance.LaserRearWheel);
             this.UpdateStepper(this.laserBoard.Stepper0, this.stepper0Status, ParameterAccessor.Instance.LaserXStepper);
             this.UpdateStepper(this.laserBoard.Stepper1, this.stepper1Status, ParameterAccessor.Instance.LaserYStepper);
 
@@ -1063,12 +1170,19 @@
 
       public void SetLaserMovementRequest(double request, bool triggered)
       {
-         // todo
+         this.laserMovementRequest = request;
+         this.laserMovementTriggered = triggered;
       }
 
       public MovementModes GetLaserMovementMode()
       {
          return (this.laserMovementMode);
+      }
+
+      public void GetLaserMovementRequestValues(ref ValueParameter movementParameter, ref double movementRequestValue)
+      {
+         movementParameter = ParameterAccessor.Instance.LaserWheelMaximumSpeed;
+         movementRequestValue = this.laserMovementRequest * movementParameter.OperationalValue;
       }
 
       public double GetLaserMovementValue()
@@ -1093,7 +1207,7 @@
 
       public bool GetLaserMovementActivated()
       {
-         bool result = false; // todo
+         bool result = ((false != this.laserMovementTriggered) && (MovementModes.move == this.laserMovementMode)) ? true : false;
          return (result);
       }
 

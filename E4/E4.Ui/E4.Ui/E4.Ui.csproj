@@ -55,6 +55,7 @@
     <Compile Include="Definitions\MovementModes.cs" />
     <Compile Include="Definitions\StepperMotorStatus.cs" />
     <Compile Include="Definitions\WheelMotorStates.cs" />
+    <Compile Include="Definitions\WheelMotorStatus.cs" />
     <Compile Include="DeviceCommunication.cs" />
     <Compile Include="IpAddressEntryForm.cs">
       <SubType>Form</SubType>

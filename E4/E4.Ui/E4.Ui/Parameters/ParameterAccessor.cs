@@ -32,12 +32,14 @@
       public StepperMotorParameters LaserYStepper;
       public ValueParameter LaserWheelMaximumSpeed;
       public ValueParameter LaserWheelLowSpeedScale;
+      public double LaserWheelVelocityToRpm;
 
       public WheelMotorParameters TargetFrontWheel;
       public WheelMotorParameters TargetRearWheel;
       public StepperMotorParameters TargetStepper;
       public ValueParameter TargetWheelMaximumSpeed;
       public ValueParameter TargetWheelLowSpeedScale;
+      public double TargetWheelVelocityToRpm;
 
       public ValueParameter LaserSampleTime;
       public ValueParameter LaserSampleCount;
@@ -75,7 +77,7 @@
 
       private void AssignDefaults()
       {
-         this.VersionCount = 8; // update after each addition
+         this.VersionCount = 10; // update after each addition
 
          this.LaserBus = new LaserBusParameters();
          this.LaserBus.BusInterface = BusInterfaces.PCIA;
@@ -110,12 +112,18 @@
          this.LaserFrontWheel.MotorState = WheelMotorStates.enabled;
          this.LaserFrontWheel.RequestInverted = false;
          this.LaserFrontWheel.PositionInverted = false;
+         this.LaserFrontWheel.ProfileVelocity = 500;
+         this.LaserFrontWheel.ProfileAcceleration = 200;
+         this.LaserFrontWheel.ProfileDeceleration = 200;
 
          this.LaserRearWheel = new WheelMotorParameters();
          this.LaserRearWheel.Location = "LaserRearWheel";
          this.LaserRearWheel.MotorState = WheelMotorStates.enabled;
          this.LaserRearWheel.RequestInverted = false;
          this.LaserRearWheel.PositionInverted = true;
+         this.LaserRearWheel.ProfileVelocity = 500;
+         this.LaserRearWheel.ProfileAcceleration = 200;
+         this.LaserRearWheel.ProfileDeceleration = 200;
 
          this.LaserXStepper = new StepperMotorParameters();
          this.LaserXStepper.Location = "LaserXStepper";
@@ -143,6 +151,7 @@
 
          this.LaserWheelMaximumSpeed = new ValueParameter("LaserWheelMaximumSpeed", "m/MIN", 2, 0, 10, 0.10, 3.5, 3.5);
          this.LaserWheelLowSpeedScale = new ValueParameter("LaserWheelLowSpeedScale", "%", 0, 1, 100, 1, 30, 30);
+         this.LaserWheelVelocityToRpm = 100;
 
 
          this.TargetFrontWheel = new WheelMotorParameters();
@@ -150,12 +159,18 @@
          this.TargetFrontWheel.MotorState = WheelMotorStates.enabled;
          this.TargetFrontWheel.RequestInverted = false;
          this.TargetFrontWheel.PositionInverted = false;
+         this.TargetFrontWheel.ProfileVelocity = 500;
+         this.TargetFrontWheel.ProfileAcceleration = 200;
+         this.TargetFrontWheel.ProfileDeceleration = 200;
 
          this.TargetRearWheel = new WheelMotorParameters();
          this.TargetRearWheel.Location = "TargetRearWheel";
          this.TargetRearWheel.MotorState = WheelMotorStates.enabled;
          this.TargetRearWheel.RequestInverted = false;
          this.TargetRearWheel.PositionInverted = true;
+         this.TargetRearWheel.ProfileVelocity = 500;
+         this.TargetRearWheel.ProfileAcceleration = 200;
+         this.TargetRearWheel.ProfileDeceleration = 200;
 
          this.TargetStepper = new StepperMotorParameters();
          this.TargetStepper.Location = "TargetStepper";
@@ -171,6 +186,7 @@
 
          this.TargetWheelMaximumSpeed = new ValueParameter("TargetWheelMaximumSpeed", "m/MIN", 2, 0, 10, 0.10, 3.5, 3.5);
          this.TargetWheelLowSpeedScale = new ValueParameter("TargetWheelLowSpeedScale", "%", 0, 1, 100, 1, 30, 30);
+         this.TargetWheelVelocityToRpm = 100;
 
 
          this.LaserSampleTime = new ValueParameter("LaserSampleTime", "s", 2, 0.15, 3.75, 0.15, 0.9, 0.9);
@@ -633,6 +649,18 @@
                {
                   temp.PositionInverted = this.ReadBool(reader);
                }
+               else if ("ProfileVelocity" == reader.Name)
+               {
+                  temp.ProfileVelocity = this.ReadInt(reader);
+               }
+               else if ("ProfileAcceleration" == reader.Name)
+               {
+                  temp.ProfileAcceleration = this.ReadInt(reader);
+               }
+               else if ("ProfileDeceleration" == reader.Name)
+               {
+                  temp.ProfileDeceleration = this.ReadInt(reader);
+               }
             }
             else
             {
@@ -847,6 +875,14 @@
                      {
                         this.JoystickIdleBand = this.ReadInt(reader);
                      }
+                     else if ("LaserWheelVelocityToRpm" == reader.Name)
+                     {
+                        this.LaserWheelVelocityToRpm = this.ReadDouble(reader);
+                     }
+                     else if ("TargetWheelVelocityToRpm" == reader.Name)
+                     {
+                        this.TargetWheelVelocityToRpm = this.ReadDouble(reader);
+                     }
                      else if ("Value" == reader.Name)
                      {
                         ValueParameter valueParameter = this.ReadValueParameters(reader);
@@ -858,7 +894,7 @@
                         else if ("LaserWheelLowSpeedScale" == valueParameter.Name)
                         {
                            this.LaserWheelLowSpeedScale = valueParameter;
-                        }                           
+                        }
                         else if ("TargetWheelMaximumSpeed" == valueParameter.Name)
                         {
                            this.TargetWheelMaximumSpeed = valueParameter;
@@ -1043,6 +1079,10 @@
          this.WriteElement(writer, "RequestInverted", wheelMotorParameters.RequestInverted);
          this.WriteElement(writer, "PositionInverted", wheelMotorParameters.PositionInverted);
 
+         this.WriteElement(writer, "ProfileVelocity", wheelMotorParameters.ProfileVelocity);
+         this.WriteElement(writer, "ProfileAcceleration", wheelMotorParameters.ProfileAcceleration);
+         this.WriteElement(writer, "ProfileDeceleration", wheelMotorParameters.ProfileDeceleration);
+
          writer.WriteEndElement();
       }
 
@@ -1116,12 +1156,14 @@
             this.WriteStepperMotorParameters(writer, this.LaserYStepper);
             this.WriteValueParameters(writer, this.LaserWheelMaximumSpeed);
             this.WriteValueParameters(writer, this.LaserWheelLowSpeedScale);
+            this.WriteElement(writer, "LaserWheelVelocityToRpm", this.LaserWheelVelocityToRpm);
 
             this.WriteWheelMotorParameters(writer, this.TargetFrontWheel);
             this.WriteWheelMotorParameters(writer, this.TargetRearWheel);
             this.WriteStepperMotorParameters(writer, this.TargetStepper);
             this.WriteValueParameters(writer, this.TargetWheelMaximumSpeed);
             this.WriteValueParameters(writer, this.TargetWheelLowSpeedScale);
+            this.WriteElement(writer, "TargetWheelVelocityToRpm", this.TargetWheelVelocityToRpm);
 
             this.WriteValueParameters(writer, this.LaserSampleTime);
             this.WriteValueParameters(writer, this.LaserSampleCount);

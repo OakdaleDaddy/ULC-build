@@ -3,37 +3,34 @@ namespace E4.Ui
 {
    using System;
 
-   public class StepperMotorStatus
+   public class WheelMotorStatus
    {
       public enum States
       {
          off,
          stopped,
 
-         startHoming,
-         homing,
-
          startPosition,
          positioning,
-         centering,
          stopping,
+
+         startVelocity,
+         velocity,
       }
 
       public States state;
 
       public int positionRequested;
       public int positionNeeded;
-      
-      public bool homeNeeded;
-      public bool centerNeeded;
-      public bool actualNeeded;
+
+      public double velocityRequested;
+      public double velocityNeeded;
+
       public bool stopNeeded;
 
-      public int actualPosition;
-      public DateTime readTimeLimit;
       public DateTime statusInvalidTimeLimit; // status from second motor is delayed from TPDO inhibbit time 
 
-      public StepperMotorStatus()
+      public WheelMotorStatus()
       {
          this.Initialize();
       }
@@ -45,13 +42,11 @@ namespace E4.Ui
          this.positionRequested = 0;
          this.positionNeeded = 0;
 
-         this.homeNeeded = false;
-         this.centerNeeded = false;
-         this.actualNeeded = false;
+         this.velocityRequested = 0;
+         this.velocityNeeded = 0;
+
          this.stopNeeded = false;
 
-         this.actualPosition = 0;
-         this.readTimeLimit = DateTime.Now;
          this.statusInvalidTimeLimit = DateTime.Now;
       }
    }

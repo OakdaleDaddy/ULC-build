@@ -237,6 +237,9 @@
          this.RearStateCycleButton.Text = "STATE";
          this.RearStateCycleButton.TimedSelection = true;
          this.RearStateCycleButton.UseVisualStyleBackColor = false;
+         this.RearStateCycleButton.HoldTimeout += new E4.Ui.Controls.ValueCycleButton.HoldTimeoutHandler(this.RearStateCycleButton_HoldTimeout);
+         this.RearStateCycleButton.SelectionTimeout += new E4.Ui.Controls.ValueCycleButton.SelectionTimeoutHandler(this.RearStateCycleButton_SelectionTimeout);
+         this.RearStateCycleButton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.RearStateCycleButton_MouseClick);
          // 
          // transparentLabel1
          // 
@@ -284,6 +287,9 @@
          this.FrontStateCycleButton.Text = "STATE";
          this.FrontStateCycleButton.TimedSelection = true;
          this.FrontStateCycleButton.UseVisualStyleBackColor = false;
+         this.FrontStateCycleButton.HoldTimeout += new E4.Ui.Controls.ValueCycleButton.HoldTimeoutHandler(this.FrontStateCycleButton_HoldTimeout);
+         this.FrontStateCycleButton.SelectionTimeout += new E4.Ui.Controls.ValueCycleButton.SelectionTimeoutHandler(this.FrontStateCycleButton_SelectionTimeout);
+         this.FrontStateCycleButton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.FrontStateCycleButton_MouseClick);
          // 
          // RearPanel
          // 

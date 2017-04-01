@@ -664,7 +664,10 @@
          this.LaserUpdateMovementControls();
 
 
-         ValueParameter laserMovementParameter = ParameterAccessor.Instance.LaserWheelMaximumSpeed;
+         double laserMovementRequestValue = 0;
+         ValueParameter laserMovementParameter = null;
+         DeviceCommunication.Instance.GetLaserMovementRequestValues(ref laserMovementParameter, ref laserMovementRequestValue);
+
          double laserMovementValue = DeviceCommunication.Instance.GetLaserMovementValue();
          double laserMovementStatusDisplayValue = Math.Abs(laserMovementValue);
 
@@ -708,16 +711,16 @@
             }
 
             double laserMovementScale = (false != this.laserMovementFastSelected) ? 1.0 : ParameterAccessor.Instance.LaserWheelLowSpeedScale.OperationalValue / 100;
-            double laserMovementRequest = laserMovementScale * joystickYChange / joystickYRange;
+            double laserMovementRequestPercent = laserMovementScale * joystickYChange / joystickYRange;
 
             bool laserMovementTriggered = (false != Joystick.Instance.Button1Pressed);
-            DeviceCommunication.Instance.SetLaserMovementRequest(laserMovementRequest, laserMovementTriggered);
+            DeviceCommunication.Instance.SetLaserMovementRequest(laserMovementRequestPercent, laserMovementTriggered);
 
             bool laserMovementActivated = DeviceCommunication.Instance.GetLaserMovementActivated();
 
             if (false != this.TargetWheelMoveButton.Enabled)
             {
-               double laserMovementDisplayValue = Math.Abs(laserMovementRequest);
+               double laserMovementDisplayValue = Math.Abs(laserMovementRequestValue);
                this.LaserWheelMoveButton.LeftArrowVisible = laserMovementReverse;
                this.LaserWheelMoveButton.RightArrowVisible = laserMovementForward;
                this.LaserWheelMoveButton.ValueForeColor = (false != laserMovementActivated) ? Color.White : Color.FromKnownColor(KnownColor.ControlDarkDark);
@@ -741,7 +744,10 @@
          this.TargetUpdateMovementControls();
 
 
-         ValueParameter targetMovementParameter = ParameterAccessor.Instance.TargetWheelMaximumSpeed;
+         double targetMovementRequestValue = 0;
+         ValueParameter targetMovementParameter = null;
+         DeviceCommunication.Instance.GetTargetMovementRequestValues(ref targetMovementParameter, ref targetMovementRequestValue);
+
          double targetMovementValue = DeviceCommunication.Instance.GetTargetMovementValue();
          double targetMovementStatusDisplayValue = Math.Abs(targetMovementValue);
 
@@ -785,16 +791,16 @@
             }
 
             double targetMovementScale = (false != this.targetMovementFastSelected) ? 1.0 : ParameterAccessor.Instance.TargetWheelLowSpeedScale.OperationalValue / 100;
-            double targetMovementRequest = targetMovementScale * joystickYChange / joystickYRange;
+            double targetMovementRequestPercent = targetMovementScale * joystickYChange / joystickYRange;
 
             bool targetMovementTriggered = (false != Joystick.Instance.Button1Pressed);
-            DeviceCommunication.Instance.SetTargetMovementRequest(targetMovementRequest, targetMovementTriggered);
+            DeviceCommunication.Instance.SetTargetMovementRequest(targetMovementRequestPercent, targetMovementTriggered);
 
             bool targetMovementActivated = DeviceCommunication.Instance.GetTargetMovementActivated();
 
             if (false != this.TargetWheelMoveButton.Enabled)
             {
-               double targetMovementDisplayValue = Math.Abs(targetMovementRequest);
+               double targetMovementDisplayValue = Math.Abs(targetMovementRequestValue);
                this.TargetWheelMoveButton.LeftArrowVisible = targetMovementReverse;
                this.TargetWheelMoveButton.RightArrowVisible = targetMovementForward;
                this.TargetWheelMoveButton.ValueForeColor = (false != targetMovementActivated) ? Color.White : Color.FromKnownColor(KnownColor.ControlDarkDark);

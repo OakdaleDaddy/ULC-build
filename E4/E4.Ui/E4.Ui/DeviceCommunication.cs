@@ -245,6 +245,11 @@
          return (LaserCommunicationBus.Instance.GetLaserMovementMode());
       }
 
+      public void GetLaserMovementRequestValues(ref ValueParameter movementParameter, ref double movementRequestValue)
+      {
+         LaserCommunicationBus.Instance.GetLaserMovementRequestValues(ref movementParameter, ref movementRequestValue);
+      }
+
       public double GetLaserMovementValue()
       {
          return (LaserCommunicationBus.Instance.GetLaserMovementValue());
@@ -321,6 +326,11 @@
       public MovementModes GetTargetMovementMode()
       {
          return (TargetCommunicationBus.Instance.GetTargetMovementMode());
+      }
+
+      public void GetTargetMovementRequestValues(ref ValueParameter movementParameter, ref double movementRequestValue)
+      {
+         TargetCommunicationBus.Instance.GetTargetMovementRequestValues(ref movementParameter, ref movementRequestValue);
       }
 
       public double GetTargetMovementValue()
