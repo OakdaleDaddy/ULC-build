@@ -556,12 +556,12 @@
             if (joystickYAxis > joystickDeadband)
             {
                joystickYAxis -= joystickDeadband;
-               joystickYRange = (32768 - joystickDeadband);
+               joystickYRange = (32767 - joystickDeadband);
             }
             else if (joystickYAxis < -joystickDeadband)
             {
                joystickYAxis += joystickDeadband;
-               joystickYRange = (32767 - joystickDeadband);
+               joystickYRange = (32768 - joystickDeadband);
             }
             else
             {
@@ -731,6 +731,7 @@
 
          if (false == laserMovementSet)
          {
+            DeviceCommunication.Instance.SetLaserMovementRequest(0, false);
             this.LaserWheelMoveButton.LeftArrowVisible = false;
             this.LaserWheelMoveButton.RightArrowVisible = false;
             this.LaserWheelMoveButton.ValueForeColor = Color.FromKnownColor(KnownColor.ControlDarkDark);

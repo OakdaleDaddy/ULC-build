@@ -7,15 +7,19 @@ namespace E4.Ui
    {
       public enum States
       {
-         off,
          stopped,
+         undefined,
+
+         turnOff,
+         off,
 
          startPosition,
          positioning,
-         stopping,
+         stopPosition,
 
          startVelocity,
          velocity,
+         stopVelocity,
       }
 
       public States state;
@@ -37,7 +41,7 @@ namespace E4.Ui
 
       public void Initialize()
       {
-         this.state = States.off;
+         this.state = States.undefined;
 
          this.positionRequested = 0;
          this.positionNeeded = 0;
