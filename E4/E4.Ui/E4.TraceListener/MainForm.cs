@@ -24,8 +24,12 @@ namespace E4.TraceListener
 
       #endregion
 
+      #region Fields
+
       private bool active;
       private UdpClient listener;
+
+      #endregion
 
       #region Registry Functions
 
@@ -274,6 +278,23 @@ namespace E4.TraceListener
       private void MainForm_Shown(object sender, EventArgs e)
       {
          this.LoadRegistry();
+      }
+
+      private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+      {
+         if (false != active)
+         {
+            DialogResult result = MessageBox.Show("Session currently active.\n\nStop and close?", this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+
+            if (System.Windows.Forms.DialogResult.No == result)
+            {
+               e.Cancel = true;
+            }
+            else
+            {
+               this.ActivityButton_Click(this, EventArgs.Empty);
+            }
+         }
       }
 
       private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
