@@ -336,6 +336,8 @@
 
          // clear display
 
+         this.LaserAlternateMotionMotorPanel.Visible = false;
+
          this.LaserWheelDirectionalValuePanel.ValueText = "";
          this.LaserWheelDirectionalValuePanel.Direction = Ui.Controls.DirectionalValuePanel.Directions.Idle;
          this.LaserWheelMoveButton.ValueText = "";
@@ -699,6 +701,14 @@
 
          if (JoystickApplications.laserRobot == this.joystickApplication)
          {
+            if (false == this.LaserAlternateMotionMotorPanel.Visible)
+            {
+               this.LaserAlternateMotionMotorPanel.Top = this.GetAbsoluteTop(this.LaserRobotJogReverseButton);
+               this.LaserAlternateMotionMotorPanel.Left = this.LaserRobotWheelPanel.Left;
+
+               this.LaserAlternateMotionMotorPanel.Visible = true;
+            }
+
             if (joystickYChange < 0)
             {
                laserMovementReverse = true;
@@ -718,7 +728,7 @@
 
             bool laserMovementActivated = DeviceCommunication.Instance.GetLaserMovementActivated();
 
-            if (false != this.TargetWheelMoveButton.Enabled)
+            if (false != this.LaserWheelMoveButton.Enabled)
             {
                double laserMovementDisplayValue = Math.Abs(laserMovementRequestValue);
                this.LaserWheelMoveButton.LeftArrowVisible = laserMovementReverse;
@@ -728,6 +738,14 @@
                laserMovementSet = true;
             }
          }
+         else
+         {
+            if (false != this.LaserAlternateMotionMotorPanel.Visible)
+            {
+               this.LaserAlternateMotionMotorPanel.Visible = false;
+            }
+         }
+
 
          if (false == laserMovementSet)
          {
@@ -812,6 +830,7 @@
 
          if (false == targetMovementSet)
          {
+            DeviceCommunication.Instance.SetTargetMovementRequest(0, false);
             this.TargetWheelMoveButton.LeftArrowVisible = false;
             this.TargetWheelMoveButton.RightArrowVisible = false;
             this.TargetWheelMoveButton.ValueForeColor = Color.FromKnownColor(KnownColor.ControlDarkDark);
@@ -1397,6 +1416,7 @@
       }
 
       #endregion
+
 
    }
 }

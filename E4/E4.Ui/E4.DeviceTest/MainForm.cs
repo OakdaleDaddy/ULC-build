@@ -1404,7 +1404,7 @@ namespace E4.DeviceTest
          {
             this.e4Main.NodeId = nodeId;
             byte position = 0;
-            bool success = this.e4Main.GetLaserScannerPosition(ref position);
+            bool success = this.e4Main.GetScannerCoordinates(ref position);
 
             if (false != success)
             {
@@ -1430,7 +1430,7 @@ namespace E4.DeviceTest
          {
             this.e4Main.NodeId = nodeId;
             byte temperature = 0;
-            bool success = this.e4Main.GetLaserScannerTemperature(ref temperature);
+            bool success = this.e4Main.GetScannerTemperature(ref temperature);
 
             if (false != success)
             {
@@ -4637,7 +4637,7 @@ namespace E4.DeviceTest
          this.E4MainLaserStatusTextBox.Text = string.Format("{0:X2}", this.e4Main.LaserStatusByte);
          this.E4MainLaserSampleCountTextBox.Text = string.Format("{0:X2}", this.e4Main.LaserSampleNumber);
          this.E4MainLaserDistanceTextBox.Text = string.Format("{0}", this.e4Main.LaserMeasuredDistance);
-         this.E4MainLaserScannerTextBox.Text = string.Format("{0:X2}", this.e4Main.LaserScannerPosition);
+         this.E4MainLaserScannerTextBox.Text = string.Format("{0:X2}", this.e4Main.ScannerCoordinates);
 
          this.E4MainBldc0TemperatureTextBox.Text = string.Format("{0:0}", this.e4Main.Bldc0.Temperature);
          this.E4MainBldc0StatusTextBox.Text = string.Format("{0:X4}", this.e4Main.Bldc0.Status);

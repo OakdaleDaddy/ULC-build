@@ -188,7 +188,7 @@ namespace E4.CAN
       public byte LaserStatusByte { set; get; }
       public byte LaserSampleNumber { set; get; }
       public UInt32 LaserMeasuredDistance { set; get; }
-      public byte LaserScannerPosition { set; get; }
+      public byte ScannerCoordinates { set; get; }
 
       public bool LaserMeasurementActivity
       {
@@ -405,7 +405,7 @@ namespace E4.CAN
                      this.TargetBoardImuRoll = ((double)BitConverter.ToInt16(msg, 0) / 16);
                      this.TargetBoardImuPitch = ((double)BitConverter.ToInt16(msg, 2) / 16);
                      this.TargetBoardImuYaw = ((double)BitConverter.ToInt16(msg, 4) / 16);
-                     this.LaserScannerPosition = msg[6];
+                     this.ScannerCoordinates = msg[6];
                   }
                }
             }
@@ -1193,7 +1193,7 @@ namespace E4.CAN
 
       #region Laser Scanner Functions
 
-      public bool GetLaserScannerPosition(ref byte psotion)
+      public bool GetScannerCoordinates(ref byte psotion)
       {
          bool result = false;
          SDOUpload upload = new SDOUpload(0x2410, 0x01);
@@ -1209,7 +1209,7 @@ namespace E4.CAN
          return (result);
       }
 
-      public bool GetLaserScannerTemperature(ref byte temperature)
+      public bool GetScannerTemperature(ref byte temperature)
       {
          bool result = false;
          SDOUpload upload = new SDOUpload(0x2411, 0x01);
