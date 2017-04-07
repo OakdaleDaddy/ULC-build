@@ -230,6 +230,11 @@
 
       #region Laser Movement Functions
 
+      public void SetLaserMovementManualMode(bool active)
+      {
+         LaserCommunicationBus.Instance.SetLaserMovementManualMode(active);
+      }
+
       public void SetLaserMovementMode(MovementModes mode)
       {
          LaserCommunicationBus.Instance.SetLaserMovementMode(mode);
@@ -238,6 +243,11 @@
       public void SetLaserMovementRequest(double request, bool triggered)
       {
          LaserCommunicationBus.Instance.SetLaserMovementRequest(request, triggered);
+      }
+
+      public bool GetLaserMovementManualMode()
+      {
+         return (LaserCommunicationBus.Instance.GetLaserMovementManualMode());
       }
 
       public MovementModes GetLaserMovementMode()
@@ -258,6 +268,21 @@
       public bool GetLaserMovementActivated()
       {
          return (LaserCommunicationBus.Instance.GetLaserMovementActivated());
+      }
+
+      public double GetLaserWheelCurrentValue(WheelLocations location)
+      {
+         return (LaserCommunicationBus.Instance.GetLaserWheelCurrentValue(location));
+      }
+
+      public double GetLaserWheelTemperatureValue(WheelLocations location)
+      {
+         return (LaserCommunicationBus.Instance.GetLaserWheelTemperatureValue(location));
+      }
+
+      public double GetLaserWheelPositionValue(WheelLocations location)
+      {
+         return (LaserCommunicationBus.Instance.GetLaserWheelPositionValue(location));
       }
 
       #endregion

@@ -48,7 +48,8 @@
       private DateTime controllerHeartbeatLimit;
       private bool controllerServiced;
       private bool stopAll;
-      
+
+      private bool laserManualMovementMode;
       private MovementModes laserMovementMode;
       private double laserMovementRequest;
       private bool laserMovementTriggered;
@@ -107,6 +108,7 @@
          this.controllerServiced = false;
          this.stopAll = false;
 
+         this.laserManualMovementMode = false;
          this.laserMovementMode = MovementModes.off;
          this.laserMovementRequest = 0;
          this.laserMovementTriggered = false;
@@ -340,16 +342,19 @@
       private void EvaluateWheel(MotorComponent motor, WheelMotorParameters parameters, WheelMotorStatus status, ref double total, ref int count)
       {
          if ((null == this.laserBoard.FaultReason) &&
-             (WheelMotorStates.enabled == parameters.MotorState) &&
-             (MovementModes.move == this.laserMovementMode))
+             (WheelMotorStates.enabled == parameters.MotorState))
          {
             Int32 motorRpm = motor.ActualVelocity;
             double motorVelocity = motorRpm;
             motorVelocity /= ParameterAccessor.Instance.LaserWheelVelocityToRpm;
-            motorVelocity *= (false == parameters.PositionInverted) ? 1 : -1;
-            motorVelocity *= (false == parameters.RequestInverted) ? 1 : -1;
-            total += motorVelocity;
-            count++;
+
+            if (Math.Abs(motorVelocity) > ParameterAccessor.Instance.LaserWheelMaximumSpeed.StepValue)
+            {
+               motorVelocity *= (false == parameters.PositionInverted) ? 1 : -1;
+               motorVelocity *= (false == parameters.RequestInverted) ? 1 : -1;
+               total += motorVelocity;
+               count++;
+            }
 
             if (Math.Abs(status.velocityRequested) > 0.5)
             {
@@ -1285,6 +1290,12 @@
 
       #region Laser Movement Functions
 
+      public void SetLaserMovementManualMode(bool active)
+      {
+         Tracer.WriteHigh(TraceGroup.LBUS, "", "requested laser manual movement mode={0}", active);
+         this.laserManualMovementMode = active;
+      }
+
       public void SetLaserMovementMode(MovementModes mode)
       {
          Tracer.WriteHigh(TraceGroup.LBUS, "", "requested laser movement mode={0}", mode);
@@ -1295,6 +1306,11 @@
       {
          this.laserMovementRequest = request;
          this.laserMovementTriggered = triggered;
+      }
+
+      public bool GetLaserMovementManualMode()
+      {
+         return (this.laserManualMovementMode);
       }
 
       public MovementModes GetLaserMovementMode()
@@ -1327,6 +1343,56 @@
       public bool GetLaserMovementActivated()
       {
          bool result = ((false != this.laserMovementTriggered) && (MovementModes.move == this.laserMovementMode)) ? true : false;
+         return (result);
+      }
+
+      public double GetLaserWheelCurrentValue(WheelLocations location)
+      {
+         double result = 0;
+
+         if (WheelLocations.front == location)
+         {
+            result = this.laserBoard.Bldc0.ActualCurrent;
+         }
+         else if (WheelLocations.rear == location)
+         {
+            result = this.laserBoard.Bldc1.ActualCurrent;
+         }
+
+         return (result);
+      }
+
+      public double GetLaserWheelTemperatureValue(WheelLocations location)
+      {
+         double result = 0;
+
+         if (WheelLocations.front == location)
+         {
+            result = this.laserBoard.Bldc0.Temperature;
+         }
+         else if (WheelLocations.rear == location)
+         {
+            result = this.laserBoard.Bldc1.Temperature;
+         }
+
+         return (result);
+      }
+
+      public double GetLaserWheelPositionValue(WheelLocations location)
+      {
+         double result = 0;
+
+         if (WheelLocations.front == location)
+         {
+            result = this.laserBoard.Bldc0.ActualPosition;
+         }
+         else if (WheelLocations.rear == location)
+         {
+            result = this.laserBoard.Bldc1.ActualPosition;
+         }
+
+         result /= ParameterAccessor.Instance.LaserWheelDistanceToTicks;
+
          return (result);
       }
 

@@ -32,6 +32,9 @@
       public StepperMotorParameters LaserYStepper;
       public ValueParameter LaserWheelMaximumSpeed;
       public ValueParameter LaserWheelLowSpeedScale;
+      public ValueParameter LaserWheelManualWheelDistance;
+      public ValueParameter LaserWheelManualWheelSpeed;
+      public double LaserWheelDistanceToTicks;
       public double LaserWheelVelocityToRpm;
 
       public WheelMotorParameters TargetFrontWheel;
@@ -77,7 +80,7 @@
 
       private void AssignDefaults()
       {
-         this.VersionCount = 10; // update after each addition
+         this.VersionCount = 12; // update after each addition
 
          this.LaserBus = new LaserBusParameters();
          this.LaserBus.BusInterface = BusInterfaces.PCIA;
@@ -151,6 +154,9 @@
 
          this.LaserWheelMaximumSpeed = new ValueParameter("LaserWheelMaximumSpeed", "m/MIN", 2, 0, 10, 0.10, 3.5, 3.5);
          this.LaserWheelLowSpeedScale = new ValueParameter("LaserWheelLowSpeedScale", "%", 0, 1, 100, 1, 30, 30);
+         this.LaserWheelManualWheelDistance = new ValueParameter("LaserWheelManualWheelDistance", "mm", 0, 1, 100, 1, 1, 1);
+         this.LaserWheelManualWheelSpeed = new ValueParameter("LaserWheelManualWheelSpeed", "m/MIN", 2, 0, 10, 0.1, 2, 2);
+         this.LaserWheelDistanceToTicks = 1;
          this.LaserWheelVelocityToRpm = 100;
 
 
@@ -875,6 +881,10 @@
                      {
                         this.JoystickIdleBand = this.ReadInt(reader);
                      }
+                     else if ("LaserWheelDistanceToTicks" == reader.Name)
+                     {
+                        this.LaserWheelDistanceToTicks = this.ReadDouble(reader);
+                     }
                      else if ("LaserWheelVelocityToRpm" == reader.Name)
                      {
                         this.LaserWheelVelocityToRpm = this.ReadDouble(reader);
@@ -894,6 +904,14 @@
                         else if ("LaserWheelLowSpeedScale" == valueParameter.Name)
                         {
                            this.LaserWheelLowSpeedScale = valueParameter;
+                        }
+                        else if ("LaserWheelManualWheelDistance" == valueParameter.Name)
+                        {
+                           this.LaserWheelManualWheelDistance = valueParameter;
+                        }
+                        else if ("LaserWheelManualWheelSpeed" == valueParameter.Name)
+                        {
+                           this.LaserWheelManualWheelSpeed = valueParameter;
                         }
                         else if ("TargetWheelMaximumSpeed" == valueParameter.Name)
                         {
@@ -1156,6 +1174,9 @@
             this.WriteStepperMotorParameters(writer, this.LaserYStepper);
             this.WriteValueParameters(writer, this.LaserWheelMaximumSpeed);
             this.WriteValueParameters(writer, this.LaserWheelLowSpeedScale);
+            this.WriteValueParameters(writer, this.LaserWheelManualWheelDistance);
+            this.WriteValueParameters(writer, this.LaserWheelManualWheelSpeed);
+            this.WriteElement(writer, "LaserWheelDistanceToTicks", this.LaserWheelDistanceToTicks);
             this.WriteElement(writer, "LaserWheelVelocityToRpm", this.LaserWheelVelocityToRpm);
 
             this.WriteWheelMotorParameters(writer, this.TargetFrontWheel);

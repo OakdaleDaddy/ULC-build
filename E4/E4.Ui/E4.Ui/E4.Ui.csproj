@@ -54,6 +54,7 @@
     <Compile Include="Definitions\DeviceRestartRequest.cs" />
     <Compile Include="Definitions\MovementModes.cs" />
     <Compile Include="Definitions\StepperMotorStatus.cs" />
+    <Compile Include="Definitions\WheelLocations.cs" />
     <Compile Include="Definitions\WheelMotorStates.cs" />
     <Compile Include="Definitions\WheelMotorStatus.cs" />
     <Compile Include="DeviceCommunication.cs" />

@@ -73,10 +73,43 @@
 
       #region General
 
+      private string GetValuePrecisionFormatString(int precision)
+      {
+         string result = "{0:0";
+
+         if (precision > 0)
+         {
+            result += ".";
+
+            for (int i = 0; i < precision; i++)
+            {
+               result += "0";
+            }
+         }
+
+         result += "} {1}";
+
+         return (result);
+      }
+
+      private string GetValueText(ValueParameter parameter)
+      {
+         string formatString = this.GetValuePrecisionFormatString(parameter.Precision);
+         string result = string.Format(formatString, parameter.OperationalValue, parameter.Unit);
+         return (result);
+      }
+
       private string GetValueText(double operationalValue, ValueParameter parameter)
       {
-         string doubleFormat = "N" + parameter.Precision.ToString();
-         string result = operationalValue.ToString(doubleFormat) + " " + parameter.Unit;
+         string formatString = this.GetValuePrecisionFormatString(parameter.Precision);
+         string result = string.Format(formatString, operationalValue, parameter.Unit);
+         return (result);
+      }
+
+      private string GetValueText(double value, int precision, string unit)
+      {
+         string formatString = this.GetValuePrecisionFormatString(precision);
+         string result = string.Format(formatString, value, unit);
          return (result);
       }
 
@@ -89,12 +122,6 @@
             result += (" " + unit);
          }
 
-         return (result);
-      }
-
-      private string GetValueText(double value, string doubleFormat, string unit)
-      {
-         string result = value.ToString(doubleFormat) + " " + unit;
          return (result);
       }
 
@@ -169,6 +196,32 @@
          this.dimmerForm.Hide();
       }
 
+      private DialogResult LaunchNumberEdit(Controls.ValueButton button, ValueParameter valueParameter, string title = null)
+      {
+         NumberEntryForm numberEntryForm = new NumberEntryForm();
+         this.SetDialogLocation(button, numberEntryForm);
+
+         numberEntryForm.Title = (null != title) ? title : button.Text;
+         numberEntryForm.Unit = valueParameter.Unit;
+         numberEntryForm.PostDecimalDigitCount = valueParameter.Precision;
+         numberEntryForm.PresentValue = valueParameter.OperationalValue;
+         numberEntryForm.DefaultValue = valueParameter.DefaultValue;
+         numberEntryForm.MinimumValue = valueParameter.MinimumValue;
+         numberEntryForm.MaximumValue = valueParameter.MaximumValue;
+
+         this.DimBackground();
+         DialogResult result = numberEntryForm.ShowDialog();
+         this.LightBackground();
+
+         if (result == System.Windows.Forms.DialogResult.OK)
+         {
+            valueParameter.OperationalValue = numberEntryForm.EnteredValue;
+            button.ValueText = this.GetValueText(valueParameter);
+         }
+
+         return (result);
+      }
+
       private void RestartSystem()
       {
          this.processStopNeeded = true;
@@ -199,7 +252,7 @@
          }
          else if (JoystickApplications.laserRobot == this.joystickApplication)
          {
-            this.LaserRobotMovementJoystickEnableButton.Text = "RELEASE JOYSTICK";
+            this.LaserRobotMovementJoystickEnableButton.Text = "MANUAL DRIVE";
             this.LaserRobotMovementJoystickEnableButton.BackColor = Color.Lime;
 
             this.LaserJoystickEnableButton.Text = "JOYSTICK DRIVE";
@@ -216,7 +269,7 @@
             this.LaserJoystickEnableButton.Text = "JOYSTICK DRIVE";
             this.LaserJoystickEnableButton.BackColor = Color.FromArgb(171, 171, 171);
 
-            this.TargetRobotMovementJoystickEnableButton.Text = "RELEASE JOYSTICK";
+            this.TargetRobotMovementJoystickEnableButton.Text = "MANUAL DRIVE";
             this.TargetRobotMovementJoystickEnableButton.BackColor = Color.Lime;
          }
          else if (JoystickApplications.laserAim == this.joystickApplication)
@@ -224,7 +277,7 @@
             this.LaserRobotMovementJoystickEnableButton.Text = "JOYSTICK DRIVE";
             this.LaserRobotMovementJoystickEnableButton.BackColor = Color.FromArgb(171, 171, 171);
 
-            this.LaserJoystickEnableButton.Text = "RELEASE JOYSTICK";
+            this.LaserJoystickEnableButton.Text = "MANUAL DRIVE";
             this.LaserJoystickEnableButton.BackColor = Color.Lime;
 
             this.TargetRobotMovementJoystickEnableButton.Text = "JOYSTICK DRIVE";
@@ -242,22 +295,22 @@
  
          if (MovementModes.off == laserMovementMode)
          {
-            this.LaserWheelOffButton.BackColor = Color.Lime;
-            this.LaserWheelMoveButton.BackColor = Color.FromArgb(171, 171, 171);
+            this.LaserRobotWheelOffButton.BackColor = Color.Lime;
+            this.LaserRobotWheelMoveButton.BackColor = Color.FromArgb(171, 171, 171);
          }
          else if (MovementModes.move == laserMovementMode)
          {
-            this.LaserWheelMoveButton.BackColor = Color.Lime;
-            this.LaserWheelOffButton.BackColor = Color.FromArgb(171, 171, 171);
+            this.LaserRobotWheelMoveButton.BackColor = Color.Lime;
+            this.LaserRobotWheelOffButton.BackColor = Color.FromArgb(171, 171, 171);
 
-            this.LaserWheelOffButton.HoldTimeoutEnable = false;
+            this.LaserRobotWheelOffButton.HoldTimeoutEnable = false;
          }
          else if (MovementModes.locked == laserMovementMode)
          {
-            this.LaserWheelOffButton.BackColor = Color.FromArgb(171, 171, 171);
-            this.LaserWheelMoveButton.BackColor = Color.FromArgb(171, 171, 171);
+            this.LaserRobotWheelOffButton.BackColor = Color.FromArgb(171, 171, 171);
+            this.LaserRobotWheelMoveButton.BackColor = Color.FromArgb(171, 171, 171);
 
-            this.LaserWheelOffButton.HoldTimeoutEnable = true;
+            this.LaserRobotWheelOffButton.HoldTimeoutEnable = true;
          }
       }
 
@@ -336,14 +389,23 @@
 
          // clear display
 
-         this.LaserAlternateMotionMotorPanel.Visible = false;
+         this.LaserRobotAlternateMotionMotorPanel.Visible = false;
 
+         this.LaserRobotFrontWheelCurrentPanel.ValueText = "";
+         this.LaserRobotFrontWheelTemperaturePanel.ValueText = "";
+         this.LaserRobotFrontWheelPositionPanel.ValueText = "";
+         this.LaserRobotRearWheelCurrentPanel.ValueText = "";
+         this.LaserRobotRearWheelTemperaturePanel.ValueText = "";
+         this.LaserRobotRearWheelPositionPanel.ValueText = "";
+         this.LaserRobotMotorLinkVoltagePanel.ValueText = "";
+         this.LaserRobotJogDistanceButton.ValueText = "";
+         this.LaserRobotMoveSpeedButton.ValueText = "";
          this.LaserWheelDirectionalValuePanel.ValueText = "";
          this.LaserWheelDirectionalValuePanel.Direction = Ui.Controls.DirectionalValuePanel.Directions.Idle;
-         this.LaserWheelMoveButton.ValueText = "";
-         this.LaserWheelMoveButton.LeftArrowVisible = false;
-         this.LaserWheelMoveButton.RightArrowVisible = false;
-         this.LaserWheelSpeedToggleButton.OptionASelected = this.laserMovementFastSelected;
+         this.LaserRobotWheelMoveButton.ValueText = "";
+         this.LaserRobotWheelMoveButton.LeftArrowVisible = false;
+         this.LaserRobotWheelMoveButton.RightArrowVisible = false;
+         this.LaserRobotWheelSpeedToggleButton.OptionASelected = this.laserMovementFastSelected;
 
          this.TargetWheelDirectionalValuePanel.ValueText = "";
          this.TargetWheelMoveButton.ValueText = "";
@@ -414,6 +476,9 @@
          this.LaserScannerJoystickYRequestIndicator.Position = 0;
          this.LaserScannerJoystickYRequestIndicator.MaximumPosition = 32767 - ParameterAccessor.Instance.JoystickDeadband;
          this.LaserScannerJoystickYRequestIndicator.MinimumPosition = -32767 + ParameterAccessor.Instance.JoystickDeadband;
+
+         this.LaserRobotJogDistanceButton.ValueText = this.GetValueText(ParameterAccessor.Instance.LaserWheelManualWheelDistance);
+         this.LaserRobotMoveSpeedButton.ValueText = this.GetValueText(ParameterAccessor.Instance.LaserWheelManualWheelSpeed);
 
          DeviceCommunication.Instance.Start();
 
@@ -597,11 +662,11 @@
                {
                   if (0 != joystickYAxis)
                   {
-                     this.LaserWheelSpeedToggleButton.Enabled = false;
+                     this.LaserRobotWheelSpeedToggleButton.Enabled = false;
                   }
                   else
                   {
-                     this.LaserWheelSpeedToggleButton.Enabled = true;
+                     this.LaserRobotWheelSpeedToggleButton.Enabled = true;
                   }
                }
 
@@ -663,6 +728,31 @@
 
          #region Laser Robot
 
+         double laserWheelCurrent = 0;
+         double laserWheelTemperature = 0;
+         double laserWheelPosition = 0;
+
+         laserWheelCurrent = DeviceCommunication.Instance.GetLaserWheelCurrentValue(WheelLocations.front);
+         this.LaserRobotFrontWheelCurrentPanel.ValueText = this.GetValueText(laserWheelCurrent, 2, "A"); ;
+
+         laserWheelTemperature = DeviceCommunication.Instance.GetLaserWheelTemperatureValue(WheelLocations.front);
+         this.LaserRobotFrontWheelTemperaturePanel.ValueText = this.GetValueText(laserWheelTemperature, 0, "°C");
+
+         laserWheelPosition = DeviceCommunication.Instance.GetLaserWheelPositionValue(WheelLocations.front);
+         this.LaserRobotFrontWheelPositionPanel.ValueText = this.GetValueText(laserWheelPosition, ParameterAccessor.Instance.LaserWheelManualWheelDistance);
+
+         laserWheelCurrent = DeviceCommunication.Instance.GetLaserWheelCurrentValue(WheelLocations.rear);
+         this.LaserRobotRearWheelCurrentPanel.ValueText = this.GetValueText(laserWheelCurrent, 2, "A"); ;
+
+         laserWheelTemperature = DeviceCommunication.Instance.GetLaserWheelTemperatureValue(WheelLocations.rear);
+         this.LaserRobotRearWheelTemperaturePanel.ValueText = this.GetValueText(laserWheelTemperature, 0, "°C");
+
+         laserWheelPosition = DeviceCommunication.Instance.GetLaserWheelPositionValue(WheelLocations.rear);
+         this.LaserRobotRearWheelPositionPanel.ValueText = this.GetValueText(laserWheelPosition, ParameterAccessor.Instance.LaserWheelManualWheelDistance);
+
+         //this.LaserRobotMotorLinkVoltagePanel.ValueText = "";
+
+
          this.LaserUpdateMovementControls();
 
 
@@ -701,12 +791,12 @@
 
          if (JoystickApplications.laserRobot == this.joystickApplication)
          {
-            if (false == this.LaserAlternateMotionMotorPanel.Visible)
+            if (false == this.LaserRobotAlternateMotionMotorPanel.Visible)
             {
-               this.LaserAlternateMotionMotorPanel.Top = this.GetAbsoluteTop(this.LaserRobotJogReverseButton);
-               this.LaserAlternateMotionMotorPanel.Left = this.LaserRobotWheelPanel.Left;
+               this.LaserRobotAlternateMotionMotorPanel.Top = this.GetAbsoluteTop(this.LaserRobotJogReverseButton);
+               this.LaserRobotAlternateMotionMotorPanel.Left = this.LaserRobotWheelPanel.Left;
 
-               this.LaserAlternateMotionMotorPanel.Visible = true;
+               this.LaserRobotAlternateMotionMotorPanel.Visible = true;
             }
 
             if (joystickYChange < 0)
@@ -728,32 +818,38 @@
 
             bool laserMovementActivated = DeviceCommunication.Instance.GetLaserMovementActivated();
 
-            if (false != this.LaserWheelMoveButton.Enabled)
+            if (false != this.LaserRobotWheelMoveButton.Enabled)
             {
                double laserMovementDisplayValue = Math.Abs(laserMovementRequestValue);
-               this.LaserWheelMoveButton.LeftArrowVisible = laserMovementReverse;
-               this.LaserWheelMoveButton.RightArrowVisible = laserMovementForward;
-               this.LaserWheelMoveButton.ValueForeColor = (false != laserMovementActivated) ? Color.White : Color.FromKnownColor(KnownColor.ControlDarkDark);
-               this.LaserWheelMoveButton.ValueText = this.GetValueText(laserMovementDisplayValue, laserMovementParameter);
+               this.LaserRobotWheelMoveButton.LeftArrowVisible = laserMovementReverse;
+               this.LaserRobotWheelMoveButton.RightArrowVisible = laserMovementForward;
+               this.LaserRobotWheelMoveButton.ValueForeColor = (false != laserMovementActivated) ? Color.White : Color.FromKnownColor(KnownColor.ControlDarkDark);
+               this.LaserRobotWheelMoveButton.ValueText = this.GetValueText(laserMovementDisplayValue, laserMovementParameter);
                laserMovementSet = true;
             }
          }
          else
          {
-            if (false != this.LaserAlternateMotionMotorPanel.Visible)
+            if (false != this.LaserRobotAlternateMotionMotorPanel.Visible)
             {
-               this.LaserAlternateMotionMotorPanel.Visible = false;
+               this.LaserRobotAlternateMotionMotorPanel.Visible = false;
             }
          }
 
 
          if (false == laserMovementSet)
          {
-            DeviceCommunication.Instance.SetLaserMovementRequest(0, false);
-            this.LaserWheelMoveButton.LeftArrowVisible = false;
-            this.LaserWheelMoveButton.RightArrowVisible = false;
-            this.LaserWheelMoveButton.ValueForeColor = Color.FromKnownColor(KnownColor.ControlDarkDark);
-            this.LaserWheelMoveButton.ValueText = this.GetValueText(0, laserMovementParameter);
+            bool laserMovementManual = DeviceCommunication.Instance.GetLaserMovementManualMode();
+
+            if (false == laserMovementManual)
+            {
+               DeviceCommunication.Instance.SetLaserMovementRequest(0, false);
+            }
+
+            this.LaserRobotWheelMoveButton.LeftArrowVisible = false;
+            this.LaserRobotWheelMoveButton.RightArrowVisible = false;
+            this.LaserRobotWheelMoveButton.ValueForeColor = Color.FromKnownColor(KnownColor.ControlDarkDark);
+            this.LaserRobotWheelMoveButton.ValueText = this.GetValueText(0, laserMovementParameter);
          }
 
          #endregion
@@ -848,7 +944,7 @@
          this.LaserYawTickPanel.ValueText = this.GetValueText(DeviceCommunication.Instance.GetLaserStepperXActualPosition());
 
          double targetPitchValue = DeviceCommunication.Instance.GetTargetPitch();
-         this.SensorPitchPanel.ValueText = this.GetValueText(targetPitchValue, "N1", "°");
+         this.SensorPitchPanel.ValueText = this.GetValueText(targetPitchValue, 1, "°");
          this.SensorPitchTickPanel.ValueText = this.GetValueText(DeviceCommunication.Instance.GetTargetStepperActualPosition());
 
          if ((null == laserMeasureFault) && (null == targetMeasureFault))
@@ -1080,29 +1176,71 @@
 
       #region Laser Robot Movement Events
 
-      private void LaserWheelOffButton_Click(object sender, EventArgs e)
+      private void LaserRobotWheelOffButton_Click(object sender, EventArgs e)
       {
-         if (false == this.LaserWheelOffButton.HoldTimeoutEnable)
+         if (false == this.LaserRobotWheelOffButton.HoldTimeoutEnable)
          {
             DeviceCommunication.Instance.SetLaserMovementMode(MovementModes.off);
          }
       }
 
-      private void LaserWheelOffButton_HoldTimeout(object sender, Controls.HoldTimeoutEventArgs e)
+      private void LaserRobotWheelOffButton_HoldTimeout(object sender, Controls.HoldTimeoutEventArgs e)
       {
          DeviceCommunication.Instance.SetLaserMovementMode(MovementModes.off);
       }
 
-      private void LaserWheelMoveButton_HoldTimeout(object sender, Controls.HoldTimeoutEventArgs e)
+      private void LaserRobotWheelMoveButton_HoldTimeout(object sender, Controls.HoldTimeoutEventArgs e)
       {
          DeviceCommunication.Instance.SetLaserMovementMode(MovementModes.move);
       }
 
-      private void LaserWheelSpeedToggleButton_Click(object sender, EventArgs e)
+
+      private void LaserRobotJogDistanceButton_HoldTimeout(object sender, Controls.HoldTimeoutEventArgs e)
       {
-         bool selection = !this.LaserWheelSpeedToggleButton.OptionASelected;
+         DialogResult result = this.LaunchNumberEdit(this.LaserRobotJogDistanceButton, ParameterAccessor.Instance.LaserWheelManualWheelDistance, "JOG DISTANCE");
+      }
+
+      private void LaserRobotWheelSpeedToggleButton_Click(object sender, EventArgs e)
+      {
+         bool selection = !this.LaserRobotWheelSpeedToggleButton.OptionASelected;
          this.laserMovementFastSelected = selection;
-         this.LaserWheelSpeedToggleButton.OptionASelected = selection;
+         this.LaserRobotWheelSpeedToggleButton.OptionASelected = selection;
+      }
+
+      private void LaserRobotMoveReverseButton_MouseDown(object sender, MouseEventArgs e)
+      {
+         double neededSpeed = ParameterAccessor.Instance.LaserWheelManualWheelSpeed.OperationalValue;
+         double neededPercent = neededSpeed / ParameterAccessor.Instance.LaserWheelMaximumSpeed.OperationalValue;
+
+         DeviceCommunication.Instance.SetLaserMovementManualMode(true);
+         DeviceCommunication.Instance.SetLaserMovementRequest(-neededPercent, true);
+      }
+
+      private void LaserRobotMoveReverseButton_MouseUp(object sender, MouseEventArgs e)
+      {
+         DeviceCommunication.Instance.SetLaserMovementRequest(0, false);
+         DeviceCommunication.Instance.SetLaserMovementManualMode(false);
+      }
+
+      private void LaserRobotMoveSpeedButton_HoldTimeout(object sender, Controls.HoldTimeoutEventArgs e)
+      {
+         ParameterAccessor.Instance.LaserWheelManualWheelSpeed.MaximumValue = ParameterAccessor.Instance.LaserWheelMaximumSpeed.OperationalValue;
+         DialogResult result = this.LaunchNumberEdit(this.LaserRobotMoveSpeedButton, ParameterAccessor.Instance.LaserWheelManualWheelSpeed, "MOVE SPEED");
+      }
+
+      private void LaserRobotMoveForwardButton_MouseDown(object sender, MouseEventArgs e)
+      {
+         double neededSpeed = ParameterAccessor.Instance.LaserWheelManualWheelSpeed.OperationalValue;
+         double neededPercent = neededSpeed / ParameterAccessor.Instance.LaserWheelMaximumSpeed.OperationalValue;
+
+         DeviceCommunication.Instance.SetLaserMovementManualMode(true);
+         DeviceCommunication.Instance.SetLaserMovementRequest(neededPercent, true);
+      }
+
+      private void LaserRobotMoveForwardButton_MouseUp(object sender, MouseEventArgs e)
+      {
+         DeviceCommunication.Instance.SetLaserMovementRequest(0, false);
+         DeviceCommunication.Instance.SetLaserMovementManualMode(false);
       }
 
       private void LaserRobotMotorSetupButton_Click(object sender, EventArgs e)
