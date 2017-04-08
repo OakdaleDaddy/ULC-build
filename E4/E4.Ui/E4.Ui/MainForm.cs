@@ -389,6 +389,8 @@
 
          // clear display
 
+         this.DateTimeTextPanel.ValueText = "";
+
          this.LaserRobotAlternateMotionMotorPanel.Visible = false;
 
          this.LaserRobotFrontWheelCurrentPanel.ValueText = "";
@@ -528,6 +530,9 @@
          }
 
          DeviceCommunication.Instance.Service();
+
+         DateTime dateTime = DateTime.Now.ToLocalTime();
+         this.DateTimeTextPanel.ValueText = string.Format("{0:D2}-{1:D2}-{2:D4}   {3:D2}:{4:D2}:{5:D2}", dateTime.Month, dateTime.Day, dateTime.Year, dateTime.Hour, dateTime.Minute, dateTime.Second);
 
          #endregion
 
@@ -814,7 +819,7 @@
             double laserMovementRequestPercent = laserMovementScale * joystickYChange / joystickYRange;
 
             bool laserMovementTriggered = (false != Joystick.Instance.Button1Pressed);
-            DeviceCommunication.Instance.SetLaserMovementRequest(laserMovementRequestPercent, laserMovementTriggered);
+            DeviceCommunication.Instance.SetLaserMovementVelocityRequest(laserMovementRequestPercent, laserMovementTriggered);
 
             bool laserMovementActivated = DeviceCommunication.Instance.GetLaserMovementActivated();
 
@@ -843,7 +848,7 @@
 
             if (false == laserMovementManual)
             {
-               DeviceCommunication.Instance.SetLaserMovementRequest(0, false);
+               DeviceCommunication.Instance.SetLaserMovementVelocityRequest(0, false);
             }
 
             this.LaserRobotWheelMoveButton.LeftArrowVisible = false;
@@ -1194,7 +1199,6 @@
          DeviceCommunication.Instance.SetLaserMovementMode(MovementModes.move);
       }
 
-
       private void LaserRobotJogDistanceButton_HoldTimeout(object sender, Controls.HoldTimeoutEventArgs e)
       {
          DialogResult result = this.LaunchNumberEdit(this.LaserRobotJogDistanceButton, ParameterAccessor.Instance.LaserWheelManualWheelDistance, "JOG DISTANCE");
@@ -1207,18 +1211,28 @@
          this.LaserRobotWheelSpeedToggleButton.OptionASelected = selection;
       }
 
+      private void LaserRobotJogReverseButton_MouseDown(object sender, MouseEventArgs e)
+      {
+         DeviceCommunication.Instance.SetLaserMovementPositionRequest(-ParameterAccessor.Instance.LaserWheelManualWheelDistance.OperationalValue);
+      }
+
+      private void LaserRobotJogForwardButton_MouseDown(object sender, MouseEventArgs e)
+      {
+         DeviceCommunication.Instance.SetLaserMovementPositionRequest(ParameterAccessor.Instance.LaserWheelManualWheelDistance.OperationalValue);
+      }
+
       private void LaserRobotMoveReverseButton_MouseDown(object sender, MouseEventArgs e)
       {
          double neededSpeed = ParameterAccessor.Instance.LaserWheelManualWheelSpeed.OperationalValue;
          double neededPercent = neededSpeed / ParameterAccessor.Instance.LaserWheelMaximumSpeed.OperationalValue;
 
          DeviceCommunication.Instance.SetLaserMovementManualMode(true);
-         DeviceCommunication.Instance.SetLaserMovementRequest(-neededPercent, true);
+         DeviceCommunication.Instance.SetLaserMovementVelocityRequest(-neededPercent, true);
       }
 
       private void LaserRobotMoveReverseButton_MouseUp(object sender, MouseEventArgs e)
       {
-         DeviceCommunication.Instance.SetLaserMovementRequest(0, false);
+         DeviceCommunication.Instance.SetLaserMovementVelocityRequest(0, false);
          DeviceCommunication.Instance.SetLaserMovementManualMode(false);
       }
 
@@ -1234,12 +1248,12 @@
          double neededPercent = neededSpeed / ParameterAccessor.Instance.LaserWheelMaximumSpeed.OperationalValue;
 
          DeviceCommunication.Instance.SetLaserMovementManualMode(true);
-         DeviceCommunication.Instance.SetLaserMovementRequest(neededPercent, true);
+         DeviceCommunication.Instance.SetLaserMovementVelocityRequest(neededPercent, true);
       }
 
       private void LaserRobotMoveForwardButton_MouseUp(object sender, MouseEventArgs e)
       {
-         DeviceCommunication.Instance.SetLaserMovementRequest(0, false);
+         DeviceCommunication.Instance.SetLaserMovementVelocityRequest(0, false);
          DeviceCommunication.Instance.SetLaserMovementManualMode(false);
       }
 
@@ -1554,7 +1568,6 @@
       }
 
       #endregion
-
 
    }
 }

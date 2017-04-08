@@ -1500,6 +1500,19 @@
       public int VelocityDerivativeGainCoefficientKdLocation { set; get; }
       public int TargetVelocityLocation { set; get; }
 
+      public bool AutoHomeEnabled 
+      { 
+         set
+         {
+            this.AutoHomEnabledCheckBox.Checked = value;
+         }
+
+         get
+         {
+            return (this.AutoHomEnabledCheckBox.Checked);
+         }
+      }
+
       #endregion
 
       #region User Events
@@ -2285,8 +2298,6 @@
 
          if (false != fromPowerUp)
          {
-            this.homeDefined = false;
-
             this.PositionActualValue = 0;
 
             this.MotorErrorCode = 0;
@@ -2294,6 +2305,7 @@
             this.MotorTemperature = 23;
          }
 
+         this.homeDefined |= this.AutoHomeEnabled;
          this.homingSwitchActive = false;
 
          this.MotorAbortConnectionOption = 0;

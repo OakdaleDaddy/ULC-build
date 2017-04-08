@@ -78,10 +78,11 @@
          this.deviceResetQueue = new Queue();
          this.deviceClearWarningQueue = new Queue();
 
-         this.targetBoard = new UlcRoboticsE4Main("target board", (byte)ParameterAccessor.Instance.TargetBus.TargetBoardBusId);
+         //this.targetBoard = new UlcRoboticsE4Main("target board", (byte)ParameterAccessor.Instance.TargetBus.TargetBoardBusId);
+         LaserCommunicationBus.Instance.GetTargetBoard(ref this.targetBoard);
 
          this.deviceList = new ArrayList();
-         this.deviceList.Add(this.targetBoard);
+         //this.deviceList.Add(this.targetBoard);
 
          foreach (Device device in this.deviceList)
          {
@@ -308,9 +309,28 @@
          this.targetBoard.Configure(UlcRoboticsE4Main.UsageModes.target);
          this.targetBoard.Start();
 
-         Thread.Sleep(50);
+         // need initial status from motors
+         for (int i = 0; i < 3000; i++)
+         {
+            if (null != this.targetBoard.FaultReason)
+            {
+               break;
+            }
 
-         this.stepperStatus.homeNeeded = (false == targetBoard.Stepper0.HomingAttained) ? true : false;
+            if ((false != this.targetBoard.Bldc0.StatusReceived) &&
+                (false != this.targetBoard.Bldc1.StatusReceived) &&
+                (false != this.targetBoard.Stepper0.StatusReceived))
+            {
+               break;
+            }
+
+            Thread.Sleep(1);
+         }
+
+         this.stepperStatus.homeNeeded = (false == targetBoard.Stepper0.HomeDefined) ? true : false;
+         this.targetBoard.Stepper0.GetActualPosition(ref this.stepperStatus.actualPosition);
+         this.stepperStatus.positionNeeded = this.stepperStatus.actualPosition;
+         this.stepperStatus.positionRequested = this.stepperStatus.positionNeeded;
       }
 
       private void EvaluateWheel(MotorComponent motor, WheelMotorParameters parameters, WheelMotorStatus status, ref double total, ref int count)

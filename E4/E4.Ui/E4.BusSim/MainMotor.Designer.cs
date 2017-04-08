@@ -35,6 +35,7 @@
          this.MotorTemperatureTextBox = new System.Windows.Forms.TextBox();
          this.FormMotorTemperatureLabel = new System.Windows.Forms.Label();
          this.ValuePanel = new System.Windows.Forms.Panel();
+         this.AutoHomEnabledCheckBox = new System.Windows.Forms.CheckBox();
          this.MainPanel.SuspendLayout();
          this.SuspendLayout();
          // 
@@ -42,6 +43,7 @@
          // 
          this.MainPanel.AutoScroll = true;
          this.MainPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+         this.MainPanel.Controls.Add(this.AutoHomEnabledCheckBox);
          this.MainPanel.Controls.Add(this.HomeSwitchButton);
          this.MainPanel.Controls.Add(this.FocusTakerLabel);
          this.MainPanel.Controls.Add(this.SetMotorTemperatureButton);
@@ -116,6 +118,15 @@
          this.ValuePanel.TabIndex = 0;
          this.ValuePanel.Scroll += new System.Windows.Forms.ScrollEventHandler(this.ValuePanel_Scroll);
          // 
+         // AutoHomEnabledCheckBox
+         // 
+         this.AutoHomEnabledCheckBox.AutoSize = true;
+         this.AutoHomEnabledCheckBox.Location = new System.Drawing.Point(289, 8);
+         this.AutoHomEnabledCheckBox.Name = "AutoHomEnabledCheckBox";
+         this.AutoHomEnabledCheckBox.Size = new System.Drawing.Size(15, 14);
+         this.AutoHomEnabledCheckBox.TabIndex = 202;
+         this.AutoHomEnabledCheckBox.UseVisualStyleBackColor = true;
+         // 
          // MainMotor
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -138,5 +149,6 @@
       private System.Windows.Forms.TextBox MotorTemperatureTextBox;
       private System.Windows.Forms.Label FocusTakerLabel;
       private System.Windows.Forms.Button HomeSwitchButton;
+      private System.Windows.Forms.CheckBox AutoHomEnabledCheckBox;
    }
 }

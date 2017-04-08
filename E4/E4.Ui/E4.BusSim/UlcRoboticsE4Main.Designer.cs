@@ -203,7 +203,6 @@
          this.NodeIdTextBox.Location = new System.Drawing.Point(217, 4);
          this.NodeIdTextBox.MaxLength = 3;
          this.NodeIdTextBox.Name = "NodeIdTextBox";
-         this.NodeIdTextBox.ReadOnly = true;
          this.NodeIdTextBox.Size = new System.Drawing.Size(25, 20);
          this.NodeIdTextBox.TabIndex = 137;
          this.NodeIdTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -634,6 +633,7 @@
          // 
          // Motor0Motor
          // 
+         this.Motor0Motor.AutoHomeEnabled = false;
          this.Motor0Motor.ControlWordLocation = 0;
          this.Motor0Motor.CurrentActualValueLocation = 0;
          this.Motor0Motor.DigitalInputsLocation = 0;
@@ -690,6 +690,7 @@
          // 
          // Motor1Motor
          // 
+         this.Motor1Motor.AutoHomeEnabled = false;
          this.Motor1Motor.ControlWordLocation = 0;
          this.Motor1Motor.CurrentActualValueLocation = 0;
          this.Motor1Motor.DigitalInputsLocation = 0;
@@ -746,6 +747,7 @@
          // 
          // Motor2Motor
          // 
+         this.Motor2Motor.AutoHomeEnabled = false;
          this.Motor2Motor.ControlWordLocation = 0;
          this.Motor2Motor.CurrentActualValueLocation = 0;
          this.Motor2Motor.DigitalInputsLocation = 0;
@@ -802,6 +804,7 @@
          // 
          // Motor3Motor
          // 
+         this.Motor3Motor.AutoHomeEnabled = false;
          this.Motor3Motor.ControlWordLocation = 0;
          this.Motor3Motor.CurrentActualValueLocation = 0;
          this.Motor3Motor.DigitalInputsLocation = 0;
@@ -1036,7 +1039,7 @@
          this.MainTabControl.Location = new System.Drawing.Point(0, 30);
          this.MainTabControl.Name = "MainTabControl";
          this.MainTabControl.SelectedIndex = 0;
-         this.MainTabControl.Size = new System.Drawing.Size(1005, 291);
+         this.MainTabControl.Size = new System.Drawing.Size(1005, 230);
          this.MainTabControl.TabIndex = 243;
          // 
          // InterfaceTabPage
@@ -1078,7 +1081,7 @@
          this.InterfaceTabPage.Location = new System.Drawing.Point(4, 22);
          this.InterfaceTabPage.Name = "InterfaceTabPage";
          this.InterfaceTabPage.Padding = new System.Windows.Forms.Padding(3);
-         this.InterfaceTabPage.Size = new System.Drawing.Size(997, 265);
+         this.InterfaceTabPage.Size = new System.Drawing.Size(997, 204);
          this.InterfaceTabPage.TabIndex = 2;
          this.InterfaceTabPage.Text = "Interface";
          // 
@@ -1243,7 +1246,7 @@
          this.Bldc0TabPage.Location = new System.Drawing.Point(4, 22);
          this.Bldc0TabPage.Name = "Bldc0TabPage";
          this.Bldc0TabPage.Padding = new System.Windows.Forms.Padding(3);
-         this.Bldc0TabPage.Size = new System.Drawing.Size(997, 265);
+         this.Bldc0TabPage.Size = new System.Drawing.Size(997, 169);
          this.Bldc0TabPage.TabIndex = 3;
          this.Bldc0TabPage.Text = "BLDC0";
          // 
@@ -1254,7 +1257,7 @@
          this.Bldc1TabPage.Location = new System.Drawing.Point(4, 22);
          this.Bldc1TabPage.Name = "Bldc1TabPage";
          this.Bldc1TabPage.Padding = new System.Windows.Forms.Padding(3);
-         this.Bldc1TabPage.Size = new System.Drawing.Size(997, 265);
+         this.Bldc1TabPage.Size = new System.Drawing.Size(997, 169);
          this.Bldc1TabPage.TabIndex = 4;
          this.Bldc1TabPage.Text = "BLDC1";
          // 
@@ -1265,7 +1268,7 @@
          this.Stepper0TabPage.Location = new System.Drawing.Point(4, 22);
          this.Stepper0TabPage.Name = "Stepper0TabPage";
          this.Stepper0TabPage.Padding = new System.Windows.Forms.Padding(3);
-         this.Stepper0TabPage.Size = new System.Drawing.Size(997, 265);
+         this.Stepper0TabPage.Size = new System.Drawing.Size(997, 169);
          this.Stepper0TabPage.TabIndex = 5;
          this.Stepper0TabPage.Text = "Stepper0";
          // 
@@ -1276,7 +1279,7 @@
          this.Stepper1TabPage.Location = new System.Drawing.Point(4, 22);
          this.Stepper1TabPage.Name = "Stepper1TabPage";
          this.Stepper1TabPage.Padding = new System.Windows.Forms.Padding(3);
-         this.Stepper1TabPage.Size = new System.Drawing.Size(997, 265);
+         this.Stepper1TabPage.Size = new System.Drawing.Size(997, 169);
          this.Stepper1TabPage.TabIndex = 6;
          this.Stepper1TabPage.Text = "Stepper1";
          // 
@@ -1287,7 +1290,7 @@
          this.CommunicationTabPage.Location = new System.Drawing.Point(4, 22);
          this.CommunicationTabPage.Name = "CommunicationTabPage";
          this.CommunicationTabPage.Padding = new System.Windows.Forms.Padding(3);
-         this.CommunicationTabPage.Size = new System.Drawing.Size(997, 265);
+         this.CommunicationTabPage.Size = new System.Drawing.Size(997, 169);
          this.CommunicationTabPage.TabIndex = 0;
          this.CommunicationTabPage.Text = "Communication PI";
          // 
@@ -1298,7 +1301,7 @@
          this.CameraProcessImageTabPage.Location = new System.Drawing.Point(4, 22);
          this.CameraProcessImageTabPage.Name = "CameraProcessImageTabPage";
          this.CameraProcessImageTabPage.Padding = new System.Windows.Forms.Padding(3);
-         this.CameraProcessImageTabPage.Size = new System.Drawing.Size(997, 265);
+         this.CameraProcessImageTabPage.Size = new System.Drawing.Size(997, 169);
          this.CameraProcessImageTabPage.TabIndex = 7;
          this.CameraProcessImageTabPage.Text = "Camera PI";
          // 
@@ -1323,7 +1326,7 @@
          this.ImuProcessImageTabPage.Location = new System.Drawing.Point(4, 22);
          this.ImuProcessImageTabPage.Name = "ImuProcessImageTabPage";
          this.ImuProcessImageTabPage.Padding = new System.Windows.Forms.Padding(3);
-         this.ImuProcessImageTabPage.Size = new System.Drawing.Size(997, 265);
+         this.ImuProcessImageTabPage.Size = new System.Drawing.Size(997, 169);
          this.ImuProcessImageTabPage.TabIndex = 8;
          this.ImuProcessImageTabPage.Text = "IMU PI";
          // 
@@ -1452,7 +1455,7 @@
          this.LaserRangeFinderTabPage.Location = new System.Drawing.Point(4, 22);
          this.LaserRangeFinderTabPage.Name = "LaserRangeFinderTabPage";
          this.LaserRangeFinderTabPage.Padding = new System.Windows.Forms.Padding(3);
-         this.LaserRangeFinderTabPage.Size = new System.Drawing.Size(997, 265);
+         this.LaserRangeFinderTabPage.Size = new System.Drawing.Size(997, 169);
          this.LaserRangeFinderTabPage.TabIndex = 9;
          this.LaserRangeFinderTabPage.Text = "Laser Range Finder PI";
          // 
@@ -1491,7 +1494,7 @@
          this.LaserScannerProcessImageTabPage.Location = new System.Drawing.Point(4, 22);
          this.LaserScannerProcessImageTabPage.Name = "LaserScannerProcessImageTabPage";
          this.LaserScannerProcessImageTabPage.Padding = new System.Windows.Forms.Padding(3);
-         this.LaserScannerProcessImageTabPage.Size = new System.Drawing.Size(997, 265);
+         this.LaserScannerProcessImageTabPage.Size = new System.Drawing.Size(997, 169);
          this.LaserScannerProcessImageTabPage.TabIndex = 10;
          this.LaserScannerProcessImageTabPage.Text = "Laser Scanner PI";
          // 
@@ -1515,7 +1518,7 @@
          this.McuProcessImageTabPage.Location = new System.Drawing.Point(4, 22);
          this.McuProcessImageTabPage.Name = "McuProcessImageTabPage";
          this.McuProcessImageTabPage.Padding = new System.Windows.Forms.Padding(3);
-         this.McuProcessImageTabPage.Size = new System.Drawing.Size(997, 265);
+         this.McuProcessImageTabPage.Size = new System.Drawing.Size(997, 169);
          this.McuProcessImageTabPage.TabIndex = 11;
          this.McuProcessImageTabPage.Text = "MCU PI";
          // 
@@ -1557,7 +1560,7 @@
          this.Controls.Add(this.NodeIdTextBox);
          this.Controls.Add(this.label1);
          this.Name = "UlcRoboticsE4Main";
-         this.Size = new System.Drawing.Size(1005, 321);
+         this.Size = new System.Drawing.Size(1005, 260);
          this.CommunicationProcessImagePanel.ResumeLayout(false);
          this.CommunicationProcessImagePanel.PerformLayout();
          this.MainTabControl.ResumeLayout(false);

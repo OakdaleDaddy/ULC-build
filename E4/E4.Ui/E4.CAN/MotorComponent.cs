@@ -27,6 +27,8 @@ namespace E4.CAN
 
       #region Fields
 
+      private bool statusReceived;
+
       private bool positionAttained;
       private bool velocityAttained;
       private bool targetPositionRelative;
@@ -167,6 +169,14 @@ namespace E4.CAN
          }
       }
 
+      public bool StatusReceived
+      {
+         get
+         {
+            return (this.statusReceived);
+         }
+      }
+
       public bool PositionAttained
       {
          get
@@ -238,6 +248,8 @@ namespace E4.CAN
 
       public virtual void Reset()
       {
+         this.statusReceived = false;
+
          this.positionAttained = false;
          this.velocityAttained = false;
          this.targetPositionRelative = false;
@@ -262,11 +274,10 @@ namespace E4.CAN
       public void ProcessStatus()
       {
          bool operational = ((this.Status & 0x0004) != 0) ? true : false;
+         this.homeDefined = ((this.Status & 0x0100) != 0) ? true : false;
 
          if (false != operational)
          {
-            this.homeDefined = ((this.Status & 0x0100) != 0) ? true : false;
-
             if (Modes.position == this.mode)
             {
                this.positionAttained = ((this.Status & 0x0400) != 0) ? true : false;
@@ -288,6 +299,8 @@ namespace E4.CAN
                this.velocityAttained = ((this.Status & 0x0400) != 0) ? true : false;
             }
          }
+
+         this.statusReceived = true;
       }
 
       public bool SetMode(Modes mode)

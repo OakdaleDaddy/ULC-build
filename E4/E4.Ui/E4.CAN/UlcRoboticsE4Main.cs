@@ -588,6 +588,12 @@ namespace E4.CAN
       public override void Initialize()
       {
          this.usageMode = UsageModes.undefined;
+         
+         this.Bldc0.Initialize();
+         this.Bldc1.Initialize();
+         this.Stepper0.Initialize();
+         this.Stepper1.Initialize();
+         
          base.Initialize();
       }
 

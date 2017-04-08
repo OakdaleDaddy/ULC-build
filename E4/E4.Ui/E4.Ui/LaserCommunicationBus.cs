@@ -42,12 +42,14 @@
       private Queue deviceClearWarningQueue;
 
       private UlcRoboticsE4Main laserBoard;
+      private UlcRoboticsE4Main targetBoard;
 
       private ArrayList deviceList;
 
       private DateTime controllerHeartbeatLimit;
       private bool controllerServiced;
       private bool stopAll;
+      private object valueUpdate;
 
       private bool laserManualMovementMode;
       private MovementModes laserMovementMode;
@@ -91,9 +93,11 @@
          this.deviceClearWarningQueue = new Queue();
 
          this.laserBoard = new UlcRoboticsE4Main("laser board", (byte)ParameterAccessor.Instance.LaserBus.LaserBoardBusId);
+         this.targetBoard = new UlcRoboticsE4Main("target board", (byte)ParameterAccessor.Instance.TargetBus.TargetBoardBusId);
 
          this.deviceList = new ArrayList();
          this.deviceList.Add(this.laserBoard);
+         this.deviceList.Add(this.targetBoard);
          
          foreach (Device device in this.deviceList)
          {
@@ -107,6 +111,7 @@
          this.controllerHeartbeatLimit = DateTime.Now.AddSeconds(30);
          this.controllerServiced = false;
          this.stopAll = false;
+         this.valueUpdate = new object();
 
          this.laserManualMovementMode = false;
          this.laserMovementMode = MovementModes.off;
@@ -327,16 +332,43 @@
 
       private void StartLaserBoard()
       {
-         this.laserBoard.SetConsumerHeartbeat((UInt16)ParameterAccessor.Instance.LaserBus.ConsumerHeartbeatRate, (byte)ParameterAccessor.Instance.LaserBus.ControllerBusId);
-         this.laserBoard.SetProducerHeartbeat((UInt16)ParameterAccessor.Instance.LaserBus.ProducerHeartbeatRate);
+         if (null == this.laserBoard.FaultReason)
+         {
+            this.laserBoard.SetConsumerHeartbeat((UInt16)ParameterAccessor.Instance.LaserBus.ConsumerHeartbeatRate, (byte)ParameterAccessor.Instance.LaserBus.ControllerBusId);
+            this.laserBoard.SetProducerHeartbeat((UInt16)ParameterAccessor.Instance.LaserBus.ProducerHeartbeatRate);
 
-         this.laserBoard.Configure(UlcRoboticsE4Main.UsageModes.laser);
-         this.laserBoard.Start();
+            this.laserBoard.Configure(UlcRoboticsE4Main.UsageModes.laser);
+            this.laserBoard.Start();
 
-         Thread.Sleep(50);
+            // need initial status from motors
+            for (int i = 0; i < 3000; i++)
+            {
+               if (null != this.laserBoard.FaultReason)
+               {
+                  break;
+               }
 
-         this.stepper0Status.homeNeeded = (false == laserBoard.Stepper0.HomingAttained) ? true : false;
-         this.stepper1Status.homeNeeded = (false == laserBoard.Stepper1.HomingAttained) ? true : false;
+               if ((false != this.laserBoard.Bldc0.StatusReceived) &&
+                   (false != this.laserBoard.Bldc1.StatusReceived) &&
+                   (false != this.laserBoard.Stepper0.StatusReceived) &&
+                   (false != this.laserBoard.Stepper1.StatusReceived))
+               {
+                  break;
+               }
+               
+               Thread.Sleep(1);
+            }
+
+            this.stepper0Status.homeNeeded = (false == laserBoard.Stepper0.HomeDefined) ? true : false;
+            this.laserBoard.Stepper0.GetActualPosition(ref this.stepper0Status.actualPosition);
+            this.stepper0Status.positionNeeded = this.stepper0Status.actualPosition;
+            this.stepper0Status.positionRequested = this.stepper0Status.positionNeeded;
+
+            this.stepper1Status.homeNeeded = (false == laserBoard.Stepper1.HomeDefined) ? true : false;
+            this.laserBoard.Stepper1.GetActualPosition(ref this.stepper1Status.actualPosition);
+            this.stepper1Status.positionNeeded = this.stepper1Status.actualPosition;
+            this.stepper1Status.positionRequested = this.stepper1Status.positionNeeded;
+         }
       }
 
       private void EvaluateWheel(MotorComponent motor, WheelMotorParameters parameters, WheelMotorStatus status, ref double total, ref int count)
@@ -599,6 +631,7 @@
             // nothing, reset needed to clear
          }
 
+         // need undefined state
          else if (status.state == StepperMotorStatus.States.startHoming)
          {
             status.homeNeeded = false;
@@ -631,8 +664,22 @@
          {
             motor.SetProfileVelocity(parameters.ProfileVelocity);
             motor.SetProfileAcceleration(parameters.ProfileAcceleration);
-            motor.SetMode(MotorComponent.Modes.position);
 
+            if (false != status.centerNeeded)
+            {
+               status.positionNeeded = parameters.CenterPosition;
+               motor.SetTargetPosition(status.positionNeeded, false);
+               status.positionRequested = status.positionNeeded;
+            }
+            else
+            {
+               motor.SetTargetPosition(status.positionNeeded, false);
+               status.positionRequested = status.positionNeeded;
+            }
+
+            Tracer.WriteHigh(TraceGroup.LBUS, "", "{0} position {1}", motor.Name, status.positionRequested);
+
+            motor.SetMode(MotorComponent.Modes.position);
             Tracer.WriteHigh(TraceGroup.LBUS, "", "{0} position mode", motor.Name);
 
             status.state = StepperMotorStatus.States.positioning;
@@ -1019,7 +1066,11 @@
 
          for (; this.execute; )
          {
-            this.UpdateLaserBoard();
+            lock (this.valueUpdate)
+            {
+               this.UpdateLaserBoard();
+            }
+
             this.UpdateDeviceReset();
             this.UpdateDeviceClearWarning();
 
@@ -1286,6 +1337,11 @@
          this.stopAll = true;
       }
 
+      public void GetTargetBoard(ref UlcRoboticsE4Main targetBoard)
+      {
+         targetBoard = this.targetBoard;
+      }
+
       #endregion
 
       #region Laser Movement Functions
@@ -1302,7 +1358,34 @@
          this.laserMovementMode = mode;
       }
 
-      public void SetLaserMovementRequest(double request, bool triggered)
+      public void SetLaserMovementPositionRequest(double request)
+      {
+         int adjustment = (int)(request * ParameterAccessor.Instance.LaserWheelDistanceToTicks);
+         int invertor;
+
+         invertor = (false == ParameterAccessor.Instance.LaserFrontWheel.PositionInverted) ? 1 : -1;
+         invertor *= (false == ParameterAccessor.Instance.LaserFrontWheel.RequestInverted) ? 1 : -1;
+         int frontAdjustment = (adjustment * invertor);
+
+         invertor = (false == ParameterAccessor.Instance.LaserRearWheel.PositionInverted) ? 1 : -1;
+         invertor *= (false == ParameterAccessor.Instance.LaserRearWheel.RequestInverted) ? 1 : -1;
+         int rearAdjustment = (adjustment * invertor);
+
+         lock (this.valueUpdate)
+         {
+            if (WheelMotorStates.enabled == ParameterAccessor.Instance.LaserFrontWheel.MotorState)
+            {
+               this.wheel0Status.positionNeeded = this.laserBoard.Bldc0.ActualPosition + frontAdjustment;
+            }
+
+            if (WheelMotorStates.enabled == ParameterAccessor.Instance.LaserRearWheel.MotorState)
+            {
+               this.wheel1Status.positionNeeded = this.laserBoard.Bldc1.ActualPosition + rearAdjustment;
+            }
+         }
+      }
+
+      public void SetLaserMovementVelocityRequest(double request, bool triggered)
       {
          this.laserMovementRequest = request;
          this.laserMovementTriggered = triggered;

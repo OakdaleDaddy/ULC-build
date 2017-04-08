@@ -240,11 +240,16 @@
          LaserCommunicationBus.Instance.SetLaserMovementMode(mode);
       }
 
-      public void SetLaserMovementRequest(double request, bool triggered)
+      public void SetLaserMovementPositionRequest(double request)
       {
-         LaserCommunicationBus.Instance.SetLaserMovementRequest(request, triggered);
+         LaserCommunicationBus.Instance.SetLaserMovementPositionRequest(request);
       }
-
+     
+      public void SetLaserMovementVelocityRequest(double request, bool triggered)
+      {
+         LaserCommunicationBus.Instance.SetLaserMovementVelocityRequest(request, triggered);
+      }
+     
       public bool GetLaserMovementManualMode()
       {
          return (LaserCommunicationBus.Instance.GetLaserMovementManualMode());

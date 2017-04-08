@@ -2403,6 +2403,12 @@ namespace E4.BusSim
          keyValue = appKey.GetValue(deviceTag + "nvNodeId");
          this.nvNodeId = (byte)((null != keyValue) ? (byte.TryParse(keyValue.ToString(), out parsedValue) ? parsedValue : 31) : 31);
          this.NodeIdTextBox.Text = this.nvNodeId.ToString();
+
+         keyValue = appKey.GetValue(deviceTag + "Stepper0AutoHome");
+         this.Motor2Motor.AutoHomeEnabled = ("0" != (string)((null != keyValue) ? keyValue.ToString() : "0")) ? true : false;
+
+         keyValue = appKey.GetValue(deviceTag + "Stepper1AutoHome");
+         this.Motor3Motor.AutoHomeEnabled = ("0" != (string)((null != keyValue) ? keyValue.ToString() : "0")) ? true : false;
       }
 
       public override void SaveRegistry(RegistryKey appKey, string deviceTag)
@@ -2411,6 +2417,8 @@ namespace E4.BusSim
          appKey.SetValue(deviceTag + "Description", this.DescriptionTextBox.Text);
          appKey.SetValue(deviceTag + "BusId", this.GetBusId());
          appKey.SetValue(deviceTag + "nvNodeId", this.nvNodeId);
+         appKey.SetValue(deviceTag + "Stepper0AutoHome", this.Motor2Motor.AutoHomeEnabled ? "1" : "0");
+         appKey.SetValue(deviceTag + "Stepper1AutoHome", this.Motor3Motor.AutoHomeEnabled ? "1" : "0");
       }
 
       public override void Read(XmlReader reader)
@@ -2435,6 +2443,14 @@ namespace E4.BusSim
             byte.TryParse(reader.Value, out this.nvNodeId);
             this.NodeIdTextBox.Text = this.nvNodeId.ToString();
          }
+         else if ("Stepper0AutoHome" == name)
+         {
+            this.Motor2Motor.AutoHomeEnabled = ("0" != reader.Value) ? true : false;
+         }
+         else if ("Stepper1AutoHome" == name)
+         {
+            this.Motor3Motor.AutoHomeEnabled = ("0" != reader.Value) ? true : false;
+         }
       }
 
       public override void Write(XmlWriter writer)
@@ -2443,6 +2459,8 @@ namespace E4.BusSim
          writer.WriteElementString("Description", this.DescriptionTextBox.Text);
          writer.WriteElementString("BusId", this.GetBusId());
          writer.WriteElementString("nvNodeId", this.nvNodeId.ToString());
+         writer.WriteElementString("Stepper0AutoHome", (false != this.Motor2Motor.AutoHomeEnabled) ? "1" : "0");
+         writer.WriteElementString("Stepper1AutoHome", (false != this.Motor3Motor.AutoHomeEnabled) ? "1" : "0");
       }
 
       public override void SetBusId(string busId)
@@ -2453,6 +2471,13 @@ namespace E4.BusSim
 
       public override void PowerUp()
       {
+         int id = 0;
+
+         if (int.TryParse(this.NodeIdTextBox.Text, out id) != false)
+         {
+            this.nvNodeId = (byte)id;
+         }
+
          this.EnabledCheckBox.Enabled = false;
          this.DescriptionTextBox.Enabled = false;
          this.NodeIdTextBox.Enabled = false;
@@ -2464,6 +2489,8 @@ namespace E4.BusSim
          {
             this.DeviceStateLabel.Text = "DISABLED";
          }
+
+         this.NodeIdTextBox.Enabled = false;
       }
 
       public override void PowerDown()
@@ -2476,6 +2503,8 @@ namespace E4.BusSim
 
          this.deviceState = DeviceStates.stopped;
          this.DeviceStateLabel.Text = "OFF";
+
+         this.NodeIdTextBox.Enabled = true;
       }
 
       public override void DeviceReceive(int cobId, byte[] frame)
