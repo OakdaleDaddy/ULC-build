@@ -48,7 +48,9 @@
       private DateTime controllerHeartbeatLimit;
       private bool controllerServiced;
       private bool stopAll;
+      private object valueUpdate;
 
+      private bool targetManualMovementMode;
       private MovementModes targetMovementMode;
       private double targetMovementRequest;
       private bool targetMovementTriggered;
@@ -96,7 +98,9 @@
          this.controllerHeartbeatLimit = DateTime.Now.AddSeconds(30);
          this.controllerServiced = false;
          this.stopAll = false;
+         this.valueUpdate = new object();
 
+         this.targetManualMovementMode = false;
          this.targetMovementMode = MovementModes.off;
          this.targetMovementRequest = 0;
          this.targetMovementTriggered = false;
@@ -950,7 +954,11 @@
 
          for (; this.execute; )
          {
-            this.UpdateTargetBoard();
+            lock (this.valueUpdate)
+            {
+               this.UpdateTargetBoard();
+            }
+
             this.UpdateDeviceReset();
             this.UpdateDeviceClearWarning();
 
@@ -1221,18 +1229,56 @@
 
       #region Target Movement Functions
 
+      public void SetTargetMovementManualMode(bool active)
+      {
+         Tracer.WriteHigh(TraceGroup.TBUS, "", "requested target manual movement mode={0}", active);
+         this.targetManualMovementMode = active;
+      }
+
       public void SetTargetMovementMode(MovementModes mode)
       {
          Tracer.WriteHigh(TraceGroup.TBUS, "", "requested target movement mode={0}", mode);
          this.targetMovementMode = mode;
       }
 
-      public void SetTargetMovementRequest(double request, bool triggered)
+      public void SetTargetMovementPositionRequest(double request)
+      {
+         int adjustment = (int)(request * ParameterAccessor.Instance.TargetWheelDistanceToTicks);
+         int invertor;
+
+         invertor = (false == ParameterAccessor.Instance.TargetFrontWheel.PositionInverted) ? 1 : -1;
+         invertor *= (false == ParameterAccessor.Instance.TargetFrontWheel.RequestInverted) ? 1 : -1;
+         int frontAdjustment = (adjustment * invertor);
+
+         invertor = (false == ParameterAccessor.Instance.TargetRearWheel.PositionInverted) ? 1 : -1;
+         invertor *= (false == ParameterAccessor.Instance.TargetRearWheel.RequestInverted) ? 1 : -1;
+         int rearAdjustment = (adjustment * invertor);
+
+         lock (this.valueUpdate)
+         {
+            if (WheelMotorStates.enabled == ParameterAccessor.Instance.TargetFrontWheel.MotorState)
+            {
+               this.wheel0Status.positionNeeded = this.targetBoard.Bldc0.ActualPosition + frontAdjustment;
+            }
+
+            if (WheelMotorStates.enabled == ParameterAccessor.Instance.TargetRearWheel.MotorState)
+            {
+               this.wheel1Status.positionNeeded = this.targetBoard.Bldc1.ActualPosition + rearAdjustment;
+            }
+         }
+      }
+
+      public void SetTargetMovementVelocityRequest(double request, bool triggered)
       {
          this.targetMovementRequest = request;
          this.targetMovementTriggered = triggered;
       }
-      
+
+      public bool GetTargetMovementManualMode()
+      {
+         return (this.targetManualMovementMode);
+      }
+
       public MovementModes GetTargetMovementMode()
       {
          return (this.targetMovementMode);
@@ -1263,6 +1309,56 @@
       public bool GetTargetMovementActivated()
       {
          bool result = ((false != this.targetMovementTriggered) && (MovementModes.move == this.targetMovementMode)) ? true : false;
+         return (result);
+      }
+
+      public double GetTargetWheelCurrentValue(WheelLocations location)
+      {
+         double result = 0;
+
+         if (WheelLocations.front == location)
+         {
+            result = this.targetBoard.Bldc0.ActualCurrent;
+         }
+         else if (WheelLocations.rear == location)
+         {
+            result = this.targetBoard.Bldc1.ActualCurrent;
+         }
+
+         return (result);
+      }
+
+      public double GetTargetWheelTemperatureValue(WheelLocations location)
+      {
+         double result = 0;
+
+         if (WheelLocations.front == location)
+         {
+            result = this.targetBoard.Bldc0.Temperature;
+         }
+         else if (WheelLocations.rear == location)
+         {
+            result = this.targetBoard.Bldc1.Temperature;
+         }
+
+         return (result);
+      }
+
+      public double GetTargetWheelPositionValue(WheelLocations location)
+      {
+         double result = 0;
+
+         if (WheelLocations.front == location)
+         {
+            result = this.targetBoard.Bldc0.ActualPosition;
+         }
+         else if (WheelLocations.rear == location)
+         {
+            result = this.targetBoard.Bldc1.ActualPosition;
+         }
+
+         result /= ParameterAccessor.Instance.TargetWheelDistanceToTicks;
+
          return (result);
       }
 

@@ -343,14 +343,29 @@
 
       #region Target Movement Functions
 
+      public void SetTargetMovementManualMode(bool active)
+      {
+         TargetCommunicationBus.Instance.SetTargetMovementManualMode(active);
+      }
+
       public void SetTargetMovementMode(MovementModes mode)
       {
          TargetCommunicationBus.Instance.SetTargetMovementMode(mode);
       }
 
-      public void SetTargetMovementRequest(double request, bool triggered)
+      public void SetTargetMovementPositionRequest(double request)
       {
-         TargetCommunicationBus.Instance.SetTargetMovementRequest(request, triggered);
+         TargetCommunicationBus.Instance.SetTargetMovementPositionRequest(request);
+      }
+
+      public void SetTargetMovementVelocityRequest(double request, bool triggered)
+      {
+         TargetCommunicationBus.Instance.SetTargetMovementVelocityRequest(request, triggered);
+      }
+
+      public bool GetTargetMovementManualMode()
+      {
+         return (TargetCommunicationBus.Instance.GetTargetMovementManualMode());
       }
 
       public MovementModes GetTargetMovementMode()
@@ -371,6 +386,21 @@
       public bool GetTargetMovementActivated()
       {
          return (TargetCommunicationBus.Instance.GetTargetMovementActivated());
+      }
+
+      public double GetTargetWheelCurrentValue(WheelLocations location)
+      {
+         return (TargetCommunicationBus.Instance.GetTargetWheelCurrentValue(location));
+      }
+
+      public double GetTargetWheelTemperatureValue(WheelLocations location)
+      {
+         return (TargetCommunicationBus.Instance.GetTargetWheelTemperatureValue(location));
+      }
+
+      public double GetTargetWheelPositionValue(WheelLocations location)
+      {
+         return (TargetCommunicationBus.Instance.GetTargetWheelPositionValue(location));
       }
 
       #endregion

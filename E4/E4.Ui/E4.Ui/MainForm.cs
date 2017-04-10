@@ -409,11 +409,23 @@
          this.LaserRobotWheelMoveButton.RightArrowVisible = false;
          this.LaserRobotWheelSpeedToggleButton.OptionASelected = this.laserMovementFastSelected;
 
+
+         this.TargetRobotAlternateMotionMotorPanel.Visible = false;
+
+         this.TargetRobotFrontWheelCurrentPanel.ValueText = "";
+         this.TargetRobotFrontWheelTemperaturePanel.ValueText = "";
+         this.TargetRobotFrontWheelPositionPanel.ValueText = "";
+         this.TargetRobotRearWheelCurrentPanel.ValueText = "";
+         this.TargetRobotRearWheelTemperaturePanel.ValueText = "";
+         this.TargetRobotRearWheelPositionPanel.ValueText = "";
+         this.TargetRobotMotorLinkVoltagePanel.ValueText = "";
+         this.TargetRobotJogDistanceButton.ValueText = "";
+         this.TargetRobotMoveSpeedButton.ValueText = "";
          this.TargetWheelDirectionalValuePanel.ValueText = "";
+         this.TargetWheelDirectionalValuePanel.Direction = Ui.Controls.DirectionalValuePanel.Directions.Idle;
          this.TargetWheelMoveButton.ValueText = "";
          this.TargetWheelMoveButton.LeftArrowVisible = false;
          this.TargetWheelMoveButton.RightArrowVisible = false;
-         this.TargetWheelDirectionalValuePanel.Direction = Ui.Controls.DirectionalValuePanel.Directions.Idle;
          this.TargetWheelSpeedToggleButton.OptionASelected = this.targetMovementFastSelected;
 
          this.LaserPitchTickPanel.ValueText = this.GetValueText(DeviceCommunication.Instance.GetLaserStepperYActualPosition());
@@ -481,6 +493,9 @@
 
          this.LaserRobotJogDistanceButton.ValueText = this.GetValueText(ParameterAccessor.Instance.LaserWheelManualWheelDistance);
          this.LaserRobotMoveSpeedButton.ValueText = this.GetValueText(ParameterAccessor.Instance.LaserWheelManualWheelSpeed);
+
+         this.TargetRobotJogDistanceButton.ValueText = this.GetValueText(ParameterAccessor.Instance.TargetWheelManualWheelDistance);
+         this.TargetRobotMoveSpeedButton.ValueText = this.GetValueText(ParameterAccessor.Instance.TargetWheelManualWheelSpeed);
 
          DeviceCommunication.Instance.Start();
 
@@ -861,6 +876,31 @@
 
          #region Target Robot
 
+         double targetWheelCurrent = 0;
+         double targetWheelTemperature = 0;
+         double targetWheelPosition = 0;
+
+         targetWheelCurrent = DeviceCommunication.Instance.GetTargetWheelCurrentValue(WheelLocations.front);
+         this.TargetRobotFrontWheelCurrentPanel.ValueText = this.GetValueText(targetWheelCurrent, 2, "A"); ;
+
+         targetWheelTemperature = DeviceCommunication.Instance.GetTargetWheelTemperatureValue(WheelLocations.front);
+         this.TargetRobotFrontWheelTemperaturePanel.ValueText = this.GetValueText(targetWheelTemperature, 0, "°C");
+
+         targetWheelPosition = DeviceCommunication.Instance.GetTargetWheelPositionValue(WheelLocations.front);
+         this.TargetRobotFrontWheelPositionPanel.ValueText = this.GetValueText(targetWheelPosition, ParameterAccessor.Instance.TargetWheelManualWheelDistance);
+
+         targetWheelCurrent = DeviceCommunication.Instance.GetTargetWheelCurrentValue(WheelLocations.rear);
+         this.TargetRobotRearWheelCurrentPanel.ValueText = this.GetValueText(targetWheelCurrent, 2, "A"); ;
+
+         targetWheelTemperature = DeviceCommunication.Instance.GetTargetWheelTemperatureValue(WheelLocations.rear);
+         this.TargetRobotRearWheelTemperaturePanel.ValueText = this.GetValueText(targetWheelTemperature, 0, "°C");
+
+         targetWheelPosition = DeviceCommunication.Instance.GetTargetWheelPositionValue(WheelLocations.rear);
+         this.TargetRobotRearWheelPositionPanel.ValueText = this.GetValueText(targetWheelPosition, ParameterAccessor.Instance.TargetWheelManualWheelDistance);
+
+         //this.TargetRobotMotorLinkVoltagePanel.ValueText = "";
+
+
          this.TargetUpdateMovementControls();
 
 
@@ -899,6 +939,14 @@
 
          if (JoystickApplications.targetRobot == this.joystickApplication)
          {
+            if (false == this.TargetRobotAlternateMotionMotorPanel.Visible)
+            {
+               this.TargetRobotAlternateMotionMotorPanel.Top = this.GetAbsoluteTop(this.TargetRobotJogReverseButton);
+               this.TargetRobotAlternateMotionMotorPanel.Left = this.TargetRobotWheelPanel.Left;
+
+               this.TargetRobotAlternateMotionMotorPanel.Visible = true;
+            }
+
             if (joystickYChange < 0)
             {
                targetMovementReverse = true;
@@ -914,7 +962,7 @@
             double targetMovementRequestPercent = targetMovementScale * joystickYChange / joystickYRange;
 
             bool targetMovementTriggered = (false != Joystick.Instance.Button1Pressed);
-            DeviceCommunication.Instance.SetTargetMovementRequest(targetMovementRequestPercent, targetMovementTriggered);
+            DeviceCommunication.Instance.SetTargetMovementVelocityRequest(targetMovementRequestPercent, targetMovementTriggered);
 
             bool targetMovementActivated = DeviceCommunication.Instance.GetTargetMovementActivated();
 
@@ -928,10 +976,23 @@
                targetMovementSet = true;
             }
          }
+         else
+         {
+            if (false != this.TargetRobotAlternateMotionMotorPanel.Visible)
+            {
+               this.TargetRobotAlternateMotionMotorPanel.Visible = false;
+            }
+         }
 
          if (false == targetMovementSet)
          {
-            DeviceCommunication.Instance.SetTargetMovementRequest(0, false);
+            bool targetMovementManual = DeviceCommunication.Instance.GetTargetMovementManualMode();
+
+            if (false == targetMovementManual)
+            {
+               DeviceCommunication.Instance.SetTargetMovementVelocityRequest(0, false);
+            }
+
             this.TargetWheelMoveButton.LeftArrowVisible = false;
             this.TargetWheelMoveButton.RightArrowVisible = false;
             this.TargetWheelMoveButton.ValueForeColor = Color.FromKnownColor(KnownColor.ControlDarkDark);
@@ -1199,11 +1260,6 @@
          DeviceCommunication.Instance.SetLaserMovementMode(MovementModes.move);
       }
 
-      private void LaserRobotJogDistanceButton_HoldTimeout(object sender, Controls.HoldTimeoutEventArgs e)
-      {
-         DialogResult result = this.LaunchNumberEdit(this.LaserRobotJogDistanceButton, ParameterAccessor.Instance.LaserWheelManualWheelDistance, "JOG DISTANCE");
-      }
-
       private void LaserRobotWheelSpeedToggleButton_Click(object sender, EventArgs e)
       {
          bool selection = !this.LaserRobotWheelSpeedToggleButton.OptionASelected;
@@ -1214,6 +1270,11 @@
       private void LaserRobotJogReverseButton_MouseDown(object sender, MouseEventArgs e)
       {
          DeviceCommunication.Instance.SetLaserMovementPositionRequest(-ParameterAccessor.Instance.LaserWheelManualWheelDistance.OperationalValue);
+      }
+
+      private void LaserRobotJogDistanceButton_HoldTimeout(object sender, Controls.HoldTimeoutEventArgs e)
+      {
+         DialogResult result = this.LaunchNumberEdit(this.LaserRobotJogDistanceButton, ParameterAccessor.Instance.LaserWheelManualWheelDistance, "JOG DISTANCE");
       }
 
       private void LaserRobotJogForwardButton_MouseDown(object sender, MouseEventArgs e)
@@ -1310,6 +1371,57 @@
          bool selection = !this.TargetWheelSpeedToggleButton.OptionASelected;
          this.targetMovementFastSelected = selection;
          this.TargetWheelSpeedToggleButton.OptionASelected = selection;
+      }
+
+      private void TargetRobotJogReverseButton_MouseDown(object sender, MouseEventArgs e)
+      {
+         DeviceCommunication.Instance.SetTargetMovementPositionRequest(-ParameterAccessor.Instance.TargetWheelManualWheelDistance.OperationalValue);
+      }
+
+      private void TargetRobotJogDistanceButton_HoldTimeout(object sender, Controls.HoldTimeoutEventArgs e)
+      {
+         DialogResult result = this.LaunchNumberEdit(this.TargetRobotJogDistanceButton, ParameterAccessor.Instance.TargetWheelManualWheelDistance, "JOG DISTANCE");
+      }
+
+      private void TargetRobotJogForwardButton_MouseDown(object sender, MouseEventArgs e)
+      {
+         DeviceCommunication.Instance.SetTargetMovementPositionRequest(ParameterAccessor.Instance.TargetWheelManualWheelDistance.OperationalValue);
+      }
+
+      private void TargetRobotMoveReverseButton_MouseDown(object sender, MouseEventArgs e)
+      {
+         double neededSpeed = ParameterAccessor.Instance.TargetWheelManualWheelSpeed.OperationalValue;
+         double neededPercent = neededSpeed / ParameterAccessor.Instance.TargetWheelMaximumSpeed.OperationalValue;
+
+         DeviceCommunication.Instance.SetTargetMovementManualMode(true);
+         DeviceCommunication.Instance.SetTargetMovementVelocityRequest(-neededPercent, true);
+      }
+
+      private void TargetRobotMoveReverseButton_MouseUp(object sender, MouseEventArgs e)
+      {
+         DeviceCommunication.Instance.SetTargetMovementVelocityRequest(0, false);
+         DeviceCommunication.Instance.SetTargetMovementManualMode(false);
+      }
+
+      private void TargetRobotMoveSpeedButton_HoldTimeout(object sender, Controls.HoldTimeoutEventArgs e)
+      {
+         ParameterAccessor.Instance.TargetWheelManualWheelSpeed.MaximumValue = ParameterAccessor.Instance.TargetWheelMaximumSpeed.OperationalValue;
+         DialogResult result = this.LaunchNumberEdit(this.TargetRobotMoveSpeedButton, ParameterAccessor.Instance.TargetWheelManualWheelSpeed, "MOVE SPEED");
+      }
+
+      private void TargetRobotMoveForwardButton_MouseDown(object sender, MouseEventArgs e)
+      {
+         double neededSpeed = ParameterAccessor.Instance.TargetWheelManualWheelSpeed.OperationalValue;
+         double neededPercent = neededSpeed / ParameterAccessor.Instance.TargetWheelMaximumSpeed.OperationalValue;
+
+         DeviceCommunication.Instance.SetTargetMovementManualMode(true);
+         DeviceCommunication.Instance.SetTargetMovementVelocityRequest(neededPercent, true);
+      }
+
+      private void TargetRobotMoveForwardButton_MouseUp(object sender, MouseEventArgs e)
+      {
+         DeviceCommunication.Instance.SetTargetMovementVelocityRequest(0, false);
+         DeviceCommunication.Instance.SetTargetMovementManualMode(false);
       }
 
       private void TargetRobotMotorSetupButton_Click(object sender, EventArgs e)
