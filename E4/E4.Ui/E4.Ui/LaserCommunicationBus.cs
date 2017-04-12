@@ -1342,6 +1342,11 @@
          targetBoard = this.targetBoard;
       }
 
+      public void DoSync()
+      {
+         PCANLight.SendSync(this.busInterfaceId);
+      }
+
       #endregion
 
       #region Laser Movement Functions
@@ -1476,6 +1481,12 @@
 
          result /= ParameterAccessor.Instance.LaserWheelDistanceToTicks;
 
+         return (result);
+      }
+
+      public double GetLaserLinkVoltage()
+      {
+         double result = this.laserBoard.DcLinkVoltage * ParameterAccessor.Instance.LaserLinkVoltageMultipler;
          return (result);
       }
 

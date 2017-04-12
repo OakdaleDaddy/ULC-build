@@ -340,16 +340,19 @@
       private void EvaluateWheel(MotorComponent motor, WheelMotorParameters parameters, WheelMotorStatus status, ref double total, ref int count)
       {
          if ((null == this.targetBoard.FaultReason) &&
-             (WheelMotorStates.enabled == parameters.MotorState) &&
-             (MovementModes.move == this.targetMovementMode))
+             (WheelMotorStates.enabled == parameters.MotorState))
          {
             Int32 motorRpm = motor.ActualVelocity;
             double motorVelocity = motorRpm;
             motorVelocity /= ParameterAccessor.Instance.TargetWheelVelocityToRpm;
-            motorVelocity *= (false == parameters.PositionInverted) ? 1 : -1;
-            motorVelocity *= (false == parameters.RequestInverted) ? 1 : -1;
-            total += motorVelocity;
-            count++;
+
+            if (Math.Abs(motorVelocity) > ParameterAccessor.Instance.TargetWheelMaximumSpeed.StepValue)
+            {
+               motorVelocity *= (false == parameters.PositionInverted) ? 1 : -1;
+               motorVelocity *= (false == parameters.RequestInverted) ? 1 : -1;
+               total += motorVelocity;
+               count++;
+            }
 
             if (Math.Abs(status.velocityRequested) > 0.5)
             {
@@ -743,7 +746,8 @@
 
             if (false != scheduled)
             {
-               PCANLight.SendSync(this.busInterfaceId);
+               LaserCommunicationBus.Instance.DoSync();
+               //PCANLight.SendSync(this.busInterfaceId);
             }
 
             #endregion
@@ -1359,6 +1363,12 @@
 
          result /= ParameterAccessor.Instance.TargetWheelDistanceToTicks;
 
+         return (result);
+      }
+
+      public double GetTargetLinkVoltage()
+      {
+         double result = this.targetBoard.DcLinkVoltage * ParameterAccessor.Instance.TargetLinkVoltageMultipler;
          return (result);
       }
 

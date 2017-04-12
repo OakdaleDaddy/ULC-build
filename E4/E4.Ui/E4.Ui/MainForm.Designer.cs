@@ -31,25 +31,45 @@
          this.components = new System.ComponentModel.Container();
          this.TitleLabel = new System.Windows.Forms.Label();
          this.TargetRobotWheelPanel = new System.Windows.Forms.Panel();
+         this.TargetRobotMoveForwardButton = new E4.Ui.Controls.HoldButton();
+         this.TargetRobotMoveSpeedButton = new E4.Ui.Controls.ValueButton();
+         this.TargetRobotMoveReverseButton = new E4.Ui.Controls.HoldButton();
+         this.TargetRobotJogReverseButton = new E4.Ui.Controls.HoldButton();
+         this.TargetRobotJogForwardButton = new E4.Ui.Controls.HoldButton();
+         this.TargetRobotJogDistanceButton = new E4.Ui.Controls.ValueButton();
+         this.TargetRobotFrontWheelPositionPanel = new E4.Ui.Controls.TextPanel();
+         this.rotatableLabel7 = new E4.Ui.Controls.RotatableLabel();
+         this.TargetRobotRearWheelTemperaturePanel = new E4.Ui.Controls.TextPanel();
+         this.TargetRobotMotorLinkVoltagePanel = new E4.Ui.Controls.TextPanel();
+         this.label3 = new System.Windows.Forms.Label();
+         this.TargetRobotRearWheelPositionPanel = new E4.Ui.Controls.TextPanel();
+         this.TargetRobotRearWheelCurrentPanel = new E4.Ui.Controls.TextPanel();
+         this.TargetRobotFrontWheelTemperaturePanel = new E4.Ui.Controls.TextPanel();
+         this.TargetRobotFrontWheelCurrentPanel = new E4.Ui.Controls.TextPanel();
+         this.label4 = new System.Windows.Forms.Label();
+         this.label5 = new System.Windows.Forms.Label();
+         this.rotatableLabel8 = new E4.Ui.Controls.RotatableLabel();
+         this.rotatableLabel9 = new E4.Ui.Controls.RotatableLabel();
          this.TargetRobotMovementJoystickEnableButton = new E4.Ui.Controls.HoldButton();
          this.TargetRobotMotorSetupButton = new E4.Ui.Controls.HoldButton();
-         this.TargetWheelSpeedToggleButton = new E4.Ui.Controls.ValueToggleButton();
          this.TargetWheelTitleLabel = new System.Windows.Forms.Label();
+         this.TargetWheelDirectionalValuePanel = new E4.Ui.Controls.DirectionalValuePanel();
+         this.TargetWheelSpeedToggleButton = new E4.Ui.Controls.ValueToggleButton();
          this.TargetWheelOffButton = new E4.Ui.Controls.HoldButton();
          this.TargetWheelMoveButton = new E4.Ui.Controls.ValueButton();
-         this.TargetWheelDirectionalValuePanel = new E4.Ui.Controls.DirectionalValuePanel();
          this.CameraControlPanel = new System.Windows.Forms.Panel();
-         this.cameraSelectButton4 = new E4.Ui.Controls.CameraSelectButton();
-         this.cameraSelectButton3 = new E4.Ui.Controls.CameraSelectButton();
-         this.cameraSelectButton2 = new E4.Ui.Controls.CameraSelectButton();
-         this.panel1 = new System.Windows.Forms.Panel();
-         this.cameraSelectButton6 = new E4.Ui.Controls.CameraSelectButton();
-         this.cameraSelectButton5 = new E4.Ui.Controls.CameraSelectButton();
-         this.cameraSelectButton1 = new E4.Ui.Controls.CameraSelectButton();
+         this.AuxiliaryMonitorSelectButton = new E4.Ui.Controls.CameraSelectButton();
+         this.MainMonitorSelectButton = new E4.Ui.Controls.CameraSelectButton();
+         this.LightSelectButton = new E4.Ui.Controls.CameraSelectButton();
+         this.TargetTopCameraSelectButton = new E4.Ui.Controls.CameraSelectButton();
+         this.TargetRearCameraSelectButton = new E4.Ui.Controls.CameraSelectButton();
+         this.TargetFrontCameraSelectButton = new E4.Ui.Controls.CameraSelectButton();
          this.panel2 = new System.Windows.Forms.Panel();
-         this.cameraSelectButton7 = new E4.Ui.Controls.CameraSelectButton();
-         this.cameraSelectButton8 = new E4.Ui.Controls.CameraSelectButton();
-         this.cameraSelectButton9 = new E4.Ui.Controls.CameraSelectButton();
+         this.LaserTopCameraSelectButton = new E4.Ui.Controls.CameraSelectButton();
+         this.LaserRearCameraSelectButton = new E4.Ui.Controls.CameraSelectButton();
+         this.LaserFrontCameraSelectButton = new E4.Ui.Controls.CameraSelectButton();
+         this.rotatableLabel10 = new E4.Ui.Controls.RotatableLabel();
+         this.rotatableLabel11 = new E4.Ui.Controls.RotatableLabel();
          this.VersionLabel = new System.Windows.Forms.Label();
          this.StopAllPanel = new System.Windows.Forms.Panel();
          this.StopAllButton = new E4.Ui.Controls.E4Button();
@@ -123,28 +143,8 @@
          this.SystemResetButton = new E4.Ui.Controls.HoldButton();
          this.ExitButton = new E4.Ui.Controls.HoldButton();
          this.TargetRobotAlternateMotionMotorPanel = new System.Windows.Forms.Panel();
-         this.TargetRobotFrontWheelPositionPanel = new E4.Ui.Controls.TextPanel();
-         this.rotatableLabel7 = new E4.Ui.Controls.RotatableLabel();
-         this.TargetRobotRearWheelTemperaturePanel = new E4.Ui.Controls.TextPanel();
-         this.TargetRobotMotorLinkVoltagePanel = new E4.Ui.Controls.TextPanel();
-         this.label3 = new System.Windows.Forms.Label();
-         this.TargetRobotRearWheelPositionPanel = new E4.Ui.Controls.TextPanel();
-         this.TargetRobotRearWheelCurrentPanel = new E4.Ui.Controls.TextPanel();
-         this.TargetRobotFrontWheelTemperaturePanel = new E4.Ui.Controls.TextPanel();
-         this.TargetRobotFrontWheelCurrentPanel = new E4.Ui.Controls.TextPanel();
-         this.label4 = new System.Windows.Forms.Label();
-         this.label5 = new System.Windows.Forms.Label();
-         this.rotatableLabel8 = new E4.Ui.Controls.RotatableLabel();
-         this.rotatableLabel9 = new E4.Ui.Controls.RotatableLabel();
-         this.TargetRobotMoveForwardButton = new E4.Ui.Controls.HoldButton();
-         this.TargetRobotMoveSpeedButton = new E4.Ui.Controls.ValueButton();
-         this.TargetRobotMoveReverseButton = new E4.Ui.Controls.HoldButton();
-         this.TargetRobotJogReverseButton = new E4.Ui.Controls.HoldButton();
-         this.TargetRobotJogForwardButton = new E4.Ui.Controls.HoldButton();
-         this.TargetRobotJogDistanceButton = new E4.Ui.Controls.ValueButton();
          this.TargetRobotWheelPanel.SuspendLayout();
          this.CameraControlPanel.SuspendLayout();
-         this.panel1.SuspendLayout();
          this.panel2.SuspendLayout();
          this.StopAllPanel.SuspendLayout();
          this.StatusPanel.SuspendLayout();
@@ -200,6 +200,306 @@
          this.TargetRobotWheelPanel.Size = new System.Drawing.Size(369, 554);
          this.TargetRobotWheelPanel.TabIndex = 6;
          // 
+         // TargetRobotMoveForwardButton
+         // 
+         this.TargetRobotMoveForwardButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.TargetRobotMoveForwardButton.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
+         this.TargetRobotMoveForwardButton.DisabledForeColor = System.Drawing.Color.Gray;
+         this.TargetRobotMoveForwardButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
+         this.TargetRobotMoveForwardButton.ForeColor = System.Drawing.Color.Black;
+         this.TargetRobotMoveForwardButton.HoldArrorColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+         this.TargetRobotMoveForwardButton.HoldTimeoutEnable = true;
+         this.TargetRobotMoveForwardButton.HoldTimeoutInterval = 100;
+         this.TargetRobotMoveForwardButton.Location = new System.Drawing.Point(246, 370);
+         this.TargetRobotMoveForwardButton.Name = "TargetRobotMoveForwardButton";
+         this.TargetRobotMoveForwardButton.Size = new System.Drawing.Size(107, 80);
+         this.TargetRobotMoveForwardButton.TabIndex = 245;
+         this.TargetRobotMoveForwardButton.Text = "MOVE FORWARD";
+         this.TargetRobotMoveForwardButton.UseVisualStyleBackColor = false;
+         this.TargetRobotMoveForwardButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TargetRobotMoveForwardButton_MouseDown);
+         this.TargetRobotMoveForwardButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TargetRobotMoveForwardButton_MouseUp);
+         // 
+         // TargetRobotMoveSpeedButton
+         // 
+         this.TargetRobotMoveSpeedButton.ArrowWidth = 0;
+         this.TargetRobotMoveSpeedButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.TargetRobotMoveSpeedButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
+         this.TargetRobotMoveSpeedButton.DisabledForeColor = System.Drawing.Color.Silver;
+         this.TargetRobotMoveSpeedButton.DisabledValueBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+         this.TargetRobotMoveSpeedButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
+         this.TargetRobotMoveSpeedButton.HoldArrorColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+         this.TargetRobotMoveSpeedButton.HoldTimeoutInterval = 100;
+         this.TargetRobotMoveSpeedButton.LeftArrowBackColor = System.Drawing.Color.Black;
+         this.TargetRobotMoveSpeedButton.LeftArrowVisible = false;
+         this.TargetRobotMoveSpeedButton.Location = new System.Drawing.Point(131, 370);
+         this.TargetRobotMoveSpeedButton.Name = "TargetRobotMoveSpeedButton";
+         this.TargetRobotMoveSpeedButton.RightArrowBackColor = System.Drawing.Color.Black;
+         this.TargetRobotMoveSpeedButton.RightArrowVisible = false;
+         this.TargetRobotMoveSpeedButton.Size = new System.Drawing.Size(107, 80);
+         this.TargetRobotMoveSpeedButton.TabIndex = 244;
+         this.TargetRobotMoveSpeedButton.Text = "MOVE SPEED";
+         this.TargetRobotMoveSpeedButton.UseVisualStyleBackColor = false;
+         this.TargetRobotMoveSpeedButton.ValueBackColor = System.Drawing.Color.Black;
+         this.TargetRobotMoveSpeedButton.ValueEdgeHeight = 8;
+         this.TargetRobotMoveSpeedButton.ValueFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+         this.TargetRobotMoveSpeedButton.ValueForeColor = System.Drawing.Color.White;
+         this.TargetRobotMoveSpeedButton.ValueHeight = 22;
+         this.TargetRobotMoveSpeedButton.ValueText = "##.## m/MIN";
+         this.TargetRobotMoveSpeedButton.ValueWidth = 80;
+         this.TargetRobotMoveSpeedButton.HoldTimeout += new E4.Ui.Controls.ValueButton.HoldTimeoutHandler(this.TargetRobotMoveSpeedButton_HoldTimeout);
+         // 
+         // TargetRobotMoveReverseButton
+         // 
+         this.TargetRobotMoveReverseButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.TargetRobotMoveReverseButton.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
+         this.TargetRobotMoveReverseButton.DisabledForeColor = System.Drawing.Color.Gray;
+         this.TargetRobotMoveReverseButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
+         this.TargetRobotMoveReverseButton.ForeColor = System.Drawing.Color.Black;
+         this.TargetRobotMoveReverseButton.HoldArrorColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+         this.TargetRobotMoveReverseButton.HoldTimeoutEnable = true;
+         this.TargetRobotMoveReverseButton.HoldTimeoutInterval = 100;
+         this.TargetRobotMoveReverseButton.Location = new System.Drawing.Point(16, 370);
+         this.TargetRobotMoveReverseButton.Name = "TargetRobotMoveReverseButton";
+         this.TargetRobotMoveReverseButton.Size = new System.Drawing.Size(107, 80);
+         this.TargetRobotMoveReverseButton.TabIndex = 243;
+         this.TargetRobotMoveReverseButton.Text = "MOVE REVERSE";
+         this.TargetRobotMoveReverseButton.UseVisualStyleBackColor = false;
+         this.TargetRobotMoveReverseButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TargetRobotMoveReverseButton_MouseDown);
+         this.TargetRobotMoveReverseButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TargetRobotMoveReverseButton_MouseUp);
+         // 
+         // TargetRobotJogReverseButton
+         // 
+         this.TargetRobotJogReverseButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.TargetRobotJogReverseButton.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
+         this.TargetRobotJogReverseButton.DisabledForeColor = System.Drawing.Color.Gray;
+         this.TargetRobotJogReverseButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
+         this.TargetRobotJogReverseButton.ForeColor = System.Drawing.Color.Black;
+         this.TargetRobotJogReverseButton.HoldArrorColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+         this.TargetRobotJogReverseButton.HoldTimeoutEnable = true;
+         this.TargetRobotJogReverseButton.HoldTimeoutInterval = 100;
+         this.TargetRobotJogReverseButton.Location = new System.Drawing.Point(16, 282);
+         this.TargetRobotJogReverseButton.Name = "TargetRobotJogReverseButton";
+         this.TargetRobotJogReverseButton.Size = new System.Drawing.Size(107, 80);
+         this.TargetRobotJogReverseButton.TabIndex = 242;
+         this.TargetRobotJogReverseButton.Text = "JOG REVERSE";
+         this.TargetRobotJogReverseButton.UseVisualStyleBackColor = false;
+         this.TargetRobotJogReverseButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TargetRobotJogReverseButton_MouseDown);
+         // 
+         // TargetRobotJogForwardButton
+         // 
+         this.TargetRobotJogForwardButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.TargetRobotJogForwardButton.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
+         this.TargetRobotJogForwardButton.DisabledForeColor = System.Drawing.Color.Gray;
+         this.TargetRobotJogForwardButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
+         this.TargetRobotJogForwardButton.ForeColor = System.Drawing.Color.Black;
+         this.TargetRobotJogForwardButton.HoldArrorColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+         this.TargetRobotJogForwardButton.HoldTimeoutEnable = true;
+         this.TargetRobotJogForwardButton.HoldTimeoutInterval = 100;
+         this.TargetRobotJogForwardButton.Location = new System.Drawing.Point(246, 282);
+         this.TargetRobotJogForwardButton.Name = "TargetRobotJogForwardButton";
+         this.TargetRobotJogForwardButton.Size = new System.Drawing.Size(107, 80);
+         this.TargetRobotJogForwardButton.TabIndex = 241;
+         this.TargetRobotJogForwardButton.Text = "JOG FORWARD";
+         this.TargetRobotJogForwardButton.UseVisualStyleBackColor = false;
+         this.TargetRobotJogForwardButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TargetRobotJogForwardButton_MouseDown);
+         // 
+         // TargetRobotJogDistanceButton
+         // 
+         this.TargetRobotJogDistanceButton.ArrowWidth = 0;
+         this.TargetRobotJogDistanceButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.TargetRobotJogDistanceButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
+         this.TargetRobotJogDistanceButton.DisabledForeColor = System.Drawing.Color.Silver;
+         this.TargetRobotJogDistanceButton.DisabledValueBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+         this.TargetRobotJogDistanceButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
+         this.TargetRobotJogDistanceButton.HoldArrorColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+         this.TargetRobotJogDistanceButton.HoldTimeoutInterval = 100;
+         this.TargetRobotJogDistanceButton.LeftArrowBackColor = System.Drawing.Color.Black;
+         this.TargetRobotJogDistanceButton.LeftArrowVisible = false;
+         this.TargetRobotJogDistanceButton.Location = new System.Drawing.Point(131, 282);
+         this.TargetRobotJogDistanceButton.Name = "TargetRobotJogDistanceButton";
+         this.TargetRobotJogDistanceButton.RightArrowBackColor = System.Drawing.Color.Black;
+         this.TargetRobotJogDistanceButton.RightArrowVisible = false;
+         this.TargetRobotJogDistanceButton.Size = new System.Drawing.Size(107, 80);
+         this.TargetRobotJogDistanceButton.TabIndex = 240;
+         this.TargetRobotJogDistanceButton.Text = "JOG DISTANCE";
+         this.TargetRobotJogDistanceButton.UseVisualStyleBackColor = false;
+         this.TargetRobotJogDistanceButton.ValueBackColor = System.Drawing.Color.Black;
+         this.TargetRobotJogDistanceButton.ValueEdgeHeight = 8;
+         this.TargetRobotJogDistanceButton.ValueFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+         this.TargetRobotJogDistanceButton.ValueForeColor = System.Drawing.Color.White;
+         this.TargetRobotJogDistanceButton.ValueHeight = 22;
+         this.TargetRobotJogDistanceButton.ValueText = "#### mm";
+         this.TargetRobotJogDistanceButton.ValueWidth = 80;
+         this.TargetRobotJogDistanceButton.HoldTimeout += new E4.Ui.Controls.ValueButton.HoldTimeoutHandler(this.TargetRobotJogDistanceButton_HoldTimeout);
+         // 
+         // TargetRobotFrontWheelPositionPanel
+         // 
+         this.TargetRobotFrontWheelPositionPanel.BackColor = System.Drawing.Color.Black;
+         this.TargetRobotFrontWheelPositionPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+         this.TargetRobotFrontWheelPositionPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+         this.TargetRobotFrontWheelPositionPanel.ForeColor = System.Drawing.Color.White;
+         this.TargetRobotFrontWheelPositionPanel.HoldTimeoutEnable = false;
+         this.TargetRobotFrontWheelPositionPanel.HoldTimeoutInterval = 0;
+         this.TargetRobotFrontWheelPositionPanel.Location = new System.Drawing.Point(28, 165);
+         this.TargetRobotFrontWheelPositionPanel.Name = "TargetRobotFrontWheelPositionPanel";
+         this.TargetRobotFrontWheelPositionPanel.Size = new System.Drawing.Size(99, 42);
+         this.TargetRobotFrontWheelPositionPanel.TabIndex = 233;
+         this.TargetRobotFrontWheelPositionPanel.ValueText = "###### mm";
+         this.TargetRobotFrontWheelPositionPanel.ValueTextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         // 
+         // rotatableLabel7
+         // 
+         this.rotatableLabel7.Angle = 90;
+         this.rotatableLabel7.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Bold);
+         this.rotatableLabel7.Location = new System.Drawing.Point(9, 160);
+         this.rotatableLabel7.Name = "rotatableLabel7";
+         this.rotatableLabel7.Size = new System.Drawing.Size(62, 52);
+         this.rotatableLabel7.TabIndex = 239;
+         this.rotatableLabel7.Text = "POS";
+         this.rotatableLabel7.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+         // 
+         // TargetRobotRearWheelTemperaturePanel
+         // 
+         this.TargetRobotRearWheelTemperaturePanel.BackColor = System.Drawing.Color.Black;
+         this.TargetRobotRearWheelTemperaturePanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+         this.TargetRobotRearWheelTemperaturePanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+         this.TargetRobotRearWheelTemperaturePanel.ForeColor = System.Drawing.Color.White;
+         this.TargetRobotRearWheelTemperaturePanel.HoldTimeoutEnable = false;
+         this.TargetRobotRearWheelTemperaturePanel.HoldTimeoutInterval = 0;
+         this.TargetRobotRearWheelTemperaturePanel.Location = new System.Drawing.Point(135, 115);
+         this.TargetRobotRearWheelTemperaturePanel.Name = "TargetRobotRearWheelTemperaturePanel";
+         this.TargetRobotRearWheelTemperaturePanel.Size = new System.Drawing.Size(99, 42);
+         this.TargetRobotRearWheelTemperaturePanel.TabIndex = 235;
+         this.TargetRobotRearWheelTemperaturePanel.ValueText = "### °C";
+         this.TargetRobotRearWheelTemperaturePanel.ValueTextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         // 
+         // TargetRobotMotorLinkVoltagePanel
+         // 
+         this.TargetRobotMotorLinkVoltagePanel.BackColor = System.Drawing.Color.Black;
+         this.TargetRobotMotorLinkVoltagePanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+         this.TargetRobotMotorLinkVoltagePanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+         this.TargetRobotMotorLinkVoltagePanel.ForeColor = System.Drawing.Color.White;
+         this.TargetRobotMotorLinkVoltagePanel.HoldTimeoutEnable = false;
+         this.TargetRobotMotorLinkVoltagePanel.HoldTimeoutInterval = 0;
+         this.TargetRobotMotorLinkVoltagePanel.Location = new System.Drawing.Point(246, 115);
+         this.TargetRobotMotorLinkVoltagePanel.Name = "TargetRobotMotorLinkVoltagePanel";
+         this.TargetRobotMotorLinkVoltagePanel.Size = new System.Drawing.Size(99, 42);
+         this.TargetRobotMotorLinkVoltagePanel.TabIndex = 238;
+         this.TargetRobotMotorLinkVoltagePanel.ValueText = "## V";
+         this.TargetRobotMotorLinkVoltagePanel.ValueTextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         // 
+         // label3
+         // 
+         this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.label3.Location = new System.Drawing.Point(257, 79);
+         this.label3.Name = "label3";
+         this.label3.Size = new System.Drawing.Size(77, 37);
+         this.label3.TabIndex = 237;
+         this.label3.Text = "LINK VOLTAGE";
+         this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         // 
+         // TargetRobotRearWheelPositionPanel
+         // 
+         this.TargetRobotRearWheelPositionPanel.BackColor = System.Drawing.Color.Black;
+         this.TargetRobotRearWheelPositionPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+         this.TargetRobotRearWheelPositionPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+         this.TargetRobotRearWheelPositionPanel.ForeColor = System.Drawing.Color.White;
+         this.TargetRobotRearWheelPositionPanel.HoldTimeoutEnable = false;
+         this.TargetRobotRearWheelPositionPanel.HoldTimeoutInterval = 0;
+         this.TargetRobotRearWheelPositionPanel.Location = new System.Drawing.Point(135, 165);
+         this.TargetRobotRearWheelPositionPanel.Name = "TargetRobotRearWheelPositionPanel";
+         this.TargetRobotRearWheelPositionPanel.Size = new System.Drawing.Size(99, 42);
+         this.TargetRobotRearWheelPositionPanel.TabIndex = 236;
+         this.TargetRobotRearWheelPositionPanel.ValueText = "#####";
+         this.TargetRobotRearWheelPositionPanel.ValueTextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         // 
+         // TargetRobotRearWheelCurrentPanel
+         // 
+         this.TargetRobotRearWheelCurrentPanel.BackColor = System.Drawing.Color.Black;
+         this.TargetRobotRearWheelCurrentPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+         this.TargetRobotRearWheelCurrentPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+         this.TargetRobotRearWheelCurrentPanel.ForeColor = System.Drawing.Color.White;
+         this.TargetRobotRearWheelCurrentPanel.HoldTimeoutEnable = false;
+         this.TargetRobotRearWheelCurrentPanel.HoldTimeoutInterval = 0;
+         this.TargetRobotRearWheelCurrentPanel.Location = new System.Drawing.Point(135, 65);
+         this.TargetRobotRearWheelCurrentPanel.Name = "TargetRobotRearWheelCurrentPanel";
+         this.TargetRobotRearWheelCurrentPanel.Size = new System.Drawing.Size(99, 42);
+         this.TargetRobotRearWheelCurrentPanel.TabIndex = 234;
+         this.TargetRobotRearWheelCurrentPanel.ValueText = "#.## A";
+         this.TargetRobotRearWheelCurrentPanel.ValueTextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         // 
+         // TargetRobotFrontWheelTemperaturePanel
+         // 
+         this.TargetRobotFrontWheelTemperaturePanel.BackColor = System.Drawing.Color.Black;
+         this.TargetRobotFrontWheelTemperaturePanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+         this.TargetRobotFrontWheelTemperaturePanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+         this.TargetRobotFrontWheelTemperaturePanel.ForeColor = System.Drawing.Color.White;
+         this.TargetRobotFrontWheelTemperaturePanel.HoldTimeoutEnable = false;
+         this.TargetRobotFrontWheelTemperaturePanel.HoldTimeoutInterval = 0;
+         this.TargetRobotFrontWheelTemperaturePanel.Location = new System.Drawing.Point(28, 115);
+         this.TargetRobotFrontWheelTemperaturePanel.Name = "TargetRobotFrontWheelTemperaturePanel";
+         this.TargetRobotFrontWheelTemperaturePanel.Size = new System.Drawing.Size(99, 42);
+         this.TargetRobotFrontWheelTemperaturePanel.TabIndex = 232;
+         this.TargetRobotFrontWheelTemperaturePanel.ValueText = "### °C";
+         this.TargetRobotFrontWheelTemperaturePanel.ValueTextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         // 
+         // TargetRobotFrontWheelCurrentPanel
+         // 
+         this.TargetRobotFrontWheelCurrentPanel.BackColor = System.Drawing.Color.Black;
+         this.TargetRobotFrontWheelCurrentPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+         this.TargetRobotFrontWheelCurrentPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+         this.TargetRobotFrontWheelCurrentPanel.ForeColor = System.Drawing.Color.White;
+         this.TargetRobotFrontWheelCurrentPanel.HoldTimeoutEnable = false;
+         this.TargetRobotFrontWheelCurrentPanel.HoldTimeoutInterval = 0;
+         this.TargetRobotFrontWheelCurrentPanel.Location = new System.Drawing.Point(28, 65);
+         this.TargetRobotFrontWheelCurrentPanel.Name = "TargetRobotFrontWheelCurrentPanel";
+         this.TargetRobotFrontWheelCurrentPanel.Size = new System.Drawing.Size(99, 42);
+         this.TargetRobotFrontWheelCurrentPanel.TabIndex = 227;
+         this.TargetRobotFrontWheelCurrentPanel.ValueText = "#.## A";
+         this.TargetRobotFrontWheelCurrentPanel.ValueTextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         // 
+         // label4
+         // 
+         this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.label4.Location = new System.Drawing.Point(128, 43);
+         this.label4.Name = "label4";
+         this.label4.Size = new System.Drawing.Size(112, 22);
+         this.label4.TabIndex = 231;
+         this.label4.Text = "REAR";
+         this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         // 
+         // label5
+         // 
+         this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.label5.Location = new System.Drawing.Point(39, 43);
+         this.label5.Name = "label5";
+         this.label5.Size = new System.Drawing.Size(77, 22);
+         this.label5.TabIndex = 230;
+         this.label5.Text = "FRONT";
+         this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         // 
+         // rotatableLabel8
+         // 
+         this.rotatableLabel8.Angle = 90;
+         this.rotatableLabel8.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Bold);
+         this.rotatableLabel8.Location = new System.Drawing.Point(9, 110);
+         this.rotatableLabel8.Name = "rotatableLabel8";
+         this.rotatableLabel8.Size = new System.Drawing.Size(62, 52);
+         this.rotatableLabel8.TabIndex = 229;
+         this.rotatableLabel8.Text = "TEMP";
+         this.rotatableLabel8.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+         // 
+         // rotatableLabel9
+         // 
+         this.rotatableLabel9.Angle = 90;
+         this.rotatableLabel9.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Bold);
+         this.rotatableLabel9.Location = new System.Drawing.Point(9, 60);
+         this.rotatableLabel9.Name = "rotatableLabel9";
+         this.rotatableLabel9.Size = new System.Drawing.Size(62, 52);
+         this.rotatableLabel9.TabIndex = 228;
+         this.rotatableLabel9.Text = "CURRENT";
+         this.rotatableLabel9.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+         // 
          // TargetRobotMovementJoystickEnableButton
          // 
          this.TargetRobotMovementJoystickEnableButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
@@ -236,6 +536,40 @@
          this.TargetRobotMotorSetupButton.UseVisualStyleBackColor = false;
          this.TargetRobotMotorSetupButton.Click += new System.EventHandler(this.TargetRobotMotorSetupButton_Click);
          // 
+         // TargetWheelTitleLabel
+         // 
+         this.TargetWheelTitleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.TargetWheelTitleLabel.Location = new System.Drawing.Point(6, 6);
+         this.TargetWheelTitleLabel.Name = "TargetWheelTitleLabel";
+         this.TargetWheelTitleLabel.Size = new System.Drawing.Size(357, 23);
+         this.TargetWheelTitleLabel.TabIndex = 140;
+         this.TargetWheelTitleLabel.Text = "TARGET WHEELS";
+         this.TargetWheelTitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         // 
+         // TargetWheelDirectionalValuePanel
+         // 
+         this.TargetWheelDirectionalValuePanel.ActiveBackColor = System.Drawing.Color.Black;
+         this.TargetWheelDirectionalValuePanel.ActiveFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+         this.TargetWheelDirectionalValuePanel.ActiveForeColor = System.Drawing.Color.White;
+         this.TargetWheelDirectionalValuePanel.ArrowWidth = 60;
+         this.TargetWheelDirectionalValuePanel.Direction = E4.Ui.Controls.DirectionalValuePanel.Directions.Idle;
+         this.TargetWheelDirectionalValuePanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+         this.TargetWheelDirectionalValuePanel.ForeColor = System.Drawing.Color.Black;
+         this.TargetWheelDirectionalValuePanel.IdleBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(80)))), ((int)(((byte)(96)))));
+         this.TargetWheelDirectionalValuePanel.IdleFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+         this.TargetWheelDirectionalValuePanel.IdleForeColor = System.Drawing.Color.White;
+         this.TargetWheelDirectionalValuePanel.LeftArrowText = "REV";
+         this.TargetWheelDirectionalValuePanel.Location = new System.Drawing.Point(75, 224);
+         this.TargetWheelDirectionalValuePanel.Name = "TargetWheelDirectionalValuePanel";
+         this.TargetWheelDirectionalValuePanel.RightArrowText = "FWD";
+         this.TargetWheelDirectionalValuePanel.Size = new System.Drawing.Size(219, 42);
+         this.TargetWheelDirectionalValuePanel.TabIndex = 5;
+         this.TargetWheelDirectionalValuePanel.Text = "directionalValuePanel1";
+         this.TargetWheelDirectionalValuePanel.ValueBackColor = System.Drawing.Color.Black;
+         this.TargetWheelDirectionalValuePanel.ValueForeColor = System.Drawing.Color.White;
+         this.TargetWheelDirectionalValuePanel.ValueText = "19.04 m/MIN";
+         this.TargetWheelDirectionalValuePanel.ValueTextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         // 
          // TargetWheelSpeedToggleButton
          // 
          this.TargetWheelSpeedToggleButton.AutomaticToggle = true;
@@ -268,16 +602,6 @@
          this.TargetWheelSpeedToggleButton.Text = "SPEED";
          this.TargetWheelSpeedToggleButton.UseVisualStyleBackColor = false;
          this.TargetWheelSpeedToggleButton.Click += new System.EventHandler(this.TargetWheelSpeedToggleButton_Click);
-         // 
-         // TargetWheelTitleLabel
-         // 
-         this.TargetWheelTitleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.TargetWheelTitleLabel.Location = new System.Drawing.Point(6, 6);
-         this.TargetWheelTitleLabel.Name = "TargetWheelTitleLabel";
-         this.TargetWheelTitleLabel.Size = new System.Drawing.Size(357, 23);
-         this.TargetWheelTitleLabel.TabIndex = 140;
-         this.TargetWheelTitleLabel.Text = "TARGET WHEELS";
-         this.TargetWheelTitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
          // 
          // TargetWheelOffButton
          // 
@@ -328,341 +652,336 @@
          this.TargetWheelMoveButton.ValueWidth = 80;
          this.TargetWheelMoveButton.HoldTimeout += new E4.Ui.Controls.ValueButton.HoldTimeoutHandler(this.TargetWheelMoveButton_HoldTimeout);
          // 
-         // TargetWheelDirectionalValuePanel
-         // 
-         this.TargetWheelDirectionalValuePanel.ActiveBackColor = System.Drawing.Color.Black;
-         this.TargetWheelDirectionalValuePanel.ActiveFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
-         this.TargetWheelDirectionalValuePanel.ActiveForeColor = System.Drawing.Color.White;
-         this.TargetWheelDirectionalValuePanel.ArrowWidth = 60;
-         this.TargetWheelDirectionalValuePanel.Direction = E4.Ui.Controls.DirectionalValuePanel.Directions.Idle;
-         this.TargetWheelDirectionalValuePanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-         this.TargetWheelDirectionalValuePanel.ForeColor = System.Drawing.Color.Black;
-         this.TargetWheelDirectionalValuePanel.IdleBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(80)))), ((int)(((byte)(96)))));
-         this.TargetWheelDirectionalValuePanel.IdleFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-         this.TargetWheelDirectionalValuePanel.IdleForeColor = System.Drawing.Color.White;
-         this.TargetWheelDirectionalValuePanel.LeftArrowText = "REV";
-         this.TargetWheelDirectionalValuePanel.Location = new System.Drawing.Point(75, 224);
-         this.TargetWheelDirectionalValuePanel.Name = "TargetWheelDirectionalValuePanel";
-         this.TargetWheelDirectionalValuePanel.RightArrowText = "FWD";
-         this.TargetWheelDirectionalValuePanel.Size = new System.Drawing.Size(219, 42);
-         this.TargetWheelDirectionalValuePanel.TabIndex = 5;
-         this.TargetWheelDirectionalValuePanel.Text = "directionalValuePanel1";
-         this.TargetWheelDirectionalValuePanel.ValueBackColor = System.Drawing.Color.Black;
-         this.TargetWheelDirectionalValuePanel.ValueForeColor = System.Drawing.Color.White;
-         this.TargetWheelDirectionalValuePanel.ValueText = "19.04 m/MIN";
-         this.TargetWheelDirectionalValuePanel.ValueTextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         // 
          // CameraControlPanel
          // 
          this.CameraControlPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-         this.CameraControlPanel.Controls.Add(this.cameraSelectButton4);
-         this.CameraControlPanel.Controls.Add(this.cameraSelectButton3);
-         this.CameraControlPanel.Controls.Add(this.cameraSelectButton2);
-         this.CameraControlPanel.Location = new System.Drawing.Point(1565, 262);
+         this.CameraControlPanel.Controls.Add(this.AuxiliaryMonitorSelectButton);
+         this.CameraControlPanel.Controls.Add(this.MainMonitorSelectButton);
+         this.CameraControlPanel.Controls.Add(this.LightSelectButton);
+         this.CameraControlPanel.Location = new System.Drawing.Point(1523, 248);
          this.CameraControlPanel.Name = "CameraControlPanel";
-         this.CameraControlPanel.Size = new System.Drawing.Size(353, 83);
+         this.CameraControlPanel.Size = new System.Drawing.Size(395, 83);
          this.CameraControlPanel.TabIndex = 7;
          // 
-         // cameraSelectButton4
+         // AuxiliaryMonitorSelectButton
          // 
-         this.cameraSelectButton4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.cameraSelectButton4.Camera = E4.Ui.Controls.CameraLocations.txForward;
-         this.cameraSelectButton4.CenterBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.cameraSelectButton4.CenterEnabled = true;
-         this.cameraSelectButton4.CenterForeColor = System.Drawing.Color.Yellow;
-         this.cameraSelectButton4.CenterLevel = 50;
-         this.cameraSelectButton4.CenterVisible = false;
-         this.cameraSelectButton4.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
-         this.cameraSelectButton4.DisabledForeColor = System.Drawing.Color.Gray;
-         this.cameraSelectButton4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.cameraSelectButton4.ForeColor = System.Drawing.Color.Black;
-         this.cameraSelectButton4.HoldArrorColor = System.Drawing.Color.Gray;
-         this.cameraSelectButton4.HoldRepeat = false;
-         this.cameraSelectButton4.HoldRepeatInterval = 0;
-         this.cameraSelectButton4.HoldTimeoutEnable = true;
-         this.cameraSelectButton4.HoldTimeoutInterval = 100;
-         this.cameraSelectButton4.IndicatorBetweenSpace = 4;
-         this.cameraSelectButton4.IndicatorEdgeSpace = 4;
-         this.cameraSelectButton4.LeftColor = System.Drawing.Color.Maroon;
-         this.cameraSelectButton4.LeftVisible = false;
-         this.cameraSelectButton4.Location = new System.Drawing.Point(238, 8);
-         this.cameraSelectButton4.Name = "cameraSelectButton4";
-         this.cameraSelectButton4.RightColor = System.Drawing.Color.DarkBlue;
-         this.cameraSelectButton4.RightVisible = true;
-         this.cameraSelectButton4.Size = new System.Drawing.Size(107, 67);
-         this.cameraSelectButton4.TabIndex = 11;
-         this.cameraSelectButton4.Text = "AUXILIARY MONITOR";
-         this.cameraSelectButton4.UseVisualStyleBackColor = false;
+         this.AuxiliaryMonitorSelectButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.AuxiliaryMonitorSelectButton.Camera = E4.Ui.Controls.CameraLocations.laserForward;
+         this.AuxiliaryMonitorSelectButton.CenterBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.AuxiliaryMonitorSelectButton.CenterEnabled = true;
+         this.AuxiliaryMonitorSelectButton.CenterForeColor = System.Drawing.Color.Yellow;
+         this.AuxiliaryMonitorSelectButton.CenterLevel = 50;
+         this.AuxiliaryMonitorSelectButton.CenterVisible = false;
+         this.AuxiliaryMonitorSelectButton.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
+         this.AuxiliaryMonitorSelectButton.DisabledForeColor = System.Drawing.Color.Gray;
+         this.AuxiliaryMonitorSelectButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.AuxiliaryMonitorSelectButton.ForeColor = System.Drawing.Color.Black;
+         this.AuxiliaryMonitorSelectButton.HoldArrorColor = System.Drawing.Color.Gray;
+         this.AuxiliaryMonitorSelectButton.HoldRepeat = false;
+         this.AuxiliaryMonitorSelectButton.HoldRepeatInterval = 0;
+         this.AuxiliaryMonitorSelectButton.HoldTimeoutEnable = true;
+         this.AuxiliaryMonitorSelectButton.HoldTimeoutInterval = 100;
+         this.AuxiliaryMonitorSelectButton.IndicatorBetweenSpace = 4;
+         this.AuxiliaryMonitorSelectButton.IndicatorEdgeSpace = 4;
+         this.AuxiliaryMonitorSelectButton.LeftColor = System.Drawing.Color.Maroon;
+         this.AuxiliaryMonitorSelectButton.LeftVisible = false;
+         this.AuxiliaryMonitorSelectButton.Location = new System.Drawing.Point(280, 8);
+         this.AuxiliaryMonitorSelectButton.Name = "AuxiliaryMonitorSelectButton";
+         this.AuxiliaryMonitorSelectButton.RightColor = System.Drawing.Color.DarkBlue;
+         this.AuxiliaryMonitorSelectButton.RightVisible = true;
+         this.AuxiliaryMonitorSelectButton.Size = new System.Drawing.Size(107, 67);
+         this.AuxiliaryMonitorSelectButton.TabIndex = 11;
+         this.AuxiliaryMonitorSelectButton.Text = "AUXILIARY MONITOR";
+         this.AuxiliaryMonitorSelectButton.UseVisualStyleBackColor = false;
+         this.AuxiliaryMonitorSelectButton.Click += new System.EventHandler(this.AuxiliaryMonitorSelectButton_Click);
          // 
-         // cameraSelectButton3
+         // MainMonitorSelectButton
          // 
-         this.cameraSelectButton3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.cameraSelectButton3.Camera = E4.Ui.Controls.CameraLocations.txForward;
-         this.cameraSelectButton3.CenterBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.cameraSelectButton3.CenterEnabled = true;
-         this.cameraSelectButton3.CenterForeColor = System.Drawing.Color.Yellow;
-         this.cameraSelectButton3.CenterLevel = 50;
-         this.cameraSelectButton3.CenterVisible = false;
-         this.cameraSelectButton3.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
-         this.cameraSelectButton3.DisabledForeColor = System.Drawing.Color.Gray;
-         this.cameraSelectButton3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
-         this.cameraSelectButton3.ForeColor = System.Drawing.Color.Black;
-         this.cameraSelectButton3.HoldArrorColor = System.Drawing.Color.Gray;
-         this.cameraSelectButton3.HoldRepeat = false;
-         this.cameraSelectButton3.HoldRepeatInterval = 0;
-         this.cameraSelectButton3.HoldTimeoutEnable = true;
-         this.cameraSelectButton3.HoldTimeoutInterval = 100;
-         this.cameraSelectButton3.IndicatorBetweenSpace = 4;
-         this.cameraSelectButton3.IndicatorEdgeSpace = 4;
-         this.cameraSelectButton3.LeftColor = System.Drawing.Color.Maroon;
-         this.cameraSelectButton3.LeftVisible = true;
-         this.cameraSelectButton3.Location = new System.Drawing.Point(123, 8);
-         this.cameraSelectButton3.Name = "cameraSelectButton3";
-         this.cameraSelectButton3.RightColor = System.Drawing.Color.DarkBlue;
-         this.cameraSelectButton3.RightVisible = false;
-         this.cameraSelectButton3.Size = new System.Drawing.Size(107, 67);
-         this.cameraSelectButton3.TabIndex = 10;
-         this.cameraSelectButton3.Text = "MAIN MONITOR";
-         this.cameraSelectButton3.UseVisualStyleBackColor = false;
+         this.MainMonitorSelectButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.MainMonitorSelectButton.Camera = E4.Ui.Controls.CameraLocations.laserForward;
+         this.MainMonitorSelectButton.CenterBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.MainMonitorSelectButton.CenterEnabled = true;
+         this.MainMonitorSelectButton.CenterForeColor = System.Drawing.Color.Yellow;
+         this.MainMonitorSelectButton.CenterLevel = 50;
+         this.MainMonitorSelectButton.CenterVisible = false;
+         this.MainMonitorSelectButton.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
+         this.MainMonitorSelectButton.DisabledForeColor = System.Drawing.Color.Gray;
+         this.MainMonitorSelectButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
+         this.MainMonitorSelectButton.ForeColor = System.Drawing.Color.Black;
+         this.MainMonitorSelectButton.HoldArrorColor = System.Drawing.Color.Gray;
+         this.MainMonitorSelectButton.HoldRepeat = false;
+         this.MainMonitorSelectButton.HoldRepeatInterval = 0;
+         this.MainMonitorSelectButton.HoldTimeoutEnable = true;
+         this.MainMonitorSelectButton.HoldTimeoutInterval = 100;
+         this.MainMonitorSelectButton.IndicatorBetweenSpace = 4;
+         this.MainMonitorSelectButton.IndicatorEdgeSpace = 4;
+         this.MainMonitorSelectButton.LeftColor = System.Drawing.Color.Maroon;
+         this.MainMonitorSelectButton.LeftVisible = true;
+         this.MainMonitorSelectButton.Location = new System.Drawing.Point(165, 8);
+         this.MainMonitorSelectButton.Name = "MainMonitorSelectButton";
+         this.MainMonitorSelectButton.RightColor = System.Drawing.Color.DarkBlue;
+         this.MainMonitorSelectButton.RightVisible = false;
+         this.MainMonitorSelectButton.Size = new System.Drawing.Size(107, 67);
+         this.MainMonitorSelectButton.TabIndex = 10;
+         this.MainMonitorSelectButton.Text = "MAIN MONITOR";
+         this.MainMonitorSelectButton.UseVisualStyleBackColor = false;
+         this.MainMonitorSelectButton.Click += new System.EventHandler(this.MainMonitorSelectButton_Click);
          // 
-         // cameraSelectButton2
+         // LightSelectButton
          // 
-         this.cameraSelectButton2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.cameraSelectButton2.Camera = E4.Ui.Controls.CameraLocations.txForward;
-         this.cameraSelectButton2.CenterBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.cameraSelectButton2.CenterEnabled = true;
-         this.cameraSelectButton2.CenterForeColor = System.Drawing.Color.Yellow;
-         this.cameraSelectButton2.CenterLevel = 100;
-         this.cameraSelectButton2.CenterVisible = true;
-         this.cameraSelectButton2.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
-         this.cameraSelectButton2.DisabledForeColor = System.Drawing.Color.Gray;
-         this.cameraSelectButton2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
-         this.cameraSelectButton2.ForeColor = System.Drawing.Color.Black;
-         this.cameraSelectButton2.HoldArrorColor = System.Drawing.Color.Gray;
-         this.cameraSelectButton2.HoldRepeat = false;
-         this.cameraSelectButton2.HoldRepeatInterval = 0;
-         this.cameraSelectButton2.HoldTimeoutEnable = true;
-         this.cameraSelectButton2.HoldTimeoutInterval = 100;
-         this.cameraSelectButton2.IndicatorBetweenSpace = 4;
-         this.cameraSelectButton2.IndicatorEdgeSpace = 4;
-         this.cameraSelectButton2.LeftColor = System.Drawing.Color.Maroon;
-         this.cameraSelectButton2.LeftVisible = false;
-         this.cameraSelectButton2.Location = new System.Drawing.Point(8, 8);
-         this.cameraSelectButton2.Name = "cameraSelectButton2";
-         this.cameraSelectButton2.RightColor = System.Drawing.Color.DarkBlue;
-         this.cameraSelectButton2.RightVisible = false;
-         this.cameraSelectButton2.Size = new System.Drawing.Size(107, 67);
-         this.cameraSelectButton2.TabIndex = 9;
-         this.cameraSelectButton2.Text = "LIGHTS";
-         this.cameraSelectButton2.UseVisualStyleBackColor = false;
+         this.LightSelectButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.LightSelectButton.Camera = E4.Ui.Controls.CameraLocations.laserForward;
+         this.LightSelectButton.CenterBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.LightSelectButton.CenterEnabled = true;
+         this.LightSelectButton.CenterForeColor = System.Drawing.Color.Yellow;
+         this.LightSelectButton.CenterLevel = 100;
+         this.LightSelectButton.CenterVisible = true;
+         this.LightSelectButton.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
+         this.LightSelectButton.DisabledForeColor = System.Drawing.Color.Gray;
+         this.LightSelectButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
+         this.LightSelectButton.ForeColor = System.Drawing.Color.Black;
+         this.LightSelectButton.HoldArrorColor = System.Drawing.Color.Gray;
+         this.LightSelectButton.HoldRepeat = false;
+         this.LightSelectButton.HoldRepeatInterval = 0;
+         this.LightSelectButton.HoldTimeoutEnable = true;
+         this.LightSelectButton.HoldTimeoutInterval = 100;
+         this.LightSelectButton.IndicatorBetweenSpace = 4;
+         this.LightSelectButton.IndicatorEdgeSpace = 4;
+         this.LightSelectButton.LeftColor = System.Drawing.Color.Maroon;
+         this.LightSelectButton.LeftVisible = false;
+         this.LightSelectButton.Location = new System.Drawing.Point(50, 8);
+         this.LightSelectButton.Name = "LightSelectButton";
+         this.LightSelectButton.RightColor = System.Drawing.Color.DarkBlue;
+         this.LightSelectButton.RightVisible = false;
+         this.LightSelectButton.Size = new System.Drawing.Size(107, 67);
+         this.LightSelectButton.TabIndex = 9;
+         this.LightSelectButton.Text = "LIGHTS";
+         this.LightSelectButton.UseVisualStyleBackColor = false;
+         this.LightSelectButton.Click += new System.EventHandler(this.LightSelectButton_Click);
          // 
-         // panel1
+         // TargetTopCameraSelectButton
          // 
-         this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-         this.panel1.Controls.Add(this.cameraSelectButton6);
-         this.panel1.Controls.Add(this.cameraSelectButton5);
-         this.panel1.Controls.Add(this.cameraSelectButton1);
-         this.panel1.Location = new System.Drawing.Point(1565, 84);
-         this.panel1.Name = "panel1";
-         this.panel1.Size = new System.Drawing.Size(353, 83);
-         this.panel1.TabIndex = 8;
+         this.TargetTopCameraSelectButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.TargetTopCameraSelectButton.Camera = E4.Ui.Controls.CameraLocations.targetUp;
+         this.TargetTopCameraSelectButton.CenterBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.TargetTopCameraSelectButton.CenterEnabled = true;
+         this.TargetTopCameraSelectButton.CenterForeColor = System.Drawing.Color.Yellow;
+         this.TargetTopCameraSelectButton.CenterLevel = 50;
+         this.TargetTopCameraSelectButton.CenterVisible = true;
+         this.TargetTopCameraSelectButton.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
+         this.TargetTopCameraSelectButton.DisabledForeColor = System.Drawing.Color.Gray;
+         this.TargetTopCameraSelectButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
+         this.TargetTopCameraSelectButton.ForeColor = System.Drawing.Color.Black;
+         this.TargetTopCameraSelectButton.HoldArrorColor = System.Drawing.Color.Gray;
+         this.TargetTopCameraSelectButton.HoldRepeat = false;
+         this.TargetTopCameraSelectButton.HoldRepeatInterval = 0;
+         this.TargetTopCameraSelectButton.HoldTimeoutEnable = true;
+         this.TargetTopCameraSelectButton.HoldTimeoutInterval = 100;
+         this.TargetTopCameraSelectButton.IndicatorBetweenSpace = 4;
+         this.TargetTopCameraSelectButton.IndicatorEdgeSpace = 4;
+         this.TargetTopCameraSelectButton.LeftColor = System.Drawing.Color.Maroon;
+         this.TargetTopCameraSelectButton.LeftVisible = true;
+         this.TargetTopCameraSelectButton.Location = new System.Drawing.Point(280, 83);
+         this.TargetTopCameraSelectButton.Name = "TargetTopCameraSelectButton";
+         this.TargetTopCameraSelectButton.RightColor = System.Drawing.Color.DarkBlue;
+         this.TargetTopCameraSelectButton.RightVisible = true;
+         this.TargetTopCameraSelectButton.Size = new System.Drawing.Size(107, 67);
+         this.TargetTopCameraSelectButton.TabIndex = 10;
+         this.TargetTopCameraSelectButton.Text = "TOP";
+         this.TargetTopCameraSelectButton.UseVisualStyleBackColor = false;
          // 
-         // cameraSelectButton6
+         // TargetRearCameraSelectButton
          // 
-         this.cameraSelectButton6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.cameraSelectButton6.Camera = E4.Ui.Controls.CameraLocations.txForward;
-         this.cameraSelectButton6.CenterBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.cameraSelectButton6.CenterEnabled = true;
-         this.cameraSelectButton6.CenterForeColor = System.Drawing.Color.Yellow;
-         this.cameraSelectButton6.CenterLevel = 50;
-         this.cameraSelectButton6.CenterVisible = true;
-         this.cameraSelectButton6.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
-         this.cameraSelectButton6.DisabledForeColor = System.Drawing.Color.Gray;
-         this.cameraSelectButton6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
-         this.cameraSelectButton6.ForeColor = System.Drawing.Color.Black;
-         this.cameraSelectButton6.HoldArrorColor = System.Drawing.Color.Gray;
-         this.cameraSelectButton6.HoldRepeat = false;
-         this.cameraSelectButton6.HoldRepeatInterval = 0;
-         this.cameraSelectButton6.HoldTimeoutEnable = true;
-         this.cameraSelectButton6.HoldTimeoutInterval = 100;
-         this.cameraSelectButton6.IndicatorBetweenSpace = 4;
-         this.cameraSelectButton6.IndicatorEdgeSpace = 4;
-         this.cameraSelectButton6.LeftColor = System.Drawing.Color.Maroon;
-         this.cameraSelectButton6.LeftVisible = true;
-         this.cameraSelectButton6.Location = new System.Drawing.Point(238, 8);
-         this.cameraSelectButton6.Name = "cameraSelectButton6";
-         this.cameraSelectButton6.RightColor = System.Drawing.Color.DarkBlue;
-         this.cameraSelectButton6.RightVisible = true;
-         this.cameraSelectButton6.Size = new System.Drawing.Size(107, 67);
-         this.cameraSelectButton6.TabIndex = 10;
-         this.cameraSelectButton6.Text = "TOP";
-         this.cameraSelectButton6.UseVisualStyleBackColor = false;
+         this.TargetRearCameraSelectButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.TargetRearCameraSelectButton.Camera = E4.Ui.Controls.CameraLocations.targetRear;
+         this.TargetRearCameraSelectButton.CenterBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.TargetRearCameraSelectButton.CenterEnabled = true;
+         this.TargetRearCameraSelectButton.CenterForeColor = System.Drawing.Color.Yellow;
+         this.TargetRearCameraSelectButton.CenterLevel = 50;
+         this.TargetRearCameraSelectButton.CenterVisible = true;
+         this.TargetRearCameraSelectButton.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
+         this.TargetRearCameraSelectButton.DisabledForeColor = System.Drawing.Color.Gray;
+         this.TargetRearCameraSelectButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
+         this.TargetRearCameraSelectButton.ForeColor = System.Drawing.Color.Black;
+         this.TargetRearCameraSelectButton.HoldArrorColor = System.Drawing.Color.Gray;
+         this.TargetRearCameraSelectButton.HoldRepeat = false;
+         this.TargetRearCameraSelectButton.HoldRepeatInterval = 0;
+         this.TargetRearCameraSelectButton.HoldTimeoutEnable = true;
+         this.TargetRearCameraSelectButton.HoldTimeoutInterval = 100;
+         this.TargetRearCameraSelectButton.IndicatorBetweenSpace = 4;
+         this.TargetRearCameraSelectButton.IndicatorEdgeSpace = 4;
+         this.TargetRearCameraSelectButton.LeftColor = System.Drawing.Color.Maroon;
+         this.TargetRearCameraSelectButton.LeftVisible = true;
+         this.TargetRearCameraSelectButton.Location = new System.Drawing.Point(165, 83);
+         this.TargetRearCameraSelectButton.Name = "TargetRearCameraSelectButton";
+         this.TargetRearCameraSelectButton.RightColor = System.Drawing.Color.DarkBlue;
+         this.TargetRearCameraSelectButton.RightVisible = true;
+         this.TargetRearCameraSelectButton.Size = new System.Drawing.Size(107, 67);
+         this.TargetRearCameraSelectButton.TabIndex = 9;
+         this.TargetRearCameraSelectButton.Text = "REAR";
+         this.TargetRearCameraSelectButton.UseVisualStyleBackColor = false;
          // 
-         // cameraSelectButton5
+         // TargetFrontCameraSelectButton
          // 
-         this.cameraSelectButton5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.cameraSelectButton5.Camera = E4.Ui.Controls.CameraLocations.txForward;
-         this.cameraSelectButton5.CenterBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.cameraSelectButton5.CenterEnabled = true;
-         this.cameraSelectButton5.CenterForeColor = System.Drawing.Color.Yellow;
-         this.cameraSelectButton5.CenterLevel = 50;
-         this.cameraSelectButton5.CenterVisible = true;
-         this.cameraSelectButton5.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
-         this.cameraSelectButton5.DisabledForeColor = System.Drawing.Color.Gray;
-         this.cameraSelectButton5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
-         this.cameraSelectButton5.ForeColor = System.Drawing.Color.Black;
-         this.cameraSelectButton5.HoldArrorColor = System.Drawing.Color.Gray;
-         this.cameraSelectButton5.HoldRepeat = false;
-         this.cameraSelectButton5.HoldRepeatInterval = 0;
-         this.cameraSelectButton5.HoldTimeoutEnable = true;
-         this.cameraSelectButton5.HoldTimeoutInterval = 100;
-         this.cameraSelectButton5.IndicatorBetweenSpace = 4;
-         this.cameraSelectButton5.IndicatorEdgeSpace = 4;
-         this.cameraSelectButton5.LeftColor = System.Drawing.Color.Maroon;
-         this.cameraSelectButton5.LeftVisible = true;
-         this.cameraSelectButton5.Location = new System.Drawing.Point(123, 8);
-         this.cameraSelectButton5.Name = "cameraSelectButton5";
-         this.cameraSelectButton5.RightColor = System.Drawing.Color.DarkBlue;
-         this.cameraSelectButton5.RightVisible = true;
-         this.cameraSelectButton5.Size = new System.Drawing.Size(107, 67);
-         this.cameraSelectButton5.TabIndex = 9;
-         this.cameraSelectButton5.Text = "REAR";
-         this.cameraSelectButton5.UseVisualStyleBackColor = false;
-         // 
-         // cameraSelectButton1
-         // 
-         this.cameraSelectButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.cameraSelectButton1.Camera = E4.Ui.Controls.CameraLocations.txForward;
-         this.cameraSelectButton1.CenterBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.cameraSelectButton1.CenterEnabled = true;
-         this.cameraSelectButton1.CenterForeColor = System.Drawing.Color.Yellow;
-         this.cameraSelectButton1.CenterLevel = 50;
-         this.cameraSelectButton1.CenterVisible = true;
-         this.cameraSelectButton1.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
-         this.cameraSelectButton1.DisabledForeColor = System.Drawing.Color.Gray;
-         this.cameraSelectButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
-         this.cameraSelectButton1.ForeColor = System.Drawing.Color.Black;
-         this.cameraSelectButton1.HoldArrorColor = System.Drawing.Color.Gray;
-         this.cameraSelectButton1.HoldRepeat = false;
-         this.cameraSelectButton1.HoldRepeatInterval = 0;
-         this.cameraSelectButton1.HoldTimeoutEnable = true;
-         this.cameraSelectButton1.HoldTimeoutInterval = 100;
-         this.cameraSelectButton1.IndicatorBetweenSpace = 4;
-         this.cameraSelectButton1.IndicatorEdgeSpace = 4;
-         this.cameraSelectButton1.LeftColor = System.Drawing.Color.Maroon;
-         this.cameraSelectButton1.LeftVisible = true;
-         this.cameraSelectButton1.Location = new System.Drawing.Point(8, 8);
-         this.cameraSelectButton1.Name = "cameraSelectButton1";
-         this.cameraSelectButton1.RightColor = System.Drawing.Color.DarkBlue;
-         this.cameraSelectButton1.RightVisible = true;
-         this.cameraSelectButton1.Size = new System.Drawing.Size(107, 67);
-         this.cameraSelectButton1.TabIndex = 8;
-         this.cameraSelectButton1.Text = "FRONT";
-         this.cameraSelectButton1.UseVisualStyleBackColor = false;
+         this.TargetFrontCameraSelectButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.TargetFrontCameraSelectButton.Camera = E4.Ui.Controls.CameraLocations.targetForward;
+         this.TargetFrontCameraSelectButton.CenterBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.TargetFrontCameraSelectButton.CenterEnabled = true;
+         this.TargetFrontCameraSelectButton.CenterForeColor = System.Drawing.Color.Yellow;
+         this.TargetFrontCameraSelectButton.CenterLevel = 50;
+         this.TargetFrontCameraSelectButton.CenterVisible = true;
+         this.TargetFrontCameraSelectButton.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
+         this.TargetFrontCameraSelectButton.DisabledForeColor = System.Drawing.Color.Gray;
+         this.TargetFrontCameraSelectButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
+         this.TargetFrontCameraSelectButton.ForeColor = System.Drawing.Color.Black;
+         this.TargetFrontCameraSelectButton.HoldArrorColor = System.Drawing.Color.Gray;
+         this.TargetFrontCameraSelectButton.HoldRepeat = false;
+         this.TargetFrontCameraSelectButton.HoldRepeatInterval = 0;
+         this.TargetFrontCameraSelectButton.HoldTimeoutEnable = true;
+         this.TargetFrontCameraSelectButton.HoldTimeoutInterval = 100;
+         this.TargetFrontCameraSelectButton.IndicatorBetweenSpace = 4;
+         this.TargetFrontCameraSelectButton.IndicatorEdgeSpace = 4;
+         this.TargetFrontCameraSelectButton.LeftColor = System.Drawing.Color.Maroon;
+         this.TargetFrontCameraSelectButton.LeftVisible = true;
+         this.TargetFrontCameraSelectButton.Location = new System.Drawing.Point(50, 83);
+         this.TargetFrontCameraSelectButton.Name = "TargetFrontCameraSelectButton";
+         this.TargetFrontCameraSelectButton.RightColor = System.Drawing.Color.DarkBlue;
+         this.TargetFrontCameraSelectButton.RightVisible = true;
+         this.TargetFrontCameraSelectButton.Size = new System.Drawing.Size(107, 67);
+         this.TargetFrontCameraSelectButton.TabIndex = 8;
+         this.TargetFrontCameraSelectButton.Text = "FRONT";
+         this.TargetFrontCameraSelectButton.UseVisualStyleBackColor = false;
          // 
          // panel2
          // 
-         this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(128)))));
-         this.panel2.Controls.Add(this.cameraSelectButton7);
-         this.panel2.Controls.Add(this.cameraSelectButton8);
-         this.panel2.Controls.Add(this.cameraSelectButton9);
-         this.panel2.Location = new System.Drawing.Point(1565, 173);
+         this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(80)))), ((int)(((byte)(96)))));
+         this.panel2.Controls.Add(this.TargetTopCameraSelectButton);
+         this.panel2.Controls.Add(this.LaserTopCameraSelectButton);
+         this.panel2.Controls.Add(this.TargetRearCameraSelectButton);
+         this.panel2.Controls.Add(this.TargetFrontCameraSelectButton);
+         this.panel2.Controls.Add(this.LaserRearCameraSelectButton);
+         this.panel2.Controls.Add(this.LaserFrontCameraSelectButton);
+         this.panel2.Controls.Add(this.rotatableLabel10);
+         this.panel2.Controls.Add(this.rotatableLabel11);
+         this.panel2.Location = new System.Drawing.Point(1523, 86);
          this.panel2.Name = "panel2";
-         this.panel2.Size = new System.Drawing.Size(353, 83);
+         this.panel2.Size = new System.Drawing.Size(395, 158);
          this.panel2.TabIndex = 9;
          // 
-         // cameraSelectButton7
+         // LaserTopCameraSelectButton
          // 
-         this.cameraSelectButton7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.cameraSelectButton7.Camera = E4.Ui.Controls.CameraLocations.txForward;
-         this.cameraSelectButton7.CenterBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.cameraSelectButton7.CenterEnabled = true;
-         this.cameraSelectButton7.CenterForeColor = System.Drawing.Color.Yellow;
-         this.cameraSelectButton7.CenterLevel = 50;
-         this.cameraSelectButton7.CenterVisible = true;
-         this.cameraSelectButton7.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
-         this.cameraSelectButton7.DisabledForeColor = System.Drawing.Color.Gray;
-         this.cameraSelectButton7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
-         this.cameraSelectButton7.ForeColor = System.Drawing.Color.Black;
-         this.cameraSelectButton7.HoldArrorColor = System.Drawing.Color.Gray;
-         this.cameraSelectButton7.HoldRepeat = false;
-         this.cameraSelectButton7.HoldRepeatInterval = 0;
-         this.cameraSelectButton7.HoldTimeoutEnable = true;
-         this.cameraSelectButton7.HoldTimeoutInterval = 100;
-         this.cameraSelectButton7.IndicatorBetweenSpace = 4;
-         this.cameraSelectButton7.IndicatorEdgeSpace = 4;
-         this.cameraSelectButton7.LeftColor = System.Drawing.Color.Maroon;
-         this.cameraSelectButton7.LeftVisible = true;
-         this.cameraSelectButton7.Location = new System.Drawing.Point(238, 8);
-         this.cameraSelectButton7.Name = "cameraSelectButton7";
-         this.cameraSelectButton7.RightColor = System.Drawing.Color.DarkBlue;
-         this.cameraSelectButton7.RightVisible = true;
-         this.cameraSelectButton7.Size = new System.Drawing.Size(107, 67);
-         this.cameraSelectButton7.TabIndex = 10;
-         this.cameraSelectButton7.Text = "TOP";
-         this.cameraSelectButton7.UseVisualStyleBackColor = false;
+         this.LaserTopCameraSelectButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.LaserTopCameraSelectButton.Camera = E4.Ui.Controls.CameraLocations.laserUp;
+         this.LaserTopCameraSelectButton.CenterBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.LaserTopCameraSelectButton.CenterEnabled = true;
+         this.LaserTopCameraSelectButton.CenterForeColor = System.Drawing.Color.Yellow;
+         this.LaserTopCameraSelectButton.CenterLevel = 50;
+         this.LaserTopCameraSelectButton.CenterVisible = true;
+         this.LaserTopCameraSelectButton.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
+         this.LaserTopCameraSelectButton.DisabledForeColor = System.Drawing.Color.Gray;
+         this.LaserTopCameraSelectButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
+         this.LaserTopCameraSelectButton.ForeColor = System.Drawing.Color.Black;
+         this.LaserTopCameraSelectButton.HoldArrorColor = System.Drawing.Color.Gray;
+         this.LaserTopCameraSelectButton.HoldRepeat = false;
+         this.LaserTopCameraSelectButton.HoldRepeatInterval = 0;
+         this.LaserTopCameraSelectButton.HoldTimeoutEnable = true;
+         this.LaserTopCameraSelectButton.HoldTimeoutInterval = 100;
+         this.LaserTopCameraSelectButton.IndicatorBetweenSpace = 4;
+         this.LaserTopCameraSelectButton.IndicatorEdgeSpace = 4;
+         this.LaserTopCameraSelectButton.LeftColor = System.Drawing.Color.Maroon;
+         this.LaserTopCameraSelectButton.LeftVisible = true;
+         this.LaserTopCameraSelectButton.Location = new System.Drawing.Point(280, 8);
+         this.LaserTopCameraSelectButton.Name = "LaserTopCameraSelectButton";
+         this.LaserTopCameraSelectButton.RightColor = System.Drawing.Color.DarkBlue;
+         this.LaserTopCameraSelectButton.RightVisible = true;
+         this.LaserTopCameraSelectButton.Size = new System.Drawing.Size(107, 67);
+         this.LaserTopCameraSelectButton.TabIndex = 10;
+         this.LaserTopCameraSelectButton.Text = "TOP";
+         this.LaserTopCameraSelectButton.UseVisualStyleBackColor = false;
          // 
-         // cameraSelectButton8
+         // LaserRearCameraSelectButton
          // 
-         this.cameraSelectButton8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.cameraSelectButton8.Camera = E4.Ui.Controls.CameraLocations.txForward;
-         this.cameraSelectButton8.CenterBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.cameraSelectButton8.CenterEnabled = true;
-         this.cameraSelectButton8.CenterForeColor = System.Drawing.Color.Yellow;
-         this.cameraSelectButton8.CenterLevel = 50;
-         this.cameraSelectButton8.CenterVisible = true;
-         this.cameraSelectButton8.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
-         this.cameraSelectButton8.DisabledForeColor = System.Drawing.Color.Gray;
-         this.cameraSelectButton8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
-         this.cameraSelectButton8.ForeColor = System.Drawing.Color.Black;
-         this.cameraSelectButton8.HoldArrorColor = System.Drawing.Color.Gray;
-         this.cameraSelectButton8.HoldRepeat = false;
-         this.cameraSelectButton8.HoldRepeatInterval = 0;
-         this.cameraSelectButton8.HoldTimeoutEnable = true;
-         this.cameraSelectButton8.HoldTimeoutInterval = 100;
-         this.cameraSelectButton8.IndicatorBetweenSpace = 4;
-         this.cameraSelectButton8.IndicatorEdgeSpace = 4;
-         this.cameraSelectButton8.LeftColor = System.Drawing.Color.Maroon;
-         this.cameraSelectButton8.LeftVisible = true;
-         this.cameraSelectButton8.Location = new System.Drawing.Point(123, 8);
-         this.cameraSelectButton8.Name = "cameraSelectButton8";
-         this.cameraSelectButton8.RightColor = System.Drawing.Color.DarkBlue;
-         this.cameraSelectButton8.RightVisible = true;
-         this.cameraSelectButton8.Size = new System.Drawing.Size(107, 67);
-         this.cameraSelectButton8.TabIndex = 9;
-         this.cameraSelectButton8.Text = "REAR";
-         this.cameraSelectButton8.UseVisualStyleBackColor = false;
+         this.LaserRearCameraSelectButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.LaserRearCameraSelectButton.Camera = E4.Ui.Controls.CameraLocations.laserRear;
+         this.LaserRearCameraSelectButton.CenterBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.LaserRearCameraSelectButton.CenterEnabled = true;
+         this.LaserRearCameraSelectButton.CenterForeColor = System.Drawing.Color.Yellow;
+         this.LaserRearCameraSelectButton.CenterLevel = 50;
+         this.LaserRearCameraSelectButton.CenterVisible = true;
+         this.LaserRearCameraSelectButton.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
+         this.LaserRearCameraSelectButton.DisabledForeColor = System.Drawing.Color.Gray;
+         this.LaserRearCameraSelectButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
+         this.LaserRearCameraSelectButton.ForeColor = System.Drawing.Color.Black;
+         this.LaserRearCameraSelectButton.HoldArrorColor = System.Drawing.Color.Gray;
+         this.LaserRearCameraSelectButton.HoldRepeat = false;
+         this.LaserRearCameraSelectButton.HoldRepeatInterval = 0;
+         this.LaserRearCameraSelectButton.HoldTimeoutEnable = true;
+         this.LaserRearCameraSelectButton.HoldTimeoutInterval = 100;
+         this.LaserRearCameraSelectButton.IndicatorBetweenSpace = 4;
+         this.LaserRearCameraSelectButton.IndicatorEdgeSpace = 4;
+         this.LaserRearCameraSelectButton.LeftColor = System.Drawing.Color.Maroon;
+         this.LaserRearCameraSelectButton.LeftVisible = true;
+         this.LaserRearCameraSelectButton.Location = new System.Drawing.Point(165, 8);
+         this.LaserRearCameraSelectButton.Name = "LaserRearCameraSelectButton";
+         this.LaserRearCameraSelectButton.RightColor = System.Drawing.Color.DarkBlue;
+         this.LaserRearCameraSelectButton.RightVisible = true;
+         this.LaserRearCameraSelectButton.Size = new System.Drawing.Size(107, 67);
+         this.LaserRearCameraSelectButton.TabIndex = 9;
+         this.LaserRearCameraSelectButton.Text = "REAR";
+         this.LaserRearCameraSelectButton.UseVisualStyleBackColor = false;
          // 
-         // cameraSelectButton9
+         // LaserFrontCameraSelectButton
          // 
-         this.cameraSelectButton9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.cameraSelectButton9.Camera = E4.Ui.Controls.CameraLocations.txForward;
-         this.cameraSelectButton9.CenterBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.cameraSelectButton9.CenterEnabled = true;
-         this.cameraSelectButton9.CenterForeColor = System.Drawing.Color.Yellow;
-         this.cameraSelectButton9.CenterLevel = 50;
-         this.cameraSelectButton9.CenterVisible = true;
-         this.cameraSelectButton9.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
-         this.cameraSelectButton9.DisabledForeColor = System.Drawing.Color.Gray;
-         this.cameraSelectButton9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
-         this.cameraSelectButton9.ForeColor = System.Drawing.Color.Black;
-         this.cameraSelectButton9.HoldArrorColor = System.Drawing.Color.Gray;
-         this.cameraSelectButton9.HoldRepeat = false;
-         this.cameraSelectButton9.HoldRepeatInterval = 0;
-         this.cameraSelectButton9.HoldTimeoutEnable = true;
-         this.cameraSelectButton9.HoldTimeoutInterval = 100;
-         this.cameraSelectButton9.IndicatorBetweenSpace = 4;
-         this.cameraSelectButton9.IndicatorEdgeSpace = 4;
-         this.cameraSelectButton9.LeftColor = System.Drawing.Color.Maroon;
-         this.cameraSelectButton9.LeftVisible = true;
-         this.cameraSelectButton9.Location = new System.Drawing.Point(8, 8);
-         this.cameraSelectButton9.Name = "cameraSelectButton9";
-         this.cameraSelectButton9.RightColor = System.Drawing.Color.DarkBlue;
-         this.cameraSelectButton9.RightVisible = true;
-         this.cameraSelectButton9.Size = new System.Drawing.Size(107, 67);
-         this.cameraSelectButton9.TabIndex = 8;
-         this.cameraSelectButton9.Text = "FRONT";
-         this.cameraSelectButton9.UseVisualStyleBackColor = false;
+         this.LaserFrontCameraSelectButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.LaserFrontCameraSelectButton.Camera = E4.Ui.Controls.CameraLocations.laserForward;
+         this.LaserFrontCameraSelectButton.CenterBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.LaserFrontCameraSelectButton.CenterEnabled = true;
+         this.LaserFrontCameraSelectButton.CenterForeColor = System.Drawing.Color.Yellow;
+         this.LaserFrontCameraSelectButton.CenterLevel = 50;
+         this.LaserFrontCameraSelectButton.CenterVisible = true;
+         this.LaserFrontCameraSelectButton.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
+         this.LaserFrontCameraSelectButton.DisabledForeColor = System.Drawing.Color.Gray;
+         this.LaserFrontCameraSelectButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
+         this.LaserFrontCameraSelectButton.ForeColor = System.Drawing.Color.Black;
+         this.LaserFrontCameraSelectButton.HoldArrorColor = System.Drawing.Color.Gray;
+         this.LaserFrontCameraSelectButton.HoldRepeat = false;
+         this.LaserFrontCameraSelectButton.HoldRepeatInterval = 0;
+         this.LaserFrontCameraSelectButton.HoldTimeoutEnable = true;
+         this.LaserFrontCameraSelectButton.HoldTimeoutInterval = 100;
+         this.LaserFrontCameraSelectButton.IndicatorBetweenSpace = 4;
+         this.LaserFrontCameraSelectButton.IndicatorEdgeSpace = 4;
+         this.LaserFrontCameraSelectButton.LeftColor = System.Drawing.Color.Maroon;
+         this.LaserFrontCameraSelectButton.LeftVisible = true;
+         this.LaserFrontCameraSelectButton.Location = new System.Drawing.Point(50, 8);
+         this.LaserFrontCameraSelectButton.Name = "LaserFrontCameraSelectButton";
+         this.LaserFrontCameraSelectButton.RightColor = System.Drawing.Color.DarkBlue;
+         this.LaserFrontCameraSelectButton.RightVisible = true;
+         this.LaserFrontCameraSelectButton.Size = new System.Drawing.Size(107, 67);
+         this.LaserFrontCameraSelectButton.TabIndex = 8;
+         this.LaserFrontCameraSelectButton.Text = "FRONT";
+         this.LaserFrontCameraSelectButton.UseVisualStyleBackColor = false;
+         // 
+         // rotatableLabel10
+         // 
+         this.rotatableLabel10.Angle = 90;
+         this.rotatableLabel10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.rotatableLabel10.Location = new System.Drawing.Point(-5, -6);
+         this.rotatableLabel10.Name = "rotatableLabel10";
+         this.rotatableLabel10.Size = new System.Drawing.Size(115, 94);
+         this.rotatableLabel10.TabIndex = 231;
+         this.rotatableLabel10.Text = "LASER ROBOT";
+         this.rotatableLabel10.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+         // 
+         // rotatableLabel11
+         // 
+         this.rotatableLabel11.Angle = 90;
+         this.rotatableLabel11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.rotatableLabel11.Location = new System.Drawing.Point(-5, 69);
+         this.rotatableLabel11.Name = "rotatableLabel11";
+         this.rotatableLabel11.Size = new System.Drawing.Size(115, 94);
+         this.rotatableLabel11.TabIndex = 230;
+         this.rotatableLabel11.Text = "TARGET ROBOT";
+         this.rotatableLabel11.TextAlign = System.Drawing.ContentAlignment.TopCenter;
          // 
          // VersionLabel
          // 
@@ -1883,306 +2202,6 @@
          this.TargetRobotAlternateMotionMotorPanel.Size = new System.Drawing.Size(369, 168);
          this.TargetRobotAlternateMotionMotorPanel.TabIndex = 227;
          // 
-         // TargetRobotFrontWheelPositionPanel
-         // 
-         this.TargetRobotFrontWheelPositionPanel.BackColor = System.Drawing.Color.Black;
-         this.TargetRobotFrontWheelPositionPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-         this.TargetRobotFrontWheelPositionPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-         this.TargetRobotFrontWheelPositionPanel.ForeColor = System.Drawing.Color.White;
-         this.TargetRobotFrontWheelPositionPanel.HoldTimeoutEnable = false;
-         this.TargetRobotFrontWheelPositionPanel.HoldTimeoutInterval = 0;
-         this.TargetRobotFrontWheelPositionPanel.Location = new System.Drawing.Point(28, 165);
-         this.TargetRobotFrontWheelPositionPanel.Name = "TargetRobotFrontWheelPositionPanel";
-         this.TargetRobotFrontWheelPositionPanel.Size = new System.Drawing.Size(99, 42);
-         this.TargetRobotFrontWheelPositionPanel.TabIndex = 233;
-         this.TargetRobotFrontWheelPositionPanel.ValueText = "###### mm";
-         this.TargetRobotFrontWheelPositionPanel.ValueTextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         // 
-         // rotatableLabel7
-         // 
-         this.rotatableLabel7.Angle = 90;
-         this.rotatableLabel7.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Bold);
-         this.rotatableLabel7.Location = new System.Drawing.Point(9, 160);
-         this.rotatableLabel7.Name = "rotatableLabel7";
-         this.rotatableLabel7.Size = new System.Drawing.Size(62, 52);
-         this.rotatableLabel7.TabIndex = 239;
-         this.rotatableLabel7.Text = "POS";
-         this.rotatableLabel7.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-         // 
-         // TargetRobotRearWheelTemperaturePanel
-         // 
-         this.TargetRobotRearWheelTemperaturePanel.BackColor = System.Drawing.Color.Black;
-         this.TargetRobotRearWheelTemperaturePanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-         this.TargetRobotRearWheelTemperaturePanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-         this.TargetRobotRearWheelTemperaturePanel.ForeColor = System.Drawing.Color.White;
-         this.TargetRobotRearWheelTemperaturePanel.HoldTimeoutEnable = false;
-         this.TargetRobotRearWheelTemperaturePanel.HoldTimeoutInterval = 0;
-         this.TargetRobotRearWheelTemperaturePanel.Location = new System.Drawing.Point(135, 115);
-         this.TargetRobotRearWheelTemperaturePanel.Name = "TargetRobotRearWheelTemperaturePanel";
-         this.TargetRobotRearWheelTemperaturePanel.Size = new System.Drawing.Size(99, 42);
-         this.TargetRobotRearWheelTemperaturePanel.TabIndex = 235;
-         this.TargetRobotRearWheelTemperaturePanel.ValueText = "### °C";
-         this.TargetRobotRearWheelTemperaturePanel.ValueTextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         // 
-         // TargetRobotMotorLinkVoltagePanel
-         // 
-         this.TargetRobotMotorLinkVoltagePanel.BackColor = System.Drawing.Color.Black;
-         this.TargetRobotMotorLinkVoltagePanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-         this.TargetRobotMotorLinkVoltagePanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-         this.TargetRobotMotorLinkVoltagePanel.ForeColor = System.Drawing.Color.White;
-         this.TargetRobotMotorLinkVoltagePanel.HoldTimeoutEnable = false;
-         this.TargetRobotMotorLinkVoltagePanel.HoldTimeoutInterval = 0;
-         this.TargetRobotMotorLinkVoltagePanel.Location = new System.Drawing.Point(246, 115);
-         this.TargetRobotMotorLinkVoltagePanel.Name = "TargetRobotMotorLinkVoltagePanel";
-         this.TargetRobotMotorLinkVoltagePanel.Size = new System.Drawing.Size(99, 42);
-         this.TargetRobotMotorLinkVoltagePanel.TabIndex = 238;
-         this.TargetRobotMotorLinkVoltagePanel.ValueText = "## V";
-         this.TargetRobotMotorLinkVoltagePanel.ValueTextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         // 
-         // label3
-         // 
-         this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.label3.Location = new System.Drawing.Point(257, 79);
-         this.label3.Name = "label3";
-         this.label3.Size = new System.Drawing.Size(77, 37);
-         this.label3.TabIndex = 237;
-         this.label3.Text = "LINK VOLTAGE";
-         this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         // 
-         // TargetRobotRearWheelPositionPanel
-         // 
-         this.TargetRobotRearWheelPositionPanel.BackColor = System.Drawing.Color.Black;
-         this.TargetRobotRearWheelPositionPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-         this.TargetRobotRearWheelPositionPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-         this.TargetRobotRearWheelPositionPanel.ForeColor = System.Drawing.Color.White;
-         this.TargetRobotRearWheelPositionPanel.HoldTimeoutEnable = false;
-         this.TargetRobotRearWheelPositionPanel.HoldTimeoutInterval = 0;
-         this.TargetRobotRearWheelPositionPanel.Location = new System.Drawing.Point(135, 165);
-         this.TargetRobotRearWheelPositionPanel.Name = "TargetRobotRearWheelPositionPanel";
-         this.TargetRobotRearWheelPositionPanel.Size = new System.Drawing.Size(99, 42);
-         this.TargetRobotRearWheelPositionPanel.TabIndex = 236;
-         this.TargetRobotRearWheelPositionPanel.ValueText = "#####";
-         this.TargetRobotRearWheelPositionPanel.ValueTextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         // 
-         // TargetRobotRearWheelCurrentPanel
-         // 
-         this.TargetRobotRearWheelCurrentPanel.BackColor = System.Drawing.Color.Black;
-         this.TargetRobotRearWheelCurrentPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-         this.TargetRobotRearWheelCurrentPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-         this.TargetRobotRearWheelCurrentPanel.ForeColor = System.Drawing.Color.White;
-         this.TargetRobotRearWheelCurrentPanel.HoldTimeoutEnable = false;
-         this.TargetRobotRearWheelCurrentPanel.HoldTimeoutInterval = 0;
-         this.TargetRobotRearWheelCurrentPanel.Location = new System.Drawing.Point(135, 65);
-         this.TargetRobotRearWheelCurrentPanel.Name = "TargetRobotRearWheelCurrentPanel";
-         this.TargetRobotRearWheelCurrentPanel.Size = new System.Drawing.Size(99, 42);
-         this.TargetRobotRearWheelCurrentPanel.TabIndex = 234;
-         this.TargetRobotRearWheelCurrentPanel.ValueText = "#.## A";
-         this.TargetRobotRearWheelCurrentPanel.ValueTextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         // 
-         // TargetRobotFrontWheelTemperaturePanel
-         // 
-         this.TargetRobotFrontWheelTemperaturePanel.BackColor = System.Drawing.Color.Black;
-         this.TargetRobotFrontWheelTemperaturePanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-         this.TargetRobotFrontWheelTemperaturePanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-         this.TargetRobotFrontWheelTemperaturePanel.ForeColor = System.Drawing.Color.White;
-         this.TargetRobotFrontWheelTemperaturePanel.HoldTimeoutEnable = false;
-         this.TargetRobotFrontWheelTemperaturePanel.HoldTimeoutInterval = 0;
-         this.TargetRobotFrontWheelTemperaturePanel.Location = new System.Drawing.Point(28, 115);
-         this.TargetRobotFrontWheelTemperaturePanel.Name = "TargetRobotFrontWheelTemperaturePanel";
-         this.TargetRobotFrontWheelTemperaturePanel.Size = new System.Drawing.Size(99, 42);
-         this.TargetRobotFrontWheelTemperaturePanel.TabIndex = 232;
-         this.TargetRobotFrontWheelTemperaturePanel.ValueText = "### °C";
-         this.TargetRobotFrontWheelTemperaturePanel.ValueTextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         // 
-         // TargetRobotFrontWheelCurrentPanel
-         // 
-         this.TargetRobotFrontWheelCurrentPanel.BackColor = System.Drawing.Color.Black;
-         this.TargetRobotFrontWheelCurrentPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-         this.TargetRobotFrontWheelCurrentPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-         this.TargetRobotFrontWheelCurrentPanel.ForeColor = System.Drawing.Color.White;
-         this.TargetRobotFrontWheelCurrentPanel.HoldTimeoutEnable = false;
-         this.TargetRobotFrontWheelCurrentPanel.HoldTimeoutInterval = 0;
-         this.TargetRobotFrontWheelCurrentPanel.Location = new System.Drawing.Point(28, 65);
-         this.TargetRobotFrontWheelCurrentPanel.Name = "TargetRobotFrontWheelCurrentPanel";
-         this.TargetRobotFrontWheelCurrentPanel.Size = new System.Drawing.Size(99, 42);
-         this.TargetRobotFrontWheelCurrentPanel.TabIndex = 227;
-         this.TargetRobotFrontWheelCurrentPanel.ValueText = "#.## A";
-         this.TargetRobotFrontWheelCurrentPanel.ValueTextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         // 
-         // label4
-         // 
-         this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.label4.Location = new System.Drawing.Point(128, 43);
-         this.label4.Name = "label4";
-         this.label4.Size = new System.Drawing.Size(112, 22);
-         this.label4.TabIndex = 231;
-         this.label4.Text = "REAR";
-         this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         // 
-         // label5
-         // 
-         this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.label5.Location = new System.Drawing.Point(39, 43);
-         this.label5.Name = "label5";
-         this.label5.Size = new System.Drawing.Size(77, 22);
-         this.label5.TabIndex = 230;
-         this.label5.Text = "FRONT";
-         this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         // 
-         // rotatableLabel8
-         // 
-         this.rotatableLabel8.Angle = 90;
-         this.rotatableLabel8.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Bold);
-         this.rotatableLabel8.Location = new System.Drawing.Point(9, 110);
-         this.rotatableLabel8.Name = "rotatableLabel8";
-         this.rotatableLabel8.Size = new System.Drawing.Size(62, 52);
-         this.rotatableLabel8.TabIndex = 229;
-         this.rotatableLabel8.Text = "TEMP";
-         this.rotatableLabel8.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-         // 
-         // rotatableLabel9
-         // 
-         this.rotatableLabel9.Angle = 90;
-         this.rotatableLabel9.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Bold);
-         this.rotatableLabel9.Location = new System.Drawing.Point(9, 60);
-         this.rotatableLabel9.Name = "rotatableLabel9";
-         this.rotatableLabel9.Size = new System.Drawing.Size(62, 52);
-         this.rotatableLabel9.TabIndex = 228;
-         this.rotatableLabel9.Text = "CURRENT";
-         this.rotatableLabel9.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-         // 
-         // TargetRobotMoveForwardButton
-         // 
-         this.TargetRobotMoveForwardButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.TargetRobotMoveForwardButton.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
-         this.TargetRobotMoveForwardButton.DisabledForeColor = System.Drawing.Color.Gray;
-         this.TargetRobotMoveForwardButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
-         this.TargetRobotMoveForwardButton.ForeColor = System.Drawing.Color.Black;
-         this.TargetRobotMoveForwardButton.HoldArrorColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-         this.TargetRobotMoveForwardButton.HoldTimeoutEnable = true;
-         this.TargetRobotMoveForwardButton.HoldTimeoutInterval = 100;
-         this.TargetRobotMoveForwardButton.Location = new System.Drawing.Point(246, 370);
-         this.TargetRobotMoveForwardButton.Name = "TargetRobotMoveForwardButton";
-         this.TargetRobotMoveForwardButton.Size = new System.Drawing.Size(107, 80);
-         this.TargetRobotMoveForwardButton.TabIndex = 245;
-         this.TargetRobotMoveForwardButton.Text = "MOVE FORWARD";
-         this.TargetRobotMoveForwardButton.UseVisualStyleBackColor = false;
-         this.TargetRobotMoveForwardButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TargetRobotMoveForwardButton_MouseDown);
-         this.TargetRobotMoveForwardButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TargetRobotMoveForwardButton_MouseUp);
-         // 
-         // TargetRobotMoveSpeedButton
-         // 
-         this.TargetRobotMoveSpeedButton.ArrowWidth = 0;
-         this.TargetRobotMoveSpeedButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.TargetRobotMoveSpeedButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
-         this.TargetRobotMoveSpeedButton.DisabledForeColor = System.Drawing.Color.Silver;
-         this.TargetRobotMoveSpeedButton.DisabledValueBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-         this.TargetRobotMoveSpeedButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
-         this.TargetRobotMoveSpeedButton.HoldArrorColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-         this.TargetRobotMoveSpeedButton.HoldTimeoutInterval = 100;
-         this.TargetRobotMoveSpeedButton.LeftArrowBackColor = System.Drawing.Color.Black;
-         this.TargetRobotMoveSpeedButton.LeftArrowVisible = false;
-         this.TargetRobotMoveSpeedButton.Location = new System.Drawing.Point(131, 370);
-         this.TargetRobotMoveSpeedButton.Name = "TargetRobotMoveSpeedButton";
-         this.TargetRobotMoveSpeedButton.RightArrowBackColor = System.Drawing.Color.Black;
-         this.TargetRobotMoveSpeedButton.RightArrowVisible = false;
-         this.TargetRobotMoveSpeedButton.Size = new System.Drawing.Size(107, 80);
-         this.TargetRobotMoveSpeedButton.TabIndex = 244;
-         this.TargetRobotMoveSpeedButton.Text = "MOVE SPEED";
-         this.TargetRobotMoveSpeedButton.UseVisualStyleBackColor = false;
-         this.TargetRobotMoveSpeedButton.ValueBackColor = System.Drawing.Color.Black;
-         this.TargetRobotMoveSpeedButton.ValueEdgeHeight = 8;
-         this.TargetRobotMoveSpeedButton.ValueFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
-         this.TargetRobotMoveSpeedButton.ValueForeColor = System.Drawing.Color.White;
-         this.TargetRobotMoveSpeedButton.ValueHeight = 22;
-         this.TargetRobotMoveSpeedButton.ValueText = "##.## m/MIN";
-         this.TargetRobotMoveSpeedButton.ValueWidth = 80;
-         this.TargetRobotMoveSpeedButton.HoldTimeout += new E4.Ui.Controls.ValueButton.HoldTimeoutHandler(this.TargetRobotMoveSpeedButton_HoldTimeout);
-         // 
-         // TargetRobotMoveReverseButton
-         // 
-         this.TargetRobotMoveReverseButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.TargetRobotMoveReverseButton.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
-         this.TargetRobotMoveReverseButton.DisabledForeColor = System.Drawing.Color.Gray;
-         this.TargetRobotMoveReverseButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
-         this.TargetRobotMoveReverseButton.ForeColor = System.Drawing.Color.Black;
-         this.TargetRobotMoveReverseButton.HoldArrorColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-         this.TargetRobotMoveReverseButton.HoldTimeoutEnable = true;
-         this.TargetRobotMoveReverseButton.HoldTimeoutInterval = 100;
-         this.TargetRobotMoveReverseButton.Location = new System.Drawing.Point(16, 370);
-         this.TargetRobotMoveReverseButton.Name = "TargetRobotMoveReverseButton";
-         this.TargetRobotMoveReverseButton.Size = new System.Drawing.Size(107, 80);
-         this.TargetRobotMoveReverseButton.TabIndex = 243;
-         this.TargetRobotMoveReverseButton.Text = "MOVE REVERSE";
-         this.TargetRobotMoveReverseButton.UseVisualStyleBackColor = false;
-         this.TargetRobotMoveReverseButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TargetRobotMoveReverseButton_MouseDown);
-         this.TargetRobotMoveReverseButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TargetRobotMoveReverseButton_MouseUp);
-         // 
-         // TargetRobotJogReverseButton
-         // 
-         this.TargetRobotJogReverseButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.TargetRobotJogReverseButton.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
-         this.TargetRobotJogReverseButton.DisabledForeColor = System.Drawing.Color.Gray;
-         this.TargetRobotJogReverseButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
-         this.TargetRobotJogReverseButton.ForeColor = System.Drawing.Color.Black;
-         this.TargetRobotJogReverseButton.HoldArrorColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-         this.TargetRobotJogReverseButton.HoldTimeoutEnable = true;
-         this.TargetRobotJogReverseButton.HoldTimeoutInterval = 100;
-         this.TargetRobotJogReverseButton.Location = new System.Drawing.Point(16, 282);
-         this.TargetRobotJogReverseButton.Name = "TargetRobotJogReverseButton";
-         this.TargetRobotJogReverseButton.Size = new System.Drawing.Size(107, 80);
-         this.TargetRobotJogReverseButton.TabIndex = 242;
-         this.TargetRobotJogReverseButton.Text = "JOG REVERSE";
-         this.TargetRobotJogReverseButton.UseVisualStyleBackColor = false;
-         this.TargetRobotJogReverseButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TargetRobotJogReverseButton_MouseDown);
-         // 
-         // TargetRobotJogForwardButton
-         // 
-         this.TargetRobotJogForwardButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.TargetRobotJogForwardButton.DisabledBackColor = System.Drawing.SystemColors.ControlDarkDark;
-         this.TargetRobotJogForwardButton.DisabledForeColor = System.Drawing.Color.Gray;
-         this.TargetRobotJogForwardButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
-         this.TargetRobotJogForwardButton.ForeColor = System.Drawing.Color.Black;
-         this.TargetRobotJogForwardButton.HoldArrorColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-         this.TargetRobotJogForwardButton.HoldTimeoutEnable = true;
-         this.TargetRobotJogForwardButton.HoldTimeoutInterval = 100;
-         this.TargetRobotJogForwardButton.Location = new System.Drawing.Point(246, 282);
-         this.TargetRobotJogForwardButton.Name = "TargetRobotJogForwardButton";
-         this.TargetRobotJogForwardButton.Size = new System.Drawing.Size(107, 80);
-         this.TargetRobotJogForwardButton.TabIndex = 241;
-         this.TargetRobotJogForwardButton.Text = "JOG FORWARD";
-         this.TargetRobotJogForwardButton.UseVisualStyleBackColor = false;
-         this.TargetRobotJogForwardButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TargetRobotJogForwardButton_MouseDown);
-         // 
-         // TargetRobotJogDistanceButton
-         // 
-         this.TargetRobotJogDistanceButton.ArrowWidth = 0;
-         this.TargetRobotJogDistanceButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.TargetRobotJogDistanceButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
-         this.TargetRobotJogDistanceButton.DisabledForeColor = System.Drawing.Color.Silver;
-         this.TargetRobotJogDistanceButton.DisabledValueBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-         this.TargetRobotJogDistanceButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
-         this.TargetRobotJogDistanceButton.HoldArrorColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-         this.TargetRobotJogDistanceButton.HoldTimeoutInterval = 100;
-         this.TargetRobotJogDistanceButton.LeftArrowBackColor = System.Drawing.Color.Black;
-         this.TargetRobotJogDistanceButton.LeftArrowVisible = false;
-         this.TargetRobotJogDistanceButton.Location = new System.Drawing.Point(131, 282);
-         this.TargetRobotJogDistanceButton.Name = "TargetRobotJogDistanceButton";
-         this.TargetRobotJogDistanceButton.RightArrowBackColor = System.Drawing.Color.Black;
-         this.TargetRobotJogDistanceButton.RightArrowVisible = false;
-         this.TargetRobotJogDistanceButton.Size = new System.Drawing.Size(107, 80);
-         this.TargetRobotJogDistanceButton.TabIndex = 240;
-         this.TargetRobotJogDistanceButton.Text = "JOG DISTANCE";
-         this.TargetRobotJogDistanceButton.UseVisualStyleBackColor = false;
-         this.TargetRobotJogDistanceButton.ValueBackColor = System.Drawing.Color.Black;
-         this.TargetRobotJogDistanceButton.ValueEdgeHeight = 8;
-         this.TargetRobotJogDistanceButton.ValueFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
-         this.TargetRobotJogDistanceButton.ValueForeColor = System.Drawing.Color.White;
-         this.TargetRobotJogDistanceButton.ValueHeight = 22;
-         this.TargetRobotJogDistanceButton.ValueText = "#### mm";
-         this.TargetRobotJogDistanceButton.ValueWidth = 80;
-         this.TargetRobotJogDistanceButton.HoldTimeout += new E4.Ui.Controls.ValueButton.HoldTimeoutHandler(this.TargetRobotJogDistanceButton_HoldTimeout);
-         // 
          // MainForm
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2200,7 +2219,6 @@
          this.Controls.Add(this.StopAllPanel);
          this.Controls.Add(this.ControlPanel);
          this.Controls.Add(this.panel2);
-         this.Controls.Add(this.panel1);
          this.Controls.Add(this.CameraControlPanel);
          this.Controls.Add(this.TargetRobotWheelPanel);
          this.Controls.Add(this.TitleLabel);
@@ -2212,7 +2230,6 @@
          this.Shown += new System.EventHandler(this.MainForm_Shown);
          this.TargetRobotWheelPanel.ResumeLayout(false);
          this.CameraControlPanel.ResumeLayout(false);
-         this.panel1.ResumeLayout(false);
          this.panel2.ResumeLayout(false);
          this.StopAllPanel.ResumeLayout(false);
          this.StatusPanel.ResumeLayout(false);
@@ -2234,18 +2251,17 @@
       private Controls.DirectionalValuePanel TargetWheelDirectionalValuePanel;
       private Controls.ValueButton TargetWheelMoveButton;
       private Controls.HoldButton TargetWheelOffButton;
-      private Controls.CameraSelectButton cameraSelectButton1;
+      private Controls.CameraSelectButton TargetFrontCameraSelectButton;
       private System.Windows.Forms.Panel CameraControlPanel;
-      private Controls.CameraSelectButton cameraSelectButton4;
-      private Controls.CameraSelectButton cameraSelectButton3;
-      private Controls.CameraSelectButton cameraSelectButton2;
-      private System.Windows.Forms.Panel panel1;
-      private Controls.CameraSelectButton cameraSelectButton6;
-      private Controls.CameraSelectButton cameraSelectButton5;
+      private Controls.CameraSelectButton AuxiliaryMonitorSelectButton;
+      private Controls.CameraSelectButton MainMonitorSelectButton;
+      private Controls.CameraSelectButton LightSelectButton;
+      private Controls.CameraSelectButton TargetTopCameraSelectButton;
+      private Controls.CameraSelectButton TargetRearCameraSelectButton;
       private System.Windows.Forms.Panel panel2;
-      private Controls.CameraSelectButton cameraSelectButton7;
-      private Controls.CameraSelectButton cameraSelectButton8;
-      private Controls.CameraSelectButton cameraSelectButton9;
+      private Controls.CameraSelectButton LaserTopCameraSelectButton;
+      private Controls.CameraSelectButton LaserRearCameraSelectButton;
+      private Controls.CameraSelectButton LaserFrontCameraSelectButton;
       private System.Windows.Forms.Label VersionLabel;
       private Controls.HoldButton ExitButton;
       private Controls.HoldButton SystemResetButton;
@@ -2342,6 +2358,8 @@
       private Controls.RotatableLabel rotatableLabel8;
       private Controls.RotatableLabel rotatableLabel9;
       private System.Windows.Forms.Panel TargetRobotAlternateMotionMotorPanel;
+      private Controls.RotatableLabel rotatableLabel10;
+      private Controls.RotatableLabel rotatableLabel11;
    }
 }
 

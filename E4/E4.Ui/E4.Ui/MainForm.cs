@@ -1,4 +1,5 @@
-﻿namespace E4.Ui
+﻿
+namespace E4.Ui
 {
    using System;
    using System.Collections.Generic;
@@ -25,6 +26,14 @@
          laserRobot,
          targetRobot,
          laserAim,
+      }
+
+      private enum VideoSelectModes
+      {
+         none,
+         light,
+         mainCamera,
+         auxiliaryCamera,
       }
 
       #endregion
@@ -58,6 +67,11 @@
       
       private int targetButtonChange;
       private int targetRequestedChange;
+
+      private VideoSelectModes videoSelectMode;
+      private Controls.CameraSelectButton selectedMainCameraButton;
+      private Controls.CameraSelectButton selectedAuxiliaryCameraButton;
+      private Controls.CameraSelectButton[] cameraButtons;
 
       private PopupDimmerForm dimmerForm;
 
@@ -313,6 +327,10 @@
             this.LaserRobotWheelOffButton.HoldTimeoutEnable = true;
          }
       }
+      
+      #endregion
+
+      #region Target Robot 
 
       private void TargetUpdateMovementControls()
       {
@@ -336,6 +354,65 @@
             this.TargetWheelMoveButton.BackColor = Color.FromArgb(171, 171, 171);
 
             this.TargetWheelOffButton.HoldTimeoutEnable = true;
+         }
+      }
+
+      #endregion
+
+      #region Video
+
+      private void UpdateCameraHoldEnable()
+      {
+         for (int i = 0; i < this.cameraButtons.Length; i++)
+         {
+            bool holdEnabled = (VideoSelectModes.light == this.videoSelectMode) ? true : false;
+            bool selectEnabled = true;
+
+            if (VideoSelectModes.none == this.videoSelectMode)
+            {
+               selectEnabled = false;
+            }
+            else if ((VideoSelectModes.light == this.videoSelectMode) &&
+                     (false == this.cameraButtons[i].CenterEnabled))
+            {
+               selectEnabled = false;
+            }
+            else if ((VideoSelectModes.mainCamera == this.videoSelectMode) ||
+                     (VideoSelectModes.auxiliaryCamera == this.videoSelectMode))
+            {
+            }
+
+            this.cameraButtons[i].Enabled = selectEnabled;
+            this.cameraButtons[i].HoldTimeoutEnable = holdEnabled;
+            this.cameraButtons[i].Invalidate();
+         }
+      }
+
+      private void UpdateVideoSelectorColor()
+      {
+         if (VideoSelectModes.light == this.videoSelectMode)
+         {
+            this.LightSelectButton.BackColor = Color.Lime;
+            this.MainMonitorSelectButton.BackColor = Color.FromArgb(171, 171, 171);
+            this.AuxiliaryMonitorSelectButton.BackColor = Color.FromArgb(171, 171, 171);
+         }
+         else if (VideoSelectModes.mainCamera == this.videoSelectMode)
+         {
+            this.LightSelectButton.BackColor = Color.FromArgb(171, 171, 171);
+            this.MainMonitorSelectButton.BackColor = Color.Lime;
+            this.AuxiliaryMonitorSelectButton.BackColor = Color.FromArgb(171, 171, 171);
+         }
+         else if (VideoSelectModes.auxiliaryCamera == this.videoSelectMode)
+         {
+            this.LightSelectButton.BackColor = Color.FromArgb(171, 171, 171);
+            this.MainMonitorSelectButton.BackColor = Color.FromArgb(171, 171, 171);
+            this.AuxiliaryMonitorSelectButton.BackColor = Color.Lime;
+         }
+         else
+         {
+            this.LightSelectButton.BackColor = Color.FromArgb(171, 171, 171);
+            this.MainMonitorSelectButton.BackColor = Color.FromArgb(171, 171, 171);
+            this.AuxiliaryMonitorSelectButton.BackColor = Color.FromArgb(171, 171, 171);
          }
       }
 
@@ -371,6 +448,8 @@
 
          this.targetButtonChange = 0;
          this.targetRequestedChange = 0;
+
+         this.videoSelectMode = VideoSelectModes.none;
 
 
          // set next state
@@ -496,6 +575,16 @@
 
          this.TargetRobotJogDistanceButton.ValueText = this.GetValueText(ParameterAccessor.Instance.TargetWheelManualWheelDistance);
          this.TargetRobotMoveSpeedButton.ValueText = this.GetValueText(ParameterAccessor.Instance.TargetWheelManualWheelSpeed);
+
+         for (int i = 0; i < this.cameraButtons.Length; i++)
+         {
+            this.cameraButtons[i].LeftVisible = false;
+            this.cameraButtons[i].CenterVisible = false;
+            this.cameraButtons[i].RightVisible = false;
+         }
+
+         this.UpdateCameraHoldEnable();
+         this.UpdateVideoSelectorColor();
 
          DeviceCommunication.Instance.Start();
 
@@ -770,7 +859,8 @@
          laserWheelPosition = DeviceCommunication.Instance.GetLaserWheelPositionValue(WheelLocations.rear);
          this.LaserRobotRearWheelPositionPanel.ValueText = this.GetValueText(laserWheelPosition, ParameterAccessor.Instance.LaserWheelManualWheelDistance);
 
-         //this.LaserRobotMotorLinkVoltagePanel.ValueText = "";
+         double laserLinkVoltage = DeviceCommunication.Instance.GetLaserLinkVoltage();
+         this.LaserRobotMotorLinkVoltagePanel.ValueText = this.GetValueText(laserLinkVoltage, 1, "V");
 
 
          this.LaserUpdateMovementControls();
@@ -898,7 +988,8 @@
          targetWheelPosition = DeviceCommunication.Instance.GetTargetWheelPositionValue(WheelLocations.rear);
          this.TargetRobotRearWheelPositionPanel.ValueText = this.GetValueText(targetWheelPosition, ParameterAccessor.Instance.TargetWheelManualWheelDistance);
 
-         //this.TargetRobotMotorLinkVoltagePanel.ValueText = "";
+         double targetLinkVoltage = DeviceCommunication.Instance.GetTargetLinkVoltage();
+         this.TargetRobotMotorLinkVoltagePanel.ValueText = this.GetValueText(targetLinkVoltage, 1, "V");
 
 
          this.TargetUpdateMovementControls();
@@ -1579,6 +1670,114 @@
 
       #endregion
 
+      #region Video Events
+
+      private void LightSelectButton_Click(object sender, EventArgs e)
+      {
+         if (VideoSelectModes.light == this.videoSelectMode)
+         {
+            this.videoSelectMode = VideoSelectModes.none;
+         }
+         else
+         {
+            this.videoSelectMode = VideoSelectModes.light;
+         }
+
+         this.UpdateCameraHoldEnable();
+         this.UpdateVideoSelectorColor();
+      }
+
+      private void MainMonitorSelectButton_Click(object sender, EventArgs e)
+      {
+         if (VideoSelectModes.mainCamera == this.videoSelectMode)
+         {
+            this.videoSelectMode = VideoSelectModes.none;
+         }
+         else
+         {
+            this.videoSelectMode = VideoSelectModes.mainCamera;
+         }
+
+         this.UpdateCameraHoldEnable();
+         this.UpdateVideoSelectorColor();
+      }
+
+      private void AuxiliaryMonitorSelectButton_Click(object sender, EventArgs e)
+      {
+         if (VideoSelectModes.auxiliaryCamera == this.videoSelectMode)
+         {
+            this.videoSelectMode = VideoSelectModes.none;
+         }
+         else
+         {
+            this.videoSelectMode = VideoSelectModes.auxiliaryCamera;
+         }
+
+         this.UpdateCameraHoldEnable();
+         this.UpdateVideoSelectorColor();
+      }
+
+      private void CameraButton_MouseClick(object sender, MouseEventArgs e)
+      {
+         Controls.CameraSelectButton button = (Controls.CameraSelectButton)sender;
+
+         if (VideoSelectModes.light == this.videoSelectMode)
+         {
+            button.CenterVisible = !button.CenterVisible;
+
+            if (false != button.CenterVisible)
+            {
+               //DeviceCommunication.Instance.SetCameraLight(true, button.Camera);
+            }
+            else
+            {
+               //DeviceCommunication.Instance.SetCameraLight(false, button.Camera);
+            }
+         }
+         else if (VideoSelectModes.mainCamera == this.videoSelectMode)
+         {
+            //this.AssignMainCamera(button);
+         }
+         else if (VideoSelectModes.auxiliaryCamera == this.videoSelectMode)
+         {
+            //this.AssignAuxiliaryCamera(button);
+         }
+      }
+
+      private void CameraButton_HoldTimeout(object sender, Controls.HoldTimeoutEventArgs e)
+      {
+         Controls.CameraSelectButton button = (Controls.CameraSelectButton)sender;
+
+         if (VideoSelectModes.light == this.videoSelectMode)
+         {
+            ValueParameter value = null; // ParameterAccessor.Instance.GetCameraLight(button.Camera);
+
+            if (null != value)
+            {
+               if (false == button.CenterVisible)
+               {
+                  button.CenterVisible = true;
+//                  DeviceCommunication.Instance.SetCameraLight(true, button.Camera);
+               }
+
+               LightIntensitySelectForm intensityForm = new LightIntensitySelectForm();
+               this.SetDialogLocation(button, intensityForm);
+               intensityForm.LocationText = button.Text;
+               intensityForm.IntensityValue = value;
+               intensityForm.Camera = button.Camera;
+               this.DimBackground();
+               intensityForm.ShowDialog();
+               this.LightBackground();
+
+               button.CenterLevel = (int)intensityForm.IntensityValue.OperationalValue; // assign all within set the same level
+            }
+         }
+
+         e.Handled = true;
+      }
+
+      #endregion
+
       #region System User Actions
 
       private void StopAllButton_Click(object sender, EventArgs e)
@@ -1673,7 +1872,15 @@
          Trace.Listeners.Add(this.traceListener);
 
          Tracer.MaskString = "FFFFFFFF";
-      
+
+         this.cameraButtons = new Controls.CameraSelectButton[6];
+         this.cameraButtons[0] = this.LaserFrontCameraSelectButton;
+         this.cameraButtons[1] = this.LaserRearCameraSelectButton;
+         this.cameraButtons[2] = this.LaserTopCameraSelectButton;
+         this.cameraButtons[3] = this.TargetFrontCameraSelectButton;
+         this.cameraButtons[4] = this.TargetRearCameraSelectButton;
+         this.cameraButtons[5] = this.TargetTopCameraSelectButton;
+
          this.dimmerForm = new PopupDimmerForm();
          this.dimmerForm.Opacity = 0.65;
          this.dimmerForm.ShowInTaskbar = false;

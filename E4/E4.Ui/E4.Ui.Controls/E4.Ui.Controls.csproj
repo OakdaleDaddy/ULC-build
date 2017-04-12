@@ -67,6 +67,9 @@
     <Compile Include="PositionIndicator.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="ProgressBarValueDisplay.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RotatableLabel.cs">
       <SubType>Component</SubType>

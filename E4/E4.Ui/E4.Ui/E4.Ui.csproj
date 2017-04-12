@@ -77,6 +77,12 @@
       <DependentUpon>LaserSetupForm.cs</DependentUpon>
     </Compile>
     <Compile Include="LaserCommunicationBus.cs" />
+    <Compile Include="LightIntensitySelectForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LightIntensitySelectForm.Designer.cs">
+      <DependentUpon>LightIntensitySelectForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -142,6 +148,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="LaserSetupForm.resx">
       <DependentUpon>LaserSetupForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LightIntensitySelectForm.resx">
+      <DependentUpon>LightIntensitySelectForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

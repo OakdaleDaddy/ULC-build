@@ -290,6 +290,11 @@
          return (LaserCommunicationBus.Instance.GetLaserWheelPositionValue(location));
       }
 
+      public double GetLaserLinkVoltage()
+      {
+         return (LaserCommunicationBus.Instance.GetLaserLinkVoltage());
+      }
+
       #endregion
 
       #region Laser Stepper Functions
@@ -402,7 +407,12 @@
       {
          return (TargetCommunicationBus.Instance.GetTargetWheelPositionValue(location));
       }
-
+      
+      public double GetTargetLinkVoltage()
+      {
+         return (TargetCommunicationBus.Instance.GetTargetLinkVoltage());
+      }
+      
       #endregion
 
       #region Target Stepper Functions

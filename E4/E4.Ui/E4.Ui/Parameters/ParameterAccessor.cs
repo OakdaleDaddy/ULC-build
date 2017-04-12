@@ -36,6 +36,7 @@
       public ValueParameter LaserWheelManualWheelSpeed;
       public double LaserWheelDistanceToTicks;
       public double LaserWheelVelocityToRpm;
+      public double LaserLinkVoltageMultipler;
 
       public WheelMotorParameters TargetFrontWheel;
       public WheelMotorParameters TargetRearWheel;
@@ -46,6 +47,7 @@
       public ValueParameter TargetWheelManualWheelSpeed;
       public double TargetWheelDistanceToTicks;
       public double TargetWheelVelocityToRpm;
+      public double TargetLinkVoltageMultipler;
 
       public ValueParameter LaserSampleTime;
       public ValueParameter LaserSampleCount;
@@ -83,7 +85,7 @@
 
       private void AssignDefaults()
       {
-         this.VersionCount = 13; // update after each addition
+         this.VersionCount = 14; // update after each addition
 
          this.LaserBus = new LaserBusParameters();
          this.LaserBus.BusInterface = BusInterfaces.PCIA;
@@ -161,6 +163,7 @@
          this.LaserWheelManualWheelSpeed = new ValueParameter("LaserWheelManualWheelSpeed", "m/MIN", 2, 0, 10, 0.1, 2, 2);
          this.LaserWheelDistanceToTicks = 1;
          this.LaserWheelVelocityToRpm = 100;
+         this.LaserLinkVoltageMultipler = 0.5;
 
 
          this.TargetFrontWheel = new WheelMotorParameters();
@@ -199,6 +202,7 @@
          this.TargetWheelManualWheelSpeed = new ValueParameter("TargetWheelManualWheelSpeed", "m/MIN", 2, 0, 10, 0.1, 2, 2);
          this.TargetWheelDistanceToTicks = 1;
          this.TargetWheelVelocityToRpm = 100;
+         this.TargetWheelVelocityToRpm = 0.5;
 
 
          this.LaserSampleTime = new ValueParameter("LaserSampleTime", "s", 2, 0.15, 3.75, 0.15, 0.9, 0.9);
@@ -895,6 +899,10 @@
                      {
                         this.LaserWheelVelocityToRpm = this.ReadDouble(reader);
                      }
+                     else if ("LaserLinkVoltageMultipler" == reader.Name)
+                     {
+                        this.LaserLinkVoltageMultipler = this.ReadDouble(reader);
+                     }                        
                      else if ("TargetWheelDistanceToTicks" == reader.Name)
                      {
                         this.TargetWheelDistanceToTicks = this.ReadDouble(reader);
@@ -902,6 +910,10 @@
                      else if ("TargetWheelVelocityToRpm" == reader.Name)
                      {
                         this.TargetWheelVelocityToRpm = this.ReadDouble(reader);
+                     }
+                     else if ("TargetLinkVoltageMultipler" == reader.Name)
+                     {
+                        this.TargetLinkVoltageMultipler = this.ReadDouble(reader);
                      }
                      else if ("Value" == reader.Name)
                      {
@@ -1196,6 +1208,7 @@
             this.WriteValueParameters(writer, this.LaserWheelManualWheelSpeed);
             this.WriteElement(writer, "LaserWheelDistanceToTicks", this.LaserWheelDistanceToTicks);
             this.WriteElement(writer, "LaserWheelVelocityToRpm", this.LaserWheelVelocityToRpm);
+            this.WriteElement(writer, "LaserLinkVoltageMultipler", this.LaserLinkVoltageMultipler);            
 
             this.WriteWheelMotorParameters(writer, this.TargetFrontWheel);
             this.WriteWheelMotorParameters(writer, this.TargetRearWheel);
@@ -1206,6 +1219,7 @@
             this.WriteValueParameters(writer, this.TargetWheelManualWheelSpeed);
             this.WriteElement(writer, "TargetWheelDistanceToTicks", this.TargetWheelDistanceToTicks);
             this.WriteElement(writer, "TargetWheelVelocityToRpm", this.TargetWheelVelocityToRpm);
+            this.WriteElement(writer, "TargetLinkVoltageMultipler", this.TargetLinkVoltageMultipler);            
 
             this.WriteValueParameters(writer, this.LaserSampleTime);
             this.WriteValueParameters(writer, this.LaserSampleCount);
