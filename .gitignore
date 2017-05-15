@@ -85,3 +85,13 @@ E4/E4.Ui/E4.Utilities/obj
 /AssemblyVersion/AssemblyVersion/obj/
 /AssemblyVersion/AssemblyVersion.v11.suo
 
+CanDemo/CanDemo.CAN/bin
+CanDemo/CanDemo.CAN/obj
+CanDemo/CanDemo.DeviceTest/bin
+CanDemo/CanDemo.DeviceTest/obj
+CanDemo/CanDemo.PCANLight/bin
+CanDemo/CanDemo.PCANLight/obj
+CanDemo/CanDemo.Utilities/bin
+CanDemo/CanDemo.Utilities/obj
+
+
