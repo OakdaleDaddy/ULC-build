@@ -498,6 +498,90 @@
 
       #endregion
 
+      #region Lights and Camera
+
+      public void SetCameraLightLevel(Controls.CameraLocations camera, int level)
+      {
+         if ((Controls.CameraLocations.laserFront == camera) ||
+             (Controls.CameraLocations.laserRear == camera))
+         {
+            LaserCommunicationBus.Instance.SetCameraLightLevel(camera, level);
+         }
+         else
+         {
+            TargetCommunicationBus.Instance.SetCameraLightLevel(camera, level);
+         }
+      }
+
+      public int GetCameraLightLevel(Controls.CameraLocations camera)
+      {
+         int result = 0;
+
+         if ((Controls.CameraLocations.laserFront == camera) ||
+             (Controls.CameraLocations.laserRear == camera))
+         {
+            result = LaserCommunicationBus.Instance.GetCameraLightLevel(camera);
+         }
+         else
+         {
+            result = TargetCommunicationBus.Instance.GetCameraLightLevel(camera);
+         }
+
+         return (result);
+      }
+
+      public void SetCameraLightEnable(Controls.CameraLocations camera, bool enabled)
+      {
+         if ((Controls.CameraLocations.laserFront == camera) ||
+             (Controls.CameraLocations.laserRear == camera))
+         {
+            LaserCommunicationBus.Instance.SetCameraLightEnable(camera, enabled);
+         }
+         else
+         {
+            TargetCommunicationBus.Instance.SetCameraLightEnable(camera, enabled);
+         }
+      }
+
+      public bool GetCameraLightEnable(Controls.CameraLocations camera)
+      {
+         bool result = false;
+
+         if ((Controls.CameraLocations.laserFront == camera) ||
+             (Controls.CameraLocations.laserRear == camera))
+         {
+            result = LaserCommunicationBus.Instance.GetCameraLightEnable(camera);
+         }
+         else
+         {
+            result = TargetCommunicationBus.Instance.GetCameraLightEnable(camera);
+         }
+
+         return (result);
+      }
+
+      public void SetLaserCamera(Controls.CameraLocations camera)
+      {
+         LaserCommunicationBus.Instance.SetLaserCamera(camera);
+      }
+
+      public Controls.CameraLocations GetLaserCamera()
+      {
+         return (LaserCommunicationBus.Instance.GetLaserCamera());
+      }
+
+      public void SetTargetCamera(Controls.CameraLocations camera)
+      {
+         TargetCommunicationBus.Instance.SetTargetCamera(camera);
+      }
+
+      public Controls.CameraLocations GetTargetCamera()
+      {
+         return (TargetCommunicationBus.Instance.GetTargetCamera());
+      }
+
+      #endregion
+
       #endregion
    }
 }

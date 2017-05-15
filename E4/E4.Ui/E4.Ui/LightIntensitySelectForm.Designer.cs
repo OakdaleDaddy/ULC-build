@@ -28,13 +28,15 @@
       /// </summary>
       private void InitializeComponent()
       {
+         this.components = new System.ComponentModel.Container();
          this.BackButton = new E4.Ui.Controls.E4Button();
          this.MainPanel = new E4.Ui.Controls.BorderedPanel();
-         this.progressBarValueDisplay1 = new E4.Ui.Controls.ProgressBarValueDisplay();
+         this.IntensityProgressBar = new E4.Ui.Controls.ProgressBarValueDisplay();
          this.LocationLabel = new System.Windows.Forms.Label();
          this.TitleLabel = new System.Windows.Forms.Label();
-         this.LaserLeftButton = new E4.Ui.Controls.LeftRightButton();
-         this.LaserRightButton = new E4.Ui.Controls.LeftRightButton();
+         this.DecreaseButton = new E4.Ui.Controls.LeftRightButton();
+         this.IncreaseButton = new E4.Ui.Controls.LeftRightButton();
+         this.HoldTimer = new System.Windows.Forms.Timer(this.components);
          this.MainPanel.SuspendLayout();
          this.SuspendLayout();
          // 
@@ -51,15 +53,16 @@
          this.BackButton.TabIndex = 6;
          this.BackButton.Text = "BACK";
          this.BackButton.UseVisualStyleBackColor = false;
+         this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
          // 
          // MainPanel
          // 
          this.MainPanel.BackColor = System.Drawing.Color.Teal;
-         this.MainPanel.Controls.Add(this.progressBarValueDisplay1);
+         this.MainPanel.Controls.Add(this.IntensityProgressBar);
          this.MainPanel.Controls.Add(this.LocationLabel);
          this.MainPanel.Controls.Add(this.TitleLabel);
-         this.MainPanel.Controls.Add(this.LaserLeftButton);
-         this.MainPanel.Controls.Add(this.LaserRightButton);
+         this.MainPanel.Controls.Add(this.DecreaseButton);
+         this.MainPanel.Controls.Add(this.IncreaseButton);
          this.MainPanel.Controls.Add(this.BackButton);
          this.MainPanel.EdgeWeight = 3;
          this.MainPanel.Location = new System.Drawing.Point(0, 0);
@@ -67,21 +70,24 @@
          this.MainPanel.Size = new System.Drawing.Size(250, 305);
          this.MainPanel.TabIndex = 7;
          // 
-         // progressBarValueDisplay1
+         // IntensityProgressBar
          // 
-         this.progressBarValueDisplay1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.progressBarValueDisplay1.BarColor = System.Drawing.Color.Yellow;
-         this.progressBarValueDisplay1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold);
-         this.progressBarValueDisplay1.Location = new System.Drawing.Point(16, 86);
-         this.progressBarValueDisplay1.Maximum = 100;
-         this.progressBarValueDisplay1.Minimum = 0;
-         this.progressBarValueDisplay1.Name = "progressBarValueDisplay1";
-         this.progressBarValueDisplay1.Size = new System.Drawing.Size(218, 35);
-         this.progressBarValueDisplay1.TabIndex = 136;
-         this.progressBarValueDisplay1.Text = "progressBarValueDisplay1";
-         this.progressBarValueDisplay1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         this.progressBarValueDisplay1.TextColor = System.Drawing.Color.Black;
-         this.progressBarValueDisplay1.Value = 50;
+         this.IntensityProgressBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.IntensityProgressBar.BarColor = System.Drawing.Color.Yellow;
+         this.IntensityProgressBar.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold);
+         this.IntensityProgressBar.Location = new System.Drawing.Point(16, 86);
+         this.IntensityProgressBar.Maximum = 100;
+         this.IntensityProgressBar.Minimum = 0;
+         this.IntensityProgressBar.Name = "IntensityProgressBar";
+         this.IntensityProgressBar.Size = new System.Drawing.Size(218, 35);
+         this.IntensityProgressBar.TabIndex = 136;
+         this.IntensityProgressBar.Text = "progressBarValueDisplay1";
+         this.IntensityProgressBar.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         this.IntensityProgressBar.TextColor = System.Drawing.Color.Black;
+         this.IntensityProgressBar.Value = 50;
+         this.IntensityProgressBar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.IntensityProgressBar_MouseDown);
+         this.IntensityProgressBar.MouseLeave += new System.EventHandler(this.IntensityProgressBar_MouseLeave);
+         this.IntensityProgressBar.MouseUp += new System.Windows.Forms.MouseEventHandler(this.IntensityProgressBar_MouseUp);
          // 
          // LocationLabel
          // 
@@ -106,58 +112,69 @@
          this.TitleLabel.TabIndex = 134;
          this.TitleLabel.Text = "LIGHT ADJUST";
          this.TitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         this.TitleLabel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TitleLabel_MouseDown);
+         this.TitleLabel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TitleLabel_MouseMove);
+         this.TitleLabel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TitleLabel_MouseUp);
          // 
-         // LaserLeftButton
+         // DecreaseButton
          // 
-         this.LaserLeftButton.ArrowColor = System.Drawing.Color.Black;
-         this.LaserLeftButton.ArrowHighlightColor = System.Drawing.Color.DarkGray;
-         this.LaserLeftButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.LaserLeftButton.DisabledArrowColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-         this.LaserLeftButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
-         this.LaserLeftButton.DisabledForeColor = System.Drawing.Color.Silver;
-         this.LaserLeftButton.EdgeSpace = 8;
-         this.LaserLeftButton.HighLightOffset = 7;
-         this.LaserLeftButton.HighlightVisible = true;
-         this.LaserLeftButton.HighLightWeight = 2;
-         this.LaserLeftButton.HoldArrorColor = System.Drawing.Color.Gray;
-         this.LaserLeftButton.HoldRepeat = false;
-         this.LaserLeftButton.HoldRepeatInterval = 0;
-         this.LaserLeftButton.HoldTimeoutInterval = 0;
-         this.LaserLeftButton.LeftRight = true;
-         this.LaserLeftButton.Location = new System.Drawing.Point(48, 137);
-         this.LaserLeftButton.Name = "LaserLeftButton";
-         this.LaserLeftButton.Size = new System.Drawing.Size(69, 69);
-         this.LaserLeftButton.TabIndex = 18;
-         this.LaserLeftButton.Text = "leftRightButton2";
-         this.LaserLeftButton.TextOffset = 0;
-         this.LaserLeftButton.TextVisible = false;
-         this.LaserLeftButton.UseVisualStyleBackColor = false;
+         this.DecreaseButton.ArrowColor = System.Drawing.Color.Black;
+         this.DecreaseButton.ArrowHighlightColor = System.Drawing.Color.DarkGray;
+         this.DecreaseButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.DecreaseButton.DisabledArrowColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+         this.DecreaseButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
+         this.DecreaseButton.DisabledForeColor = System.Drawing.Color.Silver;
+         this.DecreaseButton.EdgeSpace = 8;
+         this.DecreaseButton.HighLightOffset = 7;
+         this.DecreaseButton.HighlightVisible = true;
+         this.DecreaseButton.HighLightWeight = 2;
+         this.DecreaseButton.HoldArrorColor = System.Drawing.Color.Gray;
+         this.DecreaseButton.HoldRepeat = true;
+         this.DecreaseButton.HoldRepeatInterval = 100;
+         this.DecreaseButton.HoldTimeoutInterval = 500;
+         this.DecreaseButton.LeftRight = true;
+         this.DecreaseButton.Location = new System.Drawing.Point(48, 137);
+         this.DecreaseButton.Name = "DecreaseButton";
+         this.DecreaseButton.Size = new System.Drawing.Size(69, 69);
+         this.DecreaseButton.TabIndex = 18;
+         this.DecreaseButton.Text = "leftRightButton2";
+         this.DecreaseButton.TextOffset = 0;
+         this.DecreaseButton.TextVisible = false;
+         this.DecreaseButton.UseVisualStyleBackColor = false;
+         this.DecreaseButton.HoldTimeout += new E4.Ui.Controls.LeftRightButton.HoldTimeoutHandler(this.DecreaseButton_HoldTimeout);
+         this.DecreaseButton.Click += new System.EventHandler(this.DecreaseButton_Click);
          // 
-         // LaserRightButton
+         // IncreaseButton
          // 
-         this.LaserRightButton.ArrowColor = System.Drawing.Color.Black;
-         this.LaserRightButton.ArrowHighlightColor = System.Drawing.Color.DarkGray;
-         this.LaserRightButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.LaserRightButton.DisabledArrowColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-         this.LaserRightButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
-         this.LaserRightButton.DisabledForeColor = System.Drawing.Color.Silver;
-         this.LaserRightButton.EdgeSpace = 8;
-         this.LaserRightButton.HighLightOffset = 7;
-         this.LaserRightButton.HighlightVisible = true;
-         this.LaserRightButton.HighLightWeight = 2;
-         this.LaserRightButton.HoldArrorColor = System.Drawing.Color.Gray;
-         this.LaserRightButton.HoldRepeat = false;
-         this.LaserRightButton.HoldRepeatInterval = 0;
-         this.LaserRightButton.HoldTimeoutInterval = 0;
-         this.LaserRightButton.LeftRight = false;
-         this.LaserRightButton.Location = new System.Drawing.Point(133, 137);
-         this.LaserRightButton.Name = "LaserRightButton";
-         this.LaserRightButton.Size = new System.Drawing.Size(69, 69);
-         this.LaserRightButton.TabIndex = 19;
-         this.LaserRightButton.Text = "leftRightButton3";
-         this.LaserRightButton.TextOffset = 0;
-         this.LaserRightButton.TextVisible = false;
-         this.LaserRightButton.UseVisualStyleBackColor = false;
+         this.IncreaseButton.ArrowColor = System.Drawing.Color.Black;
+         this.IncreaseButton.ArrowHighlightColor = System.Drawing.Color.DarkGray;
+         this.IncreaseButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.IncreaseButton.DisabledArrowColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+         this.IncreaseButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
+         this.IncreaseButton.DisabledForeColor = System.Drawing.Color.Silver;
+         this.IncreaseButton.EdgeSpace = 8;
+         this.IncreaseButton.HighLightOffset = 7;
+         this.IncreaseButton.HighlightVisible = true;
+         this.IncreaseButton.HighLightWeight = 2;
+         this.IncreaseButton.HoldArrorColor = System.Drawing.Color.Gray;
+         this.IncreaseButton.HoldRepeat = true;
+         this.IncreaseButton.HoldRepeatInterval = 100;
+         this.IncreaseButton.HoldTimeoutInterval = 500;
+         this.IncreaseButton.LeftRight = false;
+         this.IncreaseButton.Location = new System.Drawing.Point(133, 137);
+         this.IncreaseButton.Name = "IncreaseButton";
+         this.IncreaseButton.Size = new System.Drawing.Size(69, 69);
+         this.IncreaseButton.TabIndex = 19;
+         this.IncreaseButton.Text = "leftRightButton3";
+         this.IncreaseButton.TextOffset = 0;
+         this.IncreaseButton.TextVisible = false;
+         this.IncreaseButton.UseVisualStyleBackColor = false;
+         this.IncreaseButton.HoldTimeout += new E4.Ui.Controls.LeftRightButton.HoldTimeoutHandler(this.IncreaseButton_HoldTimeout);
+         this.IncreaseButton.Click += new System.EventHandler(this.IncreaseButton_Click);
+         // 
+         // HoldTimer
+         // 
+         this.HoldTimer.Tick += new System.EventHandler(this.HoldTimer_Tick);
          // 
          // LightIntensitySelectForm
          // 
@@ -169,6 +186,7 @@
          this.Name = "LightIntensitySelectForm";
          this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
          this.Text = "LightIntensitySelectForm";
+         this.Shown += new System.EventHandler(this.LightIntensitySelectForm_Shown);
          this.MainPanel.ResumeLayout(false);
          this.ResumeLayout(false);
 
@@ -178,10 +196,11 @@
 
       private Controls.E4Button BackButton;
       private Controls.BorderedPanel MainPanel;
-      private Controls.LeftRightButton LaserLeftButton;
-      private Controls.LeftRightButton LaserRightButton;
+      private Controls.LeftRightButton DecreaseButton;
+      private Controls.LeftRightButton IncreaseButton;
       private System.Windows.Forms.Label LocationLabel;
       private System.Windows.Forms.Label TitleLabel;
-      private Controls.ProgressBarValueDisplay progressBarValueDisplay1;
+      private Controls.ProgressBarValueDisplay IntensityProgressBar;
+      private System.Windows.Forms.Timer HoldTimer;
    }
 }

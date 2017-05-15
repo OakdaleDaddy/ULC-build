@@ -1150,7 +1150,12 @@ namespace E4.BusSim
                this.LaserTemperature = 0;
                this.LaserScannerPosition = 0;
                this.LaserScannerTemperature = 0;
-               
+
+               this.CameraSelect = 0;
+               this.CameraLedDefaultIntensity = 15;
+               this.CameraLedIntensity = 15;
+               this.CameraLedChannelMask = 0;
+
                this.Outputs = 0;
                this.McuTemperature = 23;
             }
@@ -1172,11 +1177,6 @@ namespace E4.BusSim
             {
                this.tpdoMapping[i].Reset(i, this.nodeId);
             }
-
-            this.CameraSelect = 0;
-            this.CameraLedDefaultIntensity = 858993459;
-            this.CameraLedIntensity = 3355443;
-            this.CameraLedChannelMask = 0;
 
             this.MainBoardImuConfiguration = 0;
             this.MainBoardImuAxisRemap = 0x24;

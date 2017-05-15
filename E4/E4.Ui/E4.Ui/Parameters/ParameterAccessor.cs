@@ -37,6 +37,7 @@
       public double LaserWheelDistanceToTicks;
       public double LaserWheelVelocityToRpm;
       public double LaserLinkVoltageMultipler;
+      public double LaserLightPercentToCount;
 
       public WheelMotorParameters TargetFrontWheel;
       public WheelMotorParameters TargetRearWheel;
@@ -48,10 +49,12 @@
       public double TargetWheelDistanceToTicks;
       public double TargetWheelVelocityToRpm;
       public double TargetLinkVoltageMultipler;
+      public double TargetLightPercentToCount;
 
       public ValueParameter LaserSampleTime;
       public ValueParameter LaserSampleCount;
       public ValueParameter LaserMeasurementConstant;
+
 
       public OsdParameters Osd;
 
@@ -85,7 +88,7 @@
 
       private void AssignDefaults()
       {
-         this.VersionCount = 14; // update after each addition
+         this.VersionCount = 15; // update after each addition
 
          this.LaserBus = new LaserBusParameters();
          this.LaserBus.BusInterface = BusInterfaces.PCIA;
@@ -164,6 +167,7 @@
          this.LaserWheelDistanceToTicks = 1;
          this.LaserWheelVelocityToRpm = 100;
          this.LaserLinkVoltageMultipler = 0.5;
+         this.LaserLightPercentToCount = 1;
 
 
          this.TargetFrontWheel = new WheelMotorParameters();
@@ -202,7 +206,8 @@
          this.TargetWheelManualWheelSpeed = new ValueParameter("TargetWheelManualWheelSpeed", "m/MIN", 2, 0, 10, 0.1, 2, 2);
          this.TargetWheelDistanceToTicks = 1;
          this.TargetWheelVelocityToRpm = 100;
-         this.TargetWheelVelocityToRpm = 0.5;
+         this.TargetLinkVoltageMultipler = 0.5;
+         this.TargetLightPercentToCount = 1;
 
 
          this.LaserSampleTime = new ValueParameter("LaserSampleTime", "s", 2, 0.15, 3.75, 0.15, 0.9, 0.9);
@@ -902,6 +907,10 @@
                      else if ("LaserLinkVoltageMultipler" == reader.Name)
                      {
                         this.LaserLinkVoltageMultipler = this.ReadDouble(reader);
+                     }
+                     else if ("LaserLightPercentToCount" == reader.Name)
+                     {
+                        this.LaserLightPercentToCount = this.ReadDouble(reader);
                      }                        
                      else if ("TargetWheelDistanceToTicks" == reader.Name)
                      {
@@ -914,6 +923,10 @@
                      else if ("TargetLinkVoltageMultipler" == reader.Name)
                      {
                         this.TargetLinkVoltageMultipler = this.ReadDouble(reader);
+                     }
+                     else if ("TargetLightPercentToCount" == reader.Name)
+                     {
+                        this.TargetLightPercentToCount = this.ReadDouble(reader);
                      }
                      else if ("Value" == reader.Name)
                      {
@@ -1208,7 +1221,8 @@
             this.WriteValueParameters(writer, this.LaserWheelManualWheelSpeed);
             this.WriteElement(writer, "LaserWheelDistanceToTicks", this.LaserWheelDistanceToTicks);
             this.WriteElement(writer, "LaserWheelVelocityToRpm", this.LaserWheelVelocityToRpm);
-            this.WriteElement(writer, "LaserLinkVoltageMultipler", this.LaserLinkVoltageMultipler);            
+            this.WriteElement(writer, "LaserLinkVoltageMultipler", this.LaserLinkVoltageMultipler);
+            this.WriteElement(writer, "LaserLightPercentToCount", this.LaserLightPercentToCount);                   
 
             this.WriteWheelMotorParameters(writer, this.TargetFrontWheel);
             this.WriteWheelMotorParameters(writer, this.TargetRearWheel);
@@ -1219,7 +1233,8 @@
             this.WriteValueParameters(writer, this.TargetWheelManualWheelSpeed);
             this.WriteElement(writer, "TargetWheelDistanceToTicks", this.TargetWheelDistanceToTicks);
             this.WriteElement(writer, "TargetWheelVelocityToRpm", this.TargetWheelVelocityToRpm);
-            this.WriteElement(writer, "TargetLinkVoltageMultipler", this.TargetLinkVoltageMultipler);            
+            this.WriteElement(writer, "TargetLinkVoltageMultipler", this.TargetLinkVoltageMultipler);
+            this.WriteElement(writer, "TargetLightPercentToCount", this.TargetLightPercentToCount);            
 
             this.WriteValueParameters(writer, this.LaserSampleTime);
             this.WriteValueParameters(writer, this.LaserSampleCount);

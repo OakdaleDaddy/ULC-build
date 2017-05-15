@@ -32,8 +32,8 @@ namespace E4.Ui
       {
          none,
          light,
-         mainCamera,
-         auxiliaryCamera,
+         laserCamera,
+         targetCamera,
       }
 
       #endregion
@@ -69,8 +69,8 @@ namespace E4.Ui
       private int targetRequestedChange;
 
       private VideoSelectModes videoSelectMode;
-      private Controls.CameraSelectButton selectedMainCameraButton;
-      private Controls.CameraSelectButton selectedAuxiliaryCameraButton;
+      private Controls.CameraSelectButton selectedLaserCameraButton;
+      private Controls.CameraSelectButton selectedTargetCameraButton;
       private Controls.CameraSelectButton[] cameraButtons;
 
       private PopupDimmerForm dimmerForm;
@@ -377,9 +377,22 @@ namespace E4.Ui
             {
                selectEnabled = false;
             }
-            else if ((VideoSelectModes.mainCamera == this.videoSelectMode) ||
-                     (VideoSelectModes.auxiliaryCamera == this.videoSelectMode))
+            else if (VideoSelectModes.laserCamera == this.videoSelectMode)
             {
+               if ((Ui.Controls.CameraLocations.laserFront != this.cameraButtons[i].Camera) &&
+                   (Ui.Controls.CameraLocations.laserRear != this.cameraButtons[i].Camera))
+               {
+                  selectEnabled = false;
+               }
+            }
+            else if (VideoSelectModes.targetCamera == this.videoSelectMode)
+            {
+               if ((Ui.Controls.CameraLocations.targetFront != this.cameraButtons[i].Camera) &&
+                   (Ui.Controls.CameraLocations.targetRear!= this.cameraButtons[i].Camera) &&
+                   (Ui.Controls.CameraLocations.targetTop != this.cameraButtons[i].Camera))
+               {
+                  selectEnabled = false;
+               }
             }
 
             this.cameraButtons[i].Enabled = selectEnabled;
@@ -393,26 +406,86 @@ namespace E4.Ui
          if (VideoSelectModes.light == this.videoSelectMode)
          {
             this.LightSelectButton.BackColor = Color.Lime;
-            this.MainMonitorSelectButton.BackColor = Color.FromArgb(171, 171, 171);
-            this.AuxiliaryMonitorSelectButton.BackColor = Color.FromArgb(171, 171, 171);
+            this.LaserMonitorSelectButton.BackColor = Color.FromArgb(171, 171, 171);
+            this.TargetMonitorSelectButton.BackColor = Color.FromArgb(171, 171, 171);
          }
-         else if (VideoSelectModes.mainCamera == this.videoSelectMode)
+         else if (VideoSelectModes.laserCamera == this.videoSelectMode)
          {
             this.LightSelectButton.BackColor = Color.FromArgb(171, 171, 171);
-            this.MainMonitorSelectButton.BackColor = Color.Lime;
-            this.AuxiliaryMonitorSelectButton.BackColor = Color.FromArgb(171, 171, 171);
+            this.LaserMonitorSelectButton.BackColor = Color.Lime;
+            this.TargetMonitorSelectButton.BackColor = Color.FromArgb(171, 171, 171);
          }
-         else if (VideoSelectModes.auxiliaryCamera == this.videoSelectMode)
+         else if (VideoSelectModes.targetCamera == this.videoSelectMode)
          {
             this.LightSelectButton.BackColor = Color.FromArgb(171, 171, 171);
-            this.MainMonitorSelectButton.BackColor = Color.FromArgb(171, 171, 171);
-            this.AuxiliaryMonitorSelectButton.BackColor = Color.Lime;
+            this.LaserMonitorSelectButton.BackColor = Color.FromArgb(171, 171, 171);
+            this.TargetMonitorSelectButton.BackColor = Color.Lime;
          }
          else
          {
             this.LightSelectButton.BackColor = Color.FromArgb(171, 171, 171);
-            this.MainMonitorSelectButton.BackColor = Color.FromArgb(171, 171, 171);
-            this.AuxiliaryMonitorSelectButton.BackColor = Color.FromArgb(171, 171, 171);
+            this.LaserMonitorSelectButton.BackColor = Color.FromArgb(171, 171, 171);
+            this.TargetMonitorSelectButton.BackColor = Color.FromArgb(171, 171, 171);
+         }
+      }
+
+      private void AssignLaserCamera(Controls.CameraSelectButton selected)
+      {
+         Controls.CameraLocations previousCamera = DeviceCommunication.Instance.GetLaserCamera();
+
+         if (selected != this.selectedLaserCameraButton)
+         {
+            if (null != this.selectedLaserCameraButton)
+            {
+               this.selectedLaserCameraButton.LeftVisible = false;
+
+               if (false == this.selectedLaserCameraButton.CenterVisibleIndependent)
+               {
+                  DeviceCommunication.Instance.SetCameraLightEnable(previousCamera, false);
+                  this.selectedLaserCameraButton.CenterVisible = false;
+               }
+            }
+
+            Tracer.WriteHigh(TraceGroup.UI, "", "laser camera {0}", selected.Camera.ToString());
+            DeviceCommunication.Instance.SetLaserCamera(selected.Camera);
+            DeviceCommunication.Instance.SetCameraLightEnable(selected.Camera, true);
+            //VideoStampOsd.Instance.SetCameraIdText(1, selected.Text);
+
+            selected.LeftVisible = true;
+            selected.CenterVisible = true;
+            this.selectedLaserCameraButton = selected;
+
+            //this.CheckLightAssignments(selected.Camera);
+         }
+      }
+
+      private void AssignTargetCamera(Controls.CameraSelectButton selected)
+      {
+         Controls.CameraLocations previousCamera = DeviceCommunication.Instance.GetTargetCamera();
+
+         if (selected != this.selectedTargetCameraButton)
+         {
+            if (null != this.selectedTargetCameraButton)
+            {
+               this.selectedTargetCameraButton.RightVisible = false;
+
+               if (false == this.selectedTargetCameraButton.CenterVisibleIndependent)
+               {
+                  DeviceCommunication.Instance.SetCameraLightEnable(previousCamera, false);
+                  this.selectedTargetCameraButton.CenterVisible = false;
+               }
+            }
+
+            Tracer.WriteHigh(TraceGroup.UI, "", "target camera {0}", selected.Camera.ToString());
+            DeviceCommunication.Instance.SetTargetCamera(selected.Camera);
+            DeviceCommunication.Instance.SetCameraLightEnable(selected.Camera, true);
+            //VideoStampOsd.Instance.SetCameraIdText(2, selected.Text);
+
+            selected.RightVisible = true;
+            selected.CenterVisible = true;
+            this.selectedTargetCameraButton = selected;
+
+            //this.CheckLightAssignments(selected.Camera);
          }
       }
 
@@ -450,6 +523,8 @@ namespace E4.Ui
          this.targetRequestedChange = 0;
 
          this.videoSelectMode = VideoSelectModes.none;
+         this.selectedLaserCameraButton = null;
+         this.selectedTargetCameraButton = null;
 
 
          // set next state
@@ -607,6 +682,27 @@ namespace E4.Ui
          else if (false != DeviceCommunication.Instance.Ready)
          {
             // initialize based on hardware
+
+            Controls.CameraLocations laserCameraLocation = DeviceCommunication.Instance.GetLaserCamera();
+            Controls.CameraLocations targetCameraLocation = DeviceCommunication.Instance.GetTargetCamera();
+
+            for (int i = 0; i < this.cameraButtons.Length; i++)
+            {
+               if (laserCameraLocation == this.cameraButtons[i].Camera)
+               {
+                  this.AssignLaserCamera(this.cameraButtons[i]);
+               }
+
+               if (targetCameraLocation == this.cameraButtons[i].Camera)
+               {
+                  this.AssignTargetCamera(this.cameraButtons[i]);
+               }
+
+               this.cameraButtons[i].CenterLevel = DeviceCommunication.Instance.GetCameraLightLevel(this.cameraButtons[i].Camera);
+
+               bool lightEnabled = DeviceCommunication.Instance.GetCameraLightEnable(this.cameraButtons[i].Camera);
+               this.cameraButtons[i].CenterVisible = lightEnabled;
+            }
 
             this.LaserUpdateMovementControls();
             this.TargetUpdateMovementControls();
@@ -1687,30 +1783,30 @@ namespace E4.Ui
          this.UpdateVideoSelectorColor();
       }
 
-      private void MainMonitorSelectButton_Click(object sender, EventArgs e)
+      private void LaserMonitorSelectButton_Click(object sender, EventArgs e)
       {
-         if (VideoSelectModes.mainCamera == this.videoSelectMode)
+         if (VideoSelectModes.laserCamera == this.videoSelectMode)
          {
             this.videoSelectMode = VideoSelectModes.none;
          }
          else
          {
-            this.videoSelectMode = VideoSelectModes.mainCamera;
+            this.videoSelectMode = VideoSelectModes.laserCamera;
          }
 
          this.UpdateCameraHoldEnable();
          this.UpdateVideoSelectorColor();
       }
 
-      private void AuxiliaryMonitorSelectButton_Click(object sender, EventArgs e)
+      private void TargetMonitorSelectButton_Click(object sender, EventArgs e)
       {
-         if (VideoSelectModes.auxiliaryCamera == this.videoSelectMode)
+         if (VideoSelectModes.targetCamera == this.videoSelectMode)
          {
             this.videoSelectMode = VideoSelectModes.none;
          }
          else
          {
-            this.videoSelectMode = VideoSelectModes.auxiliaryCamera;
+            this.videoSelectMode = VideoSelectModes.targetCamera;
          }
 
          this.UpdateCameraHoldEnable();
@@ -1727,20 +1823,20 @@ namespace E4.Ui
 
             if (false != button.CenterVisible)
             {
-               //DeviceCommunication.Instance.SetCameraLight(true, button.Camera);
+               DeviceCommunication.Instance.SetCameraLightEnable(button.Camera, true);
             }
             else
             {
-               //DeviceCommunication.Instance.SetCameraLight(false, button.Camera);
+               DeviceCommunication.Instance.SetCameraLightEnable(button.Camera, false);
             }
          }
-         else if (VideoSelectModes.mainCamera == this.videoSelectMode)
+         else if (VideoSelectModes.laserCamera == this.videoSelectMode)
          {
-            //this.AssignMainCamera(button);
+            this.AssignLaserCamera(button);
          }
-         else if (VideoSelectModes.auxiliaryCamera == this.videoSelectMode)
+         else if (VideoSelectModes.targetCamera == this.videoSelectMode)
          {
-            //this.AssignAuxiliaryCamera(button);
+            this.AssignTargetCamera(button);
          }
       }
 
@@ -1750,14 +1846,15 @@ namespace E4.Ui
 
          if (VideoSelectModes.light == this.videoSelectMode)
          {
-            ValueParameter value = null; // ParameterAccessor.Instance.GetCameraLight(button.Camera);
+            int lightLevel = DeviceCommunication.Instance.GetCameraLightLevel(button.Camera);
+            ValueParameter value = new ValueParameter("Light", "", 0, 1, 100, 1, 15, lightLevel);
 
             if (null != value)
             {
                if (false == button.CenterVisible)
                {
                   button.CenterVisible = true;
-//                  DeviceCommunication.Instance.SetCameraLight(true, button.Camera);
+                  DeviceCommunication.Instance.SetCameraLightEnable(button.Camera, true);
                }
 
                LightIntensitySelectForm intensityForm = new LightIntensitySelectForm();
@@ -1769,7 +1866,18 @@ namespace E4.Ui
                intensityForm.ShowDialog();
                this.LightBackground();
 
-               button.CenterLevel = (int)intensityForm.IntensityValue.OperationalValue; // assign all within set the same level
+               if ((Ui.Controls.CameraLocations.laserFront == button.Camera) ||
+                   (Ui.Controls.CameraLocations.laserRear == button.Camera))
+               {
+                  this.LaserFrontCameraSelectButton.CenterLevel = (int)intensityForm.IntensityValue.OperationalValue;
+                  this.LaserRearCameraSelectButton.CenterLevel = (int)intensityForm.IntensityValue.OperationalValue;
+               }
+               else
+               {
+                  this.TargetFrontCameraSelectButton.CenterLevel = (int)intensityForm.IntensityValue.OperationalValue;
+                  this.TargetRearCameraSelectButton.CenterLevel = (int)intensityForm.IntensityValue.OperationalValue;
+                  this.TargetTopCameraSelectButton.CenterLevel = (int)intensityForm.IntensityValue.OperationalValue;
+               }
             }
          }
 
@@ -1873,13 +1981,12 @@ namespace E4.Ui
 
          Tracer.MaskString = "FFFFFFFF";
 
-         this.cameraButtons = new Controls.CameraSelectButton[6];
+         this.cameraButtons = new Controls.CameraSelectButton[5];
          this.cameraButtons[0] = this.LaserFrontCameraSelectButton;
          this.cameraButtons[1] = this.LaserRearCameraSelectButton;
-         this.cameraButtons[2] = this.LaserTopCameraSelectButton;
-         this.cameraButtons[3] = this.TargetFrontCameraSelectButton;
-         this.cameraButtons[4] = this.TargetRearCameraSelectButton;
-         this.cameraButtons[5] = this.TargetTopCameraSelectButton;
+         this.cameraButtons[2] = this.TargetFrontCameraSelectButton;
+         this.cameraButtons[3] = this.TargetRearCameraSelectButton;
+         this.cameraButtons[4] = this.TargetTopCameraSelectButton;
 
          this.dimmerForm = new PopupDimmerForm();
          this.dimmerForm.Opacity = 0.65;

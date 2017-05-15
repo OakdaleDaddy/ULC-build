@@ -59,6 +59,15 @@
       private WheelMotorStatus wheel1Status;
       private StepperMotorStatus stepperStatus;
 
+      private int camaraLightIntensitySetPoint;
+      private int camaraLightIntensityRequested;
+
+      private int cameraLightChannelMaskSetPoint;
+      private int cameraLightChannelMaskRequested;
+
+      private int cameraSetPoint;
+      private int cameraRequested;
+
       #endregion
 
       #region Helper Functions
@@ -123,6 +132,66 @@
          {
             this.DeviceTraceTransmit(cobId, heartbeatMsg);
          }
+      }
+
+      private int GetCameraLightChannelMask(Controls.CameraLocations camera)
+      {
+         int result = 0;
+
+         if (Controls.CameraLocations.targetFront == camera)
+         {
+            result = (int)(1 << 0);
+         }
+         else if (Controls.CameraLocations.targetRear == camera)
+         {
+            result = (int)(1 << 1);
+         }
+         else if (Controls.CameraLocations.targetTop == camera)
+         {
+            result = (int)(1 << 2);
+         }
+
+         return (result);
+      }
+
+      private int GetCameraSelectionValue(Controls.CameraLocations camera)
+      {
+         int result = 0;
+
+         if (Controls.CameraLocations.targetFront == camera)
+         {
+            result = 0;
+         }
+         else if (Controls.CameraLocations.targetRear == camera)
+         {
+            result = 1;
+         }
+         else if (Controls.CameraLocations.targetTop == camera)
+         {
+            result = 2;
+         }
+
+         return (result);
+      }
+
+      private Controls.CameraLocations GetCamera(int selection)
+      {
+         Controls.CameraLocations result = Controls.CameraLocations.laserFront;
+
+         if (0 == selection)
+         {
+            result = Controls.CameraLocations.targetFront;
+         }
+         else if (1 == selection)
+         {
+            result = Controls.CameraLocations.targetRear;
+         }
+         else if (2 == selection)
+         {
+            result = Controls.CameraLocations.targetTop;
+         }
+
+         return (result);
       }
 
       #endregion
@@ -303,6 +372,15 @@
          this.wheel0Status.Initialize();
          this.wheel1Status.Initialize();
          this.stepperStatus.Initialize();
+
+         this.camaraLightIntensitySetPoint = 0;
+         this.camaraLightIntensityRequested = 0;
+
+         this.cameraLightChannelMaskSetPoint = 0;
+         this.cameraLightChannelMaskRequested = 0;
+
+         this.cameraSetPoint = 0;
+         this.cameraRequested = 0;
       }
 
       private void StartTargetBoard()
@@ -335,6 +413,22 @@
          this.targetBoard.Stepper0.GetActualPosition(ref this.stepperStatus.actualPosition);
          this.stepperStatus.positionNeeded = this.stepperStatus.actualPosition;
          this.stepperStatus.positionRequested = this.stepperStatus.positionNeeded;
+
+
+         UInt32 cameraLightIntensity = 0;
+         this.targetBoard.GetCameraLedIntensityLevel(ref cameraLightIntensity);
+         this.camaraLightIntensitySetPoint = (int)(cameraLightIntensity / ParameterAccessor.Instance.LaserLightPercentToCount);
+         this.camaraLightIntensityRequested = this.camaraLightIntensitySetPoint;
+
+         byte cameraLightChannelMask = 0;
+         this.targetBoard.GetCameraLedChannelMask(ref cameraLightChannelMask);
+         this.cameraLightChannelMaskSetPoint = cameraLightChannelMask;
+         this.cameraLightChannelMaskRequested = this.cameraLightChannelMaskSetPoint;
+
+         byte cameraSelect = 0;
+         this.targetBoard.GetCameraSelect(ref cameraSelect);
+         this.cameraSetPoint = cameraSelect;
+         this.cameraRequested = this.cameraSetPoint;
       }
 
       private void EvaluateWheel(MotorComponent motor, WheelMotorParameters parameters, WheelMotorStatus status, ref double total, ref int count)
@@ -748,6 +842,30 @@
             {
                LaserCommunicationBus.Instance.DoSync();
                //PCANLight.SendSync(this.busInterfaceId);
+            }
+
+            #endregion
+
+            #region Lights and Camera Control
+
+            if (this.camaraLightIntensityRequested != this.camaraLightIntensitySetPoint)
+            {
+               UInt32 cameraLightIntensity = (UInt32)(this.camaraLightIntensitySetPoint * ParameterAccessor.Instance.LaserLightPercentToCount);
+               this.targetBoard.SetCameraLedIntensityLevel(cameraLightIntensity);
+
+               this.camaraLightIntensityRequested = this.camaraLightIntensitySetPoint;
+            }
+
+            if (this.cameraLightChannelMaskRequested != this.cameraLightChannelMaskSetPoint)
+            {
+               this.targetBoard.SetCameraLedChannelMask((byte)this.cameraLightChannelMaskSetPoint);
+               this.cameraLightChannelMaskRequested = this.cameraLightChannelMaskSetPoint;
+            }
+
+            if (this.cameraRequested != this.cameraSetPoint)
+            {
+               this.targetBoard.SetCameraSelect((byte)this.cameraSetPoint);
+               this.cameraRequested = this.cameraSetPoint;
             }
 
             #endregion
@@ -1415,6 +1533,54 @@
       public double GetTargetPitch()
       {
          return (this.targetBoard.TargetBoardImuPitch);
+      }
+
+      #endregion
+
+      #region Lights and Camera
+
+      public void SetCameraLightLevel(Controls.CameraLocations camera, int level)
+      {
+         this.camaraLightIntensitySetPoint = level;
+      }
+
+      public int GetCameraLightLevel(Controls.CameraLocations camera)
+      {
+         int result = this.camaraLightIntensitySetPoint;
+         return (result);
+      }
+
+      public void SetCameraLightEnable(Controls.CameraLocations camera, bool enabled)
+      {
+         int mask = this.GetCameraLightChannelMask(camera);
+
+         if (false != enabled)
+         {
+            this.cameraLightChannelMaskSetPoint |= mask;
+         }
+         else
+         {
+            this.cameraLightChannelMaskSetPoint &= ~mask;
+         }
+      }
+
+      public bool GetCameraLightEnable(Controls.CameraLocations camera)
+      {
+         int mask = this.GetCameraLightChannelMask(camera);
+         bool result = ((this.cameraLightChannelMaskSetPoint & mask) != 0) ? true : false;
+
+         return (result);
+      }
+
+      public void SetTargetCamera(Controls.CameraLocations camera)
+      {
+         this.cameraSetPoint = this.GetCameraSelectionValue(camera);
+      }
+
+      public Controls.CameraLocations GetTargetCamera()
+      {
+         Controls.CameraLocations result = this.GetCamera(this.cameraSetPoint);
+         return (result);
       }
 
       #endregion

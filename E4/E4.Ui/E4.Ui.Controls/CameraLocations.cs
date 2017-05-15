@@ -5,12 +5,11 @@ namespace E4.Ui.Controls
 
    public enum CameraLocations
    {
-      laserForward,
+      laserFront,
       laserRear,
-      laserUp,
 
-      targetForward,
+      targetFront,
       targetRear,
-      targetUp,
+      targetTop,
    }
 }

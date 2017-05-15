@@ -71,6 +71,15 @@
       private int laserSampleCount;
       private double laserAverageMeasurement;
 
+      private int camaraLightIntensitySetPoint;
+      private int camaraLightIntensityRequested;
+
+      private int cameraLightChannelMaskSetPoint;
+      private int cameraLightChannelMaskRequested;
+
+      private int cameraSetPoint;
+      private int cameraRequested;
+
       #endregion
 
       #region Helper Functions
@@ -137,6 +146,54 @@
          {
             this.DeviceTraceTransmit(cobId, heartbeatMsg);
          }
+      }
+
+      private int GetCameraLightChannelMask(Controls.CameraLocations camera)
+      {
+         int result = 0;
+
+         if (Controls.CameraLocations.laserFront == camera)
+         {
+            result = (int)(1 << 0);
+         }
+         else if (Controls.CameraLocations.laserRear == camera)
+         {
+            result = (int)(1 << 1);
+         }
+
+         return (result);
+      }
+
+      private int GetCameraSelectionValue(Controls.CameraLocations camera)
+      {
+         int result = 0;
+
+         if (Controls.CameraLocations.laserFront == camera)
+         {
+            result = 0;
+         }
+         else if (Controls.CameraLocations.laserRear == camera)
+         {
+            result = 1;
+         }
+
+         return (result);
+      }
+
+      private Controls.CameraLocations GetCamera(int selection)
+      {
+         Controls.CameraLocations result = Controls.CameraLocations.laserFront;
+
+         if (0 == selection)
+         {
+            result = Controls.CameraLocations.laserFront;
+         }
+         else if (1 == selection)
+         {
+            result = Controls.CameraLocations.laserRear;
+         }
+
+         return (result);
       }
 
       #endregion
@@ -328,6 +385,15 @@
          this.wheel1Status.Initialize();
          this.stepper0Status.Initialize();
          this.stepper1Status.Initialize();
+
+         this.camaraLightIntensitySetPoint = 0;
+         this.camaraLightIntensityRequested = 0;
+
+         this.cameraLightChannelMaskSetPoint = 0;
+         this.cameraLightChannelMaskRequested = 0;
+
+         this.cameraSetPoint = 0;
+         this.cameraRequested = 0;
       }
 
       private void StartLaserBoard()
@@ -368,6 +434,21 @@
             this.laserBoard.Stepper1.GetActualPosition(ref this.stepper1Status.actualPosition);
             this.stepper1Status.positionNeeded = this.stepper1Status.actualPosition;
             this.stepper1Status.positionRequested = this.stepper1Status.positionNeeded;
+
+            UInt32 cameraLightIntensity = 0;
+            this.laserBoard.GetCameraLedIntensityLevel(ref cameraLightIntensity);
+            this.camaraLightIntensitySetPoint = (int)(cameraLightIntensity / ParameterAccessor.Instance.LaserLightPercentToCount);
+            this.camaraLightIntensityRequested = this.camaraLightIntensitySetPoint;
+
+            byte cameraLightChannelMask = 0;
+            this.laserBoard.GetCameraLedChannelMask(ref cameraLightChannelMask);
+            this.cameraLightChannelMaskSetPoint = cameraLightChannelMask;
+            this.cameraLightChannelMaskRequested = this.cameraLightChannelMaskSetPoint;
+
+            byte cameraSelect = 0;
+            this.laserBoard.GetCameraSelect(ref cameraSelect);
+            this.cameraSetPoint = cameraSelect;
+            this.cameraRequested = this.cameraSetPoint;
          }
       }
 
@@ -859,6 +940,29 @@
 
             #endregion
 
+            #region Lights and Camera Control
+
+            if (this.camaraLightIntensityRequested != this.camaraLightIntensitySetPoint)
+            {
+               UInt32 cameraLightIntensity = (UInt32)(this.camaraLightIntensitySetPoint * ParameterAccessor.Instance.LaserLightPercentToCount);
+               this.laserBoard.SetCameraLedIntensityLevel(cameraLightIntensity);
+
+               this.camaraLightIntensityRequested = this.camaraLightIntensitySetPoint;
+            }
+
+            if (this.cameraLightChannelMaskRequested != this.cameraLightChannelMaskSetPoint)
+            {
+               this.laserBoard.SetCameraLedChannelMask((byte)this.cameraLightChannelMaskSetPoint);
+               this.cameraLightChannelMaskRequested = this.cameraLightChannelMaskSetPoint;
+            }
+
+            if (this.cameraRequested != this.cameraSetPoint)
+            {
+               this.laserBoard.SetCameraSelect((byte)this.cameraSetPoint);
+               this.cameraRequested = this.cameraSetPoint;
+            }
+
+            #endregion
          }
       }
 
@@ -1607,6 +1711,54 @@
       public double GetAverageLaserMeasurement()
       {
          return (this.laserAverageMeasurement);
+      }
+
+      #endregion
+
+      #region Lights and Camera
+      
+      public void SetCameraLightLevel(Controls.CameraLocations camera, int level)
+      {
+         this.camaraLightIntensitySetPoint = level;
+      }
+
+      public int GetCameraLightLevel(Controls.CameraLocations camera)
+      {
+         int result = this.camaraLightIntensitySetPoint;
+         return (result);
+      }
+
+      public void SetCameraLightEnable(Controls.CameraLocations camera, bool enabled)
+      {
+         int mask = this.GetCameraLightChannelMask(camera);
+
+         if (false != enabled)
+         {
+            this.cameraLightChannelMaskSetPoint |= mask;
+         }
+         else
+         {
+            this.cameraLightChannelMaskSetPoint &= ~mask;
+         }
+      }
+
+      public bool GetCameraLightEnable(Controls.CameraLocations camera)
+      {
+         int mask = this.GetCameraLightChannelMask(camera);
+         bool result = ((this.cameraLightChannelMaskSetPoint & mask) != 0) ? true : false;
+
+         return (result);
+      }
+
+      public void SetLaserCamera(Controls.CameraLocations camera)
+      {
+         this.cameraSetPoint = this.GetCameraSelectionValue(camera);
+      }
+
+      public Controls.CameraLocations GetLaserCamera()
+      {
+         Controls.CameraLocations result = this.GetCamera(this.cameraSetPoint);
+         return (result);
       }
 
       #endregion
