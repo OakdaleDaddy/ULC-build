@@ -855,6 +855,124 @@ namespace CanDemo.DeviceTest
          }
       }
 
+      private void SetTestModeButton_Click(object sender, EventArgs e)
+      {
+         byte motorNodeId = 0;
+         DemoDevice.Modes mode = DemoDevice.Modes.undefined;
+
+         if (this.TestModeComboBox.Text == "off")
+         {
+            mode = DemoDevice.Modes.off;
+         }
+         else if (this.TestModeComboBox.Text == "velocity")
+         {
+            mode = DemoDevice.Modes.velocity;
+         }
+
+         if (byte.TryParse(this.TestActiveNodeIdTextBox.Text, out motorNodeId) != false)
+         {
+            this.testDevice.NodeId = motorNodeId;
+            bool result = this.testDevice.SetMode(mode);
+
+            if (false != result)
+            {
+               this.StatusLabel.Text = "Test mode set to " + mode.ToString() + ".";
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to set test mode to " + mode.ToString() + ".";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      private void GetTestTargetVelocityButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+
+         if (byte.TryParse(this.TestActiveNodeIdTextBox.Text, out nodeId) != false)
+         {
+            this.testDevice.NodeId = nodeId;
+
+            Int32 value = 0;
+            bool result = this.testDevice.GetTargetVelocity(ref value);
+
+            if (false != result)
+            {
+               this.TestTargetVelocityTextBox.Text = string.Format("{0}", value);
+               this.StatusLabel.Text = "Test target velocity retrieved.";
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to read test target velocity.";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      private void SetTestTargetVelocityButton_Click(object sender, EventArgs e)
+      {
+         byte nodeId = 0;
+         Int32 value = 0;
+
+         if ((byte.TryParse(this.TestActiveNodeIdTextBox.Text, out nodeId) != false) &&
+             (Int32.TryParse(this.TestTargetVelocityTextBox.Text, out value) != false))
+         {
+            this.testDevice.NodeId = nodeId;
+            bool result = this.testDevice.SetTargetVelocity(value);
+
+            if (false != result)
+            {
+               this.StatusLabel.Text = string.Format("Test target velocity set to {0}.", value);
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to set test target velocity.";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      private void ScheduleTestTargetVelocityButton_Click(object sender, EventArgs e)
+      {
+         byte motorNodeId = 0;
+         Int32 value = 0;
+
+         if ((byte.TryParse(this.TestActiveNodeIdTextBox.Text, out motorNodeId) != false) &&
+             (Int32.TryParse(this.TestTargetVelocityTextBox.Text, out value) != false))
+         {
+            this.testDevice.NodeId = motorNodeId;
+            bool result = this.testDevice.ScheduleTargetVelocity(value);
+
+            if (false != result)
+            {
+               this.StatusLabel.Text = "Test target velocity scheduled for " + value.ToString() + ".";
+            }
+            else
+            {
+               this.StatusLabel.Text = "Unable to schedule test target velocity.";
+            }
+         }
+         else
+         {
+            this.StatusLabel.Text = "Invalid entry.";
+         }
+      }
+
+      private void TestSyncButton_Click(object sender, EventArgs e)
+      {
+         this.busInterface.Sync();
+      }
+
       #endregion
 
       #region Form Events
@@ -908,6 +1026,12 @@ namespace CanDemo.DeviceTest
             string activityString = (string)this.traceQueue.Dequeue();
             this.ActivityRichTextBox.AppendText(activityString + "\n");
          }
+
+         #endregion
+
+         #region Test Update
+
+         this.TestActualVelocityTextBox.Text = this.testDevice.RPM.ToString();
 
          #endregion
       }

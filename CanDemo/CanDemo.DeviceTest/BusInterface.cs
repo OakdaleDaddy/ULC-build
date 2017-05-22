@@ -60,8 +60,13 @@ namespace CanDemo.DeviceTest
 
       private bool DeviceTransmit(int id, byte[] data)
       {
-         CANResult transmitResult = PCANLight.Send(this.busParameters.BusInterface, id, data);
-         bool result = (transmitResult == CANResult.ERR_OK) ? true : false;
+         bool result = false;
+
+         if (null != this.busParameters)
+         {
+            CANResult transmitResult = PCANLight.Send(this.busParameters.BusInterface, id, data);
+            result = (transmitResult == CANResult.ERR_OK) ? true : false;
+         }
 
          return (result);
       }

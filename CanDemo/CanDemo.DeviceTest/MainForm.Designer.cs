@@ -92,6 +92,17 @@ namespace CanDemo.DeviceTest
          this.TestStartButton = new System.Windows.Forms.Button();
          this.ControlSplitter = new System.Windows.Forms.Splitter();
          this.MainActivityPanel = new System.Windows.Forms.Panel();
+         this.ScheduleTestTargetVelocityButton = new System.Windows.Forms.Button();
+         this.TestActualVelocityTextBox = new System.Windows.Forms.TextBox();
+         this.label72 = new System.Windows.Forms.Label();
+         this.TestTargetVelocityTextBox = new System.Windows.Forms.TextBox();
+         this.SetTestTargetVelocityButton = new System.Windows.Forms.Button();
+         this.label69 = new System.Windows.Forms.Label();
+         this.SetTestModeButton = new System.Windows.Forms.Button();
+         this.TestModeComboBox = new System.Windows.Forms.ComboBox();
+         this.label68 = new System.Windows.Forms.Label();
+         this.GetTestTargetVelocityButton = new System.Windows.Forms.Button();
+         this.TestSyncButton = new System.Windows.Forms.Button();
          this.MainStatusStrip.SuspendLayout();
          this.MainTabControl.SuspendLayout();
          this.ControlTabPage.SuspendLayout();
@@ -286,7 +297,7 @@ namespace CanDemo.DeviceTest
          this.ControlTabPage.Location = new System.Drawing.Point(4, 22);
          this.ControlTabPage.Name = "ControlTabPage";
          this.ControlTabPage.Padding = new System.Windows.Forms.Padding(3);
-         this.ControlTabPage.Size = new System.Drawing.Size(734, 152);
+         this.ControlTabPage.Size = new System.Drawing.Size(734, 130);
          this.ControlTabPage.TabIndex = 0;
          this.ControlTabPage.Text = "Control";
          this.ControlTabPage.UseVisualStyleBackColor = true;
@@ -447,6 +458,17 @@ namespace CanDemo.DeviceTest
          // 
          // TestDeviceTabPage
          // 
+         this.TestDeviceTabPage.Controls.Add(this.TestSyncButton);
+         this.TestDeviceTabPage.Controls.Add(this.GetTestTargetVelocityButton);
+         this.TestDeviceTabPage.Controls.Add(this.ScheduleTestTargetVelocityButton);
+         this.TestDeviceTabPage.Controls.Add(this.TestActualVelocityTextBox);
+         this.TestDeviceTabPage.Controls.Add(this.label72);
+         this.TestDeviceTabPage.Controls.Add(this.TestTargetVelocityTextBox);
+         this.TestDeviceTabPage.Controls.Add(this.SetTestTargetVelocityButton);
+         this.TestDeviceTabPage.Controls.Add(this.label69);
+         this.TestDeviceTabPage.Controls.Add(this.SetTestModeButton);
+         this.TestDeviceTabPage.Controls.Add(this.TestModeComboBox);
+         this.TestDeviceTabPage.Controls.Add(this.label68);
          this.TestDeviceTabPage.Controls.Add(this.Test6061TextBox);
          this.TestDeviceTabPage.Controls.Add(this.GetTest6061Button);
          this.TestDeviceTabPage.Controls.Add(this.label26);
@@ -716,6 +738,110 @@ namespace CanDemo.DeviceTest
          this.MainActivityPanel.Size = new System.Drawing.Size(742, 192);
          this.MainActivityPanel.TabIndex = 45;
          // 
+         // ScheduleTestTargetVelocityButton
+         // 
+         this.ScheduleTestTargetVelocityButton.Location = new System.Drawing.Point(308, 101);
+         this.ScheduleTestTargetVelocityButton.Name = "ScheduleTestTargetVelocityButton";
+         this.ScheduleTestTargetVelocityButton.Size = new System.Drawing.Size(61, 23);
+         this.ScheduleTestTargetVelocityButton.TabIndex = 292;
+         this.ScheduleTestTargetVelocityButton.Text = "Schedule";
+         this.ScheduleTestTargetVelocityButton.UseVisualStyleBackColor = true;
+         this.ScheduleTestTargetVelocityButton.Click += new System.EventHandler(this.ScheduleTestTargetVelocityButton_Click);
+         // 
+         // TestActualVelocityTextBox
+         // 
+         this.TestActualVelocityTextBox.Location = new System.Drawing.Point(508, 8);
+         this.TestActualVelocityTextBox.Name = "TestActualVelocityTextBox";
+         this.TestActualVelocityTextBox.Size = new System.Drawing.Size(51, 20);
+         this.TestActualVelocityTextBox.TabIndex = 291;
+         // 
+         // label72
+         // 
+         this.label72.AutoSize = true;
+         this.label72.Location = new System.Drawing.Point(462, 11);
+         this.label72.Name = "label72";
+         this.label72.Size = new System.Drawing.Size(44, 13);
+         this.label72.TabIndex = 290;
+         this.label72.Text = "Velocity";
+         // 
+         // TestTargetVelocityTextBox
+         // 
+         this.TestTargetVelocityTextBox.Location = new System.Drawing.Point(145, 103);
+         this.TestTargetVelocityTextBox.Name = "TestTargetVelocityTextBox";
+         this.TestTargetVelocityTextBox.Size = new System.Drawing.Size(75, 20);
+         this.TestTargetVelocityTextBox.TabIndex = 287;
+         // 
+         // SetTestTargetVelocityButton
+         // 
+         this.SetTestTargetVelocityButton.Location = new System.Drawing.Point(267, 101);
+         this.SetTestTargetVelocityButton.Name = "SetTestTargetVelocityButton";
+         this.SetTestTargetVelocityButton.Size = new System.Drawing.Size(35, 23);
+         this.SetTestTargetVelocityButton.TabIndex = 289;
+         this.SetTestTargetVelocityButton.Text = "Set";
+         this.SetTestTargetVelocityButton.UseVisualStyleBackColor = true;
+         this.SetTestTargetVelocityButton.Click += new System.EventHandler(this.SetTestTargetVelocityButton_Click);
+         // 
+         // label69
+         // 
+         this.label69.AutoSize = true;
+         this.label69.Location = new System.Drawing.Point(65, 106);
+         this.label69.Name = "label69";
+         this.label69.Size = new System.Drawing.Size(78, 13);
+         this.label69.TabIndex = 288;
+         this.label69.Text = "Target Velocity";
+         // 
+         // SetTestModeButton
+         // 
+         this.SetTestModeButton.Location = new System.Drawing.Point(226, 74);
+         this.SetTestModeButton.Name = "SetTestModeButton";
+         this.SetTestModeButton.Size = new System.Drawing.Size(35, 23);
+         this.SetTestModeButton.TabIndex = 286;
+         this.SetTestModeButton.Text = "Set";
+         this.SetTestModeButton.UseVisualStyleBackColor = true;
+         this.SetTestModeButton.Click += new System.EventHandler(this.SetTestModeButton_Click);
+         // 
+         // TestModeComboBox
+         // 
+         this.TestModeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+         this.TestModeComboBox.FormattingEnabled = true;
+         this.TestModeComboBox.Items.AddRange(new object[] {
+            "off",
+            "velocity"});
+         this.TestModeComboBox.Location = new System.Drawing.Point(145, 76);
+         this.TestModeComboBox.Name = "TestModeComboBox";
+         this.TestModeComboBox.Size = new System.Drawing.Size(75, 21);
+         this.TestModeComboBox.TabIndex = 285;
+         // 
+         // label68
+         // 
+         this.label68.AutoSize = true;
+         this.label68.Location = new System.Drawing.Point(109, 79);
+         this.label68.Name = "label68";
+         this.label68.Size = new System.Drawing.Size(34, 13);
+         this.label68.TabIndex = 284;
+         this.label68.Text = "Mode";
+         // 
+         // GetTestTargetVelocityButton
+         // 
+         this.GetTestTargetVelocityButton.Location = new System.Drawing.Point(226, 101);
+         this.GetTestTargetVelocityButton.Name = "GetTestTargetVelocityButton";
+         this.GetTestTargetVelocityButton.Size = new System.Drawing.Size(35, 23);
+         this.GetTestTargetVelocityButton.TabIndex = 293;
+         this.GetTestTargetVelocityButton.Text = "Get";
+         this.GetTestTargetVelocityButton.UseVisualStyleBackColor = true;
+         this.GetTestTargetVelocityButton.Click += new System.EventHandler(this.GetTestTargetVelocityButton_Click);
+         // 
+         // TestSyncButton
+         // 
+         this.TestSyncButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+         this.TestSyncButton.Location = new System.Drawing.Point(673, 35);
+         this.TestSyncButton.Name = "TestSyncButton";
+         this.TestSyncButton.Size = new System.Drawing.Size(55, 23);
+         this.TestSyncButton.TabIndex = 294;
+         this.TestSyncButton.Text = "SYNC";
+         this.TestSyncButton.UseVisualStyleBackColor = true;
+         this.TestSyncButton.Click += new System.EventHandler(this.TestSyncButton_Click);
+         // 
          // MainForm
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -810,6 +936,17 @@ namespace CanDemo.DeviceTest
       private System.Windows.Forms.Button ReadTestVersionButton;
       private System.Windows.Forms.Label label1;
       private System.Windows.Forms.TextBox TestVersionTextBox;
+      private System.Windows.Forms.Button TestSyncButton;
+      private System.Windows.Forms.Button GetTestTargetVelocityButton;
+      private System.Windows.Forms.Button ScheduleTestTargetVelocityButton;
+      private System.Windows.Forms.TextBox TestActualVelocityTextBox;
+      private System.Windows.Forms.Label label72;
+      private System.Windows.Forms.TextBox TestTargetVelocityTextBox;
+      private System.Windows.Forms.Button SetTestTargetVelocityButton;
+      private System.Windows.Forms.Label label69;
+      private System.Windows.Forms.Button SetTestModeButton;
+      private System.Windows.Forms.ComboBox TestModeComboBox;
+      private System.Windows.Forms.Label label68;
    }
 }
 
