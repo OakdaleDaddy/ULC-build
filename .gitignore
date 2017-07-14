@@ -56,28 +56,20 @@ CAN-GPS/build/.out
 
 E4/E4.Ui/E4.BusSim/bin
 E4/E4.Ui/E4.BusSim/obj
-
 E4/E4.Ui/E4.CAN/bin
 E4/E4.Ui/E4.CAN/obj
-
 E4/E4.Ui/E4.DeviceTest/bin
 E4/E4.Ui/E4.DeviceTest/obj
-
 E4/E4.Ui/E4.PCANLight/bin
 E4/E4.Ui/E4.PCANLight/obj
-
 E4/E4.Ui/E4.TraceListener/bin
 E4/E4.Ui/E4.TraceListener/obj
-
 E4/E4.Ui/E4.Ui/bin
 E4/E4.Ui/E4.Ui/obj
-
 E4/E4.Ui/E4.Ui.Controls/bin
 E4/E4.Ui/E4.Ui.Controls/obj
-
 E4/E4.Ui/E4.Ui.ControlTest/bin
 E4/E4.Ui/E4.Ui.ControlTest/obj
-
 E4/E4.Ui/E4.Utilities/bin
 E4/E4.Ui/E4.Utilities/obj
 
@@ -94,4 +86,24 @@ CanDemo/CanDemo.PCANLight/obj
 CanDemo/CanDemo.Utilities/bin
 CanDemo/CanDemo.Utilities/obj
 
+Weco/Weco.Ui/Weco.BusSim/bin
+Weco/Weco.Ui/Weco.BusSim/obj
+Weco/Weco.Ui/Weco.CAN/bin
+Weco/Weco.Ui/Weco.CAN/obj
+Weco/Weco.Ui/Weco.DeviceTest/bin
+Weco/Weco.Ui/Weco.DeviceTest/obj
+Weco/Weco.Ui/Weco.PCANLight/bin
+Weco/Weco.Ui/Weco.PCANLight/obj
+Weco/Weco.Ui/Weco.TraceListener/bin
+Weco/Weco.Ui/Weco.TraceListener/obj
+Weco/Weco.Ui/Weco.Ui/bin
+Weco/Weco.Ui/Weco.Ui/obj
+Weco/Weco.Ui/Weco.Ui.Controls/bin
+Weco/Weco.Ui/Weco.Ui.Controls/obj
+Weco/Weco.Ui/Weco.Ui.ControlTest/bin
+Weco/Weco.Ui/Weco.Ui.ControlTest/obj
+Weco/Weco.Ui/Weco.Utilities/bin
+Weco/Weco.Ui/Weco.Utilities/obj
 
+CanDemo/CanDemo.v11.suo
+*.suo

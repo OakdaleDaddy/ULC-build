@@ -1,0 +1,270 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2305E886-8DE5-4F87-9B83-D6BFA0FA1887}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Weco.Ui</RootNamespace>
+    <AssemblyName>Weco.Ui</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CANDeviceInformationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CANDeviceInformationForm.designer.cs">
+      <DependentUpon>CANDeviceInformationForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Definitions\DeviceClearErrorRequest.cs" />
+    <Compile Include="DeviceComponentInformationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeviceComponentInformationForm.designer.cs">
+      <DependentUpon>DeviceComponentInformationForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="E4MainDeviceInformationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="E4MainDeviceInformationForm.designer.cs">
+      <DependentUpon>E4MainDeviceInformationForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Definitions\ActuationModes.cs" />
+    <Compile Include="Definitions\DeviceRestartRequest.cs" />
+    <Compile Include="Definitions\MovementModes.cs" />
+    <Compile Include="Definitions\SessionCompleteData.cs" />
+    <Compile Include="Definitions\SessionStartData.cs" />
+    <Compile Include="Definitions\StepperMotorStatus.cs" />
+    <Compile Include="Definitions\WheelLocations.cs" />
+    <Compile Include="Definitions\WheelMotorStates.cs" />
+    <Compile Include="Definitions\WheelMotorStatus.cs" />
+    <Compile Include="DeviceCommunication.cs" />
+    <Compile Include="IpAddressEntryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IpAddressEntryForm.designer.cs">
+      <DependentUpon>IpAddressEntryForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LaserRobotMovementSetupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LaserRobotMovementSetupForm.Designer.cs">
+      <DependentUpon>LaserRobotMovementSetupForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LaserSetupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LaserSetupForm.Designer.cs">
+      <DependentUpon>LaserSetupForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LaserCommunicationBus.cs" />
+    <Compile Include="LightIntensitySelectForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LightIntensitySelectForm.Designer.cs">
+      <DependentUpon>LightIntensitySelectForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MessageForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MessageForm.designer.cs">
+      <DependentUpon>MessageForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NumatoUsbRelay.cs" />
+    <Compile Include="NumberEntryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NumberEntryForm.designer.cs">
+      <DependentUpon>NumberEntryForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OsdForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OsdForm.designer.cs">
+      <DependentUpon>OsdForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Parameters\CameraSelectParameters.cs" />
+    <Compile Include="Parameters\IpEndpointParameters.cs" />
+    <Compile Include="Parameters\LaserBusParameters.cs" />
+    <Compile Include="Parameters\LaserCameraMappings.cs" />
+    <Compile Include="Parameters\TargetCameraMappings.cs" />
+    <Compile Include="Parameters\WheelMotorParameters.cs" />
+    <Compile Include="Parameters\OsdParameters.cs" />
+    <Compile Include="Parameters\ParameterAccessor.cs" />
+    <Compile Include="Parameters\StepperMotorParameters.cs" />
+    <Compile Include="Parameters\TargetBusParameters.cs" />
+    <Compile Include="Parameters\ValueParameter.cs" />
+    <Compile Include="PopupDimmerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PopupDimmerForm.designer.cs">
+      <DependentUpon>PopupDimmerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Definitions\SessionData.cs" />
+    <Compile Include="Definitions\SessionMeasurementData.cs" />
+    <Compile Include="Definitions\SessionMovementData.cs" />
+    <Compile Include="Definitions\SessionRecord.cs" />
+    <Compile Include="SessionRecordControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SessionRecordControl.Designer.cs">
+      <DependentUpon>SessionRecordControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SystemStatusForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SystemStatusForm.Designer.cs">
+      <DependentUpon>SystemStatusForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TargetCommunicationBus.cs" />
+    <Compile Include="TargetRobotMovementSetupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TargetRobotMovementSetupForm.Designer.cs">
+      <DependentUpon>TargetRobotMovementSetupForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VideoStampOsd.cs" />
+    <EmbeddedResource Include="CANDeviceInformationForm.resx">
+      <DependentUpon>CANDeviceInformationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeviceComponentInformationForm.resx">
+      <DependentUpon>DeviceComponentInformationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="E4MainDeviceInformationForm.resx">
+      <DependentUpon>E4MainDeviceInformationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IpAddressEntryForm.resx">
+      <DependentUpon>IpAddressEntryForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LaserRobotMovementSetupForm.resx">
+      <DependentUpon>LaserRobotMovementSetupForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LaserSetupForm.resx">
+      <DependentUpon>LaserSetupForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LightIntensitySelectForm.resx">
+      <DependentUpon>LightIntensitySelectForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MessageForm.resx">
+      <DependentUpon>MessageForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NumberEntryForm.resx">
+      <DependentUpon>NumberEntryForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OsdForm.resx">
+      <DependentUpon>OsdForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PopupDimmerForm.resx">
+      <DependentUpon>PopupDimmerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="SessionRecordControl.resx">
+      <DependentUpon>SessionRecordControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SystemStatusForm.resx">
+      <DependentUpon>SystemStatusForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TargetRobotMovementSetupForm.resx">
+      <DependentUpon>TargetRobotMovementSetupForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Weco.CAN\Weco.CAN.csproj">
+      <Project>{206caed2-33ae-4d9d-bb5d-50af1b9a3cd4}</Project>
+      <Name>Weco.CAN</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Weco.PCANLight\Weco.PCANLight.csproj">
+      <Project>{a182ebe3-ce10-4825-8b06-b581685bb389}</Project>
+      <Name>Weco.PCANLight</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Weco.Ui.Controls\Weco.Ui.Controls.csproj">
+      <Project>{7d57b2d5-1706-45f0-82ab-520b3a2f0898}</Project>
+      <Name>Weco.Ui.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Weco.Utilities\Weco.Utilities.csproj">
+      <Project>{159c080c-76e7-46d8-94ed-02f9619165c0}</Project>
+      <Name>Weco.Utilities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy  "$(SolutionDir)Weco.PCANLight\PCAN DLLs\*.dll" $(ProjectDir)\$(OutDir)</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>$(ProjectDir)AssemblyVersion  $(ProjectDir)Properties\AssemblyInfo.cs</PreBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
