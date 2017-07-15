@@ -28,25 +28,6 @@ namespace Weco.Ui
          topCamera,
       }
 
-      private enum SessionStates
-      {
-         idle,
-         start,
-         firstMeasure,
-         move,
-         measure,
-      }
-
-#if false
-      private enum VideoSelectModes
-      {
-         none,
-         light,
-         laserCamera,
-         targetCamera,
-      }
-#endif
-
       #endregion
 
       #region Fields
@@ -66,23 +47,6 @@ namespace Weco.Ui
 
       private bool laserMovementFastSelected;
 
-      private bool targetMovementFastSelected;
-
-      private SessionStates sessionState;
-      private bool measurementRequested;
-      private bool measurementStarted;
-      private bool measurementRecorded;
-      private double measurement;
-
-      private bool laserStepperFaultProcessed;
-      private int laserLeftStepperChange;
-      private int laserRightStepperChange;
-
-      private bool topCameraStepperFaultProcessed;
-      private int topCameraStepperChange;
-      private int topCameraRequestedChange;
-
-      //private VideoSelectModes videoSelectMode;
       private bool laserLightEnabled;
       private bool targetLightEnabled;
       private Controls.CameraSelectButton selectedLaserCameraButton;
@@ -273,45 +237,21 @@ namespace Weco.Ui
          {
             this.LaserRobotMovementJoystickEnableButton.Text = "JOYSTICK DRIVE";
             this.LaserRobotMovementJoystickEnableButton.BackColor = Color.FromArgb(171, 171, 171);
-
-            this.TargetRobotMovementJoystickEnableButton.Text = "JOYSTICK DRIVE";
-            this.TargetRobotMovementJoystickEnableButton.BackColor = Color.FromArgb(171, 171, 171);
-
-            this.TopCameraJoystickEnableButton.Text = "JOYSTICK DRIVE";
-            this.TopCameraJoystickEnableButton.BackColor = Color.FromArgb(171, 171, 171);
          }
          else if (JoystickApplications.laserRobot == this.joystickApplication)
          {
             this.LaserRobotMovementJoystickEnableButton.Text = "MANUAL DRIVE";
             this.LaserRobotMovementJoystickEnableButton.BackColor = Color.Lime;
-
-            this.TargetRobotMovementJoystickEnableButton.Text = "JOYSTICK DRIVE";
-            this.TargetRobotMovementJoystickEnableButton.BackColor = Color.FromArgb(171, 171, 171);
-
-            this.TopCameraJoystickEnableButton.Text = "JOYSTICK DRIVE";
-            this.TopCameraJoystickEnableButton.BackColor = Color.FromArgb(171, 171, 171);
          }
          else if (JoystickApplications.targetRobot == this.joystickApplication)
          {
             this.LaserRobotMovementJoystickEnableButton.Text = "JOYSTICK DRIVE";
             this.LaserRobotMovementJoystickEnableButton.BackColor = Color.FromArgb(171, 171, 171);
-            
-            this.TargetRobotMovementJoystickEnableButton.Text = "MANUAL DRIVE";
-            this.TargetRobotMovementJoystickEnableButton.BackColor = Color.Lime;
-
-            this.TopCameraJoystickEnableButton.Text = "JOYSTICK DRIVE";
-            this.TopCameraJoystickEnableButton.BackColor = Color.FromArgb(171, 171, 171);
          }
          else if (JoystickApplications.topCamera == this.joystickApplication)
          {
             this.LaserRobotMovementJoystickEnableButton.Text = "JOYSTICK DRIVE";
             this.LaserRobotMovementJoystickEnableButton.BackColor = Color.FromArgb(171, 171, 171);
-
-            this.TargetRobotMovementJoystickEnableButton.Text = "JOYSTICK DRIVE";
-            this.TargetRobotMovementJoystickEnableButton.BackColor = Color.FromArgb(171, 171, 171);
-
-            this.TopCameraJoystickEnableButton.Text = "MANUAL DRIVE";
-            this.TopCameraJoystickEnableButton.BackColor = Color.Lime;
          }
       }
 
@@ -344,150 +284,6 @@ namespace Weco.Ui
          }
       }
       
-      #endregion
-
-      #region Target Robot 
-
-      private void TargetUpdateMovementControls()
-      {
-         MovementModes targetMovementMode = DeviceCommunication.Instance.GetTargetMovementMode();
-
-         if (MovementModes.off == targetMovementMode)
-         {
-            this.TargetWheelOffButton.BackColor = Color.Lime;
-            this.TargetWheelMoveButton.BackColor = Color.FromArgb(171, 171, 171);
-         }
-         else if (MovementModes.move == targetMovementMode)
-         {
-            this.TargetWheelMoveButton.BackColor = Color.Lime;
-            this.TargetWheelOffButton.BackColor = Color.FromArgb(171, 171, 171);
-
-            this.TargetWheelOffButton.HoldTimeoutEnable = false;
-         }
-         else if (MovementModes.locked == targetMovementMode)
-         {
-            this.TargetWheelOffButton.BackColor = Color.FromArgb(171, 171, 171);
-            this.TargetWheelMoveButton.BackColor = Color.FromArgb(171, 171, 171);
-
-            this.TargetWheelOffButton.HoldTimeoutEnable = true;
-         }
-      }
-
-      #endregion
-
-      #region Measurement
-
-      private void UpdateSessionControls()
-      {
-         string laserRobotFrontWheelFault = LaserCommunicationBus.Instance.GetFaultStatus(LaserCommunicationBus.BusComponentId.LaserBoardFrontWheel);
-         string laserRobotRearWheelFault = LaserCommunicationBus.Instance.GetFaultStatus(LaserCommunicationBus.BusComponentId.LaserBoardRearWheel);
-         bool laserRobotFaulted = ((null != laserRobotFrontWheelFault) || (null != laserRobotRearWheelFault)) ? true : false;
-         bool laserRobotUnlocked = ((DeviceCommunication.Instance.GetLaserMovementLock() == false) && (false == laserRobotFaulted)) ? true : false;
-         bool laserMoved = DeviceCommunication.Instance.GetLaserMoved();
-         bool laserRelayChanged = NumatoUsbRelay.Instance.GetChanged(0) || NumatoUsbRelay.Instance.GetChanged(1);
-
-         string targetRobotFrontWheelFault = TargetCommunicationBus.Instance.GetFaultStatus(TargetCommunicationBus.BusComponentId.TargetBoardFrontWheel);
-         string targetRobotRearWheelFault = TargetCommunicationBus.Instance.GetFaultStatus(TargetCommunicationBus.BusComponentId.TargetBoardRearWheel);
-         bool targetRobotFaulted = ((null != targetRobotFrontWheelFault) || (null != targetRobotRearWheelFault)) ? true : false;
-         bool targetRobotUnlocked = ((DeviceCommunication.Instance.GetTargetMovementLock() == false) && (false == targetRobotFaulted)) ? true : false;
-         bool targetMoved = DeviceCommunication.Instance.GetTargetMoved();
-         bool targetRelayChanged = NumatoUsbRelay.Instance.GetChanged(2) || NumatoUsbRelay.Instance.GetChanged(3);
-
-         if (SessionStates.idle == this.sessionState)
-         {
-            this.LaserRobotLockButton.Enabled = true;
-            this.LaserRobotLeftButton.Enabled = laserRobotUnlocked;
-            this.LaserRobotRightButton.Enabled = laserRobotUnlocked;
-            this.LaserRobotJogReverseButton.Enabled = laserRobotUnlocked;
-            this.LaserRobotJogForwardButton.Enabled = laserRobotUnlocked;
-            this.LaserRobotMoveReverseButton.Enabled = laserRobotUnlocked;
-            this.LaserRobotMoveForwardButton.Enabled = laserRobotUnlocked;
-            this.LaserRobotWheelOffButton.Enabled = laserRobotUnlocked;
-            this.LaserRobotWheelMoveButton.Enabled = laserRobotUnlocked;
-
-            this.TargetRobotLockButton.Enabled = true;
-            this.TargetRobotLeftButton.Enabled = targetRobotUnlocked;
-            this.TargetRobotRightButton.Enabled = targetRobotUnlocked;
-            this.TargetRobotJogReverseButton.Enabled = targetRobotUnlocked;
-            this.TargetRobotJogForwardButton.Enabled = targetRobotUnlocked;
-            this.TargetRobotMoveReverseButton.Enabled = targetRobotUnlocked;
-            this.TargetRobotMoveForwardButton.Enabled = targetRobotUnlocked;
-            this.TargetWheelOffButton.Enabled = targetRobotUnlocked;
-            this.TargetWheelMoveButton.Enabled = targetRobotUnlocked;
-         }
-         else if ((SessionStates.start == this.sessionState) ||
-                  (SessionStates.firstMeasure == this.sessionState) ||
-                  (SessionStates.measure == this.sessionState))
-         {
-            this.LaserRobotLockButton.Enabled = false;
-            this.LaserRobotLeftButton.Enabled = false;
-            this.LaserRobotRightButton.Enabled = false;
-            this.LaserRobotJogReverseButton.Enabled = false;
-            this.LaserRobotJogForwardButton.Enabled = false;
-            this.LaserRobotMoveReverseButton.Enabled = false;
-            this.LaserRobotMoveForwardButton.Enabled = false;
-            this.LaserRobotWheelOffButton.Enabled = false;
-            this.LaserRobotWheelMoveButton.Enabled = false;
-
-            this.TargetRobotLockButton.Enabled = false;
-            this.TargetRobotLeftButton.Enabled = false;
-            this.TargetRobotRightButton.Enabled = false;
-            this.TargetRobotJogReverseButton.Enabled = false;
-            this.TargetRobotJogForwardButton.Enabled = false;
-            this.TargetRobotMoveReverseButton.Enabled = false;
-            this.TargetRobotMoveForwardButton.Enabled = false;
-            this.TargetWheelOffButton.Enabled = false;
-            this.TargetWheelMoveButton.Enabled = false;
-         }
-         else if (SessionStates.move == this.sessionState)
-         {
-            this.LaserRobotLockButton.Enabled = !targetRobotUnlocked && !targetMoved && !targetRelayChanged; 
-            this.LaserRobotLeftButton.Enabled = laserRobotUnlocked;
-            this.LaserRobotRightButton.Enabled = laserRobotUnlocked;
-            this.LaserRobotJogReverseButton.Enabled = laserRobotUnlocked;
-            this.LaserRobotJogForwardButton.Enabled = laserRobotUnlocked;
-            this.LaserRobotMoveReverseButton.Enabled = laserRobotUnlocked;
-            this.LaserRobotMoveForwardButton.Enabled = laserRobotUnlocked;
-            this.LaserRobotWheelOffButton.Enabled = laserRobotUnlocked;
-            this.LaserRobotWheelMoveButton.Enabled = laserRobotUnlocked;
-
-            this.TargetRobotLockButton.Enabled = !laserRobotUnlocked && !laserMoved && !laserRelayChanged;
-            this.TargetRobotLeftButton.Enabled = targetRobotUnlocked;
-            this.TargetRobotRightButton.Enabled = targetRobotUnlocked;
-            this.TargetRobotJogReverseButton.Enabled = targetRobotUnlocked;
-            this.TargetRobotJogForwardButton.Enabled = targetRobotUnlocked;
-            this.TargetRobotMoveReverseButton.Enabled = targetRobotUnlocked;
-            this.TargetRobotMoveForwardButton.Enabled = targetRobotUnlocked;
-            this.TargetWheelOffButton.Enabled = targetRobotUnlocked;
-            this.TargetWheelMoveButton.Enabled = targetRobotUnlocked;
-         }
-      }
-
-      private void RecordMeasurement(double measurement, SessionMeasurementData.Types measurementType)
-      {
-         if (SessionStates.firstMeasure != this.sessionState)
-         {
-            double laserFront = DeviceCommunication.Instance.GetLaserWheelPositionValue(WheelLocations.front);
-            double laserRear = DeviceCommunication.Instance.GetLaserWheelPositionValue(WheelLocations.rear);
-            double targetFront = DeviceCommunication.Instance.GetTargetWheelPositionValue(WheelLocations.front);
-            double targetRear = DeviceCommunication.Instance.GetTargetWheelPositionValue(WheelLocations.rear);
-            SessionRecord.Instance.RecordMovement(laserFront, laserRear, targetFront, targetRear);
-         }
-
-         SessionRecord.Instance.RecordMeasurement(measurement, measurementType);
-         
-         this.measurementRecorded = true;
-         this.RecordBetweenButton.Enabled = false;
-         this.RecordServiceButton.Enabled = false;
-
-         DeviceCommunication.Instance.ResetLaserMoved();
-         DeviceCommunication.Instance.ResetTargetMoved();
-         NumatoUsbRelay.Instance.ResetChanged();
-
-         this.sessionState = SessionStates.move;
-         this.UpdateSessionControls();
-      }
-
       #endregion
 
       #region Video
@@ -606,7 +402,6 @@ namespace Weco.Ui
                this.selectedTargetCameraButton.RightVisible = false; 
                cameraSelectParameters = ParameterAccessor.Instance.GetCameraSelectParameters(this.selectedTargetCameraButton.Camera);
                cameraSelectParameters.LightIntensity = DeviceCommunication.Instance.GetCameraLightLevel(this.selectedTargetCameraButton.Camera);
-               //cameraSelectParameters.LightChannelMask = DeviceCommunication.Instance.GetCameraLightChannelMask(this.selectedTargetCameraButton.Camera);
             }
 
             cameraSelectParameters = ParameterAccessor.Instance.GetCameraSelectParameters(selected.Camera);
@@ -619,12 +414,6 @@ namespace Weco.Ui
             VideoStampOsd.Instance.SetCameraIdText(2, selected.Text);
 
             selected.RightVisible = true;
-            this.TargetFrontCameraSelectButton.CenterVisible = DeviceCommunication.Instance.GetCameraLightEnable(Ui.Controls.CameraLocations.targetFront);
-            this.TargetFrontCameraSelectButton.CenterLevel = cameraSelectParameters.LightIntensity;
-            this.TargetRearCameraSelectButton.CenterVisible = DeviceCommunication.Instance.GetCameraLightEnable(Ui.Controls.CameraLocations.targetRear);
-            this.TargetRearCameraSelectButton.CenterLevel = cameraSelectParameters.LightIntensity;
-            this.TargetTopCameraSelectButton.CenterVisible = DeviceCommunication.Instance.GetCameraLightEnable(Ui.Controls.CameraLocations.targetTop);
-            this.TargetTopCameraSelectButton.CenterLevel = cameraSelectParameters.LightIntensity;
             this.selectedTargetCameraButton = selected;
             ParameterAccessor.Instance.TargetSelectedCamera = selected.Camera;
          }
@@ -651,22 +440,6 @@ namespace Weco.Ui
 
          this.laserMovementFastSelected = true;
 
-         this.targetMovementFastSelected = true;
-
-         this.sessionState = SessionStates.idle;
-         this.measurementRequested = false;
-         this.measurementStarted = false;
-         this.measurementRecorded = false;
-
-         this.laserStepperFaultProcessed = false;
-         this.laserLeftStepperChange = 0;
-         this.laserRightStepperChange = 0;
-
-         this.topCameraStepperFaultProcessed = false;
-         this.topCameraStepperChange = 0;
-         this.topCameraRequestedChange = 0;
-
-         //this.videoSelectMode = VideoSelectModes.none;
          this.laserLightEnabled = true;
          this.targetLightEnabled = true;
          this.selectedLaserCameraButton = null;
@@ -694,11 +467,6 @@ namespace Weco.Ui
 
          this.LaserRobotAlternateMotionMotorPanel.Visible = false;
 
-         this.LaserRobotRollDisplay.Roll = 0;
-         this.LaserRobotRollDisplay.Pitch = 0;
-         this.LaserRobotRollDisplay.Yaw = 0;
-         this.LaserRobotRollDisplay.LeftPushIndicatorColor = Color.Gray;
-         this.LaserRobotRollDisplay.RightPushIndicatorColor = Color.Gray;
          this.LaserRobotLeftButton.BackColor = Color.FromArgb(171, 171, 171);
          this.LaserRobotRightButton.BackColor = Color.FromArgb(171, 171, 171);
          this.LaserRobotFrontWheelCurrentPanel.ValueText = "";
@@ -707,7 +475,6 @@ namespace Weco.Ui
          this.LaserRobotRearWheelCurrentPanel.ValueText = "";
          this.LaserRobotRearWheelTemperaturePanel.ValueText = "";
          this.LaserRobotTripPositionPanel.ValueText = "";
-         this.LaserRobotMotorLinkVoltagePanel.ValueText = "";
          this.LaserRobotJogDistanceButton.ValueText = "";
          this.LaserRobotMoveSpeedButton.ValueText = "";
          this.LaserWheelDirectionalValuePanel.ValueText = "";
@@ -716,83 +483,9 @@ namespace Weco.Ui
          this.LaserRobotWheelMoveButton.LeftArrowVisible = false;
          this.LaserRobotWheelMoveButton.RightArrowVisible = false;
          this.LaserRobotWheelSpeedToggleButton.OptionASelected = this.laserMovementFastSelected;
-         this.LaserRobotLockButton.Enabled = false;
-         this.LaserRobotLockButton.BackColor = Color.FromArgb(171, 171, 171);
-         this.LaserRobotLockButton.DisabledForeColor = Color.Gray;
-         this.LaserRobotLockButton.Text = "LOCK";
 
-
-         this.TargetRobotAlternateMotionMotorPanel.Visible = false;
-
-         this.TargetRobotRollDisplay.Roll = 0;
-         this.TargetRobotRollDisplay.Pitch = 0;
-         this.TargetRobotRollDisplay.Yaw = 0;
-         this.TargetRobotRollDisplay.LeftPushIndicatorColor = Color.Gray;
-         this.TargetRobotRollDisplay.RightPushIndicatorColor = Color.Gray;
-         this.TargetRobotLeftButton.BackColor = Color.FromArgb(171, 171, 171);
-         this.TargetRobotRightButton.BackColor = Color.FromArgb(171, 171, 171);
-         this.TargetRobotFrontWheelCurrentPanel.ValueText = "";
-         this.TargetRobotFrontWheelTemperaturePanel.ValueText = "";
-         this.TargetRobotTotalPositionPanel.ValueText = "";
-         this.TargetRobotRearWheelCurrentPanel.ValueText = "";
-         this.TargetRobotRearWheelTemperaturePanel.ValueText = "";
-         this.TargetRobotTripPositionPanel.ValueText = "";
-         this.TargetRobotMotorLinkVoltagePanel.ValueText = "";
-         this.TargetRobotJogDistanceButton.ValueText = "";
-         this.TargetRobotMoveSpeedButton.ValueText = "";
-         this.TargetWheelDirectionalValuePanel.ValueText = "";
-         this.TargetWheelDirectionalValuePanel.Direction = Ui.Controls.DirectionalValuePanel.Directions.Idle;
-         this.TargetWheelMoveButton.ValueText = "";
-         this.TargetWheelMoveButton.LeftArrowVisible = false;
-         this.TargetWheelMoveButton.RightArrowVisible = false;
-         this.TargetWheelSpeedToggleButton.OptionASelected = this.targetMovementFastSelected;
-         this.TargetRobotLockButton.Enabled = false;
-         this.TargetRobotLockButton.BackColor = Color.FromArgb(171, 171, 171);
-         this.TargetRobotLockButton.DisabledForeColor = Color.Gray;
-         this.TargetRobotLockButton.Text = "LOCK";
-
-         this.TopCameraRollDisplay.Roll = 0;
-
-
-         this.LaserPitchTickTargetPanel.ValueText = "";
-         this.LaserLeftStepperTickPanel.ValueText = "";
-         this.LaserYawTickTargetPanel.ValueText = "";
-         this.LaserRightStepperTickPanel.ValueText = "";
-
-         this.LaserRightStepperHomeSwitchIndicator.IndicatorColor = Color.FromArgb(50, 0, 0);
-         this.LaserLeftStepperHomeSwitchIndicator.IndicatorColor = Color.FromArgb(50, 0, 0);
-
-         this.TopCameraRollPanel.ValueText = "";
-         this.TopCameraStepperPositionPanel.ValueText = "";
-         this.TopCameraHomeIndicator.IndicatorColor = Color.FromArgb(50, 0, 0);
-
-
-         this.LaserTitleLabel.Text = "MEASURE";
-         this.MeasurementValuePanel.ValueText = "";
-         this.MeasureButton.Text = "MEASURE";
-
-         this.SensorIndicator.MissColor = Color.FromKnownColor(KnownColor.ControlDark);
-         this.SensorIndicator.BackColor = Color.FromKnownColor(KnownColor.ControlDark);
-         this.SensorIndicator.CoordinateValue = 0;
-
-         this.LaserUpButton.Enabled = true;
-         this.LaserDownButton.Enabled = true;
-         this.LaserLeftButton.Enabled = true;
-         this.LaserRightButton.Enabled = true;
-         this.LaserCenterButton.Enabled = true;
-
-         this.TopCameraCounterClockwiseButton.Enabled = true;
-         this.TopCameraCenterButton.Enabled = true;
-         this.TopCameraClockwiseButton.Enabled = true;
-
-         this.MeasureButton.Enabled = false;
-         this.RecordBetweenButton.Enabled = false;
-         this.RecordServiceButton.Enabled = false;
-         this.SessionActivityButton.Enabled = false;
-         this.SessionActivityButton.Text = "START";
 
          SessionRecord.Instance.Reset();
-         this.SessionDataControl.Reset();
 
 
          this.StopAllPanel.BackColor = Color.FromArgb(64, 64, 64);
@@ -834,24 +527,9 @@ namespace Weco.Ui
          }
 
          this.LaserUpdateMovementControls();
-         this.TargetUpdateMovementControls();
-
-         this.LaserStepperPitchIndicator.Position = 0;
-         this.LaserStepperPitchIndicator.MaximumPosition = (int)(ParameterAccessor.Instance.LaserStepperPivotAngle * 1000);
-         this.LaserStepperPitchIndicator.MinimumPosition = (int)(ParameterAccessor.Instance.LaserStepperPivotAngle * -1000);
-
-         this.LaserStepperYawIndicator.Position = 0;
-         this.LaserStepperYawIndicator.MaximumPosition = (int)(ParameterAccessor.Instance.LaserStepperPivotAngle * 1000);
-         this.LaserStepperYawIndicator.MinimumPosition = (int)(ParameterAccessor.Instance.LaserStepperPivotAngle * -1000);
-
-         this.TopCameraRollDisplay.PositionCcwLimit = (float)ParameterAccessor.Instance.TargetTopCameraCcwLimit;
-         this.TopCameraRollDisplay.PositionCwLimit = (float)ParameterAccessor.Instance.TargetTopCameraCwLimit;
 
          this.LaserRobotJogDistanceButton.ValueText = this.GetValueText(ParameterAccessor.Instance.LaserWheelManualWheelDistance);
          this.LaserRobotMoveSpeedButton.ValueText = this.GetValueText(ParameterAccessor.Instance.LaserWheelManualWheelSpeed);
-
-         this.TargetRobotJogDistanceButton.ValueText = this.GetValueText(ParameterAccessor.Instance.TargetWheelManualWheelDistance);
-         this.TargetRobotMoveSpeedButton.ValueText = this.GetValueText(ParameterAccessor.Instance.TargetWheelManualWheelSpeed);
 
          for (int i = 0; i < this.cameraButtons.Length; i++)
          {
@@ -860,8 +538,6 @@ namespace Weco.Ui
             this.cameraButtons[i].RightVisible = false;
          }
 
-//         this.UpdateCameraHoldEnable();
-//         this.UpdateVideoSelectorColor();
          this.LaserRobotLightEnableButton.BackColor = (false != this.laserLightEnabled) ? Color.Lime : Color.FromArgb(171, 171, 171);
          this.TargetRobotLightEnableButton.BackColor = (false != this.targetLightEnabled) ? Color.Lime : Color.FromArgb(171, 171, 171);
 
@@ -907,9 +583,7 @@ namespace Weco.Ui
                }
             }
 
-            this.UpdateSessionControls();
             this.LaserUpdateMovementControls();
-            this.TargetUpdateMovementControls();
 
             this.LaserStatusTextBox.Width = (this.TargetStatusTextBox.Left - 8 - this.LaserStatusTextBox.Left);
             this.TargetStatusTextBox.Visible = true;
@@ -1081,18 +755,6 @@ namespace Weco.Ui
                      this.LaserRobotWheelSpeedToggleButton.Enabled = true;
                   }
                }
-
-               if (this.joystickApplication == JoystickApplications.targetRobot)
-               {
-                  if (0 != joystickYAxis)
-                  {
-                     this.TargetWheelSpeedToggleButton.Enabled = false;
-                  }
-                  else
-                  {
-                     this.TargetWheelSpeedToggleButton.Enabled = true;
-                  }
-               }
             }
 
             if (this.joystickApplication != JoystickApplications.laserRobot)
@@ -1107,48 +769,16 @@ namespace Weco.Ui
                   this.LaserRobotMovementJoystickEnableButton.Enabled = true;
                }
             }
-
-            if (this.joystickApplication != JoystickApplications.targetRobot)
-            {
-               if ((0 != joystickXAxis) ||
-                   (0 != joystickYAxis))
-               {
-                  this.TargetRobotMovementJoystickEnableButton.Enabled = false;
-               }
-               else
-               {
-                  this.TargetRobotMovementJoystickEnableButton.Enabled = true;
-               }
-            }
-
-            if (this.joystickApplication != JoystickApplications.topCamera)
-            {
-               if ((0 != joystickXAxis) ||
-                   (0 != joystickYAxis))
-               {
-                  this.TopCameraJoystickEnableButton.Enabled = false;
-               }
-               else
-               {
-                  this.TopCameraJoystickEnableButton.Enabled = true;
-               }
-            }
          }
 
          #endregion
 
          #region Laser Robot
 
-         this.LaserRobotRollDisplay.Roll = (float)DeviceCommunication.Instance.GetLaserMainRoll();
-         this.LaserRobotRollDisplay.Pitch = (float)DeviceCommunication.Instance.GetLaserMainPitch();
-         this.LaserRobotRollDisplay.Yaw = (float)DeviceCommunication.Instance.GetLaserMainYaw();
-
          string usbRelayFault = NumatoUsbRelay.Instance.FaultReason;
          bool laserLeftPush = NumatoUsbRelay.Instance.GetRelayState(0);
          bool laserRightPush = NumatoUsbRelay.Instance.GetRelayState(1);
          bool laserRobotLocked = DeviceCommunication.Instance.GetLaserMovementLock();
-         this.LaserRobotRollDisplay.LeftPushIndicatorColor = (null != usbRelayFault) ? Color.Red : (false != laserLeftPush) ? Color.Lime : Color.Gray;
-         this.LaserRobotRollDisplay.RightPushIndicatorColor = (null != usbRelayFault) ? Color.Red : (false != laserRightPush) ? Color.Lime : Color.Gray;
 
 
          if (null != usbRelayFault)
@@ -1185,19 +815,6 @@ namespace Weco.Ui
          }
 
 
-         if (false != laserRobotLocked)
-         {
-            this.LaserRobotLockButton.BackColor = Color.Lime;
-            this.LaserRobotLockButton.DisabledForeColor = Color.Lime;
-            this.LaserRobotLockButton.Text = (false != this.LaserRobotLockButton.Enabled) ? "UNLOCK" : "LOCKED";
-         }
-         else
-         {
-            this.LaserRobotLockButton.BackColor = Color.FromArgb(171, 171, 171);
-            this.LaserRobotLockButton.DisabledForeColor = Color.Gray;
-            this.LaserRobotLockButton.Text = "LOCK";
-         }
-
 
          double laserWheelCurrent = 0;
          double laserWheelTemperature = 0;
@@ -1220,9 +837,6 @@ namespace Weco.Ui
          
          laserWheelPosition = DeviceCommunication.Instance.GetLaserWheelTripPositionValue();
          this.LaserRobotTripPositionPanel.ValueText = this.GetValueText(laserWheelPosition, ParameterAccessor.Instance.LaserWheelManualWheelDistance);
-
-         double laserLinkVoltage = DeviceCommunication.Instance.GetLaserLinkVoltage();
-         this.LaserRobotMotorLinkVoltagePanel.ValueText = this.GetValueText(laserLinkVoltage, 1, "V");
 
 
          this.LaserUpdateMovementControls();
@@ -1322,516 +936,6 @@ namespace Weco.Ui
             this.LaserRobotWheelMoveButton.RightArrowVisible = false;
             this.LaserRobotWheelMoveButton.ValueForeColor = Color.FromKnownColor(KnownColor.ControlDarkDark);
             this.LaserRobotWheelMoveButton.ValueText = this.GetValueText(0, laserMovementParameter);
-         }
-
-         #endregion
-
-         #region Target Robot
-
-         double targetRobotMainRoll = DeviceCommunication.Instance.GetTargetMainRoll();
-         this.TargetRobotRollDisplay.Roll = (float)targetRobotMainRoll;
-         this.TargetRobotRollDisplay.Pitch = (float)DeviceCommunication.Instance.GetTargetMainPitch();
-         this.TargetRobotRollDisplay.Yaw = (float)DeviceCommunication.Instance.GetTargetMainYaw();
-
-         usbRelayFault = NumatoUsbRelay.Instance.FaultReason;
-         bool targetLeftPush = NumatoUsbRelay.Instance.GetRelayState(2);
-         bool targetRightPush = NumatoUsbRelay.Instance.GetRelayState(3);
-         bool targetRobotLocked = DeviceCommunication.Instance.GetTargetMovementLock();
-         this.TargetRobotRollDisplay.LeftPushIndicatorColor = (null != usbRelayFault) ? Color.Red : (false != targetLeftPush) ? Color.Lime : Color.Gray;
-         this.TargetRobotRollDisplay.RightPushIndicatorColor = (null != usbRelayFault) ? Color.Red : (false != targetRightPush) ? Color.Lime : Color.Gray;
-
-
-         if (null != usbRelayFault)
-         {
-            this.TargetRobotLeftButton.BackColor = Color.Red;
-            this.TargetRobotLeftButton.DisabledForeColor = Color.Red;
-
-            this.TargetRobotRightButton.BackColor = Color.Red;
-            this.TargetRobotRightButton.DisabledForeColor = Color.Red;
-         }
-         else
-         {
-            if (false != targetLeftPush)
-            {
-               this.TargetRobotLeftButton.BackColor = Color.Lime;
-               this.TargetRobotLeftButton.DisabledForeColor = Color.Lime;
-            }
-            else
-            {
-               this.TargetRobotLeftButton.BackColor = Color.FromArgb(171, 171, 171);
-               this.TargetRobotLeftButton.DisabledForeColor = Color.Gray;
-            }
-
-            if (false != targetRightPush)
-            {
-               this.TargetRobotRightButton.BackColor = Color.Lime;
-               this.TargetRobotRightButton.DisabledForeColor = Color.Lime;
-            }
-            else
-            {
-               this.TargetRobotRightButton.BackColor = Color.FromArgb(171, 171, 171);
-               this.TargetRobotRightButton.DisabledForeColor = Color.Gray;
-            }
-         }
-
-
-         if (false != targetRobotLocked)
-         {
-            this.TargetRobotLockButton.BackColor = Color.Lime;
-            this.TargetRobotLockButton.DisabledForeColor = Color.Lime;
-            this.TargetRobotLockButton.Text = (false != this.TargetRobotLockButton.Enabled) ? "UNLOCK" : "LOCKED";
-         }
-         else
-         {
-            this.TargetRobotLockButton.BackColor = Color.FromArgb(171, 171, 171);
-            this.TargetRobotLockButton.DisabledForeColor = Color.Gray;
-            this.TargetRobotLockButton.Text = "LOCK";
-         }
-
-         double topCameraRoll = DeviceCommunication.Instance.GetTargetTopCameraRoll();
-         this.TopCameraRollDisplay.Roll = (float)topCameraRoll;
-         this.TopCameraRollDisplay.PositionRoll = (float)targetRobotMainRoll;
-         this.TopCameraRollPanel.ValueText = this.GetValueText(topCameraRoll, 1, "°");
-         
-         int topCameraStepperPosition = DeviceCommunication.Instance.GetTargetStepperActualPosition();
-         this.TopCameraStepperPositionPanel.ValueText = this.GetValueText(topCameraStepperPosition);
-
-         bool topCameraStepperHomeActive = DeviceCommunication.Instance.GetTopCameraStepperHomeSwitchActive();
-         this.TopCameraHomeIndicator.IndicatorColor = (false != topCameraStepperHomeActive) ? Color.Red : Color.FromArgb(50, 0, 0);
-
-
-         double targetWheelCurrent = 0;
-         double targetWheelTemperature = 0;
-         double targetWheelPosition = 0;
-
-         targetWheelCurrent = DeviceCommunication.Instance.GetTargetWheelCurrentValue(WheelLocations.front);
-         this.TargetRobotFrontWheelCurrentPanel.ValueText = this.GetValueText(targetWheelCurrent, 2, "A"); ;
-
-         targetWheelTemperature = DeviceCommunication.Instance.GetTargetWheelTemperatureValue(WheelLocations.front);
-         this.TargetRobotFrontWheelTemperaturePanel.ValueText = this.GetValueText(targetWheelTemperature, 0, "°C");
-
-         targetWheelCurrent = DeviceCommunication.Instance.GetTargetWheelCurrentValue(WheelLocations.rear);
-         this.TargetRobotRearWheelCurrentPanel.ValueText = this.GetValueText(targetWheelCurrent, 2, "A"); ;
-
-         targetWheelTemperature = DeviceCommunication.Instance.GetTargetWheelTemperatureValue(WheelLocations.rear);
-         this.TargetRobotRearWheelTemperaturePanel.ValueText = this.GetValueText(targetWheelTemperature, 0, "°C");
-
-         targetWheelPosition = DeviceCommunication.Instance.GetTargetWheelTotalPositionValue();
-         this.TargetRobotTotalPositionPanel.ValueText = this.GetValueText(targetWheelPosition, ParameterAccessor.Instance.LaserWheelManualWheelDistance);
-
-         targetWheelPosition = DeviceCommunication.Instance.GetTargetWheelTripPositionValue();
-         this.TargetRobotTripPositionPanel.ValueText = this.GetValueText(targetWheelPosition, ParameterAccessor.Instance.LaserWheelManualWheelDistance);
-
-         double targetLinkVoltage = DeviceCommunication.Instance.GetTargetLinkVoltage();
-         this.TargetRobotMotorLinkVoltagePanel.ValueText = this.GetValueText(targetLinkVoltage, 1, "V");
-
-
-         this.TargetUpdateMovementControls();
-
-
-         double targetMovementRequestValue = 0;
-         ValueParameter targetMovementParameter = null;
-         DeviceCommunication.Instance.GetTargetMovementRequestValues(ref targetMovementParameter, ref targetMovementRequestValue);
-
-         double targetMovementValue = DeviceCommunication.Instance.GetTargetMovementValue();
-         double targetMovementStatusDisplayValue = Math.Abs(targetMovementValue);
-
-         if (targetMovementStatusDisplayValue < targetMovementParameter.StepValue)
-         {
-            targetMovementValue = 0;
-            targetMovementStatusDisplayValue = 0;
-         }
-
-         if (targetMovementValue > 0)
-         {
-            this.TargetWheelDirectionalValuePanel.Direction = Ui.Controls.DirectionalValuePanel.Directions.Forward;
-         }
-         else if (targetMovementValue < 0)
-         {
-            this.TargetWheelDirectionalValuePanel.Direction = Ui.Controls.DirectionalValuePanel.Directions.Reverse;
-         }
-         else
-         {
-            this.TargetWheelDirectionalValuePanel.Direction = Ui.Controls.DirectionalValuePanel.Directions.Idle;
-         }
-
-         this.TargetWheelDirectionalValuePanel.ValueText = this.GetValueText(targetMovementStatusDisplayValue, targetMovementParameter);
-         
-
-         bool targetMovementReverse = false;
-         bool targetMovementForward = false;
-         bool targetMovementSet = false;
-
-         if (JoystickApplications.targetRobot == this.joystickApplication)
-         {
-            if (false == this.TargetRobotAlternateMotionMotorPanel.Visible)
-            {
-               this.TargetRobotAlternateMotionMotorPanel.Top = this.GetAbsoluteTop(this.TargetRobotJogReverseButton);
-               this.TargetRobotAlternateMotionMotorPanel.Left = this.TargetRobotWheelPanel.Left;
-
-               this.TargetRobotAlternateMotionMotorPanel.Visible = true;
-            }
-
-            if (joystickYChange < 0)
-            {
-               targetMovementReverse = true;
-               targetMovementForward = false;
-            }
-            else if (joystickYChange > 0)
-            {
-               targetMovementReverse = false;
-               targetMovementForward = true;
-            }
-
-            double targetMovementScale = (false != this.targetMovementFastSelected) ? 1.0 : ParameterAccessor.Instance.TargetWheelLowSpeedScale.OperationalValue / 100;
-            double targetMovementRequestPercent = targetMovementScale * joystickYChange / joystickYRange;
-
-            bool targetMovementTriggered = (false != Joystick.Instance.Button1Pressed);
-            DeviceCommunication.Instance.SetTargetMovementVelocityRequest(targetMovementRequestPercent, targetMovementTriggered);
-
-            bool targetMovementActivated = DeviceCommunication.Instance.GetTargetMovementActivated();
-
-            if (false != this.TargetWheelMoveButton.Enabled)
-            {
-               double targetMovementDisplayValue = Math.Abs(targetMovementRequestValue);
-               this.TargetWheelMoveButton.LeftArrowVisible = targetMovementReverse;
-               this.TargetWheelMoveButton.RightArrowVisible = targetMovementForward;
-               this.TargetWheelMoveButton.ValueForeColor = (false != targetMovementActivated) ? Color.White : Color.FromKnownColor(KnownColor.ControlDarkDark);
-               this.TargetWheelMoveButton.ValueText = this.GetValueText(targetMovementDisplayValue, targetMovementParameter);
-               targetMovementSet = true;
-            }
-         }
-         else
-         {
-            if (false != this.TargetRobotAlternateMotionMotorPanel.Visible)
-            {
-               this.TargetRobotAlternateMotionMotorPanel.Visible = false;
-            }
-         }
-
-         if (false == targetMovementSet)
-         {
-            bool targetMovementManual = DeviceCommunication.Instance.GetTargetMovementManualMode();
-
-            if (false == targetMovementManual)
-            {
-               DeviceCommunication.Instance.SetTargetMovementVelocityRequest(0, false);
-            }
-
-            this.TargetWheelMoveButton.LeftArrowVisible = false;
-            this.TargetWheelMoveButton.RightArrowVisible = false;
-            this.TargetWheelMoveButton.ValueForeColor = Color.FromKnownColor(KnownColor.ControlDarkDark);
-            this.TargetWheelMoveButton.ValueText = this.GetValueText(0, targetMovementParameter);
-         }
-
-         #endregion
-
-         #region Laser Measurement
-
-         this.UpdateSessionControls();
-
-         string laserMeasureFault = LaserCommunicationBus.Instance.GetFaultStatus(LaserCommunicationBus.BusComponentId.LaserBoard);
-         string targetMeasureFault = TargetCommunicationBus.Instance.GetFaultStatus(TargetCommunicationBus.BusComponentId.TargetBoard);
-
-         if ((null == laserMeasureFault) && (null == targetMeasureFault))
-         {
-            bool robotsLocked = ((false != laserRobotLocked) && (false != targetRobotLocked)) ? true : false;
-            bool measurementEnabled = ((SessionStates.idle == this.sessionState) || (false != robotsLocked)) ? true : false;
-            this.MeasureButton.Enabled = measurementEnabled;
-            this.SessionActivityButton.Enabled = robotsLocked;
-            
-            bool laserAimActive = DeviceCommunication.Instance.GetLaserAim();
-            this.LaserAimButton.BackColor = (false != laserAimActive) ? Color.Lime : Color.FromArgb(171, 171, 171);
-
-            bool measurementReady = DeviceCommunication.Instance.GetLaserMeasurementReady();
-            bool measurementActive = DeviceCommunication.Instance.GetLaserMeasurementActivity();
-
-
-            string measurementStatusText = "";
-
-            if (false != this.measurementRequested)
-            {
-               if (false != measurementReady)
-               {
-                  Tracer.WriteHigh(TraceGroup.UI, "", "measure ready");
-
-                  double deviceMeasurement = DeviceCommunication.Instance.GetAverageLaserMeasurement();
-                  this.MeasurementValuePanel.BackColor = Color.Black;
-                  this.MeasurementValuePanel.ValueText = this.GetValueText(deviceMeasurement, ParameterAccessor.Instance.LaserMeasurementConstant);
-                  measurementStatusText = "MEASUREMENT READY";
-                  this.measurement = deviceMeasurement;
-
-                  if (SessionStates.idle != this.sessionState)
-                  {
-                     this.RecordBetweenButton.Enabled = true;
-                     this.RecordServiceButton.Enabled = true;
-                  }
-
-                  this.MeasureButton.Text = "MEASURE";
-                  this.measurementRequested = false;
-                  this.measurementStarted = true;
-               }
-               else
-               {
-                  this.MeasurementValuePanel.BackColor = (false != this.messageFlasher) ? Color.DodgerBlue : Color.SteelBlue;
-
-                  if (false != measurementActive)
-                  {
-                     int laserMeasureRemainingCount = DeviceCommunication.Instance.GetLaserSampleRemainingCount();
-                     string laserMeasureStatusText = string.Format("MEASURING ({0})", laserMeasureRemainingCount);
-                     measurementStatusText = laserMeasureStatusText;
-                  }
-
-                  this.MeasureButton.Text = "CANCEL";
-               }
-            }
-            else if ((false != measurementReady) && (false == this.measurementRecorded) && (false != this.measurementStarted))
-            {
-               measurementStatusText = "MEASUREMENT READY";
-               this.MeasureButton.Text = "MEASURE";
-               this.MeasurementValuePanel.BackColor = Color.Black;
-            }
-            else
-            {
-               measurementStatusText = "MEASURE READY";
-               this.MeasureButton.Text = "MEASURE";
-               this.MeasurementValuePanel.BackColor = Color.Black;
-            }
-
-            string sessionStatusText = "";
-
-            if (SessionStates.idle != this.sessionState)
-            {
-               if (false != this.measurementRequested)
-               {
-                  sessionStatusText = string.Format("SESSION ACTIVE - {0}", measurementStatusText);
-               }
-               else if (false != this.measurementRecorded)
-               {
-                  if (SessionStates.move == this.sessionState)
-                  {
-                     sessionStatusText = string.Format("SESSION ACTIVE - MOVE");
-                  }
-               }
-               else
-               {
-                  sessionStatusText = string.Format("SESSION ACTIVE - {0}", measurementStatusText);
-               }
-            }
-            else
-            {
-               sessionStatusText = measurementStatusText;
-            }
-
-            this.LaserTitleLabel.Text = sessionStatusText;
-         }
-         else
-         {
-            this.MeasureButton.Enabled = false;
-            this.SessionActivityButton.Enabled = false;
-            
-            this.LaserTitleLabel.Text = "MEASURE - FAULTED";
-         }
-
-
-         string laserScannerFault = TargetCommunicationBus.Instance.GetFaultStatus(TargetCommunicationBus.BusComponentId.TargetBoard);
-
-         if (null == laserScannerFault)
-         {
-            this.SensorIndicator.MissColor = Color.FromArgb(140, 0, 0);
-            this.SensorIndicator.BackColor = Color.FromKnownColor(KnownColor.ControlDark);
-            this.SensorIndicator.CoordinateValue = DeviceCommunication.Instance.GetTargetScannerCoordinates();
-         }
-         else
-         {
-            this.SensorIndicator.MissColor = Color.Red;
-            this.SensorIndicator.BackColor = Color.Red;
-            this.SensorIndicator.CoordinateValue = 0;
-         }
-
-
-         this.SessionDataControl.UpdateRecordData();
-
-         #endregion
-
-         #region Laser Aiming
-
-         string laserLeftStepperFault = LaserCommunicationBus.Instance.GetFaultStatus(LaserCommunicationBus.BusComponentId.LaserBoardLeftStepper);
-         string laserRightStepperFault = LaserCommunicationBus.Instance.GetFaultStatus(LaserCommunicationBus.BusComponentId.LaserBoardRightStepper);
-         bool laserStepperFaulted = ((null != laserLeftStepperFault) || (null != laserRightStepperFault)) ? true : false;
-
-         if (false != laserStepperFaulted)
-         {
-            if (false == this.laserStepperFaultProcessed)
-            {
-               this.LaserUpButton.Enabled = false;
-               this.LaserDownButton.Enabled = false;
-               this.LaserLeftButton.Enabled = false;
-               this.LaserRightButton.Enabled = false;
-               this.LaserCenterButton.Enabled = false;
-
-               this.laserLeftStepperChange = 0;
-               this.laserRightStepperChange = 0;
-
-               this.laserStepperFaultProcessed = true;
-            }
-         }
-         else
-         {
-            if (false != this.laserStepperFaultProcessed)
-            {
-               this.LaserUpButton.Enabled = true;
-               this.LaserDownButton.Enabled = true;
-               this.LaserLeftButton.Enabled = true;
-               this.LaserRightButton.Enabled = true;
-               this.LaserCenterButton.Enabled = true;
-
-               this.laserStepperFaultProcessed = false;
-            }
-         }
-
-         int laserLeftStepperTargetValue = DeviceCommunication.Instance.GetLaserLeftStepperTargetPosition();
-         int laserRightStepperTargetValue = DeviceCommunication.Instance.GetLaserRightStepperTargetPosition();
-
-         int fullRangeTicks = (int)(ParameterAccessor.Instance.LaserStepperPivotAngle * 2 * 10); // full range in 10 seconds
-         int leftStepperAdjust = (ParameterAccessor.Instance.LaserLeftStepper.MaximumPosition - ParameterAccessor.Instance.LaserLeftStepper.MinimumPosition) / fullRangeTicks;
-         int rightStepperAdjust = (ParameterAccessor.Instance.LaserRightStepper.MaximumPosition - ParameterAccessor.Instance.LaserRightStepper.MinimumPosition) / fullRangeTicks;
-
-         if (this.laserLeftStepperChange > 0)
-         {
-            laserLeftStepperTargetValue += leftStepperAdjust;
-
-            if (laserLeftStepperTargetValue > ParameterAccessor.Instance.LaserLeftStepper.MaximumPosition)
-            {
-               laserLeftStepperTargetValue = ParameterAccessor.Instance.LaserLeftStepper.MaximumPosition;
-            }
-         }
-         else if (this.laserLeftStepperChange < 0)
-         {
-            laserLeftStepperTargetValue -= leftStepperAdjust;
-
-            if (laserLeftStepperTargetValue < ParameterAccessor.Instance.LaserLeftStepper.MinimumPosition)
-            {
-               laserLeftStepperTargetValue = ParameterAccessor.Instance.LaserLeftStepper.MinimumPosition;
-            }
-         }
-
-         if (this.laserRightStepperChange > 0)
-         {
-            laserRightStepperTargetValue += rightStepperAdjust;
-
-            if (laserRightStepperTargetValue > ParameterAccessor.Instance.LaserRightStepper.MaximumPosition)
-            {
-               laserRightStepperTargetValue = ParameterAccessor.Instance.LaserRightStepper.MaximumPosition;
-            }
-         }
-         else if (this.laserRightStepperChange < 0)
-         {
-            laserRightStepperTargetValue -= rightStepperAdjust;
-
-            if (laserRightStepperTargetValue < ParameterAccessor.Instance.LaserRightStepper.MinimumPosition)
-            {
-               laserRightStepperTargetValue = ParameterAccessor.Instance.LaserRightStepper.MinimumPosition;
-            }
-         }
-
-         DeviceCommunication.Instance.SetLaserLeftStepperTargetPosition(laserLeftStepperTargetValue);
-
-         int laserleftStepperPosition = DeviceCommunication.Instance.GetLaserLeftStepperPosition();
-         this.LaserLeftStepperTickPanel.ValueText = this.GetValueText(laserleftStepperPosition);
-
-         bool laserLeftStepperHomeActive = DeviceCommunication.Instance.GetLaserLeftStepperHomeSwitchActive();
-         this.LaserLeftStepperHomeSwitchIndicator.IndicatorColor = (false != laserLeftStepperHomeActive) ? Color.Red : Color.FromArgb(50, 0, 0);
-
-
-         DeviceCommunication.Instance.SetLaserRightStepperTargetPosition(laserRightStepperTargetValue);
-
-         int laserRightStepperPosition = DeviceCommunication.Instance.GetLaserRightStepperPosition();
-         this.LaserRightStepperTickPanel.ValueText = this.GetValueText(laserRightStepperPosition);
-
-         bool laserStepperXHomeActive = DeviceCommunication.Instance.GetLaserRightStepperHomeSwitchActive();
-         this.LaserRightStepperHomeSwitchIndicator.IndicatorColor = (false != laserStepperXHomeActive) ? Color.Red : Color.FromArgb(50, 0, 0);
-
-
-         double stepperMaximum = ((ParameterAccessor.Instance.LaserLeftStepper.MaximumPosition - ParameterAccessor.Instance.LaserLeftStepper.MinimumPosition) +
-                                  (ParameterAccessor.Instance.LaserRightStepper.MaximumPosition - ParameterAccessor.Instance.LaserRightStepper.MinimumPosition)) / 2;
-         double calculatedPitch = ((laserLeftStepperTargetValue + laserRightStepperTargetValue - stepperMaximum) / stepperMaximum) * ParameterAccessor.Instance.LaserStepperPivotAngle;
-         double calculatedYaw = ((laserLeftStepperTargetValue - laserRightStepperTargetValue) / stepperMaximum) * ParameterAccessor.Instance.LaserStepperPivotAngle;
-
-         this.LaserPitchTickTargetPanel.ValueText = this.GetValueText(calculatedPitch, 1, "°");
-         this.LaserStepperPitchIndicator.Position = (int)(calculatedPitch * 1000);
-
-         this.LaserYawTickTargetPanel.ValueText = this.GetValueText(calculatedYaw, 1, "°");
-         this.LaserStepperYawIndicator.Position = (int)(calculatedYaw * -1000); ;
-
-         #endregion
-
-         #region Top Camera
-
-         string topCamerStepperFault = TargetCommunicationBus.Instance.GetFaultStatus(TargetCommunicationBus.BusComponentId.TargetBoardCameraStepper);
-         bool topCameraStepperFaulted = (null != topCamerStepperFault) ? true : false;
-         int topCameraStepperRequest = DeviceCommunication.Instance.GetTargetStepperActualPosition();
-         int topCameraChange = 0;
-
-         if (false != topCameraStepperFaulted)
-         {
-            if (false == this.topCameraStepperFaultProcessed)
-            {
-               this.TopCameraCounterClockwiseButton.Enabled = false;
-               this.TopCameraCenterButton.Enabled = false;
-               this.TopCameraClockwiseButton.Enabled = false;
-
-               this.topCameraStepperChange = 0;
-
-               this.topCameraStepperFaultProcessed = true;
-            }
-         }
-         else
-         {
-            if (false != this.topCameraStepperFaultProcessed)
-            {
-               this.topCameraStepperFaultProcessed = false;
-            }
-
-            if (JoystickApplications.topCamera == this.joystickApplication)
-            {
-               this.TopCameraCounterClockwiseButton.Enabled = false;
-               this.TopCameraCenterButton.Enabled = false;
-               this.TopCameraClockwiseButton.Enabled = false;
-
-               topCameraChange = joystickYChange;
-            }
-            else
-            {
-               this.TopCameraCounterClockwiseButton.Enabled = true;
-               this.TopCameraCenterButton.Enabled = true;
-               this.TopCameraClockwiseButton.Enabled = true;
-
-               topCameraChange = this.topCameraStepperChange;
-            }
-         }
-
-         if (topCameraChange > 0)
-         {
-            topCameraStepperRequest = ParameterAccessor.Instance.TargetStepper.MaximumPosition;
-         }
-         else if (topCameraChange < 0)
-         {
-            topCameraStepperRequest = ParameterAccessor.Instance.TargetStepper.MinimumPosition;
-         }
-
-         if (topCameraChange != this.topCameraRequestedChange)
-         {
-            if (0 != topCameraChange)
-            {
-               DeviceCommunication.Instance.SetTargetStepperPosition(topCameraStepperRequest);
-            }
-            else
-            {
-               DeviceCommunication.Instance.StopTargetStepper();
-            }
-
-            this.topCameraRequestedChange = topCameraChange;
          }
 
          #endregion
@@ -2024,400 +1128,11 @@ namespace Weco.Ui
       {
          bool locked = DeviceCommunication.Instance.GetLaserMovementLock();
          DeviceCommunication.Instance.SetLaserMovementLock(!locked);
-         this.UpdateSessionControls();
-      }
-
-      #endregion
-
-      #region Target Robot Movement Events
-
-      private void TargetRobotLeftButton_HoldTimeout(object sender, Controls.HoldTimeoutEventArgs e)
-      {
-         bool state = NumatoUsbRelay.Instance.GetRelayState(2);
-         NumatoUsbRelay.Instance.SetRelay(2, !state);
-      }
-
-      private void TargetRobotRightButton_HoldTimeout(object sender, Controls.HoldTimeoutEventArgs e)
-      {
-         bool state = NumatoUsbRelay.Instance.GetRelayState(3);
-         NumatoUsbRelay.Instance.SetRelay(3, !state);      
-      }
-
-      private void TargetWheelOffButton_Click(object sender, EventArgs e)
-      {
-         if (false == this.TargetWheelOffButton.HoldTimeoutEnable)
-         {
-            DeviceCommunication.Instance.SetTargetMovementMode(MovementModes.off);
-         }
-      }
-
-      private void TargetWheelOffButton_HoldTimeout(object sender, Controls.HoldTimeoutEventArgs e)
-      {
-         DeviceCommunication.Instance.SetTargetMovementMode(MovementModes.off);
-      }
-
-      private void TargetWheelMoveButton_HoldTimeout(object sender, Controls.HoldTimeoutEventArgs e)
-      {
-         DeviceCommunication.Instance.SetTargetMovementMode(MovementModes.move);
-      }
-
-      private void TargetWheelSpeedToggleButton_Click(object sender, EventArgs e)
-      {
-         bool selection = !this.TargetWheelSpeedToggleButton.OptionASelected;
-         this.targetMovementFastSelected = selection;
-         this.TargetWheelSpeedToggleButton.OptionASelected = selection;
-      }
-
-      private void TargetRobotJogReverseButton_MouseDown(object sender, MouseEventArgs e)
-      {
-         DeviceCommunication.Instance.SetTargetMovementPositionRequest(-ParameterAccessor.Instance.TargetWheelManualWheelDistance.OperationalValue);
-      }
-
-      private void TargetRobotJogDistanceButton_HoldTimeout(object sender, Controls.HoldTimeoutEventArgs e)
-      {
-         DialogResult result = this.LaunchNumberEdit(this.TargetRobotJogDistanceButton, ParameterAccessor.Instance.TargetWheelManualWheelDistance, "JOG DISTANCE");
-      }
-
-      private void TargetRobotJogForwardButton_MouseDown(object sender, MouseEventArgs e)
-      {
-         DeviceCommunication.Instance.SetTargetMovementPositionRequest(ParameterAccessor.Instance.TargetWheelManualWheelDistance.OperationalValue);
-      }
-
-      private void TargetRobotMoveReverseButton_MouseDown(object sender, MouseEventArgs e)
-      {
-         double neededSpeed = ParameterAccessor.Instance.TargetWheelManualWheelSpeed.OperationalValue;
-         double neededPercent = neededSpeed / ParameterAccessor.Instance.TargetWheelMaximumSpeed.OperationalValue;
-
-         DeviceCommunication.Instance.SetTargetMovementManualMode(true);
-         DeviceCommunication.Instance.SetTargetMovementVelocityRequest(-neededPercent, true);
-      }
-
-      private void TargetRobotMoveReverseButton_MouseUp(object sender, MouseEventArgs e)
-      {
-         DeviceCommunication.Instance.SetTargetMovementVelocityRequest(0, false);
-         DeviceCommunication.Instance.SetTargetMovementManualMode(false);
-      }
-
-      private void TargetRobotMoveSpeedButton_HoldTimeout(object sender, Controls.HoldTimeoutEventArgs e)
-      {
-         ParameterAccessor.Instance.TargetWheelManualWheelSpeed.MaximumValue = ParameterAccessor.Instance.TargetWheelMaximumSpeed.OperationalValue;
-         DialogResult result = this.LaunchNumberEdit(this.TargetRobotMoveSpeedButton, ParameterAccessor.Instance.TargetWheelManualWheelSpeed, "MOVE SPEED");
-      }
-
-      private void TargetRobotMoveForwardButton_MouseDown(object sender, MouseEventArgs e)
-      {
-         double neededSpeed = ParameterAccessor.Instance.TargetWheelManualWheelSpeed.OperationalValue;
-         double neededPercent = neededSpeed / ParameterAccessor.Instance.TargetWheelMaximumSpeed.OperationalValue;
-
-         DeviceCommunication.Instance.SetTargetMovementManualMode(true);
-         DeviceCommunication.Instance.SetTargetMovementVelocityRequest(neededPercent, true);
-      }
-
-      private void TargetRobotMoveForwardButton_MouseUp(object sender, MouseEventArgs e)
-      {
-         DeviceCommunication.Instance.SetTargetMovementVelocityRequest(0, false);
-         DeviceCommunication.Instance.SetTargetMovementManualMode(false);
-      }
-
-      private void TargetRobotMotorSetupButton_Click(object sender, EventArgs e)
-      {
-         Button button = (Button)sender;
-         
-         TargetRobotMovementSetupForm targetRobotMovementSetupForm = new TargetRobotMovementSetupForm();
-
-         this.SetDialogLocation(button, targetRobotMovementSetupForm);
-         this.DimBackground();
-         targetRobotMovementSetupForm.ShowDialog();
-         this.LightBackground();
-      }
-
-      private void TargetRobotMovementJoystickEnableButton_Click(object sender, EventArgs e)
-      {
-         if (JoystickApplications.targetRobot != this.joystickApplication)
-         {
-            this.joystickApplication = JoystickApplications.targetRobot;
-         }
-         else
-         {
-            this.joystickApplication = JoystickApplications.none;
-         }
-
-         this.UpdateJoystickApplicationButtons();
-      }
-
-      private void TargetRobotLockButton_HoldTimeout(object sender, Controls.HoldTimeoutEventArgs e)
-      {
-         bool locked = DeviceCommunication.Instance.GetTargetMovementLock();
-         DeviceCommunication.Instance.SetTargetMovementLock(!locked);
-         this.UpdateSessionControls();
-      }
-
-      #endregion
-
-      #region Laser Actions Events
-
-      private void LaserUpButton_MouseDown(object sender, MouseEventArgs e)
-      {
-         this.laserLeftStepperChange = 1;
-         this.laserRightStepperChange = 1;
-      }
-
-      private void LaserUpButton_MouseUp(object sender, MouseEventArgs e)
-      {
-         this.laserLeftStepperChange = 0;
-         this.laserRightStepperChange = 0;
-      }
-
-      private void LaserDownButton_MouseDown(object sender, MouseEventArgs e)
-      {
-         this.laserLeftStepperChange = -1;
-         this.laserRightStepperChange = -1;
-      }
-
-      private void LaserDownButton_MouseUp(object sender, MouseEventArgs e)
-      {
-         this.laserLeftStepperChange = 0;
-         this.laserRightStepperChange = 0;
-      }
-
-      private void LaserLeftButton_MouseDown(object sender, MouseEventArgs e)
-      {
-         this.laserLeftStepperChange = -1;
-         this.laserRightStepperChange = 1;
-      }
-
-      private void LaserLeftButton_MouseUp(object sender, MouseEventArgs e)
-      {
-         this.laserLeftStepperChange = 0;
-         this.laserRightStepperChange = 0;
-      }
-
-      private void LaserRightButton_MouseDown(object sender, MouseEventArgs e)
-      {
-         this.laserLeftStepperChange = 1;
-         this.laserRightStepperChange = -1;
-      }
-
-      private void LaserRightButton_MouseUp(object sender, MouseEventArgs e)
-      {
-         this.laserLeftStepperChange = 0;
-         this.laserRightStepperChange = 0;
-      }
-
-      private void LaserCenterButton_HoldTimeout(object sender, Controls.HoldTimeoutEventArgs e)
-      {
-         DeviceCommunication.Instance.SetLaserCenter();
-      }
-
-      private void MeasureSetupButton_Click(object sender, EventArgs e)
-      {
-         Button button = (Button)sender;
-
-         LaserSetupForm laserSetupForm = new LaserSetupForm();
-
-         this.SetDialogLocation(button, laserSetupForm);
-         this.DimBackground();
-         laserSetupForm.ShowDialog();
-         this.LightBackground();
-      }
-
-      private void LaserAimButton_Click(object sender, EventArgs e)
-      {
-         bool request = !DeviceCommunication.Instance.GetLaserAim();
-         DeviceCommunication.Instance.SetLaserAim(request);
-      }
-
-      private void MeasureButton_Click(object sender, EventArgs e)
-      {
-         bool laserMeasureActivity = DeviceCommunication.Instance.GetLaserMeasurementActivity();
-
-         if (false == laserMeasureActivity)
-         {
-            DeviceCommunication.Instance.StartLaserMeasurement();
-            this.measurementRequested = true;
-            this.MeasurementValuePanel.ValueText = "";
-            this.measurementRecorded = false;
-
-            this.RecordBetweenButton.Enabled = false;
-            this.RecordServiceButton.Enabled = false;
-
-            Tracer.WriteHigh(TraceGroup.UI, "", "measure start");
-
-            if (SessionStates.idle != this.sessionState)
-            {
-               this.sessionState = (SessionStates.start == this.sessionState) ? SessionStates.firstMeasure : SessionStates.measure;
-            }
-
-            this.UpdateSessionControls();
-         }
-         else
-         {
-            DeviceCommunication.Instance.CancelLaserMeasurement();
-            this.measurementRequested = false;
-         }
-      }
-
-      private void RecordBetweenButton_HoldTimeout(object sender, Controls.HoldTimeoutEventArgs e)
-      {
-         this.RecordMeasurement(this.measurement, SessionMeasurementData.Types.between);
-      }
-
-      private void RecordServiceButton_HoldTimeout(object sender, Controls.HoldTimeoutEventArgs e)      
-      {
-         this.RecordMeasurement(this.measurement, SessionMeasurementData.Types.service);
-      }
-
-      private void SessionActivityButton_HoldTimeout(object sender, Controls.HoldTimeoutEventArgs e)
-      {
-         if (SessionStates.idle == this.sessionState)
-         {
-            this.SessionDataControl.Reset();
-
-            double laserFront = DeviceCommunication.Instance.GetLaserWheelPositionValue(WheelLocations.front);
-            double laserRear = DeviceCommunication.Instance.GetLaserWheelPositionValue(WheelLocations.rear);
-            double targetFront = DeviceCommunication.Instance.GetTargetWheelPositionValue(WheelLocations.front);
-            double targetRear = DeviceCommunication.Instance.GetTargetWheelPositionValue(WheelLocations.rear);
-            double latitude = ParameterAccessor.Instance.Latitude;
-            double longitude = ParameterAccessor.Instance.Longitude;
-            SessionRecord.Instance.Start(laserFront, laserRear, targetFront, targetRear, latitude, longitude);
-
-            this.sessionState = SessionStates.start;
-            this.UpdateSessionControls();
-
-            this.MeasurementValuePanel.ValueText = "";
-            this.measurementStarted = false;
-            this.measurementRecorded = false;
-
-            this.SessionActivityButton.Text = "COMPLETE";
-         }
-         else
-         {
-            MessageForm messageForm = new MessageForm();
-            messageForm.Title = "SESSION COMPLETION";
-            messageForm.Message = "COMPLETE SESSION?";
-            messageForm.Buttons = MessageBoxButtons.OKCancel;
-
-            this.SetDialogLocation(this.SessionActivityButton, messageForm);
-
-            this.DimBackground();
-            DialogResult result = messageForm.ShowDialog();
-            this.LightBackground();
-
-            if (DialogResult.OK == result)
-            {
-               double laserFront = DeviceCommunication.Instance.GetLaserWheelPositionValue(WheelLocations.front);
-               double laserRear = DeviceCommunication.Instance.GetLaserWheelPositionValue(WheelLocations.rear);
-               double targetFront = DeviceCommunication.Instance.GetTargetWheelPositionValue(WheelLocations.front);
-               double targetRear = DeviceCommunication.Instance.GetTargetWheelPositionValue(WheelLocations.rear);
-               SessionRecord.Instance.Complete(laserFront, laserRear, targetFront, targetRear);
-
-               this.sessionState = SessionStates.idle;
-               this.UpdateSessionControls();
-
-               this.SessionActivityButton.Text = "START";
-            }
-         }
-
-         e.Handled = true;
-      }
-
-      #endregion
-
-      #region Target Top Camera Events
-
-      private void TopCameraCounterClockwiseButton_MouseDown(object sender, MouseEventArgs e)
-      {
-         this.topCameraStepperChange = 1;
-      }
-
-      private void TopCameraCounterClockwiseButton_MouseUp(object sender, MouseEventArgs e)
-      {
-         this.topCameraStepperChange = 0;
-      }
-
-      private void TopCameraClockwiseButton_MouseDown(object sender, MouseEventArgs e)
-      {
-         this.topCameraStepperChange = -1;
-      }
-
-      private void TopCameraClockwiseButton_MouseUp(object sender, MouseEventArgs e)
-      {
-         this.topCameraStepperChange = 0;
-      }
-
-      private void TopCameraCenterButton_HoldTimeout(object sender, Controls.HoldTimeoutEventArgs e)
-      {
-         DeviceCommunication.Instance.SetTargetCenter();
-      }
-
-      private void TopCameraJoystickEnableButton_Click(object sender, EventArgs e)
-      {
-         if (JoystickApplications.topCamera != this.joystickApplication)
-         {
-            this.joystickApplication = JoystickApplications.topCamera;
-         }
-         else
-         {
-            this.joystickApplication = JoystickApplications.none;
-         }
-
-         this.UpdateJoystickApplicationButtons();
       }
 
       #endregion
 
       #region Video Events
-
-      private void LightSelectButton_Click(object sender, EventArgs e)
-      {
-#if false
-         if (VideoSelectModes.light == this.videoSelectMode)
-         {
-            this.videoSelectMode = VideoSelectModes.none;
-         }
-         else
-         {
-            this.videoSelectMode = VideoSelectModes.light;
-         }
-
-         this.UpdateCameraHoldEnable();
-         this.UpdateVideoSelectorColor();
-#endif
-      }
-
-      private void LaserMonitorSelectButton_Click(object sender, EventArgs e)      
-      {
-#if false
-         if (VideoSelectModes.laserCamera == this.videoSelectMode)
-         {
-            this.videoSelectMode = VideoSelectModes.none;
-         }
-         else
-         {
-            this.videoSelectMode = VideoSelectModes.laserCamera;
-         }
-
-         this.UpdateCameraHoldEnable();
-         this.UpdateVideoSelectorColor();
-#endif
-      }
-
-      private void TargetMonitorSelectButton_Click(object sender, EventArgs e)
-      {
-#if false
-         if (VideoSelectModes.targetCamera == this.videoSelectMode)
-         {
-            this.videoSelectMode = VideoSelectModes.none;
-         }
-         else
-         {
-            this.videoSelectMode = VideoSelectModes.targetCamera;
-         }
-
-         this.UpdateCameraHoldEnable();
-         this.UpdateVideoSelectorColor();
-#endif
-      }
 
       private void LaserRobotLightEnableButton_Click(object sender, EventArgs e)
       {
@@ -2440,10 +1155,6 @@ namespace Weco.Ui
          CameraSelectParameters cameraSelectParameters = ParameterAccessor.Instance.GetCameraSelectParameters(this.selectedTargetCameraButton.Camera);
          int channelMask = (false != this.targetLightEnabled) ? cameraSelectParameters.LightChannelMask : 0;
          DeviceCommunication.Instance.SetCameraLightChannelMask(this.selectedTargetCameraButton.Camera, channelMask);
-
-         this.TargetFrontCameraSelectButton.CenterVisible = DeviceCommunication.Instance.GetCameraLightEnable(Ui.Controls.CameraLocations.targetFront);
-         this.TargetRearCameraSelectButton.CenterVisible = DeviceCommunication.Instance.GetCameraLightEnable(Ui.Controls.CameraLocations.targetRear);
-         this.TargetTopCameraSelectButton.CenterVisible = DeviceCommunication.Instance.GetCameraLightEnable(Ui.Controls.CameraLocations.targetTop);
       }
 
       private void CameraButton_MouseClick(object sender, MouseEventArgs e)
@@ -2549,10 +1260,6 @@ namespace Weco.Ui
                   {
                      ParameterAccessor.Instance.TargetTopCamera.LightIntensity = lightIntensity;
                   }
-
-                  this.TargetFrontCameraSelectButton.CenterLevel = lightIntensity;
-                  this.TargetRearCameraSelectButton.CenterLevel = lightIntensity;
-                  this.TargetTopCameraSelectButton.CenterLevel = lightIntensity;
                }
             }
          }
@@ -2657,12 +1364,9 @@ namespace Weco.Ui
 
          Tracer.MaskString = "FFFFFFFF";
 
-         this.cameraButtons = new Controls.CameraSelectButton[5];
+         this.cameraButtons = new Controls.CameraSelectButton[2];
          this.cameraButtons[0] = this.LaserFrontCameraSelectButton;
          this.cameraButtons[1] = this.LaserRearCameraSelectButton;
-         this.cameraButtons[2] = this.TargetFrontCameraSelectButton;
-         this.cameraButtons[3] = this.TargetRearCameraSelectButton;
-         this.cameraButtons[4] = this.TargetTopCameraSelectButton;
 
          this.dimmerForm = new PopupDimmerForm();
          this.dimmerForm.Opacity = 0.65;
