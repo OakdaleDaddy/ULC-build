@@ -633,12 +633,20 @@ namespace Weco.Ui
 
       public void SetCameraLightLevel(Controls.CameraLocations camera, int level)
       {
-         if ((Controls.CameraLocations.laserFront == camera) ||
-             (Controls.CameraLocations.laserRear == camera))
+         if (Controls.CameraLocations.crawlerLeft == camera)
+         {
+         }
+         else if (Controls.CameraLocations.crawlerRight == camera)
+         {
+         }
+         else if ((Controls.CameraLocations.crawlerFront == camera) ||
+                  (Controls.CameraLocations.crawlerRear == camera))
          {
             LaserCommunicationBus.Instance.SetCameraLightLevel(level);
          }
-         else
+         else if ((Controls.CameraLocations.bulletLeft == camera) ||
+                  (Controls.CameraLocations.bulletRight == camera) ||
+                  (Controls.CameraLocations.bulletDown == camera))
          {
             TargetCommunicationBus.Instance.SetCameraLightLevel(level);
          }
@@ -648,12 +656,20 @@ namespace Weco.Ui
       {
          int result = 0;
 
-         if ((Controls.CameraLocations.laserFront == camera) ||
-             (Controls.CameraLocations.laserRear == camera))
+         if (Controls.CameraLocations.crawlerLeft == camera)
+         {
+         }
+         else if (Controls.CameraLocations.crawlerRight == camera)
+         {
+         }
+         else if ((Controls.CameraLocations.crawlerFront == camera) ||
+                  (Controls.CameraLocations.crawlerRear == camera))
          {
             result = LaserCommunicationBus.Instance.GetCameraLightLevel();
          }
-         else
+         else if ((Controls.CameraLocations.bulletLeft == camera) ||
+                  (Controls.CameraLocations.bulletRight == camera) ||
+                  (Controls.CameraLocations.bulletDown == camera))
          {
             result = TargetCommunicationBus.Instance.GetCameraLightLevel();
          }
@@ -663,12 +679,20 @@ namespace Weco.Ui
 
       public void SetCameraLightChannelMask(Controls.CameraLocations camera, int mask)
       {
-         if ((Controls.CameraLocations.laserFront == camera) ||
-             (Controls.CameraLocations.laserRear == camera))
+         if (Controls.CameraLocations.crawlerLeft == camera)
+         {
+         }
+         else if (Controls.CameraLocations.crawlerRight == camera)
+         {
+         }
+         else if ((Controls.CameraLocations.crawlerFront == camera) ||
+                  (Controls.CameraLocations.crawlerRear == camera))
          {
             LaserCommunicationBus.Instance.SetCameraLightChannelMask(mask);
          }
-         else
+         else if ((Controls.CameraLocations.bulletLeft == camera) ||
+                  (Controls.CameraLocations.bulletRight == camera) ||
+                  (Controls.CameraLocations.bulletDown == camera))
          {
             TargetCommunicationBus.Instance.SetCameraLightChannelMask(mask);
          }
@@ -678,12 +702,20 @@ namespace Weco.Ui
       {
          int result = 0;
 
-         if ((Controls.CameraLocations.laserFront == camera) ||
-             (Controls.CameraLocations.laserRear == camera))
+         if (Controls.CameraLocations.crawlerLeft == camera)
+         {
+         }
+         else if (Controls.CameraLocations.crawlerRight == camera)
+         {
+         }
+         else if ((Controls.CameraLocations.crawlerFront == camera) ||
+                  (Controls.CameraLocations.crawlerRear == camera))
          {
             result = LaserCommunicationBus.Instance.GetCameraLightChannelMask();
          }
-         else
+         else if ((Controls.CameraLocations.bulletLeft == camera) ||
+                  (Controls.CameraLocations.bulletRight == camera) ||
+                  (Controls.CameraLocations.bulletDown == camera))
          {
             result = TargetCommunicationBus.Instance.GetCameraLightChannelMask();
          }
@@ -693,12 +725,20 @@ namespace Weco.Ui
 
       public void SetCameraLightEnable(Controls.CameraLocations camera, bool enabled)
       {
-         if ((Controls.CameraLocations.laserFront == camera) ||
-             (Controls.CameraLocations.laserRear == camera))
+         if (Controls.CameraLocations.crawlerLeft == camera)
+         {
+         }
+         else if (Controls.CameraLocations.crawlerRight == camera)
+         {
+         }
+         else if ((Controls.CameraLocations.crawlerFront == camera) ||
+                  (Controls.CameraLocations.crawlerRear == camera))
          {
             LaserCommunicationBus.Instance.SetCameraLightEnable(camera, enabled);
          }
-         else
+         else if ((Controls.CameraLocations.bulletLeft == camera) ||
+                  (Controls.CameraLocations.bulletRight == camera) ||
+                  (Controls.CameraLocations.bulletDown == camera))
          {
             TargetCommunicationBus.Instance.SetCameraLightEnable(camera, enabled);
          }
@@ -708,12 +748,20 @@ namespace Weco.Ui
       {
          bool result = false;
 
-         if ((Controls.CameraLocations.laserFront == camera) ||
-             (Controls.CameraLocations.laserRear == camera))
+         if (Controls.CameraLocations.crawlerLeft == camera)
+         {
+         }
+         else if (Controls.CameraLocations.crawlerRight == camera)
+         {
+         }
+         else if ((Controls.CameraLocations.crawlerFront == camera) ||
+                  (Controls.CameraLocations.crawlerRear == camera))
          {
             result = LaserCommunicationBus.Instance.GetCameraLightEnable(camera);
          }
-         else
+         else if ((Controls.CameraLocations.bulletLeft == camera) ||
+                  (Controls.CameraLocations.bulletRight == camera) ||
+                  (Controls.CameraLocations.bulletDown == camera))
          {
             result = TargetCommunicationBus.Instance.GetCameraLightEnable(camera);
          }

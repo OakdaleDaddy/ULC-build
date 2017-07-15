@@ -54,7 +54,9 @@
     <Compile Include="DirectionalValuePanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="HoldButton.cs" />
+    <Compile Include="HoldButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="HoldTimeoutEventArgs.cs" />
     <Compile Include="KeyButton.cs">
       <SubType>Component</SubType>

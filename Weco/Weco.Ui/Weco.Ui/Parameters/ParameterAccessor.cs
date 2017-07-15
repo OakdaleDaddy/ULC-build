@@ -272,7 +272,7 @@
          this.LaserCameraMapping = new LaserCameraMappings(1, 2);
          this.LaserFrontCamera = new CameraSelectParameters("LaserFrontCamera", 15, 1);
          this.LaserRearCamera = new CameraSelectParameters("LaserRearCamera", 15, 2);
-         this.LaserSelectedCamera = Controls.CameraLocations.laserFront;
+         this.LaserSelectedCamera = Controls.CameraLocations.crawlerFront;
 
 
          this.TargetFrontWheel = new WheelMotorParameters();
@@ -376,7 +376,7 @@
          this.TargetFrontCamera = new CameraSelectParameters("TargetFrontCamera", 15, 1);
          this.TargetRearCamera = new CameraSelectParameters("TargetRearCamera", 15, 2);
          this.TargetTopCamera = new CameraSelectParameters("TargetTopCamera", 15, 4);
-         this.TargetSelectedCamera = Controls.CameraLocations.targetFront;
+         this.TargetSelectedCamera = Controls.CameraLocations.bulletLeft;
          this.TargetTopCameraCwLimit = 45;
          this.TargetTopCameraCcwLimit = -45;
 
@@ -1532,7 +1532,7 @@
                      }
                      else if ("LaserSelectedCamera" == reader.Name)
                      {
-                        this.LaserSelectedCamera = this.ReadCameraLocation(reader, Controls.CameraLocations.laserFront);
+                        this.LaserSelectedCamera = this.ReadCameraLocation(reader, Controls.CameraLocations.crawlerFront);
                      }
                      else if ("TargetCameraMappings" == reader.Name)
                      {
@@ -1540,7 +1540,7 @@
                      }
                      else if ("TargetSelectedCamera" == reader.Name)
                      {
-                        this.TargetSelectedCamera = this.ReadCameraLocation(reader, Controls.CameraLocations.targetFront);
+                        this.TargetSelectedCamera = this.ReadCameraLocation(reader, Controls.CameraLocations.bulletLeft);
                      }
                      else if ("TargetTopCameraCwLimit" == reader.Name)
                      {
@@ -1972,19 +1972,23 @@
       {
          CameraSelectParameters result = this.TargetTopCamera;
 
-         if (Controls.CameraLocations.laserFront == cameraLocation)
+         if (Controls.CameraLocations.crawlerFront == cameraLocation)
          {
             result = this.LaserFrontCamera;
          }
-         else if (Controls.CameraLocations.laserRear == cameraLocation)
+         else if (Controls.CameraLocations.crawlerRear == cameraLocation)
          {
             result = this.LaserRearCamera;
          }
-         else if (Controls.CameraLocations.targetFront == cameraLocation)
+         else if (Controls.CameraLocations.bulletLeft == cameraLocation)
          {
             result = this.TargetFrontCamera;
          }
-         else if (Controls.CameraLocations.targetRear == cameraLocation)
+         else if (Controls.CameraLocations.bulletRight == cameraLocation)
+         {
+            result = this.TargetRearCamera;
+         }
+         else if (Controls.CameraLocations.bulletDown == cameraLocation)
          {
             result = this.TargetRearCamera;
          }

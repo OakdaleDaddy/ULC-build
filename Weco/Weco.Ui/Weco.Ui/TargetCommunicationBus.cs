@@ -143,15 +143,15 @@
       {
          int result = 0;
 
-         if (Controls.CameraLocations.targetFront == camera)
+         if (Controls.CameraLocations.bulletLeft == camera)
          {
             result = (int)(1 << 0);
          }
-         else if (Controls.CameraLocations.targetRear == camera)
+         else if (Controls.CameraLocations.bulletRight == camera)
          {
             result = (int)(1 << 1);
          }
-         else if (Controls.CameraLocations.targetTop == camera)
+         else if (Controls.CameraLocations.bulletDown == camera)
          {
             result = (int)(1 << 2);
          }
@@ -163,15 +163,15 @@
       {
          int result = 0;
 
-         if (Controls.CameraLocations.targetFront == camera)
+         if (Controls.CameraLocations.bulletLeft == camera)
          {
             result = ParameterAccessor.Instance.TargetCameraMapping.Front;
          }
-         else if (Controls.CameraLocations.targetRear == camera)
+         else if (Controls.CameraLocations.bulletRight == camera)
          {
             result = ParameterAccessor.Instance.TargetCameraMapping.Rear;
          }
-         else if (Controls.CameraLocations.targetTop == camera)
+         else if (Controls.CameraLocations.bulletDown == camera)
          {
             result = ParameterAccessor.Instance.TargetCameraMapping.Top;
          }
@@ -181,19 +181,19 @@
 
       private Controls.CameraLocations GetCamera(int selection)
       {
-         Controls.CameraLocations result = Controls.CameraLocations.laserFront;
+         Controls.CameraLocations result = Controls.CameraLocations.none;
 
          if (0 == selection)
          {
-            result = Controls.CameraLocations.targetFront;
+            result = Controls.CameraLocations.bulletLeft;
          }
          else if (1 == selection)
          {
-            result = Controls.CameraLocations.targetRear;
+            result = Controls.CameraLocations.bulletRight;
          }
          else if (2 == selection)
          {
-            result = Controls.CameraLocations.targetTop;
+            result = Controls.CameraLocations.bulletDown;
          }
 
          return (result);

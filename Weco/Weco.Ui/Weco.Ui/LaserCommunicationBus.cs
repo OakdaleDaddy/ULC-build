@@ -156,11 +156,11 @@
       {
          int result = 0;
 
-         if (Controls.CameraLocations.laserFront == camera)
+         if (Controls.CameraLocations.crawlerFront == camera)
          {
             result = (int)(1 << 0);
          }
-         else if (Controls.CameraLocations.laserRear == camera)
+         else if (Controls.CameraLocations.crawlerRear == camera)
          {
             result = (int)(1 << 1);
          }
@@ -172,11 +172,11 @@
       {
          int result = 0;
 
-         if (Controls.CameraLocations.laserFront == camera)
+         if (Controls.CameraLocations.crawlerFront == camera)
          {
             result = ParameterAccessor.Instance.LaserCameraMapping.Front;
          }
-         else if (Controls.CameraLocations.laserRear == camera)
+         else if (Controls.CameraLocations.crawlerRear == camera)
          {
             result = ParameterAccessor.Instance.LaserCameraMapping.Rear;
          }
@@ -186,15 +186,15 @@
 
       private Controls.CameraLocations GetCamera(int selection)
       {
-         Controls.CameraLocations result = Controls.CameraLocations.laserFront;
+         Controls.CameraLocations result = Controls.CameraLocations.crawlerFront;
 
          if (0 == selection)
          {
-            result = Controls.CameraLocations.laserFront;
+            result = Controls.CameraLocations.crawlerFront;
          }
          else if (1 == selection)
          {
-            result = Controls.CameraLocations.laserRear;
+            result = Controls.CameraLocations.crawlerRear;
          }
 
          return (result);

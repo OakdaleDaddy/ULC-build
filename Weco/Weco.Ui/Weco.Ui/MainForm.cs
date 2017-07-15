@@ -23,9 +23,8 @@ namespace Weco.Ui
       private enum JoystickApplications
       {
          none,
-         laserRobot,
-         targetRobot,
-         topCamera,
+         crawler,
+         camera,
       }
 
       #endregion
@@ -235,23 +234,27 @@ namespace Weco.Ui
       {
          if (JoystickApplications.none == this.joystickApplication)
          {
-            this.LaserRobotMovementJoystickEnableButton.Text = "JOYSTICK DRIVE";
-            this.LaserRobotMovementJoystickEnableButton.BackColor = Color.FromArgb(171, 171, 171);
+            this.CrawlerJoystickEnableButton.Text = "JOYSTICK DRIVE";
+            this.CrawlerJoystickEnableButton.BackColor = Color.FromArgb(171, 171, 171);
+            
+            this.CameraJoystickEnableButton.Text = "JOYSTICK DRIVE";
+            this.CameraJoystickEnableButton.BackColor = Color.FromArgb(171, 171, 171);            
          }
-         else if (JoystickApplications.laserRobot == this.joystickApplication)
+         else if (JoystickApplications.crawler == this.joystickApplication)
          {
-            this.LaserRobotMovementJoystickEnableButton.Text = "MANUAL DRIVE";
-            this.LaserRobotMovementJoystickEnableButton.BackColor = Color.Lime;
+            this.CrawlerJoystickEnableButton.Text = "MANUAL DRIVE";
+            this.CrawlerJoystickEnableButton.BackColor = Color.Lime;
+
+            this.CameraJoystickEnableButton.Text = "JOYSTICK DRIVE";
+            this.CameraJoystickEnableButton.BackColor = Color.FromArgb(171, 171, 171);
          }
-         else if (JoystickApplications.targetRobot == this.joystickApplication)
+         else if (JoystickApplications.camera == this.joystickApplication)
          {
-            this.LaserRobotMovementJoystickEnableButton.Text = "JOYSTICK DRIVE";
-            this.LaserRobotMovementJoystickEnableButton.BackColor = Color.FromArgb(171, 171, 171);
-         }
-         else if (JoystickApplications.topCamera == this.joystickApplication)
-         {
-            this.LaserRobotMovementJoystickEnableButton.Text = "JOYSTICK DRIVE";
-            this.LaserRobotMovementJoystickEnableButton.BackColor = Color.FromArgb(171, 171, 171);
+            this.CrawlerJoystickEnableButton.Text = "JOYSTICK DRIVE";
+            this.CrawlerJoystickEnableButton.BackColor = Color.FromArgb(171, 171, 171);
+
+            this.CameraJoystickEnableButton.Text = "MANUAL DRIVE";
+            this.CameraJoystickEnableButton.BackColor = Color.Lime;
          }
       }
 
@@ -265,22 +268,22 @@ namespace Weco.Ui
  
          if (MovementModes.off == laserMovementMode)
          {
-            this.LaserRobotWheelOffButton.BackColor = Color.Lime;
-            this.LaserRobotWheelMoveButton.BackColor = Color.FromArgb(171, 171, 171);
+            this.CrawlerOffButton.BackColor = Color.Lime;
+            this.CrawlerMoveButton.BackColor = Color.FromArgb(171, 171, 171);
          }
          else if (MovementModes.move == laserMovementMode)
          {
-            this.LaserRobotWheelMoveButton.BackColor = Color.Lime;
-            this.LaserRobotWheelOffButton.BackColor = Color.FromArgb(171, 171, 171);
+            this.CrawlerMoveButton.BackColor = Color.Lime;
+            this.CrawlerOffButton.BackColor = Color.FromArgb(171, 171, 171);
 
-            this.LaserRobotWheelOffButton.HoldTimeoutEnable = false;
+            this.CrawlerOffButton.HoldTimeoutEnable = false;
          }
          else if (MovementModes.locked == laserMovementMode)
          {
-            this.LaserRobotWheelOffButton.BackColor = Color.FromArgb(171, 171, 171);
-            this.LaserRobotWheelMoveButton.BackColor = Color.FromArgb(171, 171, 171);
+            this.CrawlerOffButton.BackColor = Color.FromArgb(171, 171, 171);
+            this.CrawlerMoveButton.BackColor = Color.FromArgb(171, 171, 171);
 
-            this.LaserRobotWheelOffButton.HoldTimeoutEnable = true;
+            this.CrawlerOffButton.HoldTimeoutEnable = true;
          }
       }
       
@@ -358,7 +361,7 @@ namespace Weco.Ui
       }
 #endif
 
-      private void AssignLaserCamera(Controls.CameraSelectButton selected)
+      private void AssignCrawlerCamera(Controls.CameraSelectButton selected)
       {
          if (selected != this.selectedLaserCameraButton)
          {
@@ -369,7 +372,6 @@ namespace Weco.Ui
                this.selectedLaserCameraButton.LeftVisible = false;
                cameraSelectParameters = ParameterAccessor.Instance.GetCameraSelectParameters(this.selectedLaserCameraButton.Camera);
                cameraSelectParameters.LightIntensity = DeviceCommunication.Instance.GetCameraLightLevel(this.selectedLaserCameraButton.Camera);
-               //cameraSelectParameters.LightChannelMask = DeviceCommunication.Instance.GetCameraLightChannelMask(this.selectedLaserCameraButton.Camera);
             }
 
             cameraSelectParameters = ParameterAccessor.Instance.GetCameraSelectParameters(selected.Camera);
@@ -382,16 +384,16 @@ namespace Weco.Ui
             VideoStampOsd.Instance.SetCameraIdText(1, selected.Text);
 
             selected.LeftVisible = true;
-            this.LaserFrontCameraSelectButton.CenterVisible = DeviceCommunication.Instance.GetCameraLightEnable(Ui.Controls.CameraLocations.laserFront);
-            this.LaserFrontCameraSelectButton.CenterLevel = cameraSelectParameters.LightIntensity;
-            this.LaserRearCameraSelectButton.CenterVisible = DeviceCommunication.Instance.GetCameraLightEnable(Ui.Controls.CameraLocations.laserRear);
-            this.LaserRearCameraSelectButton.CenterLevel = cameraSelectParameters.LightIntensity;
+            this.CrawlerFrontCameraSelectButton.CenterVisible = DeviceCommunication.Instance.GetCameraLightEnable(Ui.Controls.CameraLocations.crawlerFront);
+            this.CrawlerFrontCameraSelectButton.CenterLevel = cameraSelectParameters.LightIntensity;
+            this.CrawlerRearCameraSelectButton.CenterVisible = DeviceCommunication.Instance.GetCameraLightEnable(Ui.Controls.CameraLocations.crawlerRear);
+            this.CrawlerRearCameraSelectButton.CenterLevel = cameraSelectParameters.LightIntensity;
             this.selectedLaserCameraButton = selected;
             ParameterAccessor.Instance.LaserSelectedCamera = selected.Camera;
          }
       }
 
-      private void AssignTargetCamera(Controls.CameraSelectButton selected)
+      private void AssignBulletCamera(Controls.CameraSelectButton selected)
       {
          if (selected != this.selectedTargetCameraButton)
          {
@@ -438,6 +440,14 @@ namespace Weco.Ui
          this.joystickApplication = JoystickApplications.none;
          this.UpdateJoystickApplicationButtons();
 
+         this.FeederAlternatePanel.Left = this.FeederPanel.Left;
+         this.FeederAlternatePanel.Top = this.GetAbsoluteTop(this.FeederOffButton);
+         this.FeederAlternatePanel.Visible = false;
+
+         this.ReelAlternatePanel.Left = this.ReelPanel.Left;
+         this.ReelAlternatePanel.Top = this.GetAbsoluteTop(this.ReelOffButton);
+         this.ReelAlternatePanel.Visible = false;
+
          this.laserMovementFastSelected = true;
 
          this.laserLightEnabled = true;
@@ -465,24 +475,20 @@ namespace Weco.Ui
          DateTime dateTime = DateTime.Now.ToLocalTime();
          this.DateTimeTextPanel.ValueText = string.Format("{0:D2}-{1:D2}-{2:D4}   {3:D2}:{4:D2}:{5:D2}", dateTime.Month, dateTime.Day, dateTime.Year, dateTime.Hour, dateTime.Minute, dateTime.Second);
 
-         this.LaserRobotAlternateMotionMotorPanel.Visible = false;
+         this.CrawlerAlternatePanel.Visible = false;
 
-         this.LaserRobotLeftButton.BackColor = Color.FromArgb(171, 171, 171);
-         this.LaserRobotRightButton.BackColor = Color.FromArgb(171, 171, 171);
-         this.LaserRobotFrontWheelCurrentPanel.ValueText = "";
-         this.LaserRobotFrontWheelTemperaturePanel.ValueText = "";
-         this.LaserRobotTotalPositionPanel.ValueText = "";
-         this.LaserRobotRearWheelCurrentPanel.ValueText = "";
-         this.LaserRobotRearWheelTemperaturePanel.ValueText = "";
-         this.LaserRobotTripPositionPanel.ValueText = "";
-         this.LaserRobotJogDistanceButton.ValueText = "";
-         this.LaserRobotMoveSpeedButton.ValueText = "";
-         this.LaserWheelDirectionalValuePanel.ValueText = "";
-         this.LaserWheelDirectionalValuePanel.Direction = Ui.Controls.DirectionalValuePanel.Directions.Idle;
-         this.LaserRobotWheelMoveButton.ValueText = "";
-         this.LaserRobotWheelMoveButton.LeftArrowVisible = false;
-         this.LaserRobotWheelMoveButton.RightArrowVisible = false;
-         this.LaserRobotWheelSpeedToggleButton.OptionASelected = this.laserMovementFastSelected;
+         this.CrawlerLeftMotorCurrentPanel.ValueText = "";
+         this.CrawlerLeftMotorTemperaturePanel.ValueText = "";
+         this.CrawlerRightMotorCurrentPanel.ValueText = "";
+         this.CrawlerRightMotorTemperaturePanel.ValueText = "";
+         this.CrawlerJogDistanceButton.ValueText = "";
+         this.CrawlerMoveSpeedButton.ValueText = "";
+         this.CrawlerDirectionalValuePanel.ValueText = "";
+         this.CrawlerDirectionalValuePanel.Direction = Ui.Controls.DirectionalValuePanel.Directions.Idle;
+         this.CrawlerMoveButton.ValueText = "";
+         this.CrawlerMoveButton.LeftArrowVisible = false;
+         this.CrawlerMoveButton.RightArrowVisible = false;
+         this.CrawlerSpeedToggleButton.OptionASelected = this.laserMovementFastSelected;
 
 
          SessionRecord.Instance.Reset();
@@ -499,8 +505,8 @@ namespace Weco.Ui
 
          this.UpdateTimer.Interval = 1;
 
-         this.LaserStatusTextBox.Width = (this.TargetStatusTextBox.Left + this.TargetStatusTextBox.Width - this.LaserStatusTextBox.Left);
-         this.TargetStatusTextBox.Visible = false;
+         this.RobotStatusTextBox.Width = (this.TruckStatusTextBox.Left + this.TruckStatusTextBox.Width - this.RobotStatusTextBox.Left);
+         this.TruckStatusTextBox.Visible = false;
 
          this.Process = this.ProcessStarting;
       }
@@ -528,8 +534,8 @@ namespace Weco.Ui
 
          this.LaserUpdateMovementControls();
 
-         this.LaserRobotJogDistanceButton.ValueText = this.GetValueText(ParameterAccessor.Instance.LaserWheelManualWheelDistance);
-         this.LaserRobotMoveSpeedButton.ValueText = this.GetValueText(ParameterAccessor.Instance.LaserWheelManualWheelSpeed);
+         this.CrawlerJogDistanceButton.ValueText = this.GetValueText(ParameterAccessor.Instance.LaserWheelManualWheelDistance);
+         this.CrawlerMoveSpeedButton.ValueText = this.GetValueText(ParameterAccessor.Instance.LaserWheelManualWheelSpeed);
 
          for (int i = 0; i < this.cameraButtons.Length; i++)
          {
@@ -538,8 +544,8 @@ namespace Weco.Ui
             this.cameraButtons[i].RightVisible = false;
          }
 
-         this.LaserRobotLightEnableButton.BackColor = (false != this.laserLightEnabled) ? Color.Lime : Color.FromArgb(171, 171, 171);
-         this.TargetRobotLightEnableButton.BackColor = (false != this.targetLightEnabled) ? Color.Lime : Color.FromArgb(171, 171, 171);
+         this.CrawlerTrackLightEnableButton.BackColor = (false != this.laserLightEnabled) ? Color.Lime : Color.FromArgb(171, 171, 171);
+         this.CrawlerCameraLightEnableButton.BackColor = (false != this.targetLightEnabled) ? Color.Lime : Color.FromArgb(171, 171, 171);
 
 
          DeviceCommunication.Instance.Start();
@@ -547,8 +553,8 @@ namespace Weco.Ui
 
          // set next state
 
-         this.LaserStatusTextBox.Text = "starting";
-         this.LaserStatusTextBox.BackColor = Color.Yellow;
+         this.RobotStatusTextBox.Text = "starting";
+         this.RobotStatusTextBox.BackColor = Color.Yellow;
 
          this.UpdateTimer.Interval = 100;
          this.Process = this.ProcessWaitComm;
@@ -574,19 +580,19 @@ namespace Weco.Ui
             {
                if (laserCameraLocation == this.cameraButtons[i].Camera)
                {
-                  this.AssignLaserCamera(this.cameraButtons[i]);
+                  this.AssignCrawlerCamera(this.cameraButtons[i]);
                }
 
                if (targetCameraLocation == this.cameraButtons[i].Camera)
                {
-                  this.AssignTargetCamera(this.cameraButtons[i]);
+                  this.AssignBulletCamera(this.cameraButtons[i]);
                }
             }
 
             this.LaserUpdateMovementControls();
 
-            this.LaserStatusTextBox.Width = (this.TargetStatusTextBox.Left - 8 - this.LaserStatusTextBox.Left);
-            this.TargetStatusTextBox.Visible = true;
+            this.RobotStatusTextBox.Width = (this.TruckStatusTextBox.Left - 8 - this.RobotStatusTextBox.Left);
+            this.TruckStatusTextBox.Visible = true;
 
             
             // set next state
@@ -643,13 +649,13 @@ namespace Weco.Ui
 
          if (null == laserStatus)
          {
-            this.LaserStatusTextBox.Text = "ready";
-            this.LaserStatusTextBox.BackColor = Color.Lime;
+            this.RobotStatusTextBox.Text = "ready";
+            this.RobotStatusTextBox.BackColor = Color.Lime;
          }
          else
          {
-            this.LaserStatusTextBox.Text = laserStatus;
-            this.LaserStatusTextBox.BackColor = (false == laserWarning) ? Color.Red : Color.Yellow;
+            this.RobotStatusTextBox.Text = laserStatus;
+            this.RobotStatusTextBox.BackColor = (false == laserWarning) ? Color.Red : Color.Yellow;
          }
 
          #endregion
@@ -669,13 +675,13 @@ namespace Weco.Ui
 
          if (null == targetStatus)
          {
-            this.TargetStatusTextBox.Text = "ready";
-            this.TargetStatusTextBox.BackColor = Color.Lime;
+            this.TruckStatusTextBox.Text = "ready";
+            this.TruckStatusTextBox.BackColor = Color.Lime;
          }
          else
          {
-            this.TargetStatusTextBox.Text = targetStatus;
-            this.TargetStatusTextBox.BackColor = (false == targetWarning) ? Color.Red : Color.Yellow;
+            this.TruckStatusTextBox.Text = targetStatus;
+            this.TruckStatusTextBox.BackColor = (false == targetWarning) ? Color.Red : Color.Yellow;
          }
 
          #endregion
@@ -744,36 +750,36 @@ namespace Weco.Ui
                joystickYChange = joystickYAxis;
                joystickThrottleChange = joystickThrottle;
 
-               if (this.joystickApplication == JoystickApplications.laserRobot)
+               if (this.joystickApplication == JoystickApplications.crawler)
                {
                   if (0 != joystickYAxis)
                   {
-                     this.LaserRobotWheelSpeedToggleButton.Enabled = false;
+                     this.CrawlerSpeedToggleButton.Enabled = false;
                   }
                   else
                   {
-                     this.LaserRobotWheelSpeedToggleButton.Enabled = true;
+                     this.CrawlerSpeedToggleButton.Enabled = true;
                   }
                }
             }
 
-            if (this.joystickApplication != JoystickApplications.laserRobot)
+            if (this.joystickApplication != JoystickApplications.crawler)
             {
                if ((0 != joystickXAxis) ||
                    (0 != joystickYAxis))
                {
-                  this.LaserRobotMovementJoystickEnableButton.Enabled = false;
+                  this.CrawlerJoystickEnableButton.Enabled = false;
                }
                else
                {
-                  this.LaserRobotMovementJoystickEnableButton.Enabled = true;
+                  this.CrawlerJoystickEnableButton.Enabled = true;
                }
             }
          }
 
          #endregion
 
-         #region Laser Robot
+         #region Crawler
 
          string usbRelayFault = NumatoUsbRelay.Instance.FaultReason;
          bool laserLeftPush = NumatoUsbRelay.Instance.GetRelayState(0);
@@ -783,60 +789,27 @@ namespace Weco.Ui
 
          if (null != usbRelayFault)
          {
-            this.LaserRobotLeftButton.BackColor = Color.Red;
-            this.LaserRobotLeftButton.DisabledForeColor = Color.Red;
-
-            this.LaserRobotRightButton.BackColor = Color.Red;
-            this.LaserRobotRightButton.DisabledForeColor = Color.Red;
          }
          else
          {
-            if (false != laserLeftPush)
-            {
-               this.LaserRobotLeftButton.BackColor = Color.Lime;
-               this.LaserRobotLeftButton.DisabledForeColor = Color.Lime;
-            }
-            else
-            {
-               this.LaserRobotLeftButton.BackColor = Color.FromArgb(171, 171, 171);
-               this.LaserRobotLeftButton.DisabledForeColor = Color.Gray;
-            }
-
-            if (false != laserRightPush)
-            {
-               this.LaserRobotRightButton.BackColor = Color.Lime;
-               this.LaserRobotRightButton.DisabledForeColor = Color.Lime;
-            }
-            else
-            {
-               this.LaserRobotRightButton.BackColor = Color.FromArgb(171, 171, 171);
-               this.LaserRobotRightButton.DisabledForeColor = Color.Gray;
-            }
          }
 
 
 
          double laserWheelCurrent = 0;
          double laserWheelTemperature = 0;
-         double laserWheelPosition = 0;
 
          laserWheelCurrent = DeviceCommunication.Instance.GetLaserWheelCurrentValue(WheelLocations.front);
-         this.LaserRobotFrontWheelCurrentPanel.ValueText = this.GetValueText(laserWheelCurrent, 2, "A"); ;
+         this.CrawlerLeftMotorCurrentPanel.ValueText = this.GetValueText(laserWheelCurrent, 2, "A"); ;
 
          laserWheelTemperature = DeviceCommunication.Instance.GetLaserWheelTemperatureValue(WheelLocations.front);
-         this.LaserRobotFrontWheelTemperaturePanel.ValueText = this.GetValueText(laserWheelTemperature, 0, "°C");
+         this.CrawlerLeftMotorTemperaturePanel.ValueText = this.GetValueText(laserWheelTemperature, 0, "°C");
 
          laserWheelCurrent = DeviceCommunication.Instance.GetLaserWheelCurrentValue(WheelLocations.rear);
-         this.LaserRobotRearWheelCurrentPanel.ValueText = this.GetValueText(laserWheelCurrent, 2, "A"); ;
+         this.CrawlerRightMotorCurrentPanel.ValueText = this.GetValueText(laserWheelCurrent, 2, "A"); ;
 
          laserWheelTemperature = DeviceCommunication.Instance.GetLaserWheelTemperatureValue(WheelLocations.rear);
-         this.LaserRobotRearWheelTemperaturePanel.ValueText = this.GetValueText(laserWheelTemperature, 0, "°C");
-
-         laserWheelPosition = DeviceCommunication.Instance.GetLaserWheelTotalPositionValue();
-         this.LaserRobotTotalPositionPanel.ValueText = this.GetValueText(laserWheelPosition, ParameterAccessor.Instance.LaserWheelManualWheelDistance);
-         
-         laserWheelPosition = DeviceCommunication.Instance.GetLaserWheelTripPositionValue();
-         this.LaserRobotTripPositionPanel.ValueText = this.GetValueText(laserWheelPosition, ParameterAccessor.Instance.LaserWheelManualWheelDistance);
+         this.CrawlerRightMotorTemperaturePanel.ValueText = this.GetValueText(laserWheelTemperature, 0, "°C");
 
 
          this.LaserUpdateMovementControls();
@@ -857,32 +830,32 @@ namespace Weco.Ui
 
          if (laserMovementValue > 0)
          {
-            this.LaserWheelDirectionalValuePanel.Direction = Ui.Controls.DirectionalValuePanel.Directions.Forward;
+            this.CrawlerDirectionalValuePanel.Direction = Ui.Controls.DirectionalValuePanel.Directions.Forward;
          }
          else if (laserMovementValue < 0)
          {
-            this.LaserWheelDirectionalValuePanel.Direction = Ui.Controls.DirectionalValuePanel.Directions.Reverse;
+            this.CrawlerDirectionalValuePanel.Direction = Ui.Controls.DirectionalValuePanel.Directions.Reverse;
          }
          else
          {
-            this.LaserWheelDirectionalValuePanel.Direction = Ui.Controls.DirectionalValuePanel.Directions.Idle;
+            this.CrawlerDirectionalValuePanel.Direction = Ui.Controls.DirectionalValuePanel.Directions.Idle;
          }
 
-         this.LaserWheelDirectionalValuePanel.ValueText = this.GetValueText(laserMovementStatusDisplayValue, laserMovementParameter);
+         this.CrawlerDirectionalValuePanel.ValueText = this.GetValueText(laserMovementStatusDisplayValue, laserMovementParameter);
 
 
          bool laserMovementReverse = false;
          bool laserMovementForward = false;
          bool laserMovementSet = false;
 
-         if (JoystickApplications.laserRobot == this.joystickApplication)
+         if (JoystickApplications.crawler == this.joystickApplication)
          {
-            if (false == this.LaserRobotAlternateMotionMotorPanel.Visible)
+            if (false == this.CrawlerAlternatePanel.Visible)
             {
-               this.LaserRobotAlternateMotionMotorPanel.Top = this.GetAbsoluteTop(this.LaserRobotJogReverseButton);
-               this.LaserRobotAlternateMotionMotorPanel.Left = this.LaserRobotWheelPanel.Left;
+               this.CrawlerAlternatePanel.Top = this.GetAbsoluteTop(this.CrawlerJogReverseButton);
+               this.CrawlerAlternatePanel.Left = this.CrawlerlPanel.Left;
 
-               this.LaserRobotAlternateMotionMotorPanel.Visible = true;
+               this.CrawlerAlternatePanel.Visible = true;
             }
 
             if (joystickYChange < 0)
@@ -904,21 +877,21 @@ namespace Weco.Ui
 
             bool laserMovementActivated = DeviceCommunication.Instance.GetLaserMovementActivated();
 
-            if (false != this.LaserRobotWheelMoveButton.Enabled)
+            if (false != this.CrawlerMoveButton.Enabled)
             {
                double laserMovementDisplayValue = Math.Abs(laserMovementRequestValue);
-               this.LaserRobotWheelMoveButton.LeftArrowVisible = laserMovementReverse;
-               this.LaserRobotWheelMoveButton.RightArrowVisible = laserMovementForward;
-               this.LaserRobotWheelMoveButton.ValueForeColor = (false != laserMovementActivated) ? Color.White : Color.FromKnownColor(KnownColor.ControlDarkDark);
-               this.LaserRobotWheelMoveButton.ValueText = this.GetValueText(laserMovementDisplayValue, laserMovementParameter);
+               this.CrawlerMoveButton.LeftArrowVisible = laserMovementReverse;
+               this.CrawlerMoveButton.RightArrowVisible = laserMovementForward;
+               this.CrawlerMoveButton.ValueForeColor = (false != laserMovementActivated) ? Color.White : Color.FromKnownColor(KnownColor.ControlDarkDark);
+               this.CrawlerMoveButton.ValueText = this.GetValueText(laserMovementDisplayValue, laserMovementParameter);
                laserMovementSet = true;
             }
          }
          else
          {
-            if (false != this.LaserRobotAlternateMotionMotorPanel.Visible)
+            if (false != this.CrawlerAlternatePanel.Visible)
             {
-               this.LaserRobotAlternateMotionMotorPanel.Visible = false;
+               this.CrawlerAlternatePanel.Visible = false;
             }
          }
 
@@ -932,14 +905,48 @@ namespace Weco.Ui
                DeviceCommunication.Instance.SetLaserMovementVelocityRequest(0, false);
             }
 
-            this.LaserRobotWheelMoveButton.LeftArrowVisible = false;
-            this.LaserRobotWheelMoveButton.RightArrowVisible = false;
-            this.LaserRobotWheelMoveButton.ValueForeColor = Color.FromKnownColor(KnownColor.ControlDarkDark);
-            this.LaserRobotWheelMoveButton.ValueText = this.GetValueText(0, laserMovementParameter);
+            this.CrawlerMoveButton.LeftArrowVisible = false;
+            this.CrawlerMoveButton.RightArrowVisible = false;
+            this.CrawlerMoveButton.ValueForeColor = Color.FromKnownColor(KnownColor.ControlDarkDark);
+            this.CrawlerMoveButton.ValueText = this.GetValueText(0, laserMovementParameter);
          }
 
          #endregion
 
+         #region Feeder
+
+         #endregion
+
+         #region Reel
+
+         #endregion
+
+         #region Camera
+
+         if (JoystickApplications.camera == this.joystickApplication)
+         {
+            if (false != this.CameraCenterButton.Enabled)
+            {
+               this.CameraUpButton.Enabled = false;
+               this.CameraDownButton.Enabled = false;
+               this.CameraLeftButton.Enabled = false;
+               this.CameraRightButton.Enabled = false;
+               this.CameraCenterButton.Enabled = false;
+            }
+         }
+         else
+         {
+            if (false == this.CameraCenterButton.Enabled)
+            {
+               this.CameraUpButton.Enabled = true;
+               this.CameraDownButton.Enabled = true;
+               this.CameraLeftButton.Enabled = true;
+               this.CameraRightButton.Enabled = true;
+               this.CameraCenterButton.Enabled = true;
+            }
+         }
+
+         #endregion
 
          // set next state
 
@@ -952,10 +959,10 @@ namespace Weco.Ui
 
       private void ProcessStopping()
       {
-         this.TargetStatusTextBox.Visible = false;
-         this.LaserStatusTextBox.Width = (this.TargetStatusTextBox.Left + this.TargetStatusTextBox.Width - this.LaserStatusTextBox.Left);
-         this.LaserStatusTextBox.Text = "stopping";
-         this.LaserStatusTextBox.BackColor = Color.Yellow;
+         this.TruckStatusTextBox.Visible = false;
+         this.RobotStatusTextBox.Width = (this.TruckStatusTextBox.Left + this.TruckStatusTextBox.Width - this.RobotStatusTextBox.Left);
+         this.RobotStatusTextBox.Text = "stopping";
+         this.RobotStatusTextBox.BackColor = Color.Yellow;
          Tracer.WriteHigh(TraceGroup.UI, null, "stopping");
 
 
@@ -1008,7 +1015,7 @@ namespace Weco.Ui
 
       #endregion
 
-      #region Laser Robot Movement Events
+      #region Crawler Movement Events
 
       private void LaserRobotLeftButton_HoldTimeout(object sender, Controls.HoldTimeoutEventArgs e)
       {
@@ -1024,7 +1031,7 @@ namespace Weco.Ui
 
       private void LaserRobotWheelOffButton_Click(object sender, EventArgs e)
       {
-         if (false == this.LaserRobotWheelOffButton.HoldTimeoutEnable)
+         if (false == this.CrawlerOffButton.HoldTimeoutEnable)
          {
             DeviceCommunication.Instance.SetLaserMovementMode(MovementModes.off);
          }
@@ -1042,9 +1049,9 @@ namespace Weco.Ui
 
       private void LaserRobotWheelSpeedToggleButton_Click(object sender, EventArgs e)
       {
-         bool selection = !this.LaserRobotWheelSpeedToggleButton.OptionASelected;
+         bool selection = !this.CrawlerSpeedToggleButton.OptionASelected;
          this.laserMovementFastSelected = selection;
-         this.LaserRobotWheelSpeedToggleButton.OptionASelected = selection;
+         this.CrawlerSpeedToggleButton.OptionASelected = selection;
       }
 
       private void LaserRobotJogReverseButton_MouseDown(object sender, MouseEventArgs e)
@@ -1054,7 +1061,7 @@ namespace Weco.Ui
 
       private void LaserRobotJogDistanceButton_HoldTimeout(object sender, Controls.HoldTimeoutEventArgs e)
       {
-         DialogResult result = this.LaunchNumberEdit(this.LaserRobotJogDistanceButton, ParameterAccessor.Instance.LaserWheelManualWheelDistance, "JOG DISTANCE");
+         DialogResult result = this.LaunchNumberEdit(this.CrawlerJogDistanceButton, ParameterAccessor.Instance.LaserWheelManualWheelDistance, "JOG DISTANCE");
       }
 
       private void LaserRobotJogForwardButton_MouseDown(object sender, MouseEventArgs e)
@@ -1080,7 +1087,7 @@ namespace Weco.Ui
       private void LaserRobotMoveSpeedButton_HoldTimeout(object sender, Controls.HoldTimeoutEventArgs e)
       {
          ParameterAccessor.Instance.LaserWheelManualWheelSpeed.MaximumValue = ParameterAccessor.Instance.LaserWheelMaximumSpeed.OperationalValue;
-         DialogResult result = this.LaunchNumberEdit(this.LaserRobotMoveSpeedButton, ParameterAccessor.Instance.LaserWheelManualWheelSpeed, "MOVE SPEED");
+         DialogResult result = this.LaunchNumberEdit(this.CrawlerMoveSpeedButton, ParameterAccessor.Instance.LaserWheelManualWheelSpeed, "MOVE SPEED");
       }
 
       private void LaserRobotMoveForwardButton_MouseDown(object sender, MouseEventArgs e)
@@ -1112,9 +1119,9 @@ namespace Weco.Ui
 
       private void LaserRobotMovementJoystickEnableButton_Click(object sender, EventArgs e)
       {
-         if (JoystickApplications.laserRobot != this.joystickApplication)
+         if (JoystickApplications.crawler != this.joystickApplication)
          {
-            this.joystickApplication = JoystickApplications.laserRobot;
+            this.joystickApplication = JoystickApplications.crawler;
          }
          else
          {
@@ -1132,25 +1139,65 @@ namespace Weco.Ui
 
       #endregion
 
+      #region Feeder Events
+
+      private void FeederShowManualButton_Click(object sender, EventArgs e)
+      {
+         if (false == this.FeederAlternatePanel.Visible)
+         {
+            this.FeederAlternatePanel.Visible = true;
+         }
+      }
+
+      private void FeederHideManualButton_Click(object sender, EventArgs e)
+      {
+         if (false != this.FeederAlternatePanel.Visible)
+         {
+            this.FeederAlternatePanel.Visible = false;
+         }
+      }
+
+      #endregion
+
+      #region Reel Events
+
+      private void ReelShowManualButton_Click(object sender, EventArgs e)
+      {
+         if (false == this.ReelAlternatePanel.Visible)
+         {
+            this.ReelAlternatePanel.Visible = true;
+         }
+      }
+
+      private void ReelHideManualButton_Click(object sender, EventArgs e)
+      {
+         if (false != this.ReelAlternatePanel.Visible)
+         {
+            this.ReelAlternatePanel.Visible = false;
+         }
+      }
+
+      #endregion
+
       #region Video Events
 
-      private void LaserRobotLightEnableButton_Click(object sender, EventArgs e)
+      private void CrawlerTrackLightEnableButton_Click(object sender, EventArgs e)
       {
          this.laserLightEnabled = !this.laserLightEnabled;
-         this.LaserRobotLightEnableButton.BackColor = (false != this.laserLightEnabled) ? Color.Lime : Color.FromArgb(171, 171, 171);
+         this.CrawlerTrackLightEnableButton.BackColor = (false != this.laserLightEnabled) ? Color.Lime : Color.FromArgb(171, 171, 171);
 
          CameraSelectParameters cameraSelectParameters = ParameterAccessor.Instance.GetCameraSelectParameters(this.selectedLaserCameraButton.Camera);
          int channelMask = (false != this.laserLightEnabled) ? cameraSelectParameters.LightChannelMask : 0;
          DeviceCommunication.Instance.SetCameraLightChannelMask(this.selectedLaserCameraButton.Camera, channelMask);
 
-         this.LaserFrontCameraSelectButton.CenterVisible = DeviceCommunication.Instance.GetCameraLightEnable(Ui.Controls.CameraLocations.laserFront);
-         this.LaserRearCameraSelectButton.CenterVisible = DeviceCommunication.Instance.GetCameraLightEnable(Ui.Controls.CameraLocations.laserRear);
+         this.CrawlerFrontCameraSelectButton.CenterVisible = DeviceCommunication.Instance.GetCameraLightEnable(Ui.Controls.CameraLocations.crawlerLeft);
+         this.CrawlerRearCameraSelectButton.CenterVisible = DeviceCommunication.Instance.GetCameraLightEnable(Ui.Controls.CameraLocations.crawlerRight);
       }
 
-      private void TargetRobotLightEnableButton_Click(object sender, EventArgs e)
+      private void CrawlerCameraLightEnableButton_Click(object sender, EventArgs e)
       {
          this.targetLightEnabled = !this.targetLightEnabled;
-         this.TargetRobotLightEnableButton.BackColor = (false != this.targetLightEnabled) ? Color.Lime : Color.FromArgb(171, 171, 171);
+         this.CrawlerCameraLightEnableButton.BackColor = (false != this.targetLightEnabled) ? Color.Lime : Color.FromArgb(171, 171, 171);
 
          CameraSelectParameters cameraSelectParameters = ParameterAccessor.Instance.GetCameraSelectParameters(this.selectedTargetCameraButton.Camera);
          int channelMask = (false != this.targetLightEnabled) ? cameraSelectParameters.LightChannelMask : 0;
@@ -1161,48 +1208,23 @@ namespace Weco.Ui
       {
          Controls.CameraSelectButton button = (Controls.CameraSelectButton)sender;
 
-         if ((Ui.Controls.CameraLocations.laserFront == button.Camera) ||
-             (Ui.Controls.CameraLocations.laserRear == button.Camera))
+         if ((Ui.Controls.CameraLocations.crawlerFront == button.Camera) ||
+             (Ui.Controls.CameraLocations.crawlerRear == button.Camera))
          {
-            this.AssignLaserCamera(button);
+            this.AssignCrawlerCamera(button);
          }
-         else if ((Ui.Controls.CameraLocations.targetFront == button.Camera) ||
-                  (Ui.Controls.CameraLocations.targetRear == button.Camera) ||
-                  (Ui.Controls.CameraLocations.targetTop == button.Camera))
+         else if ((Ui.Controls.CameraLocations.bulletLeft == button.Camera) ||
+                  (Ui.Controls.CameraLocations.bulletRight == button.Camera) ||
+                  (Ui.Controls.CameraLocations.bulletDown == button.Camera))
          {
-            this.AssignTargetCamera(button);
+            this.AssignBulletCamera(button);
          }
-
-#if false
-         if (VideoSelectModes.light == this.videoSelectMode)
-         {
-            button.CenterVisible = !button.CenterVisible;
-
-            if (false != button.CenterVisible)
-            {
-               DeviceCommunication.Instance.SetCameraLightEnable(button.Camera, true);
-            }
-            else
-            {
-               DeviceCommunication.Instance.SetCameraLightEnable(button.Camera, false);
-            }
-         }
-         else if (VideoSelectModes.laserCamera == this.videoSelectMode)
-         {
-            this.AssignLaserCamera(button);
-         }
-         else if (VideoSelectModes.targetCamera == this.videoSelectMode)
-         {
-            this.AssignTargetCamera(button);
-         }
-#endif
       }
 
       private void CameraButton_HoldTimeout(object sender, Controls.HoldTimeoutEventArgs e)
       {
          Controls.CameraSelectButton button = (Controls.CameraSelectButton)sender;
 
-//         if (VideoSelectModes.light == this.videoSelectMode)
          if (false != button.CenterVisible)
          {
             int lightLevel = DeviceCommunication.Instance.GetCameraLightLevel(button.Camera);
@@ -1210,14 +1232,6 @@ namespace Weco.Ui
 
             if (null != value)
             {
-#if false
-               if (false == button.CenterVisible)
-               {
-                  button.CenterVisible = true;
-                  DeviceCommunication.Instance.SetCameraLightEnable(button.Camera, true);
-               }
-#endif
-
                LightIntensitySelectForm intensityForm = new LightIntensitySelectForm();
                this.SetDialogLocation(button, intensityForm);
                intensityForm.LocationText = button.Text;
@@ -1229,10 +1243,10 @@ namespace Weco.Ui
 
                int lightIntensity = (int)intensityForm.IntensityValue.OperationalValue;
 
-               if ((Ui.Controls.CameraLocations.laserFront == button.Camera) ||
-                   (Ui.Controls.CameraLocations.laserRear == button.Camera))
+               if ((Ui.Controls.CameraLocations.crawlerFront == button.Camera) ||
+                   (Ui.Controls.CameraLocations.crawlerRear == button.Camera))
                {
-                  if (Ui.Controls.CameraLocations.laserFront == button.Camera)
+                  if (Ui.Controls.CameraLocations.crawlerFront == button.Camera)
                   {
                      ParameterAccessor.Instance.LaserFrontCamera.LightIntensity = lightIntensity;
                   }
@@ -1241,18 +1255,18 @@ namespace Weco.Ui
                      ParameterAccessor.Instance.LaserRearCamera.LightIntensity = lightIntensity;
                   }
 
-                  this.LaserFrontCameraSelectButton.CenterLevel = lightIntensity;
-                  this.LaserRearCameraSelectButton.CenterLevel = lightIntensity;
+                  this.CrawlerFrontCameraSelectButton.CenterLevel = lightIntensity;
+                  this.CrawlerRearCameraSelectButton.CenterLevel = lightIntensity;
                }
-               else if ((Ui.Controls.CameraLocations.targetFront == button.Camera) ||
-                        (Ui.Controls.CameraLocations.targetRear == button.Camera) ||
-                        (Ui.Controls.CameraLocations.targetTop == button.Camera))
+               else if ((Ui.Controls.CameraLocations.bulletLeft == button.Camera) ||
+                        (Ui.Controls.CameraLocations.bulletRight == button.Camera) ||
+                        (Ui.Controls.CameraLocations.bulletDown == button.Camera))
                {
-                  if (Ui.Controls.CameraLocations.targetFront == button.Camera)
+                  if (Ui.Controls.CameraLocations.bulletLeft == button.Camera)
                   {
                      ParameterAccessor.Instance.TargetFrontCamera.LightIntensity = lightIntensity;
                   }
-                  else if (Ui.Controls.CameraLocations.targetRear == button.Camera)
+                  else if (Ui.Controls.CameraLocations.bulletRight == button.Camera)
                   {
                      ParameterAccessor.Instance.TargetRearCamera.LightIntensity = lightIntensity;
                   }
@@ -1265,6 +1279,24 @@ namespace Weco.Ui
          }
 
          e.Handled = true;
+      }
+
+      #endregion
+
+      #region Camera Events
+
+      private void CameraJoystickEnableButton_Click(object sender, EventArgs e)
+      {
+         if (JoystickApplications.camera != this.joystickApplication)
+         {
+            this.joystickApplication = JoystickApplications.camera;
+         }
+         else
+         {
+            this.joystickApplication = JoystickApplications.none;
+         }
+
+         this.UpdateJoystickApplicationButtons();
       }
 
       #endregion
@@ -1365,8 +1397,8 @@ namespace Weco.Ui
          Tracer.MaskString = "FFFFFFFF";
 
          this.cameraButtons = new Controls.CameraSelectButton[2];
-         this.cameraButtons[0] = this.LaserFrontCameraSelectButton;
-         this.cameraButtons[1] = this.LaserRearCameraSelectButton;
+         this.cameraButtons[0] = this.CrawlerFrontCameraSelectButton;
+         this.cameraButtons[1] = this.CrawlerRearCameraSelectButton;
 
          this.dimmerForm = new PopupDimmerForm();
          this.dimmerForm.Opacity = 0.65;

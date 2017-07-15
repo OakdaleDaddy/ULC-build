@@ -5,11 +5,16 @@ namespace Weco.Ui.Controls
 
    public enum CameraLocations
    {
-      laserFront,
-      laserRear,
+      none,
 
-      targetFront,
-      targetRear,
-      targetTop,
+      crawlerLeft, // light only
+      crawlerRight, // light only
+
+      crawlerFront,
+      crawlerRear,
+
+      bulletLeft,
+      bulletRight,
+      bulletDown,
    }
 }
