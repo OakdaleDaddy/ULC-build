@@ -457,10 +457,10 @@ namespace Weco.Ui
 
          // process parameters
 
-         if ((0 == ParameterAccessor.Instance.LaserBus.ConsumerHeartbeatRate) ||
-             (0 == ParameterAccessor.Instance.LaserBus.ProducerHeartbeatRate) ||
-             (0 == ParameterAccessor.Instance.TargetBus.ConsumerHeartbeatRate) ||
-             (0 == ParameterAccessor.Instance.TargetBus.ProducerHeartbeatRate))
+         if ((0 == ParameterAccessor.Instance.RobotBus.ConsumerHeartbeatRate) ||
+             (0 == ParameterAccessor.Instance.RobotBus.ProducerHeartbeatRate) ||
+             (0 == ParameterAccessor.Instance.TruckBus.ConsumerHeartbeatRate) ||
+             (0 == ParameterAccessor.Instance.TruckBus.ProducerHeartbeatRate))
          {
             this.HeartbeatsDisabledLabel.Visible = true;
          }

@@ -9,7 +9,7 @@
       SESSION,
       PARAM,
       CANBUS,
-      LBUS,
+      RBUS,
       TBUS,
    }
 
@@ -26,7 +26,7 @@
             case TraceGroup.SESSION: prefix = "SESS: "; break;
             case TraceGroup.PARAM: prefix = "PARAM: "; break;
             case TraceGroup.CANBUS: prefix = "CAN: "; break;
-            case TraceGroup.LBUS: prefix = "LBUS: "; break;
+            case TraceGroup.RBUS: prefix = "RBUS: "; break;
             case TraceGroup.TBUS: prefix = "TBUS: "; break;
          }
 

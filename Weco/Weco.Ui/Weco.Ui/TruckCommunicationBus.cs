@@ -9,7 +9,7 @@
    using Weco.PCANLight;
    using Weco.Utilities;
 
-   public class TargetCommunicationBus
+   public class TruckCommunicationBus
    {
       #region Definitions
 
@@ -28,7 +28,7 @@
 
       #region Fields
 
-      private static TargetCommunicationBus instance = null;
+      private static TruckCommunicationBus instance = null;
 
       private bool execute;
       private Thread thread;
@@ -51,14 +51,6 @@
       private bool controllerServiced;
       private bool stopAll;
       private object valueUpdate;
-
-      private bool targetLocked;
-      private bool targetMoved;
-      private bool targetManualMovementMode;
-      private MovementModes targetMovementMode;
-      private double targetMovementRequest;
-      private bool targetMovementTriggered;
-      //private int targetTripStartValue;
 
       private WheelMotorStatus wheel0Status;
       private WheelMotorStatus wheel1Status;
@@ -109,12 +101,6 @@
          this.stopAll = false;
          this.valueUpdate = new object();
 
-         this.targetLocked = false;
-         this.targetMoved = false;
-         this.targetManualMovementMode = false;
-         this.targetMovementMode = MovementModes.off;
-         this.targetMovementRequest = 0;
-         this.targetMovementTriggered = false;
          //this.targetTripStartValue = 0;
 
          this.wheel0Status = new WheelMotorStatus();
@@ -123,7 +109,7 @@
 
       private void SendControllerHeartBeat()
       {
-         int cobId = (int)(((int)COBTypes.ERROR << 7) | (ParameterAccessor.Instance.TargetBus.ControllerBusId & 0x7F));
+         int cobId = (int)(((int)COBTypes.ERROR << 7) | (ParameterAccessor.Instance.TruckBus.ControllerBusId & 0x7F));
          byte[] heartbeatMsg = new byte[1];
 
          heartbeatMsg[0] = 5;
@@ -140,13 +126,13 @@
 
       #region Properties
 
-      public static TargetCommunicationBus Instance
+      public static TruckCommunicationBus Instance
       {
          get
          {
             if (instance == null)
             {
-               instance = new TargetCommunicationBus();
+               instance = new TruckCommunicationBus();
                instance.Initialize();
             }
 
@@ -237,12 +223,12 @@
 
       private void UpdateControllerHeartbeat()
       {
-         if ((0 != ParameterAccessor.Instance.TargetBus.ProducerHeartbeatRate) &&
+         if ((0 != ParameterAccessor.Instance.TruckBus.ProducerHeartbeatRate) &&
              (false != this.controllerServiced) &&
              (DateTime.Now > this.controllerHeartbeatLimit))
          {
             this.SendControllerHeartBeat();
-            this.controllerHeartbeatLimit = this.controllerHeartbeatLimit.AddMilliseconds(ParameterAccessor.Instance.TargetBus.ProducerHeartbeatRate);
+            this.controllerHeartbeatLimit = this.controllerHeartbeatLimit.AddMilliseconds(ParameterAccessor.Instance.TruckBus.ProducerHeartbeatRate);
          }
       }
 
@@ -297,268 +283,16 @@
 
             foreach (Device device in this.deviceList)
             {
+               if (false != this.stopAll)
+               { 
+                  // stop all within device update
+               }
+
                device.Update();
             }
 
             Thread.Sleep(1);
          }
-      }
-
-      #endregion
-
-      #region Target Board Functions
-
-      private void InitializeTargetBoard()
-      {
-         this.wheel0Status.Initialize();
-         this.wheel1Status.Initialize();
-
-         this.launchCardLightIntensitySetPoint = 0;
-         //this.camaraLightIntensityRequested = 0;
-
-         this.launchCardLightChannelMaskSetPoint = 0;
-         //this.cameraLightChannelMaskRequested = 0;
-
-         this.cameraSetPoint = 0;
-         //this.cameraRequested = 0;
-      }
-
-      private void StartTargetBoard()
-      {
-      }
-
-      private void EvaluateWheel(MotorComponent motor, WheelMotorParameters parameters, WheelMotorStatus status, ref double total, ref int count)
-      {
-      }
-
-      private bool UpdateWheel(MotorComponent motor, WheelMotorStatus status, WheelMotorParameters parameters)
-      {
-         bool scheduled = false;
-
-         if (null == motor.FaultReason)
-         {
-            DateTime now = DateTime.Now;
-            bool positionObtained = false;
-            bool velocityObtained = false;
-
-            if (now > status.statusInvalidTimeLimit)
-            {
-               positionObtained = motor.PositionAttained;
-               velocityObtained = motor.VelocityAttained;
-            }
-
-            if (false != this.stopAll)
-            {
-               if (MotorComponent.Modes.off != motor.Mode)
-               {
-                  motor.SetMode(MotorComponent.Modes.off);
-               }
-
-               status.state = WheelMotorStatus.States.stopped;
-            }
-            else if (status.state == WheelMotorStatus.States.stopped)
-            {
-               // nothing, reset needed to clear
-            }
-            else if (status.state == WheelMotorStatus.States.undefined)
-            {
-               motor.SetVelocityKp(parameters.Kp);
-               motor.SetVelocityKi(parameters.Ki);
-               motor.SetVelocityKd(parameters.Kd);
-               motor.SetProfileVelocity(parameters.ProfileVelocity);
-               motor.SetProfileAcceleration(parameters.ProfileAcceleration);
-               motor.SetProfileDeceleration(parameters.ProfileDeceleration);
-               status.state = WheelMotorStatus.States.off;
-               Tracer.WriteHigh(TraceGroup.TBUS, "", "{0} set", motor.Name);
-            }
-
-            else if (status.state == WheelMotorStatus.States.turnOff)
-            {
-               motor.SetMode(MotorComponent.Modes.off);
-               status.state = WheelMotorStatus.States.off;
-               Tracer.WriteHigh(TraceGroup.TBUS, "", "{0} off", motor.Name);
-            }
-            else if (status.state == WheelMotorStatus.States.off)
-            {
-               if (WheelMotorStates.locked == parameters.MotorState)
-               {
-                  status.state = WheelMotorStatus.States.startPosition;
-               }
-               else if (WheelMotorStates.enabled == parameters.MotorState)
-               {
-                  if (false != this.targetMovementTriggered)
-                  {
-                     status.state = WheelMotorStatus.States.startVelocity;
-                  }
-                  else
-                  {
-                     status.state = WheelMotorStatus.States.startPosition;
-                  }
-               }
-            }
-
-            else if (status.state == WheelMotorStatus.States.startPosition)
-            {
-               motor.SetMode(MotorComponent.Modes.position);
-
-               Tracer.WriteHigh(TraceGroup.TBUS, "", "{0} position mode", motor.Name);
-
-               status.state = WheelMotorStatus.States.positioning;
-            }
-            else if (status.state == WheelMotorStatus.States.positioning)
-            {
-               if (false != status.stopNeeded)
-               {
-                  status.stopNeeded = false;
-
-                  motor.Halt();
-                  status.positionRequested = status.positionNeeded;
-                  Tracer.WriteHigh(TraceGroup.TBUS, "", "{0} position stop", motor.Name);
-
-                  positionObtained = false;
-                  status.statusInvalidTimeLimit = now.AddMilliseconds(250);
-                  status.state = WheelMotorStatus.States.stopPosition;
-               }
-               else if (WheelMotorStates.disabled == parameters.MotorState)
-               {
-                  status.stopNeeded = true;
-               }
-               else if ((WheelMotorStates.enabled == parameters.MotorState) &&
-                        (false != this.targetMovementTriggered))
-               {
-                  status.stopNeeded = true;
-               }
-               else
-               {
-                  int neededPosition = status.positionNeeded;
-
-                  if (WheelMotorStates.locked == parameters.MotorState)
-                  {
-                     neededPosition = motor.ActualPosition;
-                  }
-
-                  if (status.positionRequested != status.positionNeeded)
-                  {
-                     motor.ScheduleTargetPosition(status.positionNeeded);
-                     scheduled = true;
-                     status.positionRequested = status.positionNeeded;
-
-                     Tracer.WriteHigh(TraceGroup.TBUS, "", "{0} position {1}", motor.Name, status.positionRequested);
-
-                     positionObtained = false;
-                     status.statusInvalidTimeLimit = now.AddMilliseconds(250);
-                  }
-               }
-            }
-            else if (status.state == WheelMotorStatus.States.stopPosition)
-            {
-               if (false != positionObtained)
-               {
-                  status.positionNeeded = motor.ActualPosition;
-                  motor.ScheduleTargetPosition(status.positionNeeded);
-                  scheduled = true;
-                  status.positionRequested = status.positionNeeded;
-
-                  motor.Run();
-
-                  Tracer.WriteHigh(TraceGroup.TBUS, "", "{0} position stopped at {1}", motor.Name, motor.ActualPosition);
-
-                  if (WheelMotorStates.disabled == parameters.MotorState)
-                  {
-                     status.state = WheelMotorStatus.States.turnOff;
-                  }
-                  else if ((WheelMotorStates.enabled == parameters.MotorState) &&
-                           (false != this.targetMovementTriggered))
-                  {
-                     status.state = WheelMotorStatus.States.startVelocity;
-                  }
-                  else
-                  {
-                     status.state = WheelMotorStatus.States.positioning;
-                  }
-               }
-            }
-
-            else if (status.state == WheelMotorStatus.States.startVelocity)
-            {
-               if (ActuationModes.openloop == parameters.ActuationMode)
-               {
-                  motor.SetMode(MotorComponent.Modes.openLoop);
-               }
-               else
-               {
-                  motor.SetMode(MotorComponent.Modes.velocity);
-               }
-
-               Tracer.WriteHigh(TraceGroup.TBUS, "", "{0} velocity {1} mode", motor.Name, parameters.ActuationMode.ToString());
-
-               status.velocityActuationMode = parameters.ActuationMode;
-               status.state = WheelMotorStatus.States.velocity;
-            }
-            else if (status.state == WheelMotorStatus.States.velocity)
-            {
-               if ((WheelMotorStates.disabled == parameters.MotorState) ||
-                   (WheelMotorStates.locked == parameters.MotorState) ||
-                   (false == this.targetMovementTriggered) ||
-                   (status.velocityActuationMode != parameters.ActuationMode))
-               {
-                  motor.ScheduleTargetVelocity(0);
-                  scheduled = true;
-                  status.velocityRequested = 0;
-                  Tracer.WriteHigh(TraceGroup.TBUS, "", "{0} velocity stop", motor.Name);
-
-                  velocityObtained = false;
-                  status.statusInvalidTimeLimit = now.AddMilliseconds(250);
-                  status.state = WheelMotorStatus.States.stopVelocity;
-               }
-               else if (this.targetMovementRequest != status.velocityRequested)
-               {
-                  ValueParameter movementParameter = ParameterAccessor.Instance.TargetWheelMaximumSpeed;
-
-                  double movementRequestValue = this.targetMovementRequest * movementParameter.OperationalValue;
-                  int positionInversionValue = (false == parameters.PositionInverted) ? 1 : -1;
-                  int requestInversionValue = (false == parameters.RequestInverted) ? 1 : -1;
-                  int velocityRpm = (int)(positionInversionValue * requestInversionValue * movementRequestValue * ParameterAccessor.Instance.TargetWheelVelocityToRpm);
-                  motor.ScheduleTargetVelocity(velocityRpm);
-                  scheduled = true;
-                  status.velocityRequested = this.targetMovementRequest;
-
-                  Tracer.WriteMedium(TraceGroup.TBUS, null, "{0} velocity={1:0.00} rpm={2}", motor.Name, movementRequestValue, velocityRpm);
-               }
-            }
-            else if (status.state == WheelMotorStatus.States.stopVelocity)
-            {
-               if ((WheelMotorStates.enabled == parameters.MotorState) &&
-                   (false != this.targetMovementTriggered))
-               {
-                  status.state = WheelMotorStatus.States.velocity;
-               }
-               else if (false != velocityObtained)
-               {
-                  status.positionNeeded = motor.ActualPosition;
-                  motor.ScheduleTargetPosition(status.positionNeeded);
-                  scheduled = true;
-                  status.positionRequested = status.positionNeeded;
-
-                  Tracer.WriteHigh(TraceGroup.TBUS, "", "{0} velocity stopped at {1}", motor.Name, motor.ActualPosition);
-
-                  if (WheelMotorStates.disabled == parameters.MotorState)
-                  {
-                     status.state = WheelMotorStatus.States.turnOff;
-                  }
-                  else
-                  {
-                     status.state = WheelMotorStatus.States.startPosition;
-                  }
-               }
-            }
-         }
-
-         return (scheduled);
-      }
-
-      private void UpdateTargetBoard()
-      {
       }
 
       #endregion
@@ -595,22 +329,13 @@
          this.deviceClearErrorQueue.Clear();
 
 
-         this.TraceMask = ParameterAccessor.Instance.TargetBus.ControllerTraceMask;
+         this.TraceMask = ParameterAccessor.Instance.TruckBus.ControllerTraceMask;
 
          this.stopAll = false;
-
-         this.targetLocked = false;
-         this.targetMoved = false;
-         this.targetManualMovementMode = false;
-         this.targetMovementMode = MovementModes.off;
-         this.targetMovementRequest = 0;
-         this.targetMovementTriggered = false;
-         //this.targetTripStartValue = 0;
       }
 
       private void InitializeDevices()
       {
-         this.InitializeTargetBoard();
       }
 
       private void StartBus()
@@ -619,8 +344,8 @@
 
          if (false == this.busReady)
          {
-            this.busInterfaceId = ParameterAccessor.Instance.TargetBus.BusInterface;
-            CANResult startResult = PCANLight.Start(this.busInterfaceId, ParameterAccessor.Instance.TargetBus.BitRate, FramesType.INIT_TYPE_ST, TraceGroup.TBUS, this.BusReceiveHandler);
+            this.busInterfaceId = ParameterAccessor.Instance.TruckBus.BusInterface;
+            CANResult startResult = PCANLight.Start(this.busInterfaceId, ParameterAccessor.Instance.TruckBus.BitRate, FramesType.INIT_TYPE_ST, TraceGroup.TBUS, this.BusReceiveHandler);
             this.busReady = (CANResult.ERR_OK == startResult);
          }
 
@@ -660,18 +385,6 @@
 
          this.InitializeDevices();
          
-         // wait for laser bus when target board is over there
-         if (false != ParameterAccessor.Instance.RunTargetOnLaserBus)
-         {
-            for (; this.execute; )
-            {
-               if (false != LaserCommunicationBus.Instance.Ready)
-               {
-                  break;
-               }
-            }
-         }
-
          if (false != this.busReady)
          {
             PCANLight.ResetBus(this.busInterfaceId);
@@ -747,8 +460,6 @@
 
                if (BusComponentId.TargetBoard == id)
                {
-                  this.InitializeTargetBoard();
-                  this.StartTargetBoard();
                }
                else if (BusComponentId.TargetBoardCameraLed == id)
                {
@@ -844,9 +555,9 @@
       private void ExecuteProcessLoop()
       {
          this.controllerServiced = true;
-         this.controllerHeartbeatLimit = DateTime.Now.AddMilliseconds(ParameterAccessor.Instance.TargetBus.ProducerHeartbeatRate);
+         this.controllerHeartbeatLimit = DateTime.Now.AddMilliseconds(ParameterAccessor.Instance.TruckBus.ProducerHeartbeatRate);
 
-         this.StartTargetBoard();
+         // start devices
 
          this.ready = true;
 
@@ -854,7 +565,7 @@
          {
             lock (this.valueUpdate)
             {
-               this.UpdateTargetBoard();
+               // update devices
             }
 
             this.UpdateDeviceReset();
@@ -872,7 +583,7 @@
          Thread.Sleep(200);
          PCANLight.Stop(this.busInterfaceId);
 
-         ParameterAccessor.Instance.TargetBus.ControllerTraceMask = this.TraceMask;
+         ParameterAccessor.Instance.TruckBus.ControllerTraceMask = this.TraceMask;
       }
 
       private void Process()
@@ -925,7 +636,7 @@
 
       #region Constructor
 
-      private TargetCommunicationBus()
+      private TruckCommunicationBus()
       {
       }
 
@@ -991,8 +702,7 @@
 
          if (false != this.Running)
          {
-            if ((this.GetFaultStatus(BusComponentId.Bus) != null) &&
-                (false == ParameterAccessor.Instance.RunTargetOnLaserBus))
+            if (this.GetFaultStatus(BusComponentId.Bus) != null) 
             {
                result = "target communication offline";
             }
@@ -1170,208 +880,6 @@
       {
          Tracer.WriteHigh(TraceGroup.TBUS, "", "Stop All");
          this.stopAll = true;
-      }
-
-      #endregion
-
-      #region Target Body Functions
-
-      public double GetTargetMainRoll()
-      {
-         return (0);
-      }
-
-      public double GetTargetMainPitch()
-      {
-         return (0);
-      }
-
-      public double GetTargetMainYaw()
-      {
-         return (0);
-      }
-
-      public double GetTargetTopCameraRoll()
-      {
-         return (0);
-      }
-
-      #endregion
-
-      #region Target Movement Functions
-
-      public void SetTargetMovementLock(bool locked)
-      {
-         this.targetLocked = locked;
-      }
-
-      public bool GetTargetMovementLock()
-      {
-         bool result = this.targetLocked;
-         return (result);
-      }
-
-      public void ResetTargetMoved()
-      {
-         if (false != this.targetMoved)
-         {
-            this.targetMoved = false;
-         }
-      }
-
-      public bool GetTargetMoved()
-      {
-         return (this.targetMoved);
-      }
-
-      public void SetTargetMovementManualMode(bool active)
-      {
-         Tracer.WriteHigh(TraceGroup.TBUS, "", "requested target manual movement mode={0}", active);
-         this.targetManualMovementMode = active;
-      }
-
-      public void SetTargetMovementMode(MovementModes mode)
-      {
-         Tracer.WriteHigh(TraceGroup.TBUS, "", "requested target movement mode={0}", mode);
-         this.targetMovementMode = mode;
-      }
-
-      public void SetTargetMovementPositionRequest(double request)
-      {
-         int adjustment = (int)(request * ParameterAccessor.Instance.TargetWheelDistanceToTicks);
-         int invertor;
-
-         invertor = (false == ParameterAccessor.Instance.TargetFrontWheel.PositionInverted) ? 1 : -1;
-         invertor *= (false == ParameterAccessor.Instance.TargetFrontWheel.RequestInverted) ? 1 : -1;
-         int frontAdjustment = (adjustment * invertor);
-
-         invertor = (false == ParameterAccessor.Instance.TargetRearWheel.PositionInverted) ? 1 : -1;
-         invertor *= (false == ParameterAccessor.Instance.TargetRearWheel.RequestInverted) ? 1 : -1;
-         int rearAdjustment = (adjustment * invertor);
-
-         lock (this.valueUpdate)
-         {
-            if (WheelMotorStates.enabled == ParameterAccessor.Instance.TargetFrontWheel.MotorState)
-            {
-            }
-
-            if (WheelMotorStates.enabled == ParameterAccessor.Instance.TargetRearWheel.MotorState)
-            {
-            }
-
-            this.targetMoved = true;
-         }
-      }
-
-      public void SetTargetMovementVelocityRequest(double request, bool triggered)
-      {
-         this.targetMovementRequest = request;
-         this.targetMovementTriggered = triggered;
-
-         if (0 != request)
-         {
-            this.targetMoved = true;
-         }
-      }
-
-      public bool GetTargetMovementManualMode()
-      {
-         return (this.targetManualMovementMode);
-      }
-
-      public MovementModes GetTargetMovementMode()
-      {
-         return (this.targetMovementMode);
-      }
-
-      public void GetTargetMovementRequestValues(ref ValueParameter movementParameter, ref double movementRequestValue)
-      {
-         movementParameter = ParameterAccessor.Instance.TargetWheelMaximumSpeed;
-         movementRequestValue = this.targetMovementRequest * movementParameter.OperationalValue;
-      }
-
-      public double GetTargetMovementValue()
-      {
-         double result = 0;
-         int count = 0;
-
-
-         if (0 != count)
-         {
-            result /= count;
-         }
-
-         return (result);
-      }
-
-      public bool GetTargetMovementActivated()
-      {
-         bool result = ((false != this.targetMovementTriggered) && (MovementModes.move == this.targetMovementMode)) ? true : false;
-         return (result);
-      }
-
-      public double GetTargetWheelCurrentValue(WheelLocations location)
-      {
-         double result = 0;
-
-         if (WheelLocations.front == location)
-         {
-            double current = 0;// this.targetBoard.Bldc0.ActualCurrent;
-            current /= ParameterAccessor.Instance.TargetWheelCountsToAmps;
-            result = current;
-         }
-         else if (WheelLocations.rear == location)
-         {
-            double current = 0;// this.targetBoard.Bldc1.ActualCurrent;
-            current /= ParameterAccessor.Instance.TargetWheelCountsToAmps;
-            result = current;
-         }
-
-         return (result);
-      }
-
-      public double GetTargetWheelTemperatureValue(WheelLocations location)
-      {
-         double result = 0;
-
-         if (WheelLocations.front == location)
-         {
-         }
-         else if (WheelLocations.rear == location)
-         {
-         }
-
-         return (result);
-      }
-
-      public double GetTargetWheelPositionValue(WheelLocations location)
-      {
-         double result = 0;
-
-         if (WheelLocations.front == location)
-         {
-         }
-         else if (WheelLocations.rear == location)
-         {
-         }
-
-         result /= ParameterAccessor.Instance.TargetWheelDistanceToTicks;
-
-         return (result);
-      }
-
-      public double GetTargetWheelTotalPositionValue()
-      {
-         double result = 0;// this.targetBoard.Bldc0.ActualPosition;
-         result /= ParameterAccessor.Instance.TargetWheelDistanceToTicks;
-         return (result);
-      }
-
-      public double GetTargetWheelTripPositionValue()
-      {
-         double result = 0;// this.targetBoard.Bldc0.ActualPosition - this.targetTripStartValue;
-         result /= ParameterAccessor.Instance.TargetWheelDistanceToTicks;
-         return (result);
       }
 
       #endregion

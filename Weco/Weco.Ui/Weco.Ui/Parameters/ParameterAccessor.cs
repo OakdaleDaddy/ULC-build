@@ -19,18 +19,14 @@
 
       private int VersionCount;
 
-      public LaserBusParameters LaserBus;
-      public TargetBusParameters TargetBus;
-      public bool RunTargetOnLaserBus;
+      public RobotBusParameters RobotBus;
+      public TruckBusParameters TruckBus;
 
       public IpEndpointParameters Trace;
 
-      public string SessionDataPath;
       public int JoystickDeadband;
       public int JoystickIdleBand;
       public int UsbRelayPort;
-      public double Latitude;
-      public double Longitude;
 
       public WheelMotorParameters LaserFrontWheel;
       public WheelMotorParameters LaserRearWheel;
@@ -41,9 +37,6 @@
       public double LaserWheelDistanceToTicks;
       public double LaserWheelVelocityToRpm;
       public double LaserWheelCountsToAmps;
-      public double LaserLinkVoltageMultipler;
-      public double LaserLightPercentToCount;
-      public double LaserStepperPivotAngle;
       
       public CameraMaps CrawlerHubCameraMaps;
       public LightSelectParameters CrawlerFrontLight;
@@ -51,31 +44,12 @@
       public LightSelectParameters CrawlerLeftLight;
       public LightSelectParameters CrawlerRightLight;
       public Controls.SystemLocations CrawlerHubSelectedCamera;
-
-      public WheelMotorParameters TargetFrontWheel;
-      public WheelMotorParameters TargetRearWheel;
-      public ValueParameter TargetWheelMaximumSpeed;
-      public ValueParameter TargetWheelLowSpeedScale;
-      public ValueParameter TargetWheelManualWheelDistance;
-      public ValueParameter TargetWheelManualWheelSpeed;
-      public double TargetWheelDistanceToTicks;
-      public double TargetWheelVelocityToRpm;
-      public double TargetWheelCountsToAmps;
-      public double TargetLinkVoltageMultipler;
-      public double TargetLightPercentToCount;
       
       public CameraMaps BulletCameraMaps;
       public LightSelectParameters BulletLeftLight;
       public LightSelectParameters BulletRightLight;
       public LightSelectParameters BulletDownLight;
       public Controls.SystemLocations BulletSelectedCamera;
-      public double TargetTopCameraCwLimit;
-      public double TargetTopCameraCcwLimit;
-
-      public bool LaserMeasureAutoFrequency;
-      public ValueParameter LaserMeasureManualFrequency;
-      public ValueParameter LaserSampleCount;
-      public ValueParameter LaserMeasurementConstant;
 
       public OsdParameters Osd;
 
@@ -111,39 +85,45 @@
       {
          this.VersionCount = 1; // update after each addition
 
-         this.LaserBus = new LaserBusParameters();
-         this.LaserBus.BusInterface = BusInterfaces.PCIA;
-         this.LaserBus.BitRate = 50000;
-         this.LaserBus.ConsumerHeartbeatRate = 3500;
-         this.LaserBus.ProducerHeartbeatRate = 1000;
-         this.LaserBus.ControllerBusId = 80;
-         this.LaserBus.LaserBoardBusId = 32;
-         this.LaserBus.GpsBusId = 20;
-         this.LaserBus.ControllerTraceMask = 0;
-         this.LaserBus.MainBoardTraceMask = 1;
-         this.LaserBus.GpsTraceMask = 1;
-         
-         this.TargetBus = new TargetBusParameters();
-         this.TargetBus.BusInterface = BusInterfaces.PCIB;
-         this.TargetBus.BitRate = 50000;
-         this.TargetBus.ConsumerHeartbeatRate = 3500;
-         this.TargetBus.ProducerHeartbeatRate = 1000;
-         this.TargetBus.ControllerBusId = 80;
-         this.TargetBus.TargetBoardBusId = 32;
-         this.TargetBus.ControllerTraceMask = 0;
-         this.TargetBus.TargetBoardTraceMask = 1;
+         this.RobotBus = new RobotBusParameters();
+         this.RobotBus.BusInterface = BusInterfaces.PCIA;
+         this.RobotBus.BitRate = 50000;
+         this.RobotBus.ConsumerHeartbeatRate = 3500;
+         this.RobotBus.ProducerHeartbeatRate = 1000;
+         this.RobotBus.ControllerBusId = 208;
+         this.RobotBus.LeftTrackBusId = 30;
+         this.RobotBus.HubBusId = 32;
+         this.RobotBus.RightTrackBusId = 34;
+         this.RobotBus.ControllerTraceMask = 0;
+         this.RobotBus.LeftTrackTraceMask = 1;
+         this.RobotBus.HubTraceMask = 1;
+         this.RobotBus.RightTrackTraceMask = 1;
 
-         this.RunTargetOnLaserBus = false;
-
+         this.TruckBus = new TruckBusParameters();
+         this.TruckBus.BusInterface = BusInterfaces.PCIB;
+         this.TruckBus.BitRate = 50000;
+         this.TruckBus.ConsumerHeartbeatRate = 3500;
+         this.TruckBus.ProducerHeartbeatRate = 1000;
+         this.TruckBus.ControllerBusId = 255;
+         this.TruckBus.LaunchCardBusId = 20;
+         this.TruckBus.BulletMotorBusId = 28;
+         this.TruckBus.LeftFeederMotorBusId = 32;
+         this.TruckBus.RightFeederMotorBusId = 34;
+         this.TruckBus.ReelMotorBusId = 40;
+         this.TruckBus.ReelEncoderBusId = 42;
+         this.TruckBus.ControllerTraceMask = 0;
+         this.TruckBus.LaunchCardTraceMask = 1;
+         this.TruckBus.BulletMotorTraceMask = 1;
+         this.TruckBus.LeftFeederMotorTraceMask = 1;
+         this.TruckBus.RightFeederMotorTraceMask = 1;
+         this.TruckBus.ReelMotorTraceMask = 1;
+         this.TruckBus.ReelEncoderTraceMask = 1;
 
          this.Trace = new IpEndpointParameters("Trace", "127.0.0.1", 10000);
 
-         this.SessionDataPath = @"c:\SessionData";
          this.JoystickDeadband = 5000;
          this.JoystickIdleBand = 4000;
          this.UsbRelayPort = 1;
-         this.Latitude = double.NaN;
-         this.Longitude = double.NaN;
 
 
          this.LaserFrontWheel = new WheelMotorParameters();
@@ -213,9 +193,7 @@
          this.LaserWheelDistanceToTicks = 1;
          this.LaserWheelVelocityToRpm = 100;
          this.LaserWheelCountsToAmps = 1000;
-         this.LaserLinkVoltageMultipler = 0.5;
-         this.LaserLightPercentToCount = 1;
-         this.LaserStepperPivotAngle = 8.5;
+
 
          CameraMap[] crawlerHubCameraMaps = new CameraMap[2];
          crawlerHubCameraMaps[0] = new CameraMap(1, Ui.Controls.SystemLocations.crawlerFront);
@@ -227,77 +205,7 @@
          this.CrawlerLeftLight = new LightSelectParameters("CrawlerLeftLight", 15, 1);
          this.CrawlerRightLight = new LightSelectParameters("CrawlerRightLight", 15, 1);
          this.CrawlerHubSelectedCamera = Controls.SystemLocations.crawlerFront;
-         
 
-         this.TargetFrontWheel = new WheelMotorParameters();
-         this.TargetFrontWheel.Location = "TargetFrontWheel";
-         this.TargetFrontWheel.MotorState = WheelMotorStates.enabled;
-         this.TargetFrontWheel.ActuationMode = ActuationModes.closedloop;
-         this.TargetFrontWheel.RequestInverted = false;
-         this.TargetFrontWheel.PositionInverted = false;
-         this.TargetFrontWheel.ProfileVelocity = 500;
-         this.TargetFrontWheel.ProfileAcceleration = 200;
-         this.TargetFrontWheel.ProfileDeceleration = 200;
-         this.TargetFrontWheel.Kp = 2600;
-         this.TargetFrontWheel.Ki = 22000;
-         this.TargetFrontWheel.Kd = 0;
-         this.TargetFrontWheel.Polarity = 0;
-         this.TargetFrontWheel.PositionNotationIndex = -3; // mm
-         this.TargetFrontWheel.VelocityNotationIndex = -3; // mm
-         this.TargetFrontWheel.VelocityDimensionIndex = 164; // /min
-         this.TargetFrontWheel.AccelerationNotationIndex = 0; // none
-         this.TargetFrontWheel.AccelerationDimensionIndex = 163; // /s
-         this.TargetFrontWheel.PositionEncoderIncrements = 6;
-         this.TargetFrontWheel.PositionEncoderMotorRevolutions = 1;
-         this.TargetFrontWheel.VelocityEncoderIncrementsPerSecond = 6;
-         this.TargetFrontWheel.VelocityEncoderMotorRevolutionsPerSecond = 1;
-         this.TargetFrontWheel.GearRatioMotorRevolutions = 6;
-         this.TargetFrontWheel.GearRatioShaftRevolutions = 1;
-         this.TargetFrontWheel.FeedConstantFeed = 600;
-         this.TargetFrontWheel.FeedConstantShaftRevolutions = 1;
-         this.TargetFrontWheel.MotorPeakCurrentLimit = 5000;
-         this.TargetFrontWheel.MaximumCurrent = 10000;
-         this.TargetFrontWheel.MotorRatedCurrent = 1000;
-
-         this.TargetRearWheel = new WheelMotorParameters();
-         this.TargetRearWheel.Location = "TargetRearWheel";
-         this.TargetRearWheel.MotorState = WheelMotorStates.enabled;
-         this.TargetRearWheel.ActuationMode = ActuationModes.closedloop;
-         this.TargetRearWheel.RequestInverted = false;
-         this.TargetRearWheel.PositionInverted = true;
-         this.TargetRearWheel.ProfileVelocity = 500;
-         this.TargetRearWheel.ProfileAcceleration = 200;
-         this.TargetRearWheel.ProfileDeceleration = 200;
-         this.TargetRearWheel.Kp = 2600;
-         this.TargetRearWheel.Ki = 22000;
-         this.TargetRearWheel.Kd = 0;
-         this.TargetRearWheel.Polarity = 0;
-         this.TargetRearWheel.PositionNotationIndex = -3; // mm
-         this.TargetRearWheel.VelocityNotationIndex = -3; // mm
-         this.TargetRearWheel.VelocityDimensionIndex = 164; // /min
-         this.TargetRearWheel.AccelerationNotationIndex = 0; // none
-         this.TargetRearWheel.AccelerationDimensionIndex = 163; // /s
-         this.TargetRearWheel.PositionEncoderIncrements = 6;
-         this.TargetRearWheel.PositionEncoderMotorRevolutions = 1;
-         this.TargetRearWheel.VelocityEncoderIncrementsPerSecond = 6;
-         this.TargetRearWheel.VelocityEncoderMotorRevolutionsPerSecond = 1;
-         this.TargetRearWheel.GearRatioMotorRevolutions = 6;
-         this.TargetRearWheel.GearRatioShaftRevolutions = 1;
-         this.TargetRearWheel.FeedConstantFeed = 600;
-         this.TargetRearWheel.FeedConstantShaftRevolutions = 1;
-         this.TargetRearWheel.MotorPeakCurrentLimit = 5000;
-         this.TargetRearWheel.MaximumCurrent = 10000;
-         this.TargetRearWheel.MotorRatedCurrent = 1000;
-
-         this.TargetWheelMaximumSpeed = new ValueParameter("TargetWheelMaximumSpeed", "m/MIN", 2, 0, 10, 0.10, 3.5, 3.5);
-         this.TargetWheelLowSpeedScale = new ValueParameter("TargetWheelLowSpeedScale", "%", 0, 1, 100, 1, 30, 30);
-         this.TargetWheelManualWheelDistance = new ValueParameter("TargetWheelManualWheelDistance", "mm", 0, 1, 100, 1, 1, 1);
-         this.TargetWheelManualWheelSpeed = new ValueParameter("TargetWheelManualWheelSpeed", "m/MIN", 2, 0, 10, 0.1, 2, 2);
-         this.TargetWheelDistanceToTicks = 1;
-         this.TargetWheelVelocityToRpm = 100;
-         this.TargetWheelCountsToAmps = 1000;
-         this.TargetLinkVoltageMultipler = 0.5;
-         this.TargetLightPercentToCount = 1;
 
          CameraMap[] bulletCameraMaps = new CameraMap[3];
          bulletCameraMaps[0] = new CameraMap(1, Ui.Controls.SystemLocations.bulletLeft);
@@ -309,14 +217,6 @@
          this.BulletRightLight = new LightSelectParameters("BulletRightLight", 15, 2);
          this.BulletDownLight = new LightSelectParameters("BulletDownLight", 15, 4);
          this.BulletSelectedCamera = Controls.SystemLocations.bulletDown;
-         this.TargetTopCameraCwLimit = 45;
-         this.TargetTopCameraCcwLimit = -45;
-
-
-         this.LaserMeasureAutoFrequency = true;
-         this.LaserMeasureManualFrequency = new ValueParameter("LaserMeasureManualFrequency", "Hz", 1, 0.10, 100.0, 0.1, 5.0, 5.0);
-         this.LaserSampleCount = new ValueParameter("LaserSampleCount", "", 0, 1, 128, 1, 4, 4);
-         this.LaserMeasurementConstant = new ValueParameter("LaserMeasurementConstant", "mm", 1, 1, 1, 1, 0.1, 0.1);
          
 
          this.Osd = new OsdParameters();
@@ -503,24 +403,23 @@
          return (result);
       }
 
-      private LaserBusParameters ReadLaserBusParameters(XmlReader reader)
+      private RobotBusParameters ReadRobotBusParameters(XmlReader reader)
       {
-         LaserBusParameters result = null;
+         RobotBusParameters result = null;
          bool readResult = true;
 
          BusInterfaces busInterface = BusInterfaces.USBA;
          int bitRate = 0;
-
          int consumerHeartbeatRate = 0;
          int producerHeartbeatRate = 0;
          int controllerBusId = 0;
-
-         int laserBoardBusId = 0;
-         int gpsBusId = 0;
-
+         int leftTrackBusId = 0;
+         int hubBusId = 0;
+         int rightTrackBusId = 0;
          int controllerTraceMask = 0;
-         int mainBoardTraceMask = 0;
-         int gpsTraceMask = 0;
+         int leftTrackTraceMask = 0;
+         int hubTraceMask = 0;
+         int rightTrackTraceMask = 0;
 
          for (; readResult; )
          {
@@ -548,46 +447,53 @@
                {
                   controllerBusId = this.ReadInt(reader);
                }
-               else if ("LaserBoardBusId" == reader.Name)
+               else if ("LeftTrackBusId" == reader.Name)
                {
-                  laserBoardBusId = this.ReadInt(reader);
+                  leftTrackBusId = this.ReadInt(reader);
                }
-               else if ("GpsBusId" == reader.Name)
+               else if ("HubBusId" == reader.Name)
                {
-                  gpsBusId = this.ReadInt(reader);
+                  hubBusId = this.ReadInt(reader);
+               }
+               else if ("RightTrackBusId" == reader.Name)
+               {
+                  rightTrackBusId = this.ReadInt(reader);
                }                  
                else if ("ControllerTraceMask" == reader.Name)
                {
                   controllerTraceMask = this.ReadInt(reader);
                }
-               else if ("MainBoardTraceMask" == reader.Name)
+               else if ("LeftTrackTraceMask" == reader.Name)
                {
-                  mainBoardTraceMask = this.ReadInt(reader);
+                  leftTrackTraceMask = this.ReadInt(reader);
                }
-               else if ("GpsTraceMask" == reader.Name)
+               else if ("HubTraceMask" == reader.Name)
                {
-                  gpsTraceMask = this.ReadInt(reader);
+                  hubTraceMask = this.ReadInt(reader);
+               }
+               else if ("RightTrackTraceMask" == reader.Name)
+               {
+                  rightTrackTraceMask = this.ReadInt(reader);
                }               
             }
             else
             {
-               if ("LaserBus" == reader.Name)
+               if ("RobotBus" == reader.Name)
                {
-                  result = new LaserBusParameters();
+                  result = new RobotBusParameters();
 
                   result.BusInterface = busInterface;
                   result.BitRate = bitRate;
-
                   result.ConsumerHeartbeatRate = consumerHeartbeatRate;
                   result.ProducerHeartbeatRate = producerHeartbeatRate;
                   result.ControllerBusId = controllerBusId;
-
-                  result.LaserBoardBusId = laserBoardBusId;
-                  result.GpsBusId = gpsBusId;
-
+                  result.LeftTrackBusId = leftTrackBusId;
+                  result.HubBusId = hubBusId;
+                  result.RightTrackBusId = rightTrackBusId;
                   result.ControllerTraceMask = controllerTraceMask;
-                  result.MainBoardTraceMask = mainBoardTraceMask;
-                  result.GpsTraceMask = gpsTraceMask;
+                  result.LeftTrackTraceMask = leftTrackTraceMask;
+                  result.HubTraceMask = hubTraceMask;
+                  result.RightTrackTraceMask = rightTrackTraceMask;
 
                   break;
                }
@@ -597,22 +503,29 @@
          return (result);
       }
 
-      private TargetBusParameters ReadTargetBusParameters(XmlReader reader)
+      private TruckBusParameters ReadTruckBusParameters(XmlReader reader)
       {
-         TargetBusParameters result = null;
+         TruckBusParameters result = null;
          bool readResult = true;
 
          BusInterfaces busInterface = BusInterfaces.USBA;
          int bitRate = 0;
-
          int consumerHeartbeatRate = 0;
          int producerHeartbeatRate = 0;
          int controllerBusId = 0;
-
-         int targetBoardBusId = 0;
-
+         int launchCardBusId = 0;
+         int bulletMotorBusId = 0;
+         int leftFeederMotorBusId = 0;
+         int rightFeederMotorBusId = 0;
+         int reelMotorBusId = 0;
+         int reelEncoderBusId = 0;
          int controllerTraceMask = 0;
-         int targetBoardTraceMask = 0;
+         int launchCardTraceMask = 0;
+         int bulletMotorTraceMask = 0;
+         int leftFeederMotorTraceMask = 0;
+         int rightFeederMotorTraceMask = 0;
+         int reelMotorTraceMask = 0;
+         int reelEncoderTraceMask = 0;
 
          for (; readResult; )
          {
@@ -640,24 +553,64 @@
                {
                   controllerBusId = this.ReadInt(reader);
                }
-               else if ("TargetBoardBusId" == reader.Name)
+               else if ("LaunchCardBusId" == reader.Name)
                {
-                  targetBoardBusId = this.ReadInt(reader);
+                  launchCardBusId = this.ReadInt(reader);
+               }
+               else if ("BulletMotorBusId" == reader.Name)
+               {
+                  bulletMotorBusId = this.ReadInt(reader);
+               }
+               else if ("LeftFeederMotorBusId" == reader.Name)
+               {
+                  leftFeederMotorBusId = this.ReadInt(reader);
+               }
+               else if ("RightFeederMotorBusId" == reader.Name)
+               {
+                  rightFeederMotorBusId = this.ReadInt(reader);
+               }
+               else if ("ReelMotorBusId" == reader.Name)
+               {
+                  reelMotorBusId = this.ReadInt(reader);
+               }
+               else if ("ReelMotorBusId" == reader.Name)
+               {
+                  reelMotorBusId = this.ReadInt(reader);
                }
                else if ("ControllerTraceMask" == reader.Name)
                {
                   controllerTraceMask = this.ReadInt(reader);
                }
-               else if ("TargetBoardTraceMask" == reader.Name)
+               else if ("LaunchCardTraceMask" == reader.Name)
                {
-                  targetBoardTraceMask = this.ReadInt(reader);
+                  launchCardTraceMask = this.ReadInt(reader);
+               }
+               else if ("BulletMotorTraceMask" == reader.Name)
+               {
+                  bulletMotorTraceMask = this.ReadInt(reader);
+               }
+               else if ("LeftFeederMotorTraceMask" == reader.Name)
+               {
+                  leftFeederMotorTraceMask = this.ReadInt(reader);
+               }
+               else if ("RightFeederMotorTraceMask" == reader.Name)
+               {
+                  rightFeederMotorTraceMask = this.ReadInt(reader);
+               }
+               else if ("ReelMotorTraceMask" == reader.Name)
+               {
+                  reelMotorTraceMask = this.ReadInt(reader);
+               }
+               else if ("ReelEncoderTraceMask" == reader.Name)
+               {
+                  reelEncoderTraceMask = this.ReadInt(reader);
                }
             }
             else
             {
                if ("TargetBus" == reader.Name)
                {
-                  result = new TargetBusParameters();
+                  result = new TruckBusParameters();
 
                   result.BusInterface = busInterface;
                   result.BitRate = bitRate;
@@ -665,11 +618,19 @@
                   result.ConsumerHeartbeatRate = consumerHeartbeatRate;
                   result.ProducerHeartbeatRate = producerHeartbeatRate;
                   result.ControllerBusId = controllerBusId;
-
-                  result.TargetBoardBusId = targetBoardBusId;
-
+                  result.LaunchCardBusId = launchCardBusId;
+                  result.BulletMotorBusId = bulletMotorBusId;
+                  result.LeftFeederMotorBusId = leftFeederMotorBusId;
+                  result.RightFeederMotorBusId = rightFeederMotorBusId;
+                  result.ReelMotorBusId = reelMotorBusId;
+                  result.ReelEncoderBusId = reelEncoderBusId;
                   result.ControllerTraceMask = controllerTraceMask;
-                  result.TargetBoardTraceMask = targetBoardTraceMask;
+                  result.LaunchCardTraceMask = launchCardTraceMask;
+                  result.BulletMotorTraceMask = bulletMotorTraceMask;
+                  result.LeftFeederMotorTraceMask = leftFeederMotorTraceMask;
+                  result.RightFeederMotorTraceMask = rightFeederMotorTraceMask;
+                  result.ReelMotorTraceMask = reelMotorTraceMask;
+                  result.ReelEncoderTraceMask = reelEncoderTraceMask;
 
                   break;
                }
@@ -1123,22 +1084,22 @@
                      {
                         this.VersionCount = this.ReadInt(reader);
                      }
-                     else if ("LaserBus" == reader.Name)
+                     else if ("RobotBus" == reader.Name)
                      {
-                        LaserBusParameters mainBusParameters = this.ReadLaserBusParameters(reader);
+                        RobotBusParameters robotBusParameters = this.ReadRobotBusParameters(reader);
 
-                        if (null != mainBusParameters)
+                        if (null != robotBusParameters)
                         {
-                           this.LaserBus = mainBusParameters;
+                           this.RobotBus = robotBusParameters;
                         }
                      }
                      else if ("TargetBus" == reader.Name)
                      {
-                        TargetBusParameters targetBusParameters = this.ReadTargetBusParameters(reader);
+                        TruckBusParameters truckBusParameters = this.ReadTruckBusParameters(reader);
 
-                        if (null != targetBusParameters)
+                        if (null != truckBusParameters)
                         {
-                           this.TargetBus = targetBusParameters;
+                           this.TruckBus = truckBusParameters;
                         }
                      }
                      else if ("IpEndpoint" == reader.Name)
@@ -1153,14 +1114,6 @@
                            }
                         }
                      }
-                     else if ("RunTargetOnLaserBus" == reader.Name)
-                     {
-                        this.RunTargetOnLaserBus = this.ReadBool(reader);
-                     }
-                     else if ("SessionDataPath" == reader.Name)
-                     {
-                        this.SessionDataPath = this.ReadString(reader);
-                     }
                      else if ("JoystickDeadband" == reader.Name)
                      {
                         this.JoystickDeadband = this.ReadInt(reader);
@@ -1173,14 +1126,6 @@
                      {
                         this.UsbRelayPort = this.ReadInt(reader);
                      }
-                     else if ("Latitude" == reader.Name)
-                     {
-                        this.Latitude = this.ReadDouble(reader);
-                     }
-                     else if ("Longitude" == reader.Name)
-                     {
-                        this.Longitude = this.ReadDouble(reader);
-                     }
                      else if ("LaserWheelDistanceToTicks" == reader.Name)
                      {
                         this.LaserWheelDistanceToTicks = this.ReadDouble(reader);
@@ -1192,38 +1137,6 @@
                      else if ("LaserWheelCountsToAmps" == reader.Name)
                      {
                         this.LaserWheelCountsToAmps = this.ReadDouble(reader);
-                     }
-                     else if ("LaserLinkVoltageMultipler" == reader.Name)
-                     {
-                        this.LaserLinkVoltageMultipler = this.ReadDouble(reader);
-                     }
-                     else if ("LaserLightPercentToCount" == reader.Name)
-                     {
-                        this.LaserLightPercentToCount = this.ReadDouble(reader);
-                     }
-                     else if ("LaserStepperPivotAngle" == reader.Name)
-                     {
-                        this.LaserStepperPivotAngle = this.ReadDouble(reader);
-                     }
-                     else if ("TargetWheelDistanceToTicks" == reader.Name)
-                     {
-                        this.TargetWheelDistanceToTicks = this.ReadDouble(reader);
-                     }
-                     else if ("TargetWheelVelocityToRpm" == reader.Name)
-                     {
-                        this.TargetWheelVelocityToRpm = this.ReadDouble(reader);
-                     }
-                     else if ("TargetWheelCountsToAmps" == reader.Name)
-                     {
-                        this.TargetWheelCountsToAmps = this.ReadDouble(reader);
-                     }
-                     else if ("TargetLinkVoltageMultipler" == reader.Name)
-                     {
-                        this.TargetLinkVoltageMultipler = this.ReadDouble(reader);
-                     }
-                     else if ("TargetLightPercentToCount" == reader.Name)
-                     {
-                        this.TargetLightPercentToCount = this.ReadDouble(reader);
                      }
                      else if ("Value" == reader.Name)
                      {
@@ -1245,38 +1158,6 @@
                         {
                            this.LaserWheelManualWheelSpeed = valueParameter;
                         }
-                        else if ("TargetWheelMaximumSpeed" == valueParameter.Name)
-                        {
-                           this.TargetWheelMaximumSpeed = valueParameter;
-                        }
-                        else if ("TargetWheelLowSpeedScale" == valueParameter.Name)
-                        {
-                           this.TargetWheelLowSpeedScale = valueParameter;
-                        }
-                        else if ("TargetWheelManualWheelDistance" == valueParameter.Name)
-                        {
-                           this.TargetWheelManualWheelDistance = valueParameter;
-                        }
-                        else if ("TargetWheelManualWheelSpeed" == valueParameter.Name)
-                        {
-                           this.TargetWheelManualWheelSpeed = valueParameter;
-                        }
-                        else if ("LaserMeasureAutoFrequency" == reader.Name)
-                        {
-                           this.LaserMeasureAutoFrequency = this.ReadBool(reader);
-                        }
-                        else if ("LaserMeasureManualFrequency" == valueParameter.Name)
-                        {
-                           this.LaserMeasureManualFrequency = valueParameter;
-                        }
-                        else if ("LaserSampleCount" == valueParameter.Name)
-                        {
-                           this.LaserSampleCount = valueParameter;
-                        }
-                        else if ("LaserMeasurementConstant" == valueParameter.Name)
-                        {
-                           this.LaserMeasurementConstant = valueParameter;
-                        }
                      }
                      else if ("WheelMotorParameters" == reader.Name)
                      {
@@ -1291,14 +1172,6 @@
                            else if ("LaserRearWheel" == wheelMotorParameters.Location)
                            {
                               this.LaserRearWheel = wheelMotorParameters;
-                           }
-                           if ("TargetFrontWheel" == wheelMotorParameters.Location)
-                           {
-                              this.TargetFrontWheel = wheelMotorParameters;
-                           }
-                           else if ("TargetRearWheel" == wheelMotorParameters.Location)
-                           {
-                              this.TargetRearWheel = wheelMotorParameters;
                            }
                         }
                      }
@@ -1325,14 +1198,6 @@
                      else if ("BulletSelectedCamera" == reader.Name)
                      {
                         this.BulletSelectedCamera = this.ReadSystemLocation(reader);
-                     }
-                     else if ("TargetTopCameraCwLimit" == reader.Name)
-                     {
-                        this.TargetTopCameraCwLimit = this.ReadDouble(reader);
-                     }
-                     else if ("TargetTopCameraCcwLimit" == reader.Name)
-                     {
-                        this.TargetTopCameraCcwLimit = this.ReadDouble(reader);
                      }
                      else if ("LightSelectParameters" == reader.Name)
                      {
@@ -1425,46 +1290,53 @@
          writer.WriteEndElement();
       }
 
-      private void WriteLaserBusParameters(XmlWriter writer, LaserBusParameters laserBusParameters)
+      private void WriteRobotBusParameters(XmlWriter writer, RobotBusParameters robotBusParameters)
       {
-         writer.WriteStartElement("LaserBus");
+         writer.WriteStartElement("RobotBus");
 
          writer.WriteComment("BusInterface from {USBA, USBB, PCIA, PCIB}");
-         this.WriteElement(writer, "BusInterface", laserBusParameters.BusInterface.ToString());
-         this.WriteElement(writer, "BitRate", laserBusParameters.BitRate);
-
+         this.WriteElement(writer, "BusInterface", robotBusParameters.BusInterface.ToString());
+         this.WriteElement(writer, "BitRate", robotBusParameters.BitRate);
          writer.WriteComment("set heartbeat rates to 0 to disable, restore consumer to 3500 and producer to 1000 (3:1)");
-         this.WriteElement(writer, "ConsumerHeartbeatRate", laserBusParameters.ConsumerHeartbeatRate);
-         this.WriteElement(writer, "ProducerHeartbeatRate", laserBusParameters.ProducerHeartbeatRate);
-         this.WriteElement(writer, "ControllerBusId", laserBusParameters.ControllerBusId);
-
-         this.WriteElement(writer, "LaserBoardBusId", laserBusParameters.LaserBoardBusId);
-         this.WriteElement(writer, "GpsBusId", laserBusParameters.GpsBusId);
-
-         this.WriteElement(writer, "ControllerTraceMask", laserBusParameters.ControllerTraceMask);
-         this.WriteElement(writer, "MainBoardTraceMask", laserBusParameters.MainBoardTraceMask);
-         this.WriteElement(writer, "GpsTraceMask", laserBusParameters.GpsTraceMask);         
+         this.WriteElement(writer, "ConsumerHeartbeatRate", robotBusParameters.ConsumerHeartbeatRate);
+         this.WriteElement(writer, "ProducerHeartbeatRate", robotBusParameters.ProducerHeartbeatRate);
+         this.WriteElement(writer, "ControllerBusId", robotBusParameters.ControllerBusId);
+         this.WriteElement(writer, "LeftTrackBusId", robotBusParameters.LeftTrackBusId);
+         this.WriteElement(writer, "HubBusId", robotBusParameters.HubBusId);
+         this.WriteElement(writer, "GpsBusId", robotBusParameters.RightTrackBusId);
+         this.WriteElement(writer, "ControllerTraceMask", robotBusParameters.ControllerTraceMask);
+         this.WriteElement(writer, "LeftTrackTraceMask", robotBusParameters.LeftTrackTraceMask);
+         this.WriteElement(writer, "HubTraceMask", robotBusParameters.HubTraceMask);
+         this.WriteElement(writer, "RightTrackTraceMask", robotBusParameters.RightTrackTraceMask);
 
          writer.WriteEndElement();
       }
 
-      private void WriteTargetBusParameters(XmlWriter writer, TargetBusParameters targetBusParameters)
+      private void WriteTruckBusParameters(XmlWriter writer, TruckBusParameters truckBusParameters)
       {
-         writer.WriteStartElement("TargetBus");
+         writer.WriteStartElement("TruckBus");
 
          writer.WriteComment("BusInterface from {USBA, USBB, PCIA, PCIB}");
-         this.WriteElement(writer, "BusInterface", targetBusParameters.BusInterface.ToString());
-         this.WriteElement(writer, "BitRate", targetBusParameters.BitRate);
+         this.WriteElement(writer, "BusInterface", truckBusParameters.BusInterface.ToString());
+         this.WriteElement(writer, "BitRate", truckBusParameters.BitRate);
 
          writer.WriteComment("set heartbeat rates to 0 to disable, restore consumer to 3500 and producer to 1000 (3:1)");
-         this.WriteElement(writer, "ConsumerHeartbeatRate", targetBusParameters.ConsumerHeartbeatRate);
-         this.WriteElement(writer, "ProducerHeartbeatRate", targetBusParameters.ProducerHeartbeatRate);
-         this.WriteElement(writer, "ControllerBusId", targetBusParameters.ControllerBusId);
-
-         this.WriteElement(writer, "TargetBoardBusId", targetBusParameters.TargetBoardBusId);
-
-         this.WriteElement(writer, "ControllerTraceMask", targetBusParameters.ControllerTraceMask);
-         this.WriteElement(writer, "TargetBoardTraceMask", targetBusParameters.TargetBoardTraceMask);
+         this.WriteElement(writer, "ConsumerHeartbeatRate", truckBusParameters.ConsumerHeartbeatRate);
+         this.WriteElement(writer, "ProducerHeartbeatRate", truckBusParameters.ProducerHeartbeatRate);
+         this.WriteElement(writer, "ControllerBusId", truckBusParameters.ControllerBusId);
+         this.WriteElement(writer, "LaunchCardBusId", truckBusParameters.LaunchCardBusId);
+         this.WriteElement(writer, "BulletMotorBusId", truckBusParameters.BulletMotorBusId);
+         this.WriteElement(writer, "LeftFeederMotorBusId", truckBusParameters.LeftFeederMotorBusId);
+         this.WriteElement(writer, "RightFeederMotorBusId", truckBusParameters.RightFeederMotorBusId);
+         this.WriteElement(writer, "ReelMotorBusId", truckBusParameters.ReelMotorBusId);
+         this.WriteElement(writer, "ReelEncoderBusId", truckBusParameters.ReelEncoderBusId);
+         this.WriteElement(writer, "ControllerTraceMask", truckBusParameters.ControllerTraceMask);
+         this.WriteElement(writer, "LaunchCardTraceMask", truckBusParameters.LaunchCardTraceMask);
+         this.WriteElement(writer, "BulletMotorTraceMask", truckBusParameters.BulletMotorTraceMask);
+         this.WriteElement(writer, "LeftFeederMotorTraceMask", truckBusParameters.LeftFeederMotorTraceMask);
+         this.WriteElement(writer, "RightFeederMotorTraceMask", truckBusParameters.RightFeederMotorTraceMask);
+         this.WriteElement(writer, "ReelEncoderTraceMask", truckBusParameters.ReelEncoderTraceMask);
+         this.WriteElement(writer, "ReelEncoderTraceMask", truckBusParameters.ReelEncoderTraceMask);
 
          writer.WriteEndElement();
       }
@@ -1591,18 +1463,14 @@
 
             this.WriteElement(writer, "VersionCount", this.VersionCount.ToString());
 
-            this.WriteLaserBusParameters(writer, this.LaserBus);
-            this.WriteTargetBusParameters(writer, this.TargetBus);
-            this.WriteElement(writer, "RunTargetOnLaserBus", this.RunTargetOnLaserBus);
+            this.WriteRobotBusParameters(writer, this.RobotBus);
+            this.WriteTruckBusParameters(writer, this.TruckBus);
 
             this.WriteIpEndpointParameters(writer, this.Trace);
 
-            this.WriteElement(writer, "SessionDataPath", this.SessionDataPath);
             this.WriteElement(writer, "JoystickDeadband", this.JoystickDeadband);
             this.WriteElement(writer, "JoystickIdleBand", this.JoystickIdleBand);
             this.WriteElement(writer, "UsbRelayPort", this.UsbRelayPort);
-            this.WriteElement(writer, "Latitude", this.Latitude);
-            this.WriteElement(writer, "Longitude", this.Longitude);
 
             this.WriteWheelMotorParameters(writer, this.LaserFrontWheel);
             this.WriteWheelMotorParameters(writer, this.LaserRearWheel);
@@ -1612,10 +1480,8 @@
             this.WriteValueParameters(writer, this.LaserWheelManualWheelSpeed);
             this.WriteElement(writer, "LaserWheelDistanceToTicks", this.LaserWheelDistanceToTicks);
             this.WriteElement(writer, "LaserWheelVelocityToRpm", this.LaserWheelVelocityToRpm);
-            this.WriteElement(writer, "LaserWheelCountsToAmps", this.LaserWheelCountsToAmps);            
-            this.WriteElement(writer, "LaserLinkVoltageMultipler", this.LaserLinkVoltageMultipler);
-            this.WriteElement(writer, "LaserLightPercentToCount", this.LaserLightPercentToCount);
-            this.WriteElement(writer, "LaserStepperPivotAngle", this.LaserStepperPivotAngle);
+            this.WriteElement(writer, "LaserWheelCountsToAmps", this.LaserWheelCountsToAmps);        
+    
             this.WriteCameraMaps(writer, this.CrawlerHubCameraMaps);
             this.WriteLightSelectParameters(writer, this.CrawlerFrontLight);
             this.WriteLightSelectParameters(writer, this.CrawlerRearLight);
@@ -1623,31 +1489,11 @@
             this.WriteLightSelectParameters(writer, this.CrawlerRightLight);
             this.WriteElement(writer, "CrawlerHubSelectedCamera", this.CrawlerHubSelectedCamera.ToString());
 
-            this.WriteWheelMotorParameters(writer, this.TargetFrontWheel);
-            this.WriteWheelMotorParameters(writer, this.TargetRearWheel);
-            this.WriteValueParameters(writer, this.TargetWheelMaximumSpeed);
-            this.WriteValueParameters(writer, this.TargetWheelLowSpeedScale);
-            this.WriteValueParameters(writer, this.TargetWheelManualWheelDistance);
-            this.WriteValueParameters(writer, this.TargetWheelManualWheelSpeed);
-            this.WriteElement(writer, "TargetWheelDistanceToTicks", this.TargetWheelDistanceToTicks);
-            this.WriteElement(writer, "TargetWheelVelocityToRpm", this.TargetWheelVelocityToRpm);
-            this.WriteElement(writer, "TargetWheelCountsToAmps", this.TargetWheelCountsToAmps);            
-            this.WriteElement(writer, "TargetLinkVoltageMultipler", this.TargetLinkVoltageMultipler);
-            this.WriteElement(writer, "TargetLightPercentToCount", this.TargetLightPercentToCount);
-
             this.WriteCameraMaps(writer, this.BulletCameraMaps);
             this.WriteLightSelectParameters(writer, this.BulletLeftLight);
             this.WriteLightSelectParameters(writer, this.BulletRightLight);
             this.WriteLightSelectParameters(writer, this.BulletDownLight);
             this.WriteElement(writer, "BulletSelectedCamera", this.BulletSelectedCamera.ToString());
-            this.WriteElement(writer, "TargetTopCameraCwLimit", this.TargetTopCameraCwLimit);
-            this.WriteElement(writer, "TargetTopCameraCcwLimit", this.TargetTopCameraCcwLimit);
-
-
-            this.WriteElement(writer, "LaserMeasureAutoFrequency", this.LaserMeasureAutoFrequency);
-            this.WriteValueParameters(writer, this.LaserMeasureManualFrequency);
-            this.WriteValueParameters(writer, this.LaserSampleCount);
-            this.WriteValueParameters(writer, this.LaserMeasurementConstant);
 
             this.WriteOsdParameters(writer, this.Osd);
 

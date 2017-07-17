@@ -9,7 +9,7 @@
    using Weco.PCANLight;
    using Weco.Utilities;
 
-   public class LaserCommunicationBus
+   public class RobotCommunicationBus
    {
       #region Definitions
 
@@ -28,7 +28,7 @@
 
       #region Fields
 
-      private static LaserCommunicationBus instance = null;
+      private static RobotCommunicationBus instance = null;
 
       private bool execute;
       private Thread thread;
@@ -130,7 +130,7 @@
 
       private void SendControllerHeartBeat()
       {
-         int cobId = (int)(((int)COBTypes.ERROR << 7) | (ParameterAccessor.Instance.LaserBus.ControllerBusId & 0x7F));
+         int cobId = (int)(((int)COBTypes.ERROR << 7) | (ParameterAccessor.Instance.RobotBus.ControllerBusId & 0x7F));
          byte[] heartbeatMsg = new byte[1];
 
          heartbeatMsg[0] = 5;
@@ -183,13 +183,13 @@
 
       #region Properties
 
-      public static LaserCommunicationBus Instance
+      public static RobotCommunicationBus Instance
       {
          get
          {
             if (instance == null)
             {
-               instance = new LaserCommunicationBus();
+               instance = new RobotCommunicationBus();
                instance.Initialize();
             }
 
@@ -241,7 +241,7 @@
          }
 
          this.deviceReceiveCount++;
-         Tracer.WriteMedium(TraceGroup.LBUS, "", "rx {0:X3} {1}", cobId, sb.ToString());
+         Tracer.WriteMedium(TraceGroup.RBUS, "", "rx {0:X3} {1}", cobId, sb.ToString());
       }
 
       private void DeviceTraceTransmit(int cobId, byte[] data)
@@ -253,7 +253,7 @@
             sb.AppendFormat("{0:X2}", data[i]);
          }
 
-         Tracer.WriteMedium(TraceGroup.LBUS, "", "tx {0:X3} {1}", cobId, sb.ToString());
+         Tracer.WriteMedium(TraceGroup.RBUS, "", "tx {0:X3} {1}", cobId, sb.ToString());
       }
 
       private bool DeviceTransmit(int id, byte[] data)
@@ -266,12 +266,12 @@
 
       private void DeviceFault(string name, int nodeId, string reason)
       {
-         Tracer.WriteError(TraceGroup.LBUS, "", "fault with \"{0}\", node={1}, reason={2}", name, nodeId, reason);
+         Tracer.WriteError(TraceGroup.RBUS, "", "fault with \"{0}\", node={1}, reason={2}", name, nodeId, reason);
       }
 
       private void DeviceWarning(string name, int nodeId, string reason)
       {
-         Tracer.WriteError(TraceGroup.LBUS, "", "warning with \"{0}\", node={1}, reason={2}", name, nodeId, reason);
+         Tracer.WriteError(TraceGroup.RBUS, "", "warning with \"{0}\", node={1}, reason={2}", name, nodeId, reason);
       }
 
       #endregion
@@ -280,12 +280,12 @@
 
       private void UpdateControllerHeartbeat()
       {
-         if ((0 != ParameterAccessor.Instance.LaserBus.ProducerHeartbeatRate) &&
+         if ((0 != ParameterAccessor.Instance.RobotBus.ProducerHeartbeatRate) &&
              (false != this.controllerServiced) &&
              (DateTime.Now > this.controllerHeartbeatLimit))
          {
             this.SendControllerHeartBeat();
-            this.controllerHeartbeatLimit = this.controllerHeartbeatLimit.AddMilliseconds(ParameterAccessor.Instance.LaserBus.ProducerHeartbeatRate);
+            this.controllerHeartbeatLimit = this.controllerHeartbeatLimit.AddMilliseconds(ParameterAccessor.Instance.RobotBus.ProducerHeartbeatRate);
          }
       }
 
@@ -418,14 +418,14 @@
                motor.SetProfileAcceleration(parameters.ProfileAcceleration);
                motor.SetProfileDeceleration(parameters.ProfileDeceleration);
                status.state = WheelMotorStatus.States.off;
-               Tracer.WriteHigh(TraceGroup.LBUS, "", "{0} set", motor.Name);
+               Tracer.WriteHigh(TraceGroup.RBUS, "", "{0} set", motor.Name);
             }
 
             else if (status.state == WheelMotorStatus.States.turnOff)
             {
                motor.SetMode(MotorComponent.Modes.off);
                status.state = WheelMotorStatus.States.off;
-               Tracer.WriteHigh(TraceGroup.LBUS, "", "{0} off", motor.Name);
+               Tracer.WriteHigh(TraceGroup.RBUS, "", "{0} off", motor.Name);
             }
             else if (status.state == WheelMotorStatus.States.off)
             {
@@ -450,7 +450,7 @@
             {
                motor.SetMode(MotorComponent.Modes.position);
 
-               Tracer.WriteHigh(TraceGroup.LBUS, "", "{0} position mode", motor.Name);
+               Tracer.WriteHigh(TraceGroup.RBUS, "", "{0} position mode", motor.Name);
 
                status.state = WheelMotorStatus.States.positioning;
             }
@@ -462,7 +462,7 @@
 
                   motor.Halt();
                   status.positionRequested = status.positionNeeded;
-                  Tracer.WriteHigh(TraceGroup.LBUS, "", "{0} position stop", motor.Name);
+                  Tracer.WriteHigh(TraceGroup.RBUS, "", "{0} position stop", motor.Name);
 
                   positionObtained = false;
                   status.statusInvalidTimeLimit = now.AddMilliseconds(250);
@@ -492,7 +492,7 @@
                      scheduled = true;
                      status.positionRequested = status.positionNeeded;
 
-                     Tracer.WriteHigh(TraceGroup.LBUS, "", "{0} position {1}", motor.Name, status.positionRequested);
+                     Tracer.WriteHigh(TraceGroup.RBUS, "", "{0} position {1}", motor.Name, status.positionRequested);
 
                      positionObtained = false;
                      status.statusInvalidTimeLimit = now.AddMilliseconds(250);
@@ -510,7 +510,7 @@
 
                   motor.Run();
 
-                  Tracer.WriteHigh(TraceGroup.LBUS, "", "{0} position stopped at {1}", motor.Name, motor.ActualPosition);
+                  Tracer.WriteHigh(TraceGroup.RBUS, "", "{0} position stopped at {1}", motor.Name, motor.ActualPosition);
 
                   if ((WheelMotorStates.enabled == parameters.MotorState) &&
                       (false != this.laserMovementTriggered))
@@ -539,7 +539,7 @@
                   motor.SetMode(MotorComponent.Modes.velocity);
                }
 
-               Tracer.WriteHigh(TraceGroup.LBUS, "", "{0} velocity {1} mode", motor.Name, parameters.ActuationMode.ToString());
+               Tracer.WriteHigh(TraceGroup.RBUS, "", "{0} velocity {1} mode", motor.Name, parameters.ActuationMode.ToString());
 
                status.velocityActuationMode = parameters.ActuationMode;
                status.state = WheelMotorStatus.States.velocity;
@@ -554,7 +554,7 @@
                   motor.ScheduleTargetVelocity(0);
                   scheduled = true;
                   status.velocityRequested = 0;
-                  Tracer.WriteHigh(TraceGroup.LBUS, "", "{0} velocity stop", motor.Name);
+                  Tracer.WriteHigh(TraceGroup.RBUS, "", "{0} velocity stop", motor.Name);
 
                   velocityObtained = false;
                   status.statusInvalidTimeLimit = now.AddMilliseconds(250);
@@ -572,7 +572,7 @@
                   scheduled = true;
                   status.velocityRequested = this.laserMovementRequest;
 
-                  Tracer.WriteMedium(TraceGroup.LBUS, null, "{0} velocity={1:0.00} rpm={2}", motor.Name, movementRequestValue, velocityRpm);
+                  Tracer.WriteMedium(TraceGroup.RBUS, null, "{0} velocity={1:0.00} rpm={2}", motor.Name, movementRequestValue, velocityRpm);
                }
             }
             else if (status.state == WheelMotorStatus.States.stopVelocity)
@@ -589,7 +589,7 @@
                   scheduled = true;
                   status.positionRequested = status.positionNeeded;
 
-                  Tracer.WriteHigh(TraceGroup.LBUS, "", "{0} velocity stopped at {1}", motor.Name, motor.ActualPosition);
+                  Tracer.WriteHigh(TraceGroup.RBUS, "", "{0} velocity stopped at {1}", motor.Name, motor.ActualPosition);
 
                   if (WheelMotorStates.disabled == parameters.MotorState)
                   {
@@ -660,7 +660,7 @@
          this.deviceClearErrorQueue.Clear();
 
 
-         this.TraceMask = ParameterAccessor.Instance.LaserBus.ControllerTraceMask;
+         this.TraceMask = ParameterAccessor.Instance.RobotBus.ControllerTraceMask;
 
          this.stopAll = false;
 
@@ -685,8 +685,8 @@
 
          if (false == this.busReady)
          {
-            this.busInterfaceId = ParameterAccessor.Instance.LaserBus.BusInterface;
-            CANResult startResult = PCANLight.Start(this.busInterfaceId, ParameterAccessor.Instance.LaserBus.BitRate, FramesType.INIT_TYPE_ST, TraceGroup.LBUS, this.BusReceiveHandler);
+            this.busInterfaceId = ParameterAccessor.Instance.RobotBus.BusInterface;
+            CANResult startResult = PCANLight.Start(this.busInterfaceId, ParameterAccessor.Instance.RobotBus.BitRate, FramesType.INIT_TYPE_ST, TraceGroup.RBUS, this.BusReceiveHandler);
             this.busReady = (CANResult.ERR_OK == startResult);
          }
 
@@ -697,7 +697,7 @@
             DateTime idleReceiveTimeLimit = now.AddMilliseconds(100);
             int deviceReceiveCheck = this.deviceReceiveCount;
 
-            Tracer.WriteMedium(TraceGroup.LBUS, "", "bus flush start");
+            Tracer.WriteMedium(TraceGroup.RBUS, "", "bus flush start");
 
             for (; this.execute; )
             {
@@ -721,7 +721,7 @@
                Thread.Sleep(1);
             }
 
-            Tracer.WriteMedium(TraceGroup.LBUS, "", "bus flush done");
+            Tracer.WriteMedium(TraceGroup.RBUS, "", "bus flush done");
          }
 
          this.InitializeDevices();
@@ -765,7 +765,7 @@
          else
          {
             this.busStatus = "interface failure";
-            Tracer.WriteMedium(TraceGroup.LBUS, "", "bus failure");
+            Tracer.WriteMedium(TraceGroup.RBUS, "", "bus failure");
 
             foreach (Device device in this.deviceList)
             {
@@ -898,7 +898,7 @@
       private void ExecuteProcessLoop()
       {
          this.controllerServiced = true;
-         this.controllerHeartbeatLimit = DateTime.Now.AddMilliseconds(ParameterAccessor.Instance.LaserBus.ProducerHeartbeatRate);
+         this.controllerHeartbeatLimit = DateTime.Now.AddMilliseconds(ParameterAccessor.Instance.RobotBus.ProducerHeartbeatRate);
 
          this.StartLaserBoard();
 
@@ -926,7 +926,7 @@
          Thread.Sleep(200);
          PCANLight.Stop(this.busInterfaceId);
 
-         ParameterAccessor.Instance.LaserBus.ControllerTraceMask = this.TraceMask;
+         ParameterAccessor.Instance.RobotBus.ControllerTraceMask = this.TraceMask;
       }
 
       private void Process()
@@ -934,7 +934,7 @@
          try
          {
             this.running = true;
-            Tracer.WriteHigh(TraceGroup.LBUS, null, "start");
+            Tracer.WriteHigh(TraceGroup.RBUS, null, "start");
 
             this.InitializeValues();
 
@@ -950,7 +950,7 @@
          }
          catch (Exception preException)
          {
-            Tracer.WriteError(TraceGroup.LBUS, null, "process exception {0}", preException.Message);
+            Tracer.WriteError(TraceGroup.RBUS, null, "process exception {0}", preException.Message);
          }
 
          try
@@ -968,10 +968,10 @@
          }
          catch (Exception postException)
          {
-            Tracer.WriteError(TraceGroup.LBUS, null, "post process exception {0}", postException.Message);
+            Tracer.WriteError(TraceGroup.RBUS, null, "post process exception {0}", postException.Message);
          }
 
-         Tracer.WriteHigh(TraceGroup.LBUS, null, "stop");
+         Tracer.WriteHigh(TraceGroup.RBUS, null, "stop");
          this.running = false;
       }
 
@@ -979,7 +979,7 @@
 
       #region Constructor
 
-      private LaserCommunicationBus()
+      private RobotCommunicationBus()
       {
       }
 
@@ -1185,7 +1185,7 @@
 
       public void StopAll()
       {
-         Tracer.WriteHigh(TraceGroup.LBUS, "", "Stop All");
+         Tracer.WriteHigh(TraceGroup.RBUS, "", "Stop All");
          this.stopAll = true;
       }
 
@@ -1243,13 +1243,13 @@
 
       public void SetLaserMovementManualMode(bool active)
       {
-         Tracer.WriteHigh(TraceGroup.LBUS, "", "requested laser manual movement mode={0}", active);
+         Tracer.WriteHigh(TraceGroup.RBUS, "", "requested laser manual movement mode={0}", active);
          this.laserManualMovementMode = active;
       }
 
       public void SetLaserMovementMode(MovementModes mode)
       {
-         Tracer.WriteHigh(TraceGroup.LBUS, "", "requested laser movement mode={0}", mode);
+         Tracer.WriteHigh(TraceGroup.RBUS, "", "requested laser movement mode={0}", mode);
          this.laserMovementMode = mode;
       }
 

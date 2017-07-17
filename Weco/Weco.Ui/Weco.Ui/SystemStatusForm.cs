@@ -288,48 +288,19 @@
       private void UpdateText()
       {
          this.SetComponentText(Joystick.Instance.FaultReason, null, null, this.JoystickStatusTextBox);
-         this.SetComponentText(LaserCommunicationBus.BusComponentId.Bus, LaserCommunicationBus.Instance.GetStatus, LaserCommunicationBus.Instance.GetDevice, this.LaserBusStatusTextBox);
-         this.SetComponentText(LaserCommunicationBus.BusComponentId.LaserBoard, LaserCommunicationBus.Instance.GetStatus, LaserCommunicationBus.Instance.GetDevice, this.LaserBoardStatusTextBox);
-         this.SetComponentText(LaserCommunicationBus.BusComponentId.LaserBoardCameraLed, LaserCommunicationBus.Instance.GetStatus, LaserCommunicationBus.Instance.GetDevice, this.LaserBoardCameraLedStatusTextBox);
-         this.SetComponentText(LaserCommunicationBus.BusComponentId.LaserBoardFrontWheel, LaserCommunicationBus.Instance.GetStatus, LaserCommunicationBus.Instance.GetDevice, this.LaserBoardFrontWheelStatusTextBox);
-         this.SetComponentText(LaserCommunicationBus.BusComponentId.LaserBoardRearWheel, LaserCommunicationBus.Instance.GetStatus, LaserCommunicationBus.Instance.GetDevice, this.LaserBoardRearWheelStatusTextBox);
+         this.SetComponentText(RobotCommunicationBus.BusComponentId.Bus, RobotCommunicationBus.Instance.GetStatus, RobotCommunicationBus.Instance.GetDevice, this.LaserBusStatusTextBox);
+         this.SetComponentText(RobotCommunicationBus.BusComponentId.LaserBoard, RobotCommunicationBus.Instance.GetStatus, RobotCommunicationBus.Instance.GetDevice, this.LaserBoardStatusTextBox);
+         this.SetComponentText(RobotCommunicationBus.BusComponentId.LaserBoardCameraLed, RobotCommunicationBus.Instance.GetStatus, RobotCommunicationBus.Instance.GetDevice, this.LaserBoardCameraLedStatusTextBox);
+         this.SetComponentText(RobotCommunicationBus.BusComponentId.LaserBoardFrontWheel, RobotCommunicationBus.Instance.GetStatus, RobotCommunicationBus.Instance.GetDevice, this.LaserBoardFrontWheelStatusTextBox);
+         this.SetComponentText(RobotCommunicationBus.BusComponentId.LaserBoardRearWheel, RobotCommunicationBus.Instance.GetStatus, RobotCommunicationBus.Instance.GetDevice, this.LaserBoardRearWheelStatusTextBox);
 
          this.SetComponentText(NumatoUsbRelay.Instance.FaultReason, null, null, this.UsbRelayStatusTextBox);
+         this.SetComponentText(TruckCommunicationBus.BusComponentId.Bus, TruckCommunicationBus.Instance.GetStatus, TruckCommunicationBus.Instance.GetDevice, this.TargetBusStatusTextBox);
 
-         if (false == ParameterAccessor.Instance.RunTargetOnLaserBus)
-         {
-            this.SetComponentText(TargetCommunicationBus.BusComponentId.Bus, TargetCommunicationBus.Instance.GetStatus, TargetCommunicationBus.Instance.GetDevice, this.TargetBusStatusTextBox);
-         }
-         else
-         {
-            this.TargetBusStatusTextBox.Text = "off";
-            this.TargetBusStatusTextBox.BackColor = Color.Gray;
-         }
-
-         this.SetComponentText(TargetCommunicationBus.BusComponentId.TargetBoard, TargetCommunicationBus.Instance.GetStatus, TargetCommunicationBus.Instance.GetDevice, this.TargetBoardStatusTextBox);
-         this.SetComponentText(TargetCommunicationBus.BusComponentId.TargetBoardCameraLed, TargetCommunicationBus.Instance.GetStatus, TargetCommunicationBus.Instance.GetDevice, this.TargetBoardCameraLedStatusTextBox);
-         this.SetComponentText(TargetCommunicationBus.BusComponentId.TargetBoardFrontWheel, TargetCommunicationBus.Instance.GetStatus, TargetCommunicationBus.Instance.GetDevice, this.TargetBoardFrontWheelStatusTextBox);
-         this.SetComponentText(TargetCommunicationBus.BusComponentId.TargetBoardRearWheel, TargetCommunicationBus.Instance.GetStatus, TargetCommunicationBus.Instance.GetDevice, this.TargetBoardRearWheelStatusTextBox);
-
-         double latitude = ParameterAccessor.Instance.Latitude;
-         if (double.IsNaN(latitude) == false)
-         {
-            this.SensorLatitudeTextPanel.ValueText = latitude.ToString("N4");
-         }
-         else
-         {
-            this.SensorLatitudeTextPanel.ValueText = "---";
-         }
-
-         double longitude = ParameterAccessor.Instance.Longitude;
-         if (double.IsNaN(latitude) == false)
-         {
-            this.SensorLongitudeTextPanel.ValueText = longitude.ToString("N4");
-         }
-         else
-         {
-            this.SensorLongitudeTextPanel.ValueText = "---";
-         }
+         this.SetComponentText(TruckCommunicationBus.BusComponentId.TargetBoard, TruckCommunicationBus.Instance.GetStatus, TruckCommunicationBus.Instance.GetDevice, this.TargetBoardStatusTextBox);
+         this.SetComponentText(TruckCommunicationBus.BusComponentId.TargetBoardCameraLed, TruckCommunicationBus.Instance.GetStatus, TruckCommunicationBus.Instance.GetDevice, this.TargetBoardCameraLedStatusTextBox);
+         this.SetComponentText(TruckCommunicationBus.BusComponentId.TargetBoardFrontWheel, TruckCommunicationBus.Instance.GetStatus, TruckCommunicationBus.Instance.GetDevice, this.TargetBoardFrontWheelStatusTextBox);
+         this.SetComponentText(TruckCommunicationBus.BusComponentId.TargetBoardRearWheel, TruckCommunicationBus.Instance.GetStatus, TruckCommunicationBus.Instance.GetDevice, this.TargetBoardRearWheelStatusTextBox);
       }
 
       private void ShowSettings()
@@ -367,22 +338,22 @@
 
       private void LaserBoardLabel_Click(object sender, EventArgs e)
       {
-         this.LaunchCANDeviceInformationForm(this.LaserBoardLabel, LaserCommunicationBus.BusComponentId.LaserBoard, LaserCommunicationBus.Instance.GetDevice, LaserCommunicationBus.Instance.RestartDevice, LaserCommunicationBus.Instance.ClearDeviceError);
+         this.LaunchCANDeviceInformationForm(this.LaserBoardLabel, RobotCommunicationBus.BusComponentId.LaserBoard, RobotCommunicationBus.Instance.GetDevice, RobotCommunicationBus.Instance.RestartDevice, RobotCommunicationBus.Instance.ClearDeviceError);
       }
 
       private void LaserBoardCameraLedLabel_Click(object sender, EventArgs e)
       {
-         this.LaunchCANDeviceInformationForm(this.LaserBoardCameraLedLabel, LaserCommunicationBus.BusComponentId.LaserBoardCameraLed, LaserCommunicationBus.Instance.GetDevice, null, LaserCommunicationBus.Instance.ClearDeviceError);
+         this.LaunchCANDeviceInformationForm(this.LaserBoardCameraLedLabel, RobotCommunicationBus.BusComponentId.LaserBoardCameraLed, RobotCommunicationBus.Instance.GetDevice, null, RobotCommunicationBus.Instance.ClearDeviceError);
       }
 
       private void LaserBoardFrontWheelLabel_Click(object sender, EventArgs e)
       {
-         this.LaunchCANDeviceInformationForm(this.LaserBoardFrontWheelLabel, LaserCommunicationBus.BusComponentId.LaserBoardFrontWheel, LaserCommunicationBus.Instance.GetDevice, null, LaserCommunicationBus.Instance.ClearDeviceError);
+         this.LaunchCANDeviceInformationForm(this.LaserBoardFrontWheelLabel, RobotCommunicationBus.BusComponentId.LaserBoardFrontWheel, RobotCommunicationBus.Instance.GetDevice, null, RobotCommunicationBus.Instance.ClearDeviceError);
       }
 
       private void LaserBoardRearWheelLabel_Click(object sender, EventArgs e)
       {
-         this.LaunchCANDeviceInformationForm(this.LaserBoardRearWheelLabel, LaserCommunicationBus.BusComponentId.LaserBoardRearWheel, LaserCommunicationBus.Instance.GetDevice, null, LaserCommunicationBus.Instance.ClearDeviceError);
+         this.LaunchCANDeviceInformationForm(this.LaserBoardRearWheelLabel, RobotCommunicationBus.BusComponentId.LaserBoardRearWheel, RobotCommunicationBus.Instance.GetDevice, null, RobotCommunicationBus.Instance.ClearDeviceError);
       }
 
       private void LaserBoardLeftStepperLabel_Click(object sender, EventArgs e)
@@ -400,22 +371,22 @@
 
       private void TargetBoardLabel_Click(object sender, EventArgs e)
       {
-         this.LaunchCANDeviceInformationForm(this.TargetBoardLabel, TargetCommunicationBus.BusComponentId.TargetBoard, TargetCommunicationBus.Instance.GetDevice, TargetCommunicationBus.Instance.RestartDevice, TargetCommunicationBus.Instance.ClearDeviceError);
+         this.LaunchCANDeviceInformationForm(this.TargetBoardLabel, TruckCommunicationBus.BusComponentId.TargetBoard, TruckCommunicationBus.Instance.GetDevice, TruckCommunicationBus.Instance.RestartDevice, TruckCommunicationBus.Instance.ClearDeviceError);
       }
 
       private void TargetBoardCameraLedLabel_Click(object sender, EventArgs e)
       {
-         this.LaunchCANDeviceInformationForm(this.TargetBoardCameraLedLabel, TargetCommunicationBus.BusComponentId.TargetBoardCameraLed, TargetCommunicationBus.Instance.GetDevice, null, TargetCommunicationBus.Instance.ClearDeviceError);
+         this.LaunchCANDeviceInformationForm(this.TargetBoardCameraLedLabel, TruckCommunicationBus.BusComponentId.TargetBoardCameraLed, TruckCommunicationBus.Instance.GetDevice, null, TruckCommunicationBus.Instance.ClearDeviceError);
       }
 
       private void TargetBoardFrontWheelLabel_Click(object sender, EventArgs e)
       {
-         this.LaunchCANDeviceInformationForm(this.TargetBoardFrontWheelLabel, TargetCommunicationBus.BusComponentId.TargetBoardFrontWheel, TargetCommunicationBus.Instance.GetDevice, null, TargetCommunicationBus.Instance.ClearDeviceError);
+         this.LaunchCANDeviceInformationForm(this.TargetBoardFrontWheelLabel, TruckCommunicationBus.BusComponentId.TargetBoardFrontWheel, TruckCommunicationBus.Instance.GetDevice, null, TruckCommunicationBus.Instance.ClearDeviceError);
       }
 
       private void TargetBoardRearWheelLabel_Click(object sender, EventArgs e)
       {
-         this.LaunchCANDeviceInformationForm(this.TargetBoardRearWheelLabel, TargetCommunicationBus.BusComponentId.TargetBoardRearWheel, TargetCommunicationBus.Instance.GetDevice, null, TargetCommunicationBus.Instance.ClearDeviceError);
+         this.LaunchCANDeviceInformationForm(this.TargetBoardRearWheelLabel, TruckCommunicationBus.BusComponentId.TargetBoardRearWheel, TruckCommunicationBus.Instance.GetDevice, null, TruckCommunicationBus.Instance.ClearDeviceError);
       }
 
       private void TargetBoardCameraStepperLabel_Click(object sender, EventArgs e)
@@ -490,38 +461,22 @@
 
       private void MainBusHeartbeatButton_Click(object sender, EventArgs e)
       {
-         LaserCommunicationBus.Instance.TraceHB = !LaserCommunicationBus.Instance.TraceHB;
-         this.SetLogSelect(this.MainBusHeartbeatButton, LaserCommunicationBus.Instance.TraceHB);
+         RobotCommunicationBus.Instance.TraceHB = !RobotCommunicationBus.Instance.TraceHB;
+         this.SetLogSelect(this.MainBusHeartbeatButton, RobotCommunicationBus.Instance.TraceHB);
       }
 
       private void TargetBusHeartbeatButton_Click(object sender, EventArgs e)
       {
-         TargetCommunicationBus.Instance.TraceHB = !TargetCommunicationBus.Instance.TraceHB;
-         this.SetLogSelect(this.TargetBusHeartbeatButton, TargetCommunicationBus.Instance.TraceHB);
+         TruckCommunicationBus.Instance.TraceHB = !TruckCommunicationBus.Instance.TraceHB;
+         this.SetLogSelect(this.TargetBusHeartbeatButton, TruckCommunicationBus.Instance.TraceHB);
       }
 
       private void SensorLatitudeTextPanel_HoldTimeout(object sender, Controls.HoldTimeoutEventArgs e)
       {
-         double latitude = ParameterAccessor.Instance.Latitude;
-         DialogResult result = this.LaunchNumberEdit(ref latitude, this.SensorLatitudeTextPanel, "LATITUDE", 4, "°", 40.812838, -90, 90);
-
-         if (result == System.Windows.Forms.DialogResult.OK)
-         {
-            ParameterAccessor.Instance.Latitude = latitude;
-            this.SensorLatitudeTextPanel.ValueText = latitude.ToString("N4");
-         }
       }
 
       private void SensorLongitudeTextPanel_HoldTimeout(object sender, Controls.HoldTimeoutEventArgs e)
       {
-         double longitude = ParameterAccessor.Instance.Longitude;
-         DialogResult result = this.LaunchNumberEdit(ref longitude, this.SensorLongitudeTextPanel, "LONGITUDE", 4, "°", -73.254690, -180, 180);
-
-         if (result == System.Windows.Forms.DialogResult.OK)
-         {
-            ParameterAccessor.Instance.Longitude = longitude;
-            this.SensorLongitudeTextPanel.ValueText = longitude.ToString("N4");
-         }
       }
 
       private void ShowToggleButton_Click(object sender, EventArgs e)
@@ -563,8 +518,8 @@
          this.ShowSettings();
          this.UpdateTimer.Enabled = true;
 
-         this.SetLogSelect(this.MainBusHeartbeatButton, LaserCommunicationBus.Instance.TraceHB);
-         this.SetLogSelect(this.TargetBusHeartbeatButton, TargetCommunicationBus.Instance.TraceHB);
+         this.SetLogSelect(this.MainBusHeartbeatButton, RobotCommunicationBus.Instance.TraceHB);
+         this.SetLogSelect(this.TargetBusHeartbeatButton, TruckCommunicationBus.Instance.TraceHB);
       }
 
       private void ComponentStatusLabel_MouseDown(object sender, MouseEventArgs e)

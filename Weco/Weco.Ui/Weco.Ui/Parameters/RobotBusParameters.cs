@@ -4,37 +4,35 @@
 
    using Weco.PCANLight;
 
-   public class LaserBusParameters
+   public class RobotBusParameters
    {
       public BusInterfaces BusInterface;
       public int BitRate;
-
       public int ConsumerHeartbeatRate;
       public int ProducerHeartbeatRate;
       public int ControllerBusId;
-
-      public int LaserBoardBusId;
-      public int GpsBusId;
-
+      public int LeftTrackBusId;
+      public int HubBusId;
+      public int RightTrackBusId;
       public int ControllerTraceMask;
-      public int MainBoardTraceMask;
-      public int GpsTraceMask;
+      public int LeftTrackTraceMask;
+      public int HubTraceMask;
+      public int RightTrackTraceMask;
 
-      public LaserBusParameters()
+      public RobotBusParameters()
       {
          this.BusInterface = BusInterfaces.USBA;
          this.BitRate = 0;
-
          this.ConsumerHeartbeatRate = 0;
          this.ProducerHeartbeatRate = 0;
          this.ControllerBusId = 0;
-
-         this.LaserBoardBusId = 0;
-         this.GpsBusId = 0;
-
+         this.LeftTrackBusId = 0;
+         this.HubBusId = 0;
+         this.RightTrackBusId = 0;
          this.ControllerTraceMask = 0;
-         this.MainBoardTraceMask = 0;
-         this.GpsTraceMask = 0;
+         this.LeftTrackTraceMask = 0;
+         this.HubTraceMask = 0;
+         this.RightTrackTraceMask = 0;
       }
    }
 }

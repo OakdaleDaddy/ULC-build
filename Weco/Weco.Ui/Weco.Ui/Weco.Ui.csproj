@@ -82,13 +82,7 @@
     <Compile Include="LaserRobotMovementSetupForm.Designer.cs">
       <DependentUpon>LaserRobotMovementSetupForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="LaserSetupForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="LaserSetupForm.Designer.cs">
-      <DependentUpon>LaserSetupForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="LaserCommunicationBus.cs" />
+    <Compile Include="RobotCommunicationBus.cs" />
     <Compile Include="LightIntensitySelectForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -123,12 +117,12 @@
     <Compile Include="Parameters\CameraMaps.cs" />
     <Compile Include="Parameters\LightSelectParameters.cs" />
     <Compile Include="Parameters\IpEndpointParameters.cs" />
-    <Compile Include="Parameters\LaserBusParameters.cs" />
+    <Compile Include="Parameters\RobotBusParameters.cs" />
     <Compile Include="Parameters\CameraMap.cs" />
     <Compile Include="Parameters\WheelMotorParameters.cs" />
     <Compile Include="Parameters\OsdParameters.cs" />
     <Compile Include="Parameters\ParameterAccessor.cs" />
-    <Compile Include="Parameters\TargetBusParameters.cs" />
+    <Compile Include="Parameters\TruckBusParameters.cs" />
     <Compile Include="Parameters\ValueParameter.cs" />
     <Compile Include="PopupDimmerForm.cs">
       <SubType>Form</SubType>
@@ -144,13 +138,7 @@
     <Compile Include="SystemStatusForm.Designer.cs">
       <DependentUpon>SystemStatusForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="TargetCommunicationBus.cs" />
-    <Compile Include="TargetRobotMovementSetupForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="TargetRobotMovementSetupForm.Designer.cs">
-      <DependentUpon>TargetRobotMovementSetupForm.cs</DependentUpon>
-    </Compile>
+    <Compile Include="TruckCommunicationBus.cs" />
     <Compile Include="VideoStampOsd.cs" />
     <EmbeddedResource Include="CANDeviceInformationForm.resx">
       <DependentUpon>CANDeviceInformationForm.cs</DependentUpon>
@@ -166,9 +154,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="LaserRobotMovementSetupForm.resx">
       <DependentUpon>LaserRobotMovementSetupForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="LaserSetupForm.resx">
-      <DependentUpon>LaserSetupForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LightIntensitySelectForm.resx">
       <DependentUpon>LightIntensitySelectForm.cs</DependentUpon>
@@ -200,9 +185,6 @@
     </Compile>
     <EmbeddedResource Include="SystemStatusForm.resx">
       <DependentUpon>SystemStatusForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TargetRobotMovementSetupForm.resx">
-      <DependentUpon>TargetRobotMovementSetupForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
