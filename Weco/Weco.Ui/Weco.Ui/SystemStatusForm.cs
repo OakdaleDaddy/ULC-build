@@ -293,9 +293,6 @@
          this.SetComponentText(LaserCommunicationBus.BusComponentId.LaserBoardCameraLed, LaserCommunicationBus.Instance.GetStatus, LaserCommunicationBus.Instance.GetDevice, this.LaserBoardCameraLedStatusTextBox);
          this.SetComponentText(LaserCommunicationBus.BusComponentId.LaserBoardFrontWheel, LaserCommunicationBus.Instance.GetStatus, LaserCommunicationBus.Instance.GetDevice, this.LaserBoardFrontWheelStatusTextBox);
          this.SetComponentText(LaserCommunicationBus.BusComponentId.LaserBoardRearWheel, LaserCommunicationBus.Instance.GetStatus, LaserCommunicationBus.Instance.GetDevice, this.LaserBoardRearWheelStatusTextBox);
-         this.SetComponentText(LaserCommunicationBus.BusComponentId.LaserBoardLeftStepper, LaserCommunicationBus.Instance.GetStatus, LaserCommunicationBus.Instance.GetDevice, this.LaserBoardLeftStepperStatusTextBox);
-         this.SetComponentText(LaserCommunicationBus.BusComponentId.LaserBoardRightStepper, LaserCommunicationBus.Instance.GetStatus, LaserCommunicationBus.Instance.GetDevice, this.LaserBoardRightStepperStatusTextBox);                         
-         //this.SetComponentText(LaserCommunicationBus.BusComponentId.Gps, LaserCommunicationBus.Instance.GetStatus, LaserCommunicationBus.Instance.GetDevice, this.GpsStatusTextBox);
 
          this.SetComponentText(NumatoUsbRelay.Instance.FaultReason, null, null, this.UsbRelayStatusTextBox);
 
@@ -313,7 +310,6 @@
          this.SetComponentText(TargetCommunicationBus.BusComponentId.TargetBoardCameraLed, TargetCommunicationBus.Instance.GetStatus, TargetCommunicationBus.Instance.GetDevice, this.TargetBoardCameraLedStatusTextBox);
          this.SetComponentText(TargetCommunicationBus.BusComponentId.TargetBoardFrontWheel, TargetCommunicationBus.Instance.GetStatus, TargetCommunicationBus.Instance.GetDevice, this.TargetBoardFrontWheelStatusTextBox);
          this.SetComponentText(TargetCommunicationBus.BusComponentId.TargetBoardRearWheel, TargetCommunicationBus.Instance.GetStatus, TargetCommunicationBus.Instance.GetDevice, this.TargetBoardRearWheelStatusTextBox);
-         this.SetComponentText(TargetCommunicationBus.BusComponentId.TargetBoardCameraStepper, TargetCommunicationBus.Instance.GetStatus, TargetCommunicationBus.Instance.GetDevice, this.TargetBoardCameraStepperStatusTextBox);
 
          double latitude = ParameterAccessor.Instance.Latitude;
          if (double.IsNaN(latitude) == false)
@@ -391,12 +387,10 @@
 
       private void LaserBoardLeftStepperLabel_Click(object sender, EventArgs e)
       {
-         this.LaunchCANDeviceInformationForm(this.LaserBoardLeftStepperLabel, LaserCommunicationBus.BusComponentId.LaserBoardLeftStepper, LaserCommunicationBus.Instance.GetDevice, null, LaserCommunicationBus.Instance.ClearDeviceError);
       }
 
       private void LaserBoardRightStepperLabel_Click(object sender, EventArgs e)
       {
-         this.LaunchCANDeviceInformationForm(this.LaserBoardRightStepperLabel, LaserCommunicationBus.BusComponentId.LaserBoardRightStepper, LaserCommunicationBus.Instance.GetDevice, null, LaserCommunicationBus.Instance.ClearDeviceError);
       }
 
       private void GpsLabel_Click(object sender, EventArgs e)
@@ -426,7 +420,6 @@
 
       private void TargetBoardCameraStepperLabel_Click(object sender, EventArgs e)
       {
-         this.LaunchCANDeviceInformationForm(this.TargetBoardCameraStepperLabel, TargetCommunicationBus.BusComponentId.TargetBoardCameraStepper, TargetCommunicationBus.Instance.GetDevice, null, TargetCommunicationBus.Instance.ClearDeviceError);
       }
 
       private void TriggerDefaultsButton_HoldTimeout(object sender, Controls.HoldTimeoutEventArgs e)

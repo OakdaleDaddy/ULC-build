@@ -22,7 +22,6 @@
          TargetBoardCameraLed,
          TargetBoardFrontWheel,
          TargetBoardRearWheel,
-         TargetBoardCameraStepper,
       }
 
       #endregion
@@ -63,7 +62,6 @@
 
       private WheelMotorStatus wheel0Status;
       private WheelMotorStatus wheel1Status;
-      private StepperMotorStatus stepperStatus;
 
       private int launchCardLightIntensitySetPoint;
       //private int camaraLightIntensityRequested;
@@ -121,7 +119,6 @@
 
          this.wheel0Status = new WheelMotorStatus();
          this.wheel1Status = new WheelMotorStatus();
-         this.stepperStatus = new StepperMotorStatus();
       }
 
       private void SendControllerHeartBeat()
@@ -315,7 +312,6 @@
       {
          this.wheel0Status.Initialize();
          this.wheel1Status.Initialize();
-         this.stepperStatus.Initialize();
 
          this.launchCardLightIntensitySetPoint = 0;
          //this.camaraLightIntensityRequested = 0;
@@ -766,10 +762,6 @@
                {
                   // restart of component not done
                }
-               else if (BusComponentId.TargetBoardCameraStepper == id)
-               {
-                  // restart of component not done
-               }
 
                if (null != request.OnComplete)
                {
@@ -831,15 +823,6 @@
                   if (false != wasFaulted)
                   {
                      this.wheel1Status.state = WheelMotorStatus.States.off;
-                  }
-               }
-               else if (BusComponentId.TargetBoardCameraStepper == id)
-               {
-                  bool wasFaulted = false;
-
-                  if (false != wasFaulted)
-                  {
-                     this.stepperStatus.state = StepperMotorStatus.States.off;
                   }
                }
 
@@ -1029,10 +1012,6 @@
             {
                result = "target board rear wheel offline";
             }
-            else if (this.GetFaultStatus(BusComponentId.TargetBoardCameraStepper) != null)
-            {
-               result = "target board stepper offline";
-            }         
          }
 
          return (result);
@@ -1063,9 +1042,6 @@
             {
             }
             else if (BusComponentId.TargetBoardRearWheel == id)
-            {
-            }
-            else if (BusComponentId.TargetBoardCameraStepper == id)
             {
             }
          }
@@ -1108,10 +1084,6 @@
             {
                result = "target board rear wheel error";
             }
-            else if (this.GetWarningStatus(BusComponentId.TargetBoardCameraStepper) != null)
-            {
-               result = "target board stepper error";
-            }
          }
 
          return (result);
@@ -1143,9 +1115,6 @@
             else if (BusComponentId.TargetBoardRearWheel == id)
             {
             }
-            else if (BusComponentId.TargetBoardCameraStepper == id)
-            {
-            }
          }
          else
          {
@@ -1172,9 +1141,6 @@
             {
             }
             else if (BusComponentId.TargetBoardRearWheel == id)
-            {
-            }
-            else if (BusComponentId.TargetBoardCameraStepper == id)
             {
             }
          }
@@ -1406,58 +1372,6 @@
          double result = 0;// this.targetBoard.Bldc0.ActualPosition - this.targetTripStartValue;
          result /= ParameterAccessor.Instance.TargetWheelDistanceToTicks;
          return (result);
-      }
-
-      public double GetTargetLinkVoltage()
-      {
-         double result = 0;// this.targetBoard.DcLinkVoltage * ParameterAccessor.Instance.TargetLinkVoltageMultipler;
-         return (result);
-      }
-
-      #endregion
-
-      #region Target Stepper Functions
-
-      public void SetTargetCenter()
-      {
-         this.stepperStatus.centerNeeded = true;
-      }
-
-      public void SetTargetStepperPosition(int position)
-      {
-         this.stepperStatus.positionNeeded = position;
-      }
-
-      public void StopTargetStepper()
-      {
-         this.stepperStatus.stopNeeded = true;
-      }
-
-      public int GetTargetStepperActualPosition()
-      {
-         int result = this.stepperStatus.actualPosition;
-         return (result);
-      }
-
-      public bool GetTopCameraStepperHomeSwitchActive()
-      {
-         bool result = false;// this.targetBoard.Stepper0.HomeSwitchActive;
-         return (result);
-      }
-
-      public bool TargetPositionObtained()
-      {
-         bool result = false;// this.targetBoard.Stepper0.PositionAttained;
-         return (result);
-      }
-
-      #endregion
-
-      #region Scanner Functions
-
-      public UInt32 GetTargetScannerCoordinates()
-      {
-         return (0);
       }
 
       #endregion

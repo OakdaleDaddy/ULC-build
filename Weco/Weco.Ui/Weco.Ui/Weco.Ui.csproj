@@ -66,9 +66,6 @@
     <Compile Include="Definitions\ActuationModes.cs" />
     <Compile Include="Definitions\DeviceRestartRequest.cs" />
     <Compile Include="Definitions\MovementModes.cs" />
-    <Compile Include="Definitions\SessionCompleteData.cs" />
-    <Compile Include="Definitions\SessionStartData.cs" />
-    <Compile Include="Definitions\StepperMotorStatus.cs" />
     <Compile Include="Definitions\WheelLocations.cs" />
     <Compile Include="Definitions\WheelMotorStates.cs" />
     <Compile Include="Definitions\WheelMotorStatus.cs" />
@@ -141,16 +138,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Definitions\SessionData.cs" />
-    <Compile Include="Definitions\SessionMeasurementData.cs" />
-    <Compile Include="Definitions\SessionMovementData.cs" />
-    <Compile Include="Definitions\SessionRecord.cs" />
-    <Compile Include="SessionRecordControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="SessionRecordControl.Designer.cs">
-      <DependentUpon>SessionRecordControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="SystemStatusForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -211,9 +198,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="SessionRecordControl.resx">
-      <DependentUpon>SessionRecordControl.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="SystemStatusForm.resx">
       <DependentUpon>SystemStatusForm.cs</DependentUpon>
     </EmbeddedResource>

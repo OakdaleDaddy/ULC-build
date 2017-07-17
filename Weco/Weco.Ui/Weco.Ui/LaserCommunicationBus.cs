@@ -22,8 +22,6 @@
          LaserBoardCameraLed,
          LaserBoardFrontWheel,
          LaserBoardRearWheel,
-         LaserBoardLeftStepper,
-         LaserBoardRightStepper,
       }
 
       #endregion
@@ -64,18 +62,7 @@
       
       private WheelMotorStatus wheel0Status;
       private WheelMotorStatus wheel1Status;
-      private StepperMotorStatus stepper0Status;
-      private StepperMotorStatus stepper1Status;
 
-      private bool laserAimSetPoint;
-      private bool laserAimRequested;
-      private bool needLaserMeasurementStart;
-      //private bool needLaserMeasurementCancel;
-      //private bool laserMeasureStartRequested;
-      //private bool laserMeasureCancelRequested;
-      //private bool laserBecameActive;
-      //private int laserSampleCount;
-      //private double laserAverageMeasurement;
 
       private int crawlerLeftTrackLightIntensitySetPoint;
       private int crawlerRightTrackLightIntensitySetPoint;
@@ -139,8 +126,6 @@
 
          this.wheel0Status = new WheelMotorStatus();
          this.wheel1Status = new WheelMotorStatus();
-         this.stepper0Status = new StepperMotorStatus();
-         this.stepper1Status = new StepperMotorStatus();
       }
 
       private void SendControllerHeartBeat()
@@ -368,21 +353,8 @@
 
       private void InitializeLaserBoard()
       {
-
-         this.laserAimSetPoint = false;
-         this.laserAimRequested = false;
-         this.needLaserMeasurementStart = false;
-         //this.needLaserMeasurementCancel = false;
-         //this.laserMeasureStartRequested = false;
-         //this.laserMeasureCancelRequested = false;
-         //this.laserBecameActive = false;
-         //this.laserSampleCount = 0;
-         //this.laserAverageMeasurement = 0;
-
          this.wheel0Status.Initialize();
          this.wheel1Status.Initialize();
-         this.stepper0Status.Initialize();
-         this.stepper1Status.Initialize();
 
          this.crawlerLeftTrackLightIntensitySetPoint = 0;
          this.crawlerRightTrackLightIntensitySetPoint = 0;
@@ -844,14 +816,6 @@
                {
                   // restart of component not done
                }
-               else if (BusComponentId.LaserBoardLeftStepper == id)
-               {
-                  // restart of component not done
-               }
-               else if (BusComponentId.LaserBoardRightStepper == id)
-               {
-                  // restart of component not done
-               }
 
                if (null != request.OnComplete)
                {
@@ -913,24 +877,6 @@
                   if (false != wasFaulted)
                   {
                      this.wheel1Status.state = WheelMotorStatus.States.off;
-                  }
-               }
-               else if (BusComponentId.LaserBoardLeftStepper == id)
-               {
-                  bool wasFaulted = false;
-
-                  if (false != wasFaulted)
-                  {
-                     this.stepper0Status.state = StepperMotorStatus.States.off;
-                  }
-               }
-               else if (BusComponentId.LaserBoardRightStepper == id)
-               {
-                  bool wasFaulted = false;
-
-                  if (false != wasFaulted)
-                  {
-                     this.stepper1Status.state = StepperMotorStatus.States.off;
                   }
                }
 
@@ -1119,14 +1065,6 @@
             {
                result = "laser board rear wheel offline";
             }
-            else if (this.GetFaultStatus(BusComponentId.LaserBoardLeftStepper) != null)
-            {
-               result = "laser board left stepper offline";
-            }
-            else if (this.GetFaultStatus(BusComponentId.LaserBoardRightStepper) != null)
-            {
-               result = "laser board right stepper offline";
-            }
          }
 
          return (result);
@@ -1186,14 +1124,6 @@
             else if (this.GetWarningStatus(BusComponentId.LaserBoardRearWheel) != null)
             {
                result = "laser board rear wheel error";
-            }
-            else if (this.GetWarningStatus(BusComponentId.LaserBoardLeftStepper) != null)
-            {
-               result = "laser board left stepper error";
-            }
-            else if (this.GetWarningStatus(BusComponentId.LaserBoardRightStepper) != null)
-            {
-               result = "laser board right stepper error";
             }
          }
 
@@ -1453,158 +1383,6 @@
          double result = 0;
          result /= ParameterAccessor.Instance.LaserWheelDistanceToTicks;
          return (result);
-      }
-
-      public double GetLaserLinkVoltage()
-      {
-         double result = 0;
-         return (result);
-      }
-
-      #endregion
-
-      #region Laser Stepper Functions
-
-      #region General
-
-      public void SetLaserCenter()
-      {
-         this.stepper0Status.centerNeeded = true;
-         this.stepper1Status.centerNeeded = true;
-      }
-
-      #endregion
-
-      #region Left Stepper
-
-      public void StopLaserLeftStepper()
-      {
-         this.stepper0Status.stopNeeded = true;
-      }
-
-      public void SetLaserLeftStepperTargetPosition(int position)
-      {
-         this.stepper0Status.positionTarget = position;
-         this.stepper0Status.positionNeeded = position;
-      }
-
-      public int GetLaserLeftStepperTargetPosition()
-      {
-         int result = this.stepper0Status.positionTarget;
-         return (result);
-      }
-
-      public int GetLaserLeftStepperPosition()
-      {
-         int result = this.stepper0Status.actualPosition;
-         return (result);      
-      }
-
-      public bool GetLaserLeftStepperHomeSwitchActive()
-      {
-         bool result = false;
-         return (result);
-      }
-
-      #endregion
-
-      #region Right Stepper
-
-      public void StopLaserRightStepper()
-      {
-         this.stepper1Status.stopNeeded = true;
-      }
-
-      public void SetLaserRightStepperTargetPosition(int position)
-      {
-         this.stepper1Status.positionTarget = position;
-         this.stepper1Status.positionNeeded = position;
-      }
-
-      public int GetLaserRightStepperTargetPosition()
-      {
-         int result = stepper1Status.positionTarget;
-         return (result);
-      }
-
-      public int GetLaserRightStepperPosition()
-      {
-         int result = this.stepper1Status.actualPosition;
-         return (result);
-      }
-
-      public bool GetLaserRightStepperHomeSwitchActive()
-      {
-         bool result = false;
-         return (result);
-      }
-
-      #endregion
-
-      #endregion
-
-      #region Laser Functions
-
-      public void SetLaserAim(bool on)
-      {
-         this.laserAimSetPoint = on;
-      }
-
-      public bool GetLaserAim()
-      {
-         return (this.laserAimRequested);
-      }
-
-      public void StartLaserMeasurement()
-      {
-         this.needLaserMeasurementStart = true;
-      }
-
-      public void CancelLaserMeasurement()
-      {
-         //this.needLaserMeasurementCancel = true;
-      }
-
-      public bool GetLaserMeasurementActivity()
-      {
-         bool result = false;
-
-         if (false != this.running)
-         {
-         }
-
-         return (result);
-      }
-
-      public int GetLaserSampleRemainingCount()
-      {
-         int result = 0;
-
-         if (false != this.running)
-         {
-         }
-
-         return (result);
-      }
-
-      public bool GetLaserMeasurementReady()
-      {
-         bool result = false;
-
-         if (false != this.running)
-         {
-            if (false == this.needLaserMeasurementStart)
-            {
-            }
-         }
-
-         return (result);
-      }
-
-      public double GetAverageLaserMeasurement()
-      {
-         return (0);
-         //return (this.laserAverageMeasurement);
       }
 
       #endregion

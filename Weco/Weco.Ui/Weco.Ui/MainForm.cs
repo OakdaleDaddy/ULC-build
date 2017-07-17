@@ -429,9 +429,6 @@ namespace Weco.Ui
          this.CrawlerSpeedToggleButton.OptionASelected = this.laserMovementFastSelected;
 
 
-         SessionRecord.Instance.Reset();
-
-
          this.StopAllPanel.BackColor = Color.FromArgb(64, 64, 64);
          this.StopAllPanel.Refresh();
          this.StopAllButton.Refresh();
@@ -459,8 +456,6 @@ namespace Weco.Ui
 
 
          // process parameters
-
-         SessionRecord.Instance.StoragePath = ParameterAccessor.Instance.SessionDataPath;
 
          if ((0 == ParameterAccessor.Instance.LaserBus.ConsumerHeartbeatRate) ||
              (0 == ParameterAccessor.Instance.LaserBus.ProducerHeartbeatRate) ||
