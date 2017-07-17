@@ -123,15 +123,14 @@
     <Compile Include="OsdForm.designer.cs">
       <DependentUpon>OsdForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Parameters\CameraSelectParameters.cs" />
+    <Compile Include="Parameters\CameraMaps.cs" />
+    <Compile Include="Parameters\LightSelectParameters.cs" />
     <Compile Include="Parameters\IpEndpointParameters.cs" />
     <Compile Include="Parameters\LaserBusParameters.cs" />
-    <Compile Include="Parameters\LaserCameraMappings.cs" />
-    <Compile Include="Parameters\TargetCameraMappings.cs" />
+    <Compile Include="Parameters\CameraMap.cs" />
     <Compile Include="Parameters\WheelMotorParameters.cs" />
     <Compile Include="Parameters\OsdParameters.cs" />
     <Compile Include="Parameters\ParameterAccessor.cs" />
-    <Compile Include="Parameters\StepperMotorParameters.cs" />
     <Compile Include="Parameters\TargetBusParameters.cs" />
     <Compile Include="Parameters\ValueParameter.cs" />
     <Compile Include="PopupDimmerForm.cs">

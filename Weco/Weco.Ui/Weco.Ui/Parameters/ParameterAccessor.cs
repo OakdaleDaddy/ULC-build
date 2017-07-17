@@ -1,6 +1,7 @@
 ﻿namespace Weco.Ui
 {
    using System;
+   using System.Collections.Generic;
    using System.IO;
    using System.Xml;
 
@@ -33,8 +34,6 @@
 
       public WheelMotorParameters LaserFrontWheel;
       public WheelMotorParameters LaserRearWheel;
-      public StepperMotorParameters LaserLeftStepper;
-      public StepperMotorParameters LaserRightStepper;
       public ValueParameter LaserWheelMaximumSpeed;
       public ValueParameter LaserWheelLowSpeedScale;
       public ValueParameter LaserWheelManualWheelDistance;
@@ -45,14 +44,16 @@
       public double LaserLinkVoltageMultipler;
       public double LaserLightPercentToCount;
       public double LaserStepperPivotAngle;
-      public LaserCameraMappings LaserCameraMapping;
-      public CameraSelectParameters LaserFrontCamera;
-      public CameraSelectParameters LaserRearCamera;
-      public Controls.CameraLocations LaserSelectedCamera;
+      
+      public CameraMaps CrawlerHubCameraMaps;
+      public LightSelectParameters CrawlerFrontLight;
+      public LightSelectParameters CrawlerRearLight;
+      public LightSelectParameters CrawlerLeftLight;
+      public LightSelectParameters CrawlerRightLight;
+      public Controls.SystemLocations CrawlerHubSelectedCamera;
 
       public WheelMotorParameters TargetFrontWheel;
       public WheelMotorParameters TargetRearWheel;
-      public StepperMotorParameters TargetStepper;
       public ValueParameter TargetWheelMaximumSpeed;
       public ValueParameter TargetWheelLowSpeedScale;
       public ValueParameter TargetWheelManualWheelDistance;
@@ -62,11 +63,12 @@
       public double TargetWheelCountsToAmps;
       public double TargetLinkVoltageMultipler;
       public double TargetLightPercentToCount;
-      public TargetCameraMappings TargetCameraMapping;
-      public CameraSelectParameters TargetFrontCamera;
-      public CameraSelectParameters TargetRearCamera;
-      public CameraSelectParameters TargetTopCamera;
-      public Controls.CameraLocations TargetSelectedCamera;
+      
+      public CameraMaps BulletCameraMaps;
+      public LightSelectParameters BulletLeftLight;
+      public LightSelectParameters BulletRightLight;
+      public LightSelectParameters BulletDownLight;
+      public Controls.SystemLocations BulletSelectedCamera;
       public double TargetTopCameraCwLimit;
       public double TargetTopCameraCcwLimit;
 
@@ -107,7 +109,7 @@
 
       private void AssignDefaults()
       {
-         this.VersionCount = 26; // update after each addition
+         this.VersionCount = 1; // update after each addition
 
          this.LaserBus = new LaserBusParameters();
          this.LaserBus.BusInterface = BusInterfaces.PCIA;
@@ -204,60 +206,6 @@
          this.LaserRearWheel.MaximumCurrent = 10000;
          this.LaserRearWheel.MotorRatedCurrent = 1000;
 
-         this.LaserLeftStepper = new StepperMotorParameters();
-         this.LaserLeftStepper.Location = "LaserLeftStepper";
-         this.LaserLeftStepper.HomingMethod = 17;
-         this.LaserLeftStepper.HomeOffset = 2000;
-         this.LaserLeftStepper.HomingSwitchVelocity = 1000;
-         this.LaserLeftStepper.HomingZeroVelocity = 500;
-         this.LaserLeftStepper.HomingAcceleration = 200;
-         this.LaserLeftStepper.ProfileVelocity = 500;
-         this.LaserLeftStepper.ProfileAcceleration = 200;
-         this.LaserLeftStepper.MaximumPosition = 10000;
-         this.LaserLeftStepper.CenterPosition = 5000;
-         this.LaserLeftStepper.MinimumPosition = 0;
-         this.LaserLeftStepper.Polarity = 0;
-         this.LaserLeftStepper.PositionNotationIndex = -3; // mm
-         this.LaserLeftStepper.VelocityNotationIndex = -3; // mm
-         this.LaserLeftStepper.VelocityDimensionIndex = 164; // /min
-         this.LaserLeftStepper.AccelerationNotationIndex = 0;// none
-         this.LaserLeftStepper.AccelerationDimensionIndex = 163; // /s
-         this.LaserLeftStepper.PositionEncoderIncrements = 6;
-         this.LaserLeftStepper.PositionEncoderMotorRevolutions = 1;
-         this.LaserLeftStepper.VelocityEncoderIncrementsPerSecond = 6;
-         this.LaserLeftStepper.VelocityEncoderMotorRevolutionsPerSecond = 1;
-         this.LaserLeftStepper.GearRatioMotorRevolutions = 6;
-         this.LaserLeftStepper.GearRatioShaftRevolutions = 1;
-         this.LaserLeftStepper.FeedConstantFeed = 600;
-         this.LaserLeftStepper.FeedConstantShaftRevolutions = 1;
-
-         this.LaserRightStepper = new StepperMotorParameters();
-         this.LaserRightStepper.Location = "LaserYStepper";
-         this.LaserRightStepper.HomingMethod = 18;
-         this.LaserRightStepper.HomeOffset = 2000;
-         this.LaserRightStepper.HomingSwitchVelocity = 1000;
-         this.LaserRightStepper.HomingZeroVelocity = 500;
-         this.LaserRightStepper.HomingAcceleration = 200;
-         this.LaserRightStepper.ProfileVelocity = 500;
-         this.LaserRightStepper.ProfileAcceleration = 200;
-         this.LaserRightStepper.MaximumPosition = 10000;
-         this.LaserRightStepper.CenterPosition = 5000;
-         this.LaserRightStepper.MinimumPosition = 0;
-         this.LaserRightStepper.Polarity = 0;
-         this.LaserRightStepper.PositionNotationIndex = -3; // mm
-         this.LaserRightStepper.VelocityNotationIndex = -3; // mm
-         this.LaserRightStepper.VelocityDimensionIndex = 164; // /min
-         this.LaserRightStepper.AccelerationNotationIndex = 0;// none
-         this.LaserRightStepper.AccelerationDimensionIndex = 163; // /s
-         this.LaserRightStepper.PositionEncoderIncrements = 6;
-         this.LaserRightStepper.PositionEncoderMotorRevolutions = 1;
-         this.LaserRightStepper.VelocityEncoderIncrementsPerSecond = 6;
-         this.LaserRightStepper.VelocityEncoderMotorRevolutionsPerSecond = 1;
-         this.LaserRightStepper.GearRatioMotorRevolutions = 6;
-         this.LaserRightStepper.GearRatioShaftRevolutions = 1;
-         this.LaserRightStepper.FeedConstantFeed = 600;
-         this.LaserRightStepper.FeedConstantShaftRevolutions = 1;
-
          this.LaserWheelMaximumSpeed = new ValueParameter("LaserWheelMaximumSpeed", "m/MIN", 2, 0, 10, 0.10, 3.5, 3.5);
          this.LaserWheelLowSpeedScale = new ValueParameter("LaserWheelLowSpeedScale", "%", 0, 1, 100, 1, 30, 30);
          this.LaserWheelManualWheelDistance = new ValueParameter("LaserWheelManualWheelDistance", "mm", 0, 1, 100, 1, 1, 1);
@@ -269,11 +217,17 @@
          this.LaserLightPercentToCount = 1;
          this.LaserStepperPivotAngle = 8.5;
 
-         this.LaserCameraMapping = new LaserCameraMappings(1, 2);
-         this.LaserFrontCamera = new CameraSelectParameters("LaserFrontCamera", 15, 1);
-         this.LaserRearCamera = new CameraSelectParameters("LaserRearCamera", 15, 2);
-         this.LaserSelectedCamera = Controls.CameraLocations.crawlerFront;
+         CameraMap[] crawlerHubCameraMaps = new CameraMap[2];
+         crawlerHubCameraMaps[0] = new CameraMap(1, Ui.Controls.SystemLocations.crawlerFront);
+         crawlerHubCameraMaps[1] = new CameraMap(2, Ui.Controls.SystemLocations.crawlerRear);
+         this.CrawlerHubCameraMaps = new CameraMaps("CrawlerHubCameraMaps", crawlerHubCameraMaps);
 
+         this.CrawlerFrontLight = new LightSelectParameters("CrawlerFrontLight", 15, 1);
+         this.CrawlerRearLight = new LightSelectParameters("CrawlerRearLight", 15, 2);
+         this.CrawlerLeftLight = new LightSelectParameters("CrawlerLeftLight", 15, 1);
+         this.CrawlerRightLight = new LightSelectParameters("CrawlerRightLight", 15, 1);
+         this.CrawlerHubSelectedCamera = Controls.SystemLocations.crawlerFront;
+         
 
          this.TargetFrontWheel = new WheelMotorParameters();
          this.TargetFrontWheel.Location = "TargetFrontWheel";
@@ -335,33 +289,6 @@
          this.TargetRearWheel.MaximumCurrent = 10000;
          this.TargetRearWheel.MotorRatedCurrent = 1000;
 
-         this.TargetStepper = new StepperMotorParameters();
-         this.TargetStepper.Location = "TargetStepper";
-         this.TargetStepper.HomingMethod = 17;
-         this.TargetStepper.HomeOffset = 2000;
-         this.TargetStepper.HomingSwitchVelocity = 1000;
-         this.TargetStepper.HomingZeroVelocity = 500;
-         this.TargetStepper.HomingAcceleration = 200;
-         this.TargetStepper.ProfileVelocity = 500;
-         this.TargetStepper.ProfileAcceleration = 200;
-         this.TargetStepper.MaximumPosition = 10000;
-         this.TargetStepper.CenterPosition = 5000;
-         this.TargetStepper.MinimumPosition = 0;
-         this.TargetStepper.Polarity = 0;
-         this.TargetStepper.PositionNotationIndex = -3; // mm
-         this.TargetStepper.VelocityNotationIndex = -3; // mm
-         this.TargetStepper.VelocityDimensionIndex = 164; // /min
-         this.TargetStepper.AccelerationNotationIndex = 0;// none
-         this.TargetStepper.AccelerationDimensionIndex = 163; // /s
-         this.TargetStepper.PositionEncoderIncrements = 6;
-         this.TargetStepper.PositionEncoderMotorRevolutions = 1;
-         this.TargetStepper.VelocityEncoderIncrementsPerSecond = 6;
-         this.TargetStepper.VelocityEncoderMotorRevolutionsPerSecond = 1;
-         this.TargetStepper.GearRatioMotorRevolutions = 6;
-         this.TargetStepper.GearRatioShaftRevolutions = 1;
-         this.TargetStepper.FeedConstantFeed = 600;
-         this.TargetStepper.FeedConstantShaftRevolutions = 1;
-
          this.TargetWheelMaximumSpeed = new ValueParameter("TargetWheelMaximumSpeed", "m/MIN", 2, 0, 10, 0.10, 3.5, 3.5);
          this.TargetWheelLowSpeedScale = new ValueParameter("TargetWheelLowSpeedScale", "%", 0, 1, 100, 1, 30, 30);
          this.TargetWheelManualWheelDistance = new ValueParameter("TargetWheelManualWheelDistance", "mm", 0, 1, 100, 1, 1, 1);
@@ -372,11 +299,16 @@
          this.TargetLinkVoltageMultipler = 0.5;
          this.TargetLightPercentToCount = 1;
 
-         this.TargetCameraMapping = new TargetCameraMappings(1, 2, 3);
-         this.TargetFrontCamera = new CameraSelectParameters("TargetFrontCamera", 15, 1);
-         this.TargetRearCamera = new CameraSelectParameters("TargetRearCamera", 15, 2);
-         this.TargetTopCamera = new CameraSelectParameters("TargetTopCamera", 15, 4);
-         this.TargetSelectedCamera = Controls.CameraLocations.bulletLeft;
+         CameraMap[] bulletCameraMaps = new CameraMap[3];
+         bulletCameraMaps[0] = new CameraMap(1, Ui.Controls.SystemLocations.bulletLeft);
+         bulletCameraMaps[1] = new CameraMap(2, Ui.Controls.SystemLocations.bulletRight);
+         bulletCameraMaps[2] = new CameraMap(3, Ui.Controls.SystemLocations.bulletDown);
+         this.BulletCameraMaps = new CameraMaps("BulletCameraMaps", bulletCameraMaps);
+
+         this.BulletLeftLight = new LightSelectParameters("BulletLeftLight", 15, 1);
+         this.BulletRightLight = new LightSelectParameters("BulletRightLight", 15, 2);
+         this.BulletDownLight = new LightSelectParameters("BulletDownLight", 15, 4);
+         this.BulletSelectedCamera = Controls.SystemLocations.bulletDown;
          this.TargetTopCameraCwLimit = 45;
          this.TargetTopCameraCcwLimit = -45;
 
@@ -555,15 +487,15 @@
          return (result);
       }
 
-      private Controls.CameraLocations ReadCameraLocation(XmlReader reader, Controls.CameraLocations defaultValue)
+      private Controls.SystemLocations ReadSystemLocation(XmlReader reader)
       {
-         Controls.CameraLocations result = defaultValue;
+         Controls.SystemLocations result = Controls.SystemLocations.none;
 
          try
          {
             if (reader.Read())
             {
-               result = (Controls.CameraLocations)Enum.Parse(typeof(Controls.CameraLocations), reader.Value.Trim());
+               result = (Controls.SystemLocations)Enum.Parse(typeof(Controls.SystemLocations), reader.Value.Trim());
             }
          }
          catch { }
@@ -997,10 +929,12 @@
          return (result);
       }
 
-      private StepperMotorParameters ReadStepperMotorParameters(XmlReader reader)
+      private CameraMaps ReadCameraMaps(XmlReader reader)
       {
-         StepperMotorParameters temp = new StepperMotorParameters();
-         StepperMotorParameters result = new StepperMotorParameters();
+         CameraMaps result = new CameraMaps();
+         string name = "";
+         List<CameraMap> maps = new List<CameraMap>();
+         CameraMap map = null;
          bool readResult = true;
 
          for (; readResult; )
@@ -1009,112 +943,42 @@
 
             if (reader.IsStartElement())
             {
-               if ("Location" == reader.Name)
+               if ("Name" == reader.Name)
                {
-                  temp.Location = this.ReadString(reader);
+                  name = this.ReadString(reader);
                }
-               else if ("HomingMethod" == reader.Name)
+               else if ("Index" == reader.Name)
                {
-                  temp.HomingMethod = this.ReadInt(reader);
+                  if (null == map)
+                  {
+                     map = new CameraMap();
+                  }
+
+                  map.Index = this.ReadInt(reader);
                }
-               else if ("HomeOffset" == reader.Name)
+               else if ("SystemLocation" == reader.Name)
                {
-                  temp.HomeOffset = this.ReadInt(reader);
-               }
-               else if ("HomingSwitchVelocity" == reader.Name)
-               {
-                  temp.HomingSwitchVelocity = this.ReadInt(reader);
-               }
-               else if ("HomingZeroVelocity" == reader.Name)
-               {
-                  temp.HomingZeroVelocity = this.ReadInt(reader);
-               }
-               else if ("HomingAcceleration" == reader.Name)
-               {
-                  temp.HomingAcceleration = this.ReadInt(reader);
-               }
-               else if ("ProfileVelocity" == reader.Name)
-               {
-                  temp.ProfileVelocity = this.ReadInt(reader);
-               }
-               else if ("ProfileAcceleration" == reader.Name)
-               {
-                  temp.ProfileAcceleration = this.ReadInt(reader);
-               }
-               else if ("MaximumPosition" == reader.Name)
-               {
-                  temp.MaximumPosition = this.ReadInt(reader);
-               }
-               else if ("CenterPosition" == reader.Name)
-               {
-                  temp.CenterPosition = this.ReadInt(reader);
-               }
-               else if ("MinimumPosition" == reader.Name)
-               {
-                  temp.MinimumPosition = this.ReadInt(reader);
-               }
-               else if ("Polarity" == reader.Name)
-               {
-                  temp.Polarity = this.ReadInt(reader);
-               }
-               else if ("PositionNotationIndex" == reader.Name)
-               {
-                  temp.PositionNotationIndex = this.ReadInt(reader);
-               }
-               else if ("VelocityNotationIndex" == reader.Name)
-               {
-                  temp.VelocityNotationIndex = this.ReadInt(reader);
-               }
-               else if ("VelocityDimensionIndex" == reader.Name)
-               {
-                  temp.VelocityDimensionIndex = this.ReadInt(reader);
-               }
-               else if ("AccelerationNotationIndex" == reader.Name)
-               {
-                  temp.AccelerationNotationIndex = this.ReadInt(reader);
-               }
-               else if ("AccelerationDimensionIndex" == reader.Name)
-               {
-                  temp.AccelerationDimensionIndex = this.ReadInt(reader);
-               }
-               else if ("PositionEncoderIncrements" == reader.Name)
-               {
-                  temp.PositionEncoderIncrements = this.ReadInt(reader);
-               }
-               else if ("PositionEncoderMotorRevolutions" == reader.Name)
-               {
-                  temp.PositionEncoderMotorRevolutions = this.ReadInt(reader);
-               }
-               else if ("VelocityEncoderIncrementsPerSecond" == reader.Name)
-               {
-                  temp.VelocityEncoderIncrementsPerSecond = this.ReadInt(reader);
-               }
-               else if ("VelocityEncoderMotorRevolutionsPerSecond" == reader.Name)
-               {
-                  temp.VelocityEncoderMotorRevolutionsPerSecond = this.ReadInt(reader);
-               }
-               else if ("GearRatioMotorRevolutions" == reader.Name)
-               {
-                  temp.GearRatioMotorRevolutions = this.ReadInt(reader);
-               }
-               else if ("GearRatioShaftRevolutions" == reader.Name)
-               {
-                  temp.GearRatioShaftRevolutions = this.ReadInt(reader);
-               }
-               else if ("FeedConstantFeed" == reader.Name)
-               {
-                  temp.FeedConstantFeed = this.ReadInt(reader);
-               }
-               else if ("FeedConstantShaftRevolutions" == reader.Name)
-               {
-                  temp.FeedConstantShaftRevolutions = this.ReadInt(reader);
+                  if (null == map)
+                  {
+                     map = new CameraMap();
+                  }
+
+                  map.SystemLocation = this.ReadSystemLocation(reader);
                }
             }
             else
             {
-               if ("StepperMotorParameters" == reader.Name)
+               if ("Map" == reader.Name)
                {
-                  result = temp;
+                  if (null != map)
+                  {
+                     maps.Add(map);
+                     map = null;
+                  }
+               }
+               else if ("CameraMaps" == reader.Name)
+               {
+                  result = new CameraMaps(name, maps.ToArray());
                   break;
                }
             }
@@ -1123,77 +987,9 @@
          return (result);
       }
 
-      private LaserCameraMappings ReadLaserCameraMappings(XmlReader reader)
+      private LightSelectParameters ReadLightSelectParameters(XmlReader reader)
       {
-         LaserCameraMappings laserCameraMappings = new LaserCameraMappings();
-         bool readResult = true;
-
-         for (; readResult; )
-         {
-            readResult = reader.Read();
-
-            if (reader.IsStartElement())
-            {
-               if ("Front" == reader.Name)
-               {
-                  laserCameraMappings.Front = this.ReadInt(reader);
-               }
-               else if ("Rear" == reader.Name)
-               {
-                  laserCameraMappings.Rear = this.ReadInt(reader);
-               }
-            }
-            else
-            {
-               if ("LaserCameraMappings" == reader.Name)
-               {
-                  break;
-               }
-            }
-         }
-
-         return (laserCameraMappings);
-      }
-
-      private TargetCameraMappings ReadTargetCameraMappings(XmlReader reader)
-      {
-         TargetCameraMappings targetCameraMappings = new TargetCameraMappings();
-         bool readResult = true;
-
-         for (; readResult; )
-         {
-            readResult = reader.Read();
-
-            if (reader.IsStartElement())
-            {
-               if ("Front" == reader.Name)
-               {
-                  targetCameraMappings.Front = this.ReadInt(reader);
-               }
-               else if ("Rear" == reader.Name)
-               {
-                  targetCameraMappings.Rear = this.ReadInt(reader);
-               }
-               else if ("Top" == reader.Name)
-               {
-                  targetCameraMappings.Top = this.ReadInt(reader);
-               }
-            }
-            else
-            {
-               if ("TargetCameraMappings" == reader.Name)
-               {
-                  break;
-               }
-            }
-         }
-
-         return (targetCameraMappings);
-      }
-
-      private CameraSelectParameters ReadCameraSelectParameters(XmlReader reader)
-      {
-         CameraSelectParameters camaraSelectParameters = new CameraSelectParameters();
+         LightSelectParameters camaraSelectParameters = new LightSelectParameters();
          bool readResult = true;
 
          for (; readResult; )
@@ -1217,7 +1013,7 @@
             }
             else
             {
-               if ("CameraSelectParameters" == reader.Name)
+               if ("LightSelectParameters" == reader.Name)
                {
                   break;
                }
@@ -1506,41 +1302,29 @@
                            }
                         }
                      }
-                     else if ("StepperMotorParameters" == reader.Name)
+                     else if ("CameraMaps" == reader.Name)
                      {
-                        StepperMotorParameters stepperMotorParameters = this.ReadStepperMotorParameters(reader);
+                        CameraMaps cameraMaps = this.ReadCameraMaps(reader);
 
-                        if (null != stepperMotorParameters)
+                        if (null != cameraMaps)
                         {
-                           if ("LaserLeftStepper" == stepperMotorParameters.Location)
+                           if ("CrawlerHubCameraMapping" == cameraMaps.Name)
                            {
-                              this.LaserLeftStepper = stepperMotorParameters;
+                              this.CrawlerHubCameraMaps = cameraMaps;
                            }
-                           else if ("LaserRightStepper" == stepperMotorParameters.Location)
+                           else if ("BulletCameraMaps" == cameraMaps.Name)
                            {
-                              this.LaserRightStepper = stepperMotorParameters;
-                           }
-                           else if ("TargetStepper" == stepperMotorParameters.Location)
-                           {
-                              this.TargetStepper = stepperMotorParameters;
-                           }
+                              this.BulletCameraMaps = cameraMaps;
+                           }                           
                         }
                      }
-                     else if ("LaserCameraMappings" == reader.Name)
+                     else if ("CrawlerHubSelectedCamera" == reader.Name)
                      {
-                        this.LaserCameraMapping = this.ReadLaserCameraMappings(reader);
+                        this.CrawlerHubSelectedCamera = this.ReadSystemLocation(reader);
                      }
-                     else if ("LaserSelectedCamera" == reader.Name)
+                     else if ("BulletSelectedCamera" == reader.Name)
                      {
-                        this.LaserSelectedCamera = this.ReadCameraLocation(reader, Controls.CameraLocations.crawlerFront);
-                     }
-                     else if ("TargetCameraMappings" == reader.Name)
-                     {
-                        this.TargetCameraMapping = this.ReadTargetCameraMappings(reader);
-                     }
-                     else if ("TargetSelectedCamera" == reader.Name)
-                     {
-                        this.TargetSelectedCamera = this.ReadCameraLocation(reader, Controls.CameraLocations.bulletLeft);
+                        this.BulletSelectedCamera = this.ReadSystemLocation(reader);
                      }
                      else if ("TargetTopCameraCwLimit" == reader.Name)
                      {
@@ -1550,31 +1334,39 @@
                      {
                         this.TargetTopCameraCcwLimit = this.ReadDouble(reader);
                      }
-                     else if ("CameraSelectParameters" == reader.Name)
+                     else if ("LightSelectParameters" == reader.Name)
                      {
-                        CameraSelectParameters camaraSelectParameters = this.ReadCameraSelectParameters(reader);
+                        LightSelectParameters camaraSelectParameters = this.ReadLightSelectParameters(reader);
 
                         if (null != camaraSelectParameters)
                         {
-                           if ("LaserFrontCamera" == camaraSelectParameters.Location)
+                           if ("CrawlerFrontLight" == camaraSelectParameters.Location)
                            {
-                              this.LaserFrontCamera = camaraSelectParameters;
+                              this.CrawlerFrontLight = camaraSelectParameters;
                            }
-                           else if ("LaserRearCamera" == camaraSelectParameters.Location)
+                           else if ("CrawlerRearLight" == camaraSelectParameters.Location)
                            {
-                              this.LaserRearCamera = camaraSelectParameters;
+                              this.CrawlerRearLight = camaraSelectParameters;
                            }
-                           else if ("TargetFrontCamera" == camaraSelectParameters.Location)
+                           else if ("CrawlerLeftLight" == camaraSelectParameters.Location)
                            {
-                              this.TargetFrontCamera = camaraSelectParameters;
+                              this.CrawlerLeftLight = camaraSelectParameters;
                            }
-                           else if ("TargetRearCamera" == camaraSelectParameters.Location)
+                           else if ("CrawlerRightLight" == camaraSelectParameters.Location)
                            {
-                              this.TargetRearCamera = camaraSelectParameters;
+                              this.CrawlerRightLight = camaraSelectParameters;
                            }
-                           else if ("TargetTopCamera" == camaraSelectParameters.Location)
+                           else if ("BulletLeftLight" == camaraSelectParameters.Location)
                            {
-                              this.TargetTopCamera = camaraSelectParameters;
+                              this.BulletLeftLight = camaraSelectParameters;
+                           }
+                           else if ("BulletRightLight" == camaraSelectParameters.Location)
+                           {
+                              this.BulletRightLight = camaraSelectParameters;
+                           }
+                           else if ("BulletDownLight" == camaraSelectParameters.Location)
+                           {
+                              this.BulletDownLight = camaraSelectParameters;
                            }
                         }
                      }
@@ -1729,71 +1521,36 @@
          writer.WriteEndElement();
       }
 
-      private void WriteStepperMotorParameters(XmlWriter writer, StepperMotorParameters stepperMotorParameters)
+      private void WriteCameraMaps(XmlWriter writer, CameraMaps cameraMaps)
       {
-         writer.WriteStartElement("StepperMotorParameters");
+         writer.WriteStartElement("CameraMaps");
 
-         this.WriteElement(writer, "Location", stepperMotorParameters.Location);
+         this.WriteElement(writer, "Name", cameraMaps.Name);
 
-         this.WriteElement(writer, "HomingMethod", stepperMotorParameters.HomingMethod);
-         this.WriteElement(writer, "HomeOffset", stepperMotorParameters.HomeOffset);
-         this.WriteElement(writer, "HomingSwitchVelocity", stepperMotorParameters.HomingSwitchVelocity);
-         this.WriteElement(writer, "HomingZeroVelocity", stepperMotorParameters.HomingZeroVelocity);
-         this.WriteElement(writer, "HomingAcceleration", stepperMotorParameters.HomingAcceleration);         
+         writer.WriteStartElement("Maps");
 
-         this.WriteElement(writer, "ProfileVelocity", stepperMotorParameters.ProfileVelocity);
-         this.WriteElement(writer, "ProfileAcceleration", stepperMotorParameters.ProfileAcceleration);
+         if (null != cameraMaps.Maps)
+         {
+            for (int i = 0; i < cameraMaps.Maps.Length; i++)
+            {
+               writer.WriteStartElement("Map");
+               this.WriteElement(writer, "Index", cameraMaps.Maps[i].Index.ToString());
+               this.WriteElement(writer, "SystemLocation", cameraMaps.Maps[i].SystemLocation.ToString());
+               writer.WriteEndElement();
+            }
+         }
 
-         this.WriteElement(writer, "MaximumPosition", stepperMotorParameters.MaximumPosition);
-         this.WriteElement(writer, "CenterPosition", stepperMotorParameters.CenterPosition);
-         this.WriteElement(writer, "MinimumPosition", stepperMotorParameters.MinimumPosition);
-
-         this.WriteElement(writer, "Polarity", stepperMotorParameters.Polarity);
-         this.WriteElement(writer, "PositionNotationIndex", stepperMotorParameters.PositionNotationIndex);
-         this.WriteElement(writer, "VelocityNotationIndex", stepperMotorParameters.VelocityNotationIndex);
-         this.WriteElement(writer, "VelocityDimensionIndex", stepperMotorParameters.VelocityDimensionIndex);
-         this.WriteElement(writer, "AccelerationNotationIndex", stepperMotorParameters.AccelerationNotationIndex);
-         this.WriteElement(writer, "AccelerationDimensionIndex", stepperMotorParameters.AccelerationDimensionIndex);
-         this.WriteElement(writer, "PositionEncoderIncrements", stepperMotorParameters.PositionEncoderIncrements);
-         this.WriteElement(writer, "PositionEncoderMotorRevolutions", stepperMotorParameters.PositionEncoderMotorRevolutions);
-         this.WriteElement(writer, "VelocityEncoderIncrementsPerSecond", stepperMotorParameters.VelocityEncoderIncrementsPerSecond);
-         this.WriteElement(writer, "VelocityEncoderMotorRevolutionsPerSecond", stepperMotorParameters.VelocityEncoderMotorRevolutionsPerSecond);
-         this.WriteElement(writer, "GearRatioMotorRevolutions", stepperMotorParameters.GearRatioMotorRevolutions);
-         this.WriteElement(writer, "GearRatioShaftRevolutions", stepperMotorParameters.GearRatioShaftRevolutions);
-         this.WriteElement(writer, "FeedConstantFeed", stepperMotorParameters.FeedConstantFeed);
-         this.WriteElement(writer, "FeedConstantShaftRevolutions", stepperMotorParameters.FeedConstantShaftRevolutions);
-
+         writer.WriteEndElement();
          writer.WriteEndElement();
       }
 
-      private void WriteLaserCameraMappings(XmlWriter writer, LaserCameraMappings laserCameraMappings)
+      private void WriteLightSelectParameters(XmlWriter writer, LightSelectParameters lightSelectParameters)
       {
-         writer.WriteStartElement("LaserCameraMappings");
+         writer.WriteStartElement("LightSelectParameters");
 
-         this.WriteElement(writer, "Front", laserCameraMappings.Front);
-         this.WriteElement(writer, "Rear", laserCameraMappings.Rear);
-
-         writer.WriteEndElement();
-      }
-
-      private void WriteTargetCameraMappings(XmlWriter writer, TargetCameraMappings targetCameraMappings)
-      {
-         writer.WriteStartElement("TargetCameraMappings");
-
-         this.WriteElement(writer, "Front", targetCameraMappings.Front);
-         this.WriteElement(writer, "Rear", targetCameraMappings.Rear);
-         this.WriteElement(writer, "Top", targetCameraMappings.Top);
-
-         writer.WriteEndElement();
-      }
-
-      private void WriteCameraSelectParameters(XmlWriter writer, CameraSelectParameters camaraSelectParameters)
-      {
-         writer.WriteStartElement("CameraSelectParameters");
-
-         this.WriteElement(writer, "Location", camaraSelectParameters.Location);
-         this.WriteElement(writer, "LightIntensity", camaraSelectParameters.LightIntensity);
-         this.WriteElement(writer, "LightChannelMask", camaraSelectParameters.LightChannelMask);
+         this.WriteElement(writer, "Location", lightSelectParameters.Location);
+         this.WriteElement(writer, "LightIntensity", lightSelectParameters.LightIntensity);
+         this.WriteElement(writer, "LightChannelMask", lightSelectParameters.LightChannelMask);
 
          writer.WriteEndElement();
       }
@@ -1849,8 +1606,6 @@
 
             this.WriteWheelMotorParameters(writer, this.LaserFrontWheel);
             this.WriteWheelMotorParameters(writer, this.LaserRearWheel);
-            this.WriteStepperMotorParameters(writer, this.LaserLeftStepper);
-            this.WriteStepperMotorParameters(writer, this.LaserRightStepper);
             this.WriteValueParameters(writer, this.LaserWheelMaximumSpeed);
             this.WriteValueParameters(writer, this.LaserWheelLowSpeedScale);
             this.WriteValueParameters(writer, this.LaserWheelManualWheelDistance);
@@ -1861,14 +1616,15 @@
             this.WriteElement(writer, "LaserLinkVoltageMultipler", this.LaserLinkVoltageMultipler);
             this.WriteElement(writer, "LaserLightPercentToCount", this.LaserLightPercentToCount);
             this.WriteElement(writer, "LaserStepperPivotAngle", this.LaserStepperPivotAngle);
-            this.WriteLaserCameraMappings(writer, this.LaserCameraMapping);
-            this.WriteCameraSelectParameters(writer, this.LaserFrontCamera);
-            this.WriteCameraSelectParameters(writer, this.LaserRearCamera);
-            this.WriteElement(writer, "LaserSelectedCamera", this.LaserSelectedCamera.ToString());
+            this.WriteCameraMaps(writer, this.CrawlerHubCameraMaps);
+            this.WriteLightSelectParameters(writer, this.CrawlerFrontLight);
+            this.WriteLightSelectParameters(writer, this.CrawlerRearLight);
+            this.WriteLightSelectParameters(writer, this.CrawlerLeftLight);
+            this.WriteLightSelectParameters(writer, this.CrawlerRightLight);
+            this.WriteElement(writer, "CrawlerHubSelectedCamera", this.CrawlerHubSelectedCamera.ToString());
 
             this.WriteWheelMotorParameters(writer, this.TargetFrontWheel);
             this.WriteWheelMotorParameters(writer, this.TargetRearWheel);
-            this.WriteStepperMotorParameters(writer, this.TargetStepper);
             this.WriteValueParameters(writer, this.TargetWheelMaximumSpeed);
             this.WriteValueParameters(writer, this.TargetWheelLowSpeedScale);
             this.WriteValueParameters(writer, this.TargetWheelManualWheelDistance);
@@ -1878,11 +1634,12 @@
             this.WriteElement(writer, "TargetWheelCountsToAmps", this.TargetWheelCountsToAmps);            
             this.WriteElement(writer, "TargetLinkVoltageMultipler", this.TargetLinkVoltageMultipler);
             this.WriteElement(writer, "TargetLightPercentToCount", this.TargetLightPercentToCount);
-            this.WriteTargetCameraMappings(writer, this.TargetCameraMapping);
-            this.WriteCameraSelectParameters(writer, this.TargetFrontCamera);
-            this.WriteCameraSelectParameters(writer, this.TargetRearCamera);
-            this.WriteCameraSelectParameters(writer, this.TargetTopCamera);
-            this.WriteElement(writer, "TargetSelectedCamera", this.TargetSelectedCamera.ToString());
+
+            this.WriteCameraMaps(writer, this.BulletCameraMaps);
+            this.WriteLightSelectParameters(writer, this.BulletLeftLight);
+            this.WriteLightSelectParameters(writer, this.BulletRightLight);
+            this.WriteLightSelectParameters(writer, this.BulletDownLight);
+            this.WriteElement(writer, "BulletSelectedCamera", this.BulletSelectedCamera.ToString());
             this.WriteElement(writer, "TargetTopCameraCwLimit", this.TargetTopCameraCwLimit);
             this.WriteElement(writer, "TargetTopCameraCcwLimit", this.TargetTopCameraCcwLimit);
 
@@ -1968,29 +1725,37 @@
          this.WriteData(defaultFile);
       }
 
-      public CameraSelectParameters GetCameraSelectParameters(Controls.CameraLocations cameraLocation)
+      public LightSelectParameters GetLightSelectParameters(Controls.SystemLocations systemLocation)
       {
-         CameraSelectParameters result = this.TargetTopCamera;
+         LightSelectParameters result = null;
 
-         if (Controls.CameraLocations.crawlerFront == cameraLocation)
+         if (Controls.SystemLocations.crawlerFront == systemLocation)
          {
-            result = this.LaserFrontCamera;
+            result = this.CrawlerFrontLight;
          }
-         else if (Controls.CameraLocations.crawlerRear == cameraLocation)
+         else if (Controls.SystemLocations.crawlerRear == systemLocation)
          {
-            result = this.LaserRearCamera;
+            result = this.CrawlerRearLight;
          }
-         else if (Controls.CameraLocations.bulletLeft == cameraLocation)
+         else if (Controls.SystemLocations.crawlerLeft == systemLocation)
          {
-            result = this.TargetFrontCamera;
+            result = this.CrawlerLeftLight;
          }
-         else if (Controls.CameraLocations.bulletRight == cameraLocation)
+         else if (Controls.SystemLocations.crawlerRight == systemLocation)
          {
-            result = this.TargetRearCamera;
+            result = this.CrawlerRightLight;
          }
-         else if (Controls.CameraLocations.bulletDown == cameraLocation)
+         else if (Controls.SystemLocations.bulletLeft == systemLocation)
          {
-            result = this.TargetRearCamera;
+            result = this.BulletLeftLight;
+         }
+         else if (Controls.SystemLocations.bulletRight == systemLocation)
+         {
+            result = this.BulletRightLight;
+         }
+         else if (Controls.SystemLocations.bulletDown == systemLocation)
+         {
+            result = this.BulletDownLight;
          }
 
          return (result);

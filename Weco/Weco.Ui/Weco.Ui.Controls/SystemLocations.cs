@@ -3,7 +3,7 @@ namespace Weco.Ui.Controls
 {
    using System;
 
-   public enum CameraLocations
+   public enum SystemLocations
    {
       none,
 

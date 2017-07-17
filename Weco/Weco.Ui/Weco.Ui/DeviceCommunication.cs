@@ -631,162 +631,90 @@ namespace Weco.Ui
 
       #region Lights and Camera
 
-      public void SetCameraLightLevel(Controls.CameraLocations camera, int level)
+      public void SetLightLevel(Controls.SystemLocations systemLocation, int level)
       {
-         if (Controls.CameraLocations.crawlerLeft == camera)
+         if ((Controls.SystemLocations.crawlerLeft == systemLocation) ||
+             (Controls.SystemLocations.crawlerRight == systemLocation) ||
+             (Controls.SystemLocations.crawlerFront == systemLocation) ||
+             (Controls.SystemLocations.crawlerRear == systemLocation))
          {
+            LaserCommunicationBus.Instance.SetLightLevel(systemLocation, level);
          }
-         else if (Controls.CameraLocations.crawlerRight == camera)
+         else if ((Controls.SystemLocations.bulletLeft == systemLocation) ||
+                  (Controls.SystemLocations.bulletRight == systemLocation) ||
+                  (Controls.SystemLocations.bulletDown == systemLocation))
          {
-         }
-         else if ((Controls.CameraLocations.crawlerFront == camera) ||
-                  (Controls.CameraLocations.crawlerRear == camera))
-         {
-            LaserCommunicationBus.Instance.SetCameraLightLevel(level);
-         }
-         else if ((Controls.CameraLocations.bulletLeft == camera) ||
-                  (Controls.CameraLocations.bulletRight == camera) ||
-                  (Controls.CameraLocations.bulletDown == camera))
-         {
-            TargetCommunicationBus.Instance.SetCameraLightLevel(level);
+            TargetCommunicationBus.Instance.SetLightLevel(level);
          }
       }
 
-      public int GetCameraLightLevel(Controls.CameraLocations camera)
+      public int GetLightLevel(Controls.SystemLocations systemLocation)
       {
          int result = 0;
 
-         if (Controls.CameraLocations.crawlerLeft == camera)
+         if ((Controls.SystemLocations.crawlerLeft == systemLocation) ||
+             (Controls.SystemLocations.crawlerRight == systemLocation) ||
+             (Controls.SystemLocations.crawlerFront == systemLocation) ||
+             (Controls.SystemLocations.crawlerRear == systemLocation))
          {
+            result = LaserCommunicationBus.Instance.GetLightLevel(systemLocation);
          }
-         else if (Controls.CameraLocations.crawlerRight == camera)
+         else if ((Controls.SystemLocations.bulletLeft == systemLocation) ||
+                  (Controls.SystemLocations.bulletRight == systemLocation) ||
+                  (Controls.SystemLocations.bulletDown == systemLocation))
          {
-         }
-         else if ((Controls.CameraLocations.crawlerFront == camera) ||
-                  (Controls.CameraLocations.crawlerRear == camera))
-         {
-            result = LaserCommunicationBus.Instance.GetCameraLightLevel();
-         }
-         else if ((Controls.CameraLocations.bulletLeft == camera) ||
-                  (Controls.CameraLocations.bulletRight == camera) ||
-                  (Controls.CameraLocations.bulletDown == camera))
-         {
-            result = TargetCommunicationBus.Instance.GetCameraLightLevel();
+            result = TargetCommunicationBus.Instance.GetLightLevel();
          }
 
          return (result);
       }
 
-      public void SetCameraLightChannelMask(Controls.CameraLocations camera, int mask)
+      public void SetLightChannelMask(Controls.SystemLocations systemLocation, int mask)
       {
-         if (Controls.CameraLocations.crawlerLeft == camera)
+         if ((Controls.SystemLocations.crawlerLeft == systemLocation) ||
+             (Controls.SystemLocations.crawlerRight == systemLocation) ||
+             (Controls.SystemLocations.crawlerFront == systemLocation) ||
+             (Controls.SystemLocations.crawlerRear == systemLocation))
          {
+            LaserCommunicationBus.Instance.SetLightChannelMask(systemLocation, mask);
          }
-         else if (Controls.CameraLocations.crawlerRight == camera)
+         else if ((Controls.SystemLocations.bulletLeft == systemLocation) ||
+                  (Controls.SystemLocations.bulletRight == systemLocation) ||
+                  (Controls.SystemLocations.bulletDown == systemLocation))
          {
-         }
-         else if ((Controls.CameraLocations.crawlerFront == camera) ||
-                  (Controls.CameraLocations.crawlerRear == camera))
-         {
-            LaserCommunicationBus.Instance.SetCameraLightChannelMask(mask);
-         }
-         else if ((Controls.CameraLocations.bulletLeft == camera) ||
-                  (Controls.CameraLocations.bulletRight == camera) ||
-                  (Controls.CameraLocations.bulletDown == camera))
-         {
-            TargetCommunicationBus.Instance.SetCameraLightChannelMask(mask);
+            TargetCommunicationBus.Instance.SetLightChannelMask(mask);
          }
       }
 
-      public int GetCameraLightChannelMask(Controls.CameraLocations camera)
-      {
-         int result = 0;
-
-         if (Controls.CameraLocations.crawlerLeft == camera)
-         {
-         }
-         else if (Controls.CameraLocations.crawlerRight == camera)
-         {
-         }
-         else if ((Controls.CameraLocations.crawlerFront == camera) ||
-                  (Controls.CameraLocations.crawlerRear == camera))
-         {
-            result = LaserCommunicationBus.Instance.GetCameraLightChannelMask();
-         }
-         else if ((Controls.CameraLocations.bulletLeft == camera) ||
-                  (Controls.CameraLocations.bulletRight == camera) ||
-                  (Controls.CameraLocations.bulletDown == camera))
-         {
-            result = TargetCommunicationBus.Instance.GetCameraLightChannelMask();
-         }
-
-         return (result);
-      }
-
-      public void SetCameraLightEnable(Controls.CameraLocations camera, bool enabled)
-      {
-         if (Controls.CameraLocations.crawlerLeft == camera)
-         {
-         }
-         else if (Controls.CameraLocations.crawlerRight == camera)
-         {
-         }
-         else if ((Controls.CameraLocations.crawlerFront == camera) ||
-                  (Controls.CameraLocations.crawlerRear == camera))
-         {
-            LaserCommunicationBus.Instance.SetCameraLightEnable(camera, enabled);
-         }
-         else if ((Controls.CameraLocations.bulletLeft == camera) ||
-                  (Controls.CameraLocations.bulletRight == camera) ||
-                  (Controls.CameraLocations.bulletDown == camera))
-         {
-            TargetCommunicationBus.Instance.SetCameraLightEnable(camera, enabled);
-         }
-      }
-
-      public bool GetCameraLightEnable(Controls.CameraLocations camera)
+      public bool GetLightEnable(Controls.SystemLocations systemLocation)
       {
          bool result = false;
 
-         if (Controls.CameraLocations.crawlerLeft == camera)
+         if ((Controls.SystemLocations.crawlerLeft == systemLocation) ||
+             (Controls.SystemLocations.crawlerRight == systemLocation) ||
+             (Controls.SystemLocations.crawlerFront == systemLocation) ||
+             (Controls.SystemLocations.crawlerRear == systemLocation))
          {
+            result = LaserCommunicationBus.Instance.GetLightEnable(systemLocation);
          }
-         else if (Controls.CameraLocations.crawlerRight == camera)
+         else if ((Controls.SystemLocations.bulletLeft == systemLocation) ||
+                  (Controls.SystemLocations.bulletRight == systemLocation) ||
+                  (Controls.SystemLocations.bulletDown == systemLocation))
          {
-         }
-         else if ((Controls.CameraLocations.crawlerFront == camera) ||
-                  (Controls.CameraLocations.crawlerRear == camera))
-         {
-            result = LaserCommunicationBus.Instance.GetCameraLightEnable(camera);
-         }
-         else if ((Controls.CameraLocations.bulletLeft == camera) ||
-                  (Controls.CameraLocations.bulletRight == camera) ||
-                  (Controls.CameraLocations.bulletDown == camera))
-         {
-            result = TargetCommunicationBus.Instance.GetCameraLightEnable(camera);
+            result = TargetCommunicationBus.Instance.GetLightEnable(systemLocation);
          }
 
          return (result);
       }
 
-      public void SetLaserCamera(Controls.CameraLocations camera)
+      public void SetCrawlerCamera(Controls.SystemLocations systemLocation)
       {
-         LaserCommunicationBus.Instance.SetLaserCamera(camera);
+         LaserCommunicationBus.Instance.SetCrawlerCamera(systemLocation);
       }
 
-      public Controls.CameraLocations GetLaserCamera()
+      public void SetBulletCamera(Controls.SystemLocations systemLocation)
       {
-         return (LaserCommunicationBus.Instance.GetLaserCamera());
-      }
-
-      public void SetTargetCamera(Controls.CameraLocations camera)
-      {
-         TargetCommunicationBus.Instance.SetTargetCamera(camera);
-      }
-
-      public Controls.CameraLocations GetTargetCamera()
-      {
-         return (TargetCommunicationBus.Instance.GetTargetCamera());
+         TargetCommunicationBus.Instance.SetBulletCamera(systemLocation);
       }
 
       #endregion

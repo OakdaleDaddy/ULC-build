@@ -55,7 +55,7 @@ namespace Weco.Ui.Controls
       public new event MouseEventHandler MouseClick;
       public new event MouseEventHandler MouseUp;
 
-      public CameraLocations Camera { set; get; }
+      public SystemLocations SystemLocation { set; get; }
       public bool HoldTimeoutEnable { set; get; }
       public int HoldTimeoutInterval { set; get; }
       public int HoldRepeatInterval { set; get; }

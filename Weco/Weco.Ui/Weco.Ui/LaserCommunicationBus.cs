@@ -77,14 +77,20 @@
       //private int laserSampleCount;
       //private double laserAverageMeasurement;
 
-      private int camaraLightIntensitySetPoint;
+      private int crawlerLeftTrackLightIntensitySetPoint;
+      private int crawlerRightTrackLightIntensitySetPoint;
+
+      private int crawlerHubLightIntensitySetPoint;
       //private int camaraLightIntensityRequested;
 
-      private int cameraLightChannelMaskSetPoint;
+      private int crawlerLeftTrackLightChannelMaskSetPoint;
+      private int crawlerRightTrackLightChannelMaskSetPoint;
+
+      private int crawlerHubLightChannelMaskSetPoint;
       //private int cameraLightChannelMaskRequested;
 
-      private int cameraSetPoint;
-      //private int cameraRequested;
+      private int hubCameraSelectSetPoint;
+      private int hubCameraSelectRequested;
 
       #endregion
 
@@ -152,53 +158,41 @@
          }
       }
 
-      private int GetCameraLightChannelMask(Controls.CameraLocations camera)
+#if false
+      private int GetLightChannelMask(Controls.SystemLocations camera)
       {
          int result = 0;
 
-         if (Controls.CameraLocations.crawlerFront == camera)
+         if (Controls.SystemLocations.crawlerFront == camera)
          {
             result = (int)(1 << 0);
          }
-         else if (Controls.CameraLocations.crawlerRear == camera)
+         else if (Controls.SystemLocations.crawlerRear == camera)
          {
             result = (int)(1 << 1);
          }
 
          return (result);
       }
+#endif
 
-      private int GetCameraSelectionValue(Controls.CameraLocations camera)
+#if false
+      private Controls.SystemLocations GetCamera(int selection)
       {
-         int result = 0;
-
-         if (Controls.CameraLocations.crawlerFront == camera)
-         {
-            result = ParameterAccessor.Instance.LaserCameraMapping.Front;
-         }
-         else if (Controls.CameraLocations.crawlerRear == camera)
-         {
-            result = ParameterAccessor.Instance.LaserCameraMapping.Rear;
-         }
-
-         return (result);
-      }
-
-      private Controls.CameraLocations GetCamera(int selection)
-      {
-         Controls.CameraLocations result = Controls.CameraLocations.crawlerFront;
+         Controls.SystemLocations result = Controls.SystemLocations.crawlerFront;
 
          if (0 == selection)
          {
-            result = Controls.CameraLocations.crawlerFront;
+            result = Controls.SystemLocations.crawlerFront;
          }
          else if (1 == selection)
          {
-            result = Controls.CameraLocations.crawlerRear;
+            result = Controls.SystemLocations.crawlerRear;
          }
 
          return (result);
       }
+#endif
 
       #endregion
 
@@ -390,13 +384,19 @@
          this.stepper0Status.Initialize();
          this.stepper1Status.Initialize();
 
-         this.camaraLightIntensitySetPoint = 0;
+         this.crawlerLeftTrackLightIntensitySetPoint = 0;
+         this.crawlerRightTrackLightIntensitySetPoint = 0;
+         this.crawlerHubLightIntensitySetPoint = 0;
          //this.camaraLightIntensityRequested = 0;
 
-         this.cameraLightChannelMaskSetPoint = 0;
+         this.crawlerLeftTrackLightChannelMaskSetPoint = 0;
+         this.crawlerRightTrackLightChannelMaskSetPoint = 0;
+
+         this.crawlerHubLightChannelMaskSetPoint = 0;
          //this.cameraLightChannelMaskRequested = 0;
 
-         this.cameraSetPoint = 0;
+         this.hubCameraSelectSetPoint = 0;
+         this.hubCameraSelectRequested = 0;
          //this.cameraRequested = 0;
       }
 
@@ -634,205 +634,12 @@
          return (scheduled);
       }
 
-      private bool UpdateStepper(MotorComponent motor, StepperMotorStatus status, StepperMotorParameters parameters)
-      {
-         bool scheduled = false;
-
-         if (null == motor.FaultReason)
-         {
-            DateTime now = DateTime.Now;
-            bool positionObtained = false;
-
-            if (now > status.statusInvalidTimeLimit)
-            {
-               positionObtained = motor.PositionAttained;
-            }
-
-            if (false != this.stopAll)
-            {
-               if (MotorComponent.Modes.homing == motor.Mode)
-               {
-                  motor.StopHoming();
-               }
-
-               if (MotorComponent.Modes.off != motor.Mode)
-               {
-                  motor.SetMode(MotorComponent.Modes.off);
-               }
-
-               status.state = StepperMotorStatus.States.stopped;
-            }
-            else if (status.state == StepperMotorStatus.States.off)
-            {
-               if (false != status.homeNeeded)
-               {
-                  status.state = StepperMotorStatus.States.startHoming;
-               }
-               else
-               {
-                  status.state = StepperMotorStatus.States.startPosition;
-               }
-            }
-            else if (status.state == StepperMotorStatus.States.stopped)
-            {
-               // nothing, reset needed to clear
-            }
-
-            // need undefined state
-            else if (status.state == StepperMotorStatus.States.startHoming)
-            {
-               status.homeNeeded = false;
-
-               motor.SetHomingMethod((byte)parameters.HomingMethod);
-               motor.SetHomeOffset(parameters.HomeOffset);
-               motor.SetHomingSwitchSpeed((UInt32)parameters.HomingSwitchVelocity);
-               motor.SetHomingZeroSpeed((UInt32)parameters.HomingZeroVelocity);
-               motor.SetHomingAcceleration((UInt32)parameters.HomingAcceleration);
-
-               motor.SetMode(MotorComponent.Modes.homing);
-               motor.StartHoming();
-
-               Tracer.WriteHigh(TraceGroup.LBUS, "", "{0} homing mode", motor.Name);
-
-               positionObtained = false;
-               status.statusInvalidTimeLimit = now.AddMilliseconds(250);
-               status.actualNeeded = true;
-               status.state = StepperMotorStatus.States.homing;
-            }
-            else if (status.state == StepperMotorStatus.States.homing)
-            {
-               if (false != motor.HomingAttained)
-               {
-                  status.centerNeeded = true;
-                  status.state = StepperMotorStatus.States.startPosition;
-               }
-            }
-
-            else if (status.state == StepperMotorStatus.States.startPosition)
-            {
-               motor.SetProfileVelocity(parameters.ProfileVelocity);
-               motor.SetProfileAcceleration(parameters.ProfileAcceleration);
-
-               if (false != status.centerNeeded)
-               {
-                  status.positionNeeded = parameters.CenterPosition;
-                  status.positionTarget = parameters.CenterPosition;
-                  motor.SetTargetPosition(status.positionNeeded, false);
-                  status.positionRequested = status.positionNeeded;
-               }
-               else
-               {
-                  motor.SetTargetPosition(status.positionNeeded, false);
-                  status.positionRequested = status.positionNeeded;
-               }
-
-               Tracer.WriteHigh(TraceGroup.LBUS, "", "{0} position {1}", motor.Name, status.positionRequested);
-
-               motor.SetMode(MotorComponent.Modes.position);
-               Tracer.WriteHigh(TraceGroup.LBUS, "", "{0} position mode", motor.Name);
-
-               status.state = StepperMotorStatus.States.positioning;
-            }
-            else if (status.state == StepperMotorStatus.States.positioning)
-            {
-               if (false != status.homeNeeded)
-               {
-                  status.state = StepperMotorStatus.States.startHoming;
-               }
-               else if (false != status.centerNeeded)
-               {
-                  status.centerNeeded = false;
-
-                  status.positionNeeded = parameters.CenterPosition;
-                  status.positionTarget = parameters.CenterPosition;
-                  motor.SetTargetPosition(status.positionNeeded, false);
-                  status.positionRequested = status.positionNeeded;
-
-                  Tracer.WriteHigh(TraceGroup.LBUS, "", "{0} position {1}", motor.Name, status.positionRequested);
-
-                  positionObtained = false;
-                  status.statusInvalidTimeLimit = now.AddMilliseconds(250);
-                  status.actualNeeded = true;
-                  status.state = StepperMotorStatus.States.centering;
-               }
-               else if (false != status.stopNeeded)
-               {
-                  status.stopNeeded = false;
-
-                  motor.Halt();
-                  status.positionRequested = status.positionNeeded;
-                  Tracer.WriteHigh(TraceGroup.LBUS, "", "{0} stop", motor.Name);
-
-                  positionObtained = false;
-                  status.statusInvalidTimeLimit = now.AddMilliseconds(250);
-                  status.actualNeeded = true;
-                  status.state = StepperMotorStatus.States.stopping;
-               }
-               else if (status.positionRequested != status.positionNeeded)
-               {
-                  motor.SetTargetPosition(status.positionNeeded, false);
-                  status.positionRequested = status.positionNeeded;
-
-                  Tracer.WriteHigh(TraceGroup.LBUS, "", "{0} position {1}", motor.Name, status.positionRequested);
-
-                  positionObtained = false;
-                  status.statusInvalidTimeLimit = now.AddMilliseconds(250);
-                  status.actualNeeded = true;
-               }
-            }
-            else if (status.state == StepperMotorStatus.States.centering)
-            {
-               if (false != positionObtained)
-               {
-                  motor.GetActualPosition(ref status.actualPosition);
-
-                  status.positionNeeded = status.actualPosition;
-                  status.positionRequested = status.positionNeeded;
-
-                  Tracer.WriteHigh(TraceGroup.LBUS, "", "{0} centered at {1}", motor.Name, status.actualPosition);
-
-                  status.state = StepperMotorStatus.States.positioning;
-               }
-            }
-            else if (status.state == StepperMotorStatus.States.stopping)
-            {
-               if (false != positionObtained)
-               {
-                  motor.GetActualPosition(ref status.actualPosition);
-
-                  status.positionNeeded = status.actualPosition;
-                  motor.SetTargetPosition(status.positionNeeded, false);
-                  status.positionRequested = status.positionNeeded;
-
-                  motor.Run();
-
-                  Tracer.WriteHigh(TraceGroup.LBUS, "", "{0} stopped at {1}", motor.Name, status.actualPosition);
-
-                  status.state = StepperMotorStatus.States.positioning;
-               }
-            }
-
-            if ((false != status.actualNeeded) &&
-                (now > status.readTimeLimit))
-            {
-               motor.GetActualPosition(ref status.actualPosition);
-
-               if (false != positionObtained)
-               {
-                  status.actualNeeded = false;
-               }
-               else
-               {
-                  status.readTimeLimit = now.AddMilliseconds(250);
-               }
-            }
-         }
-
-         return (scheduled);
-      }
-
       private void UpdateLaserBoard()
       {
+         if (this.hubCameraSelectRequested != this.hubCameraSelectSetPoint)
+         {
+            this.hubCameraSelectRequested = hubCameraSelectSetPoint;
+         }
       }
 
       #endregion
@@ -1804,68 +1611,103 @@
 
       #region Lights and Camera
       
-      public void SetCameraLightLevel(int level)
+      public void SetLightLevel(Controls.SystemLocations systemLocation, int level)
       {
          lock (this.valueUpdate)
          {
-            this.camaraLightIntensitySetPoint = level;
-         }
-      }
-
-      public int GetCameraLightLevel()
-      {
-         int result = this.camaraLightIntensitySetPoint;
-         return (result);
-      }
-
-      public void SetCameraLightChannelMask(int cameraLightChannelMask)
-      {
-         this.cameraLightChannelMaskSetPoint = cameraLightChannelMask;
-      }
-
-      public int GetCameraLightChannelMask()
-      {
-         int result = this.cameraLightChannelMaskSetPoint;
-         return (result);
-      }
-
-      public void SetCameraLightEnable(Controls.CameraLocations camera, bool enabled)
-      {
-         lock (this.valueUpdate)
-         {
-            int mask = this.GetCameraLightChannelMask(camera);
-
-            if (false != enabled)
+            if (Controls.SystemLocations.crawlerLeft == systemLocation)
             {
-               this.cameraLightChannelMaskSetPoint |= mask;
+               this.crawlerLeftTrackLightIntensitySetPoint = level;
             }
-            else
+            else if (Controls.SystemLocations.crawlerRight == systemLocation)
             {
-               this.cameraLightChannelMaskSetPoint &= ~mask;
+               this.crawlerRightTrackLightIntensitySetPoint = level;
             }
+            else if ((Controls.SystemLocations.crawlerFront == systemLocation) ||
+                     (Controls.SystemLocations.crawlerRear == systemLocation))
+            {
+               this.crawlerHubLightIntensitySetPoint = level;
+            }         
          }
       }
 
-      public bool GetCameraLightEnable(Controls.CameraLocations camera)
+      public int GetLightLevel(Controls.SystemLocations systemLocation)
       {
-         int mask = this.GetCameraLightChannelMask(camera);
-         bool result = ((this.cameraLightChannelMaskSetPoint & mask) != 0) ? true : false;
+         int result = 0;
+
+         if (Controls.SystemLocations.crawlerLeft == systemLocation)
+         {
+            result = this.crawlerLeftTrackLightIntensitySetPoint; ;
+         }
+         else if (Controls.SystemLocations.crawlerRight == systemLocation)
+         {
+            result = this.crawlerRightTrackLightIntensitySetPoint; ;
+         }
+         else if ((Controls.SystemLocations.crawlerFront == systemLocation) ||
+                  (Controls.SystemLocations.crawlerRear == systemLocation))
+         {
+            result = this.crawlerHubLightIntensitySetPoint; ;
+         }
+         
+         return (result);
+      }
+
+      public void SetLightChannelMask(Controls.SystemLocations systemLocation, int lightChannelMask)
+      {
+         if (Controls.SystemLocations.crawlerLeft == systemLocation) 
+         {
+            this.crawlerLeftTrackLightChannelMaskSetPoint = lightChannelMask;
+         }
+         else if (Controls.SystemLocations.crawlerRight == systemLocation) 
+         {
+            this.crawlerRightTrackLightChannelMaskSetPoint = lightChannelMask;
+         }
+         else if ((Controls.SystemLocations.crawlerFront == systemLocation) ||
+                  (Controls.SystemLocations.crawlerRear == systemLocation))
+         {
+            this.crawlerHubLightChannelMaskSetPoint = lightChannelMask;
+         }
+      }
+      
+      public bool GetLightEnable(Controls.SystemLocations systemLocation)
+      {
+         bool result = false;
+         int mask = 0;
+
+         if ((Controls.SystemLocations.crawlerLeft == systemLocation) ||
+             (Controls.SystemLocations.crawlerRight == systemLocation) ||
+             (Controls.SystemLocations.crawlerFront == systemLocation))
+         {
+            mask = (int)(1 << 0);
+         }
+         else if (Controls.SystemLocations.crawlerRear == systemLocation)
+         {
+            mask = (int)(1 << 1);
+         }
+
+         if (Controls.SystemLocations.crawlerLeft == systemLocation)
+         {
+            result = ((this.crawlerLeftTrackLightChannelMaskSetPoint & mask) != 0) ? true : false;
+         }
+         else if (Controls.SystemLocations.crawlerRight == systemLocation)
+         {
+            result = ((this.crawlerRightTrackLightChannelMaskSetPoint & mask) != 0) ? true : false;
+         }
+         else if ((Controls.SystemLocations.crawlerFront == systemLocation) ||
+                  (Controls.SystemLocations.crawlerRear == systemLocation))
+         {
+            result = ((this.crawlerHubLightChannelMaskSetPoint & mask) != 0) ? true : false;
+         }
 
          return (result);
       }
 
-      public void SetLaserCamera(Controls.CameraLocations camera)
+      public void SetCrawlerCamera(Controls.SystemLocations systemLocation)
       {
          lock (this.valueUpdate)
          {
-            this.cameraSetPoint = this.GetCameraSelectionValue(camera);
+            this.hubCameraSelectSetPoint = ParameterAccessor.Instance.CrawlerHubCameraMaps.GetIndex(systemLocation);
          }
-      }
-
-      public Controls.CameraLocations GetLaserCamera()
-      {
-         Controls.CameraLocations result = this.GetCamera(this.cameraSetPoint);
-         return (result);
       }
 
       #endregion

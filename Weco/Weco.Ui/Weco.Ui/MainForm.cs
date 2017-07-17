@@ -46,10 +46,11 @@ namespace Weco.Ui
 
       private bool laserMovementFastSelected;
 
-      private bool laserLightEnabled;
-      private bool targetLightEnabled;
-      private Controls.CameraSelectButton selectedLaserCameraButton;
-      private Controls.CameraSelectButton selectedTargetCameraButton;
+      private bool crawlerTrackLightEnabled;
+      private bool crawlerCameraLightEnabled;
+      private bool bulletCameraLightEnabled;
+      private Controls.CameraSelectButton selectedCrawlerCameraButton;
+      private Controls.CameraSelectButton selectedBulletCameraButton;
       private Controls.CameraSelectButton[] cameraButtons;
 
       private PopupDimmerForm dimmerForm;
@@ -291,133 +292,69 @@ namespace Weco.Ui
 
       #region Video
 
-#if false
-      private void UpdateCameraHoldEnable()
-      {
-         for (int i = 0; i < this.cameraButtons.Length; i++)
-         {
-            bool holdEnabled = (VideoSelectModes.light == this.videoSelectMode) ? true : false;
-            bool selectEnabled = true;
-
-            if (VideoSelectModes.none == this.videoSelectMode)
-            {
-               selectEnabled = false;
-            }
-            else if ((VideoSelectModes.light == this.videoSelectMode) &&
-                     (false == this.cameraButtons[i].CenterEnabled))
-            {
-               selectEnabled = false;
-            }
-            else if (VideoSelectModes.laserCamera == this.videoSelectMode)
-            {
-               if ((Ui.Controls.CameraLocations.laserFront != this.cameraButtons[i].Camera) &&
-                   (Ui.Controls.CameraLocations.laserRear != this.cameraButtons[i].Camera))
-               {
-                  selectEnabled = false;
-               }
-            }
-            else if (VideoSelectModes.targetCamera == this.videoSelectMode)
-            {
-               if ((Ui.Controls.CameraLocations.targetFront != this.cameraButtons[i].Camera) &&
-                   (Ui.Controls.CameraLocations.targetRear!= this.cameraButtons[i].Camera) &&
-                   (Ui.Controls.CameraLocations.targetTop != this.cameraButtons[i].Camera))
-               {
-                  selectEnabled = false;
-               }
-            }
-
-            this.cameraButtons[i].Enabled = selectEnabled;
-            this.cameraButtons[i].HoldTimeoutEnable = holdEnabled;
-            this.cameraButtons[i].Invalidate();
-         }
-      }
-
-      private void UpdateVideoSelectorColor()
-      {
-         if (VideoSelectModes.light == this.videoSelectMode)
-         {
-            this.LightSelectButton.BackColor = Color.Lime;
-            this.LaserMonitorSelectButton.BackColor = Color.FromArgb(171, 171, 171);
-            this.TargetMonitorSelectButton.BackColor = Color.FromArgb(171, 171, 171);
-         }
-         else if (VideoSelectModes.laserCamera == this.videoSelectMode)
-         {
-            this.LightSelectButton.BackColor = Color.FromArgb(171, 171, 171);
-            this.LaserMonitorSelectButton.BackColor = Color.Lime;
-            this.TargetMonitorSelectButton.BackColor = Color.FromArgb(171, 171, 171);
-         }
-         else if (VideoSelectModes.targetCamera == this.videoSelectMode)
-         {
-            this.LightSelectButton.BackColor = Color.FromArgb(171, 171, 171);
-            this.LaserMonitorSelectButton.BackColor = Color.FromArgb(171, 171, 171);
-            this.TargetMonitorSelectButton.BackColor = Color.Lime;
-         }
-         else
-         {
-            this.LightSelectButton.BackColor = Color.FromArgb(171, 171, 171);
-            this.LaserMonitorSelectButton.BackColor = Color.FromArgb(171, 171, 171);
-            this.TargetMonitorSelectButton.BackColor = Color.FromArgb(171, 171, 171);
-         }
-      }
-#endif
-
       private void AssignCrawlerCamera(Controls.CameraSelectButton selected)
       {
-         if (selected != this.selectedLaserCameraButton)
+         if (selected != this.selectedCrawlerCameraButton)
          {
-            CameraSelectParameters cameraSelectParameters;
+            LightSelectParameters cameraSelectParameters;
 
-            if (null != this.selectedLaserCameraButton)
+            if (null != this.selectedCrawlerCameraButton)
             {
-               this.selectedLaserCameraButton.LeftVisible = false;
-               cameraSelectParameters = ParameterAccessor.Instance.GetCameraSelectParameters(this.selectedLaserCameraButton.Camera);
-               cameraSelectParameters.LightIntensity = DeviceCommunication.Instance.GetCameraLightLevel(this.selectedLaserCameraButton.Camera);
+               this.selectedCrawlerCameraButton.LeftVisible = false;
+               cameraSelectParameters = ParameterAccessor.Instance.GetLightSelectParameters(this.selectedCrawlerCameraButton.SystemLocation);
+               cameraSelectParameters.LightIntensity = DeviceCommunication.Instance.GetLightLevel(this.selectedCrawlerCameraButton.SystemLocation);
             }
 
-            cameraSelectParameters = ParameterAccessor.Instance.GetCameraSelectParameters(selected.Camera);
-            int channelMask = (false != this.laserLightEnabled) ? cameraSelectParameters.LightChannelMask : 0;
+            cameraSelectParameters = ParameterAccessor.Instance.GetLightSelectParameters(selected.SystemLocation);
+            int channelMask = (false != this.crawlerCameraLightEnabled) ? cameraSelectParameters.LightChannelMask : 0;
 
-            Tracer.WriteHigh(TraceGroup.UI, "", "laser camera {0}", selected.Camera.ToString());
-            DeviceCommunication.Instance.SetLaserCamera(selected.Camera);
-            DeviceCommunication.Instance.SetCameraLightLevel(selected.Camera, cameraSelectParameters.LightIntensity);
-            DeviceCommunication.Instance.SetCameraLightChannelMask(selected.Camera, channelMask);
+            Tracer.WriteHigh(TraceGroup.UI, "", "crawler camera {0}", selected.SystemLocation.ToString());
+            DeviceCommunication.Instance.SetCrawlerCamera(selected.SystemLocation);
+            DeviceCommunication.Instance.SetLightLevel(selected.SystemLocation, cameraSelectParameters.LightIntensity);
+            DeviceCommunication.Instance.SetLightChannelMask(selected.SystemLocation, channelMask);
             VideoStampOsd.Instance.SetCameraIdText(1, selected.Text);
 
             selected.LeftVisible = true;
-            this.CrawlerFrontCameraSelectButton.CenterVisible = DeviceCommunication.Instance.GetCameraLightEnable(Ui.Controls.CameraLocations.crawlerFront);
+            this.CrawlerFrontCameraSelectButton.CenterVisible = DeviceCommunication.Instance.GetLightEnable(Ui.Controls.SystemLocations.crawlerFront);
             this.CrawlerFrontCameraSelectButton.CenterLevel = cameraSelectParameters.LightIntensity;
-            this.CrawlerRearCameraSelectButton.CenterVisible = DeviceCommunication.Instance.GetCameraLightEnable(Ui.Controls.CameraLocations.crawlerRear);
+            this.CrawlerRearCameraSelectButton.CenterVisible = DeviceCommunication.Instance.GetLightEnable(Ui.Controls.SystemLocations.crawlerRear);
             this.CrawlerRearCameraSelectButton.CenterLevel = cameraSelectParameters.LightIntensity;
-            this.selectedLaserCameraButton = selected;
-            ParameterAccessor.Instance.LaserSelectedCamera = selected.Camera;
+            this.selectedCrawlerCameraButton = selected;
+            ParameterAccessor.Instance.CrawlerHubSelectedCamera = selected.SystemLocation;
          }
       }
 
       private void AssignBulletCamera(Controls.CameraSelectButton selected)
       {
-         if (selected != this.selectedTargetCameraButton)
+         if (selected != this.selectedBulletCameraButton)
          {
-            CameraSelectParameters cameraSelectParameters;
+            LightSelectParameters cameraSelectParameters;
 
-            if (null != this.selectedTargetCameraButton)
+            if (null != this.selectedBulletCameraButton)
             {
-               this.selectedTargetCameraButton.RightVisible = false; 
-               cameraSelectParameters = ParameterAccessor.Instance.GetCameraSelectParameters(this.selectedTargetCameraButton.Camera);
-               cameraSelectParameters.LightIntensity = DeviceCommunication.Instance.GetCameraLightLevel(this.selectedTargetCameraButton.Camera);
+               this.selectedBulletCameraButton.RightVisible = false;
+               cameraSelectParameters = ParameterAccessor.Instance.GetLightSelectParameters(this.selectedBulletCameraButton.SystemLocation);
+               cameraSelectParameters.LightIntensity = DeviceCommunication.Instance.GetLightLevel(this.selectedBulletCameraButton.SystemLocation);
             }
 
-            cameraSelectParameters = ParameterAccessor.Instance.GetCameraSelectParameters(selected.Camera);
-            int channelMask = (false != this.targetLightEnabled) ? cameraSelectParameters.LightChannelMask : 0;
+            cameraSelectParameters = ParameterAccessor.Instance.GetLightSelectParameters(selected.SystemLocation);
+            int channelMask = (false != this.bulletCameraLightEnabled) ? cameraSelectParameters.LightChannelMask : 0;
 
-            Tracer.WriteHigh(TraceGroup.UI, "", "target camera {0}", selected.Camera.ToString());
-            DeviceCommunication.Instance.SetTargetCamera(selected.Camera);
-            DeviceCommunication.Instance.SetCameraLightLevel(selected.Camera, cameraSelectParameters.LightIntensity);
-            DeviceCommunication.Instance.SetCameraLightChannelMask(selected.Camera, channelMask);
+            Tracer.WriteHigh(TraceGroup.UI, "", "bullet camera {0}", selected.SystemLocation.ToString());
+            DeviceCommunication.Instance.SetBulletCamera(selected.SystemLocation);
+            DeviceCommunication.Instance.SetLightLevel(selected.SystemLocation, cameraSelectParameters.LightIntensity);
+            DeviceCommunication.Instance.SetLightChannelMask(selected.SystemLocation, channelMask);
             VideoStampOsd.Instance.SetCameraIdText(2, selected.Text);
 
             selected.RightVisible = true;
-            this.selectedTargetCameraButton = selected;
-            ParameterAccessor.Instance.TargetSelectedCamera = selected.Camera;
+            this.BulletLeftCameraSelectButton.CenterVisible = DeviceCommunication.Instance.GetLightEnable(Ui.Controls.SystemLocations.bulletLeft);
+            this.BulletLeftCameraSelectButton.CenterLevel = cameraSelectParameters.LightIntensity;
+            this.BulletRightCameraSelectButton.CenterVisible = DeviceCommunication.Instance.GetLightEnable(Ui.Controls.SystemLocations.bulletRight);
+            this.BulletRightCameraSelectButton.CenterLevel = cameraSelectParameters.LightIntensity;
+            this.BulletDownCameraSelectButton.CenterVisible = DeviceCommunication.Instance.GetLightEnable(Ui.Controls.SystemLocations.bulletDown);
+            this.BulletDownCameraSelectButton.CenterLevel = cameraSelectParameters.LightIntensity;
+            this.selectedBulletCameraButton = selected;
+            ParameterAccessor.Instance.BulletSelectedCamera = selected.SystemLocation;
          }
       }
 
@@ -450,10 +387,11 @@ namespace Weco.Ui
 
          this.laserMovementFastSelected = true;
 
-         this.laserLightEnabled = true;
-         this.targetLightEnabled = true;
-         this.selectedLaserCameraButton = null;
-         this.selectedTargetCameraButton = null;
+         this.crawlerTrackLightEnabled = true;
+         this.crawlerCameraLightEnabled = true;
+         this.bulletCameraLightEnabled = true;
+         this.selectedCrawlerCameraButton = null;
+         this.selectedBulletCameraButton = null;
 
 
          // set next state
@@ -537,6 +475,9 @@ namespace Weco.Ui
          this.CrawlerJogDistanceButton.ValueText = this.GetValueText(ParameterAccessor.Instance.LaserWheelManualWheelDistance);
          this.CrawlerMoveSpeedButton.ValueText = this.GetValueText(ParameterAccessor.Instance.LaserWheelManualWheelSpeed);
 
+         this.CrawlerLeftTrackLightButton.CenterVisible = false;
+         this.CrawlerRightTrackLightButton.CenterVisible = false;
+
          for (int i = 0; i < this.cameraButtons.Length; i++)
          {
             this.cameraButtons[i].LeftVisible = false;
@@ -544,8 +485,9 @@ namespace Weco.Ui
             this.cameraButtons[i].RightVisible = false;
          }
 
-         this.CrawlerTrackLightEnableButton.BackColor = (false != this.laserLightEnabled) ? Color.Lime : Color.FromArgb(171, 171, 171);
-         this.CrawlerCameraLightEnableButton.BackColor = (false != this.targetLightEnabled) ? Color.Lime : Color.FromArgb(171, 171, 171);
+         this.CrawlerTrackLightEnableButton.BackColor = (false != this.crawlerTrackLightEnabled) ? Color.Lime : Color.FromArgb(171, 171, 171);
+         this.CrawlerCameraLightEnableButton.BackColor = (false != this.crawlerCameraLightEnabled) ? Color.Lime : Color.FromArgb(171, 171, 171);
+         this.BulletCameraLightEnableButton.BackColor = (false != this.bulletCameraLightEnabled) ? Color.Lime : Color.FromArgb(171, 171, 171);
 
 
          DeviceCommunication.Instance.Start();
@@ -573,21 +515,35 @@ namespace Weco.Ui
          {
             // initialize with ready hardware
 
-            Controls.CameraLocations laserCameraLocation = ParameterAccessor.Instance.LaserSelectedCamera;
-            Controls.CameraLocations targetCameraLocation = ParameterAccessor.Instance.TargetSelectedCamera;
+            Controls.SystemLocations crawlerHubCameraLocation = ParameterAccessor.Instance.CrawlerHubSelectedCamera;
+            Controls.SystemLocations bulletCameraLocation = ParameterAccessor.Instance.BulletSelectedCamera;
 
             for (int i = 0; i < this.cameraButtons.Length; i++)
             {
-               if (laserCameraLocation == this.cameraButtons[i].Camera)
+               if (crawlerHubCameraLocation == this.cameraButtons[i].SystemLocation)
                {
                   this.AssignCrawlerCamera(this.cameraButtons[i]);
                }
 
-               if (targetCameraLocation == this.cameraButtons[i].Camera)
+               if (bulletCameraLocation == this.cameraButtons[i].SystemLocation)
                {
                   this.AssignBulletCamera(this.cameraButtons[i]);
                }
             }
+
+            int crawlerLeftTrackLightLevel = ParameterAccessor.Instance.CrawlerLeftLight.LightIntensity;
+            int crawlerLeftTrackChannelMask = (false != this.crawlerCameraLightEnabled) ? ParameterAccessor.Instance.CrawlerLeftLight.LightChannelMask : 0;
+            this.CrawlerLeftTrackLightButton.CenterLevel = crawlerLeftTrackLightLevel;
+            this.CrawlerLeftTrackLightButton.CenterVisible = this.crawlerCameraLightEnabled;
+            DeviceCommunication.Instance.SetLightLevel(Ui.Controls.SystemLocations.crawlerLeft, crawlerLeftTrackLightLevel);
+            DeviceCommunication.Instance.SetLightChannelMask(Ui.Controls.SystemLocations.crawlerLeft, crawlerLeftTrackChannelMask);
+
+            int crawlerRightTrackLightLevel = ParameterAccessor.Instance.CrawlerRightLight.LightIntensity;
+            int crawlerRightTrackChannelMask = (false != this.crawlerCameraLightEnabled) ? ParameterAccessor.Instance.CrawlerRightLight.LightChannelMask : 0;
+            this.CrawlerRightTrackLightButton.CenterLevel = crawlerRightTrackLightLevel;
+            this.CrawlerRightTrackLightButton.CenterVisible = this.crawlerCameraLightEnabled;
+            DeviceCommunication.Instance.SetLightLevel(Ui.Controls.SystemLocations.crawlerRight, crawlerRightTrackLightLevel);
+            DeviceCommunication.Instance.SetLightChannelMask(Ui.Controls.SystemLocations.crawlerRight, crawlerRightTrackChannelMask);
 
             this.LaserUpdateMovementControls();
 
@@ -1183,39 +1139,59 @@ namespace Weco.Ui
 
       private void CrawlerTrackLightEnableButton_Click(object sender, EventArgs e)
       {
-         this.laserLightEnabled = !this.laserLightEnabled;
-         this.CrawlerTrackLightEnableButton.BackColor = (false != this.laserLightEnabled) ? Color.Lime : Color.FromArgb(171, 171, 171);
+         this.crawlerTrackLightEnabled = !this.crawlerTrackLightEnabled;
+         this.CrawlerTrackLightEnableButton.BackColor = (false != this.crawlerTrackLightEnabled) ? Color.Lime : Color.FromArgb(171, 171, 171);
 
-         CameraSelectParameters cameraSelectParameters = ParameterAccessor.Instance.GetCameraSelectParameters(this.selectedLaserCameraButton.Camera);
-         int channelMask = (false != this.laserLightEnabled) ? cameraSelectParameters.LightChannelMask : 0;
-         DeviceCommunication.Instance.SetCameraLightChannelMask(this.selectedLaserCameraButton.Camera, channelMask);
+         int crawlerLeftTrackChannelMask = (false != this.crawlerTrackLightEnabled) ? ParameterAccessor.Instance.CrawlerLeftLight.LightChannelMask : 0;
+         DeviceCommunication.Instance.SetLightChannelMask(Ui.Controls.SystemLocations.crawlerLeft, crawlerLeftTrackChannelMask);
 
-         this.CrawlerFrontCameraSelectButton.CenterVisible = DeviceCommunication.Instance.GetCameraLightEnable(Ui.Controls.CameraLocations.crawlerLeft);
-         this.CrawlerRearCameraSelectButton.CenterVisible = DeviceCommunication.Instance.GetCameraLightEnable(Ui.Controls.CameraLocations.crawlerRight);
+         int crawlerRightTrackChannelMask = (false != this.crawlerTrackLightEnabled) ? ParameterAccessor.Instance.CrawlerRightLight.LightChannelMask : 0;         
+         DeviceCommunication.Instance.SetLightChannelMask(Ui.Controls.SystemLocations.crawlerRight, crawlerRightTrackChannelMask);
+
+         this.CrawlerLeftTrackLightButton.CenterVisible = DeviceCommunication.Instance.GetLightEnable(Ui.Controls.SystemLocations.crawlerLeft);
+         this.CrawlerRightTrackLightButton.CenterVisible = DeviceCommunication.Instance.GetLightEnable(Ui.Controls.SystemLocations.crawlerRight);
       }
 
       private void CrawlerCameraLightEnableButton_Click(object sender, EventArgs e)
       {
-         this.targetLightEnabled = !this.targetLightEnabled;
-         this.CrawlerCameraLightEnableButton.BackColor = (false != this.targetLightEnabled) ? Color.Lime : Color.FromArgb(171, 171, 171);
+         this.crawlerCameraLightEnabled = !this.crawlerCameraLightEnabled;
+         this.CrawlerCameraLightEnableButton.BackColor = (false != this.crawlerCameraLightEnabled) ? Color.Lime : Color.FromArgb(171, 171, 171);
 
-         CameraSelectParameters cameraSelectParameters = ParameterAccessor.Instance.GetCameraSelectParameters(this.selectedTargetCameraButton.Camera);
-         int channelMask = (false != this.targetLightEnabled) ? cameraSelectParameters.LightChannelMask : 0;
-         DeviceCommunication.Instance.SetCameraLightChannelMask(this.selectedTargetCameraButton.Camera, channelMask);
+         LightSelectParameters cameraSelectParameters = ParameterAccessor.Instance.GetLightSelectParameters(this.selectedCrawlerCameraButton.SystemLocation);
+         int channelMask = (false != this.crawlerCameraLightEnabled) ? cameraSelectParameters.LightChannelMask : 0;
+         DeviceCommunication.Instance.SetLightChannelMask(this.selectedCrawlerCameraButton.SystemLocation, channelMask);
+
+         this.CrawlerFrontCameraSelectButton.CenterVisible = DeviceCommunication.Instance.GetLightEnable(Ui.Controls.SystemLocations.crawlerFront);
+         this.CrawlerRearCameraSelectButton.CenterVisible = DeviceCommunication.Instance.GetLightEnable(Ui.Controls.SystemLocations.crawlerRear);
       }
+
+      private void BulletCameraLightEnableButton_Click(object sender, EventArgs e)
+      {
+         this.bulletCameraLightEnabled = !this.bulletCameraLightEnabled;
+         this.BulletCameraLightEnableButton.BackColor = (false != this.bulletCameraLightEnabled) ? Color.Lime : Color.FromArgb(171, 171, 171);
+
+         LightSelectParameters cameraSelectParameters = ParameterAccessor.Instance.GetLightSelectParameters(this.selectedBulletCameraButton.SystemLocation);
+         int channelMask = (false != this.bulletCameraLightEnabled) ? cameraSelectParameters.LightChannelMask : 0;
+         DeviceCommunication.Instance.SetLightChannelMask(this.selectedBulletCameraButton.SystemLocation, channelMask);
+
+         this.BulletLeftCameraSelectButton.CenterVisible = DeviceCommunication.Instance.GetLightEnable(Ui.Controls.SystemLocations.bulletLeft);
+         this.BulletRightCameraSelectButton.CenterVisible = DeviceCommunication.Instance.GetLightEnable(Ui.Controls.SystemLocations.bulletRight);
+         this.BulletDownCameraSelectButton.CenterVisible = DeviceCommunication.Instance.GetLightEnable(Ui.Controls.SystemLocations.bulletDown);
+      }
+
 
       private void CameraButton_MouseClick(object sender, MouseEventArgs e)
       {
          Controls.CameraSelectButton button = (Controls.CameraSelectButton)sender;
 
-         if ((Ui.Controls.CameraLocations.crawlerFront == button.Camera) ||
-             (Ui.Controls.CameraLocations.crawlerRear == button.Camera))
+         if ((Ui.Controls.SystemLocations.crawlerFront == button.SystemLocation) ||
+             (Ui.Controls.SystemLocations.crawlerRear == button.SystemLocation))
          {
             this.AssignCrawlerCamera(button);
          }
-         else if ((Ui.Controls.CameraLocations.bulletLeft == button.Camera) ||
-                  (Ui.Controls.CameraLocations.bulletRight == button.Camera) ||
-                  (Ui.Controls.CameraLocations.bulletDown == button.Camera))
+         else if ((Ui.Controls.SystemLocations.bulletLeft == button.SystemLocation) ||
+                  (Ui.Controls.SystemLocations.bulletRight == button.SystemLocation) ||
+                  (Ui.Controls.SystemLocations.bulletDown == button.SystemLocation))
          {
             this.AssignBulletCamera(button);
          }
@@ -1227,7 +1203,7 @@ namespace Weco.Ui
 
          if (false != button.CenterVisible)
          {
-            int lightLevel = DeviceCommunication.Instance.GetCameraLightLevel(button.Camera);
+            int lightLevel = DeviceCommunication.Instance.GetLightLevel(button.SystemLocation);
             ValueParameter value = new ValueParameter("Light", "", 0, 0, 100, 1, 15, lightLevel);
 
             if (null != value)
@@ -1236,44 +1212,58 @@ namespace Weco.Ui
                this.SetDialogLocation(button, intensityForm);
                intensityForm.LocationText = button.Text;
                intensityForm.IntensityValue = value;
-               intensityForm.Camera = button.Camera;
+               intensityForm.SystemLocation = button.SystemLocation;
                this.DimBackground();
                intensityForm.ShowDialog();
                this.LightBackground();
 
                int lightIntensity = (int)intensityForm.IntensityValue.OperationalValue;
 
-               if ((Ui.Controls.CameraLocations.crawlerFront == button.Camera) ||
-                   (Ui.Controls.CameraLocations.crawlerRear == button.Camera))
+               if (Ui.Controls.SystemLocations.crawlerLeft == button.SystemLocation)
                {
-                  if (Ui.Controls.CameraLocations.crawlerFront == button.Camera)
+                  ParameterAccessor.Instance.CrawlerLeftLight.LightIntensity = lightIntensity;
+                  this.CrawlerLeftTrackLightButton.CenterLevel = lightIntensity;
+               }
+               else if (Ui.Controls.SystemLocations.crawlerRight == button.SystemLocation)
+               {
+                  ParameterAccessor.Instance.CrawlerRightLight.LightIntensity = lightIntensity;
+                  this.CrawlerRightTrackLightButton.CenterLevel = lightIntensity;
+               }
+               else if ((Ui.Controls.SystemLocations.crawlerFront == button.SystemLocation) ||
+                        (Ui.Controls.SystemLocations.crawlerRear == button.SystemLocation))
+               {
+                  if (Ui.Controls.SystemLocations.crawlerFront == button.SystemLocation)
                   {
-                     ParameterAccessor.Instance.LaserFrontCamera.LightIntensity = lightIntensity;
+                     ParameterAccessor.Instance.CrawlerFrontLight.LightIntensity = lightIntensity;
                   }
                   else
                   {
-                     ParameterAccessor.Instance.LaserRearCamera.LightIntensity = lightIntensity;
+                     ParameterAccessor.Instance.CrawlerRearLight.LightIntensity = lightIntensity;
                   }
 
                   this.CrawlerFrontCameraSelectButton.CenterLevel = lightIntensity;
                   this.CrawlerRearCameraSelectButton.CenterLevel = lightIntensity;
                }
-               else if ((Ui.Controls.CameraLocations.bulletLeft == button.Camera) ||
-                        (Ui.Controls.CameraLocations.bulletRight == button.Camera) ||
-                        (Ui.Controls.CameraLocations.bulletDown == button.Camera))
+               else if ((Ui.Controls.SystemLocations.bulletLeft == button.SystemLocation) ||
+                        (Ui.Controls.SystemLocations.bulletRight == button.SystemLocation) ||
+                        (Ui.Controls.SystemLocations.bulletDown == button.SystemLocation))
                {
-                  if (Ui.Controls.CameraLocations.bulletLeft == button.Camera)
+                  if (Ui.Controls.SystemLocations.bulletLeft == button.SystemLocation)
                   {
-                     ParameterAccessor.Instance.TargetFrontCamera.LightIntensity = lightIntensity;
+                     ParameterAccessor.Instance.BulletLeftLight.LightIntensity = lightIntensity;
                   }
-                  else if (Ui.Controls.CameraLocations.bulletRight == button.Camera)
+                  else if (Ui.Controls.SystemLocations.bulletRight == button.SystemLocation)
                   {
-                     ParameterAccessor.Instance.TargetRearCamera.LightIntensity = lightIntensity;
+                     ParameterAccessor.Instance.BulletRightLight.LightIntensity = lightIntensity;
                   }
                   else
                   {
-                     ParameterAccessor.Instance.TargetTopCamera.LightIntensity = lightIntensity;
+                     ParameterAccessor.Instance.BulletDownLight.LightIntensity = lightIntensity;
                   }
+
+                  this.BulletLeftCameraSelectButton.CenterLevel = lightIntensity;
+                  this.BulletRightCameraSelectButton.CenterLevel = lightIntensity;
+                  this.BulletDownCameraSelectButton.CenterLevel = lightIntensity;
                }
             }
          }
@@ -1396,9 +1386,12 @@ namespace Weco.Ui
 
          Tracer.MaskString = "FFFFFFFF";
 
-         this.cameraButtons = new Controls.CameraSelectButton[2];
+         this.cameraButtons = new Controls.CameraSelectButton[5];
          this.cameraButtons[0] = this.CrawlerFrontCameraSelectButton;
          this.cameraButtons[1] = this.CrawlerRearCameraSelectButton;
+         this.cameraButtons[2] = this.BulletLeftCameraSelectButton;
+         this.cameraButtons[3] = this.BulletRightCameraSelectButton;
+         this.cameraButtons[4] = this.BulletDownCameraSelectButton;
 
          this.dimmerForm = new PopupDimmerForm();
          this.dimmerForm.Opacity = 0.65;
@@ -1406,6 +1399,7 @@ namespace Weco.Ui
       }
 
       #endregion
+
 
    }
 }

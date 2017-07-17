@@ -32,7 +32,7 @@
          this.TitleLabel = new System.Windows.Forms.Label();
          this.LightCameraPanel = new System.Windows.Forms.Panel();
          this.label12 = new System.Windows.Forms.Label();
-         this.BulletLightEnableButton = new Weco.Ui.Controls.BaseButton();
+         this.BulletCameraLightEnableButton = new Weco.Ui.Controls.BaseButton();
          this.BulletRightCameraSelectButton = new Weco.Ui.Controls.CameraSelectButton();
          this.BulletLeftCameraSelectButton = new Weco.Ui.Controls.CameraSelectButton();
          this.BulletDownCameraSelectButton = new Weco.Ui.Controls.CameraSelectButton();
@@ -191,7 +191,7 @@
          // 
          this.LightCameraPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
          this.LightCameraPanel.Controls.Add(this.label12);
-         this.LightCameraPanel.Controls.Add(this.BulletLightEnableButton);
+         this.LightCameraPanel.Controls.Add(this.BulletCameraLightEnableButton);
          this.LightCameraPanel.Controls.Add(this.BulletRightCameraSelectButton);
          this.LightCameraPanel.Controls.Add(this.BulletLeftCameraSelectButton);
          this.LightCameraPanel.Controls.Add(this.BulletDownCameraSelectButton);
@@ -216,24 +216,24 @@
          this.label12.Text = "LIGHTS - VIDEO SELECT ";
          this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
          // 
-         // BulletLightEnableButton
+         // BulletCameraLightEnableButton
          // 
-         this.BulletLightEnableButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.BulletLightEnableButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
-         this.BulletLightEnableButton.DisabledForeColor = System.Drawing.Color.Silver;
-         this.BulletLightEnableButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
-         this.BulletLightEnableButton.HoldArrorColor = System.Drawing.Color.Gray;
-         this.BulletLightEnableButton.Location = new System.Drawing.Point(16, 206);
-         this.BulletLightEnableButton.Name = "BulletLightEnableButton";
-         this.BulletLightEnableButton.Size = new System.Drawing.Size(107, 80);
-         this.BulletLightEnableButton.TabIndex = 243;
-         this.BulletLightEnableButton.Text = "BULLET LIGHTS";
-         this.BulletLightEnableButton.UseVisualStyleBackColor = false;
+         this.BulletCameraLightEnableButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+         this.BulletCameraLightEnableButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
+         this.BulletCameraLightEnableButton.DisabledForeColor = System.Drawing.Color.Silver;
+         this.BulletCameraLightEnableButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
+         this.BulletCameraLightEnableButton.HoldArrorColor = System.Drawing.Color.Gray;
+         this.BulletCameraLightEnableButton.Location = new System.Drawing.Point(16, 206);
+         this.BulletCameraLightEnableButton.Name = "BulletCameraLightEnableButton";
+         this.BulletCameraLightEnableButton.Size = new System.Drawing.Size(107, 80);
+         this.BulletCameraLightEnableButton.TabIndex = 243;
+         this.BulletCameraLightEnableButton.Text = "BULLET LIGHTS";
+         this.BulletCameraLightEnableButton.UseVisualStyleBackColor = false;
+         this.BulletCameraLightEnableButton.Click += new System.EventHandler(this.BulletCameraLightEnableButton_Click);
          // 
          // BulletRightCameraSelectButton
          // 
          this.BulletRightCameraSelectButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.BulletRightCameraSelectButton.Camera = Weco.Ui.Controls.CameraLocations.bulletRight;
          this.BulletRightCameraSelectButton.CenterBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
          this.BulletRightCameraSelectButton.CenterEnabled = true;
          this.BulletRightCameraSelectButton.CenterForeColor = System.Drawing.Color.Yellow;
@@ -257,14 +257,16 @@
          this.BulletRightCameraSelectButton.RightColor = System.Drawing.Color.Blue;
          this.BulletRightCameraSelectButton.RightVisible = true;
          this.BulletRightCameraSelectButton.Size = new System.Drawing.Size(107, 80);
+         this.BulletRightCameraSelectButton.SystemLocation = Weco.Ui.Controls.SystemLocations.bulletRight;
          this.BulletRightCameraSelectButton.TabIndex = 242;
          this.BulletRightCameraSelectButton.Text = "RIGHT";
          this.BulletRightCameraSelectButton.UseVisualStyleBackColor = false;
+         this.BulletRightCameraSelectButton.HoldTimeout += new Weco.Ui.Controls.CameraSelectButton.HoldTimeoutHandler(this.CameraButton_HoldTimeout);
+         this.BulletRightCameraSelectButton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CameraButton_MouseClick);
          // 
          // BulletLeftCameraSelectButton
          // 
          this.BulletLeftCameraSelectButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.BulletLeftCameraSelectButton.Camera = Weco.Ui.Controls.CameraLocations.bulletLeft;
          this.BulletLeftCameraSelectButton.CenterBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
          this.BulletLeftCameraSelectButton.CenterEnabled = true;
          this.BulletLeftCameraSelectButton.CenterForeColor = System.Drawing.Color.Yellow;
@@ -288,14 +290,16 @@
          this.BulletLeftCameraSelectButton.RightColor = System.Drawing.Color.Blue;
          this.BulletLeftCameraSelectButton.RightVisible = true;
          this.BulletLeftCameraSelectButton.Size = new System.Drawing.Size(107, 80);
+         this.BulletLeftCameraSelectButton.SystemLocation = Weco.Ui.Controls.SystemLocations.bulletLeft;
          this.BulletLeftCameraSelectButton.TabIndex = 241;
          this.BulletLeftCameraSelectButton.Text = "LEFT";
          this.BulletLeftCameraSelectButton.UseVisualStyleBackColor = false;
+         this.BulletLeftCameraSelectButton.HoldTimeout += new Weco.Ui.Controls.CameraSelectButton.HoldTimeoutHandler(this.CameraButton_HoldTimeout);
+         this.BulletLeftCameraSelectButton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CameraButton_MouseClick);
          // 
          // BulletDownCameraSelectButton
          // 
          this.BulletDownCameraSelectButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.BulletDownCameraSelectButton.Camera = Weco.Ui.Controls.CameraLocations.bulletDown;
          this.BulletDownCameraSelectButton.CenterBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
          this.BulletDownCameraSelectButton.CenterEnabled = true;
          this.BulletDownCameraSelectButton.CenterForeColor = System.Drawing.Color.Yellow;
@@ -319,9 +323,12 @@
          this.BulletDownCameraSelectButton.RightColor = System.Drawing.Color.Blue;
          this.BulletDownCameraSelectButton.RightVisible = true;
          this.BulletDownCameraSelectButton.Size = new System.Drawing.Size(107, 80);
+         this.BulletDownCameraSelectButton.SystemLocation = Weco.Ui.Controls.SystemLocations.bulletDown;
          this.BulletDownCameraSelectButton.TabIndex = 240;
          this.BulletDownCameraSelectButton.Text = "DOWN";
          this.BulletDownCameraSelectButton.UseVisualStyleBackColor = false;
+         this.BulletDownCameraSelectButton.HoldTimeout += new Weco.Ui.Controls.CameraSelectButton.HoldTimeoutHandler(this.CameraButton_HoldTimeout);
+         this.BulletDownCameraSelectButton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CameraButton_MouseClick);
          // 
          // CrawlerTrackLightEnableButton
          // 
@@ -356,7 +363,6 @@
          // CrawlerRightTrackLightButton
          // 
          this.CrawlerRightTrackLightButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.CrawlerRightTrackLightButton.Camera = Weco.Ui.Controls.CameraLocations.crawlerRight;
          this.CrawlerRightTrackLightButton.CenterBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
          this.CrawlerRightTrackLightButton.CenterEnabled = true;
          this.CrawlerRightTrackLightButton.CenterForeColor = System.Drawing.Color.Yellow;
@@ -380,14 +386,15 @@
          this.CrawlerRightTrackLightButton.RightColor = System.Drawing.Color.Blue;
          this.CrawlerRightTrackLightButton.RightVisible = false;
          this.CrawlerRightTrackLightButton.Size = new System.Drawing.Size(107, 80);
+         this.CrawlerRightTrackLightButton.SystemLocation = Weco.Ui.Controls.SystemLocations.crawlerRight;
          this.CrawlerRightTrackLightButton.TabIndex = 231;
          this.CrawlerRightTrackLightButton.Text = "RIGHT TRACK";
          this.CrawlerRightTrackLightButton.UseVisualStyleBackColor = false;
+         this.CrawlerRightTrackLightButton.HoldTimeout += new Weco.Ui.Controls.CameraSelectButton.HoldTimeoutHandler(this.CameraButton_HoldTimeout);
          // 
          // CrawlerLeftTrackLightButton
          // 
          this.CrawlerLeftTrackLightButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.CrawlerLeftTrackLightButton.Camera = Weco.Ui.Controls.CameraLocations.crawlerLeft;
          this.CrawlerLeftTrackLightButton.CenterBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
          this.CrawlerLeftTrackLightButton.CenterEnabled = true;
          this.CrawlerLeftTrackLightButton.CenterForeColor = System.Drawing.Color.Yellow;
@@ -411,14 +418,15 @@
          this.CrawlerLeftTrackLightButton.RightColor = System.Drawing.Color.Blue;
          this.CrawlerLeftTrackLightButton.RightVisible = false;
          this.CrawlerLeftTrackLightButton.Size = new System.Drawing.Size(107, 80);
+         this.CrawlerLeftTrackLightButton.SystemLocation = Weco.Ui.Controls.SystemLocations.crawlerLeft;
          this.CrawlerLeftTrackLightButton.TabIndex = 230;
          this.CrawlerLeftTrackLightButton.Text = "LEFT TRACK";
          this.CrawlerLeftTrackLightButton.UseVisualStyleBackColor = false;
+         this.CrawlerLeftTrackLightButton.HoldTimeout += new Weco.Ui.Controls.CameraSelectButton.HoldTimeoutHandler(this.CameraButton_HoldTimeout);
          // 
          // CrawlerRearCameraSelectButton
          // 
          this.CrawlerRearCameraSelectButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.CrawlerRearCameraSelectButton.Camera = Weco.Ui.Controls.CameraLocations.crawlerRear;
          this.CrawlerRearCameraSelectButton.CenterBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
          this.CrawlerRearCameraSelectButton.CenterEnabled = true;
          this.CrawlerRearCameraSelectButton.CenterForeColor = System.Drawing.Color.Yellow;
@@ -442,6 +450,7 @@
          this.CrawlerRearCameraSelectButton.RightColor = System.Drawing.Color.Blue;
          this.CrawlerRearCameraSelectButton.RightVisible = false;
          this.CrawlerRearCameraSelectButton.Size = new System.Drawing.Size(107, 80);
+         this.CrawlerRearCameraSelectButton.SystemLocation = Weco.Ui.Controls.SystemLocations.crawlerRear;
          this.CrawlerRearCameraSelectButton.TabIndex = 9;
          this.CrawlerRearCameraSelectButton.Text = "REAR";
          this.CrawlerRearCameraSelectButton.UseVisualStyleBackColor = false;
@@ -451,7 +460,6 @@
          // CrawlerFrontCameraSelectButton
          // 
          this.CrawlerFrontCameraSelectButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.CrawlerFrontCameraSelectButton.Camera = Weco.Ui.Controls.CameraLocations.crawlerFront;
          this.CrawlerFrontCameraSelectButton.CenterBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
          this.CrawlerFrontCameraSelectButton.CenterEnabled = true;
          this.CrawlerFrontCameraSelectButton.CenterForeColor = System.Drawing.Color.Yellow;
@@ -475,6 +483,7 @@
          this.CrawlerFrontCameraSelectButton.RightColor = System.Drawing.Color.Blue;
          this.CrawlerFrontCameraSelectButton.RightVisible = false;
          this.CrawlerFrontCameraSelectButton.Size = new System.Drawing.Size(107, 80);
+         this.CrawlerFrontCameraSelectButton.SystemLocation = Weco.Ui.Controls.SystemLocations.crawlerFront;
          this.CrawlerFrontCameraSelectButton.TabIndex = 8;
          this.CrawlerFrontCameraSelectButton.Text = "FRONT";
          this.CrawlerFrontCameraSelectButton.UseVisualStyleBackColor = false;
@@ -2072,7 +2081,6 @@
          // cameraSelectButton7
          // 
          this.cameraSelectButton7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.cameraSelectButton7.Camera = Weco.Ui.Controls.CameraLocations.none;
          this.cameraSelectButton7.CenterBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
          this.cameraSelectButton7.CenterEnabled = true;
          this.cameraSelectButton7.CenterForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
@@ -2096,6 +2104,7 @@
          this.cameraSelectButton7.RightColor = System.Drawing.Color.Blue;
          this.cameraSelectButton7.RightVisible = false;
          this.cameraSelectButton7.Size = new System.Drawing.Size(107, 80);
+         this.cameraSelectButton7.SystemLocation = Weco.Ui.Controls.SystemLocations.none;
          this.cameraSelectButton7.TabIndex = 145;
          this.cameraSelectButton7.Text = "BULLET DOWN";
          this.cameraSelectButton7.UseVisualStyleBackColor = false;
@@ -2103,7 +2112,6 @@
          // cameraSelectButton6
          // 
          this.cameraSelectButton6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-         this.cameraSelectButton6.Camera = Weco.Ui.Controls.CameraLocations.none;
          this.cameraSelectButton6.CenterBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
          this.cameraSelectButton6.CenterEnabled = true;
          this.cameraSelectButton6.CenterForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
@@ -2127,6 +2135,7 @@
          this.cameraSelectButton6.RightColor = System.Drawing.Color.Blue;
          this.cameraSelectButton6.RightVisible = false;
          this.cameraSelectButton6.Size = new System.Drawing.Size(107, 80);
+         this.cameraSelectButton6.SystemLocation = Weco.Ui.Controls.SystemLocations.none;
          this.cameraSelectButton6.TabIndex = 144;
          this.cameraSelectButton6.Text = "BULLET    UP";
          this.cameraSelectButton6.UseVisualStyleBackColor = false;
@@ -2605,7 +2614,7 @@
       private Controls.LeftRightButton CameraLeftButton;
       private Controls.LeftRightButton CameraRightButton;
       private System.Windows.Forms.Label label2;
-      private Controls.BaseButton BulletLightEnableButton;
+      private Controls.BaseButton BulletCameraLightEnableButton;
       private Controls.CameraSelectButton BulletRightCameraSelectButton;
       private Controls.CameraSelectButton BulletLeftCameraSelectButton;
       private Controls.CameraSelectButton BulletDownCameraSelectButton;

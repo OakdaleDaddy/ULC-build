@@ -24,7 +24,7 @@ namespace Weco.Ui
 
       public string LocationText { set; get; }
       public ValueParameter IntensityValue { set; get; }
-      public Controls.CameraLocations Camera { set; get; }
+      public Controls.SystemLocations SystemLocation { set; get; }
 
       #endregion
 
@@ -120,7 +120,7 @@ namespace Weco.Ui
          {
             this.IntensityValue.OperationalValue++;
             this.IntensityProgressBar.Value = (int)this.IntensityValue.OperationalValue;
-            DeviceCommunication.Instance.SetCameraLightLevel(this.Camera, (int)this.IntensityValue.OperationalValue);
+            DeviceCommunication.Instance.SetLightLevel(this.SystemLocation, (int)this.IntensityValue.OperationalValue);
          }
       }
 
@@ -130,7 +130,7 @@ namespace Weco.Ui
          {
             this.IntensityValue.OperationalValue++;
             this.IntensityProgressBar.Value = (int)this.IntensityValue.OperationalValue;
-            DeviceCommunication.Instance.SetCameraLightLevel(this.Camera, (int)this.IntensityValue.OperationalValue);
+            DeviceCommunication.Instance.SetLightLevel(this.SystemLocation, (int)this.IntensityValue.OperationalValue);
          }
       }
 
@@ -140,7 +140,7 @@ namespace Weco.Ui
          {
             this.IntensityValue.OperationalValue--;
             this.IntensityProgressBar.Value = (int)this.IntensityValue.OperationalValue;
-            DeviceCommunication.Instance.SetCameraLightLevel(this.Camera, (int)this.IntensityValue.OperationalValue);
+            DeviceCommunication.Instance.SetLightLevel(this.SystemLocation, (int)this.IntensityValue.OperationalValue);
          }
       }
 
@@ -150,7 +150,7 @@ namespace Weco.Ui
          {
             this.IntensityValue.OperationalValue--;
             this.IntensityProgressBar.Value = (int)this.IntensityValue.OperationalValue;
-            DeviceCommunication.Instance.SetCameraLightLevel(this.Camera, (int)this.IntensityValue.OperationalValue);
+            DeviceCommunication.Instance.SetLightLevel(this.SystemLocation, (int)this.IntensityValue.OperationalValue);
          }
       }
 
@@ -214,7 +214,7 @@ namespace Weco.Ui
          if (result == System.Windows.Forms.DialogResult.OK)
          {
             this.IntensityProgressBar.Value = (int)this.IntensityValue.OperationalValue;
-            DeviceCommunication.Instance.SetCameraLightLevel(this.Camera, (int)this.IntensityValue.OperationalValue);
+            DeviceCommunication.Instance.SetLightLevel(this.SystemLocation, (int)this.IntensityValue.OperationalValue);
             this.Close();
          }
       }
