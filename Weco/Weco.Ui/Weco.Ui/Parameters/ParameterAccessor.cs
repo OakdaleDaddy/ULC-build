@@ -91,9 +91,9 @@
          this.RobotBus.ConsumerHeartbeatRate = 3500;
          this.RobotBus.ProducerHeartbeatRate = 1000;
          this.RobotBus.ControllerBusId = 208;
-         this.RobotBus.LeftTrackBusId = 30;
-         this.RobotBus.HubBusId = 32;
-         this.RobotBus.RightTrackBusId = 34;
+         this.RobotBus.LeftTrackBusId = 54;
+         this.RobotBus.HubBusId = 50;
+         this.RobotBus.RightTrackBusId = 56;
          this.RobotBus.ControllerTraceMask = 0;
          this.RobotBus.LeftTrackTraceMask = 1;
          this.RobotBus.HubTraceMask = 1;
@@ -105,7 +105,7 @@
          this.TruckBus.ConsumerHeartbeatRate = 3500;
          this.TruckBus.ProducerHeartbeatRate = 1000;
          this.TruckBus.ControllerBusId = 255;
-         this.TruckBus.LaunchCardBusId = 20;
+         this.TruckBus.LaunchCardBusId = 64;
          this.TruckBus.BulletMotorBusId = 28;
          this.TruckBus.LeftFeederMotorBusId = 32;
          this.TruckBus.RightFeederMotorBusId = 34;
@@ -229,6 +229,7 @@
          osdParameters.VerticalOffset = 21;
 
          osdParameters.ShowDate = false;
+         osdParameters.ShowDistance = false;
          osdParameters.ShowTime = false;
          osdParameters.ShowDescription = false;
          osdParameters.ShowCameraId = false;
@@ -1008,6 +1009,10 @@
                {
                   temp.ShowDate = this.ReadBool(reader);
                }
+               else if ("ShowDistance" == reader.Name)
+               {
+                  temp.ShowDistance = this.ReadBool(reader);
+               }
                else if ("ShowTime" == reader.Name)
                {
                   temp.ShowTime = this.ReadBool(reader);
@@ -1435,6 +1440,7 @@
          this.WriteElement(writer, "VerticalOffset", osdParameters.VerticalOffset);
 
          this.WriteElement(writer, "ShowDate", osdParameters.ShowDate);
+         this.WriteElement(writer, "ShowDistance", osdParameters.ShowDistance);         
          this.WriteElement(writer, "ShowTime", osdParameters.ShowTime);
          this.WriteElement(writer, "ShowDescription", osdParameters.ShowDescription);
          this.WriteElement(writer, "ShowCameraId", osdParameters.ShowCameraId);

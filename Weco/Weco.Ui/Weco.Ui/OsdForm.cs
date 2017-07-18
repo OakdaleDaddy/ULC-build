@@ -407,6 +407,14 @@
          VideoStampOsd.Instance.SetTimeVisible(ParameterAccessor.Instance.Osd.ShowTime);
       }
 
+      private void DistanceToggleButton_Click(object sender, EventArgs e)
+      {
+         bool selection = !ParameterAccessor.Instance.Osd.ShowDistance;
+         ParameterAccessor.Instance.Osd.ShowDistance = selection;
+         this.DistanceToggleButton.BackColor = (false != ParameterAccessor.Instance.Osd.ShowDistance) ? Color.Lime : Color.FromArgb(64, 64, 64);
+         VideoStampOsd.Instance.SetDistanceVisible(ParameterAccessor.Instance.Osd.ShowDistance);
+      }
+
       private void DateToggleButton_Click(object sender, EventArgs e)
       {
          bool selection = !ParameterAccessor.Instance.Osd.ShowDate;

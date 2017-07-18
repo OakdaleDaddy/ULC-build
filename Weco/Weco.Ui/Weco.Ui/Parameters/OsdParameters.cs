@@ -26,6 +26,7 @@ namespace Weco.Ui
       public string Line8;
 
       public bool ShowDate;
+      public bool ShowDistance;
       public bool ShowTime;
       public bool ShowDescription;
       public bool ShowCameraId;
@@ -45,6 +46,7 @@ namespace Weco.Ui
          this.Line8 = "";
 
          this.ShowDate = false;
+         this.ShowDistance = false;
          this.ShowTime = false;
          this.ShowDescription = true;
          this.ShowCameraId = false;

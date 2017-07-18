@@ -151,7 +151,7 @@
          this.rotatableLabel3 = new Weco.Ui.Controls.RotatableLabel();
          this.rotatableLabel7 = new Weco.Ui.Controls.RotatableLabel();
          this.FeederDirectionalValuePanel = new Weco.Ui.Controls.DirectionalValuePanel();
-         this.label7 = new System.Windows.Forms.Label();
+         this.FeederStatusLabel = new System.Windows.Forms.Label();
          this.FeederHideManualButton = new Weco.Ui.Controls.HoldButton();
          this.FeederAlternatePanel = new System.Windows.Forms.Panel();
          this.FeederInButton = new Weco.Ui.Controls.HoldButton();
@@ -2166,7 +2166,7 @@
          this.FeederPanel.Controls.Add(this.rotatableLabel3);
          this.FeederPanel.Controls.Add(this.rotatableLabel7);
          this.FeederPanel.Controls.Add(this.FeederDirectionalValuePanel);
-         this.FeederPanel.Controls.Add(this.label7);
+         this.FeederPanel.Controls.Add(this.FeederStatusLabel);
          this.FeederPanel.Location = new System.Drawing.Point(373, 210);
          this.FeederPanel.Name = "FeederPanel";
          this.FeederPanel.Size = new System.Drawing.Size(369, 402);
@@ -2379,15 +2379,15 @@
          this.FeederDirectionalValuePanel.ValueText = "19.04 m/MIN";
          this.FeederDirectionalValuePanel.ValueTextAlign = System.Drawing.ContentAlignment.MiddleCenter;
          // 
-         // label7
+         // FeederStatusLabel
          // 
-         this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.label7.Location = new System.Drawing.Point(16, 4);
-         this.label7.Name = "label7";
-         this.label7.Size = new System.Drawing.Size(337, 23);
-         this.label7.TabIndex = 144;
-         this.label7.Text = "FEEDER";
-         this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         this.FeederStatusLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.FeederStatusLabel.Location = new System.Drawing.Point(16, 4);
+         this.FeederStatusLabel.Name = "FeederStatusLabel";
+         this.FeederStatusLabel.Size = new System.Drawing.Size(337, 23);
+         this.FeederStatusLabel.TabIndex = 144;
+         this.FeederStatusLabel.Text = "FEEDER";
+         this.FeederStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
          // 
          // FeederHideManualButton
          // 
@@ -2673,7 +2673,7 @@
       private Controls.HoldButton FeederManualSetupButton;
       private Controls.DirectionalValuePanel FeederDirectionalValuePanel;
       private Controls.HoldButton FeederHideManualButton;
-      private System.Windows.Forms.Label label7;
+      private System.Windows.Forms.Label FeederStatusLabel;
       private Controls.HoldButton FeederOffButton;
       private Controls.ValueButton FeederMoveButton;
       private System.Windows.Forms.Panel FeederAlternatePanel;

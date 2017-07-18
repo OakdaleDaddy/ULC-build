@@ -50,6 +50,9 @@
       private string channel1CameraId;
       private string channel2CameraId;
 
+      private bool distanceVisible;
+      private string distanceText;
+
       private bool configured;
 
       #endregion
@@ -179,6 +182,9 @@
          this.cameraIdVisible = false;
          this.channel1CameraId = "";
          this.channel2CameraId = "";
+
+         this.distanceVisible = false;
+         this.distanceText = "";
 
          this.configured = false;
       }
@@ -385,6 +391,67 @@
             this.SetVideoChannel(0);
             this.SetCursorPosition(0, 0);
             this.SendText("        ");
+         }
+      }
+
+      public void SetDistanceVisible(bool visible)
+      {
+         this.distanceVisible = visible;
+
+         if (false != visible)
+         {
+            this.SetVideoChannel(0);
+            this.SetCursorPosition(9, 0);
+            this.SendText(this.distanceText);
+         }
+         else
+         {
+            this.SetVideoChannel(0);
+            this.SetCursorPosition(9, 0);
+            this.SendText("         ");
+         }
+      }
+
+      public void SetDistanceText(string text)
+      {
+         string result = "";
+
+         if (null != text)
+         {
+            if (text.Length > 9)
+            {
+               result = text.Substring(0, 9);
+            }
+            else
+            {
+               int whiteCount = (9 - text.Length) / 2;
+
+               for (int i = 0; i < whiteCount; i++)
+               {
+                  result += " ";
+               }
+
+               result += text;
+
+               for (int i = result.Length; i < 9; i++)
+               {
+                  result += " ";
+               }
+            }
+         }
+
+         if (result != this.distanceText)
+         {
+            this.distanceText = result;
+
+            if ((false != this.configured) &&
+
+                (false != this.distanceVisible))
+            {
+               this.SetVideoChannel(0);
+               this.SetCursorPosition(9, 0);
+               this.SendText(this.distanceText);
+            }
          }
       }
 

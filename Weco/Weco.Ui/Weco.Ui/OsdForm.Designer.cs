@@ -31,74 +31,75 @@
          System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OsdForm));
          this.BackPanel = new System.Windows.Forms.Panel();
          this.panel3 = new System.Windows.Forms.Panel();
-         this.TimeToggleButton = new Controls.BaseButton();
-         this.DescriptionToggleButton = new Controls.BaseButton();
-         this.DateToggleButton = new Controls.BaseButton();
+         this.CameraIdToggleButton = new Weco.Ui.Controls.BaseButton();
+         this.TimeToggleButton = new Weco.Ui.Controls.BaseButton();
+         this.DescriptionToggleButton = new Weco.Ui.Controls.BaseButton();
+         this.DateToggleButton = new Weco.Ui.Controls.BaseButton();
          this.LeftPanel = new System.Windows.Forms.Panel();
-         this.ClearScreenButton = new Controls.BaseButton();
-         this.WriteTextButton = new Controls.BaseButton();
+         this.ClearScreenButton = new Weco.Ui.Controls.BaseButton();
+         this.WriteTextButton = new Weco.Ui.Controls.BaseButton();
          this.OsdRichTextBox = new System.Windows.Forms.RichTextBox();
          this.panel1 = new System.Windows.Forms.Panel();
-         this.SpaceKeyButton = new Controls.KeyButton();
-         this.ForwardSlashKeyButton = new Controls.KeyButton();
-         this.PeriodKeyButton = new Controls.KeyButton();
-         this.CommaKeyButton = new Controls.KeyButton();
-         this.RightShiftKeyButton = new Controls.KeyButton();
-         this.MKeyButton = new Controls.KeyButton();
-         this.NKeyButton = new Controls.KeyButton();
-         this.BKeyButton = new Controls.KeyButton();
-         this.VkeyButton = new Controls.KeyButton();
-         this.CKeyButton = new Controls.KeyButton();
-         this.XKeyButton = new Controls.KeyButton();
-         this.LeftShiftKeyButton = new Controls.KeyButton();
-         this.ZKeyButton = new Controls.KeyButton();
-         this.EnterKeyButton = new Controls.KeyButton();
-         this.SingleQuoteKeyButton = new Controls.KeyButton();
-         this.SemaColonKeyButton = new Controls.KeyButton();
-         this.LKeyButton = new Controls.KeyButton();
-         this.KKeyButton = new Controls.KeyButton();
-         this.JKeyButton = new Controls.KeyButton();
-         this.HKeyButton = new Controls.KeyButton();
-         this.GKeyButton = new Controls.KeyButton();
-         this.FKeyButton = new Controls.KeyButton();
-         this.DKeyButton = new Controls.KeyButton();
-         this.SKeyButton = new Controls.KeyButton();
-         this.CapsLockKeyButton = new Controls.KeyButton();
-         this.AKeyButton = new Controls.KeyButton();
-         this.BackSlashKeyButton = new Controls.KeyButton();
-         this.RightBracketKeyButton = new Controls.KeyButton();
-         this.LeftBracketKeyButton = new Controls.KeyButton();
-         this.PKeyButton = new Controls.KeyButton();
-         this.UpArrowKeyButton = new Controls.KeyButton();
-         this.RightArrowKeyButton = new Controls.KeyButton();
-         this.DownKeyButton = new Controls.KeyButton();
-         this.BackspaceKeyButton = new Controls.KeyButton();
-         this.LeftArrowKeyButton = new Controls.KeyButton();
-         this.OKeyButton = new Controls.KeyButton();
-         this.IKeyButton = new Controls.KeyButton();
-         this.UKeyButton = new Controls.KeyButton();
-         this.YKeyButton = new Controls.KeyButton();
-         this.TKeyButton = new Controls.KeyButton();
-         this.RKeyButton = new Controls.KeyButton();
-         this.EkeyButton = new Controls.KeyButton();
-         this.WKeyButton = new Controls.KeyButton();
-         this.QKeyButton = new Controls.KeyButton();
-         this.EqualKeyButton = new Controls.KeyButton();
-         this.DashKeyButton = new Controls.KeyButton();
-         this.ZeroKeyButton = new Controls.KeyButton();
-         this.NineKeyButton = new Controls.KeyButton();
-         this.EightKeyButton = new Controls.KeyButton();
-         this.SevenKeyButton = new Controls.KeyButton();
-         this.SixKeyButton = new Controls.KeyButton();
-         this.FiveKeyButton = new Controls.KeyButton();
-         this.FourKeyButton = new Controls.KeyButton();
-         this.ThreeKeyButton = new Controls.KeyButton();
-         this.TwoKeyButton = new Controls.KeyButton();
-         this.DeleteKeyButton = new Controls.KeyButton();
-         this.TabKeyButton = new Controls.KeyButton();
-         this.ExitKeyButton = new Controls.KeyButton();
-         this.OneKeyButton = new Controls.KeyButton();
-         this.CameraIdToggleButton = new Controls.BaseButton();
+         this.SpaceKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.ForwardSlashKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.PeriodKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.CommaKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.RightShiftKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.MKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.NKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.BKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.VkeyButton = new Weco.Ui.Controls.KeyButton();
+         this.CKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.XKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.LeftShiftKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.ZKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.EnterKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.SingleQuoteKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.SemaColonKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.LKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.KKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.JKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.HKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.GKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.FKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.DKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.SKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.CapsLockKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.AKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.BackSlashKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.RightBracketKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.LeftBracketKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.PKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.UpArrowKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.RightArrowKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.DownKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.BackspaceKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.LeftArrowKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.OKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.IKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.UKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.YKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.TKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.RKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.EkeyButton = new Weco.Ui.Controls.KeyButton();
+         this.WKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.QKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.EqualKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.DashKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.ZeroKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.NineKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.EightKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.SevenKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.SixKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.FiveKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.FourKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.ThreeKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.TwoKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.DeleteKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.TabKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.ExitKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.OneKeyButton = new Weco.Ui.Controls.KeyButton();
+         this.DistanceToggleButton = new Weco.Ui.Controls.BaseButton();
          this.BackPanel.SuspendLayout();
          this.panel3.SuspendLayout();
          this.LeftPanel.SuspendLayout();
@@ -120,6 +121,7 @@
          // panel3
          // 
          this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+         this.panel3.Controls.Add(this.DistanceToggleButton);
          this.panel3.Controls.Add(this.CameraIdToggleButton);
          this.panel3.Controls.Add(this.TimeToggleButton);
          this.panel3.Controls.Add(this.DescriptionToggleButton);
@@ -128,6 +130,21 @@
          this.panel3.Name = "panel3";
          this.panel3.Size = new System.Drawing.Size(386, 222);
          this.panel3.TabIndex = 36;
+         // 
+         // CameraIdToggleButton
+         // 
+         this.CameraIdToggleButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+         this.CameraIdToggleButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
+         this.CameraIdToggleButton.DisabledForeColor = System.Drawing.Color.Silver;
+         this.CameraIdToggleButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+         this.CameraIdToggleButton.HoldArrorColor = System.Drawing.Color.Gray;
+         this.CameraIdToggleButton.Location = new System.Drawing.Point(16, 59);
+         this.CameraIdToggleButton.Name = "CameraIdToggleButton";
+         this.CameraIdToggleButton.Size = new System.Drawing.Size(354, 35);
+         this.CameraIdToggleButton.TabIndex = 173;
+         this.CameraIdToggleButton.Text = "CAMERA ID";
+         this.CameraIdToggleButton.UseVisualStyleBackColor = false;
+         this.CameraIdToggleButton.Click += new System.EventHandler(this.CameraIdToggleButton_Click);
          // 
          // TimeToggleButton
          // 
@@ -1244,20 +1261,20 @@
          this.OneKeyButton.ValueEdge = 5;
          this.OneKeyButton.Click += new System.EventHandler(this.OneKeyButton_Click);
          // 
-         // CameraIdToggleButton
+         // DistanceToggleButton
          // 
-         this.CameraIdToggleButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-         this.CameraIdToggleButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
-         this.CameraIdToggleButton.DisabledForeColor = System.Drawing.Color.Silver;
-         this.CameraIdToggleButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
-         this.CameraIdToggleButton.HoldArrorColor = System.Drawing.Color.Gray;
-         this.CameraIdToggleButton.Location = new System.Drawing.Point(16, 59);
-         this.CameraIdToggleButton.Name = "CameraIdToggleButton";
-         this.CameraIdToggleButton.Size = new System.Drawing.Size(354, 35);
-         this.CameraIdToggleButton.TabIndex = 173;
-         this.CameraIdToggleButton.Text = "CAMERA ID";
-         this.CameraIdToggleButton.UseVisualStyleBackColor = false;
-         this.CameraIdToggleButton.Click += new System.EventHandler(this.CameraIdToggleButton_Click);
+         this.DistanceToggleButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+         this.DistanceToggleButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
+         this.DistanceToggleButton.DisabledForeColor = System.Drawing.Color.Silver;
+         this.DistanceToggleButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+         this.DistanceToggleButton.HoldArrorColor = System.Drawing.Color.Gray;
+         this.DistanceToggleButton.Location = new System.Drawing.Point(137, 16);
+         this.DistanceToggleButton.Name = "DistanceToggleButton";
+         this.DistanceToggleButton.Size = new System.Drawing.Size(112, 35);
+         this.DistanceToggleButton.TabIndex = 174;
+         this.DistanceToggleButton.Text = "DISTANCE";
+         this.DistanceToggleButton.UseVisualStyleBackColor = false;
+         this.DistanceToggleButton.Click += new System.EventHandler(this.DistanceToggleButton_Click);
          // 
          // OsdForm
          // 
@@ -1352,5 +1369,6 @@
       private Controls.BaseButton TimeToggleButton;
       private Controls.BaseButton DescriptionToggleButton;
       private Controls.BaseButton CameraIdToggleButton;
+      private Controls.BaseButton DistanceToggleButton;
    }
 }

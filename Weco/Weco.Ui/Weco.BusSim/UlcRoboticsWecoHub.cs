@@ -1812,7 +1812,7 @@ namespace Weco.BusSim
 
          this.deviceType = 0xFFFF0191;
          this.ErrorRegister = 0;
-         this.manufacturerDeviceName = "E4 Main";
+         this.manufacturerDeviceName = "Weco Hub";
          this.manufacturerHardwareVersion = "1.00";
          this.manufacturerSoftwareVersion = "1.00";
 
