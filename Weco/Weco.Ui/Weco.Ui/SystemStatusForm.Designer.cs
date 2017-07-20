@@ -74,7 +74,7 @@
          this.LeftTrackLightsLabel = new System.Windows.Forms.Label();
          this.HubControllerStatusTextBox = new System.Windows.Forms.TextBox();
          this.HubControllerLabel = new System.Windows.Forms.Label();
-         this.label26 = new System.Windows.Forms.Label();
+         this.JoystickLabel = new System.Windows.Forms.Label();
          this.RobotBusStatusTextBox = new System.Windows.Forms.TextBox();
          this.LeftTrackControllerStatusTextBox = new System.Windows.Forms.TextBox();
          this.LeftTrackControllerLabel = new System.Windows.Forms.Label();
@@ -511,7 +511,7 @@
          this.DeviceStatusAPanel.Controls.Add(this.LeftTrackLightsLabel);
          this.DeviceStatusAPanel.Controls.Add(this.HubControllerStatusTextBox);
          this.DeviceStatusAPanel.Controls.Add(this.HubControllerLabel);
-         this.DeviceStatusAPanel.Controls.Add(this.label26);
+         this.DeviceStatusAPanel.Controls.Add(this.JoystickLabel);
          this.DeviceStatusAPanel.Controls.Add(this.RobotBusStatusTextBox);
          this.DeviceStatusAPanel.Controls.Add(this.LeftTrackControllerStatusTextBox);
          this.DeviceStatusAPanel.Controls.Add(this.LeftTrackControllerLabel);
@@ -766,18 +766,19 @@
          this.HubControllerLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
          this.HubControllerLabel.Click += new System.EventHandler(this.HubControllerLabel_Click);
          // 
-         // label26
+         // JoystickLabel
          // 
-         this.label26.BackColor = System.Drawing.Color.Teal;
-         this.label26.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-         this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.label26.ForeColor = System.Drawing.Color.Gainsboro;
-         this.label26.Location = new System.Drawing.Point(8, 8);
-         this.label26.Name = "label26";
-         this.label26.Size = new System.Drawing.Size(301, 23);
-         this.label26.TabIndex = 224;
-         this.label26.Text = "JOYSTICK";
-         this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         this.JoystickLabel.BackColor = System.Drawing.Color.Teal;
+         this.JoystickLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+         this.JoystickLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.JoystickLabel.ForeColor = System.Drawing.Color.Gainsboro;
+         this.JoystickLabel.Location = new System.Drawing.Point(8, 8);
+         this.JoystickLabel.Name = "JoystickLabel";
+         this.JoystickLabel.Size = new System.Drawing.Size(301, 23);
+         this.JoystickLabel.TabIndex = 224;
+         this.JoystickLabel.Text = "JOYSTICK";
+         this.JoystickLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         this.JoystickLabel.Click += new System.EventHandler(this.JoystickLabel_Click);
          // 
          // RobotBusStatusTextBox
          // 
@@ -981,7 +982,7 @@
       private System.Windows.Forms.TextBox TargetBusStatusTextBox;
       private System.Windows.Forms.TextBox TargetBoardStatusTextBox;
       private Controls.BorderedPanel DeviceStatusAPanel;
-      private System.Windows.Forms.Label label26;
+      private System.Windows.Forms.Label JoystickLabel;
       private System.Windows.Forms.TextBox RobotBusStatusTextBox;
       private System.Windows.Forms.TextBox LeftTrackControllerStatusTextBox;
       private System.Windows.Forms.Label LeftTrackControllerLabel;

@@ -24,6 +24,7 @@
 
       public IpEndpointParameters Trace;
 
+      public int JoystickId;
       public int JoystickDeadband;
       public int JoystickIdleBand;
       public int UsbRelayPort;
@@ -121,6 +122,7 @@
 
          this.Trace = new IpEndpointParameters("Trace", "127.0.0.1", 10000);
 
+         this.JoystickId = 0;
          this.JoystickDeadband = 5000;
          this.JoystickIdleBand = 4000;
          this.UsbRelayPort = 1;
@@ -1119,6 +1121,10 @@
                            }
                         }
                      }
+                     else if ("JoystickId" == reader.Name)
+                     {
+                        this.JoystickId = this.ReadInt(reader);
+                     }
                      else if ("JoystickDeadband" == reader.Name)
                      {
                         this.JoystickDeadband = this.ReadInt(reader);
@@ -1474,6 +1480,7 @@
 
             this.WriteIpEndpointParameters(writer, this.Trace);
 
+            this.WriteElement(writer, "JoystickId", this.JoystickId);
             this.WriteElement(writer, "JoystickDeadband", this.JoystickDeadband);
             this.WriteElement(writer, "JoystickIdleBand", this.JoystickIdleBand);
             this.WriteElement(writer, "UsbRelayPort", this.UsbRelayPort);

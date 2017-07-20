@@ -465,6 +465,8 @@ namespace Weco.Ui
             this.HeartbeatsDisabledLabel.Visible = true;
          }
 
+         Joystick.Instance.Id = ParameterAccessor.Instance.JoystickId;
+
          this.LaserUpdateMovementControls();
 
          this.CrawlerJogDistanceButton.ValueText = this.GetValueText(ParameterAccessor.Instance.LaserWheelManualWheelDistance);

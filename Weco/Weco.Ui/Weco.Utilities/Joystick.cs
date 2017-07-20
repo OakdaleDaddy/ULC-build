@@ -77,6 +77,7 @@ namespace Weco.Utilities
 
       private bool valid;
       private string faultReason;
+      private int id;
 
       private ushort xaxis;
       private ushort yaxis;
@@ -87,6 +88,7 @@ namespace Weco.Utilities
       private bool button2Pressed;
       private bool button3Pressed;
       private bool button4Pressed;
+      private bool button5Pressed;
       private bool button6Pressed;
       private bool button7Pressed;
       private bool button8Pressed;
@@ -113,6 +115,19 @@ namespace Weco.Utilities
             }
 
             return instance;
+         }
+      }
+
+      public int Id
+      {
+         set
+         {
+            this.id = value;
+         }
+
+         get
+         {
+            return (this.id);
          }
       }
 
@@ -159,6 +174,11 @@ namespace Weco.Utilities
       public bool Button4Pressed
       {
          get { return (this.button4Pressed); }
+      }
+
+      public bool Button5Pressed
+      {
+         get { return (this.button5Pressed); }
       }
 
       public bool Button6Pressed
@@ -234,7 +254,7 @@ namespace Weco.Utilities
       {
          bool result = false;
 
-         if (joyGetPosEx(0, ref jsx) == 0)
+         if (joyGetPosEx(this.id, ref jsx) == 0)
          {
             this.xaxis = (ushort)jsx.dwXpos;
             this.yaxis = (ushort)jsx.dwYpos;
@@ -245,6 +265,7 @@ namespace Weco.Utilities
             this.EvaluateButton(2, jsx.dwButtons, ref this.button2Pressed);
             this.EvaluateButton(4, jsx.dwButtons, ref this.button3Pressed);
             this.EvaluateButton(8, jsx.dwButtons, ref this.button4Pressed);
+            this.EvaluateButton(16, jsx.dwButtons, ref this.button5Pressed);            
             this.EvaluateButton(32, jsx.dwButtons, ref this.button6Pressed);
             this.EvaluateButton(64, jsx.dwButtons, ref this.button7Pressed);
             this.EvaluateButton(128, jsx.dwButtons, ref this.button8Pressed);

@@ -336,6 +336,16 @@
 
       #region User Events
 
+      private void JoystickLabel_Click(object sender, EventArgs e)
+      {
+         LogitechF310Form logitechF310Form = new LogitechF310Form();
+         this.SetDialogLocation(this.JoystickLabel, logitechF310Form);
+
+         this.DimBackground();
+         logitechF310Form.ShowDialog();
+         this.LightBackground();
+      }
+
       private void LeftTrackControllerLabel_Click(object sender, EventArgs e)
       {
          this.LaunchCANDeviceInformationForm(this.LeftTrackControllerLabel, RobotCommunicationBus.BusComponentId.LeftTrack, RobotCommunicationBus.Instance.GetDevice, RobotCommunicationBus.Instance.RestartDevice, RobotCommunicationBus.Instance.ClearDeviceError);
@@ -579,6 +589,6 @@
       }
 
       #endregion
-
+      
    }
 }
