@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Weco.Ui")]
+[assembly: AssemblyTitle("Weco.TouchTest")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("ULC Robotics")]
-[assembly: AssemblyProduct("Weco.Ui")]
-[assembly: AssemblyCopyright("Copyright © ULC Robotics 2017")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("Weco.TouchTest")]
+[assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("210cfe02-c4b4-4417-9b89-489c7d7378ea")]
+[assembly: Guid("4b90c703-a2eb-4ea0-ba1c-58c472a22b75")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2017.07.20.52")]
-[assembly: AssemblyFileVersion("2017.07.20.52")]
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]

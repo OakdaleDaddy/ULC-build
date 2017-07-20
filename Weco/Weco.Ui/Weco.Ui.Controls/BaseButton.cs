@@ -5,9 +5,18 @@ namespace Weco.Ui.Controls
    using System.Drawing;
    using System.Text;
    using System.Windows.Forms;
+   using System.Runtime.InteropServices;
 
    public class BaseButton : Button
    {
+      #region Definition
+
+      private const int WM_TOUCH = 0x0240;
+      private const int WM_LBUTTONDOWN = 0x0201;
+      private const int WM_LBUTTONUP = 0x0202;
+
+      #endregion
+
       #region Fields
 
       private bool _focused;
@@ -135,6 +144,50 @@ namespace Weco.Ui.Controls
          return (result);
       }
 
+      private bool DecodeTouch(ref Message m)
+      {
+         bool result = false;
+
+         int inputCount = (int)(m.WParam.ToInt32() & 0xFFFF);
+         
+         user32.TOUCHINPUT[] inputs; // Array of TOUCHINPUT structures
+         inputs = new user32.TOUCHINPUT[inputCount]; // Allocate the storage for the parameters of the per-contact messages
+
+         // Unpack message parameters into the array of TOUCHINPUT structures, each
+         // representing a message for one single contact.
+         int touchInputSize = Marshal.SizeOf(new user32.TOUCHINPUT());
+
+         if (!user32.GetTouchInputInfo(m.LParam, inputCount, inputs, touchInputSize))
+         {
+            // Get touch info failed.
+            return false;
+         }
+
+         user32.TOUCHINPUT ti = inputs[0];
+
+         if ((ti.dwFlags & user32.TOUCHEVENTF_DOWN) != 0)
+         {
+            if (false == this._pressed)
+            {
+               IntPtr wParam = new IntPtr(1);
+               long lValue = ((ti.cyContact / 100) << 32) | ((ti.cxContact / 100) << 16);
+               IntPtr lParam = new IntPtr(lValue);
+               user32.SendMessage(this.Handle, WM_LBUTTONDOWN, wParam, lParam);
+
+               result = true;
+            }
+         }
+         else if ((ti.dwFlags & user32.TOUCHEVENTF_UP) != 0)
+         {
+            // assumes system is generating the BN_CLICKED event on release
+            result = true;
+         }
+
+         user32.CloseTouchInputHandle(m.LParam);
+
+         return (result);
+      }
+
       private void PaintHoldIndicator(Graphics graphics)
       {
          Point[] upperLeftArrow = null;
@@ -175,26 +228,55 @@ namespace Weco.Ui.Controls
 
       #region Events
 
-      void NicBotButton_Enter(object sender, EventArgs e)
+      protected override void WndProc(ref Message m)
+      {
+         bool handled = false;
+         bool process = true;
+
+         if (WM_TOUCH == m.Msg)
+         {
+            handled = this.DecodeTouch(ref m);
+         }
+         else if (WM_LBUTTONDOWN == m.Msg)
+         {
+            if (false != this._pressed)
+            {
+               handled = true;
+               process = false;
+            }
+         }
+
+         if (false != process)
+         {
+            base.WndProc(ref m);
+         }
+
+         if (false != handled)
+         {
+            m.Result = new System.IntPtr(1);
+         }
+      }
+
+      void BaseButton_Enter(object sender, EventArgs e)
       {
          this._focused = true;
          this.Invalidate();
       }
 
-      void NicBotButton_Leave(object sender, EventArgs e)
+      void BaseButton_Leave(object sender, EventArgs e)
       {
          this._focused = false;
          this._pressed = false;
          this.Invalidate();
       }
 
-      void NicBotButton_MouseDown(object sender, MouseEventArgs e)
+      void BaseButton_MouseDown(object sender, MouseEventArgs e)
       {
          this._pressed = true;
          this.Invalidate();
       }
 
-      void NicBotButton_MouseUp(object sender, MouseEventArgs e)
+      void BaseButton_MouseUp(object sender, MouseEventArgs e)
       {
          this._pressed = false;
          this.Invalidate();
@@ -256,11 +338,13 @@ namespace Weco.Ui.Controls
 
       public BaseButton()
       {
-         this.Enter += NicBotButton_Enter;
-         this.Leave += NicBotButton_Leave;
+         bool registerResult = user32.RegisterTouchWindow(this.Handle, 0);
 
-         this.MouseDown += NicBotButton_MouseDown;
-         this.MouseUp += NicBotButton_MouseUp;
+         this.Enter += this.BaseButton_Enter;
+         this.Leave += this.BaseButton_Leave;
+
+         this.MouseDown += this.BaseButton_MouseDown;
+         this.MouseUp += this.BaseButton_MouseUp;
 
          this.HoldArrorColor = Color.Gray;
          this.DisabledBackColor = Color.FromArgb(151, 151, 151);

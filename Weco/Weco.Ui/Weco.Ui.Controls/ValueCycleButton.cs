@@ -11,7 +11,7 @@ namespace Weco.Ui.Controls
    using System.Threading.Tasks;
    using System.Windows.Forms;
 
-   public class ValueCycleButton : Button
+   public class ValueCycleButton : BaseButton
    {
       #region Fields
 
@@ -47,9 +47,7 @@ namespace Weco.Ui.Controls
       private string _optionBText;
       private string _optionCText;
 
-      private Color _disabledBackColor;
       private Color _disabledOptionBackColor;
-      private Color _disabledForeColor;
 
       #endregion
 
@@ -340,20 +338,6 @@ namespace Weco.Ui.Controls
          }
       }
 
-      public Color DisabledBackColor
-      {
-         set
-         {
-            this._disabledBackColor = value;
-            this.Invalidate();
-         }
-
-         get
-         {
-            return (this._disabledBackColor);
-         }
-      }
-
       public Color DisabledOptionBackColor
       {
          set
@@ -365,20 +349,6 @@ namespace Weco.Ui.Controls
          get
          {
             return (this._disabledOptionBackColor);
-         }
-      }
-
-      public Color DisabledForeColor
-      {
-         set
-         {
-            this._disabledForeColor = value;
-            this.Invalidate();
-         }
-
-         get
-         {
-            return (this._disabledForeColor);
          }
       }
 
@@ -455,6 +425,11 @@ namespace Weco.Ui.Controls
             HoldTimeoutEventArgs holdEventArg = new HoldTimeoutEventArgs();
             this.HoldTimeout(this, holdEventArg);
             this.holdTimeout = holdEventArg.Handled;
+         
+            if (false != holdEventArg.Handled)
+            {
+               this.Release();
+            }
          }
       }
 

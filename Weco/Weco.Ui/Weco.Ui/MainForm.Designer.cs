@@ -2505,7 +2505,7 @@
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
          this.AutoScroll = true;
          this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-         this.ClientSize = new System.Drawing.Size(1920, 1092);
+         this.ClientSize = new System.Drawing.Size(1920, 1084);
          this.Controls.Add(this.FeederAlternatePanel);
          this.Controls.Add(this.LightCameraPanel);
          this.Controls.Add(this.FeederPanel);
@@ -2525,7 +2525,7 @@
          this.Controls.Add(this.TitleLabel);
          this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
          this.Name = "MainForm";
-         this.Text = "Element 4";
+         this.Text = "WECO";
          this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
          this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
          this.Shown += new System.EventHandler(this.MainForm_Shown);

@@ -98,6 +98,7 @@
     <Compile Include="UpDownButton.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="user32.cs" />
     <Compile Include="ValueButton.cs">
       <SubType>Component</SubType>
     </Compile>

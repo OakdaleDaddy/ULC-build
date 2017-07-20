@@ -10,8 +10,10 @@ namespace Weco.Ui.Controls
    using System.Text;
    using System.Windows.Forms;
 
-   public class KeyButton : Button
+   public class KeyButton : BaseButton
    {
+      #region Fields
+
       private bool focused;
       private bool pressed;
 
@@ -19,6 +21,10 @@ namespace Weco.Ui.Controls
       private string _shiftValue;
       private int _valueEdge;
       private ContentAlignment _shiftAlignment;
+
+      #endregion
+
+      #region Properties
 
       public bool ShowShiftValue
       {
@@ -63,6 +69,8 @@ namespace Weco.Ui.Controls
 
          get { return (this._shiftAlignment); }
       }
+
+      #endregion
 
       #region Helper Functions
 
@@ -134,17 +142,7 @@ namespace Weco.Ui.Controls
 
       #endregion
 
-      public KeyButton()
-         : base()
-      {
-         this.Enter += KeyButton_Enter;
-         this.Leave += KeyButton_Leave;
-
-         this.MouseDown += KeyButton_MouseDown;
-         this.MouseUp += KeyButton_MouseUp;
-
-         this.ShiftAlignment = this.TextAlign;
-      }
+      #region Events
 
       void KeyButton_MouseUp(object sender, MouseEventArgs e)
       {
@@ -228,5 +226,24 @@ namespace Weco.Ui.Controls
             e.Graphics.DrawString(this.Text, this.Font, new SolidBrush(this.ForeColor), bottomRect, bottomFormat);
          }
       }
+
+      #endregion
+
+      #region Constructor
+
+      public KeyButton()
+         : base()
+      {
+         this.Enter += KeyButton_Enter;
+         this.Leave += KeyButton_Leave;
+
+         this.MouseDown += KeyButton_MouseDown;
+         this.MouseUp += KeyButton_MouseUp;
+
+         this.ShiftAlignment = this.TextAlign;
+      }
+
+      #endregion
+
    }
 }

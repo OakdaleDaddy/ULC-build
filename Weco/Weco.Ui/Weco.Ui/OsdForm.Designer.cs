@@ -31,15 +31,16 @@
          System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OsdForm));
          this.BackPanel = new System.Windows.Forms.Panel();
          this.panel3 = new System.Windows.Forms.Panel();
+         this.LeftPanel = new System.Windows.Forms.Panel();
+         this.OsdRichTextBox = new System.Windows.Forms.RichTextBox();
+         this.panel1 = new System.Windows.Forms.Panel();
+         this.DistanceToggleButton = new Weco.Ui.Controls.BaseButton();
          this.CameraIdToggleButton = new Weco.Ui.Controls.BaseButton();
          this.TimeToggleButton = new Weco.Ui.Controls.BaseButton();
          this.DescriptionToggleButton = new Weco.Ui.Controls.BaseButton();
          this.DateToggleButton = new Weco.Ui.Controls.BaseButton();
-         this.LeftPanel = new System.Windows.Forms.Panel();
          this.ClearScreenButton = new Weco.Ui.Controls.BaseButton();
          this.WriteTextButton = new Weco.Ui.Controls.BaseButton();
-         this.OsdRichTextBox = new System.Windows.Forms.RichTextBox();
-         this.panel1 = new System.Windows.Forms.Panel();
          this.SpaceKeyButton = new Weco.Ui.Controls.KeyButton();
          this.ForwardSlashKeyButton = new Weco.Ui.Controls.KeyButton();
          this.PeriodKeyButton = new Weco.Ui.Controls.KeyButton();
@@ -99,7 +100,6 @@
          this.TabKeyButton = new Weco.Ui.Controls.KeyButton();
          this.ExitKeyButton = new Weco.Ui.Controls.KeyButton();
          this.OneKeyButton = new Weco.Ui.Controls.KeyButton();
-         this.DistanceToggleButton = new Weco.Ui.Controls.BaseButton();
          this.BackPanel.SuspendLayout();
          this.panel3.SuspendLayout();
          this.LeftPanel.SuspendLayout();
@@ -131,66 +131,6 @@
          this.panel3.Size = new System.Drawing.Size(386, 222);
          this.panel3.TabIndex = 36;
          // 
-         // CameraIdToggleButton
-         // 
-         this.CameraIdToggleButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-         this.CameraIdToggleButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
-         this.CameraIdToggleButton.DisabledForeColor = System.Drawing.Color.Silver;
-         this.CameraIdToggleButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
-         this.CameraIdToggleButton.HoldArrorColor = System.Drawing.Color.Gray;
-         this.CameraIdToggleButton.Location = new System.Drawing.Point(16, 59);
-         this.CameraIdToggleButton.Name = "CameraIdToggleButton";
-         this.CameraIdToggleButton.Size = new System.Drawing.Size(354, 35);
-         this.CameraIdToggleButton.TabIndex = 173;
-         this.CameraIdToggleButton.Text = "CAMERA ID";
-         this.CameraIdToggleButton.UseVisualStyleBackColor = false;
-         this.CameraIdToggleButton.Click += new System.EventHandler(this.CameraIdToggleButton_Click);
-         // 
-         // TimeToggleButton
-         // 
-         this.TimeToggleButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-         this.TimeToggleButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
-         this.TimeToggleButton.DisabledForeColor = System.Drawing.Color.Silver;
-         this.TimeToggleButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
-         this.TimeToggleButton.HoldArrorColor = System.Drawing.Color.Gray;
-         this.TimeToggleButton.Location = new System.Drawing.Point(257, 16);
-         this.TimeToggleButton.Name = "TimeToggleButton";
-         this.TimeToggleButton.Size = new System.Drawing.Size(112, 35);
-         this.TimeToggleButton.TabIndex = 172;
-         this.TimeToggleButton.Text = "TIME";
-         this.TimeToggleButton.UseVisualStyleBackColor = false;
-         this.TimeToggleButton.Click += new System.EventHandler(this.TimeToggleButton_Click);
-         // 
-         // DescriptionToggleButton
-         // 
-         this.DescriptionToggleButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-         this.DescriptionToggleButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
-         this.DescriptionToggleButton.DisabledForeColor = System.Drawing.Color.Silver;
-         this.DescriptionToggleButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
-         this.DescriptionToggleButton.HoldArrorColor = System.Drawing.Color.Gray;
-         this.DescriptionToggleButton.Location = new System.Drawing.Point(16, 102);
-         this.DescriptionToggleButton.Name = "DescriptionToggleButton";
-         this.DescriptionToggleButton.Size = new System.Drawing.Size(354, 61);
-         this.DescriptionToggleButton.TabIndex = 170;
-         this.DescriptionToggleButton.Text = "DESCRIPTION";
-         this.DescriptionToggleButton.UseVisualStyleBackColor = false;
-         this.DescriptionToggleButton.Click += new System.EventHandler(this.DescriptionToggleButton_Click);
-         // 
-         // DateToggleButton
-         // 
-         this.DateToggleButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-         this.DateToggleButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
-         this.DateToggleButton.DisabledForeColor = System.Drawing.Color.Silver;
-         this.DateToggleButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
-         this.DateToggleButton.HoldArrorColor = System.Drawing.Color.Gray;
-         this.DateToggleButton.Location = new System.Drawing.Point(16, 16);
-         this.DateToggleButton.Name = "DateToggleButton";
-         this.DateToggleButton.Size = new System.Drawing.Size(112, 35);
-         this.DateToggleButton.TabIndex = 168;
-         this.DateToggleButton.Text = "DATE";
-         this.DateToggleButton.UseVisualStyleBackColor = false;
-         this.DateToggleButton.Click += new System.EventHandler(this.DateToggleButton_Click);
-         // 
          // LeftPanel
          // 
          this.LeftPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -203,36 +143,6 @@
          this.LeftPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.LeftPanel_MouseDown);
          this.LeftPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.LeftPanel_MouseMove);
          this.LeftPanel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.LeftPanel_MouseUp);
-         // 
-         // ClearScreenButton
-         // 
-         this.ClearScreenButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-         this.ClearScreenButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
-         this.ClearScreenButton.DisabledForeColor = System.Drawing.Color.Silver;
-         this.ClearScreenButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
-         this.ClearScreenButton.HoldArrorColor = System.Drawing.Color.Gray;
-         this.ClearScreenButton.Location = new System.Drawing.Point(52, 66);
-         this.ClearScreenButton.Name = "ClearScreenButton";
-         this.ClearScreenButton.Size = new System.Drawing.Size(107, 90);
-         this.ClearScreenButton.TabIndex = 167;
-         this.ClearScreenButton.Text = "CLEAR SCREEN";
-         this.ClearScreenButton.UseVisualStyleBackColor = false;
-         this.ClearScreenButton.Click += new System.EventHandler(this.ClearScreenButton_Click);
-         // 
-         // WriteTextButton
-         // 
-         this.WriteTextButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-         this.WriteTextButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
-         this.WriteTextButton.DisabledForeColor = System.Drawing.Color.Silver;
-         this.WriteTextButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
-         this.WriteTextButton.HoldArrorColor = System.Drawing.Color.Gray;
-         this.WriteTextButton.Location = new System.Drawing.Point(212, 66);
-         this.WriteTextButton.Name = "WriteTextButton";
-         this.WriteTextButton.Size = new System.Drawing.Size(107, 90);
-         this.WriteTextButton.TabIndex = 166;
-         this.WriteTextButton.Text = "WRITE TEXT";
-         this.WriteTextButton.UseVisualStyleBackColor = false;
-         this.WriteTextButton.Click += new System.EventHandler(this.WriteTextButton_Click);
          // 
          // OsdRichTextBox
          // 
@@ -314,6 +224,111 @@
          this.panel1.Name = "panel1";
          this.panel1.Size = new System.Drawing.Size(1181, 398);
          this.panel1.TabIndex = 0;
+         // 
+         // DistanceToggleButton
+         // 
+         this.DistanceToggleButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+         this.DistanceToggleButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
+         this.DistanceToggleButton.DisabledForeColor = System.Drawing.Color.Silver;
+         this.DistanceToggleButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+         this.DistanceToggleButton.HoldArrorColor = System.Drawing.Color.Gray;
+         this.DistanceToggleButton.Location = new System.Drawing.Point(137, 16);
+         this.DistanceToggleButton.Name = "DistanceToggleButton";
+         this.DistanceToggleButton.Size = new System.Drawing.Size(112, 35);
+         this.DistanceToggleButton.TabIndex = 174;
+         this.DistanceToggleButton.Text = "DISTANCE";
+         this.DistanceToggleButton.UseVisualStyleBackColor = false;
+         this.DistanceToggleButton.Click += new System.EventHandler(this.DistanceToggleButton_Click);
+         // 
+         // CameraIdToggleButton
+         // 
+         this.CameraIdToggleButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+         this.CameraIdToggleButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
+         this.CameraIdToggleButton.DisabledForeColor = System.Drawing.Color.Silver;
+         this.CameraIdToggleButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+         this.CameraIdToggleButton.HoldArrorColor = System.Drawing.Color.Gray;
+         this.CameraIdToggleButton.Location = new System.Drawing.Point(16, 59);
+         this.CameraIdToggleButton.Name = "CameraIdToggleButton";
+         this.CameraIdToggleButton.Size = new System.Drawing.Size(354, 35);
+         this.CameraIdToggleButton.TabIndex = 173;
+         this.CameraIdToggleButton.Text = "CAMERA ID";
+         this.CameraIdToggleButton.UseVisualStyleBackColor = false;
+         this.CameraIdToggleButton.Click += new System.EventHandler(this.CameraIdToggleButton_Click);
+         // 
+         // TimeToggleButton
+         // 
+         this.TimeToggleButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+         this.TimeToggleButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
+         this.TimeToggleButton.DisabledForeColor = System.Drawing.Color.Silver;
+         this.TimeToggleButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+         this.TimeToggleButton.HoldArrorColor = System.Drawing.Color.Gray;
+         this.TimeToggleButton.Location = new System.Drawing.Point(257, 16);
+         this.TimeToggleButton.Name = "TimeToggleButton";
+         this.TimeToggleButton.Size = new System.Drawing.Size(112, 35);
+         this.TimeToggleButton.TabIndex = 172;
+         this.TimeToggleButton.Text = "TIME";
+         this.TimeToggleButton.UseVisualStyleBackColor = false;
+         this.TimeToggleButton.Click += new System.EventHandler(this.TimeToggleButton_Click);
+         // 
+         // DescriptionToggleButton
+         // 
+         this.DescriptionToggleButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+         this.DescriptionToggleButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
+         this.DescriptionToggleButton.DisabledForeColor = System.Drawing.Color.Silver;
+         this.DescriptionToggleButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+         this.DescriptionToggleButton.HoldArrorColor = System.Drawing.Color.Gray;
+         this.DescriptionToggleButton.Location = new System.Drawing.Point(16, 102);
+         this.DescriptionToggleButton.Name = "DescriptionToggleButton";
+         this.DescriptionToggleButton.Size = new System.Drawing.Size(354, 61);
+         this.DescriptionToggleButton.TabIndex = 170;
+         this.DescriptionToggleButton.Text = "DESCRIPTION";
+         this.DescriptionToggleButton.UseVisualStyleBackColor = false;
+         this.DescriptionToggleButton.Click += new System.EventHandler(this.DescriptionToggleButton_Click);
+         // 
+         // DateToggleButton
+         // 
+         this.DateToggleButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+         this.DateToggleButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
+         this.DateToggleButton.DisabledForeColor = System.Drawing.Color.Silver;
+         this.DateToggleButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+         this.DateToggleButton.HoldArrorColor = System.Drawing.Color.Gray;
+         this.DateToggleButton.Location = new System.Drawing.Point(16, 16);
+         this.DateToggleButton.Name = "DateToggleButton";
+         this.DateToggleButton.Size = new System.Drawing.Size(112, 35);
+         this.DateToggleButton.TabIndex = 168;
+         this.DateToggleButton.Text = "DATE";
+         this.DateToggleButton.UseVisualStyleBackColor = false;
+         this.DateToggleButton.Click += new System.EventHandler(this.DateToggleButton_Click);
+         // 
+         // ClearScreenButton
+         // 
+         this.ClearScreenButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+         this.ClearScreenButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
+         this.ClearScreenButton.DisabledForeColor = System.Drawing.Color.Silver;
+         this.ClearScreenButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
+         this.ClearScreenButton.HoldArrorColor = System.Drawing.Color.Gray;
+         this.ClearScreenButton.Location = new System.Drawing.Point(52, 66);
+         this.ClearScreenButton.Name = "ClearScreenButton";
+         this.ClearScreenButton.Size = new System.Drawing.Size(107, 90);
+         this.ClearScreenButton.TabIndex = 167;
+         this.ClearScreenButton.Text = "CLEAR SCREEN";
+         this.ClearScreenButton.UseVisualStyleBackColor = false;
+         this.ClearScreenButton.Click += new System.EventHandler(this.ClearScreenButton_Click);
+         // 
+         // WriteTextButton
+         // 
+         this.WriteTextButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+         this.WriteTextButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
+         this.WriteTextButton.DisabledForeColor = System.Drawing.Color.Silver;
+         this.WriteTextButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold);
+         this.WriteTextButton.HoldArrorColor = System.Drawing.Color.Gray;
+         this.WriteTextButton.Location = new System.Drawing.Point(212, 66);
+         this.WriteTextButton.Name = "WriteTextButton";
+         this.WriteTextButton.Size = new System.Drawing.Size(107, 90);
+         this.WriteTextButton.TabIndex = 166;
+         this.WriteTextButton.Text = "WRITE    TEXT";
+         this.WriteTextButton.UseVisualStyleBackColor = false;
+         this.WriteTextButton.Click += new System.EventHandler(this.WriteTextButton_Click);
          // 
          // SpaceKeyButton
          // 
@@ -1260,21 +1275,6 @@
          this.OneKeyButton.UseVisualStyleBackColor = false;
          this.OneKeyButton.ValueEdge = 5;
          this.OneKeyButton.Click += new System.EventHandler(this.OneKeyButton_Click);
-         // 
-         // DistanceToggleButton
-         // 
-         this.DistanceToggleButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-         this.DistanceToggleButton.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(151)))), ((int)(((byte)(151)))), ((int)(((byte)(151)))));
-         this.DistanceToggleButton.DisabledForeColor = System.Drawing.Color.Silver;
-         this.DistanceToggleButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
-         this.DistanceToggleButton.HoldArrorColor = System.Drawing.Color.Gray;
-         this.DistanceToggleButton.Location = new System.Drawing.Point(137, 16);
-         this.DistanceToggleButton.Name = "DistanceToggleButton";
-         this.DistanceToggleButton.Size = new System.Drawing.Size(112, 35);
-         this.DistanceToggleButton.TabIndex = 174;
-         this.DistanceToggleButton.Text = "DISTANCE";
-         this.DistanceToggleButton.UseVisualStyleBackColor = false;
-         this.DistanceToggleButton.Click += new System.EventHandler(this.DistanceToggleButton_Click);
          // 
          // OsdForm
          // 

@@ -11,7 +11,7 @@ namespace Weco.Ui.Controls
    using System.Threading.Tasks;
    using System.Windows.Forms;
 
-   public class CameraSelectButton : Button
+   public class CameraSelectButton : BaseButton
    {
       #region Definitions
 
@@ -41,10 +41,6 @@ namespace Weco.Ui.Controls
 
       private bool rightVisible;
       private Color rightColor;
-
-      private Color holdArrorColor;
-      private Color disabledBackColor;
-      private Color disabledForeColor;
 
       #endregion
 
@@ -234,48 +230,6 @@ namespace Weco.Ui.Controls
          }
       }
 
-      public Color HoldArrorColor
-      {
-         set
-         {
-            this.holdArrorColor = value;
-            this.Invalidate();
-         }
-
-         get
-         {
-            return (this.holdArrorColor);
-         }
-      }
-
-      public Color DisabledBackColor
-      {
-         set
-         {
-            this.disabledBackColor = value;
-            this.Invalidate();
-         }
-
-         get
-         {
-            return (this.disabledBackColor);
-         }
-      }
-
-      public Color DisabledForeColor
-      {
-         set
-         {
-            this.disabledForeColor = value;
-            this.Invalidate();
-         }
-
-         get
-         {
-            return (this.disabledForeColor);
-         }
-      }
-
       #endregion
 
       #region Helper Functions
@@ -447,6 +401,11 @@ namespace Weco.Ui.Controls
             this.HoldTimeout(this, holdEventArg);
             this.holdTimeout = !holdEventArg.Handled;
             this.pressed = !holdEventArg.Handled;
+
+            if (false != holdEventArg.Handled)
+            {
+               this.Release();
+            }
          }
 
          if ((false != holdRepeat) && (false != this.holdTimeout))
@@ -457,7 +416,6 @@ namespace Weco.Ui.Controls
                this.holdTimer.Start();
             }
          }
-
       }
 
       protected override void OnPaint(PaintEventArgs e)
