@@ -87,7 +87,7 @@
          this.VersionCount = 1; // update after each addition
 
          this.RobotBus = new RobotBusParameters();
-         this.RobotBus.BusInterface = BusInterfaces.PCIA;
+         this.RobotBus.BusInterface = BusInterfaces.USBA;
          this.RobotBus.BitRate = 50000;
          this.RobotBus.ConsumerHeartbeatRate = 3500;
          this.RobotBus.ProducerHeartbeatRate = 1000;
@@ -101,7 +101,7 @@
          this.RobotBus.RightTrackTraceMask = 1;
 
          this.TruckBus = new TruckBusParameters();
-         this.TruckBus.BusInterface = BusInterfaces.PCIB;
+         this.TruckBus.BusInterface = BusInterfaces.USBB;
          this.TruckBus.BitRate = 50000;
          this.TruckBus.ConsumerHeartbeatRate = 3500;
          this.TruckBus.ProducerHeartbeatRate = 1000;
@@ -611,7 +611,7 @@
             }
             else
             {
-               if ("TargetBus" == reader.Name)
+               if ("TruckBus" == reader.Name)
                {
                   result = new TruckBusParameters();
 
@@ -1100,7 +1100,7 @@
                            this.RobotBus = robotBusParameters;
                         }
                      }
-                     else if ("TargetBus" == reader.Name)
+                     else if ("TruckBus" == reader.Name)
                      {
                         TruckBusParameters truckBusParameters = this.ReadTruckBusParameters(reader);
 

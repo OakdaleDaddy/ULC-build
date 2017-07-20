@@ -345,7 +345,7 @@
          if (false == this.busReady)
          {
             this.busInterfaceId = ParameterAccessor.Instance.TruckBus.BusInterface;
-            CANResult startResult = PCANLight.Start(this.busInterfaceId, ParameterAccessor.Instance.TruckBus.BitRate, FramesType.INIT_TYPE_ST, TraceGroup.TBUS, this.BusReceiveHandler);
+            CANResult startResult = PCANLight.Start(this.busInterfaceId, ParameterAccessor.Instance.TruckBus.BitRate, false, 0, FramesType.INIT_TYPE_ST, TraceGroup.TBUS, this.BusReceiveHandler);
             this.busReady = (CANResult.ERR_OK == startResult);
          }
 

@@ -726,7 +726,7 @@
          if (false == this.busReady)
          {
             this.busInterfaceId = ParameterAccessor.Instance.RobotBus.BusInterface;
-            CANResult startResult = PCANLight.Start(this.busInterfaceId, ParameterAccessor.Instance.RobotBus.BitRate, true, ParameterAccessor.Instance.RobotBus.ControllerBusId, FramesType.INIT_TYPE_ST, TraceGroup.RBUS, this.BusReceiveHandler);
+            CANResult startResult = PCANLight.Start(this.busInterfaceId, ParameterAccessor.Instance.RobotBus.BitRate, false, 0, FramesType.INIT_TYPE_ST, TraceGroup.RBUS, this.BusReceiveHandler);
             this.busReady = (CANResult.ERR_OK == startResult);
          }
 
