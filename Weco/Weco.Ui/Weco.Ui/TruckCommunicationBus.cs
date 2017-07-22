@@ -18,10 +18,16 @@
       public enum BusComponentId
       {
          Bus,
-         TargetBoard,
-         TargetBoardCameraLed,
-         TargetBoardFrontWheel,
-         TargetBoardRearWheel,
+         LaunchCardController,
+         LaunchCardCameraLight,
+         LaunchCardAnalogIo,
+         BulletMotor,
+         FeederLeftMotor,
+         FeederRightMotor,
+         ReelMotor,
+         ReelEncoder,
+         ReelDigitalIo,
+         OsdRs232,
       }
 
       #endregion
@@ -44,6 +50,12 @@
       private Queue busReceiveQueue;
       private Queue deviceResetQueue;
       private Queue deviceClearErrorQueue;
+
+      private ElmoWhistleMotor bulletMotor;
+      private ElmoWhistleMotor feederLeftMotor;
+      private ElmoWhistleMotor feederRightMotor;
+      private ElmoWhistleMotor reelMotor;
+      private UlcRoboticsRs232 osdRs232;
 
       private ArrayList deviceList;
 
@@ -85,8 +97,19 @@
          this.deviceResetQueue = new Queue();
          this.deviceClearErrorQueue = new Queue();
 
-         this.deviceList = new ArrayList();
+         this.bulletMotor = new ElmoWhistleMotor("bullet motor", (byte)ParameterAccessor.Instance.TruckBus.BulletMotorBusId);
+         this.feederLeftMotor = new ElmoWhistleMotor("feeder left motor", (byte)ParameterAccessor.Instance.TruckBus.FeederLeftMotorBusId);
+         this.feederRightMotor = new ElmoWhistleMotor("feeder right motor", (byte)ParameterAccessor.Instance.TruckBus.FeederRightMotorBusId);
+         this.reelMotor = new ElmoWhistleMotor("reel motor", (byte)ParameterAccessor.Instance.TruckBus.ReelMotorBusId);
+         this.osdRs232 = new UlcRoboticsRs232("osd rs232", (byte)ParameterAccessor.Instance.TruckBus.OsdRs232BusId);
 
+         this.deviceList = new ArrayList();
+         this.deviceList.Add(this.bulletMotor);
+         this.deviceList.Add(this.feederLeftMotor);
+         this.deviceList.Add(this.feederRightMotor);
+         this.deviceList.Add(this.reelMotor);
+         this.deviceList.Add(this.osdRs232);
+         
          foreach (Device device in this.deviceList)
          {
             device.OnReceiveTrace = new Device.ReceiveTraceHandler(this.DeviceTraceReceive);
@@ -100,8 +123,6 @@
          this.controllerServiced = false;
          this.stopAll = false;
          this.valueUpdate = new object();
-
-         //this.targetTripStartValue = 0;
 
          this.wheel0Status = new WheelMotorStatus();
          this.wheel1Status = new WheelMotorStatus();
@@ -297,6 +318,20 @@
 
       #endregion
 
+      #region OSD RS232 Functions
+
+      private void InitializeOsd232()
+      {
+         this.osdRs232.Initialize();
+      }
+
+      private void StartOsd232()
+      {
+         this.osdRs232.Start(9600, 8, 0, 1);
+      }
+
+      #endregion
+
       #region Process Support Functions
 
       private void WaitDeviceHeartbeat(Device device)
@@ -327,15 +362,26 @@
          this.busReceiveQueue.Clear();
          this.deviceResetQueue.Clear();
          this.deviceClearErrorQueue.Clear();
-
-
+         
+         this.bulletMotor.NodeId = (byte)ParameterAccessor.Instance.TruckBus.BulletMotorBusId;
+         this.feederLeftMotor.NodeId = (byte)ParameterAccessor.Instance.TruckBus.FeederLeftMotorBusId;
+         this.feederRightMotor.NodeId = (byte)ParameterAccessor.Instance.TruckBus.FeederRightMotorBusId;
+         this.reelMotor.NodeId = (byte)ParameterAccessor.Instance.TruckBus.ReelMotorBusId;
+         this.osdRs232.NodeId = (byte)ParameterAccessor.Instance.TruckBus.OsdRs232BusId;
+         
          this.TraceMask = ParameterAccessor.Instance.TruckBus.ControllerTraceMask;
+         this.bulletMotor.TraceMask = ParameterAccessor.Instance.TruckBus.BulletMotorTraceMask;
+         this.feederLeftMotor.TraceMask = ParameterAccessor.Instance.TruckBus.FeederLeftMotorTraceMask;
+         this.feederRightMotor.TraceMask = ParameterAccessor.Instance.TruckBus.FeederRightMotorTraceMask;
+         this.reelMotor.TraceMask = ParameterAccessor.Instance.TruckBus.ReelMotorTraceMask;
+         this.osdRs232.TraceMask = ParameterAccessor.Instance.TruckBus.OsdRs232TraceMask;
 
          this.stopAll = false;
       }
 
       private void InitializeDevices()
       {
+         this.InitializeOsd232();
       }
 
       private void StartBus()
@@ -458,20 +504,57 @@
             {
                BusComponentId id = (BusComponentId)request.Id;
 
-               if (BusComponentId.TargetBoard == id)
+               if (BusComponentId.LaunchCardController == id)
                {
                }
-               else if (BusComponentId.TargetBoardCameraLed == id)
+               else if (BusComponentId.LaunchCardCameraLight == id)
                {
                   // restart of component not done
                }
-               else if (BusComponentId.TargetBoardFrontWheel == id)
+               else if (BusComponentId.LaunchCardAnalogIo == id)
                {
                   // restart of component not done
                }
-               else if (BusComponentId.TargetBoardRearWheel == id)
+               else if (BusComponentId.BulletMotor == id)
                {
-                  // restart of component not done
+                  //this.InitializeBulletMotor();
+                  this.bulletMotor.Reset();
+                  this.WaitDeviceHeartbeat(this.bulletMotor);
+                  //this.StartBulletMotor();
+               }
+               else if (BusComponentId.FeederLeftMotor == id)
+               {
+                  //this.Initialize...
+                  this.feederLeftMotor.Reset();
+                  this.WaitDeviceHeartbeat(this.feederLeftMotor);
+                  //this.Start...
+               }
+               else if (BusComponentId.FeederRightMotor == id)
+               {
+                  //this.Initialize...
+                  this.feederRightMotor.Reset();
+                  this.WaitDeviceHeartbeat(this.feederRightMotor);
+                  //this.Start...
+               }
+               else if (BusComponentId.ReelMotor == id)
+               {
+                  //this.Initialize...
+                  this.reelMotor.Reset();
+                  this.WaitDeviceHeartbeat(this.reelMotor);
+                  //this.Start...
+               }
+               else if (BusComponentId.ReelEncoder == id)
+               {
+               }
+               else if (BusComponentId.ReelDigitalIo == id)
+               {
+               }
+               else if (BusComponentId.OsdRs232 == id)
+               {
+                  this.InitializeOsd232();
+                  this.osdRs232.Reset();
+                  this.WaitDeviceHeartbeat(this.osdRs232);
+                  this.StartOsd232();
                }
 
                if (null != request.OnComplete)
@@ -511,30 +594,40 @@
             {
                BusComponentId id = (BusComponentId)request.Id;
 
-               if (BusComponentId.TargetBoard == id)
+               if (BusComponentId.LaunchCardController == id)
                {
                }
-               else if (BusComponentId.TargetBoardCameraLed == id)
+               else if (BusComponentId.LaunchCardCameraLight == id)
                {
-                  //bool wasFaulted = false;
                }
-               else if (BusComponentId.TargetBoardFrontWheel == id)
+               else if (BusComponentId.LaunchCardAnalogIo == id)
                {
-                  bool wasFaulted = false;
-
-                  if (false != wasFaulted)
-                  {
-                     this.wheel0Status.state = WheelMotorStatus.States.off;
-                  }
                }
-               else if (BusComponentId.TargetBoardRearWheel == id)
+               else if (BusComponentId.BulletMotor == id)
                {
-                  bool wasFaulted = false;
-
-                  if (false != wasFaulted)
-                  {
-                     this.wheel1Status.state = WheelMotorStatus.States.off;
-                  }
+                  this.bulletMotor.ClearWarning();
+               }
+               else if (BusComponentId.FeederLeftMotor == id)
+               {
+                  this.feederLeftMotor.ClearWarning();
+               }
+               else if (BusComponentId.FeederRightMotor == id)
+               {
+                  this.feederRightMotor.ClearWarning();
+               }
+               else if (BusComponentId.ReelMotor == id)
+               {
+                  this.reelMotor.ClearWarning();
+               }
+               else if (BusComponentId.ReelEncoder == id)
+               {
+               }
+               else if (BusComponentId.ReelDigitalIo == id)
+               {
+               }
+               else if (BusComponentId.OsdRs232 == id)
+               {
+                  this.osdRs232.ClearWarning();
                }
 
                if (null != request.OnComplete)
@@ -557,7 +650,11 @@
          this.controllerServiced = true;
          this.controllerHeartbeatLimit = DateTime.Now.AddMilliseconds(ParameterAccessor.Instance.TruckBus.ProducerHeartbeatRate);
 
-         // start devices
+         this.StartOsd232();
+
+         VideoStampOsd.Instance.Start(new VideoStampOsd.SerialWriteHandler(this.osdRs232.WriteSerial));
+         VideoStampOsd.Instance.SetDateAndTime(DateTime.Now);
+         VideoStampOsd.Instance.Configure(ParameterAccessor.Instance.Osd);
 
          this.ready = true;
 
@@ -584,6 +681,11 @@
          PCANLight.Stop(this.busInterfaceId);
 
          ParameterAccessor.Instance.TruckBus.ControllerTraceMask = this.TraceMask;
+         ParameterAccessor.Instance.TruckBus.BulletMotorTraceMask = this.bulletMotor.TraceMask;
+         ParameterAccessor.Instance.TruckBus.FeederLeftMotorTraceMask = this.feederLeftMotor.TraceMask;
+         ParameterAccessor.Instance.TruckBus.FeederRightMotorTraceMask = this.feederRightMotor.TraceMask;
+         ParameterAccessor.Instance.TruckBus.ReelMotorTraceMask = this.reelMotor.TraceMask;
+         ParameterAccessor.Instance.TruckBus.OsdRs232TraceMask = this.osdRs232.TraceMask;
       }
 
       private void Process()
@@ -598,7 +700,7 @@
             this.deviceExecute = true;
             this.deviceThread = new Thread(this.DeviceProcess);
             this.deviceThread.IsBackground = true;
-            this.deviceThread.Name = "Target CAN Devices";
+            this.deviceThread.Name = "Truck CAN Devices";
             this.deviceThread.Start();
 
             this.StartBus();
@@ -619,6 +721,8 @@
             this.deviceThread = null;
 
             this.CloseBus();
+
+            VideoStampOsd.Instance.Stop();
 
             this.InitializeValues(); // clears previous session requests for next session
             this.InitializeDevices();
@@ -650,7 +754,7 @@
       {
          this.thread = new Thread(this.Process);
          this.thread.IsBackground = true;
-         this.thread.Name = "Target Communications";
+         this.thread.Name = "Truck Communications";
 
          this.ready = false;
          this.execute = true;
@@ -704,23 +808,47 @@
          {
             if (this.GetFaultStatus(BusComponentId.Bus) != null) 
             {
-               result = "target communication offline";
+               result = "truck communication offline";
             }
-            else if (this.GetFaultStatus(BusComponentId.TargetBoard) != null)
+            else if (this.GetFaultStatus(BusComponentId.LaunchCardController) != null)
             {
-               result = "target board offline";
+               result = "launch card offline";
             }
-            else if (this.GetFaultStatus(BusComponentId.TargetBoardCameraLed) != null)
+            else if (this.GetFaultStatus(BusComponentId.LaunchCardCameraLight) != null)
             {
-               result = "target board camera/led offline";
+               result = "launch card camera/led offline";
             }
-            else if (this.GetFaultStatus(BusComponentId.TargetBoardFrontWheel) != null)
+            else if (this.GetFaultStatus(BusComponentId.LaunchCardAnalogIo) != null)
             {
-               result = "target board front wheel offline";
+               result = "launch card analog IO offline";
             }
-            else if (this.GetFaultStatus(BusComponentId.TargetBoardRearWheel) != null)
+            else if (this.GetFaultStatus(BusComponentId.BulletMotor) != null)
             {
-               result = "target board rear wheel offline";
+               result = "bullet motor offline";
+            }
+            else if (this.GetFaultStatus(BusComponentId.FeederLeftMotor) != null)
+            {
+               result = "feeder left motor offline";
+            }
+            else if (this.GetFaultStatus(BusComponentId.FeederRightMotor) != null)
+            {
+               result = "feeder right motor offline";
+            }
+            else if (this.GetFaultStatus(BusComponentId.ReelMotor) != null)
+            {
+               result = "reel motor offline";
+            }
+            else if (this.GetFaultStatus(BusComponentId.ReelEncoder) != null)
+            {
+               result = "reel encoder offline";
+            }
+            else if (this.GetFaultStatus(BusComponentId.ReelDigitalIo) != null)
+            {
+               result = "reel digital IO offline";
+            }
+            else if (this.GetFaultStatus(BusComponentId.OsdRs232) != null)
+            {
+               result = "OSD RS232 offline";
             }
          }
 
@@ -742,17 +870,40 @@
             {
                result = this.busStatus;
             }
-            else if (BusComponentId.TargetBoard == id)
+            else if (BusComponentId.LaunchCardController == id)
             {
             }
-            else if (BusComponentId.TargetBoardCameraLed == id)
+            else if (BusComponentId.LaunchCardCameraLight == id)
             {
             }
-            else if (BusComponentId.TargetBoardFrontWheel == id)
+            else if (BusComponentId.LaunchCardAnalogIo == id)
             {
             }
-            else if (BusComponentId.TargetBoardRearWheel == id)
+            else if (BusComponentId.BulletMotor == id)
             {
+               result = this.bulletMotor.FaultReason;
+            }
+            else if (BusComponentId.FeederLeftMotor == id)
+            {
+               result = this.feederLeftMotor.FaultReason;
+            }
+            else if (BusComponentId.FeederRightMotor == id)
+            {
+               result = this.feederRightMotor.FaultReason;
+            }
+            else if (BusComponentId.ReelMotor == id)
+            {
+               result = this.reelMotor.FaultReason;
+            }
+            else if (BusComponentId.ReelEncoder == id)
+            {
+            }
+            else if (BusComponentId.ReelDigitalIo == id)
+            {
+            }
+            else if (BusComponentId.OsdRs232 == id)
+            {
+               result = this.osdRs232.FaultReason;
             }
          }
          else
@@ -776,23 +927,47 @@
          {
             if (this.GetWarningStatus(BusComponentId.Bus) != null)
             {
-               result = "target communication offline";
+               result = "truck communication offline";
             }
-            else if (this.GetWarningStatus(BusComponentId.TargetBoard) != null)
+            else if (this.GetWarningStatus(BusComponentId.LaunchCardController) != null)
             {
-               result = "target board offline";
+               result = "launch card offline";
             }
-            else if (this.GetWarningStatus(BusComponentId.TargetBoardCameraLed) != null)
+            else if (this.GetWarningStatus(BusComponentId.LaunchCardCameraLight) != null)
             {
-               result = "target board camera/led error";
+               result = "launch card camera/led offline";
             }
-            else if (this.GetWarningStatus(BusComponentId.TargetBoardFrontWheel) != null)
+            else if (this.GetWarningStatus(BusComponentId.LaunchCardAnalogIo) != null)
             {
-               result = "target board front wheel error";
+               result = "launch card analog IO offline";
             }
-            else if (this.GetWarningStatus(BusComponentId.TargetBoardRearWheel) != null)
+            else if (this.GetWarningStatus(BusComponentId.BulletMotor) != null)
             {
-               result = "target board rear wheel error";
+               result = "bullet motor offline";
+            }
+            else if (this.GetWarningStatus(BusComponentId.FeederLeftMotor) != null)
+            {
+               result = "feeder left motor offline";
+            }
+            else if (this.GetWarningStatus(BusComponentId.FeederRightMotor) != null)
+            {
+               result = "feeder right motor offline";
+            }
+            else if (this.GetWarningStatus(BusComponentId.ReelMotor) != null)
+            {
+               result = "reel motor offline";
+            }
+            else if (this.GetWarningStatus(BusComponentId.ReelEncoder) != null)
+            {
+               result = "reel encoder offline";
+            }
+            else if (this.GetWarningStatus(BusComponentId.ReelDigitalIo) != null)
+            {
+               result = "reel digital IO offline";
+            }
+            else if (this.GetWarningStatus(BusComponentId.OsdRs232) != null)
+            {
+               result = "OSD RS232 offline";
             }
          }
 
@@ -813,17 +988,40 @@
             if (BusComponentId.Bus == id)
             {
             }
-            else if (BusComponentId.TargetBoard == id)
+            else if (BusComponentId.LaunchCardController == id)
             {
             }
-            else if (BusComponentId.TargetBoardCameraLed == id)
+            else if (BusComponentId.LaunchCardCameraLight == id)
             {
             }
-            else if (BusComponentId.TargetBoardFrontWheel == id)
+            else if (BusComponentId.LaunchCardAnalogIo == id)
             {
             }
-            else if (BusComponentId.TargetBoardRearWheel == id)
+            else if (BusComponentId.BulletMotor == id)
             {
+               result = this.bulletMotor.Warning;
+            }
+            else if (BusComponentId.FeederLeftMotor == id)
+            {
+               result = this.feederLeftMotor.Warning;
+            }
+            else if (BusComponentId.FeederRightMotor == id)
+            {
+               result = this.feederRightMotor.Warning;
+            }
+            else if (BusComponentId.ReelMotor == id)
+            {
+               result = this.reelMotor.Warning;
+            }
+            else if (BusComponentId.ReelEncoder == id)
+            {
+            }
+            else if (BusComponentId.ReelDigitalIo == id)
+            {
+            }
+            else if (BusComponentId.OsdRs232 == id)
+            {
+               result = this.osdRs232.Warning;
             }
          }
          else
@@ -841,17 +1039,40 @@
 
          if (false != this.Running)
          {
-            if (BusComponentId.TargetBoard == id)
+            if (BusComponentId.LaunchCardController == id)
             {
             }
-            else if (BusComponentId.TargetBoardCameraLed == id)
+            else if (BusComponentId.LaunchCardCameraLight == id)
             {
             }
-            else if (BusComponentId.TargetBoardFrontWheel == id)
+            else if (BusComponentId.LaunchCardAnalogIo == id)
             {
             }
-            else if (BusComponentId.TargetBoardRearWheel == id)
+            else if (BusComponentId.BulletMotor == id)
             {
+               result = this.bulletMotor;
+            }
+            else if (BusComponentId.FeederLeftMotor == id)
+            {
+               result = this.feederLeftMotor;
+            }
+            else if (BusComponentId.FeederRightMotor == id)
+            {
+               result = this.feederRightMotor;
+            }
+            else if (BusComponentId.ReelMotor == id)
+            {
+               result = this.reelMotor;
+            }
+            else if (BusComponentId.ReelEncoder == id)
+            {
+            }
+            else if (BusComponentId.ReelDigitalIo == id)
+            {
+            }
+            else if (BusComponentId.OsdRs232 == id)
+            {
+               result = this.osdRs232;
             }
          }
 

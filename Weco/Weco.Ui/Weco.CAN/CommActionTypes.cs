@@ -11,5 +11,10 @@ namespace Weco.CAN
       PDO2Emit,
       PDO3Emit,
       PDO4Emit,
+
+      // specific to Elmo Whitle Motor
+      BinaryInterpreterSet,
+      BinaryInterpreterQuery,
+      BinaryInterpreterExecute,
    }
 }

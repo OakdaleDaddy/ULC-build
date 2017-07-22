@@ -79,17 +79,8 @@ namespace Weco.Ui
 
             this.InitializeValues();
 
-            Tracer.WriteHigh(TraceGroup.COMM, null, "osd init start");
-            VideoStampOsd.Instance.Start(1, 9600);
-            VideoStampOsd.Instance.SetDateAndTime(DateTime.Now);
-            VideoStampOsd.Instance.Configure(ParameterAccessor.Instance.Osd);
-            Tracer.WriteHigh(TraceGroup.COMM, null, "osd init complete");
-
             RobotCommunicationBus.Instance.Start();
             TruckCommunicationBus.Instance.Start();
-
-            NumatoUsbRelay.Instance.Initialize();
-            NumatoUsbRelay.Instance.Start(ParameterAccessor.Instance.UsbRelayPort);
 
             bool waiting = true;
 
@@ -118,8 +109,6 @@ namespace Weco.Ui
             RobotCommunicationBus.Instance.Stop();
             TruckCommunicationBus.Instance.Stop();
 
-            NumatoUsbRelay.Instance.Stop();
-
             bool waiting = true;
             DateTime waitTimeLimit = DateTime.Now.AddSeconds(30);
 
@@ -141,7 +130,6 @@ namespace Weco.Ui
                }
             }
 
-            VideoStampOsd.Instance.Stop();
             this.InitializeValues();
          }
          catch (Exception postException)

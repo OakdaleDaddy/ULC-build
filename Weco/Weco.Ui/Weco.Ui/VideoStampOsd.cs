@@ -24,6 +24,12 @@
          twelveHour,
       };
 
+      #region Definition
+
+      public delegate void SerialWriteHandler(byte[] data, int offset, int count);
+
+      #endregion
+
       #endregion
 
       #region Fields
@@ -34,6 +40,8 @@
 
       private SerialPort serialPort;
       private byte[] serialPortRxBuffer;
+
+      private SerialWriteHandler serialWriteHandler;
 
       private byte[] serialPortProcessBuffer;
       private int serialPortProcessCount;
@@ -92,6 +100,18 @@
          }
       }
 
+      private void WriteData(byte[] buffer, int offset, int length)
+      {
+         if (null != this.serialWriteHandler)
+         {
+            this.serialWriteHandler(buffer, offset, length);
+         }
+         else if (false != this.serialPort.IsOpen)
+         {
+            this.serialPort.Write(buffer, offset, length);
+         }
+      }
+
       private void WriteTimeDisplayCommand(bool visible)
       {
          if (false != this.active)
@@ -99,7 +119,7 @@
             byte[] cmd = new byte[3];
             cmd[0] = 0xF2;
             cmd[1] = (byte)((false != visible) ? 1 : 0);
-            this.serialPort.Write(cmd, 0, cmd.Length);
+            this.WriteData(cmd, 0, cmd.Length);
          }
       }
 
@@ -110,7 +130,7 @@
             byte[] cmd = new byte[3];
             cmd[0] = 0xF3;
             cmd[1] = (byte)((false != visible) ? 1 : 0);
-            this.serialPort.Write(cmd, 0, cmd.Length);
+            this.WriteData(cmd, 0, cmd.Length);
          }
       }
 
@@ -216,6 +236,30 @@
          }
       }
 
+      public void Start(SerialWriteHandler writeHandler)
+      {
+         if (false == this.active)
+         {
+            this.serialWriteHandler = writeHandler;
+
+            try
+            {
+               this.active = true;
+
+               this.thread = new Thread(this.Process);
+               this.thread.IsBackground = true;
+               this.thread.Name = "VideoStamp OSD";
+
+               this.execute = true;
+               this.thread.Start();
+            }
+            catch
+            {
+               this.faultReason = "unable to open port";
+            }
+         }
+      }
+
       public void Stop()
       {
          if (false != this.active)
@@ -225,11 +269,26 @@
 
             this.thread = null;
 
-            this.serialPort.Close();
+            if (null != this.serialWriteHandler)
+            {
+               this.serialWriteHandler = null;
+            }
+            else
+            {
+               this.serialPort.Close();
+            }
 
             this.active = false;
             this.configured = false;
             this.faultReason = "closed";
+         }
+      }
+
+      public void Receive(byte[] receiveBuffer, int receiveCount)
+      {
+         if (null != serialWriteHandler)
+         {
+            this.ProcessRxData(receiveBuffer, receiveCount);
          }
       }
 
@@ -266,7 +325,7 @@
             byte[] cmd = new byte[2];
             cmd[0] = 0xE0;
             cmd[1] = (byte)channel;
-            this.serialPort.Write(cmd, 0, cmd.Length);
+            this.WriteData(cmd, 0, cmd.Length);
          }
       }
 
@@ -276,7 +335,7 @@
          {
             byte[] cmd = new byte[1];
             cmd[0] = 0xE3;
-            this.serialPort.Write(cmd, 0, cmd.Length);
+            this.WriteData(cmd, 0, cmd.Length);
          }
       }
 
@@ -288,7 +347,7 @@
             cmd[0] = 0xE5;
             cmd[1] = (byte)x;
             cmd[2] = (byte)y;
-            this.serialPort.Write(cmd, 0, cmd.Length);
+            this.WriteData(cmd, 0, cmd.Length);
          }
       }
 
@@ -297,7 +356,7 @@
          if (false != this.active)
          {
             byte[] cmd = Encoding.UTF8.GetBytes(text);
-            this.serialPort.Write(cmd, 0, cmd.Length);
+            this.WriteData(cmd, 0, cmd.Length);
          }
       }
 
@@ -308,7 +367,7 @@
             byte[] cmd = new byte[2];
             cmd[0] = 0xEC;
             cmd[1] = (byte)(offset & 0x3F);
-            this.serialPort.Write(cmd, 0, cmd.Length);
+            this.WriteData(cmd, 0, cmd.Length);
          }
       }
 
@@ -319,7 +378,7 @@
             byte[] cmd = new byte[2];
             cmd[0] = 0xED;
             cmd[1] = (byte)(offset & 0xFF);
-            this.serialPort.Write(cmd, 0, cmd.Length);
+            this.WriteData(cmd, 0, cmd.Length);
          }
       }
 
@@ -338,7 +397,7 @@
                cmd[i + 1] = data[i];
             }
 
-            this.serialPort.Write(cmd, 0, cmd.Length);
+            this.WriteData(cmd, 0, cmd.Length);
          }
       }
 
@@ -350,7 +409,7 @@
             cmd[0] = 0xEF;
             cmd[1] = (byte)((DateFormat.ddmmyy == dateFormat) ? 0 : 1);
             cmd[2] = (byte)((TimeFormat.twentyFourHour == timeFormat) ? 0 : 1);
-            this.serialPort.Write(cmd, 0, cmd.Length);
+            this.WriteData(cmd, 0, cmd.Length);
          }
       }
 
@@ -362,7 +421,7 @@
             cmd[0] = 0xF0;
             cmd[1] = (byte)x;
             cmd[2] = (byte)y;
-            this.serialPort.Write(cmd, 0, cmd.Length);
+            this.WriteData(cmd, 0, cmd.Length);
          }
       }
 
@@ -374,7 +433,7 @@
             cmd[0] = 0xF1;
             cmd[1] = (byte)x;
             cmd[2] = (byte)y;
-            this.serialPort.Write(cmd, 0, cmd.Length);
+            this.WriteData(cmd, 0, cmd.Length);
          }
       }
 

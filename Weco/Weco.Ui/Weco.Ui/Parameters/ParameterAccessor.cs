@@ -27,7 +27,6 @@
       public int JoystickId;
       public int JoystickDeadband;
       public int JoystickIdleBand;
-      public int UsbRelayPort;
 
       public WheelMotorParameters LaserFrontWheel;
       public WheelMotorParameters LaserRearWheel;
@@ -108,25 +107,27 @@
          this.TruckBus.ControllerBusId = 255;
          this.TruckBus.LaunchCardBusId = 64;
          this.TruckBus.BulletMotorBusId = 28;
-         this.TruckBus.LeftFeederMotorBusId = 32;
-         this.TruckBus.RightFeederMotorBusId = 34;
+         this.TruckBus.FeederLeftMotorBusId = 32;
+         this.TruckBus.FeederRightMotorBusId = 34;
          this.TruckBus.ReelMotorBusId = 40;
-         this.TruckBus.ReelEncoderBusId = 42;
+         this.TruckBus.ReelEncoderBusId = 22;
+         this.TruckBus.ReelDigitalIoBusId = 44;
+         this.TruckBus.OsdRs232BusId = 50;
          this.TruckBus.ControllerTraceMask = 0;
          this.TruckBus.LaunchCardTraceMask = 1;
          this.TruckBus.BulletMotorTraceMask = 1;
-         this.TruckBus.LeftFeederMotorTraceMask = 1;
-         this.TruckBus.RightFeederMotorTraceMask = 1;
+         this.TruckBus.FeederLeftMotorTraceMask = 1;
+         this.TruckBus.FeederRightMotorTraceMask = 1;
          this.TruckBus.ReelMotorTraceMask = 1;
          this.TruckBus.ReelEncoderTraceMask = 1;
+         this.TruckBus.ReelDigitalIoTraceMask = 1;
+         this.TruckBus.OsdRs232TraceMask = 1;
 
          this.Trace = new IpEndpointParameters("Trace", "127.0.0.1", 10000);
 
          this.JoystickId = 0;
          this.JoystickDeadband = 5000;
          this.JoystickIdleBand = 4000;
-         this.UsbRelayPort = 1;
-
 
          this.LaserFrontWheel = new WheelMotorParameters();
          this.LaserFrontWheel.Location = "LaserFrontWheel";
@@ -518,18 +519,22 @@
          int controllerBusId = 0;
          int launchCardBusId = 0;
          int bulletMotorBusId = 0;
-         int leftFeederMotorBusId = 0;
-         int rightFeederMotorBusId = 0;
+         int feederLeftMotorBusId = 0;
+         int feederRightMotorBusId = 0;
          int reelMotorBusId = 0;
          int reelEncoderBusId = 0;
+         int reelDigitalIoBusId = 0;
+         int osdRs232BusId = 0;
          int controllerTraceMask = 0;
          int launchCardTraceMask = 0;
          int bulletMotorTraceMask = 0;
-         int leftFeederMotorTraceMask = 0;
-         int rightFeederMotorTraceMask = 0;
+         int feederLeftMotorTraceMask = 0;
+         int feederRightMotorTraceMask = 0;
          int reelMotorTraceMask = 0;
          int reelEncoderTraceMask = 0;
-
+         int reelDigitalIoTraceMask = 0;
+         int osdRs232TraceMask = 0;
+         
          for (; readResult; )
          {
             readResult = reader.Read();
@@ -564,21 +569,29 @@
                {
                   bulletMotorBusId = this.ReadInt(reader);
                }
-               else if ("LeftFeederMotorBusId" == reader.Name)
+               else if ("FeederLeftMotorBusId" == reader.Name)
                {
-                  leftFeederMotorBusId = this.ReadInt(reader);
+                  feederLeftMotorBusId = this.ReadInt(reader);
                }
-               else if ("RightFeederMotorBusId" == reader.Name)
+               else if ("FeederRightMotorBusId" == reader.Name)
                {
-                  rightFeederMotorBusId = this.ReadInt(reader);
-               }
-               else if ("ReelMotorBusId" == reader.Name)
-               {
-                  reelMotorBusId = this.ReadInt(reader);
+                  feederRightMotorBusId = this.ReadInt(reader);
                }
                else if ("ReelMotorBusId" == reader.Name)
                {
                   reelMotorBusId = this.ReadInt(reader);
+               }
+               else if ("ReelEncoderBusId" == reader.Name)
+               {
+                  reelEncoderBusId = this.ReadInt(reader);
+               }
+               else if ("ReelDigitalIoBusId" == reader.Name)
+               {
+                  reelDigitalIoBusId = this.ReadInt(reader);
+               }
+               else if ("OsdRs232BusId" == reader.Name)
+               {
+                  osdRs232BusId = this.ReadInt(reader);
                }
                else if ("ControllerTraceMask" == reader.Name)
                {
@@ -592,13 +605,13 @@
                {
                   bulletMotorTraceMask = this.ReadInt(reader);
                }
-               else if ("LeftFeederMotorTraceMask" == reader.Name)
+               else if ("FeederLeftMotorTraceMask" == reader.Name)
                {
-                  leftFeederMotorTraceMask = this.ReadInt(reader);
+                  feederLeftMotorTraceMask = this.ReadInt(reader);
                }
-               else if ("RightFeederMotorTraceMask" == reader.Name)
+               else if ("FeederRightMotorTraceMask" == reader.Name)
                {
-                  rightFeederMotorTraceMask = this.ReadInt(reader);
+                  feederRightMotorTraceMask = this.ReadInt(reader);
                }
                else if ("ReelMotorTraceMask" == reader.Name)
                {
@@ -607,6 +620,14 @@
                else if ("ReelEncoderTraceMask" == reader.Name)
                {
                   reelEncoderTraceMask = this.ReadInt(reader);
+               }
+               else if ("ReelDigitalIoTraceMask" == reader.Name)
+               {
+                  reelDigitalIoTraceMask = this.ReadInt(reader);
+               }
+               else if ("OsdRs232TraceMask" == reader.Name)
+               {
+                  osdRs232TraceMask = this.ReadInt(reader);
                }
             }
             else
@@ -623,17 +644,21 @@
                   result.ControllerBusId = controllerBusId;
                   result.LaunchCardBusId = launchCardBusId;
                   result.BulletMotorBusId = bulletMotorBusId;
-                  result.LeftFeederMotorBusId = leftFeederMotorBusId;
-                  result.RightFeederMotorBusId = rightFeederMotorBusId;
+                  result.FeederLeftMotorBusId = feederLeftMotorBusId;
+                  result.FeederRightMotorBusId = feederRightMotorBusId;
                   result.ReelMotorBusId = reelMotorBusId;
                   result.ReelEncoderBusId = reelEncoderBusId;
+                  result.ReelDigitalIoBusId = reelDigitalIoBusId;
+                  result.OsdRs232BusId = osdRs232BusId;
                   result.ControllerTraceMask = controllerTraceMask;
                   result.LaunchCardTraceMask = launchCardTraceMask;
                   result.BulletMotorTraceMask = bulletMotorTraceMask;
-                  result.LeftFeederMotorTraceMask = leftFeederMotorTraceMask;
-                  result.RightFeederMotorTraceMask = rightFeederMotorTraceMask;
+                  result.FeederLeftMotorTraceMask = feederLeftMotorTraceMask;
+                  result.FeederRightMotorTraceMask = feederRightMotorTraceMask;
                   result.ReelMotorTraceMask = reelMotorTraceMask;
                   result.ReelEncoderTraceMask = reelEncoderTraceMask;
+                  result.ReelDigitalIoTraceMask = reelDigitalIoTraceMask;
+                  result.OsdRs232TraceMask = osdRs232TraceMask;
 
                   break;
                }
@@ -1133,10 +1158,6 @@
                      {
                         this.JoystickIdleBand = this.ReadInt(reader);
                      }
-                     else if ("UsbRelayPort" == reader.Name)
-                     {
-                        this.UsbRelayPort = this.ReadInt(reader);
-                     }
                      else if ("LaserWheelDistanceToTicks" == reader.Name)
                      {
                         this.LaserWheelDistanceToTicks = this.ReadDouble(reader);
@@ -1314,7 +1335,7 @@
          this.WriteElement(writer, "ControllerBusId", robotBusParameters.ControllerBusId);
          this.WriteElement(writer, "LeftTrackBusId", robotBusParameters.LeftTrackBusId);
          this.WriteElement(writer, "HubBusId", robotBusParameters.HubBusId);
-         this.WriteElement(writer, "GpsBusId", robotBusParameters.RightTrackBusId);
+         this.WriteElement(writer, "RightTrackBusId", robotBusParameters.RightTrackBusId);
          this.WriteElement(writer, "ControllerTraceMask", robotBusParameters.ControllerTraceMask);
          this.WriteElement(writer, "LeftTrackTraceMask", robotBusParameters.LeftTrackTraceMask);
          this.WriteElement(writer, "HubTraceMask", robotBusParameters.HubTraceMask);
@@ -1337,17 +1358,21 @@
          this.WriteElement(writer, "ControllerBusId", truckBusParameters.ControllerBusId);
          this.WriteElement(writer, "LaunchCardBusId", truckBusParameters.LaunchCardBusId);
          this.WriteElement(writer, "BulletMotorBusId", truckBusParameters.BulletMotorBusId);
-         this.WriteElement(writer, "LeftFeederMotorBusId", truckBusParameters.LeftFeederMotorBusId);
-         this.WriteElement(writer, "RightFeederMotorBusId", truckBusParameters.RightFeederMotorBusId);
+         this.WriteElement(writer, "FeederLeftMotorBusId", truckBusParameters.FeederLeftMotorBusId);
+         this.WriteElement(writer, "FeederRightMotorBusId", truckBusParameters.FeederRightMotorBusId);
          this.WriteElement(writer, "ReelMotorBusId", truckBusParameters.ReelMotorBusId);
          this.WriteElement(writer, "ReelEncoderBusId", truckBusParameters.ReelEncoderBusId);
+         this.WriteElement(writer, "ReelDigitalIoBusId", truckBusParameters.ReelDigitalIoBusId);
+         this.WriteElement(writer, "OsdRs232BusId", truckBusParameters.OsdRs232BusId);
          this.WriteElement(writer, "ControllerTraceMask", truckBusParameters.ControllerTraceMask);
          this.WriteElement(writer, "LaunchCardTraceMask", truckBusParameters.LaunchCardTraceMask);
          this.WriteElement(writer, "BulletMotorTraceMask", truckBusParameters.BulletMotorTraceMask);
-         this.WriteElement(writer, "LeftFeederMotorTraceMask", truckBusParameters.LeftFeederMotorTraceMask);
-         this.WriteElement(writer, "RightFeederMotorTraceMask", truckBusParameters.RightFeederMotorTraceMask);
+         this.WriteElement(writer, "FeederLeftMotorTraceMask", truckBusParameters.FeederLeftMotorTraceMask);
+         this.WriteElement(writer, "FeederRightMotorTraceMask", truckBusParameters.FeederRightMotorTraceMask);
+         this.WriteElement(writer, "ReelMotorTraceMask", truckBusParameters.ReelMotorTraceMask);
          this.WriteElement(writer, "ReelEncoderTraceMask", truckBusParameters.ReelEncoderTraceMask);
-         this.WriteElement(writer, "ReelEncoderTraceMask", truckBusParameters.ReelEncoderTraceMask);
+         this.WriteElement(writer, "ReelDigitalIoTraceMask", truckBusParameters.ReelDigitalIoTraceMask);
+         this.WriteElement(writer, "OsdRs232TraceMask", truckBusParameters.OsdRs232TraceMask);
 
          writer.WriteEndElement();
       }
@@ -1483,7 +1508,6 @@
             this.WriteElement(writer, "JoystickId", this.JoystickId);
             this.WriteElement(writer, "JoystickDeadband", this.JoystickDeadband);
             this.WriteElement(writer, "JoystickIdleBand", this.JoystickIdleBand);
-            this.WriteElement(writer, "UsbRelayPort", this.UsbRelayPort);
 
             this.WriteWheelMotorParameters(writer, this.LaserFrontWheel);
             this.WriteWheelMotorParameters(writer, this.LaserRearWheel);

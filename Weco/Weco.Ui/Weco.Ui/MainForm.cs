@@ -585,10 +585,6 @@ namespace Weco.Ui
          {
             laserStatus = "joystick missing";
          }
-         else if (null != NumatoUsbRelay.Instance.FaultReason)
-         {
-            laserStatus = "relay offline";
-         }
          else
          {
             laserStatus = DeviceCommunication.Instance.GetMainFaultStatus();
@@ -734,19 +730,7 @@ namespace Weco.Ui
 
          #region Crawler
 
-         string usbRelayFault = NumatoUsbRelay.Instance.FaultReason;
-         bool laserLeftPush = NumatoUsbRelay.Instance.GetRelayState(0);
-         bool laserRightPush = NumatoUsbRelay.Instance.GetRelayState(1);
          bool laserRobotLocked = DeviceCommunication.Instance.GetLaserMovementLock();
-
-
-         if (null != usbRelayFault)
-         {
-         }
-         else
-         {
-         }
-
 
 
          double laserWheelCurrent = 0;
@@ -969,18 +953,6 @@ namespace Weco.Ui
       #endregion
 
       #region Crawler Movement Events
-
-      private void LaserRobotLeftButton_HoldTimeout(object sender, Controls.HoldTimeoutEventArgs e)
-      {
-         bool state = NumatoUsbRelay.Instance.GetRelayState(0);
-         NumatoUsbRelay.Instance.SetRelay(0, !state);
-      }
-
-      private void LaserRobotRightButton_HoldTimeout(object sender, Controls.HoldTimeoutEventArgs e)
-      {
-         bool state = NumatoUsbRelay.Instance.GetRelayState(1);
-         NumatoUsbRelay.Instance.SetRelay(1, !state);
-      }
 
       private void LaserRobotWheelOffButton_Click(object sender, EventArgs e)
       {

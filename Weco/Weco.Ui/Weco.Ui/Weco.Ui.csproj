@@ -107,7 +107,6 @@
     <Compile Include="MessageForm.designer.cs">
       <DependentUpon>MessageForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="NumatoUsbRelay.cs" />
     <Compile Include="NumberEntryForm.cs">
       <SubType>Form</SubType>
     </Compile>
