@@ -18,14 +18,14 @@
       public enum BusComponentId
       {
          Bus,
-         LeftTrack,
-         LeftTrackLed,
+         LeftTrackController,
+         LeftTrackLight,
          LeftTrackMotor,
-         RightTrack,
-         RightTrackLed,
+         RightTrackController,
+         RightTrackLight,
          RightTrackMotor,
-         Hub,
-         HubCameraLed,
+         HubController,
+         HubCameraLights,
          HubPanMotor,
          HubTiltMotor,
       }
@@ -51,9 +51,9 @@
       private Queue deviceResetQueue;
       private Queue deviceClearErrorQueue;
 
-      private UlcRoboticsWecoTrackController leftTrack;
-      private UlcRoboticsWecoTrackController rightTrack;
-      private UlcRoboticsWecoHub hub;
+      private UlcRoboticsWecoTrackController leftTrackController;
+      private UlcRoboticsWecoTrackController rightTrackController;
+      private UlcRoboticsWecoHub hubController;
 
       private ArrayList deviceList;
 
@@ -110,14 +110,14 @@
          this.deviceResetQueue = new Queue();
          this.deviceClearErrorQueue = new Queue();
 
-         this.leftTrack = new UlcRoboticsWecoTrackController("left track", (byte)ParameterAccessor.Instance.RobotBus.LeftTrackBusId);
-         this.rightTrack = new UlcRoboticsWecoTrackController("right track", (byte)ParameterAccessor.Instance.RobotBus.RightTrackBusId);
-         this.hub = new UlcRoboticsWecoHub("hub", (byte)ParameterAccessor.Instance.RobotBus.HubBusId);
+         this.leftTrackController = new UlcRoboticsWecoTrackController("left track", (byte)ParameterAccessor.Instance.RobotBus.LeftTrackBusId);
+         this.rightTrackController = new UlcRoboticsWecoTrackController("right track", (byte)ParameterAccessor.Instance.RobotBus.RightTrackBusId);
+         this.hubController = new UlcRoboticsWecoHub("hub", (byte)ParameterAccessor.Instance.RobotBus.HubBusId);
 
          this.deviceList = new ArrayList();
-         this.deviceList.Add(this.leftTrack);
-         this.deviceList.Add(this.rightTrack);
-         this.deviceList.Add(this.hub);
+         this.deviceList.Add(this.leftTrackController);
+         this.deviceList.Add(this.rightTrackController);
+         this.deviceList.Add(this.hubController);
 
          foreach (Device device in this.deviceList)
          {
@@ -381,8 +381,8 @@
 
       private void StartTracks()
       {
-         this.StartTrack(this.leftTrack);
-         this.StartTrack(this.rightTrack);
+         this.StartTrack(this.leftTrackController);
+         this.StartTrack(this.rightTrackController);
       }
 
       private void UpdateTracks()
@@ -402,7 +402,7 @@
 
       private void InitializeHub()
       {
-         this.hub.Initialize();
+         this.hubController.Initialize();
 
          this.wheel0Status.Initialize();
          this.wheel1Status.Initialize();
@@ -714,8 +714,8 @@
 
       private void InitializeDevices()
       {
-         this.InitializeTrack(this.leftTrack);
-         this.InitializeTrack(this.rightTrack);
+         this.InitializeTrack(this.leftTrackController);
+         this.InitializeTrack(this.rightTrackController);
          this.InitializeHub();
       }
 
@@ -839,34 +839,44 @@
             {
                BusComponentId id = (BusComponentId)request.Id;
 
-               if (BusComponentId.LeftTrack == id)
+               if (BusComponentId.LeftTrackController == id)
                {
-                  this.InitializeTrack(this.leftTrack);
-                  this.leftTrack.Reset();
-                  this.WaitDeviceHeartbeat(this.leftTrack);
-                  this.StartTrack(this.leftTrack);
+                  this.InitializeTrack(this.leftTrackController);
+                  this.leftTrackController.Reset();
+                  this.WaitDeviceHeartbeat(this.leftTrackController);
+                  this.StartTrack(this.leftTrackController);
                }
-               else if (BusComponentId.LeftTrackLed == id)
+               else if (BusComponentId.LeftTrackLight == id)
                {
+                  // restart of component not done
                }
                else if (BusComponentId.LeftTrackMotor == id)
                {
+                  // restart of component not done
                }
-               else if (BusComponentId.RightTrack == id)
+               else if (BusComponentId.RightTrackController == id)
                {
+                  this.InitializeTrack(this.rightTrackController);
+                  this.rightTrackController.Reset();
+                  this.WaitDeviceHeartbeat(this.rightTrackController);
+                  this.StartTrack(this.rightTrackController);
                }
-               else if (BusComponentId.RightTrackLed == id)
+               else if (BusComponentId.RightTrackLight == id)
                {
+                  // restart of component not done
                }
                else if (BusComponentId.RightTrackMotor == id)
                {
+                  // restart of component not done
                }
-               else if (BusComponentId.Hub == id)
+               else if (BusComponentId.HubController == id)
                {
                   this.InitializeHub();
+                  this.hubController.Reset();
+                  this.WaitDeviceHeartbeat(this.hubController);
                   this.StartHub();
                }
-               else if (BusComponentId.HubCameraLed == id)
+               else if (BusComponentId.HubCameraLights == id)
                {
                   // restart of component not done
                }
@@ -916,40 +926,55 @@
             {
                BusComponentId id = (BusComponentId)request.Id;
 
-               if (BusComponentId.LeftTrack == id)
+               if (BusComponentId.LeftTrackController == id)
                {
+                  this.leftTrackController.ClearWarning();
                }
-               else if (BusComponentId.LeftTrackLed == id)
+               else if (BusComponentId.LeftTrackLight == id)
                {
                   bool wasFaulted = false;
-                  this.leftTrack.Led.ClearError(request.Code, ref wasFaulted);
+                  this.leftTrackController.Light.ClearError(request.Code, ref wasFaulted);
                }
                else if (BusComponentId.LeftTrackMotor == id)
                {
+                  bool wasFaulted = false;
+                  this.leftTrackController.TrackMotor.ClearError(request.Code, ref wasFaulted);
+
+                  if (false != wasFaulted)
+                  {
+                  }
                }
-               else if (BusComponentId.RightTrack == id)
+               else if (BusComponentId.RightTrackController == id)
                {
+                  this.rightTrackController.ClearWarning();
                }
-               else if (BusComponentId.RightTrackLed == id)
+               else if (BusComponentId.RightTrackLight == id)
                {
                   bool wasFaulted = false;
-                  this.rightTrack.Led.ClearError(request.Code, ref wasFaulted);
+                  this.rightTrackController.Light.ClearError(request.Code, ref wasFaulted);
                }
                else if (BusComponentId.RightTrackMotor == id)
                {
+                  bool wasFaulted = false;
+                  this.rightTrackController.TrackMotor.ClearError(request.Code, ref wasFaulted);
+
+                  if (false != wasFaulted)
+                  {
+                  }
                }
-               else if (BusComponentId.Hub == id)
+               else if (BusComponentId.HubController == id)
                {
+                  this.hubController.ClearWarning();
                }
-               else if (BusComponentId.HubCameraLed == id)
+               else if (BusComponentId.HubCameraLights == id)
                {
                   bool wasFaulted = false;
-                  this.hub.CameraLed.ClearError(request.Code, ref wasFaulted);
+                  this.hubController.CameraLights.ClearError(request.Code, ref wasFaulted);
                }
                else if (BusComponentId.HubPanMotor == id)
                {
                   bool wasFaulted = false;
-                  this.hub.PanMotor.ClearError(request.Code, ref wasFaulted);
+                  this.hubController.PanMotor.ClearError(request.Code, ref wasFaulted);
 
                   if (false != wasFaulted)
                   {
@@ -1137,37 +1162,37 @@
             {
                result = "robot communication offline";
             }
-            else if (this.GetFaultStatus(BusComponentId.LeftTrack) != null)
+            else if (this.GetFaultStatus(BusComponentId.LeftTrackController) != null)
             {
                result = "left track offline";
             }
-            else if (this.GetFaultStatus(BusComponentId.LeftTrackLed) != null)
+            else if (this.GetFaultStatus(BusComponentId.LeftTrackLight) != null)
             {
-               result = "left track led offline";
+               result = "left track light offline";
             }
             else if (this.GetFaultStatus(BusComponentId.LeftTrackMotor) != null)
             {
                result = "left track motor offline";
             }
-            else if (this.GetFaultStatus(BusComponentId.RightTrack) != null)
+            else if (this.GetFaultStatus(BusComponentId.RightTrackController) != null)
             {
-               result = "right track  offline";
+               result = "right track offline";
             }
-            else if (this.GetFaultStatus(BusComponentId.RightTrackLed) != null)
+            else if (this.GetFaultStatus(BusComponentId.RightTrackLight) != null)
             {
-               result = "right track led offline";
+               result = "right track light offline";
             }
             else if (this.GetFaultStatus(BusComponentId.RightTrackMotor) != null)
             {
                result = "right track motor offline";
             }
-            else if (this.GetFaultStatus(BusComponentId.Hub) != null)
+            else if (this.GetFaultStatus(BusComponentId.HubController) != null)
             {
                result = "hub offline";
             }
-            else if (this.GetFaultStatus(BusComponentId.HubCameraLed) != null)
+            else if (this.GetFaultStatus(BusComponentId.HubCameraLights) != null)
             {
-               result = "hub camera/led offline";
+               result = "hub camera/lights offline";
             }
             else if (this.GetFaultStatus(BusComponentId.HubPanMotor) != null)
             {
@@ -1197,45 +1222,45 @@
             {
                result = this.busStatus;
             }
-            else if (BusComponentId.LeftTrack == id)
+            else if (BusComponentId.LeftTrackController == id)
             {
-               result = this.leftTrack.FaultReason;
+               result = this.leftTrackController.FaultReason;
             }
-            else if (BusComponentId.LeftTrackLed == id)
+            else if (BusComponentId.LeftTrackLight == id)
             {
-               result = this.leftTrack.Led.FaultReason;
+               result = this.leftTrackController.Light.FaultReason;
             }
             else if (BusComponentId.LeftTrackMotor == id)
             {
-               result = this.leftTrack.TrackMotor.FaultReason;
+               result = this.leftTrackController.TrackMotor.FaultReason;
             }
-            else if (BusComponentId.RightTrack == id)
+            else if (BusComponentId.RightTrackController == id)
             {
-               result = this.rightTrack.FaultReason;
+               result = this.rightTrackController.FaultReason;
             }
-            else if (BusComponentId.RightTrackLed == id)
+            else if (BusComponentId.RightTrackLight == id)
             {
-               result = this.rightTrack.Led.FaultReason;
+               result = this.rightTrackController.Light.FaultReason;
             }
             else if (BusComponentId.RightTrackMotor == id)
             {
-               result = this.rightTrack.TrackMotor.FaultReason;
+               result = this.rightTrackController.TrackMotor.FaultReason;
             }
-            else if (BusComponentId.Hub == id)
+            else if (BusComponentId.HubController == id)
             {
-               result = this.hub.FaultReason;
+               result = this.hubController.FaultReason;
             }
-            else if (BusComponentId.HubCameraLed == id)
+            else if (BusComponentId.HubCameraLights == id)
             {
-               result = this.hub.CameraLed.FaultReason;
+               result = this.hubController.CameraLights.FaultReason;
             }
             else if (BusComponentId.HubPanMotor == id)
             {
-               result = this.hub.PanMotor.FaultReason;
+               result = this.hubController.PanMotor.FaultReason;
             }
             else if (BusComponentId.HubTiltMotor == id)
             {
-               result = this.hub.TiltMotor.FaultReason;
+               result = this.hubController.TiltMotor.FaultReason;
             }
          }
          else
@@ -1261,37 +1286,37 @@
             {
                result = "robot communication offline";
             }
-            else if (this.GetWarningStatus(BusComponentId.LeftTrack) != null)
+            else if (this.GetWarningStatus(BusComponentId.LeftTrackController) != null)
             {
                result = "left track offline";
             }
-            else if (this.GetWarningStatus(BusComponentId.LeftTrackLed) != null)
+            else if (this.GetWarningStatus(BusComponentId.LeftTrackLight) != null)
             {
-               result = "left track led error";
+               result = "left track light error";
             }
             else if (this.GetWarningStatus(BusComponentId.LeftTrackMotor) != null)
             {
                result = "left track motor error";
             }
-            else if (this.GetWarningStatus(BusComponentId.RightTrack) != null)
+            else if (this.GetWarningStatus(BusComponentId.RightTrackController) != null)
             {
                result = "right track  offline";
             }
-            else if (this.GetWarningStatus(BusComponentId.RightTrackLed) != null)
+            else if (this.GetWarningStatus(BusComponentId.RightTrackLight) != null)
             {
-               result = "right track led error";
+               result = "right track light error";
             }
             else if (this.GetWarningStatus(BusComponentId.RightTrackMotor) != null)
             {
                result = "right track motor error";
             }
-            else if (this.GetWarningStatus(BusComponentId.Hub) != null)
+            else if (this.GetWarningStatus(BusComponentId.HubController) != null)
             {
                result = "hub offline";
             }
-            else if (this.GetWarningStatus(BusComponentId.HubCameraLed) != null)
+            else if (this.GetWarningStatus(BusComponentId.HubCameraLights) != null)
             {
-               result = "hub camera/led error";
+               result = "hub camera/lights error";
             }
             else if (this.GetWarningStatus(BusComponentId.HubPanMotor) != null)
             {
@@ -1320,45 +1345,45 @@
             if (BusComponentId.Bus == id)
             {
             }
-            else if (BusComponentId.LeftTrack == id)
+            else if (BusComponentId.LeftTrackController == id)
             {
-               result = this.leftTrack.Warning;
+               result = this.leftTrackController.Warning;
             }
-            else if (BusComponentId.LeftTrackLed == id)
+            else if (BusComponentId.LeftTrackLight == id)
             {
-               result = this.leftTrack.Led.Warning;
+               result = this.leftTrackController.Light.Warning;
             }
             else if (BusComponentId.LeftTrackMotor == id)
             {
-               result = this.leftTrack.TrackMotor.Warning;
+               result = this.leftTrackController.TrackMotor.Warning;
             }
-            else if (BusComponentId.RightTrack == id)
+            else if (BusComponentId.RightTrackController == id)
             {
-               result = this.rightTrack.Warning;
+               result = this.rightTrackController.Warning;
             }
-            else if (BusComponentId.RightTrackLed == id)
+            else if (BusComponentId.RightTrackLight == id)
             {
-               result = this.rightTrack.Led.Warning;
+               result = this.rightTrackController.Light.Warning;
             }
             else if (BusComponentId.RightTrackMotor == id)
             {
-               result = this.rightTrack.TrackMotor.Warning;
+               result = this.rightTrackController.TrackMotor.Warning;
             }
-            else if (BusComponentId.Hub == id)
+            else if (BusComponentId.HubController == id)
             {
-               result = this.hub.Warning;
+               result = this.hubController.Warning;
             }
-            else if (BusComponentId.HubCameraLed == id)
+            else if (BusComponentId.HubCameraLights == id)
             {
-               result = this.hub.CameraLed.Warning;
+               result = this.hubController.CameraLights.Warning;
             }
             else if (BusComponentId.HubPanMotor == id)
             {
-               result = this.hub.PanMotor.Warning;
+               result = this.hubController.PanMotor.Warning;
             }
             else if (BusComponentId.HubTiltMotor == id)
             {
-               result = this.hub.TiltMotor.Warning;
+               result = this.hubController.TiltMotor.Warning;
             }
          }
          else
@@ -1376,45 +1401,45 @@
 
          if (false != this.Running)
          {
-            if (BusComponentId.LeftTrack == id)
+            if (BusComponentId.LeftTrackController == id)
             {
-               result = this.leftTrack;
+               result = this.leftTrackController;
             }
-            else if (BusComponentId.LeftTrackLed == id)
+            else if (BusComponentId.LeftTrackLight == id)
             {
-               result = this.leftTrack.Led;
+               result = this.leftTrackController.Light;
             }
             else if (BusComponentId.LeftTrackMotor == id)
             {
-               result = this.leftTrack.TrackMotor;
+               result = this.leftTrackController.TrackMotor;
             }
-            else if (BusComponentId.RightTrack == id)
+            else if (BusComponentId.RightTrackController == id)
             {
-               result = this.rightTrack;
+               result = this.rightTrackController;
             }
-            else if (BusComponentId.RightTrackLed == id)
+            else if (BusComponentId.RightTrackLight == id)
             {
-               result = this.rightTrack.Led;
+               result = this.rightTrackController.Light;
             }
             else if (BusComponentId.RightTrackMotor == id)
             {
-               result = this.rightTrack.TrackMotor;
+               result = this.rightTrackController.TrackMotor;
             }
-            else if (BusComponentId.Hub == id)
+            else if (BusComponentId.HubController == id)
             {
-               result = this.hub;
+               result = this.hubController;
             }
-            else if (BusComponentId.HubCameraLed == id)
+            else if (BusComponentId.HubCameraLights == id)
             {
-               result = this.hub.CameraLed;
+               result = this.hubController.CameraLights;
             }
             else if (BusComponentId.HubPanMotor == id)
             {
-               result = this.hub.PanMotor;
+               result = this.hubController.PanMotor;
             }
             else if (BusComponentId.HubTiltMotor == id)
             {
-               result = this.hub.TiltMotor;
+               result = this.hubController.TiltMotor;
             }
         }
 

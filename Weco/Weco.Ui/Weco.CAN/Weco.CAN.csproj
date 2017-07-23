@@ -49,17 +49,20 @@
     <Compile Include="DeviceComponent.cs" />
     <Compile Include="ElmoWhistleMotor.cs" />
     <Compile Include="EmergencyRecord.cs" />
+    <Compile Include="KublerRotaryEncoder.cs" />
     <Compile Include="MotorComponent.cs" />
     <Compile Include="NetworkRequest.cs" />
     <Compile Include="PDO1Emit.cs" />
     <Compile Include="PDO2Emit.cs" />
     <Compile Include="PDO3Emit.cs" />
     <Compile Include="PDO4Emit.cs" />
+    <Compile Include="PeakDigitalIo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SDODownload.cs" />
     <Compile Include="SDOUpload.cs" />
     <Compile Include="UlcRoboticsRs232.cs" />
     <Compile Include="UlcRoboticsWecoHub.cs" />
+    <Compile Include="UlcRoboticsWecoLaunchCard.cs" />
     <Compile Include="UlcRoboticsWecoTrackController.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -19,7 +19,7 @@
       {
          Bus,
          LaunchCardController,
-         LaunchCardCameraLight,
+         LaunchCardCameraLights,
          LaunchCardAnalogIo,
          BulletMotor,
          FeederLeftMotor,
@@ -51,10 +51,13 @@
       private Queue deviceResetQueue;
       private Queue deviceClearErrorQueue;
 
+      private UlcRoboticsWecoLaunchCard launchCard;
       private ElmoWhistleMotor bulletMotor;
       private ElmoWhistleMotor feederLeftMotor;
       private ElmoWhistleMotor feederRightMotor;
       private ElmoWhistleMotor reelMotor;
+      private KublerRotaryEncoder reelEncoder;
+      private PeakDigitalIo reelDigitalIo;
       private UlcRoboticsRs232 osdRs232;
 
       private ArrayList deviceList;
@@ -97,17 +100,23 @@
          this.deviceResetQueue = new Queue();
          this.deviceClearErrorQueue = new Queue();
 
+         this.launchCard = new UlcRoboticsWecoLaunchCard("launch card", (byte)ParameterAccessor.Instance.TruckBus.LaunchCardBusId);
          this.bulletMotor = new ElmoWhistleMotor("bullet motor", (byte)ParameterAccessor.Instance.TruckBus.BulletMotorBusId);
          this.feederLeftMotor = new ElmoWhistleMotor("feeder left motor", (byte)ParameterAccessor.Instance.TruckBus.FeederLeftMotorBusId);
          this.feederRightMotor = new ElmoWhistleMotor("feeder right motor", (byte)ParameterAccessor.Instance.TruckBus.FeederRightMotorBusId);
          this.reelMotor = new ElmoWhistleMotor("reel motor", (byte)ParameterAccessor.Instance.TruckBus.ReelMotorBusId);
+         this.reelEncoder = new KublerRotaryEncoder("reel encoder", (byte)ParameterAccessor.Instance.TruckBus.ReelEncoderBusId);
+         this.reelDigitalIo = new PeakDigitalIo("reel digital io", (byte)ParameterAccessor.Instance.TruckBus.ReelDigitalIoBusId);
          this.osdRs232 = new UlcRoboticsRs232("osd rs232", (byte)ParameterAccessor.Instance.TruckBus.OsdRs232BusId);
 
          this.deviceList = new ArrayList();
+         this.deviceList.Add(this.launchCard);
          this.deviceList.Add(this.bulletMotor);
          this.deviceList.Add(this.feederLeftMotor);
          this.deviceList.Add(this.feederRightMotor);
          this.deviceList.Add(this.reelMotor);
+         this.deviceList.Add(this.reelEncoder);
+         this.deviceList.Add(this.reelDigitalIo);
          this.deviceList.Add(this.osdRs232);
          
          foreach (Device device in this.deviceList)
@@ -362,18 +371,24 @@
          this.busReceiveQueue.Clear();
          this.deviceResetQueue.Clear();
          this.deviceClearErrorQueue.Clear();
-         
+
+         this.launchCard.NodeId = (byte)ParameterAccessor.Instance.TruckBus.LaunchCardBusId;
          this.bulletMotor.NodeId = (byte)ParameterAccessor.Instance.TruckBus.BulletMotorBusId;
          this.feederLeftMotor.NodeId = (byte)ParameterAccessor.Instance.TruckBus.FeederLeftMotorBusId;
          this.feederRightMotor.NodeId = (byte)ParameterAccessor.Instance.TruckBus.FeederRightMotorBusId;
          this.reelMotor.NodeId = (byte)ParameterAccessor.Instance.TruckBus.ReelMotorBusId;
+         this.reelEncoder.NodeId = (byte)ParameterAccessor.Instance.TruckBus.ReelEncoderBusId;
+         this.reelDigitalIo.NodeId = (byte)ParameterAccessor.Instance.TruckBus.ReelDigitalIoBusId;
          this.osdRs232.NodeId = (byte)ParameterAccessor.Instance.TruckBus.OsdRs232BusId;
          
          this.TraceMask = ParameterAccessor.Instance.TruckBus.ControllerTraceMask;
+         this.launchCard.TraceMask = ParameterAccessor.Instance.TruckBus.LaunchCardTraceMask;
          this.bulletMotor.TraceMask = ParameterAccessor.Instance.TruckBus.BulletMotorTraceMask;
          this.feederLeftMotor.TraceMask = ParameterAccessor.Instance.TruckBus.FeederLeftMotorTraceMask;
          this.feederRightMotor.TraceMask = ParameterAccessor.Instance.TruckBus.FeederRightMotorTraceMask;
          this.reelMotor.TraceMask = ParameterAccessor.Instance.TruckBus.ReelMotorTraceMask;
+         this.reelEncoder.TraceMask = (byte)ParameterAccessor.Instance.TruckBus.ReelEncoderTraceMask;
+         this.reelDigitalIo.TraceMask = ParameterAccessor.Instance.TruckBus.ReelDigitalIoTraceMask;
          this.osdRs232.TraceMask = ParameterAccessor.Instance.TruckBus.OsdRs232TraceMask;
 
          this.stopAll = false;
@@ -506,8 +521,12 @@
 
                if (BusComponentId.LaunchCardController == id)
                {
+                  //this.InitializeLaunchCard();
+                  this.launchCard.Reset();
+                  this.WaitDeviceHeartbeat(this.launchCard);
+                  //this.StartLaunchCard();
                }
-               else if (BusComponentId.LaunchCardCameraLight == id)
+               else if (BusComponentId.LaunchCardCameraLights == id)
                {
                   // restart of component not done
                }
@@ -545,9 +564,17 @@
                }
                else if (BusComponentId.ReelEncoder == id)
                {
+                  //this.Initialize
+                  this.reelEncoder.Reset();
+                  this.WaitDeviceHeartbeat(this.reelEncoder);
+                  //this.Start...
                }
                else if (BusComponentId.ReelDigitalIo == id)
                {
+                  //this.Initialize...
+                  this.reelDigitalIo.Reset();
+                  this.WaitDeviceHeartbeat(this.reelDigitalIo);
+                  //this.Start...
                }
                else if (BusComponentId.OsdRs232 == id)
                {
@@ -596,12 +623,17 @@
 
                if (BusComponentId.LaunchCardController == id)
                {
+                  this.launchCard.ClearWarning();
                }
-               else if (BusComponentId.LaunchCardCameraLight == id)
+               else if (BusComponentId.LaunchCardCameraLights == id)
                {
+                  bool wasFaulted = false;
+                  this.launchCard.CameraLights.ClearError(request.Code, ref wasFaulted);
                }
                else if (BusComponentId.LaunchCardAnalogIo == id)
                {
+                  bool wasFaulted = false;
+                  this.launchCard.AnalogIo.ClearError(request.Code, ref wasFaulted);
                }
                else if (BusComponentId.BulletMotor == id)
                {
@@ -621,9 +653,11 @@
                }
                else if (BusComponentId.ReelEncoder == id)
                {
+                  this.reelEncoder.ClearWarning();
                }
                else if (BusComponentId.ReelDigitalIo == id)
                {
+                  this.reelDigitalIo.ClearWarning();
                }
                else if (BusComponentId.OsdRs232 == id)
                {
@@ -681,10 +715,13 @@
          PCANLight.Stop(this.busInterfaceId);
 
          ParameterAccessor.Instance.TruckBus.ControllerTraceMask = this.TraceMask;
+         ParameterAccessor.Instance.TruckBus.LaunchCardTraceMask = this.launchCard.TraceMask;
          ParameterAccessor.Instance.TruckBus.BulletMotorTraceMask = this.bulletMotor.TraceMask;
          ParameterAccessor.Instance.TruckBus.FeederLeftMotorTraceMask = this.feederLeftMotor.TraceMask;
          ParameterAccessor.Instance.TruckBus.FeederRightMotorTraceMask = this.feederRightMotor.TraceMask;
          ParameterAccessor.Instance.TruckBus.ReelMotorTraceMask = this.reelMotor.TraceMask;
+         ParameterAccessor.Instance.TruckBus.ReelEncoderTraceMask = this.reelEncoder.TraceMask;
+         ParameterAccessor.Instance.TruckBus.ReelDigitalIoTraceMask = this.reelDigitalIo.TraceMask;
          ParameterAccessor.Instance.TruckBus.OsdRs232TraceMask = this.osdRs232.TraceMask;
       }
 
@@ -814,9 +851,9 @@
             {
                result = "launch card offline";
             }
-            else if (this.GetFaultStatus(BusComponentId.LaunchCardCameraLight) != null)
+            else if (this.GetFaultStatus(BusComponentId.LaunchCardCameraLights) != null)
             {
-               result = "launch card camera/led offline";
+               result = "launch card camera/lights offline";
             }
             else if (this.GetFaultStatus(BusComponentId.LaunchCardAnalogIo) != null)
             {
@@ -872,12 +909,15 @@
             }
             else if (BusComponentId.LaunchCardController == id)
             {
+               result = this.launchCard.FaultReason;
             }
-            else if (BusComponentId.LaunchCardCameraLight == id)
+            else if (BusComponentId.LaunchCardCameraLights == id)
             {
+               result = this.launchCard.CameraLights.FaultReason;
             }
             else if (BusComponentId.LaunchCardAnalogIo == id)
             {
+               result = this.launchCard.AnalogIo.FaultReason;
             }
             else if (BusComponentId.BulletMotor == id)
             {
@@ -897,9 +937,11 @@
             }
             else if (BusComponentId.ReelEncoder == id)
             {
+               result = this.reelEncoder.FaultReason;
             }
             else if (BusComponentId.ReelDigitalIo == id)
             {
+               result = this.reelDigitalIo.FaultReason;
             }
             else if (BusComponentId.OsdRs232 == id)
             {
@@ -933,9 +975,9 @@
             {
                result = "launch card offline";
             }
-            else if (this.GetWarningStatus(BusComponentId.LaunchCardCameraLight) != null)
+            else if (this.GetWarningStatus(BusComponentId.LaunchCardCameraLights) != null)
             {
-               result = "launch card camera/led offline";
+               result = "launch card camera/lights offline";
             }
             else if (this.GetWarningStatus(BusComponentId.LaunchCardAnalogIo) != null)
             {
@@ -990,12 +1032,15 @@
             }
             else if (BusComponentId.LaunchCardController == id)
             {
+               result = this.launchCard.Warning;
             }
-            else if (BusComponentId.LaunchCardCameraLight == id)
+            else if (BusComponentId.LaunchCardCameraLights == id)
             {
+               result = this.launchCard.CameraLights.Warning;
             }
             else if (BusComponentId.LaunchCardAnalogIo == id)
             {
+               result = this.launchCard.AnalogIo.Warning;
             }
             else if (BusComponentId.BulletMotor == id)
             {
@@ -1015,9 +1060,11 @@
             }
             else if (BusComponentId.ReelEncoder == id)
             {
+               result = this.reelEncoder.Warning;
             }
             else if (BusComponentId.ReelDigitalIo == id)
             {
+               result = this.reelDigitalIo.Warning;
             }
             else if (BusComponentId.OsdRs232 == id)
             {
@@ -1041,12 +1088,15 @@
          {
             if (BusComponentId.LaunchCardController == id)
             {
+               result = this.launchCard;
             }
-            else if (BusComponentId.LaunchCardCameraLight == id)
+            else if (BusComponentId.LaunchCardCameraLights == id)
             {
+               result = this.launchCard.CameraLights;
             }
             else if (BusComponentId.LaunchCardAnalogIo == id)
             {
+               result = this.launchCard.AnalogIo;
             }
             else if (BusComponentId.BulletMotor == id)
             {
@@ -1066,9 +1116,11 @@
             }
             else if (BusComponentId.ReelEncoder == id)
             {
+               result = this.reelEncoder;
             }
             else if (BusComponentId.ReelDigitalIo == id)
             {
+               result = this.reelDigitalIo;
             }
             else if (BusComponentId.OsdRs232 == id)
             {

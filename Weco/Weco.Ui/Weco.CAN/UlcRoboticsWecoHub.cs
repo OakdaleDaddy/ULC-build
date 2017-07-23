@@ -17,7 +17,7 @@ namespace Weco.CAN
 
       private bool active;
 
-      private DeviceComponent cameraLed;
+      private DeviceComponent cameraLights;
       private MotorComponent panMotor;
       private MotorComponent tiltMotor;
       
@@ -138,16 +138,16 @@ namespace Weco.CAN
 
       #region Properties
             
-      public DeviceComponent CameraLed
+      public DeviceComponent CameraLights
       {
          get
          {
-            if (null == this.cameraLed)
+            if (null == this.cameraLights)
             {
-               this.cameraLed = new DeviceComponent();
+               this.cameraLights = new DeviceComponent();
             }
 
-            return (this.cameraLed);
+            return (this.cameraLights);
          }
       }
 
@@ -347,11 +347,11 @@ namespace Weco.CAN
 
                         if (0 == codeSpecificData)
                         {
-                           this.CameraLed.RecordError(componentFault, emergencyRecordCode, "Front LEDs Shorted");
+                           this.CameraLights.RecordError(componentFault, emergencyRecordCode, "Front LEDs Shorted");
                         }
                         else if (1 == codeSpecificData)
                         {
-                           this.CameraLed.RecordError(componentFault, emergencyRecordCode, "Rear LEDs Shorted");
+                           this.CameraLights.RecordError(componentFault, emergencyRecordCode, "Rear LEDs Shorted");
                         }
                      }
                   }
@@ -363,11 +363,11 @@ namespace Weco.CAN
 
                         if (0 == codeSpecificData)
                         {
-                           this.CameraLed.RecordError(componentFault, emergencyRecordCode, "Front LEDs Open");
+                           this.CameraLights.RecordError(componentFault, emergencyRecordCode, "Front LEDs Open");
                         }
                         else if (1 == codeSpecificData)
                         {
-                           this.CameraLed.RecordError(componentFault, emergencyRecordCode, "Rear LEDs Open");
+                           this.CameraLights.RecordError(componentFault, emergencyRecordCode, "Rear LEDs Open");
                         }
                      }
                   }
@@ -376,7 +376,7 @@ namespace Weco.CAN
                      if (0 == subSystem)
                      {
                         deviceFault = false;
-                        this.CameraLed.RecordError(componentFault, emergencyRecordCode, "LED IC Excess Temperature");
+                        this.CameraLights.RecordError(componentFault, emergencyRecordCode, "LED IC Excess Temperature");
                      }
                   }
                   else if (0x8311 == errorCode)
@@ -487,9 +487,9 @@ namespace Weco.CAN
       {
          #region Camera/LED Initialization
 
-         this.CameraLed.Name = this.Name + " cameraled";
-         this.CameraLed.OnCommExchange = new DeviceComponent.CommExchangeHandler(this.ExchangeCommAction);
-         this.CameraLed.OnClearErrorCode = new DeviceComponent.ClearErrorCodeHandler(this.ClearErrorCode);
+         this.CameraLights.Name = this.Name + " cameralights";
+         this.CameraLights.OnCommExchange = new DeviceComponent.CommExchangeHandler(this.ExchangeCommAction);
+         this.CameraLights.OnClearErrorCode = new DeviceComponent.ClearErrorCodeHandler(this.ClearErrorCode);
 
          #endregion
 
@@ -610,7 +610,7 @@ namespace Weco.CAN
 
       public override void Initialize()
       {
-         this.CameraLed.Initialize();
+         this.CameraLights.Initialize();
          this.PanMotor.Initialize();
          this.TiltMotor.Initialize();
          
@@ -727,7 +727,7 @@ namespace Weco.CAN
 
          this.active = false;
 
-         this.CameraLed.Reset();
+         this.CameraLights.Reset();
          this.PanMotor.Reset();
          this.TiltMotor.Reset();
       }
@@ -743,7 +743,7 @@ namespace Weco.CAN
 
       public override void SetFault(string faultReason, bool resetDevice)
       {
-         this.CameraLed.SetFault("device offline");
+         this.CameraLights.SetFault("device offline");
          this.PanMotor.SetFault("device offline");
          this.TiltMotor.SetFault("device offline");
 

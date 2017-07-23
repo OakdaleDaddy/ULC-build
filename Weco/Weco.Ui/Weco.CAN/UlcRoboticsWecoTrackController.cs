@@ -17,7 +17,7 @@ namespace Weco.CAN
 
       private bool active;
 
-      private DeviceComponent led;
+      private DeviceComponent light;
       private MotorComponent trackMotor;
 
       #endregion
@@ -119,16 +119,16 @@ namespace Weco.CAN
 
       #region Properties
             
-      public DeviceComponent Led
+      public DeviceComponent Light
       {
          get
          {
-            if (null == this.led)
+            if (null == this.light)
             {
-               this.led = new DeviceComponent();
+               this.light = new DeviceComponent();
             }
 
-            return (this.led);
+            return (this.light);
          }
       }
 
@@ -345,7 +345,7 @@ namespace Weco.CAN
 
                         if (0 == codeSpecificData)
                         {
-                           this.Led.RecordError(componentFault, emergencyRecordCode, "LEDs Shorted");
+                           this.Light.RecordError(componentFault, emergencyRecordCode, "LEDs Shorted");
                         }
                      }
                   }
@@ -357,7 +357,7 @@ namespace Weco.CAN
 
                         if (0 == codeSpecificData)
                         {
-                           this.Led.RecordError(componentFault, emergencyRecordCode, "LEDs Open");
+                           this.Light.RecordError(componentFault, emergencyRecordCode, "LEDs Open");
                         }
                      }
                   }
@@ -366,7 +366,7 @@ namespace Weco.CAN
                      if (0 == subSystem)
                      {
                         deviceFault = false;
-                        this.Led.RecordError(componentFault, emergencyRecordCode, "LED IC Excess Temperature");
+                        this.Light.RecordError(componentFault, emergencyRecordCode, "LED IC Excess Temperature");
                      }
                   }
                   else if (0x8311 == errorCode)
@@ -461,9 +461,9 @@ namespace Weco.CAN
       {
          #region Camera/LED Initialization
 
-         this.Led.Name = this.Name + " led";
-         this.Led.OnCommExchange = new DeviceComponent.CommExchangeHandler(this.ExchangeCommAction);
-         this.Led.OnClearErrorCode = new DeviceComponent.ClearErrorCodeHandler(this.ClearErrorCode);
+         this.Light.Name = this.Name + " light";
+         this.Light.OnCommExchange = new DeviceComponent.CommExchangeHandler(this.ExchangeCommAction);
+         this.Light.OnClearErrorCode = new DeviceComponent.ClearErrorCodeHandler(this.ClearErrorCode);
 
          #endregion
 
@@ -530,7 +530,7 @@ namespace Weco.CAN
 
       public override void Initialize()
       {
-         this.Led.Initialize();
+         this.Light.Initialize();
          this.TrackMotor.Initialize();
          
          base.Initialize();
@@ -638,7 +638,7 @@ namespace Weco.CAN
 
          this.active = false;
 
-         this.Led.Reset();
+         this.Light.Reset();
          this.TrackMotor.Reset();
       }
 
@@ -653,7 +653,7 @@ namespace Weco.CAN
 
       public override void SetFault(string faultReason, bool resetDevice)
       {
-         this.Led.SetFault("device offline");
+         this.Light.SetFault("device offline");
          this.TrackMotor.SetFault("device offline");
 
          base.SetFault(faultReason, resetDevice);

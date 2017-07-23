@@ -41,14 +41,24 @@
          this.label14 = new System.Windows.Forms.Label();
          this.DeviceStatusPanel = new Weco.Ui.Controls.BorderedPanel();
          this.DeviceStatusBPanel = new Weco.Ui.Controls.BorderedPanel();
+         this.ReelDigitalIoStatusTextBox = new System.Windows.Forms.TextBox();
+         this.ReelDigitalIoLabel = new System.Windows.Forms.Label();
+         this.OsdRs232StatusTextBox = new System.Windows.Forms.TextBox();
+         this.OsdRs232Label = new System.Windows.Forms.Label();
+         this.ReelEncoderStatusTextBox = new System.Windows.Forms.TextBox();
+         this.ReelEncoderLabel = new System.Windows.Forms.Label();
+         this.ReelMotorStatusTextBox = new System.Windows.Forms.TextBox();
+         this.ReelMotorLabel = new System.Windows.Forms.Label();
+         this.BulletMotorStatusTextBox = new System.Windows.Forms.TextBox();
+         this.BulletMotorLabel = new System.Windows.Forms.Label();
          this.FeederRightMotorStatusTextBox = new System.Windows.Forms.TextBox();
          this.FeederRightMotorLabel = new System.Windows.Forms.Label();
          this.FeederLeftMotorStatusTextBox = new System.Windows.Forms.TextBox();
          this.FeederLeftMotorLabel = new System.Windows.Forms.Label();
          this.LaunchCardAnalogIoStatusTextBox = new System.Windows.Forms.TextBox();
          this.LaunchCardAnalogIoLabel = new System.Windows.Forms.Label();
-         this.LaunchCardCameraLedStatusTextBox = new System.Windows.Forms.TextBox();
-         this.LaunchCardCameraLedLabel = new System.Windows.Forms.Label();
+         this.LaunchCardCameraLightsStatusTextBox = new System.Windows.Forms.TextBox();
+         this.LaunchCardCameraLightsLabel = new System.Windows.Forms.Label();
          this.label1 = new System.Windows.Forms.Label();
          this.LaunchCardControllerLabel = new System.Windows.Forms.Label();
          this.TargetBusStatusTextBox = new System.Windows.Forms.TextBox();
@@ -62,14 +72,14 @@
          this.HubCameraLightsLabel = new System.Windows.Forms.Label();
          this.RightTrackMotorStatusTextBox = new System.Windows.Forms.TextBox();
          this.RightTrackMotorLabel = new System.Windows.Forms.Label();
-         this.RightTrackLightsStatusTextBox = new System.Windows.Forms.TextBox();
-         this.RightTrackLightsLabel = new System.Windows.Forms.Label();
+         this.RightTrackLightStatusTextBox = new System.Windows.Forms.TextBox();
+         this.RightTrackLightLabel = new System.Windows.Forms.Label();
          this.RightTrackControllerStatusTextBox = new System.Windows.Forms.TextBox();
          this.RightTrackControllerLabel = new System.Windows.Forms.Label();
          this.LeftTrackMotorStatusTextBox = new System.Windows.Forms.TextBox();
          this.LeftTrackMotorLabel = new System.Windows.Forms.Label();
-         this.LeftTrackLightsStatusTextBox = new System.Windows.Forms.TextBox();
-         this.LeftTrackLightsLabel = new System.Windows.Forms.Label();
+         this.LeftTrackLightStatusTextBox = new System.Windows.Forms.TextBox();
+         this.LeftTrackLightLabel = new System.Windows.Forms.Label();
          this.HubControllerStatusTextBox = new System.Windows.Forms.TextBox();
          this.HubControllerLabel = new System.Windows.Forms.Label();
          this.JoystickLabel = new System.Windows.Forms.Label();
@@ -85,16 +95,6 @@
          this.label15 = new System.Windows.Forms.Label();
          this.BackButton = new Weco.Ui.Controls.BaseButton();
          this.UpdateTimer = new System.Windows.Forms.Timer(this.components);
-         this.BulletMotorStatusTextBox = new System.Windows.Forms.TextBox();
-         this.BulletMotorLabel = new System.Windows.Forms.Label();
-         this.ReelMotorStatusTextBox = new System.Windows.Forms.TextBox();
-         this.ReelMotorLabel = new System.Windows.Forms.Label();
-         this.ReelEncoderStatusTextBox = new System.Windows.Forms.TextBox();
-         this.ReelEncodeLabel = new System.Windows.Forms.Label();
-         this.OsdRs232StatusTextBox = new System.Windows.Forms.TextBox();
-         this.OsdRs232Label = new System.Windows.Forms.Label();
-         this.ReelDigitalIoStatusTextBox = new System.Windows.Forms.TextBox();
-         this.ReelDigitalIoLabel = new System.Windows.Forms.Label();
          this.MainPanel.SuspendLayout();
          this.SelectPanel.SuspendLayout();
          this.LoggingPanel.SuspendLayout();
@@ -296,7 +296,7 @@
          this.DeviceStatusBPanel.Controls.Add(this.OsdRs232StatusTextBox);
          this.DeviceStatusBPanel.Controls.Add(this.OsdRs232Label);
          this.DeviceStatusBPanel.Controls.Add(this.ReelEncoderStatusTextBox);
-         this.DeviceStatusBPanel.Controls.Add(this.ReelEncodeLabel);
+         this.DeviceStatusBPanel.Controls.Add(this.ReelEncoderLabel);
          this.DeviceStatusBPanel.Controls.Add(this.ReelMotorStatusTextBox);
          this.DeviceStatusBPanel.Controls.Add(this.ReelMotorLabel);
          this.DeviceStatusBPanel.Controls.Add(this.BulletMotorStatusTextBox);
@@ -307,8 +307,8 @@
          this.DeviceStatusBPanel.Controls.Add(this.FeederLeftMotorLabel);
          this.DeviceStatusBPanel.Controls.Add(this.LaunchCardAnalogIoStatusTextBox);
          this.DeviceStatusBPanel.Controls.Add(this.LaunchCardAnalogIoLabel);
-         this.DeviceStatusBPanel.Controls.Add(this.LaunchCardCameraLedStatusTextBox);
-         this.DeviceStatusBPanel.Controls.Add(this.LaunchCardCameraLedLabel);
+         this.DeviceStatusBPanel.Controls.Add(this.LaunchCardCameraLightsStatusTextBox);
+         this.DeviceStatusBPanel.Controls.Add(this.LaunchCardCameraLightsLabel);
          this.DeviceStatusBPanel.Controls.Add(this.label1);
          this.DeviceStatusBPanel.Controls.Add(this.LaunchCardControllerLabel);
          this.DeviceStatusBPanel.Controls.Add(this.TargetBusStatusTextBox);
@@ -318,6 +318,141 @@
          this.DeviceStatusBPanel.Name = "DeviceStatusBPanel";
          this.DeviceStatusBPanel.Size = new System.Drawing.Size(705, 648);
          this.DeviceStatusBPanel.TabIndex = 203;
+         // 
+         // ReelDigitalIoStatusTextBox
+         // 
+         this.ReelDigitalIoStatusTextBox.BackColor = System.Drawing.Color.Red;
+         this.ReelDigitalIoStatusTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+         this.ReelDigitalIoStatusTextBox.ForeColor = System.Drawing.Color.Black;
+         this.ReelDigitalIoStatusTextBox.Location = new System.Drawing.Point(317, 326);
+         this.ReelDigitalIoStatusTextBox.Name = "ReelDigitalIoStatusTextBox";
+         this.ReelDigitalIoStatusTextBox.ReadOnly = true;
+         this.ReelDigitalIoStatusTextBox.Size = new System.Drawing.Size(380, 26);
+         this.ReelDigitalIoStatusTextBox.TabIndex = 250;
+         this.ReelDigitalIoStatusTextBox.Text = "not connected";
+         this.ReelDigitalIoStatusTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+         // 
+         // ReelDigitalIoLabel
+         // 
+         this.ReelDigitalIoLabel.BackColor = System.Drawing.Color.Teal;
+         this.ReelDigitalIoLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+         this.ReelDigitalIoLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.ReelDigitalIoLabel.ForeColor = System.Drawing.Color.Gainsboro;
+         this.ReelDigitalIoLabel.Location = new System.Drawing.Point(8, 328);
+         this.ReelDigitalIoLabel.Name = "ReelDigitalIoLabel";
+         this.ReelDigitalIoLabel.Size = new System.Drawing.Size(301, 23);
+         this.ReelDigitalIoLabel.TabIndex = 249;
+         this.ReelDigitalIoLabel.Text = "REEL DIGITAL IO";
+         this.ReelDigitalIoLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         this.ReelDigitalIoLabel.Click += new System.EventHandler(this.ReelDigitalIoLabel_Click);
+         // 
+         // OsdRs232StatusTextBox
+         // 
+         this.OsdRs232StatusTextBox.BackColor = System.Drawing.Color.Red;
+         this.OsdRs232StatusTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+         this.OsdRs232StatusTextBox.ForeColor = System.Drawing.Color.Black;
+         this.OsdRs232StatusTextBox.Location = new System.Drawing.Point(317, 358);
+         this.OsdRs232StatusTextBox.Name = "OsdRs232StatusTextBox";
+         this.OsdRs232StatusTextBox.ReadOnly = true;
+         this.OsdRs232StatusTextBox.Size = new System.Drawing.Size(380, 26);
+         this.OsdRs232StatusTextBox.TabIndex = 248;
+         this.OsdRs232StatusTextBox.Text = "not connected";
+         this.OsdRs232StatusTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+         // 
+         // OsdRs232Label
+         // 
+         this.OsdRs232Label.BackColor = System.Drawing.Color.Teal;
+         this.OsdRs232Label.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+         this.OsdRs232Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.OsdRs232Label.ForeColor = System.Drawing.Color.Gainsboro;
+         this.OsdRs232Label.Location = new System.Drawing.Point(8, 360);
+         this.OsdRs232Label.Name = "OsdRs232Label";
+         this.OsdRs232Label.Size = new System.Drawing.Size(301, 23);
+         this.OsdRs232Label.TabIndex = 247;
+         this.OsdRs232Label.Text = "OSD RS232";
+         this.OsdRs232Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         this.OsdRs232Label.Click += new System.EventHandler(this.OsdRs232Label_Click);
+         // 
+         // ReelEncoderStatusTextBox
+         // 
+         this.ReelEncoderStatusTextBox.BackColor = System.Drawing.Color.Red;
+         this.ReelEncoderStatusTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+         this.ReelEncoderStatusTextBox.ForeColor = System.Drawing.Color.Black;
+         this.ReelEncoderStatusTextBox.Location = new System.Drawing.Point(317, 294);
+         this.ReelEncoderStatusTextBox.Name = "ReelEncoderStatusTextBox";
+         this.ReelEncoderStatusTextBox.ReadOnly = true;
+         this.ReelEncoderStatusTextBox.Size = new System.Drawing.Size(380, 26);
+         this.ReelEncoderStatusTextBox.TabIndex = 246;
+         this.ReelEncoderStatusTextBox.Text = "not connected";
+         this.ReelEncoderStatusTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+         // 
+         // ReelEncoderLabel
+         // 
+         this.ReelEncoderLabel.BackColor = System.Drawing.Color.Teal;
+         this.ReelEncoderLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+         this.ReelEncoderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.ReelEncoderLabel.ForeColor = System.Drawing.Color.Gainsboro;
+         this.ReelEncoderLabel.Location = new System.Drawing.Point(8, 296);
+         this.ReelEncoderLabel.Name = "ReelEncoderLabel";
+         this.ReelEncoderLabel.Size = new System.Drawing.Size(301, 23);
+         this.ReelEncoderLabel.TabIndex = 245;
+         this.ReelEncoderLabel.Text = "REEL ENCODER";
+         this.ReelEncoderLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         this.ReelEncoderLabel.Click += new System.EventHandler(this.ReelEncoderLabel_Click);
+         // 
+         // ReelMotorStatusTextBox
+         // 
+         this.ReelMotorStatusTextBox.BackColor = System.Drawing.Color.Red;
+         this.ReelMotorStatusTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+         this.ReelMotorStatusTextBox.ForeColor = System.Drawing.Color.Black;
+         this.ReelMotorStatusTextBox.Location = new System.Drawing.Point(317, 262);
+         this.ReelMotorStatusTextBox.Name = "ReelMotorStatusTextBox";
+         this.ReelMotorStatusTextBox.ReadOnly = true;
+         this.ReelMotorStatusTextBox.Size = new System.Drawing.Size(380, 26);
+         this.ReelMotorStatusTextBox.TabIndex = 244;
+         this.ReelMotorStatusTextBox.Text = "not connected";
+         this.ReelMotorStatusTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+         // 
+         // ReelMotorLabel
+         // 
+         this.ReelMotorLabel.BackColor = System.Drawing.Color.Teal;
+         this.ReelMotorLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+         this.ReelMotorLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.ReelMotorLabel.ForeColor = System.Drawing.Color.Gainsboro;
+         this.ReelMotorLabel.Location = new System.Drawing.Point(8, 264);
+         this.ReelMotorLabel.Name = "ReelMotorLabel";
+         this.ReelMotorLabel.Size = new System.Drawing.Size(301, 23);
+         this.ReelMotorLabel.TabIndex = 243;
+         this.ReelMotorLabel.Text = "REEL MOTOR";
+         this.ReelMotorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         this.ReelMotorLabel.Click += new System.EventHandler(this.ReelMotorLabel_Click);
+         // 
+         // BulletMotorStatusTextBox
+         // 
+         this.BulletMotorStatusTextBox.BackColor = System.Drawing.Color.Red;
+         this.BulletMotorStatusTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+         this.BulletMotorStatusTextBox.ForeColor = System.Drawing.Color.Black;
+         this.BulletMotorStatusTextBox.Location = new System.Drawing.Point(317, 166);
+         this.BulletMotorStatusTextBox.Name = "BulletMotorStatusTextBox";
+         this.BulletMotorStatusTextBox.ReadOnly = true;
+         this.BulletMotorStatusTextBox.Size = new System.Drawing.Size(380, 26);
+         this.BulletMotorStatusTextBox.TabIndex = 242;
+         this.BulletMotorStatusTextBox.Text = "not connected";
+         this.BulletMotorStatusTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+         // 
+         // BulletMotorLabel
+         // 
+         this.BulletMotorLabel.BackColor = System.Drawing.Color.Teal;
+         this.BulletMotorLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+         this.BulletMotorLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.BulletMotorLabel.ForeColor = System.Drawing.Color.Gainsboro;
+         this.BulletMotorLabel.Location = new System.Drawing.Point(8, 168);
+         this.BulletMotorLabel.Name = "BulletMotorLabel";
+         this.BulletMotorLabel.Size = new System.Drawing.Size(301, 23);
+         this.BulletMotorLabel.TabIndex = 241;
+         this.BulletMotorLabel.Text = "BULLET MOTOR";
+         this.BulletMotorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         this.BulletMotorLabel.Click += new System.EventHandler(this.BulletMotorLabel_Click);
          // 
          // FeederRightMotorStatusTextBox
          // 
@@ -344,7 +479,7 @@
          this.FeederRightMotorLabel.TabIndex = 239;
          this.FeederRightMotorLabel.Text = "FEEDER RIGHT MOTOR";
          this.FeederRightMotorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         this.FeederRightMotorLabel.Click += new System.EventHandler(this.TargetBoardCameraStepperLabel_Click);
+         this.FeederRightMotorLabel.Click += new System.EventHandler(this.FeederRightMotorLabel_Click);
          // 
          // FeederLeftMotorStatusTextBox
          // 
@@ -371,7 +506,7 @@
          this.FeederLeftMotorLabel.TabIndex = 237;
          this.FeederLeftMotorLabel.Text = "FEEDER LEFT MOTOR";
          this.FeederLeftMotorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         this.FeederLeftMotorLabel.Click += new System.EventHandler(this.TargetBoardRearWheelLabel_Click);
+         this.FeederLeftMotorLabel.Click += new System.EventHandler(this.FeederLeftMotorLabel_Click);
          // 
          // LaunchCardAnalogIoStatusTextBox
          // 
@@ -398,35 +533,35 @@
          this.LaunchCardAnalogIoLabel.TabIndex = 235;
          this.LaunchCardAnalogIoLabel.Text = "LAUNCH CARD ANALOG IO";
          this.LaunchCardAnalogIoLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         this.LaunchCardAnalogIoLabel.Click += new System.EventHandler(this.TargetBoardFrontWheelLabel_Click);
+         this.LaunchCardAnalogIoLabel.Click += new System.EventHandler(this.LaunchCardAnalogIoLabel_Click);
          // 
-         // LaunchCardCameraLedStatusTextBox
+         // LaunchCardCameraLightsStatusTextBox
          // 
-         this.LaunchCardCameraLedStatusTextBox.BackColor = System.Drawing.Color.Red;
-         this.LaunchCardCameraLedStatusTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-         this.LaunchCardCameraLedStatusTextBox.ForeColor = System.Drawing.Color.Black;
-         this.LaunchCardCameraLedStatusTextBox.Location = new System.Drawing.Point(317, 102);
-         this.LaunchCardCameraLedStatusTextBox.Name = "LaunchCardCameraLedStatusTextBox";
-         this.LaunchCardCameraLedStatusTextBox.ReadOnly = true;
-         this.LaunchCardCameraLedStatusTextBox.Size = new System.Drawing.Size(380, 26);
-         this.LaunchCardCameraLedStatusTextBox.TabIndex = 230;
-         this.LaunchCardCameraLedStatusTextBox.Text = "not connected";
-         this.LaunchCardCameraLedStatusTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+         this.LaunchCardCameraLightsStatusTextBox.BackColor = System.Drawing.Color.Red;
+         this.LaunchCardCameraLightsStatusTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+         this.LaunchCardCameraLightsStatusTextBox.ForeColor = System.Drawing.Color.Black;
+         this.LaunchCardCameraLightsStatusTextBox.Location = new System.Drawing.Point(317, 102);
+         this.LaunchCardCameraLightsStatusTextBox.Name = "LaunchCardCameraLightsStatusTextBox";
+         this.LaunchCardCameraLightsStatusTextBox.ReadOnly = true;
+         this.LaunchCardCameraLightsStatusTextBox.Size = new System.Drawing.Size(380, 26);
+         this.LaunchCardCameraLightsStatusTextBox.TabIndex = 230;
+         this.LaunchCardCameraLightsStatusTextBox.Text = "not connected";
+         this.LaunchCardCameraLightsStatusTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
          // 
-         // LaunchCardCameraLedLabel
+         // LaunchCardCameraLightsLabel
          // 
-         this.LaunchCardCameraLedLabel.AccessibleDescription = "111";
-         this.LaunchCardCameraLedLabel.BackColor = System.Drawing.Color.Teal;
-         this.LaunchCardCameraLedLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-         this.LaunchCardCameraLedLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.LaunchCardCameraLedLabel.ForeColor = System.Drawing.Color.Gainsboro;
-         this.LaunchCardCameraLedLabel.Location = new System.Drawing.Point(8, 104);
-         this.LaunchCardCameraLedLabel.Name = "LaunchCardCameraLedLabel";
-         this.LaunchCardCameraLedLabel.Size = new System.Drawing.Size(301, 23);
-         this.LaunchCardCameraLedLabel.TabIndex = 229;
-         this.LaunchCardCameraLedLabel.Text = "LAUNCH CARD CAMERA/LED";
-         this.LaunchCardCameraLedLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         this.LaunchCardCameraLedLabel.Click += new System.EventHandler(this.TargetBoardCameraLedLabel_Click);
+         this.LaunchCardCameraLightsLabel.AccessibleDescription = "111";
+         this.LaunchCardCameraLightsLabel.BackColor = System.Drawing.Color.Teal;
+         this.LaunchCardCameraLightsLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+         this.LaunchCardCameraLightsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.LaunchCardCameraLightsLabel.ForeColor = System.Drawing.Color.Gainsboro;
+         this.LaunchCardCameraLightsLabel.Location = new System.Drawing.Point(8, 104);
+         this.LaunchCardCameraLightsLabel.Name = "LaunchCardCameraLightsLabel";
+         this.LaunchCardCameraLightsLabel.Size = new System.Drawing.Size(301, 23);
+         this.LaunchCardCameraLightsLabel.TabIndex = 229;
+         this.LaunchCardCameraLightsLabel.Text = "LAUNCH CARD CAMERA/LIGHTS";
+         this.LaunchCardCameraLightsLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         this.LaunchCardCameraLightsLabel.Click += new System.EventHandler(this.LaunchCardCameraLightsLabel_Click);
          // 
          // label1
          // 
@@ -453,7 +588,7 @@
          this.LaunchCardControllerLabel.TabIndex = 183;
          this.LaunchCardControllerLabel.Text = "LAUNCH CARD CONTROLLER";
          this.LaunchCardControllerLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         this.LaunchCardControllerLabel.Click += new System.EventHandler(this.TargetBoardLabel_Click);
+         this.LaunchCardControllerLabel.Click += new System.EventHandler(this.LaunchCardControllerLabel_Click);
          // 
          // TargetBusStatusTextBox
          // 
@@ -491,14 +626,14 @@
          this.DeviceStatusAPanel.Controls.Add(this.HubCameraLightsLabel);
          this.DeviceStatusAPanel.Controls.Add(this.RightTrackMotorStatusTextBox);
          this.DeviceStatusAPanel.Controls.Add(this.RightTrackMotorLabel);
-         this.DeviceStatusAPanel.Controls.Add(this.RightTrackLightsStatusTextBox);
-         this.DeviceStatusAPanel.Controls.Add(this.RightTrackLightsLabel);
+         this.DeviceStatusAPanel.Controls.Add(this.RightTrackLightStatusTextBox);
+         this.DeviceStatusAPanel.Controls.Add(this.RightTrackLightLabel);
          this.DeviceStatusAPanel.Controls.Add(this.RightTrackControllerStatusTextBox);
          this.DeviceStatusAPanel.Controls.Add(this.RightTrackControllerLabel);
          this.DeviceStatusAPanel.Controls.Add(this.LeftTrackMotorStatusTextBox);
          this.DeviceStatusAPanel.Controls.Add(this.LeftTrackMotorLabel);
-         this.DeviceStatusAPanel.Controls.Add(this.LeftTrackLightsStatusTextBox);
-         this.DeviceStatusAPanel.Controls.Add(this.LeftTrackLightsLabel);
+         this.DeviceStatusAPanel.Controls.Add(this.LeftTrackLightStatusTextBox);
+         this.DeviceStatusAPanel.Controls.Add(this.LeftTrackLightLabel);
          this.DeviceStatusAPanel.Controls.Add(this.HubControllerStatusTextBox);
          this.DeviceStatusAPanel.Controls.Add(this.HubControllerLabel);
          this.DeviceStatusAPanel.Controls.Add(this.JoystickLabel);
@@ -621,32 +756,32 @@
          this.RightTrackMotorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
          this.RightTrackMotorLabel.Click += new System.EventHandler(this.RightTrackMotorLabel_Click);
          // 
-         // RightTrackLightsStatusTextBox
+         // RightTrackLightStatusTextBox
          // 
-         this.RightTrackLightsStatusTextBox.BackColor = System.Drawing.Color.Red;
-         this.RightTrackLightsStatusTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-         this.RightTrackLightsStatusTextBox.ForeColor = System.Drawing.Color.Black;
-         this.RightTrackLightsStatusTextBox.Location = new System.Drawing.Point(317, 198);
-         this.RightTrackLightsStatusTextBox.Name = "RightTrackLightsStatusTextBox";
-         this.RightTrackLightsStatusTextBox.ReadOnly = true;
-         this.RightTrackLightsStatusTextBox.Size = new System.Drawing.Size(380, 26);
-         this.RightTrackLightsStatusTextBox.TabIndex = 234;
-         this.RightTrackLightsStatusTextBox.Text = "not connected";
-         this.RightTrackLightsStatusTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+         this.RightTrackLightStatusTextBox.BackColor = System.Drawing.Color.Red;
+         this.RightTrackLightStatusTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+         this.RightTrackLightStatusTextBox.ForeColor = System.Drawing.Color.Black;
+         this.RightTrackLightStatusTextBox.Location = new System.Drawing.Point(317, 198);
+         this.RightTrackLightStatusTextBox.Name = "RightTrackLightStatusTextBox";
+         this.RightTrackLightStatusTextBox.ReadOnly = true;
+         this.RightTrackLightStatusTextBox.Size = new System.Drawing.Size(380, 26);
+         this.RightTrackLightStatusTextBox.TabIndex = 234;
+         this.RightTrackLightStatusTextBox.Text = "not connected";
+         this.RightTrackLightStatusTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
          // 
-         // RightTrackLightsLabel
+         // RightTrackLightLabel
          // 
-         this.RightTrackLightsLabel.BackColor = System.Drawing.Color.Teal;
-         this.RightTrackLightsLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-         this.RightTrackLightsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.RightTrackLightsLabel.ForeColor = System.Drawing.Color.Gainsboro;
-         this.RightTrackLightsLabel.Location = new System.Drawing.Point(8, 200);
-         this.RightTrackLightsLabel.Name = "RightTrackLightsLabel";
-         this.RightTrackLightsLabel.Size = new System.Drawing.Size(301, 23);
-         this.RightTrackLightsLabel.TabIndex = 233;
-         this.RightTrackLightsLabel.Text = "RIGHT TRACK LIGHTS";
-         this.RightTrackLightsLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         this.RightTrackLightsLabel.Click += new System.EventHandler(this.RightTrackLightsLabel_Click);
+         this.RightTrackLightLabel.BackColor = System.Drawing.Color.Teal;
+         this.RightTrackLightLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+         this.RightTrackLightLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.RightTrackLightLabel.ForeColor = System.Drawing.Color.Gainsboro;
+         this.RightTrackLightLabel.Location = new System.Drawing.Point(8, 200);
+         this.RightTrackLightLabel.Name = "RightTrackLightLabel";
+         this.RightTrackLightLabel.Size = new System.Drawing.Size(301, 23);
+         this.RightTrackLightLabel.TabIndex = 233;
+         this.RightTrackLightLabel.Text = "RIGHT TRACK LIGHT";
+         this.RightTrackLightLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         this.RightTrackLightLabel.Click += new System.EventHandler(this.RightTrackLightLabel_Click);
          // 
          // RightTrackControllerStatusTextBox
          // 
@@ -702,32 +837,32 @@
          this.LeftTrackMotorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
          this.LeftTrackMotorLabel.Click += new System.EventHandler(this.LeftTrackMotorLabel_Click);
          // 
-         // LeftTrackLightsStatusTextBox
+         // LeftTrackLightStatusTextBox
          // 
-         this.LeftTrackLightsStatusTextBox.BackColor = System.Drawing.Color.Red;
-         this.LeftTrackLightsStatusTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-         this.LeftTrackLightsStatusTextBox.ForeColor = System.Drawing.Color.Black;
-         this.LeftTrackLightsStatusTextBox.Location = new System.Drawing.Point(317, 102);
-         this.LeftTrackLightsStatusTextBox.Name = "LeftTrackLightsStatusTextBox";
-         this.LeftTrackLightsStatusTextBox.ReadOnly = true;
-         this.LeftTrackLightsStatusTextBox.Size = new System.Drawing.Size(380, 26);
-         this.LeftTrackLightsStatusTextBox.TabIndex = 228;
-         this.LeftTrackLightsStatusTextBox.Text = "not connected";
-         this.LeftTrackLightsStatusTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+         this.LeftTrackLightStatusTextBox.BackColor = System.Drawing.Color.Red;
+         this.LeftTrackLightStatusTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+         this.LeftTrackLightStatusTextBox.ForeColor = System.Drawing.Color.Black;
+         this.LeftTrackLightStatusTextBox.Location = new System.Drawing.Point(317, 102);
+         this.LeftTrackLightStatusTextBox.Name = "LeftTrackLightStatusTextBox";
+         this.LeftTrackLightStatusTextBox.ReadOnly = true;
+         this.LeftTrackLightStatusTextBox.Size = new System.Drawing.Size(380, 26);
+         this.LeftTrackLightStatusTextBox.TabIndex = 228;
+         this.LeftTrackLightStatusTextBox.Text = "not connected";
+         this.LeftTrackLightStatusTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
          // 
-         // LeftTrackLightsLabel
+         // LeftTrackLightLabel
          // 
-         this.LeftTrackLightsLabel.BackColor = System.Drawing.Color.Teal;
-         this.LeftTrackLightsLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-         this.LeftTrackLightsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.LeftTrackLightsLabel.ForeColor = System.Drawing.Color.Gainsboro;
-         this.LeftTrackLightsLabel.Location = new System.Drawing.Point(8, 104);
-         this.LeftTrackLightsLabel.Name = "LeftTrackLightsLabel";
-         this.LeftTrackLightsLabel.Size = new System.Drawing.Size(301, 23);
-         this.LeftTrackLightsLabel.TabIndex = 227;
-         this.LeftTrackLightsLabel.Text = "LEFT TRACK LIGHTS";
-         this.LeftTrackLightsLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         this.LeftTrackLightsLabel.Click += new System.EventHandler(this.LeftTrackLightsLabel_Click);
+         this.LeftTrackLightLabel.BackColor = System.Drawing.Color.Teal;
+         this.LeftTrackLightLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+         this.LeftTrackLightLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.LeftTrackLightLabel.ForeColor = System.Drawing.Color.Gainsboro;
+         this.LeftTrackLightLabel.Location = new System.Drawing.Point(8, 104);
+         this.LeftTrackLightLabel.Name = "LeftTrackLightLabel";
+         this.LeftTrackLightLabel.Size = new System.Drawing.Size(301, 23);
+         this.LeftTrackLightLabel.TabIndex = 227;
+         this.LeftTrackLightLabel.Text = "LEFT TRACK LIGHT";
+         this.LeftTrackLightLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         this.LeftTrackLightLabel.Click += new System.EventHandler(this.LeftTrackLightLabel_Click);
          // 
          // HubControllerStatusTextBox
          // 
@@ -932,136 +1067,6 @@
          // 
          this.UpdateTimer.Tick += new System.EventHandler(this.UpdateTimer_Tick);
          // 
-         // BulletMotorStatusTextBox
-         // 
-         this.BulletMotorStatusTextBox.BackColor = System.Drawing.Color.Red;
-         this.BulletMotorStatusTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-         this.BulletMotorStatusTextBox.ForeColor = System.Drawing.Color.Black;
-         this.BulletMotorStatusTextBox.Location = new System.Drawing.Point(317, 166);
-         this.BulletMotorStatusTextBox.Name = "BulletMotorStatusTextBox";
-         this.BulletMotorStatusTextBox.ReadOnly = true;
-         this.BulletMotorStatusTextBox.Size = new System.Drawing.Size(380, 26);
-         this.BulletMotorStatusTextBox.TabIndex = 242;
-         this.BulletMotorStatusTextBox.Text = "not connected";
-         this.BulletMotorStatusTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-         // 
-         // BulletMotorLabel
-         // 
-         this.BulletMotorLabel.BackColor = System.Drawing.Color.Teal;
-         this.BulletMotorLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-         this.BulletMotorLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.BulletMotorLabel.ForeColor = System.Drawing.Color.Gainsboro;
-         this.BulletMotorLabel.Location = new System.Drawing.Point(8, 168);
-         this.BulletMotorLabel.Name = "BulletMotorLabel";
-         this.BulletMotorLabel.Size = new System.Drawing.Size(301, 23);
-         this.BulletMotorLabel.TabIndex = 241;
-         this.BulletMotorLabel.Text = "BULLET MOTOR";
-         this.BulletMotorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         // 
-         // ReelMotorStatusTextBox
-         // 
-         this.ReelMotorStatusTextBox.BackColor = System.Drawing.Color.Red;
-         this.ReelMotorStatusTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-         this.ReelMotorStatusTextBox.ForeColor = System.Drawing.Color.Black;
-         this.ReelMotorStatusTextBox.Location = new System.Drawing.Point(317, 262);
-         this.ReelMotorStatusTextBox.Name = "ReelMotorStatusTextBox";
-         this.ReelMotorStatusTextBox.ReadOnly = true;
-         this.ReelMotorStatusTextBox.Size = new System.Drawing.Size(380, 26);
-         this.ReelMotorStatusTextBox.TabIndex = 244;
-         this.ReelMotorStatusTextBox.Text = "not connected";
-         this.ReelMotorStatusTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-         // 
-         // ReelMotorLabel
-         // 
-         this.ReelMotorLabel.BackColor = System.Drawing.Color.Teal;
-         this.ReelMotorLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-         this.ReelMotorLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.ReelMotorLabel.ForeColor = System.Drawing.Color.Gainsboro;
-         this.ReelMotorLabel.Location = new System.Drawing.Point(8, 264);
-         this.ReelMotorLabel.Name = "ReelMotorLabel";
-         this.ReelMotorLabel.Size = new System.Drawing.Size(301, 23);
-         this.ReelMotorLabel.TabIndex = 243;
-         this.ReelMotorLabel.Text = "REEL MOTOR";
-         this.ReelMotorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         // 
-         // ReelEncoderStatusTextBox
-         // 
-         this.ReelEncoderStatusTextBox.BackColor = System.Drawing.Color.Red;
-         this.ReelEncoderStatusTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-         this.ReelEncoderStatusTextBox.ForeColor = System.Drawing.Color.Black;
-         this.ReelEncoderStatusTextBox.Location = new System.Drawing.Point(317, 294);
-         this.ReelEncoderStatusTextBox.Name = "ReelEncoderStatusTextBox";
-         this.ReelEncoderStatusTextBox.ReadOnly = true;
-         this.ReelEncoderStatusTextBox.Size = new System.Drawing.Size(380, 26);
-         this.ReelEncoderStatusTextBox.TabIndex = 246;
-         this.ReelEncoderStatusTextBox.Text = "not connected";
-         this.ReelEncoderStatusTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-         // 
-         // ReelEncodeLabel
-         // 
-         this.ReelEncodeLabel.BackColor = System.Drawing.Color.Teal;
-         this.ReelEncodeLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-         this.ReelEncodeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.ReelEncodeLabel.ForeColor = System.Drawing.Color.Gainsboro;
-         this.ReelEncodeLabel.Location = new System.Drawing.Point(8, 296);
-         this.ReelEncodeLabel.Name = "ReelEncodeLabel";
-         this.ReelEncodeLabel.Size = new System.Drawing.Size(301, 23);
-         this.ReelEncodeLabel.TabIndex = 245;
-         this.ReelEncodeLabel.Text = "REEL ENCODER";
-         this.ReelEncodeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         // 
-         // OsdRs232StatusTextBox
-         // 
-         this.OsdRs232StatusTextBox.BackColor = System.Drawing.Color.Red;
-         this.OsdRs232StatusTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-         this.OsdRs232StatusTextBox.ForeColor = System.Drawing.Color.Black;
-         this.OsdRs232StatusTextBox.Location = new System.Drawing.Point(317, 358);
-         this.OsdRs232StatusTextBox.Name = "OsdRs232StatusTextBox";
-         this.OsdRs232StatusTextBox.ReadOnly = true;
-         this.OsdRs232StatusTextBox.Size = new System.Drawing.Size(380, 26);
-         this.OsdRs232StatusTextBox.TabIndex = 248;
-         this.OsdRs232StatusTextBox.Text = "not connected";
-         this.OsdRs232StatusTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-         // 
-         // OsdRs232Label
-         // 
-         this.OsdRs232Label.BackColor = System.Drawing.Color.Teal;
-         this.OsdRs232Label.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-         this.OsdRs232Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.OsdRs232Label.ForeColor = System.Drawing.Color.Gainsboro;
-         this.OsdRs232Label.Location = new System.Drawing.Point(8, 360);
-         this.OsdRs232Label.Name = "OsdRs232Label";
-         this.OsdRs232Label.Size = new System.Drawing.Size(301, 23);
-         this.OsdRs232Label.TabIndex = 247;
-         this.OsdRs232Label.Text = "OSD RS232";
-         this.OsdRs232Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         // 
-         // ReelDigitalIoStatusTextBox
-         // 
-         this.ReelDigitalIoStatusTextBox.BackColor = System.Drawing.Color.Red;
-         this.ReelDigitalIoStatusTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-         this.ReelDigitalIoStatusTextBox.ForeColor = System.Drawing.Color.Black;
-         this.ReelDigitalIoStatusTextBox.Location = new System.Drawing.Point(317, 326);
-         this.ReelDigitalIoStatusTextBox.Name = "ReelDigitalIoStatusTextBox";
-         this.ReelDigitalIoStatusTextBox.ReadOnly = true;
-         this.ReelDigitalIoStatusTextBox.Size = new System.Drawing.Size(380, 26);
-         this.ReelDigitalIoStatusTextBox.TabIndex = 250;
-         this.ReelDigitalIoStatusTextBox.Text = "not connected";
-         this.ReelDigitalIoStatusTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-         // 
-         // ReelDigitalIoLabel
-         // 
-         this.ReelDigitalIoLabel.BackColor = System.Drawing.Color.Teal;
-         this.ReelDigitalIoLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-         this.ReelDigitalIoLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.ReelDigitalIoLabel.ForeColor = System.Drawing.Color.Gainsboro;
-         this.ReelDigitalIoLabel.Location = new System.Drawing.Point(8, 328);
-         this.ReelDigitalIoLabel.Name = "ReelDigitalIoLabel";
-         this.ReelDigitalIoLabel.Size = new System.Drawing.Size(301, 23);
-         this.ReelDigitalIoLabel.TabIndex = 249;
-         this.ReelDigitalIoLabel.Text = "REEL DIGITAL IO";
-         this.ReelDigitalIoLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         // 
          // SystemStatusForm
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1120,14 +1125,14 @@
       private Controls.BaseButton ShowToggleButton;
       private System.Windows.Forms.TextBox HubControllerStatusTextBox;
       private System.Windows.Forms.Label HubControllerLabel;
-      private System.Windows.Forms.TextBox LeftTrackLightsStatusTextBox;
-      private System.Windows.Forms.Label LeftTrackLightsLabel;
-      private System.Windows.Forms.TextBox LaunchCardCameraLedStatusTextBox;
-      private System.Windows.Forms.Label LaunchCardCameraLedLabel;
+      private System.Windows.Forms.TextBox LeftTrackLightStatusTextBox;
+      private System.Windows.Forms.Label LeftTrackLightLabel;
+      private System.Windows.Forms.TextBox LaunchCardCameraLightsStatusTextBox;
+      private System.Windows.Forms.Label LaunchCardCameraLightsLabel;
       private System.Windows.Forms.TextBox RightTrackMotorStatusTextBox;
       private System.Windows.Forms.Label RightTrackMotorLabel;
-      private System.Windows.Forms.TextBox RightTrackLightsStatusTextBox;
-      private System.Windows.Forms.Label RightTrackLightsLabel;
+      private System.Windows.Forms.TextBox RightTrackLightStatusTextBox;
+      private System.Windows.Forms.Label RightTrackLightLabel;
       private System.Windows.Forms.TextBox RightTrackControllerStatusTextBox;
       private System.Windows.Forms.Label RightTrackControllerLabel;
       private System.Windows.Forms.TextBox LeftTrackMotorStatusTextBox;
@@ -1149,7 +1154,7 @@
       private System.Windows.Forms.TextBox OsdRs232StatusTextBox;
       private System.Windows.Forms.Label OsdRs232Label;
       private System.Windows.Forms.TextBox ReelEncoderStatusTextBox;
-      private System.Windows.Forms.Label ReelEncodeLabel;
+      private System.Windows.Forms.Label ReelEncoderLabel;
       private System.Windows.Forms.TextBox ReelMotorStatusTextBox;
       private System.Windows.Forms.Label ReelMotorLabel;
       private System.Windows.Forms.TextBox BulletMotorStatusTextBox;
