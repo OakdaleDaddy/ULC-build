@@ -92,17 +92,12 @@ namespace Weco.DeviceTest
          this.WecoTrackControllerProducerHeartbeatButton = new System.Windows.Forms.Button();
          this.WecoTrackControllerProducerHeartbeatTimeTextBox = new System.Windows.Forms.TextBox();
          this.WecoTrackControllerLedTabPage = new System.Windows.Forms.TabPage();
-         this.SetWecoTrackControllerLedChannelMaskButton = new System.Windows.Forms.Button();
-         this.GetWecoTrackControllerLedChannelMaskButton = new System.Windows.Forms.Button();
-         this.label46 = new System.Windows.Forms.Label();
-         this.WecoTrackControllerLedChannelMaskTextBox = new System.Windows.Forms.TextBox();
          this.WecoTrackControllerLedIntensityTextBox = new System.Windows.Forms.TextBox();
          this.SetWecoTrackControllerLedIntensityButton = new System.Windows.Forms.Button();
          this.DecreaseWecoTrackControllerLedIntensityButton = new System.Windows.Forms.Button();
          this.IncreaseWecoTrackControllerLedIntensityButton = new System.Windows.Forms.Button();
          this.label127 = new System.Windows.Forms.Label();
          this.GetWecoTrackControllerLedIntensityButton = new System.Windows.Forms.Button();
-         this.label23 = new System.Windows.Forms.Label();
          this.WecoTrackControllerTrackMotorTabPage = new System.Windows.Forms.TabPage();
          this.RunWecoTrackControllerTrackMotorButton = new System.Windows.Forms.Button();
          this.HaltWecoTrackControllerTrackMotorButton = new System.Windows.Forms.Button();
@@ -204,8 +199,6 @@ namespace Weco.DeviceTest
          this.WecoTrackControllerResetButton = new System.Windows.Forms.Button();
          this.WecoTrackControllerStopButton = new System.Windows.Forms.Button();
          this.WecoTrackControllerStartButton = new System.Windows.Forms.Button();
-         this.ControlSplitter = new System.Windows.Forms.Splitter();
-         this.MainActivityPanel = new System.Windows.Forms.Panel();
          this.WecoHubTabPage = new System.Windows.Forms.TabPage();
          this.WecoHubSyncButton = new System.Windows.Forms.Button();
          this.WecoHubTabControl = new System.Windows.Forms.TabControl();
@@ -405,6 +398,10 @@ namespace Weco.DeviceTest
          this.WecoHubTiltMotorTemperatureTextBox = new System.Windows.Forms.TextBox();
          this.label50 = new System.Windows.Forms.Label();
          this.label52 = new System.Windows.Forms.Label();
+         this.WecoHubSondeTabPage = new System.Windows.Forms.TabPage();
+         this.label31 = new System.Windows.Forms.Label();
+         this.SetWecoHubSondeOffButton = new System.Windows.Forms.Button();
+         this.SetWecoHubSondeOnButton = new System.Windows.Forms.Button();
          this.WecoHubDebugTabPage = new System.Windows.Forms.TabPage();
          this.DisableWecoHubFaultResetButton = new System.Windows.Forms.Button();
          this.SetWecoHubSdoTimeoutButton = new System.Windows.Forms.Button();
@@ -420,10 +417,8 @@ namespace Weco.DeviceTest
          this.WecoHubResetButton = new System.Windows.Forms.Button();
          this.WecoHubStopButton = new System.Windows.Forms.Button();
          this.WecoHubStartButton = new System.Windows.Forms.Button();
-         this.WecoHubSondeTabPage = new System.Windows.Forms.TabPage();
-         this.SetWecoHubSondeOffButton = new System.Windows.Forms.Button();
-         this.SetWecoHubSondeOnButton = new System.Windows.Forms.Button();
-         this.label31 = new System.Windows.Forms.Label();
+         this.ControlSplitter = new System.Windows.Forms.Splitter();
+         this.MainActivityPanel = new System.Windows.Forms.Panel();
          this.MainStatusStrip.SuspendLayout();
          this.MainTabControl.SuspendLayout();
          this.ControlTabPage.SuspendLayout();
@@ -439,7 +434,6 @@ namespace Weco.DeviceTest
          this.E4MainBldc0PositionGroupBox.SuspendLayout();
          this.E4MainBldc0VelocityGroupBox.SuspendLayout();
          this.WecoTrackControllerDebugTabPage.SuspendLayout();
-         this.MainActivityPanel.SuspendLayout();
          this.WecoHubTabPage.SuspendLayout();
          this.WecoHubTabControl.SuspendLayout();
          this.WecoHubHeartbeatsTabPage.SuspendLayout();
@@ -454,8 +448,9 @@ namespace Weco.DeviceTest
          this.E4MainBldc1TuningGroupBox.SuspendLayout();
          this.E4MainBldc1PositionGroupBox.SuspendLayout();
          this.E4MainBldc1VelocityGroupBox.SuspendLayout();
-         this.WecoHubDebugTabPage.SuspendLayout();
          this.WecoHubSondeTabPage.SuspendLayout();
+         this.WecoHubDebugTabPage.SuspendLayout();
+         this.MainActivityPanel.SuspendLayout();
          this.SuspendLayout();
          // 
          // ActivityRichTextBox
@@ -1098,61 +1093,19 @@ namespace Weco.DeviceTest
          // 
          // WecoTrackControllerLedTabPage
          // 
-         this.WecoTrackControllerLedTabPage.Controls.Add(this.SetWecoTrackControllerLedChannelMaskButton);
-         this.WecoTrackControllerLedTabPage.Controls.Add(this.GetWecoTrackControllerLedChannelMaskButton);
-         this.WecoTrackControllerLedTabPage.Controls.Add(this.label46);
-         this.WecoTrackControllerLedTabPage.Controls.Add(this.WecoTrackControllerLedChannelMaskTextBox);
          this.WecoTrackControllerLedTabPage.Controls.Add(this.WecoTrackControllerLedIntensityTextBox);
          this.WecoTrackControllerLedTabPage.Controls.Add(this.SetWecoTrackControllerLedIntensityButton);
          this.WecoTrackControllerLedTabPage.Controls.Add(this.DecreaseWecoTrackControllerLedIntensityButton);
          this.WecoTrackControllerLedTabPage.Controls.Add(this.IncreaseWecoTrackControllerLedIntensityButton);
          this.WecoTrackControllerLedTabPage.Controls.Add(this.label127);
          this.WecoTrackControllerLedTabPage.Controls.Add(this.GetWecoTrackControllerLedIntensityButton);
-         this.WecoTrackControllerLedTabPage.Controls.Add(this.label23);
          this.WecoTrackControllerLedTabPage.Location = new System.Drawing.Point(4, 22);
          this.WecoTrackControllerLedTabPage.Name = "WecoTrackControllerLedTabPage";
          this.WecoTrackControllerLedTabPage.Padding = new System.Windows.Forms.Padding(3);
          this.WecoTrackControllerLedTabPage.Size = new System.Drawing.Size(720, 124);
          this.WecoTrackControllerLedTabPage.TabIndex = 1;
-         this.WecoTrackControllerLedTabPage.Text = "Led";
+         this.WecoTrackControllerLedTabPage.Text = "Lights";
          this.WecoTrackControllerLedTabPage.UseVisualStyleBackColor = true;
-         // 
-         // SetWecoTrackControllerLedChannelMaskButton
-         // 
-         this.SetWecoTrackControllerLedChannelMaskButton.Location = new System.Drawing.Point(183, 33);
-         this.SetWecoTrackControllerLedChannelMaskButton.Name = "SetWecoTrackControllerLedChannelMaskButton";
-         this.SetWecoTrackControllerLedChannelMaskButton.Size = new System.Drawing.Size(35, 23);
-         this.SetWecoTrackControllerLedChannelMaskButton.TabIndex = 265;
-         this.SetWecoTrackControllerLedChannelMaskButton.Text = "Set";
-         this.SetWecoTrackControllerLedChannelMaskButton.UseVisualStyleBackColor = true;
-         this.SetWecoTrackControllerLedChannelMaskButton.Click += new System.EventHandler(this.SetWecoTrackControllerLedChannelMaskButton_Click);
-         // 
-         // GetWecoTrackControllerLedChannelMaskButton
-         // 
-         this.GetWecoTrackControllerLedChannelMaskButton.Location = new System.Drawing.Point(142, 33);
-         this.GetWecoTrackControllerLedChannelMaskButton.Name = "GetWecoTrackControllerLedChannelMaskButton";
-         this.GetWecoTrackControllerLedChannelMaskButton.Size = new System.Drawing.Size(35, 23);
-         this.GetWecoTrackControllerLedChannelMaskButton.TabIndex = 266;
-         this.GetWecoTrackControllerLedChannelMaskButton.Text = "Get";
-         this.GetWecoTrackControllerLedChannelMaskButton.UseVisualStyleBackColor = true;
-         this.GetWecoTrackControllerLedChannelMaskButton.Click += new System.EventHandler(this.GetWecoTrackControllerLedChannelMaskButton_Click);
-         // 
-         // label46
-         // 
-         this.label46.AutoSize = true;
-         this.label46.Location = new System.Drawing.Point(25, 38);
-         this.label46.Name = "label46";
-         this.label46.Size = new System.Drawing.Size(75, 13);
-         this.label46.TabIndex = 255;
-         this.label46.Text = "Channel Mask";
-         // 
-         // WecoTrackControllerLedChannelMaskTextBox
-         // 
-         this.WecoTrackControllerLedChannelMaskTextBox.Location = new System.Drawing.Point(102, 35);
-         this.WecoTrackControllerLedChannelMaskTextBox.MaxLength = 2;
-         this.WecoTrackControllerLedChannelMaskTextBox.Name = "WecoTrackControllerLedChannelMaskTextBox";
-         this.WecoTrackControllerLedChannelMaskTextBox.Size = new System.Drawing.Size(24, 20);
-         this.WecoTrackControllerLedChannelMaskTextBox.TabIndex = 256;
          // 
          // WecoTrackControllerLedIntensityTextBox
          // 
@@ -1210,15 +1163,6 @@ namespace Weco.DeviceTest
          this.GetWecoTrackControllerLedIntensityButton.Text = "Get";
          this.GetWecoTrackControllerLedIntensityButton.UseVisualStyleBackColor = true;
          this.GetWecoTrackControllerLedIntensityButton.Click += new System.EventHandler(this.GetWecoTrackControllerLedIntensityButton_Click);
-         // 
-         // label23
-         // 
-         this.label23.AutoSize = true;
-         this.label23.Location = new System.Drawing.Point(123, 35);
-         this.label23.Name = "label23";
-         this.label23.Size = new System.Drawing.Size(13, 13);
-         this.label23.TabIndex = 267;
-         this.label23.Text = "h";
          // 
          // WecoTrackControllerTrackMotorTabPage
          // 
@@ -2241,24 +2185,6 @@ namespace Weco.DeviceTest
          this.WecoTrackControllerStartButton.Text = "Start";
          this.WecoTrackControllerStartButton.UseVisualStyleBackColor = true;
          this.WecoTrackControllerStartButton.Click += new System.EventHandler(this.WecoTrackControllerStartButton_Click);
-         // 
-         // ControlSplitter
-         // 
-         this.ControlSplitter.Dock = System.Windows.Forms.DockStyle.Bottom;
-         this.ControlSplitter.Location = new System.Drawing.Point(0, 107);
-         this.ControlSplitter.Name = "ControlSplitter";
-         this.ControlSplitter.Size = new System.Drawing.Size(742, 3);
-         this.ControlSplitter.TabIndex = 44;
-         this.ControlSplitter.TabStop = false;
-         // 
-         // MainActivityPanel
-         // 
-         this.MainActivityPanel.Controls.Add(this.ActivityRichTextBox);
-         this.MainActivityPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.MainActivityPanel.Location = new System.Drawing.Point(0, 0);
-         this.MainActivityPanel.Name = "MainActivityPanel";
-         this.MainActivityPanel.Size = new System.Drawing.Size(742, 107);
-         this.MainActivityPanel.TabIndex = 45;
          // 
          // WecoHubTabPage
          // 
@@ -4220,6 +4146,46 @@ namespace Weco.DeviceTest
          this.label52.TabIndex = 429;
          this.label52.Text = "h";
          // 
+         // WecoHubSondeTabPage
+         // 
+         this.WecoHubSondeTabPage.Controls.Add(this.label31);
+         this.WecoHubSondeTabPage.Controls.Add(this.SetWecoHubSondeOffButton);
+         this.WecoHubSondeTabPage.Controls.Add(this.SetWecoHubSondeOnButton);
+         this.WecoHubSondeTabPage.Location = new System.Drawing.Point(4, 22);
+         this.WecoHubSondeTabPage.Name = "WecoHubSondeTabPage";
+         this.WecoHubSondeTabPage.Padding = new System.Windows.Forms.Padding(3);
+         this.WecoHubSondeTabPage.Size = new System.Drawing.Size(720, 124);
+         this.WecoHubSondeTabPage.TabIndex = 9;
+         this.WecoHubSondeTabPage.Text = "Sonde";
+         this.WecoHubSondeTabPage.UseVisualStyleBackColor = true;
+         // 
+         // label31
+         // 
+         this.label31.AutoSize = true;
+         this.label31.Location = new System.Drawing.Point(6, 14);
+         this.label31.Name = "label31";
+         this.label31.Size = new System.Drawing.Size(38, 13);
+         this.label31.TabIndex = 269;
+         this.label31.Text = "Sonde";
+         // 
+         // SetWecoHubSondeOffButton
+         // 
+         this.SetWecoHubSondeOffButton.Location = new System.Drawing.Point(87, 9);
+         this.SetWecoHubSondeOffButton.Name = "SetWecoHubSondeOffButton";
+         this.SetWecoHubSondeOffButton.Size = new System.Drawing.Size(35, 23);
+         this.SetWecoHubSondeOffButton.TabIndex = 267;
+         this.SetWecoHubSondeOffButton.Text = "Off";
+         this.SetWecoHubSondeOffButton.UseVisualStyleBackColor = true;
+         // 
+         // SetWecoHubSondeOnButton
+         // 
+         this.SetWecoHubSondeOnButton.Location = new System.Drawing.Point(46, 9);
+         this.SetWecoHubSondeOnButton.Name = "SetWecoHubSondeOnButton";
+         this.SetWecoHubSondeOnButton.Size = new System.Drawing.Size(35, 23);
+         this.SetWecoHubSondeOnButton.TabIndex = 268;
+         this.SetWecoHubSondeOnButton.Text = "On";
+         this.SetWecoHubSondeOnButton.UseVisualStyleBackColor = true;
+         // 
          // WecoHubDebugTabPage
          // 
          this.WecoHubDebugTabPage.Controls.Add(this.DisableWecoHubFaultResetButton);
@@ -4361,45 +4327,23 @@ namespace Weco.DeviceTest
          this.WecoHubStartButton.Text = "Start";
          this.WecoHubStartButton.UseVisualStyleBackColor = true;
          // 
-         // WecoHubSondeTabPage
+         // ControlSplitter
          // 
-         this.WecoHubSondeTabPage.Controls.Add(this.label31);
-         this.WecoHubSondeTabPage.Controls.Add(this.SetWecoHubSondeOffButton);
-         this.WecoHubSondeTabPage.Controls.Add(this.SetWecoHubSondeOnButton);
-         this.WecoHubSondeTabPage.Location = new System.Drawing.Point(4, 22);
-         this.WecoHubSondeTabPage.Name = "WecoHubSondeTabPage";
-         this.WecoHubSondeTabPage.Padding = new System.Windows.Forms.Padding(3);
-         this.WecoHubSondeTabPage.Size = new System.Drawing.Size(720, 124);
-         this.WecoHubSondeTabPage.TabIndex = 9;
-         this.WecoHubSondeTabPage.Text = "Sonde";
-         this.WecoHubSondeTabPage.UseVisualStyleBackColor = true;
+         this.ControlSplitter.Dock = System.Windows.Forms.DockStyle.Bottom;
+         this.ControlSplitter.Location = new System.Drawing.Point(0, 107);
+         this.ControlSplitter.Name = "ControlSplitter";
+         this.ControlSplitter.Size = new System.Drawing.Size(742, 3);
+         this.ControlSplitter.TabIndex = 44;
+         this.ControlSplitter.TabStop = false;
          // 
-         // SetWecoHubSondeOffButton
+         // MainActivityPanel
          // 
-         this.SetWecoHubSondeOffButton.Location = new System.Drawing.Point(87, 9);
-         this.SetWecoHubSondeOffButton.Name = "SetWecoHubSondeOffButton";
-         this.SetWecoHubSondeOffButton.Size = new System.Drawing.Size(35, 23);
-         this.SetWecoHubSondeOffButton.TabIndex = 267;
-         this.SetWecoHubSondeOffButton.Text = "Off";
-         this.SetWecoHubSondeOffButton.UseVisualStyleBackColor = true;
-         // 
-         // SetWecoHubSondeOnButton
-         // 
-         this.SetWecoHubSondeOnButton.Location = new System.Drawing.Point(46, 9);
-         this.SetWecoHubSondeOnButton.Name = "SetWecoHubSondeOnButton";
-         this.SetWecoHubSondeOnButton.Size = new System.Drawing.Size(35, 23);
-         this.SetWecoHubSondeOnButton.TabIndex = 268;
-         this.SetWecoHubSondeOnButton.Text = "On";
-         this.SetWecoHubSondeOnButton.UseVisualStyleBackColor = true;
-         // 
-         // label31
-         // 
-         this.label31.AutoSize = true;
-         this.label31.Location = new System.Drawing.Point(6, 14);
-         this.label31.Name = "label31";
-         this.label31.Size = new System.Drawing.Size(38, 13);
-         this.label31.TabIndex = 269;
-         this.label31.Text = "Sonde";
+         this.MainActivityPanel.Controls.Add(this.ActivityRichTextBox);
+         this.MainActivityPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+         this.MainActivityPanel.Location = new System.Drawing.Point(0, 0);
+         this.MainActivityPanel.Name = "MainActivityPanel";
+         this.MainActivityPanel.Size = new System.Drawing.Size(742, 107);
+         this.MainActivityPanel.TabIndex = 45;
          // 
          // MainForm
          // 
@@ -4444,7 +4388,6 @@ namespace Weco.DeviceTest
          this.E4MainBldc0VelocityGroupBox.PerformLayout();
          this.WecoTrackControllerDebugTabPage.ResumeLayout(false);
          this.WecoTrackControllerDebugTabPage.PerformLayout();
-         this.MainActivityPanel.ResumeLayout(false);
          this.WecoHubTabPage.ResumeLayout(false);
          this.WecoHubTabPage.PerformLayout();
          this.WecoHubTabControl.ResumeLayout(false);
@@ -4470,10 +4413,11 @@ namespace Weco.DeviceTest
          this.E4MainBldc1PositionGroupBox.PerformLayout();
          this.E4MainBldc1VelocityGroupBox.ResumeLayout(false);
          this.E4MainBldc1VelocityGroupBox.PerformLayout();
-         this.WecoHubDebugTabPage.ResumeLayout(false);
-         this.WecoHubDebugTabPage.PerformLayout();
          this.WecoHubSondeTabPage.ResumeLayout(false);
          this.WecoHubSondeTabPage.PerformLayout();
+         this.WecoHubDebugTabPage.ResumeLayout(false);
+         this.WecoHubDebugTabPage.PerformLayout();
+         this.MainActivityPanel.ResumeLayout(false);
          this.ResumeLayout(false);
          this.PerformLayout();
 
@@ -4551,8 +4495,6 @@ namespace Weco.DeviceTest
       private System.Windows.Forms.Button DecreaseWecoTrackControllerLedIntensityButton;
       private System.Windows.Forms.Button SetWecoTrackControllerLedIntensityButton;
       private System.Windows.Forms.TextBox WecoTrackControllerLedIntensityTextBox;
-      private System.Windows.Forms.TextBox WecoTrackControllerLedChannelMaskTextBox;
-      private System.Windows.Forms.Label label46;
       private System.Windows.Forms.Button WecoTrackControllerClearButton;
       private System.Windows.Forms.Label label1;
       private System.Windows.Forms.TextBox WecoTrackControllerTrackMotorTemperatureTextBox;
@@ -4615,9 +4557,6 @@ namespace Weco.DeviceTest
       private System.Windows.Forms.Button SetWecoTrackControllerTrackMotorKpButton;
       private System.Windows.Forms.Button SetWecoTrackControllerTrackMotorKiButton;
       private System.Windows.Forms.TextBox WecoTrackControllerTrackMotorKpTextBox;
-      private System.Windows.Forms.Button SetWecoTrackControllerLedChannelMaskButton;
-      private System.Windows.Forms.Button GetWecoTrackControllerLedChannelMaskButton;
-      private System.Windows.Forms.Label label23;
       private System.Windows.Forms.Label label24;
       private System.Windows.Forms.Button DownloadEraseButton;
       private System.Windows.Forms.RadioButton WecoTrackControllerTrackMotorTuningPositionRadioButton;

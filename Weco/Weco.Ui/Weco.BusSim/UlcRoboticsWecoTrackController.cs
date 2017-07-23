@@ -41,14 +41,9 @@ namespace Weco.BusSim
       private List<ErrorData> errorCodeList;
       private UInt32 subSystemStatus;
 
-      private UInt32 ledDefaultIntensity;
-      private UInt32 ledIntensity;
-      private byte ledChannelMask;
+      private UInt16 ledIntensity;
 
       private byte mcuTemperature;
-      private byte mcuErrorTemperature;
-
-      private byte outputs;
 
       private byte workingConsumerHeartbeatNode;
       private UInt16 workingConsumerHeartbeatTime;
@@ -70,11 +65,7 @@ namespace Weco.BusSim
       {
          bool result = false;
 
-         if ((0x2301 == index) ||
-             ((0x2302 == index) && (0x01 == subIndex)) ||
-             ((0x2304 == index) && (0x01 == subIndex)) ||
-             ((0x2310 == index) && (0x01 == subIndex)) ||
-             ((0x2311 == index) && (0x02 == subIndex)))
+         if (0x2301 == index)
          {
             result = true;
          }
@@ -91,16 +82,9 @@ namespace Weco.BusSim
       {
          int result = 0;
 
-         if ((0x2301 == index) ||
-             ((0x2304 == index) && (0x01 == subIndex)) ||
-             ((0x2310 == index) && (0x01 == subIndex)) ||
-             ((0x2311 == index) && (0x02 == subIndex)))
+         if (0x2301 == index) 
          {
             result = 1;
-         }
-         else if ((0x2302 == index) && (0x01 == subIndex))
-         {
-            result = 4;
          }
 
          if (0 == result)
@@ -124,11 +108,7 @@ namespace Weco.BusSim
          if ((0x1001 == index) ||
              (0x1002 == index) ||
              (0x2301 == index) ||
-             ((0x2302 == index) && (0x01 == subIndex)) ||
-             ((0x2304 == index) && (0x01 == subIndex)) ||
-             ((0x2310 == index) && (0x01 == subIndex)) ||
              ((0x2311 == index) && (0x01 == subIndex)) ||
-             ((0x2311 == index) && (0x02 == subIndex)) ||
              ((0x5000 == index) && (0x00 == subIndex)))
          {
             result = true;
@@ -148,15 +128,11 @@ namespace Weco.BusSim
 
          if ((0x1001 == index) ||
              (0x2301 == index) ||
-             ((0x2304 == index) && (0x01 == subIndex)) ||
-             ((0x2310 == index) && (0x01 == subIndex)) ||
-             ((0x2311 == index) && (0x01 == subIndex)) ||
-             ((0x2311 == index) && (0x02 == subIndex)))
+             ((0x2311 == index) && (0x01 == subIndex)))
          {
             result = 1;
          }
          else if ((0x1002 == index) ||
-                  ((0x2302 == index) && (0x01 == subIndex)) ||
                   ((0x5000 == index) && (0x00 == subIndex)))
          {
             result = 4;
@@ -416,24 +392,11 @@ namespace Weco.BusSim
 
       #region LED
 
-      private UInt32 LedDefaultIntensity
+      private UInt16 LedIntensity
       {
          set
          {
-            this.SetValue(0x2302, 0x01, CameraLedDefaultIntensityLabel, "LED Default Intensity", ref this.ledDefaultIntensity, value, 8);
-         }
-
-         get
-         {
-            return (this.ledDefaultIntensity);
-         }
-      }
-
-      private UInt32 LedIntensity
-      {
-         set
-         {
-            this.SetValue(0x2303, 0x01, CameraLedIntensityLabel, "LED Intensity", ref this.ledIntensity, value, 8);
+            this.SetValue(0x2303, 0x01, CameraLedIntensityLabel, "LED Intensity", ref this.ledIntensity, value, 4);
          }
 
          get
@@ -442,35 +405,9 @@ namespace Weco.BusSim
          }
       }
 
-      private byte LedChannelMask
-      {
-         set
-         {
-            this.SetValue(0x2303, 0x01, CameraLedChannelMaskLabel, "LED Channel Mask", ref this.ledChannelMask, value, 2);
-         }
-
-         get
-         {
-            return (this.ledChannelMask);
-         }
-      }
-
       #endregion
 
       #region MCU
-
-      private byte Outputs
-      {
-         set
-         {
-            this.SetValue(0x2310, 0x01, OutputsLabel, "Outputs", ref this.outputs, value, 2);
-         }
-
-         get
-         {
-            return (this.outputs);
-         }
-      }
 
       private byte McuTemperature
       {
@@ -482,19 +419,6 @@ namespace Weco.BusSim
          get
          {
             return (this.mcuTemperature);
-         }
-      }
-
-      private byte McuErrorTemperature
-      {
-         set
-         {
-            this.SetValue(0x2311, 0x02, McuErrorTemperatureLabel, "MCU Error Temperature", ref this.mcuErrorTemperature, value, 2);
-         }
-
-         get
-         {
-            return (this.mcuErrorTemperature);
          }
       }
 
@@ -657,11 +581,8 @@ namespace Weco.BusSim
                this.PredefinedError3 = 0;
                this.PredefinedError4 = 0;
                
-               this.LedDefaultIntensity = 15;
                this.LedIntensity = 15;
-               this.LedChannelMask = 0;
 
-               this.Outputs = 0;
                this.McuTemperature = 23;
             }
 
@@ -685,8 +606,6 @@ namespace Weco.BusSim
 
             this.SubSystemStatus = 0;
             this.errorCodeList.Clear();
-
-            this.McuErrorTemperature = 0;
 
             this.TrackMotor.Reset(fromPowerUp);
 
@@ -944,16 +863,6 @@ namespace Weco.BusSim
                valid = true;
             }
          }
-         else if ((0x2302 == index) && (0x00 == subIndex))
-         {
-            dataLength = this.MoveDeviceData(buffer, (byte)1);
-            valid = true;
-         }
-         else if ((0x2302 == index)  && (0x01 == subIndex))
-         {
-            dataLength = this.MoveDeviceData(buffer, this.LedDefaultIntensity);
-            valid = true;
-         }
          else if ((0x2303 == index) && (0x00 == subIndex))
          {
             dataLength = this.MoveDeviceData(buffer, (byte)1);
@@ -964,39 +873,14 @@ namespace Weco.BusSim
             dataLength = this.MoveDeviceData(buffer, this.LedIntensity);
             valid = true;
          }
-         else if ((0x2304 == index) && (0x00 == subIndex))
-         {
-            dataLength = this.MoveDeviceData(buffer, (byte)1);
-            valid = true;
-         }
-         else if ((0x2304 == index) && (0x01 == subIndex))
-         {
-            dataLength = this.MoveDeviceData(buffer, this.LedChannelMask);
-            valid = true;
-         }
-         else if ((0x2310 == index) && (0x00 == subIndex))
-         {
-            dataLength = this.MoveDeviceData(buffer, (byte)1);
-            valid = true;
-         }
-         else if ((0x2310 == index) && (0x01 == subIndex))
-         {
-            dataLength = this.MoveDeviceData(buffer, this.Outputs);
-            valid = true;
-         }
          else if ((0x2311 == index) && (0x00 == subIndex))
          {
-            dataLength = this.MoveDeviceData(buffer, (byte)2);
+            dataLength = this.MoveDeviceData(buffer, (byte)1);
             valid = true;
          }
          else if ((0x2311 == index) && (0x01 == subIndex))
          {
             dataLength = this.MoveDeviceData(buffer, this.McuTemperature);
-            valid = true;
-         }
-         else if ((0x2311 == index) && (0x02 == subIndex))
-         {
-            dataLength = this.MoveDeviceData(buffer, this.McuErrorTemperature);
             valid = true;
          }
          #region Sub System Status
@@ -1115,34 +999,9 @@ namespace Weco.BusSim
                valid = this.tpdoMapping[pdoMapOffset].StoreMapData(subIndex, (int)length, value);
             }
          }
-         else if ((0x2302 == index) && (0x01 == subIndex) && (4 == length))
+         else if ((0x2303 == index) && (0x01 == subIndex) && (2 == length))
          {
-            this.LedDefaultIntensity = BitConverter.ToUInt32(buffer, offset);
-            valid = true;
-         }
-         else if ((0x2303 == index) && (0x01 == subIndex) && (4 == length))
-         {
-            this.LedIntensity = BitConverter.ToUInt32(buffer, offset);
-            valid = true;
-         }
-         else if ((0x2304 == index) && (0x01 == subIndex) && (1 == length))
-         {
-            this.LedChannelMask = buffer[offset];
-            valid = true;
-         }
-         else if ((0x2310 == index) && (1 == length))
-         {
-            byte value = buffer[offset];
-
-            if ((value >= 0) && (value <= 3))
-            {
-               this.Outputs = value;
-               valid = true;
-            }
-         }
-         else if ((0x2311 == index) && (0x02 == subIndex) && (1 == length))
-         {
-            this.McuErrorTemperature = buffer[offset];
+            this.LedIntensity = BitConverter.ToUInt16(buffer, offset);
             valid = true;
          }
          #region Sub System Status
@@ -2019,11 +1878,6 @@ namespace Weco.BusSim
       }
 
       #endregion
-
-      private void TrackMotorTabPage_Click(object sender, EventArgs e)
-      {
-
-      }
 
    }
 }

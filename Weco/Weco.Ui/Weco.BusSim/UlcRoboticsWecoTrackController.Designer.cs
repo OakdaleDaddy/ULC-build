@@ -49,12 +49,8 @@ namespace Weco.BusSim
          this.CommunicationProcessImagePanel = new System.Windows.Forms.Panel();
          this.ProducerHeartbeatTimeLabel = new System.Windows.Forms.Label();
          this.ConsumerHeartbeatTimeLabel = new System.Windows.Forms.Label();
-         this.CameraLedDefaultIntensityLabel = new System.Windows.Forms.Label();
          this.CameraLedIntensityLabel = new System.Windows.Forms.Label();
-         this.CameraLedChannelMaskLabel = new System.Windows.Forms.Label();
          this.McuTemperatureLabel = new System.Windows.Forms.Label();
-         this.McuErrorTemperatureLabel = new System.Windows.Forms.Label();
-         this.OutputsLabel = new System.Windows.Forms.Label();
          this.SetMcuTemperatureButton = new System.Windows.Forms.Button();
          this.McuTemperatureTextBox = new System.Windows.Forms.TextBox();
          this.label2 = new System.Windows.Forms.Label();
@@ -307,65 +303,25 @@ namespace Weco.BusSim
          this.ConsumerHeartbeatTimeLabel.Text = "0x1016 Consumer Heartbeat Time";
          this.ConsumerHeartbeatTimeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
          // 
-         // CameraLedDefaultIntensityLabel
-         // 
-         this.CameraLedDefaultIntensityLabel.AutoSize = true;
-         this.CameraLedDefaultIntensityLabel.Location = new System.Drawing.Point(3, 3);
-         this.CameraLedDefaultIntensityLabel.Name = "CameraLedDefaultIntensityLabel";
-         this.CameraLedDefaultIntensityLabel.Size = new System.Drawing.Size(193, 13);
-         this.CameraLedDefaultIntensityLabel.TabIndex = 168;
-         this.CameraLedDefaultIntensityLabel.Text = "0x2302-1 Camera LED Default Intensity";
-         this.CameraLedDefaultIntensityLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-         // 
          // CameraLedIntensityLabel
          // 
          this.CameraLedIntensityLabel.AutoSize = true;
-         this.CameraLedIntensityLabel.Location = new System.Drawing.Point(3, 23);
+         this.CameraLedIntensityLabel.Location = new System.Drawing.Point(3, 3);
          this.CameraLedIntensityLabel.Name = "CameraLedIntensityLabel";
          this.CameraLedIntensityLabel.Size = new System.Drawing.Size(156, 13);
          this.CameraLedIntensityLabel.TabIndex = 170;
          this.CameraLedIntensityLabel.Text = "0x2303-1 Camera LED Intensity";
          this.CameraLedIntensityLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
          // 
-         // CameraLedChannelMaskLabel
-         // 
-         this.CameraLedChannelMaskLabel.AutoSize = true;
-         this.CameraLedChannelMaskLabel.Location = new System.Drawing.Point(3, 43);
-         this.CameraLedChannelMaskLabel.Name = "CameraLedChannelMaskLabel";
-         this.CameraLedChannelMaskLabel.Size = new System.Drawing.Size(185, 13);
-         this.CameraLedChannelMaskLabel.TabIndex = 172;
-         this.CameraLedChannelMaskLabel.Text = "0x2304-1 Camera LED Channel Mask";
-         this.CameraLedChannelMaskLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-         // 
          // McuTemperatureLabel
          // 
          this.McuTemperatureLabel.AutoSize = true;
-         this.McuTemperatureLabel.Location = new System.Drawing.Point(3, 28);
+         this.McuTemperatureLabel.Location = new System.Drawing.Point(3, 3);
          this.McuTemperatureLabel.Name = "McuTemperatureLabel";
          this.McuTemperatureLabel.Size = new System.Drawing.Size(141, 13);
          this.McuTemperatureLabel.TabIndex = 216;
          this.McuTemperatureLabel.Text = "0x2311-1 MCU Temperature";
          this.McuTemperatureLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-         // 
-         // McuErrorTemperatureLabel
-         // 
-         this.McuErrorTemperatureLabel.AutoSize = true;
-         this.McuErrorTemperatureLabel.Location = new System.Drawing.Point(3, 48);
-         this.McuErrorTemperatureLabel.Name = "McuErrorTemperatureLabel";
-         this.McuErrorTemperatureLabel.Size = new System.Drawing.Size(166, 13);
-         this.McuErrorTemperatureLabel.TabIndex = 217;
-         this.McuErrorTemperatureLabel.Text = "0x2311-2 MCU Error Temperature";
-         this.McuErrorTemperatureLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-         // 
-         // OutputsLabel
-         // 
-         this.OutputsLabel.AutoSize = true;
-         this.OutputsLabel.Location = new System.Drawing.Point(3, 3);
-         this.OutputsLabel.Name = "OutputsLabel";
-         this.OutputsLabel.Size = new System.Drawing.Size(91, 13);
-         this.OutputsLabel.TabIndex = 220;
-         this.OutputsLabel.Text = "0x2310-1 Outputs";
-         this.OutputsLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
          // 
          // SetMcuTemperatureButton
          // 
@@ -564,7 +520,6 @@ namespace Weco.BusSim
          this.TrackMotorTabPage.Size = new System.Drawing.Size(997, 143);
          this.TrackMotorTabPage.TabIndex = 3;
          this.TrackMotorTabPage.Text = "Track Motor";
-         this.TrackMotorTabPage.Click += new System.EventHandler(this.TrackMotorTabPage_Click);
          // 
          // TrackMotor
          // 
@@ -672,9 +627,7 @@ namespace Weco.BusSim
          // 
          this.CameraProcessImagePanel.AutoScroll = true;
          this.CameraProcessImagePanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-         this.CameraProcessImagePanel.Controls.Add(this.CameraLedDefaultIntensityLabel);
          this.CameraProcessImagePanel.Controls.Add(this.CameraLedIntensityLabel);
-         this.CameraProcessImagePanel.Controls.Add(this.CameraLedChannelMaskLabel);
          this.CameraProcessImagePanel.Location = new System.Drawing.Point(6, 6);
          this.CameraProcessImagePanel.Name = "CameraProcessImagePanel";
          this.CameraProcessImagePanel.Size = new System.Drawing.Size(260, 77);
@@ -697,8 +650,6 @@ namespace Weco.BusSim
          this.McuProcessImagePanel.AutoScroll = true;
          this.McuProcessImagePanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
          this.McuProcessImagePanel.Controls.Add(this.McuTemperatureLabel);
-         this.McuProcessImagePanel.Controls.Add(this.OutputsLabel);
-         this.McuProcessImagePanel.Controls.Add(this.McuErrorTemperatureLabel);
          this.McuProcessImagePanel.Location = new System.Drawing.Point(6, 6);
          this.McuProcessImagePanel.Name = "McuProcessImagePanel";
          this.McuProcessImagePanel.Size = new System.Drawing.Size(432, 102);
@@ -805,12 +756,8 @@ namespace Weco.BusSim
       private System.Windows.Forms.Panel CommunicationProcessImagePanel;
       private System.Windows.Forms.Label ConsumerHeartbeatTimeLabel;
       private System.Windows.Forms.Label ProducerHeartbeatTimeLabel;
-      private System.Windows.Forms.Label CameraLedDefaultIntensityLabel;
       private System.Windows.Forms.Label CameraLedIntensityLabel;
-      private System.Windows.Forms.Label CameraLedChannelMaskLabel;
       private System.Windows.Forms.Label McuTemperatureLabel;
-      private System.Windows.Forms.Label McuErrorTemperatureLabel;
-      private System.Windows.Forms.Label OutputsLabel;
       private System.Windows.Forms.Button SetMcuTemperatureButton;
       private System.Windows.Forms.TextBox McuTemperatureTextBox;
       private System.Windows.Forms.Label label2;

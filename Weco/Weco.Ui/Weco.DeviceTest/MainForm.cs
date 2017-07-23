@@ -939,7 +939,7 @@ namespace Weco.DeviceTest
       
       #endregion
 
-      #region LED
+      #region Lights
 
       private void GetWecoTrackControllerLedIntensityButton_Click(object sender, EventArgs e)
       {
@@ -948,7 +948,7 @@ namespace Weco.DeviceTest
          if (byte.TryParse(this.WecoTrackControllerActiveNodeIdTextBox.Text, out nodeId) != false) 
          {
             this.trackController.NodeId = nodeId;
-            UInt32 ledIntensityLevel = 0;
+            UInt16 ledIntensityLevel = 0;
             bool success = this.trackController.GetLedIntensityLevel(ref ledIntensityLevel);
 
             if (false != success)
@@ -970,10 +970,10 @@ namespace Weco.DeviceTest
       private void SetWecoTrackControllerLedIntensityButton_Click(object sender, EventArgs e)
       {
          byte nodeId = 0;
-         UInt32 ledIntensityLevel = 0;
+         UInt16 ledIntensityLevel = 0;
 
          if ((byte.TryParse(this.WecoTrackControllerActiveNodeIdTextBox.Text, out nodeId) != false) &&
-             (UInt32.TryParse(this.WecoTrackControllerLedIntensityTextBox.Text, out ledIntensityLevel) != false))
+             (UInt16.TryParse(this.WecoTrackControllerLedIntensityTextBox.Text, out ledIntensityLevel) != false))
          {
             this.trackController.NodeId = nodeId;
             bool result = this.trackController.SetLedIntensityLevel(ledIntensityLevel);
@@ -996,13 +996,13 @@ namespace Weco.DeviceTest
       private void DecreaseWecoTrackControllerLedIntensityButton_Click(object sender, EventArgs e)
       {
          byte nodeId = 0;
-         UInt32 ledIntensityLevel = 0;
+         UInt16 ledIntensityLevel = 0;
 
          if ((byte.TryParse(this.WecoTrackControllerActiveNodeIdTextBox.Text, out nodeId) != false) &&
-             (UInt32.TryParse(this.WecoTrackControllerLedIntensityTextBox.Text, out ledIntensityLevel) != false))
+             (UInt16.TryParse(this.WecoTrackControllerLedIntensityTextBox.Text, out ledIntensityLevel) != false))
          {
             this.trackController.NodeId = nodeId;
-            ledIntensityLevel = (byte)((ledIntensityLevel >= 8) ? (ledIntensityLevel - 8) : 0);
+            ledIntensityLevel = (UInt16)((ledIntensityLevel >= 8) ? (ledIntensityLevel - 8) : 0);
             bool result = this.trackController.SetLedIntensityLevel(ledIntensityLevel);
 
             if (false != result)
@@ -1024,13 +1024,13 @@ namespace Weco.DeviceTest
       private void IncreaseWecoTrackControllerLedIntensityButton_Click(object sender, EventArgs e)
       {
          byte nodeId = 0;
-         UInt32 ledIntensityLevel = 0;
+         UInt16 ledIntensityLevel = 0;
 
          if ((byte.TryParse(this.WecoTrackControllerActiveNodeIdTextBox.Text, out nodeId) != false) &&
-             (UInt32.TryParse(this.WecoTrackControllerLedIntensityTextBox.Text, out ledIntensityLevel) != false))
+             (UInt16.TryParse(this.WecoTrackControllerLedIntensityTextBox.Text, out ledIntensityLevel) != false))
          {
             this.trackController.NodeId = nodeId;
-            ledIntensityLevel = (byte)((ledIntensityLevel <= 0xFFFFFFFF) ? (ledIntensityLevel + 8) : 0xFFFFFFFF);
+            ledIntensityLevel = (UInt16)((ledIntensityLevel <= 0xFFFF) ? (ledIntensityLevel + 8) : 0xFFFF);
             bool result = this.trackController.SetLedIntensityLevel(ledIntensityLevel);
 
             if (false != result)
@@ -1048,58 +1048,6 @@ namespace Weco.DeviceTest
             this.StatusLabel.Text = "Invalid entry.";
          }
       }
-
-      private void GetWecoTrackControllerLedChannelMaskButton_Click(object sender, EventArgs e)
-      {
-         byte nodeId = 0;
-
-         if (byte.TryParse(this.WecoTrackControllerActiveNodeIdTextBox.Text, out nodeId) != false)
-         {
-            this.trackController.NodeId = nodeId;
-            byte ledChannelMask = 0;
-            bool success = this.trackController.GetLedChannelMask(ref ledChannelMask);
-
-            if (false != success)
-            {
-               this.StatusLabel.Text = "Track controller LED channel mask retrieved.";
-               this.WecoTrackControllerLedChannelMaskTextBox.Text = string.Format("{0:X2}", ledChannelMask);
-            }
-            else
-            {
-               this.StatusLabel.Text = "Unable to get track controller LED channel mask.";
-            }
-         }
-         else
-         {
-            this.StatusLabel.Text = "Invalid entry.";
-         }
-      }
-
-      private void SetWecoTrackControllerLedChannelMaskButton_Click(object sender, EventArgs e)
-      {
-         byte nodeId = 0;
-         byte ledChannelMask = 0;
-
-         if ((byte.TryParse(this.WecoTrackControllerActiveNodeIdTextBox.Text, out nodeId) != false) &&
-             (byte.TryParse(this.WecoTrackControllerLedChannelMaskTextBox.Text, System.Globalization.NumberStyles.HexNumber, null, out ledChannelMask) != false))
-         {
-            this.trackController.NodeId = nodeId;
-            bool result = this.trackController.SetLedChannelMask(ledChannelMask);
-
-            if (false != result)
-            {
-               this.StatusLabel.Text = "Track controller LED channel mask set set to " + ledChannelMask.ToString("X2") + ".";
-            }
-            else
-            {
-               this.StatusLabel.Text = "Unable to set track controller LED channel mask set to " + ledChannelMask.ToString("X2") + ".";
-            }
-         }
-         else
-         {
-            this.StatusLabel.Text = "Invalid entry.";
-         }
-      }      
 
       #endregion
 

@@ -663,48 +663,25 @@ namespace Weco.CAN
 
       #region LED Functions
 
-      public bool GetLedIntensityLevel(ref UInt32 ledIntensityLevel)
+      public bool GetLedIntensityLevel(ref UInt16 ledIntensityLevel)
       {
          bool result = false;
          SDOUpload upload = new SDOUpload(0x2303, 0x01);
          this.pendingAction = upload;
          bool actionResult = this.ExchangeCommAction(this.pendingAction);
 
-         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 4))
+         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 2))
          {
-            ledIntensityLevel = BitConverter.ToUInt32(upload.Data, 0);
+            ledIntensityLevel = BitConverter.ToUInt16(upload.Data, 0);
             result = true;
          }
 
          return (result);
       }
 
-      public bool SetLedIntensityLevel(UInt32 ledIntensityLevel)
+      public bool SetLedIntensityLevel(UInt16 ledIntensityLevel)
       {
-         this.pendingAction = new SDODownload(0x2303, 0x01, 4, ledIntensityLevel);
-         bool result = this.ExchangeCommAction(this.pendingAction);
-         return (result);
-      }
-
-      public bool GetLedChannelMask(ref byte ledChannelMask)
-      {
-         bool result = false;
-         SDOUpload upload = new SDOUpload(0x2304, 0x01);
-         this.pendingAction = upload;
-         bool actionResult = this.ExchangeCommAction(this.pendingAction);
-
-         if ((false != actionResult) && (null != upload.Data) && (upload.Data.Length >= 1))
-         {
-            ledChannelMask = upload.Data[0];
-            result = true;
-         }
-
-         return (result);
-      }
-
-      public bool SetLedChannelMask(byte ledChannelMask)
-      {
-         this.pendingAction = new SDODownload(0x2304, 0x01, 1, ledChannelMask);
+         this.pendingAction = new SDODownload(0x2303, 0x01, 2, ledIntensityLevel);
          bool result = this.ExchangeCommAction(this.pendingAction);
          return (result);
       }
