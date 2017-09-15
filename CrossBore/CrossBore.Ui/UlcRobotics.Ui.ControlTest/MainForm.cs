@@ -93,6 +93,27 @@ namespace UlcRobotics.Ui.ControlTest
          }
       }
 
+      private void ReadButton_Click(object sender, EventArgs e)
+      {
+         this.ReadingRichTextBox.Clear();
+
+         UInt16[] readings = this.TestBoreDataControl.SensorReadings;
+
+         if (null != readings)
+         {
+            for (int i = 0; i < readings.Length; i++)
+            {
+               string text = string.Format("{0}: {1}\n", i, readings[i]);
+               this.ReadingRichTextBox.AppendText(text);
+            }
+         }
+      }
+
+      private void PipeBP4TextBox_TextChanged(object sender, EventArgs e)
+      {
+
+      }
+
    }
 }
  
