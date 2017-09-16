@@ -25,8 +25,16 @@
       private UInt16[] sensorReadings;
 
       private PointF[] boundaryPoints;
+
+      private int sensorReadingCount;
       private double[] sensorToBoundaryAngles;
       private PointF[] sensorToBoundaryPoints;
+
+      private bool showSensorMark;
+      private bool showSensorReadingLines;
+      private bool showSensorBoundary;
+      private bool showBoundary;
+      private bool showBoundaryLimit;
       
       #endregion
 
@@ -177,171 +185,21 @@
          }
       }
 
-      #endregion
-
-      #region Properties
-
-      public PointF CrossLocation
-      {
-         get { return this.crossLocation; }
-         set { this.crossLocation = value; this.Invalidate(); }
-      }
-
-      public Size CrossSize
-      {
-         get { return this.crossSize; }
-         set { this.crossSize = value; this.Invalidate(); }
-      }
-
-      public UInt16[] BoundaryReadings
-      {
-         get { return this.boundaryReadings; }
-
-         set
-         {
-            this.boundaryReadings = value;
-
-            if (null != value)
-            {
-               int arrayLength = value.Length;
-
-               float maximumScale = this.maximumScale;
-               float minimumReading = (float)(UInt16.MaxValue / 2);
-
-#if false
-               float xOffset = 0;
-               float yOffset = 0;
-
-               if (this.ClientRectangle.Width > this.ClientRectangle.Height)
-               {
-                  xOffset = (float)((this.ClientRectangle.Width - maximumScale) / 2);
-                  yOffset = 0;
-               }
-               else
-               {
-                  xOffset = 0;
-                  yOffset = (float)((this.ClientRectangle.Height - maximumScale) / 2);
-               }
-#endif
-               
-               float centerX = (maximumScale / 2) + this.graphXOffset;
-               float centerY = (maximumScale / 2) + this.graphYOffset;
-               float pointAngle = 0f;
-               float degreesPerStep = 360 / arrayLength;
-
-               this.boundaryPoints = new PointF[arrayLength];
-
-               for (int i = 0; i < value.Length; i++)
-               {
-                  float reading = value[i];
-
-                  if (reading < minimumReading)
-                  {
-                     reading = minimumReading;
-                  }
-
-                  //float maximum = ((maximumReading - value[i]) / maximumReading) * (maximumScale / 2);
-                  float maximum = ((reading - minimumReading) / UInt16.MaxValue) * maximumScale;
-
-                  float pointX = (float)(centerX + (maximum * Math.Sin(this.DegreeToRadian(pointAngle))));
-                  float pointY = (float)(centerY - (maximum * Math.Cos(this.DegreeToRadian(pointAngle))));
-                  this.boundaryPoints[i] = new PointF(pointX, pointY);
-
-                  pointAngle += degreesPerStep;
-               }
-            }
-            else
-            {
-               this.boundaryPoints = null;
-            }
-
-            this.Invalidate();
-         }
-      }
-
-      public UInt16[] SensorReadings
-      {
-         get
-         {
-            return (this.sensorReadings);
-         }
-      }
-
-      #endregion
-
-      #region Paint Functions
-
-      private void PaintPoints(Graphics g, Color color, float weight, PointF[] points)
-      {
-         if (null != points)
-         {
-            Pen pointsPen = new Pen(color, weight);
-            PointF previousPoint = points[0];
-
-            for (int i = 0; i < points.Length; i++)
-            {
-               if (i > 0)
-               {
-                  g.DrawLine(pointsPen, previousPoint, points[i]);
-               }
-
-               previousPoint = points[i];
-            }
-
-            g.DrawLine(pointsPen, previousPoint, points[0]);
-         }
-      }
-
-      private void PaintPipe(Graphics g)
-      {
-         g.DrawEllipse(new Pen(Color.FromKnownColor(KnownColor.ControlDarkDark), 3f), this.graphXOffset + 1.5f, this.graphYOffset + 1.5f, this.maximumScale - 3f, this.maximumScale - 3f);
-
-         this.PaintPoints(g, Color.Red, 1f, this.boundaryPoints);
-#if false
-         if (null != this.boundaryPoints)
-         {
-            UInt16[] points = this.BoundaryReadings;
-            Pen pipePen = new Pen(Color.White, 1);
-
-            Pen testPen = new Pen(Color.Red, 1);
-            PointF previousPoint = new PointF(0f, 0f);
-
-            for (int i = 0; i < points.Length; i++)
-            {
-               if (i > 0)
-               {
-                  g.DrawLine(testPen, previousPoint, this.boundaryPoints[i]);
-               }
-
-               previousPoint = this.boundaryPoints[i];
-            }
-
-            g.DrawLine(testPen, previousPoint, this.boundaryPoints[0]);
-         }
-#endif
-      }
-
-      private void PaintSensorBoundary(Graphics g)
-      {
-         this.PaintPoints(g, Color.Yellow, 1f, this.sensorToBoundaryPoints);
-      }
-
       private void CalculateSensorData(Graphics g)
       {
          float crossCenterX = this.CrossLocation.X + (this.CrossSize.Width / 2);
          float crossCenterY = this.CrossLocation.Y + (this.CrossSize.Height / 2);
 
-         Pen linePen = new Pen(Color.White, 1f);
-
          if (null != this.boundaryPoints)
          {
+            int sensorArraySize = this.SensorReadingCount;
             this.SetBoundPointAngles();
 
-            UInt16[] centerReadings = new UInt16[this.boundaryPoints.Length];
-            PointF[] centerPoints = new PointF[this.boundaryPoints.Length];
+            UInt16[] centerReadings = new UInt16[sensorArraySize];
+            PointF[] centerPoints = new PointF[sensorArraySize];
 
-            double pointAngle = 90;
-            double angleDelta = 360 / this.boundaryPoints.Length;
+            double pointAngle = 90.0;
+            double angleDelta = 360.0 / sensorArraySize;
             double gM = this.maximumScale / 2;
 
             float p3X = crossCenterX;
@@ -349,11 +207,8 @@
             float p4X = p3X;
             float p4Y = p3Y;
 
-            for (int i = 0; i < this.boundaryPoints.Length; i++)
+            for (int i = 0; i < sensorArraySize; i++)
             {
-               int colorStrength = 255 - (i * 6);
-               linePen = new Pen(Color.FromArgb(colorStrength, colorStrength, colorStrength), 1f);
-
                int p1Index = -1;
                int p2Index = -1;
 
@@ -373,7 +228,6 @@
                   {
                      p4X = p3X;
                      p4Y = (float)(p1Y + (a * (p3X - p1X)));
-                     //g.DrawLine(linePen, p3X, -p3Y, p4X, -p4Y);
                   }
                   else
                   {
@@ -383,7 +237,6 @@
                      {
                         p4X = (float)((p3Y - (tanA * p3X) - p1Y + (a * p1X)) / (a - tanA));
                         p4Y = (float)(p1Y + (a * (p4X - p1X)));
-                        //g.DrawLine(linePen, p3X, -p3Y, p4X, -p4Y);
                      }
                      else
                      {
@@ -433,138 +286,195 @@
          }
       }
 
-      private void PaintCenterMark(Graphics g)
+      #endregion
+
+      #region Properties
+
+      public PointF CrossLocation
+      {
+         get { return this.crossLocation; }
+         set { this.crossLocation = value; this.Invalidate(); }
+      }
+
+      public Size CrossSize
+      {
+         get { return this.crossSize; }
+         set { this.crossSize = value; this.Invalidate(); }
+      }
+
+      public int SensorReadingCount
+      {
+         get { return this.sensorReadingCount; }
+         set { this.sensorReadingCount = value; this.Invalidate(); }
+      }
+
+      public UInt16[] BoundaryReadings
+      {
+         get { return this.boundaryReadings; }
+
+         set
+         {
+            this.boundaryReadings = value;
+
+            if (null != value)
+            {
+               int arrayLength = value.Length;
+
+               float maximumScale = this.maximumScale;
+               float minimumReading = (float)(UInt16.MaxValue / 2);
+
+               float centerX = (maximumScale / 2) + this.graphXOffset;
+               float centerY = (maximumScale / 2) + this.graphYOffset;
+               float pointAngle = 0f;
+               float degreesPerStep = 360f / arrayLength;
+
+               PointF[] points = new PointF[arrayLength];
+
+               for (int i = 0; i < value.Length; i++)
+               {
+                  float reading = value[i];
+
+                  if (reading < minimumReading)
+                  {
+                     reading = minimumReading;
+                  }
+
+                  float maximum = ((reading - minimumReading) / UInt16.MaxValue) * maximumScale;
+
+                  float pointX = (float)(centerX + (maximum * Math.Sin(this.DegreeToRadian(pointAngle))));
+                  float pointY = (float)(centerY - (maximum * Math.Cos(this.DegreeToRadian(pointAngle))));
+                  points[i] = new PointF(pointX, pointY);
+
+                  pointAngle += degreesPerStep;
+               }
+
+               this.boundaryPoints = points;
+            }
+            else
+            {
+               this.boundaryPoints = null;
+            }
+
+            this.Invalidate();
+         }
+      }
+
+      public UInt16[] SensorReadings
+      {
+         get
+         {
+            return (this.sensorReadings);
+         }
+      }
+
+      public bool ShowSensorMark
+      {
+         get { return this.showSensorMark; }
+         set { this.showSensorMark = value; this.Invalidate(); }
+      }
+
+      public bool ShowSensorReadingLines
+      {
+         get { return this.showSensorReadingLines; }
+         set { this.showSensorReadingLines = value; this.Invalidate(); }
+      }
+
+      public bool ShowSensorBoundary
+      {
+         get { return this.showSensorBoundary; }
+         set { this.showSensorBoundary = value; this.Invalidate(); }
+      }
+
+      public bool ShowBoundary
+      {
+         get { return this.showBoundary; }
+         set { this.showBoundary = value; this.Invalidate(); }
+      }
+
+      public bool ShowBoundaryLimit
+      {
+         get { return this.showBoundaryLimit; }
+         set { this.showBoundaryLimit = value; this.Invalidate(); }
+      }
+      
+      #endregion
+
+      #region Paint Functions
+
+      private void PaintPoints(Graphics g, Color color, float weight, PointF[] points)
+      {
+         if (null != points)
+         {
+            Pen pointsPen = new Pen(color, weight);
+            PointF previousPoint = points[0];
+
+            for (int i = 0; i < points.Length; i++)
+            {
+               pointsPen = new Pen(color, weight);
+
+               if (i > 0)
+               {
+                  g.DrawLine(pointsPen, previousPoint, points[i]);
+               }
+
+               previousPoint = points[i];
+            }
+
+            g.DrawLine(pointsPen, previousPoint, points[0]);
+         }
+      }
+
+      private void PaintBoundary(Graphics g)
+      {
+         if (false != this.ShowBoundaryLimit)
+         {
+            g.DrawEllipse(new Pen(Color.FromKnownColor(KnownColor.ControlDarkDark), 3f), this.graphXOffset + 1.5f, this.graphYOffset + 1.5f, this.maximumScale - 3f, this.maximumScale - 3f);
+         }
+
+         if (false != this.ShowBoundary)
+         {
+            this.PaintPoints(g, Color.Red, 1f, this.boundaryPoints);
+         }
+      }
+
+      private void PaintSensor(Graphics g)
       {
          float crossCenterX = this.CrossLocation.X + (this.CrossSize.Width / 2);
          float crossCenterY = this.CrossLocation.Y + (this.CrossSize.Height / 2);
-         
-         if (null != this.sensorToBoundaryPoints)
-         {
-            PointF centerPoint = new PointF(crossCenterX, crossCenterY);
 
-            for (int i = 0; i < this.boundaryPoints.Length; i++)
+         if (false != this.ShowSensorReadingLines)
+         {
+            if (null != this.sensorToBoundaryPoints)
             {
-               int colorStrength = 255 - (i * 6);
-               Pen linePen = new Pen(Color.FromArgb(colorStrength, colorStrength, colorStrength), 1f);
-               g.DrawLine(linePen, centerPoint, this.sensorToBoundaryPoints[i]);
+               Pen linePen = new Pen(Color.White, 1f);
+               PointF centerPoint = new PointF(crossCenterX, crossCenterY);
+
+               for (int i = 0; i < this.sensorToBoundaryPoints.Length; i++)
+               {
+                  g.DrawLine(linePen, centerPoint, this.sensorToBoundaryPoints[i]);
+               }
             }
          }
 
-#if false
-         Pen linePen = new Pen(Color.White, 1f);
-
-         if (null != this.boundaryPoints)
+         if (false != this.ShowSensorBoundary)
          {
-            this.SetBoundPointAngles();
-
-            UInt16[] centerReadings = new UInt16[this.boundaryPoints.Length];
-            PointF[] centerPoints = new PointF[this.boundaryPoints.Length];
-
-            double pointAngle = 90;
-            double angleDelta = 360 / this.boundaryPoints.Length;
-            double gM = this.maximumScale / 2;
-
-            float p3X = crossCenterX;
-            float p3Y = -crossCenterY;
-            float p4X = p3X;
-            float p4Y = p3Y;
-
-            for (int i = 0; i < this.boundaryPoints.Length; i++)
-            {
-               int colorStrength = 255 - (i * 6);
-               linePen = new Pen(Color.FromArgb(colorStrength, colorStrength, colorStrength), 1f);
-
-               int p1Index = -1;
-               int p2Index = -1;
-
-               if (this.GetPointIndexPair(pointAngle, ref p1Index, ref p2Index) != false)
-               {
-                  float p1X = this.boundaryPoints[p1Index].X;
-                  float p1Y = -this.boundaryPoints[p1Index].Y;
-                  float p2X = this.boundaryPoints[p2Index].X;
-                  float p2Y = -this.boundaryPoints[p2Index].Y;
-
-                  double f1DeltaY = p2Y - p1Y;
-                  double f1DeltaX = p2X - p1X;
-                  double a = f1DeltaY / f1DeltaX;
-
-                  if ((90 == pointAngle) ||
-                      (270 == pointAngle))
-                  {
-                     p4X = p3X;
-                     p4Y = (float)(p1Y + (a * (p3X - p1X)));
-                     g.DrawLine(linePen, p3X, -p3Y, p4X, -p4Y);
-                  }
-                  else
-                  {
-                     double tanA = Math.Tan(pointAngle * Math.PI / 180);
-
-                     if (a != tanA)
-                     {
-                        p4X = (float)((p3Y - (tanA * p3X) - p1Y + (a * p1X)) / (a - tanA));
-                        p4Y = (float)(p1Y + (a * (p4X - p1X)));
-                        g.DrawLine(linePen, p3X, -p3Y, p4X, -p4Y);
-                     }
-                     else
-                     {
-                        this.PaintDebug(g, 25, "ERROR2");
-                     }
-                  }
-
-                  double xDelta = p4X - p3X;
-                  double yDelta = p4Y - p3Y;
-                  double gD = Math.Sqrt((xDelta * xDelta) + (yDelta * yDelta));
-                  double gRatio = (gD / gM);
-                  double s = (UInt16.MaxValue) - ((UInt16.MaxValue / 2) * gRatio);
-
-                  if (s < 0)
-                  {
-                     s = 0;
-                  }
-                  else if (s > UInt16.MaxValue)
-                  {
-                     s = UInt16.MaxValue;
-                  }
-
-                  centerReadings[i] = (UInt16)s;
-               }
-               else
-               {
-                  this.PaintDebug(g, 25, "ERROR");
-               }
-
-               centerPoints[i] = new PointF(p4X, -p4Y);
-
-               pointAngle -= angleDelta;
-
-               if (pointAngle < 0)
-               {
-                  pointAngle += 360;
-               }
-            }
-
-            this.sensorReadings = centerReadings;
-            this.sensorToBoundaryPoints = centerPoints;
+            this.PaintPoints(g, Color.Yellow, 1f, this.sensorToBoundaryPoints);
          }
-         else
+
+         if (false != this.ShowSensorMark)
          {
-            this.sensorToBoundaryPoints = null;
-            this.sensorReadings = null;         
+            PointF croassA = new PointF(this.CrossLocation.X, crossCenterY);
+            PointF croassB = new PointF(this.CrossLocation.X + this.CrossSize.Width, crossCenterY);
+            PointF croassC = new PointF(crossCenterX, this.CrossLocation.Y);
+            PointF croassD = new PointF(crossCenterX, this.CrossLocation.Y + this.CrossSize.Height);
+
+            Pen crossPen = new Pen(Color.Black, 1);
+            Color crossColor = (false != this.crossPressed) ? Color.Yellow : Color.White;
+            g.FillEllipse(new SolidBrush(crossColor), this.CrossLocation.X, this.CrossLocation.Y, this.CrossSize.Width, this.CrossSize.Height);
+            g.DrawLine(crossPen, croassA, croassB);
+            g.DrawLine(crossPen, croassC, croassD);
+            g.DrawEllipse(crossPen, this.CrossLocation.X, this.CrossLocation.Y, this.CrossSize.Width, this.CrossSize.Height);
          }
-#endif
-
-
-         PointF croassA = new PointF(this.CrossLocation.X, crossCenterY);
-         PointF croassB = new PointF(this.CrossLocation.X + this.CrossSize.Width, crossCenterY);
-         PointF croassC = new PointF(crossCenterX, this.CrossLocation.Y);
-         PointF croassD = new PointF(crossCenterX, this.CrossLocation.Y + this.CrossSize.Height);
-
-         Pen crossPen = new Pen(Color.Black, 1);
-         Color crossColor = (false != this.crossPressed) ? Color.Yellow : Color.White;
-         g.FillEllipse(new SolidBrush(crossColor), this.CrossLocation.X, this.CrossLocation.Y, this.CrossSize.Width, this.CrossSize.Height);
-         g.DrawLine(crossPen, croassA, croassB);
-         g.DrawLine(crossPen, croassC, croassD);
-         g.DrawEllipse(crossPen, this.CrossLocation.X, this.CrossLocation.Y, this.CrossSize.Width, this.CrossSize.Height);
       }
 
       #endregion
@@ -658,11 +568,17 @@
       {
          e.Graphics.DrawRectangle(new Pen(Color.Black, 1), 0, 0, this.ClientRectangle.Width - 1, this.ClientRectangle.Height - 1);
 
-         this.CalculateSensorData(e.Graphics);
+         try
+         {
+            this.CalculateSensorData(e.Graphics);
 
-         this.PaintPipe(e.Graphics);
-         this.PaintCenterMark(e.Graphics);
-         this.PaintSensorBoundary(e.Graphics);
+            this.PaintBoundary(e.Graphics);
+            this.PaintSensor(e.Graphics);
+         }
+         catch (Exception exception)
+         {
+            string message = exception.Message;
+         }
       }
 
       #endregion
@@ -673,6 +589,14 @@
          : base()
       {
          this.CalculateScaling();
+
+         this.SensorReadingCount = 4;
+
+         this.ShowSensorMark = true;
+         this.ShowSensorReadingLines = true;
+         this.ShowSensorBoundary = true;
+         this.ShowBoundary = true;
+         this.ShowBoundaryLimit = true;
 
          this.crossLocation = new Point(1, 1);
          this.crossSize = new Size(16, 16);

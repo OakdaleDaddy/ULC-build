@@ -110,6 +110,12 @@ Weco/Weco.Ui/Weco.Utilities/obj
 CanDemo/CanDemo.v11.suo
 *.suo
 
+CrossBore/CrossBore.Ui/CrossBore.BusSim/bin
+CrossBore/CrossBore.Ui/CrossBore.BusSim/obj
+CrossBore/CrossBore.Ui/CrossBore.PCANLight/bin
+CrossBore/CrossBore.Ui/CrossBore.PCANLight/obj
+CrossBore/CrossBore.Ui/CrossBore.Utilities/bin
+CrossBore/CrossBore.Ui/CrossBore.Utilities/obj
 CrossBore/CrossBore.Ui/UlcRobotics.Ui.Controls/bin
 CrossBore/CrossBore.Ui/UlcRobotics.Ui.Controls/obj
 CrossBore/CrossBore.Ui/UlcRobotics.Ui.ControlTest/bin
