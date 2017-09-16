@@ -53,6 +53,10 @@ namespace CrossBore.DeviceTest
       private int heartbeatTime;
       private DateTime heartbeatTimeLimit;
 
+      private bool syncActive;
+      private int syncTime;
+      private DateTime syncTimeLimit;
+
       private bool downloadActive;
       private bool downloadComplete;
       private string downloadResult;
@@ -232,6 +236,11 @@ namespace CrossBore.DeviceTest
          keyValue = appKey.GetValue("HeartbeatShown");
          this.ShowHeartbeatCheckBox.Checked = ("0" == ((null != keyValue) ? keyValue.ToString() : "0")) ? false : true;
 
+
+         keyValue = appKey.GetValue("AutoSyncTime");
+         this.AutoSyncTimeTextBox.Text = (null != keyValue) ? keyValue.ToString() : "1000";
+
+
          keyValue = appKey.GetValue("DownloadActiveNodeId");
          this.DownloadActiveNodeIdTextBox.Text = (null != keyValue) ? keyValue.ToString() : "";
 
@@ -316,6 +325,8 @@ namespace CrossBore.DeviceTest
          appKey.SetValue("HeartbeatTime", this.HeartbeatTimeTextBox.Text);
          appKey.SetValue("HeartbeatShown", (this.ShowHeartbeatCheckBox.Checked != false) ? "1" : "0");
 
+         appKey.SetValue("AutoSyncTime", this.AutoSyncTimeTextBox.Text);
+         
          appKey.SetValue("DownloadActiveNodeId", this.DownloadActiveNodeIdTextBox.Text);
          appKey.SetValue("DownloadFile", this.DownloadFileTextBox.Text);
 
@@ -489,6 +500,30 @@ namespace CrossBore.DeviceTest
          {
             this.heartbeatActive = false;
             this.HeartbeatActivityButton.Text = "Start";
+         }
+      }
+
+      private void AutoSyncCheckBox_CheckedChanged(object sender, EventArgs e)
+      {
+         if (false != this.AutoSyncCheckBox.Checked)
+         {
+            int time = 0;
+
+            if (int.TryParse(this.AutoSyncTimeTextBox.Text, out time) != false)
+            {
+               this.syncActive = true;
+               this.syncTime = time;
+               this.syncTimeLimit = DateTime.Now.AddMilliseconds(this.syncTime);
+               this.busInterface.Sync();
+            }
+            else
+            {
+               this.AutoSyncCheckBox.Checked = false;
+            }
+         }
+         else
+         {
+            this.syncActive = false;
          }
       }
 
@@ -1436,6 +1471,11 @@ namespace CrossBore.DeviceTest
          }
       }
 
+      private void CrossBoreSensorSyncButton_Click(object sender, EventArgs e)
+      {
+         this.busInterface.Sync();
+      }
+
       #endregion
       
       #region Form Events
@@ -1478,6 +1518,17 @@ namespace CrossBore.DeviceTest
             {
                this.ControllerTraceTransmit(cobId, heartbeatMsg);
             }
+         }
+
+         #endregion
+
+         #region Sync Generation
+
+         if ((false != this.syncActive) &&
+             (DateTime.Now > this.syncTimeLimit))
+         {
+            this.syncTimeLimit = this.syncTimeLimit.AddMilliseconds(this.syncTime);
+            this.busInterface.Sync();
          }
 
          #endregion
@@ -1542,6 +1593,20 @@ namespace CrossBore.DeviceTest
          #region Digital IO Updates
 
          this.DigitalIoInputsTextBox.Text = this.digitalIoInputs.ToString("X2");
+
+         #endregion
+
+         #region CrossBore Sensor Updates
+
+         UInt16[] crossBoreSensorReadings = this.crossBoreSensor.Readings;
+
+         if ((null != crossBoreSensorReadings) && (crossBoreSensorReadings.Length >= 15))
+         {
+            this.CrossBoreSensorReading0TextBox.Text = crossBoreSensorReadings[0].ToString();
+            this.CrossBoreSensorReading1TextBox.Text = crossBoreSensorReadings[1].ToString();
+            this.CrossBoreSensorReading2TextBox.Text = crossBoreSensorReadings[2].ToString();
+            this.CrossBoreSensorReading3TextBox.Text = crossBoreSensorReadings[3].ToString();
+         }
 
          #endregion
       }

@@ -145,6 +145,20 @@ namespace CrossBore.DeviceTest
          this.StopCrossBoreSensorButton = new System.Windows.Forms.Button();
          this.StartCrossBoreSensorButton = new System.Windows.Forms.Button();
          this.CrossBoreSensorClearButton = new System.Windows.Forms.Button();
+         this.CrossBoreSensorSyncButton = new System.Windows.Forms.Button();
+         this.CrossBoreSensorReading0TextBox = new System.Windows.Forms.TextBox();
+         this.label2 = new System.Windows.Forms.Label();
+         this.CrossBoreSensorReading1TextBox = new System.Windows.Forms.TextBox();
+         this.label3 = new System.Windows.Forms.Label();
+         this.CrossBoreSensorReading2TextBox = new System.Windows.Forms.TextBox();
+         this.label4 = new System.Windows.Forms.Label();
+         this.CrossBoreSensorReading3TextBox = new System.Windows.Forms.TextBox();
+         this.label5 = new System.Windows.Forms.Label();
+         this.SyncGroupBox = new System.Windows.Forms.GroupBox();
+         this.label8 = new System.Windows.Forms.Label();
+         this.AutoSyncTimeTextBox = new System.Windows.Forms.TextBox();
+         this.AutoSyncCheckBox = new System.Windows.Forms.CheckBox();
+         this.SyncButton = new System.Windows.Forms.Button();
          this.MainStatusStrip.SuspendLayout();
          this.MainTabControl.SuspendLayout();
          this.ControlTabPage.SuspendLayout();
@@ -154,6 +168,7 @@ namespace CrossBore.DeviceTest
          this.DigitalIoTabPage.SuspendLayout();
          this.MainActivityPanel.SuspendLayout();
          this.CrossBoreSensorTabPage.SuspendLayout();
+         this.SyncGroupBox.SuspendLayout();
          this.SuspendLayout();
          // 
          // ActivityRichTextBox
@@ -320,6 +335,7 @@ namespace CrossBore.DeviceTest
          // 
          // ControlTabPage
          // 
+         this.ControlTabPage.Controls.Add(this.SyncGroupBox);
          this.ControlTabPage.Controls.Add(this.BusConfigurationButton);
          this.ControlTabPage.Controls.Add(this.DeviceClearFaultButton);
          this.ControlTabPage.Controls.Add(this.HeartbeatGroupBox);
@@ -1251,6 +1267,15 @@ namespace CrossBore.DeviceTest
          // 
          // CrossBoreSensorTabPage
          // 
+         this.CrossBoreSensorTabPage.Controls.Add(this.CrossBoreSensorReading3TextBox);
+         this.CrossBoreSensorTabPage.Controls.Add(this.label5);
+         this.CrossBoreSensorTabPage.Controls.Add(this.CrossBoreSensorReading2TextBox);
+         this.CrossBoreSensorTabPage.Controls.Add(this.label4);
+         this.CrossBoreSensorTabPage.Controls.Add(this.CrossBoreSensorReading1TextBox);
+         this.CrossBoreSensorTabPage.Controls.Add(this.label3);
+         this.CrossBoreSensorTabPage.Controls.Add(this.CrossBoreSensorReading0TextBox);
+         this.CrossBoreSensorTabPage.Controls.Add(this.label2);
+         this.CrossBoreSensorTabPage.Controls.Add(this.CrossBoreSensorSyncButton);
          this.CrossBoreSensorTabPage.Controls.Add(this.CrossBoreSensorClearButton);
          this.CrossBoreSensorTabPage.Controls.Add(this.ConfigCrossBoreSensorButton);
          this.CrossBoreSensorTabPage.Controls.Add(this.CrossBoreSensorActiveNodeIdTextBox);
@@ -1334,6 +1359,139 @@ namespace CrossBore.DeviceTest
          this.CrossBoreSensorClearButton.UseVisualStyleBackColor = true;
          this.CrossBoreSensorClearButton.Click += new System.EventHandler(this.ClearButton_Click);
          // 
+         // CrossBoreSensorSyncButton
+         // 
+         this.CrossBoreSensorSyncButton.Location = new System.Drawing.Point(612, 6);
+         this.CrossBoreSensorSyncButton.Name = "CrossBoreSensorSyncButton";
+         this.CrossBoreSensorSyncButton.Size = new System.Drawing.Size(55, 23);
+         this.CrossBoreSensorSyncButton.TabIndex = 289;
+         this.CrossBoreSensorSyncButton.Text = "SYNC";
+         this.CrossBoreSensorSyncButton.UseVisualStyleBackColor = true;
+         this.CrossBoreSensorSyncButton.Click += new System.EventHandler(this.CrossBoreSensorSyncButton_Click);
+         // 
+         // CrossBoreSensorReading0TextBox
+         // 
+         this.CrossBoreSensorReading0TextBox.Location = new System.Drawing.Point(320, 43);
+         this.CrossBoreSensorReading0TextBox.Name = "CrossBoreSensorReading0TextBox";
+         this.CrossBoreSensorReading0TextBox.Size = new System.Drawing.Size(47, 20);
+         this.CrossBoreSensorReading0TextBox.TabIndex = 291;
+         this.CrossBoreSensorReading0TextBox.Text = "255";
+         this.CrossBoreSensorReading0TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+         // 
+         // label2
+         // 
+         this.label2.AutoSize = true;
+         this.label2.Location = new System.Drawing.Point(291, 46);
+         this.label2.Name = "label2";
+         this.label2.Size = new System.Drawing.Size(27, 13);
+         this.label2.TabIndex = 290;
+         this.label2.Text = "R[0]";
+         // 
+         // CrossBoreSensorReading1TextBox
+         // 
+         this.CrossBoreSensorReading1TextBox.Location = new System.Drawing.Point(320, 66);
+         this.CrossBoreSensorReading1TextBox.Name = "CrossBoreSensorReading1TextBox";
+         this.CrossBoreSensorReading1TextBox.Size = new System.Drawing.Size(47, 20);
+         this.CrossBoreSensorReading1TextBox.TabIndex = 293;
+         this.CrossBoreSensorReading1TextBox.Text = "255";
+         this.CrossBoreSensorReading1TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+         // 
+         // label3
+         // 
+         this.label3.AutoSize = true;
+         this.label3.Location = new System.Drawing.Point(291, 69);
+         this.label3.Name = "label3";
+         this.label3.Size = new System.Drawing.Size(27, 13);
+         this.label3.TabIndex = 292;
+         this.label3.Text = "R[1]";
+         // 
+         // CrossBoreSensorReading2TextBox
+         // 
+         this.CrossBoreSensorReading2TextBox.Location = new System.Drawing.Point(320, 89);
+         this.CrossBoreSensorReading2TextBox.Name = "CrossBoreSensorReading2TextBox";
+         this.CrossBoreSensorReading2TextBox.Size = new System.Drawing.Size(47, 20);
+         this.CrossBoreSensorReading2TextBox.TabIndex = 295;
+         this.CrossBoreSensorReading2TextBox.Text = "255";
+         this.CrossBoreSensorReading2TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+         // 
+         // label4
+         // 
+         this.label4.AutoSize = true;
+         this.label4.Location = new System.Drawing.Point(291, 92);
+         this.label4.Name = "label4";
+         this.label4.Size = new System.Drawing.Size(27, 13);
+         this.label4.TabIndex = 294;
+         this.label4.Text = "R[2]";
+         // 
+         // CrossBoreSensorReading3TextBox
+         // 
+         this.CrossBoreSensorReading3TextBox.Location = new System.Drawing.Point(320, 112);
+         this.CrossBoreSensorReading3TextBox.Name = "CrossBoreSensorReading3TextBox";
+         this.CrossBoreSensorReading3TextBox.Size = new System.Drawing.Size(47, 20);
+         this.CrossBoreSensorReading3TextBox.TabIndex = 297;
+         this.CrossBoreSensorReading3TextBox.Text = "255";
+         this.CrossBoreSensorReading3TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+         // 
+         // label5
+         // 
+         this.label5.AutoSize = true;
+         this.label5.Location = new System.Drawing.Point(291, 115);
+         this.label5.Name = "label5";
+         this.label5.Size = new System.Drawing.Size(27, 13);
+         this.label5.TabIndex = 296;
+         this.label5.Text = "R[3]";
+         // 
+         // SyncGroupBox
+         // 
+         this.SyncGroupBox.Controls.Add(this.AutoSyncCheckBox);
+         this.SyncGroupBox.Controls.Add(this.label8);
+         this.SyncGroupBox.Controls.Add(this.SyncButton);
+         this.SyncGroupBox.Controls.Add(this.AutoSyncTimeTextBox);
+         this.SyncGroupBox.Location = new System.Drawing.Point(8, 112);
+         this.SyncGroupBox.Name = "SyncGroupBox";
+         this.SyncGroupBox.Size = new System.Drawing.Size(156, 71);
+         this.SyncGroupBox.TabIndex = 121;
+         this.SyncGroupBox.TabStop = false;
+         this.SyncGroupBox.Text = "Sync";
+         // 
+         // label8
+         // 
+         this.label8.AutoSize = true;
+         this.label8.Location = new System.Drawing.Point(70, 22);
+         this.label8.Name = "label8";
+         this.label8.Size = new System.Drawing.Size(30, 13);
+         this.label8.TabIndex = 304;
+         this.label8.Text = "Time";
+         // 
+         // AutoSyncTimeTextBox
+         // 
+         this.AutoSyncTimeTextBox.Location = new System.Drawing.Point(102, 19);
+         this.AutoSyncTimeTextBox.Name = "AutoSyncTimeTextBox";
+         this.AutoSyncTimeTextBox.Size = new System.Drawing.Size(39, 20);
+         this.AutoSyncTimeTextBox.TabIndex = 303;
+         this.AutoSyncTimeTextBox.Text = "1000";
+         this.AutoSyncTimeTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+         // 
+         // AutoSyncCheckBox
+         // 
+         this.AutoSyncCheckBox.AutoSize = true;
+         this.AutoSyncCheckBox.Location = new System.Drawing.Point(23, 45);
+         this.AutoSyncCheckBox.Name = "AutoSyncCheckBox";
+         this.AutoSyncCheckBox.Size = new System.Drawing.Size(48, 17);
+         this.AutoSyncCheckBox.TabIndex = 302;
+         this.AutoSyncCheckBox.Text = "Auto";
+         this.AutoSyncCheckBox.UseVisualStyleBackColor = true;
+         this.AutoSyncCheckBox.CheckedChanged += new System.EventHandler(this.AutoSyncCheckBox_CheckedChanged);
+         // 
+         // SyncButton
+         // 
+         this.SyncButton.Location = new System.Drawing.Point(82, 42);
+         this.SyncButton.Name = "SyncButton";
+         this.SyncButton.Size = new System.Drawing.Size(55, 23);
+         this.SyncButton.TabIndex = 301;
+         this.SyncButton.Text = "SYNC";
+         this.SyncButton.UseVisualStyleBackColor = true;
+         // 
          // MainForm
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1366,6 +1524,8 @@ namespace CrossBore.DeviceTest
          this.MainActivityPanel.ResumeLayout(false);
          this.CrossBoreSensorTabPage.ResumeLayout(false);
          this.CrossBoreSensorTabPage.PerformLayout();
+         this.SyncGroupBox.ResumeLayout(false);
+         this.SyncGroupBox.PerformLayout();
          this.ResumeLayout(false);
          this.PerformLayout();
 
@@ -1488,6 +1648,20 @@ namespace CrossBore.DeviceTest
       private System.Windows.Forms.Button ResetCrossBoreSensorButton;
       private System.Windows.Forms.Button StopCrossBoreSensorButton;
       private System.Windows.Forms.Button StartCrossBoreSensorButton;
+      private System.Windows.Forms.Button CrossBoreSensorSyncButton;
+      private System.Windows.Forms.TextBox CrossBoreSensorReading3TextBox;
+      private System.Windows.Forms.Label label5;
+      private System.Windows.Forms.TextBox CrossBoreSensorReading2TextBox;
+      private System.Windows.Forms.Label label4;
+      private System.Windows.Forms.TextBox CrossBoreSensorReading1TextBox;
+      private System.Windows.Forms.Label label3;
+      private System.Windows.Forms.TextBox CrossBoreSensorReading0TextBox;
+      private System.Windows.Forms.Label label2;
+      private System.Windows.Forms.GroupBox SyncGroupBox;
+      private System.Windows.Forms.CheckBox AutoSyncCheckBox;
+      private System.Windows.Forms.Label label8;
+      private System.Windows.Forms.Button SyncButton;
+      private System.Windows.Forms.TextBox AutoSyncTimeTextBox;
    }
 }
 

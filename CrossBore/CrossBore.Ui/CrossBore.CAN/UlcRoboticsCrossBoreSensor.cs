@@ -11,6 +11,8 @@ namespace CrossBore.CAN
    {
       #region Fields
 
+      private UInt16[] readings;
+
       #endregion
 
       #region Helper Functions
@@ -55,6 +57,8 @@ namespace CrossBore.CAN
       #endregion
 
       #region Properties
+
+      public UInt16[] Readings { get { return (this.readings); } }
 
       public bool TraceTPDO5 { set; get; }
       public bool TraceTPDO6 { set; get; }
@@ -228,15 +232,42 @@ namespace CrossBore.CAN
             }
             else if (COBTypes.TPDO1 == frameType)
             {
+               if ((null != msg) && (msg.Length >= 8))
+               {
+                  this.readings[0] = BitConverter.ToUInt16(msg, 0);
+                  this.readings[1] = BitConverter.ToUInt16(msg, 2);
+                  this.readings[2] = BitConverter.ToUInt16(msg, 4);
+                  this.readings[3] = BitConverter.ToUInt16(msg, 6);
+               }
             }
             else if (COBTypes.TPDO2 == frameType)
             {
+               if ((null != msg) && (msg.Length >= 8))
+               {
+                  this.readings[4] = BitConverter.ToUInt16(msg, 0);
+                  this.readings[5] = BitConverter.ToUInt16(msg, 2);
+                  this.readings[6] = BitConverter.ToUInt16(msg, 4);
+                  this.readings[7] = BitConverter.ToUInt16(msg, 6);
+               }
             }
             else if (COBTypes.TPDO3 == frameType)
             {
+               if ((null != msg) && (msg.Length >= 8))
+               {
+                  this.readings[8] = BitConverter.ToUInt16(msg, 0);
+                  this.readings[9] = BitConverter.ToUInt16(msg, 2);
+                  this.readings[10] = BitConverter.ToUInt16(msg, 4);
+                  this.readings[11] = BitConverter.ToUInt16(msg, 6);
+               }
             }
             else if (COBTypes.TPDO4 == frameType)
             {
+               if ((null != msg) && (msg.Length >= 6))
+               {
+                  this.readings[12] = BitConverter.ToUInt16(msg, 0);
+                  this.readings[13] = BitConverter.ToUInt16(msg, 2);
+                  this.readings[14] = BitConverter.ToUInt16(msg, 4);
+               }
             }
          }
          else if (nodeId == (this.NodeId + 1))
@@ -268,6 +299,7 @@ namespace CrossBore.CAN
       public UlcRoboticsCrossBoreSensor(string name, byte nodeId)
          : base(name, nodeId)
       {
+         this.readings = new UInt16[15];
       }
 
       #endregion
@@ -332,7 +364,7 @@ namespace CrossBore.CAN
             result &= this.SetTPDOInhibitTime(4, 200);
             result &= this.SetTPDOMap(4, 1, 0x2400, 0x0D, 2); // reading 13
             result &= this.SetTPDOMap(4, 2, 0x2400, 0x0E, 2); // reading 14
-            result &= this.SetTPDOMap(4, 3, 0x2400, 0x0F, 2); // reading 14
+            result &= this.SetTPDOMap(4, 3, 0x2400, 0x0F, 2); // reading 15
             result &= this.SetTPDOMapCount(4, 3);
             result &= this.SetTPDOEnable(4, true);
 
