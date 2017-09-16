@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossBore.PCANLight", "Cros
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossBore.Utilities", "CrossBore.Utilities\CrossBore.Utilities.csproj", "{159C080C-76E7-46D8-94ED-02F9619165C0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossBore.CAN", "CrossBore.CAN\CrossBore.CAN.csproj", "{206CAED2-33AE-4D9D-BB5D-50AF1B9A3CD4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossBore.DeviceTest", "CrossBore.DeviceTest\CrossBore.DeviceTest.csproj", "{8158AC3E-75BD-47C2-B813-A7C24D31623E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +41,14 @@ Global
 		{159C080C-76E7-46D8-94ED-02F9619165C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{159C080C-76E7-46D8-94ED-02F9619165C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{159C080C-76E7-46D8-94ED-02F9619165C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{206CAED2-33AE-4D9D-BB5D-50AF1B9A3CD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{206CAED2-33AE-4D9D-BB5D-50AF1B9A3CD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{206CAED2-33AE-4D9D-BB5D-50AF1B9A3CD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{206CAED2-33AE-4D9D-BB5D-50AF1B9A3CD4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8158AC3E-75BD-47C2-B813-A7C24D31623E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8158AC3E-75BD-47C2-B813-A7C24D31623E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8158AC3E-75BD-47C2-B813-A7C24D31623E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8158AC3E-75BD-47C2-B813-A7C24D31623E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

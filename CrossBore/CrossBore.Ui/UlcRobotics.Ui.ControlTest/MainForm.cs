@@ -50,7 +50,7 @@ namespace UlcRobotics.Ui.ControlTest
              (UInt16.TryParse(this.PipeP4TextBox.Text, out p4) != false))
          {
             UInt16[] points = new UInt16[4] { p1, p2, p3, p4 };
-            this.TestBoreDataControl.BoundaryReadings = points;
+            this.TestBoreDataControl.BoundaryValues = points;
          }
       }
 
@@ -89,7 +89,7 @@ namespace UlcRobotics.Ui.ControlTest
              (UInt16.TryParse(this.PipeBP15TextBox.Text, out p15) != false))
          {
             UInt16[] points = new UInt16[15] { p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15 };
-            this.TestBoreDataControl.BoundaryReadings = points;
+            this.TestBoreDataControl.BoundaryValues = points;
          }
       }
 

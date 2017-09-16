@@ -4,17 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{257F078E-A65A-4D36-A38F-156DC60D025A}</ProjectGuid>
+    <ProjectGuid>{8158AC3E-75BD-47C2-B813-A7C24D31623E}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CrossBore.BusSim</RootNamespace>
-    <AssemblyName>CrossBore.BusSim</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <RootNamespace>CrossBore.DeviceTest</RootNamespace>
+    <AssemblyName>CrossBore.DeviceTest</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -45,56 +44,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="COBTypes.cs" />
-    <Compile Include="DeviceControl.cs">
-      <SubType>UserControl</SubType>
+    <Compile Include="BusParametersForm.cs">
+      <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ElmoMotor.cs">
-      <SubType>UserControl</SubType>
+    <Compile Include="BusParametersForm.Designer.cs">
+      <DependentUpon>BusParametersForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ElmoMotor.designer.cs">
-      <DependentUpon>ElmoMotor.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ErrorData.cs" />
+    <Compile Include="BusInterface.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="BldcMotor.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="BldcMotor.Designer.cs">
-      <DependentUpon>BldcMotor.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PeakDigitalIoDeviceControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="PeakDigitalIoDeviceControl.designer.cs">
-      <DependentUpon>PeakDigitalIoDeviceControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RPDOMapping.cs" />
-    <Compile Include="TPDOMapping.cs" />
-    <Compile Include="UlcRoboticsCrossBoreSensor.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UlcRoboticsCrossBoreSensor.Designer.cs">
-      <DependentUpon>UlcRoboticsCrossBoreSensor.cs</DependentUpon>
-    </Compile>
-    <EmbeddedResource Include="ElmoMotor.resx">
-      <DependentUpon>ElmoMotor.cs</DependentUpon>
+    <EmbeddedResource Include="BusParametersForm.resx">
+      <DependentUpon>BusParametersForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BldcMotor.resx">
-      <DependentUpon>BldcMotor.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PeakDigitalIoDeviceControl.resx">
-      <DependentUpon>PeakDigitalIoDeviceControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -106,9 +75,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="UlcRoboticsCrossBoreSensor.resx">
-      <DependentUpon>UlcRoboticsCrossBoreSensor.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -123,6 +89,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CrossBore.CAN\CrossBore.CAN.csproj">
+      <Project>{206caed2-33ae-4d9d-bb5d-50af1b9a3cd4}</Project>
+      <Name>CrossBore.CAN</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CrossBore.PCANLight\CrossBore.PCANLight.csproj">
       <Project>{a182ebe3-ce10-4825-8b06-b581685bb389}</Project>
       <Name>CrossBore.PCANLight</Name>
@@ -130,10 +100,6 @@
     <ProjectReference Include="..\CrossBore.Utilities\CrossBore.Utilities.csproj">
       <Project>{159c080c-76e7-46d8-94ed-02f9619165c0}</Project>
       <Name>CrossBore.Utilities</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\UlcRobotics.Ui.Controls\UlcRobotics.Ui.Controls.csproj">
-      <Project>{6340e037-a266-4c8a-91d8-5a693a8c13f9}</Project>
-      <Name>UlcRobotics.Ui.Controls</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

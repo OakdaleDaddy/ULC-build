@@ -301,12 +301,27 @@ namespace CrossBore.BusSim
       {
          bool result = false;
 
+         if (0x2400 == index)
+         {
+            byte readingCount = (byte)this.SensorDataControl.SensorReadingCount;
+
+            if ((subIndex >= 1) && (subIndex <= readingCount))
+            {
+               result = true;
+            }
+         }
+
          return (result);
       }
 
       private int TPdoSizeHandler(UInt16 index, byte subIndex)
       {
          int result = 0;
+
+         if (0x2400 == index)
+         {
+            result = 2;
+         }
 
          return (result);
       }
@@ -559,6 +574,27 @@ namespace CrossBore.BusSim
                valid = true;
             }
          }
+         #region Sensor Data
+         else if (0x2400 == index)
+         {
+            byte readingCount = (byte)this.SensorDataControl.SensorReadingCount;
+
+            if (0 == subIndex)
+            {
+               dataLength = this.MoveDeviceData(buffer, readingCount);
+               valid = true;
+            }
+            else if (subIndex <= readingCount)
+            {
+               int readingIndex = subIndex - 1;
+               UInt16 reading = this.SensorDataControl.SensorReadings[readingIndex];
+               dataLength = this.MoveDeviceData(buffer, reading);
+               valid = true;
+            }
+         }
+
+         #endregion
+
          #region Sub System Status
          else if (0x5000 == index)
          {
@@ -779,7 +815,7 @@ namespace CrossBore.BusSim
                points[i] = (UInt16)size;
             }
 
-            this.SensorBoreDataControl.BoundaryReadings = points;
+            this.SensorDataControl.BoundaryValues = points;
          }
       }
 
@@ -789,33 +825,33 @@ namespace CrossBore.BusSim
 
          if (int.TryParse(this.NumberOfSensorReadingsTextBox.Text, out sensorReadingCount) != false)
          {
-            this.SensorBoreDataControl.SensorReadingCount = sensorReadingCount;
+            this.SensorDataControl.SensorReadingCount = sensorReadingCount;
          }
       }
 
       private void ShowBoundaryLimitCheckBox_CheckedChanged(object sender, EventArgs e)
       {
-         this.SensorBoreDataControl.ShowBoundaryLimit = this.ShowBoundaryLimitCheckBox.Checked;
+         this.SensorDataControl.ShowBoundaryLimit = this.ShowBoundaryLimitCheckBox.Checked;
       }
 
       private void ShowBoundaryCheckBox_CheckedChanged(object sender, EventArgs e)
       {
-         this.SensorBoreDataControl.ShowBoundary = this.ShowBoundaryCheckBox.Checked;
+         this.SensorDataControl.ShowBoundary = this.ShowBoundaryCheckBox.Checked;
       }
 
       private void ShowSensorMarkCheckBox_CheckedChanged(object sender, EventArgs e)
       {
-         this.SensorBoreDataControl.ShowSensorMark = this.ShowSensorMarkCheckBox.Checked;
+         this.SensorDataControl.ShowSensorMark = this.ShowSensorMarkCheckBox.Checked;
       }
 
       private void ShowSensorReadingLinesCheckBox_CheckedChanged(object sender, EventArgs e)
       {
-         this.SensorBoreDataControl.ShowSensorReadingLines = this.ShowSensorReadingLinesCheckBox.Checked;
+         this.SensorDataControl.ShowSensorReadingLines = this.ShowSensorReadingLinesCheckBox.Checked;
       }
 
       private void ShowSensorBoundaryCheckBox_CheckedChanged(object sender, EventArgs e)
       {
-         this.SensorBoreDataControl.ShowSensorBoundary = this.ShowSensorBoundaryCheckBox.Checked;
+         this.SensorDataControl.ShowSensorBoundary = this.ShowSensorBoundaryCheckBox.Checked;
       }
 
       #endregion
@@ -826,11 +862,11 @@ namespace CrossBore.BusSim
       {
          this.InitializeComponent();
 
-         this.ShowBoundaryLimitCheckBox.Checked = this.SensorBoreDataControl.ShowBoundaryLimit;
-         this.ShowBoundaryCheckBox.Checked = this.SensorBoreDataControl.ShowBoundary;
-         this.ShowSensorMarkCheckBox.Checked = this.SensorBoreDataControl.ShowSensorMark;
-         this.ShowSensorReadingLinesCheckBox.Checked = this.SensorBoreDataControl.ShowSensorReadingLines;
-         this.ShowSensorBoundaryCheckBox.Checked = this.SensorBoreDataControl.ShowSensorBoundary;
+         this.ShowBoundaryLimitCheckBox.Checked = this.SensorDataControl.ShowBoundaryLimit;
+         this.ShowBoundaryCheckBox.Checked = this.SensorDataControl.ShowBoundary;
+         this.ShowSensorMarkCheckBox.Checked = this.SensorDataControl.ShowSensorMark;
+         this.ShowSensorReadingLinesCheckBox.Checked = this.SensorDataControl.ShowSensorReadingLines;
+         this.ShowSensorBoundaryCheckBox.Checked = this.SensorDataControl.ShowSensorBoundary;
 
          this.deviceType = 0xFFFF0191;
          this.ErrorRegister = 0;

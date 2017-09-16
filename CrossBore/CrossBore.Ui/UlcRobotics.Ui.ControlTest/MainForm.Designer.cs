@@ -441,7 +441,7 @@
          // TestBoreDataControl
          // 
          this.TestBoreDataControl.BackColor = System.Drawing.SystemColors.ControlDark;
-         this.TestBoreDataControl.BoundaryReadings = new ushort[] {
+         this.TestBoreDataControl.BoundaryValues = new ushort[] {
         ((ushort)(65535)),
         ((ushort)(65535)),
         ((ushort)(65535)),

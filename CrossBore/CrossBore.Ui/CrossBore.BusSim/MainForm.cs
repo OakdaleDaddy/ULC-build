@@ -123,18 +123,6 @@ namespace CrossBore.BusSim
                         {
                            deviceControl = new PeakDigitalIoDeviceControl();
                         }
-                        else if ("CrossBore.BusSim.UlcRoboticsWekoTrackController" == reader.Value)
-                        {
-                           deviceControl = new UlcRoboticsWekoTrackController();
-                        }
-                        else if ("CrossBore.BusSim.UlcRoboticsWekoHubController" == reader.Value)
-                        {
-                           deviceControl = new UlcRoboticsWekoHubController();
-                        }
-                        else if ("CrossBore.BusSim.UlcRoboticsWekoLaunchCard" == reader.Value)
-                        {
-                           deviceControl = new UlcRoboticsWekoLaunchCard();
-                        }
                         else if ("CrossBore.BusSim.UlcRoboticsCrossBoreSensor" == reader.Value)
                         {
                            deviceControl = new UlcRoboticsCrossBoreSensor();
@@ -308,18 +296,6 @@ namespace CrossBore.BusSim
             else if ("CrossBore.BusSim.PeakDigitalIoDeviceControl" == deviceType)
             {
                deviceControl = new PeakDigitalIoDeviceControl();
-            }
-            else if ("CrossBore.BusSim.UlcRoboticsWekoTrackController" == deviceType)
-            {
-               deviceControl = new UlcRoboticsWekoTrackController();
-            }
-            else if ("CrossBore.BusSim.UlcRoboticsWekoHubController" == deviceType)
-            {
-               deviceControl = new UlcRoboticsWekoHubController();
-            }
-            else if ("CrossBore.BusSim.UlcRoboticsWekoLaunchCard" == deviceType)
-            {
-               deviceControl = new UlcRoboticsWekoLaunchCard();
             }
             else if ("CrossBore.BusSim.UlcRoboticsCrossBoreSensor" == deviceType)
             {
@@ -667,18 +643,6 @@ namespace CrossBore.BusSim
          {
             deviceControl = new PeakDigitalIoDeviceControl();
          }
-         else if ("WekoTrackController" == deviceType)
-         {
-            deviceControl = new UlcRoboticsWekoTrackController();
-         }
-         else if ("WekoHubController" == deviceType)
-         {
-            deviceControl = new UlcRoboticsWekoHubController();
-         }
-         else if ("WekoLaunchCard" == deviceType)
-         {
-            deviceControl = new UlcRoboticsWekoLaunchCard();
-         }
          else if ("CrossBoreSensor" == deviceType)
          {
             deviceControl = new UlcRoboticsCrossBoreSensor();
@@ -924,9 +888,6 @@ namespace CrossBore.BusSim
          this.DeviceComboBox.Items.Clear();
          this.DeviceComboBox.Items.Add("ElmoMotor");
          this.DeviceComboBox.Items.Add("PeakDigitalIo");
-         this.DeviceComboBox.Items.Add("WekoTrackController");
-         this.DeviceComboBox.Items.Add("WekoHubController");
-         this.DeviceComboBox.Items.Add("WekoLaunchCard");
          this.DeviceComboBox.Items.Add("CrossBoreSensor");
          this.DeviceComboBox.SelectedIndex = 0;
 

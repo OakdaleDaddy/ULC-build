@@ -112,6 +112,10 @@ CanDemo/CanDemo.v11.suo
 
 CrossBore/CrossBore.Ui/CrossBore.BusSim/bin
 CrossBore/CrossBore.Ui/CrossBore.BusSim/obj
+CrossBore/CrossBore.Ui/CrossBore.Can/bin
+CrossBore/CrossBore.Ui/CrossBore.Can/obj
+CrossBore/CrossBore.Ui/CrossBore.DeviceTest/bin
+CrossBore/CrossBore.Ui/CrossBore.DeviceTest/obj
 CrossBore/CrossBore.Ui/CrossBore.PCANLight/bin
 CrossBore/CrossBore.Ui/CrossBore.PCANLight/obj
 CrossBore/CrossBore.Ui/CrossBore.Utilities/bin

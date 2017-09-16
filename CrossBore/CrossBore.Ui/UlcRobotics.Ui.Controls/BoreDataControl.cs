@@ -14,14 +14,14 @@
       private float graphXOffset;
       private float graphYOffset;
 
-      private PointF crossLocation;
+      private Point crossLocation;
       private Size crossSize;
 
       private bool crossPressed;
       private int boundaryPressedIndex;
       private Size pressOffset;
 
-      private UInt16[] boundaryReadings;
+      private UInt16[] boundaryValues;
       private UInt16[] sensorReadings;
 
       private PointF[] boundaryPoints;
@@ -155,7 +155,7 @@
          return (result);
       }
 
-      private void SetBoundPointAngles()
+      private void CalculateBoundaryPointAngles()
       {
          if (null != this.boundaryPoints)
          {
@@ -185,6 +185,50 @@
          }
       }
 
+      private void CalculateBoundaryPoints()
+      {
+         UInt16[] values = this.BoundaryValues;
+
+         if (null != values)
+         {
+            int arrayLength = values.Length;
+
+            float maximumScale = this.maximumScale;
+            float minimumReading = (float)(UInt16.MaxValue / 2);
+
+            float centerX = (maximumScale / 2) + this.graphXOffset;
+            float centerY = (maximumScale / 2) + this.graphYOffset;
+            float pointAngle = 0f;
+            float degreesPerStep = 360f / arrayLength;
+
+            PointF[] points = new PointF[arrayLength];
+
+            for (int i = 0; i < arrayLength; i++)
+            {
+               float reading = values[i];
+
+               if (reading < minimumReading)
+               {
+                  reading = minimumReading;
+               }
+
+               float maximum = ((reading - minimumReading) / UInt16.MaxValue) * maximumScale;
+
+               float pointX = (float)(centerX + (maximum * Math.Sin(this.DegreeToRadian(pointAngle))));
+               float pointY = (float)(centerY - (maximum * Math.Cos(this.DegreeToRadian(pointAngle))));
+               points[i] = new PointF(pointX, pointY);
+
+               pointAngle += degreesPerStep;
+            }
+
+            this.boundaryPoints = points;
+         }
+         else
+         {
+            this.boundaryPoints = null;
+         }
+      }
+
       private void CalculateSensorData(Graphics g)
       {
          float crossCenterX = this.CrossLocation.X + (this.CrossSize.Width / 2);
@@ -193,7 +237,7 @@
          if (null != this.boundaryPoints)
          {
             int sensorArraySize = this.SensorReadingCount;
-            this.SetBoundPointAngles();
+            this.CalculateBoundaryPointAngles();
 
             UInt16[] centerReadings = new UInt16[sensorArraySize];
             PointF[] centerPoints = new PointF[sensorArraySize];
@@ -290,7 +334,7 @@
 
       #region Properties
 
-      public PointF CrossLocation
+      public Point CrossLocation
       {
          get { return this.crossLocation; }
          set { this.crossLocation = value; this.Invalidate(); }
@@ -308,14 +352,16 @@
          set { this.sensorReadingCount = value; this.Invalidate(); }
       }
 
-      public UInt16[] BoundaryReadings
+      public UInt16[] BoundaryValues
       {
-         get { return this.boundaryReadings; }
+         get { return this.boundaryValues; }
 
          set
          {
-            this.boundaryReadings = value;
+            this.boundaryValues = value;
+            this.CalculateBoundaryPoints();
 
+#if false
             if (null != value)
             {
                int arrayLength = value.Length;
@@ -354,6 +400,7 @@
             {
                this.boundaryPoints = null;
             }
+#endif
 
             this.Invalidate();
          }
@@ -484,6 +531,7 @@
       private void BoreDataControl_Resize(object sender, EventArgs e)
       {
          this.CalculateScaling();
+         this.CalculateBoundaryPoints();
          this.Invalidate();
       }
       
@@ -555,7 +603,7 @@
                left = leftLimit;
             }
 
-            this.CrossLocation = new PointF(left, top);
+            this.CrossLocation = new Point(left, top);
 
             this.Trace("cross location ({0}, {1})", left, top);
          }
@@ -588,18 +636,13 @@
       public BoreDataControl()
          : base()
       {
-         this.CalculateScaling();
-
-         this.SensorReadingCount = 4;
+         this.SensorReadingCount = 15;
 
          this.ShowSensorMark = true;
          this.ShowSensorReadingLines = true;
          this.ShowSensorBoundary = true;
          this.ShowBoundary = true;
          this.ShowBoundaryLimit = true;
-
-         this.crossLocation = new Point(1, 1);
-         this.crossSize = new Size(16, 16);
 
          this.Resize += this.BoreDataControl_Resize;
          this.MouseDown += this.BoreDataControl_MouseDown;

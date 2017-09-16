@@ -28,9 +28,13 @@
       /// </summary>
       private void InitializeComponent()
       {
-         System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UlcRoboticsCrossBoreSensor));
          this.MainTabControl = new System.Windows.Forms.TabControl();
          this.SensorTabPage = new System.Windows.Forms.TabPage();
+         this.ShowSensorBoundaryCheckBox = new System.Windows.Forms.CheckBox();
+         this.ShowSensorReadingLinesCheckBox = new System.Windows.Forms.CheckBox();
+         this.ShowSensorMarkCheckBox = new System.Windows.Forms.CheckBox();
+         this.ShowBoundaryCheckBox = new System.Windows.Forms.CheckBox();
+         this.ShowBoundaryLimitCheckBox = new System.Windows.Forms.CheckBox();
          this.SetNumberofSensorReadingsButton = new System.Windows.Forms.Button();
          this.NumberOfSensorReadingsTextBox = new System.Windows.Forms.TextBox();
          this.label4 = new System.Windows.Forms.Label();
@@ -39,7 +43,7 @@
          this.label3 = new System.Windows.Forms.Label();
          this.NumberOfPointsTextBox = new System.Windows.Forms.TextBox();
          this.label2 = new System.Windows.Forms.Label();
-         this.SensorBoreDataControl = new UlcRobotics.Ui.Controls.BoreDataControl();
+         this.SensorDataControl = new UlcRobotics.Ui.Controls.BoreDataControl();
          this.PdoTabPage = new System.Windows.Forms.TabPage();
          this.SubSystemStatusLabel = new System.Windows.Forms.Label();
          this.ErrorRegisterLabel = new System.Windows.Forms.Label();
@@ -55,11 +59,6 @@
          this.DescriptionTextBox = new System.Windows.Forms.TextBox();
          this.NodeIdTextBox = new System.Windows.Forms.TextBox();
          this.label1 = new System.Windows.Forms.Label();
-         this.ShowBoundaryLimitCheckBox = new System.Windows.Forms.CheckBox();
-         this.ShowBoundaryCheckBox = new System.Windows.Forms.CheckBox();
-         this.ShowSensorMarkCheckBox = new System.Windows.Forms.CheckBox();
-         this.ShowSensorReadingLinesCheckBox = new System.Windows.Forms.CheckBox();
-         this.ShowSensorBoundaryCheckBox = new System.Windows.Forms.CheckBox();
          this.MainTabControl.SuspendLayout();
          this.SensorTabPage.SuspendLayout();
          this.PdoTabPage.SuspendLayout();
@@ -92,13 +91,68 @@
          this.SensorTabPage.Controls.Add(this.label3);
          this.SensorTabPage.Controls.Add(this.NumberOfPointsTextBox);
          this.SensorTabPage.Controls.Add(this.label2);
-         this.SensorTabPage.Controls.Add(this.SensorBoreDataControl);
+         this.SensorTabPage.Controls.Add(this.SensorDataControl);
          this.SensorTabPage.Location = new System.Drawing.Point(4, 22);
          this.SensorTabPage.Name = "SensorTabPage";
          this.SensorTabPage.Padding = new System.Windows.Forms.Padding(3);
          this.SensorTabPage.Size = new System.Drawing.Size(922, 481);
          this.SensorTabPage.TabIndex = 0;
          this.SensorTabPage.Text = "Sensor";
+         // 
+         // ShowSensorBoundaryCheckBox
+         // 
+         this.ShowSensorBoundaryCheckBox.AutoSize = true;
+         this.ShowSensorBoundaryCheckBox.Location = new System.Drawing.Point(550, 316);
+         this.ShowSensorBoundaryCheckBox.Name = "ShowSensorBoundaryCheckBox";
+         this.ShowSensorBoundaryCheckBox.Size = new System.Drawing.Size(107, 17);
+         this.ShowSensorBoundaryCheckBox.TabIndex = 283;
+         this.ShowSensorBoundaryCheckBox.Text = "Sensor Boundary";
+         this.ShowSensorBoundaryCheckBox.UseVisualStyleBackColor = true;
+         this.ShowSensorBoundaryCheckBox.CheckedChanged += new System.EventHandler(this.ShowSensorBoundaryCheckBox_CheckedChanged);
+         // 
+         // ShowSensorReadingLinesCheckBox
+         // 
+         this.ShowSensorReadingLinesCheckBox.AutoSize = true;
+         this.ShowSensorReadingLinesCheckBox.Location = new System.Drawing.Point(549, 293);
+         this.ShowSensorReadingLinesCheckBox.Name = "ShowSensorReadingLinesCheckBox";
+         this.ShowSensorReadingLinesCheckBox.Size = new System.Drawing.Size(130, 17);
+         this.ShowSensorReadingLinesCheckBox.TabIndex = 282;
+         this.ShowSensorReadingLinesCheckBox.Text = "Sensor Reading Lines";
+         this.ShowSensorReadingLinesCheckBox.UseVisualStyleBackColor = true;
+         this.ShowSensorReadingLinesCheckBox.CheckedChanged += new System.EventHandler(this.ShowSensorReadingLinesCheckBox_CheckedChanged);
+         // 
+         // ShowSensorMarkCheckBox
+         // 
+         this.ShowSensorMarkCheckBox.AutoSize = true;
+         this.ShowSensorMarkCheckBox.Location = new System.Drawing.Point(549, 270);
+         this.ShowSensorMarkCheckBox.Name = "ShowSensorMarkCheckBox";
+         this.ShowSensorMarkCheckBox.Size = new System.Drawing.Size(86, 17);
+         this.ShowSensorMarkCheckBox.TabIndex = 281;
+         this.ShowSensorMarkCheckBox.Text = "Sensor Mark";
+         this.ShowSensorMarkCheckBox.UseVisualStyleBackColor = true;
+         this.ShowSensorMarkCheckBox.CheckedChanged += new System.EventHandler(this.ShowSensorMarkCheckBox_CheckedChanged);
+         // 
+         // ShowBoundaryCheckBox
+         // 
+         this.ShowBoundaryCheckBox.AutoSize = true;
+         this.ShowBoundaryCheckBox.Location = new System.Drawing.Point(549, 247);
+         this.ShowBoundaryCheckBox.Name = "ShowBoundaryCheckBox";
+         this.ShowBoundaryCheckBox.Size = new System.Drawing.Size(71, 17);
+         this.ShowBoundaryCheckBox.TabIndex = 280;
+         this.ShowBoundaryCheckBox.Text = "Boundary";
+         this.ShowBoundaryCheckBox.UseVisualStyleBackColor = true;
+         this.ShowBoundaryCheckBox.CheckedChanged += new System.EventHandler(this.ShowBoundaryCheckBox_CheckedChanged);
+         // 
+         // ShowBoundaryLimitCheckBox
+         // 
+         this.ShowBoundaryLimitCheckBox.AutoSize = true;
+         this.ShowBoundaryLimitCheckBox.Location = new System.Drawing.Point(549, 224);
+         this.ShowBoundaryLimitCheckBox.Name = "ShowBoundaryLimitCheckBox";
+         this.ShowBoundaryLimitCheckBox.Size = new System.Drawing.Size(95, 17);
+         this.ShowBoundaryLimitCheckBox.TabIndex = 279;
+         this.ShowBoundaryLimitCheckBox.Text = "Boundary Limit";
+         this.ShowBoundaryLimitCheckBox.UseVisualStyleBackColor = true;
+         this.ShowBoundaryLimitCheckBox.CheckedChanged += new System.EventHandler(this.ShowBoundaryLimitCheckBox_CheckedChanged);
          // 
          // SetNumberofSensorReadingsButton
          // 
@@ -168,23 +222,38 @@
          this.label2.TabIndex = 1;
          this.label2.Text = "Number of Points";
          // 
-         // SensorBoreDataControl
+         // SensorDataControl
          // 
-         this.SensorBoreDataControl.BackColor = System.Drawing.SystemColors.Control;
-         this.SensorBoreDataControl.BoundaryReadings = null;
-         this.SensorBoreDataControl.CrossLocation = ((System.Drawing.PointF)(resources.GetObject("SensorBoreDataControl.CrossLocation")));
-         this.SensorBoreDataControl.CrossSize = new System.Drawing.Size(16, 16);
-         this.SensorBoreDataControl.Location = new System.Drawing.Point(6, 6);
-         this.SensorBoreDataControl.Name = "SensorBoreDataControl";
-         this.SensorBoreDataControl.SensorReadingCount = 4;
-         this.SensorBoreDataControl.ShowBoundary = true;
-         this.SensorBoreDataControl.ShowBoundaryLimit = true;
-         this.SensorBoreDataControl.ShowSensorBoundary = true;
-         this.SensorBoreDataControl.ShowSensorMark = true;
-         this.SensorBoreDataControl.ShowSensorReadingLines = true;
-         this.SensorBoreDataControl.Size = new System.Drawing.Size(469, 469);
-         this.SensorBoreDataControl.TabIndex = 0;
-         this.SensorBoreDataControl.Text = "Sensor";
+         this.SensorDataControl.BackColor = System.Drawing.SystemColors.Control;
+         this.SensorDataControl.BoundaryValues = new ushort[] {
+        ((ushort)(52000)),
+        ((ushort)(52000)),
+        ((ushort)(52000)),
+        ((ushort)(52000)),
+        ((ushort)(52000)),
+        ((ushort)(52000)),
+        ((ushort)(52000)),
+        ((ushort)(52000)),
+        ((ushort)(52000)),
+        ((ushort)(52000)),
+        ((ushort)(52000)),
+        ((ushort)(52000)),
+        ((ushort)(52000)),
+        ((ushort)(52000)),
+        ((ushort)(52000))};
+         this.SensorDataControl.CrossLocation = new System.Drawing.Point(226, 226);
+         this.SensorDataControl.CrossSize = new System.Drawing.Size(16, 16);
+         this.SensorDataControl.Location = new System.Drawing.Point(6, 6);
+         this.SensorDataControl.Name = "SensorDataControl";
+         this.SensorDataControl.SensorReadingCount = 15;
+         this.SensorDataControl.ShowBoundary = true;
+         this.SensorDataControl.ShowBoundaryLimit = true;
+         this.SensorDataControl.ShowSensorBoundary = true;
+         this.SensorDataControl.ShowSensorMark = true;
+         this.SensorDataControl.ShowSensorReadingLines = true;
+         this.SensorDataControl.Size = new System.Drawing.Size(469, 469);
+         this.SensorDataControl.TabIndex = 0;
+         this.SensorDataControl.Text = "Sensor";
          // 
          // PdoTabPage
          // 
@@ -336,61 +405,6 @@
          this.label1.Text = "Node:";
          this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
          // 
-         // ShowBoundaryLimitCheckBox
-         // 
-         this.ShowBoundaryLimitCheckBox.AutoSize = true;
-         this.ShowBoundaryLimitCheckBox.Location = new System.Drawing.Point(549, 224);
-         this.ShowBoundaryLimitCheckBox.Name = "ShowBoundaryLimitCheckBox";
-         this.ShowBoundaryLimitCheckBox.Size = new System.Drawing.Size(95, 17);
-         this.ShowBoundaryLimitCheckBox.TabIndex = 279;
-         this.ShowBoundaryLimitCheckBox.Text = "Boundary Limit";
-         this.ShowBoundaryLimitCheckBox.UseVisualStyleBackColor = true;
-         this.ShowBoundaryLimitCheckBox.CheckedChanged += new System.EventHandler(this.ShowBoundaryLimitCheckBox_CheckedChanged);
-         // 
-         // ShowBoundaryCheckBox
-         // 
-         this.ShowBoundaryCheckBox.AutoSize = true;
-         this.ShowBoundaryCheckBox.Location = new System.Drawing.Point(549, 247);
-         this.ShowBoundaryCheckBox.Name = "ShowBoundaryCheckBox";
-         this.ShowBoundaryCheckBox.Size = new System.Drawing.Size(71, 17);
-         this.ShowBoundaryCheckBox.TabIndex = 280;
-         this.ShowBoundaryCheckBox.Text = "Boundary";
-         this.ShowBoundaryCheckBox.UseVisualStyleBackColor = true;
-         this.ShowBoundaryCheckBox.CheckedChanged += new System.EventHandler(this.ShowBoundaryCheckBox_CheckedChanged);
-         // 
-         // ShowSensorMarkCheckBox
-         // 
-         this.ShowSensorMarkCheckBox.AutoSize = true;
-         this.ShowSensorMarkCheckBox.Location = new System.Drawing.Point(549, 270);
-         this.ShowSensorMarkCheckBox.Name = "ShowSensorMarkCheckBox";
-         this.ShowSensorMarkCheckBox.Size = new System.Drawing.Size(86, 17);
-         this.ShowSensorMarkCheckBox.TabIndex = 281;
-         this.ShowSensorMarkCheckBox.Text = "Sensor Mark";
-         this.ShowSensorMarkCheckBox.UseVisualStyleBackColor = true;
-         this.ShowSensorMarkCheckBox.CheckedChanged += new System.EventHandler(this.ShowSensorMarkCheckBox_CheckedChanged);
-         // 
-         // ShowSensorReadingLinesCheckBox
-         // 
-         this.ShowSensorReadingLinesCheckBox.AutoSize = true;
-         this.ShowSensorReadingLinesCheckBox.Location = new System.Drawing.Point(549, 293);
-         this.ShowSensorReadingLinesCheckBox.Name = "ShowSensorReadingLinesCheckBox";
-         this.ShowSensorReadingLinesCheckBox.Size = new System.Drawing.Size(130, 17);
-         this.ShowSensorReadingLinesCheckBox.TabIndex = 282;
-         this.ShowSensorReadingLinesCheckBox.Text = "Sensor Reading Lines";
-         this.ShowSensorReadingLinesCheckBox.UseVisualStyleBackColor = true;
-         this.ShowSensorReadingLinesCheckBox.CheckedChanged += new System.EventHandler(this.ShowSensorReadingLinesCheckBox_CheckedChanged);
-         // 
-         // ShowSensorBoundaryCheckBox
-         // 
-         this.ShowSensorBoundaryCheckBox.AutoSize = true;
-         this.ShowSensorBoundaryCheckBox.Location = new System.Drawing.Point(550, 316);
-         this.ShowSensorBoundaryCheckBox.Name = "ShowSensorBoundaryCheckBox";
-         this.ShowSensorBoundaryCheckBox.Size = new System.Drawing.Size(107, 17);
-         this.ShowSensorBoundaryCheckBox.TabIndex = 283;
-         this.ShowSensorBoundaryCheckBox.Text = "Sensor Boundary";
-         this.ShowSensorBoundaryCheckBox.UseVisualStyleBackColor = true;
-         this.ShowSensorBoundaryCheckBox.CheckedChanged += new System.EventHandler(this.ShowSensorBoundaryCheckBox_CheckedChanged);
-         // 
          // UlcRoboticsCrossBoreSensor
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -435,7 +449,7 @@
       private System.Windows.Forms.TabControl MainTabControl;
       private System.Windows.Forms.TabPage SensorTabPage;
       private System.Windows.Forms.TabPage PdoTabPage;
-      private UlcRobotics.Ui.Controls.BoreDataControl SensorBoreDataControl;
+      private UlcRobotics.Ui.Controls.BoreDataControl SensorDataControl;
       private System.Windows.Forms.Label ProducerHeartbeatTimeLabel;
       private System.Windows.Forms.Label ConsumerHeartbeatTimeLabel;
       private System.Windows.Forms.Label ErrorRegisterLabel;
