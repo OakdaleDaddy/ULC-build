@@ -48,6 +48,9 @@
     <Compile Include="BoreDataControl.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="BoreSensorControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RoundIndicator.cs">
       <SubType>Component</SubType>

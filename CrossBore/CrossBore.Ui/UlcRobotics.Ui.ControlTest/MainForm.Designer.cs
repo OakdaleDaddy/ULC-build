@@ -70,15 +70,17 @@
          this.PipeBSetButton = new System.Windows.Forms.Button();
          this.ReadButton = new System.Windows.Forms.Button();
          this.ReadingRichTextBox = new System.Windows.Forms.RichTextBox();
+         this.TestBoreSensorControl = new UlcRobotics.Ui.Controls.BoreSensorControl();
          this.TestBoreDataControl = new UlcRobotics.Ui.Controls.BoreDataControl();
          this.TickIndicator = new UlcRobotics.Ui.Controls.TickIndicator();
          this.roundIndicator1 = new UlcRobotics.Ui.Controls.RoundIndicator();
          this.baseButton1 = new UlcRobotics.Ui.Controls.BaseButton();
+         this.SetSensorReadingsButton = new System.Windows.Forms.Button();
          this.SuspendLayout();
          // 
          // PipeP1TextBox
          // 
-         this.PipeP1TextBox.Location = new System.Drawing.Point(623, 16);
+         this.PipeP1TextBox.Location = new System.Drawing.Point(358, 13);
          this.PipeP1TextBox.Name = "PipeP1TextBox";
          this.PipeP1TextBox.Size = new System.Drawing.Size(100, 20);
          this.PipeP1TextBox.TabIndex = 5;
@@ -86,7 +88,7 @@
          // 
          // PipeP2TextBox
          // 
-         this.PipeP2TextBox.Location = new System.Drawing.Point(623, 42);
+         this.PipeP2TextBox.Location = new System.Drawing.Point(358, 39);
          this.PipeP2TextBox.Name = "PipeP2TextBox";
          this.PipeP2TextBox.Size = new System.Drawing.Size(100, 20);
          this.PipeP2TextBox.TabIndex = 6;
@@ -94,7 +96,7 @@
          // 
          // PipeP3TextBox
          // 
-         this.PipeP3TextBox.Location = new System.Drawing.Point(623, 68);
+         this.PipeP3TextBox.Location = new System.Drawing.Point(358, 65);
          this.PipeP3TextBox.Name = "PipeP3TextBox";
          this.PipeP3TextBox.Size = new System.Drawing.Size(100, 20);
          this.PipeP3TextBox.TabIndex = 7;
@@ -102,7 +104,7 @@
          // 
          // PipeP4TextBox
          // 
-         this.PipeP4TextBox.Location = new System.Drawing.Point(623, 94);
+         this.PipeP4TextBox.Location = new System.Drawing.Point(358, 91);
          this.PipeP4TextBox.Name = "PipeP4TextBox";
          this.PipeP4TextBox.Size = new System.Drawing.Size(100, 20);
          this.PipeP4TextBox.TabIndex = 8;
@@ -111,7 +113,7 @@
          // label1
          // 
          this.label1.AutoSize = true;
-         this.label1.Location = new System.Drawing.Point(604, 19);
+         this.label1.Location = new System.Drawing.Point(339, 16);
          this.label1.Name = "label1";
          this.label1.Size = new System.Drawing.Size(17, 13);
          this.label1.TabIndex = 9;
@@ -120,7 +122,7 @@
          // label2
          // 
          this.label2.AutoSize = true;
-         this.label2.Location = new System.Drawing.Point(598, 45);
+         this.label2.Location = new System.Drawing.Point(333, 42);
          this.label2.Name = "label2";
          this.label2.Size = new System.Drawing.Size(23, 13);
          this.label2.TabIndex = 10;
@@ -129,7 +131,7 @@
          // label3
          // 
          this.label3.AutoSize = true;
-         this.label3.Location = new System.Drawing.Point(592, 71);
+         this.label3.Location = new System.Drawing.Point(327, 68);
          this.label3.Name = "label3";
          this.label3.Size = new System.Drawing.Size(29, 13);
          this.label3.TabIndex = 11;
@@ -138,7 +140,7 @@
          // label4
          // 
          this.label4.AutoSize = true;
-         this.label4.Location = new System.Drawing.Point(592, 97);
+         this.label4.Location = new System.Drawing.Point(327, 94);
          this.label4.Name = "label4";
          this.label4.Size = new System.Drawing.Size(29, 13);
          this.label4.TabIndex = 12;
@@ -146,7 +148,7 @@
          // 
          // PipeSetButton
          // 
-         this.PipeSetButton.Location = new System.Drawing.Point(729, 92);
+         this.PipeSetButton.Location = new System.Drawing.Point(464, 89);
          this.PipeSetButton.Name = "PipeSetButton";
          this.PipeSetButton.Size = new System.Drawing.Size(75, 23);
          this.PipeSetButton.TabIndex = 13;
@@ -157,7 +159,7 @@
          // label5
          // 
          this.label5.AutoSize = true;
-         this.label5.Location = new System.Drawing.Point(826, 19);
+         this.label5.Location = new System.Drawing.Point(561, 16);
          this.label5.Name = "label5";
          this.label5.Size = new System.Drawing.Size(17, 13);
          this.label5.TabIndex = 15;
@@ -165,7 +167,7 @@
          // 
          // PipeBP1TextBox
          // 
-         this.PipeBP1TextBox.Location = new System.Drawing.Point(845, 16);
+         this.PipeBP1TextBox.Location = new System.Drawing.Point(580, 13);
          this.PipeBP1TextBox.Name = "PipeBP1TextBox";
          this.PipeBP1TextBox.Size = new System.Drawing.Size(100, 20);
          this.PipeBP1TextBox.TabIndex = 14;
@@ -174,7 +176,7 @@
          // label6
          // 
          this.label6.AutoSize = true;
-         this.label6.Location = new System.Drawing.Point(820, 45);
+         this.label6.Location = new System.Drawing.Point(555, 42);
          this.label6.Name = "label6";
          this.label6.Size = new System.Drawing.Size(23, 13);
          this.label6.TabIndex = 17;
@@ -182,7 +184,7 @@
          // 
          // PipeBP2TextBox
          // 
-         this.PipeBP2TextBox.Location = new System.Drawing.Point(845, 42);
+         this.PipeBP2TextBox.Location = new System.Drawing.Point(580, 39);
          this.PipeBP2TextBox.Name = "PipeBP2TextBox";
          this.PipeBP2TextBox.Size = new System.Drawing.Size(100, 20);
          this.PipeBP2TextBox.TabIndex = 16;
@@ -191,7 +193,7 @@
          // label7
          // 
          this.label7.AutoSize = true;
-         this.label7.Location = new System.Drawing.Point(820, 71);
+         this.label7.Location = new System.Drawing.Point(555, 68);
          this.label7.Name = "label7";
          this.label7.Size = new System.Drawing.Size(23, 13);
          this.label7.TabIndex = 19;
@@ -199,7 +201,7 @@
          // 
          // PipeBP3TextBox
          // 
-         this.PipeBP3TextBox.Location = new System.Drawing.Point(845, 68);
+         this.PipeBP3TextBox.Location = new System.Drawing.Point(580, 65);
          this.PipeBP3TextBox.Name = "PipeBP3TextBox";
          this.PipeBP3TextBox.Size = new System.Drawing.Size(100, 20);
          this.PipeBP3TextBox.TabIndex = 18;
@@ -208,7 +210,7 @@
          // label8
          // 
          this.label8.AutoSize = true;
-         this.label8.Location = new System.Drawing.Point(820, 97);
+         this.label8.Location = new System.Drawing.Point(555, 94);
          this.label8.Name = "label8";
          this.label8.Size = new System.Drawing.Size(23, 13);
          this.label8.TabIndex = 21;
@@ -216,7 +218,7 @@
          // 
          // PipeBP4TextBox
          // 
-         this.PipeBP4TextBox.Location = new System.Drawing.Point(845, 94);
+         this.PipeBP4TextBox.Location = new System.Drawing.Point(580, 91);
          this.PipeBP4TextBox.Name = "PipeBP4TextBox";
          this.PipeBP4TextBox.Size = new System.Drawing.Size(100, 20);
          this.PipeBP4TextBox.TabIndex = 20;
@@ -226,7 +228,7 @@
          // label9
          // 
          this.label9.AutoSize = true;
-         this.label9.Location = new System.Drawing.Point(820, 123);
+         this.label9.Location = new System.Drawing.Point(555, 120);
          this.label9.Name = "label9";
          this.label9.Size = new System.Drawing.Size(23, 13);
          this.label9.TabIndex = 23;
@@ -234,7 +236,7 @@
          // 
          // PipeBP5TextBox
          // 
-         this.PipeBP5TextBox.Location = new System.Drawing.Point(845, 120);
+         this.PipeBP5TextBox.Location = new System.Drawing.Point(580, 117);
          this.PipeBP5TextBox.Name = "PipeBP5TextBox";
          this.PipeBP5TextBox.Size = new System.Drawing.Size(100, 20);
          this.PipeBP5TextBox.TabIndex = 22;
@@ -243,7 +245,7 @@
          // label10
          // 
          this.label10.AutoSize = true;
-         this.label10.Location = new System.Drawing.Point(814, 149);
+         this.label10.Location = new System.Drawing.Point(549, 146);
          this.label10.Name = "label10";
          this.label10.Size = new System.Drawing.Size(29, 13);
          this.label10.TabIndex = 25;
@@ -251,7 +253,7 @@
          // 
          // PipeBP6TextBox
          // 
-         this.PipeBP6TextBox.Location = new System.Drawing.Point(845, 146);
+         this.PipeBP6TextBox.Location = new System.Drawing.Point(580, 143);
          this.PipeBP6TextBox.Name = "PipeBP6TextBox";
          this.PipeBP6TextBox.Size = new System.Drawing.Size(100, 20);
          this.PipeBP6TextBox.TabIndex = 24;
@@ -260,7 +262,7 @@
          // label11
          // 
          this.label11.AutoSize = true;
-         this.label11.Location = new System.Drawing.Point(814, 175);
+         this.label11.Location = new System.Drawing.Point(549, 172);
          this.label11.Name = "label11";
          this.label11.Size = new System.Drawing.Size(29, 13);
          this.label11.TabIndex = 27;
@@ -268,7 +270,7 @@
          // 
          // PipeBP7TextBox
          // 
-         this.PipeBP7TextBox.Location = new System.Drawing.Point(845, 172);
+         this.PipeBP7TextBox.Location = new System.Drawing.Point(580, 169);
          this.PipeBP7TextBox.Name = "PipeBP7TextBox";
          this.PipeBP7TextBox.Size = new System.Drawing.Size(100, 20);
          this.PipeBP7TextBox.TabIndex = 26;
@@ -277,7 +279,7 @@
          // label12
          // 
          this.label12.AutoSize = true;
-         this.label12.Location = new System.Drawing.Point(814, 201);
+         this.label12.Location = new System.Drawing.Point(549, 198);
          this.label12.Name = "label12";
          this.label12.Size = new System.Drawing.Size(29, 13);
          this.label12.TabIndex = 29;
@@ -285,7 +287,7 @@
          // 
          // PipeBP8TextBox
          // 
-         this.PipeBP8TextBox.Location = new System.Drawing.Point(845, 198);
+         this.PipeBP8TextBox.Location = new System.Drawing.Point(580, 195);
          this.PipeBP8TextBox.Name = "PipeBP8TextBox";
          this.PipeBP8TextBox.Size = new System.Drawing.Size(100, 20);
          this.PipeBP8TextBox.TabIndex = 28;
@@ -294,7 +296,7 @@
          // label13
          // 
          this.label13.AutoSize = true;
-         this.label13.Location = new System.Drawing.Point(814, 227);
+         this.label13.Location = new System.Drawing.Point(549, 224);
          this.label13.Name = "label13";
          this.label13.Size = new System.Drawing.Size(29, 13);
          this.label13.TabIndex = 31;
@@ -302,7 +304,7 @@
          // 
          // PipeBP9TextBox
          // 
-         this.PipeBP9TextBox.Location = new System.Drawing.Point(845, 224);
+         this.PipeBP9TextBox.Location = new System.Drawing.Point(580, 221);
          this.PipeBP9TextBox.Name = "PipeBP9TextBox";
          this.PipeBP9TextBox.Size = new System.Drawing.Size(100, 20);
          this.PipeBP9TextBox.TabIndex = 30;
@@ -311,7 +313,7 @@
          // label14
          // 
          this.label14.AutoSize = true;
-         this.label14.Location = new System.Drawing.Point(814, 253);
+         this.label14.Location = new System.Drawing.Point(549, 250);
          this.label14.Name = "label14";
          this.label14.Size = new System.Drawing.Size(29, 13);
          this.label14.TabIndex = 33;
@@ -319,7 +321,7 @@
          // 
          // PipeBP10TextBox
          // 
-         this.PipeBP10TextBox.Location = new System.Drawing.Point(845, 250);
+         this.PipeBP10TextBox.Location = new System.Drawing.Point(580, 247);
          this.PipeBP10TextBox.Name = "PipeBP10TextBox";
          this.PipeBP10TextBox.Size = new System.Drawing.Size(100, 20);
          this.PipeBP10TextBox.TabIndex = 32;
@@ -328,7 +330,7 @@
          // label15
          // 
          this.label15.AutoSize = true;
-         this.label15.Location = new System.Drawing.Point(814, 279);
+         this.label15.Location = new System.Drawing.Point(549, 276);
          this.label15.Name = "label15";
          this.label15.Size = new System.Drawing.Size(29, 13);
          this.label15.TabIndex = 35;
@@ -336,7 +338,7 @@
          // 
          // PipeBP11TextBox
          // 
-         this.PipeBP11TextBox.Location = new System.Drawing.Point(845, 276);
+         this.PipeBP11TextBox.Location = new System.Drawing.Point(580, 273);
          this.PipeBP11TextBox.Name = "PipeBP11TextBox";
          this.PipeBP11TextBox.Size = new System.Drawing.Size(100, 20);
          this.PipeBP11TextBox.TabIndex = 34;
@@ -345,7 +347,7 @@
          // label16
          // 
          this.label16.AutoSize = true;
-         this.label16.Location = new System.Drawing.Point(814, 305);
+         this.label16.Location = new System.Drawing.Point(549, 302);
          this.label16.Name = "label16";
          this.label16.Size = new System.Drawing.Size(29, 13);
          this.label16.TabIndex = 37;
@@ -353,7 +355,7 @@
          // 
          // PipeBP12TextBox
          // 
-         this.PipeBP12TextBox.Location = new System.Drawing.Point(845, 302);
+         this.PipeBP12TextBox.Location = new System.Drawing.Point(580, 299);
          this.PipeBP12TextBox.Name = "PipeBP12TextBox";
          this.PipeBP12TextBox.Size = new System.Drawing.Size(100, 20);
          this.PipeBP12TextBox.TabIndex = 36;
@@ -362,7 +364,7 @@
          // label17
          // 
          this.label17.AutoSize = true;
-         this.label17.Location = new System.Drawing.Point(814, 331);
+         this.label17.Location = new System.Drawing.Point(549, 328);
          this.label17.Name = "label17";
          this.label17.Size = new System.Drawing.Size(29, 13);
          this.label17.TabIndex = 39;
@@ -370,7 +372,7 @@
          // 
          // PipeBP13TextBox
          // 
-         this.PipeBP13TextBox.Location = new System.Drawing.Point(845, 328);
+         this.PipeBP13TextBox.Location = new System.Drawing.Point(580, 325);
          this.PipeBP13TextBox.Name = "PipeBP13TextBox";
          this.PipeBP13TextBox.Size = new System.Drawing.Size(100, 20);
          this.PipeBP13TextBox.TabIndex = 38;
@@ -379,7 +381,7 @@
          // label18
          // 
          this.label18.AutoSize = true;
-         this.label18.Location = new System.Drawing.Point(814, 357);
+         this.label18.Location = new System.Drawing.Point(549, 354);
          this.label18.Name = "label18";
          this.label18.Size = new System.Drawing.Size(29, 13);
          this.label18.TabIndex = 41;
@@ -387,7 +389,7 @@
          // 
          // PipeBP14TextBox
          // 
-         this.PipeBP14TextBox.Location = new System.Drawing.Point(845, 354);
+         this.PipeBP14TextBox.Location = new System.Drawing.Point(580, 351);
          this.PipeBP14TextBox.Name = "PipeBP14TextBox";
          this.PipeBP14TextBox.Size = new System.Drawing.Size(100, 20);
          this.PipeBP14TextBox.TabIndex = 40;
@@ -396,7 +398,7 @@
          // label19
          // 
          this.label19.AutoSize = true;
-         this.label19.Location = new System.Drawing.Point(814, 383);
+         this.label19.Location = new System.Drawing.Point(549, 380);
          this.label19.Name = "label19";
          this.label19.Size = new System.Drawing.Size(29, 13);
          this.label19.TabIndex = 43;
@@ -404,7 +406,7 @@
          // 
          // PipeBP15TextBox
          // 
-         this.PipeBP15TextBox.Location = new System.Drawing.Point(845, 380);
+         this.PipeBP15TextBox.Location = new System.Drawing.Point(580, 377);
          this.PipeBP15TextBox.Name = "PipeBP15TextBox";
          this.PipeBP15TextBox.Size = new System.Drawing.Size(100, 20);
          this.PipeBP15TextBox.TabIndex = 42;
@@ -412,17 +414,17 @@
          // 
          // PipeBSetButton
          // 
-         this.PipeBSetButton.Location = new System.Drawing.Point(951, 378);
+         this.PipeBSetButton.Location = new System.Drawing.Point(686, 375);
          this.PipeBSetButton.Name = "PipeBSetButton";
          this.PipeBSetButton.Size = new System.Drawing.Size(75, 23);
          this.PipeBSetButton.TabIndex = 44;
-         this.PipeBSetButton.Text = "Set";
+         this.PipeBSetButton.Text = "Set Data";
          this.PipeBSetButton.UseVisualStyleBackColor = true;
          this.PipeBSetButton.Click += new System.EventHandler(this.PipeBSetButton_Click);
          // 
          // ReadButton
          // 
-         this.ReadButton.Location = new System.Drawing.Point(623, 273);
+         this.ReadButton.Location = new System.Drawing.Point(336, 146);
          this.ReadButton.Name = "ReadButton";
          this.ReadButton.Size = new System.Drawing.Size(75, 23);
          this.ReadButton.TabIndex = 45;
@@ -432,11 +434,20 @@
          // 
          // ReadingRichTextBox
          // 
-         this.ReadingRichTextBox.Location = new System.Drawing.Point(623, 302);
+         this.ReadingRichTextBox.Location = new System.Drawing.Point(336, 175);
          this.ReadingRichTextBox.Name = "ReadingRichTextBox";
          this.ReadingRichTextBox.Size = new System.Drawing.Size(185, 220);
          this.ReadingRichTextBox.TabIndex = 46;
          this.ReadingRichTextBox.Text = "";
+         // 
+         // TestBoreSensorControl
+         // 
+         this.TestBoreSensorControl.Location = new System.Drawing.Point(797, 107);
+         this.TestBoreSensorControl.Name = "TestBoreSensorControl";
+         this.TestBoreSensorControl.SensorReadings = null;
+         this.TestBoreSensorControl.Size = new System.Drawing.Size(267, 256);
+         this.TestBoreSensorControl.TabIndex = 47;
+         this.TestBoreSensorControl.Text = "boreSensorControl1";
          // 
          // TestBoreDataControl
          // 
@@ -446,11 +457,17 @@
         ((ushort)(65535)),
         ((ushort)(65535)),
         ((ushort)(65535))};
-         this.TestBoreDataControl.CrossLocation = new System.Drawing.Point(4, 67);
+         this.TestBoreDataControl.CrossLocation = new System.Drawing.Point(128, 128);
          this.TestBoreDataControl.CrossSize = new System.Drawing.Size(16, 16);
          this.TestBoreDataControl.Location = new System.Drawing.Point(12, 107);
          this.TestBoreDataControl.Name = "TestBoreDataControl";
-         this.TestBoreDataControl.Size = new System.Drawing.Size(541, 478);
+         this.TestBoreDataControl.SensorReadingCount = 15;
+         this.TestBoreDataControl.ShowBoundary = true;
+         this.TestBoreDataControl.ShowBoundaryLimit = true;
+         this.TestBoreDataControl.ShowSensorBoundary = true;
+         this.TestBoreDataControl.ShowSensorMark = true;
+         this.TestBoreDataControl.ShowSensorReadingLines = true;
+         this.TestBoreDataControl.Size = new System.Drawing.Size(257, 256);
          this.TestBoreDataControl.TabIndex = 4;
          this.TestBoreDataControl.Text = "boreDataControl1";
          // 
@@ -497,11 +514,23 @@
          this.baseButton1.Text = "baseButton1";
          this.baseButton1.UseVisualStyleBackColor = false;
          // 
+         // SetSensorReadingsButton
+         // 
+         this.SetSensorReadingsButton.Location = new System.Drawing.Point(686, 346);
+         this.SetSensorReadingsButton.Name = "SetSensorReadingsButton";
+         this.SetSensorReadingsButton.Size = new System.Drawing.Size(75, 23);
+         this.SetSensorReadingsButton.TabIndex = 48;
+         this.SetSensorReadingsButton.Text = "Set Sensor";
+         this.SetSensorReadingsButton.UseVisualStyleBackColor = true;
+         this.SetSensorReadingsButton.Click += new System.EventHandler(this.SetSensorReadingsButton_Click);
+         // 
          // MainForm
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-         this.ClientSize = new System.Drawing.Size(1041, 597);
+         this.ClientSize = new System.Drawing.Size(1126, 450);
+         this.Controls.Add(this.SetSensorReadingsButton);
+         this.Controls.Add(this.TestBoreSensorControl);
          this.Controls.Add(this.ReadingRichTextBox);
          this.Controls.Add(this.ReadButton);
          this.Controls.Add(this.PipeBSetButton);
@@ -603,6 +632,8 @@
       private System.Windows.Forms.Button PipeBSetButton;
       private System.Windows.Forms.Button ReadButton;
       private System.Windows.Forms.RichTextBox ReadingRichTextBox;
+      private Controls.BoreSensorControl TestBoreSensorControl;
+      private System.Windows.Forms.Button SetSensorReadingsButton;
    }
 }
 

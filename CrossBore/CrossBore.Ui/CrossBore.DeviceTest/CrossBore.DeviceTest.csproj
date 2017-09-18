@@ -51,6 +51,12 @@
       <DependentUpon>BusParametersForm.cs</DependentUpon>
     </Compile>
     <Compile Include="BusInterface.cs" />
+    <Compile Include="DeviceTraceConfigForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeviceTraceConfigForm.Designer.cs">
+      <DependentUpon>DeviceTraceConfigForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -61,6 +67,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="BusParametersForm.resx">
       <DependentUpon>BusParametersForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeviceTraceConfigForm.resx">
+      <DependentUpon>DeviceTraceConfigForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -100,6 +109,10 @@
     <ProjectReference Include="..\CrossBore.Utilities\CrossBore.Utilities.csproj">
       <Project>{159c080c-76e7-46d8-94ed-02f9619165c0}</Project>
       <Name>CrossBore.Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UlcRobotics.Ui.Controls\UlcRobotics.Ui.Controls.csproj">
+      <Project>{6340e037-a266-4c8a-91d8-5a693a8c13f9}</Project>
+      <Name>UlcRobotics.Ui.Controls</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

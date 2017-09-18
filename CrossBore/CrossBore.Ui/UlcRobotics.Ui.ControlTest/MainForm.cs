@@ -93,6 +93,45 @@ namespace UlcRobotics.Ui.ControlTest
          }
       }
 
+      private void SetSensorReadingsButton_Click(object sender, EventArgs e)
+      {
+         UInt16 p1 = 0;
+         UInt16 p2 = 0;
+         UInt16 p3 = 0;
+         UInt16 p4 = 0;
+         UInt16 p5 = 0;
+         UInt16 p6 = 0;
+         UInt16 p7 = 0;
+         UInt16 p8 = 0;
+         UInt16 p9 = 0;
+         UInt16 p10 = 0;
+         UInt16 p11 = 0;
+         UInt16 p12 = 0;
+         UInt16 p13 = 0;
+         UInt16 p14 = 0;
+         UInt16 p15 = 0;
+
+         if ((UInt16.TryParse(this.PipeBP1TextBox.Text, out p1) != false) &&
+             (UInt16.TryParse(this.PipeBP2TextBox.Text, out p2) != false) &&
+             (UInt16.TryParse(this.PipeBP3TextBox.Text, out p3) != false) &&
+             (UInt16.TryParse(this.PipeBP4TextBox.Text, out p4) != false) &&
+             (UInt16.TryParse(this.PipeBP5TextBox.Text, out p5) != false) &&
+             (UInt16.TryParse(this.PipeBP6TextBox.Text, out p6) != false) &&
+             (UInt16.TryParse(this.PipeBP7TextBox.Text, out p7) != false) &&
+             (UInt16.TryParse(this.PipeBP8TextBox.Text, out p8) != false) &&
+             (UInt16.TryParse(this.PipeBP9TextBox.Text, out p9) != false) &&
+             (UInt16.TryParse(this.PipeBP10TextBox.Text, out p10) != false) &&
+             (UInt16.TryParse(this.PipeBP11TextBox.Text, out p11) != false) &&
+             (UInt16.TryParse(this.PipeBP12TextBox.Text, out p12) != false) &&
+             (UInt16.TryParse(this.PipeBP13TextBox.Text, out p13) != false) &&
+             (UInt16.TryParse(this.PipeBP14TextBox.Text, out p14) != false) &&
+             (UInt16.TryParse(this.PipeBP15TextBox.Text, out p15) != false))
+         {
+            UInt16[] points = new UInt16[15] { p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15 };
+            this.TestBoreSensorControl.SensorReadings = points;
+         }       
+      }
+
       private void ReadButton_Click(object sender, EventArgs e)
       {
          this.ReadingRichTextBox.Clear();
@@ -107,12 +146,15 @@ namespace UlcRobotics.Ui.ControlTest
                this.ReadingRichTextBox.AppendText(text);
             }
          }
+
+         this.TestBoreSensorControl.SensorReadings = readings;
       }
 
       private void PipeBP4TextBox_TextChanged(object sender, EventArgs e)
       {
 
       }
+
 
    }
 }

@@ -1471,6 +1471,22 @@ namespace CrossBore.DeviceTest
          }
       }
 
+      private void ConfigCrossBoreSensorTraceButton_Click(object sender, EventArgs e)
+      {
+         DeviceTraceConfigForm deviceTraceConfigForm = new DeviceTraceConfigForm();
+         deviceTraceConfigForm.DisplayMask = 0x3FFF;
+         deviceTraceConfigForm.TraceMask = (UInt32)this.crossBoreSensor.TraceMask;
+         deviceTraceConfigForm.StartPosition = FormStartPosition.CenterParent;
+
+         DialogResult result = deviceTraceConfigForm.ShowDialog();
+
+         if (System.Windows.Forms.DialogResult.OK == result)
+         {
+            this.crossBoreSensor.TraceMask = (int)deviceTraceConfigForm.TraceMask;
+            this.CrossBoreSensorTraceTextBox.Text = string.Format("{0:X4}", this.crossBoreSensor.TraceMask);
+         }
+      }
+
       private void CrossBoreSensorSyncButton_Click(object sender, EventArgs e)
       {
          this.busInterface.Sync();
@@ -1599,6 +1615,7 @@ namespace CrossBore.DeviceTest
          #region CrossBore Sensor Updates
 
          UInt16[] crossBoreSensorReadings = this.crossBoreSensor.Readings;
+         this.CrossBoreSensorControl.SensorReadings = crossBoreSensorReadings;
 
          if ((null != crossBoreSensorReadings) && (crossBoreSensorReadings.Length >= 15))
          {
@@ -1606,6 +1623,17 @@ namespace CrossBore.DeviceTest
             this.CrossBoreSensorReading1TextBox.Text = crossBoreSensorReadings[1].ToString();
             this.CrossBoreSensorReading2TextBox.Text = crossBoreSensorReadings[2].ToString();
             this.CrossBoreSensorReading3TextBox.Text = crossBoreSensorReadings[3].ToString();
+            this.CrossBoreSensorReading4TextBox.Text = crossBoreSensorReadings[4].ToString();
+            this.CrossBoreSensorReading5TextBox.Text = crossBoreSensorReadings[5].ToString();
+            this.CrossBoreSensorReading6TextBox.Text = crossBoreSensorReadings[6].ToString();
+            this.CrossBoreSensorReading7TextBox.Text = crossBoreSensorReadings[7].ToString();
+            this.CrossBoreSensorReading8TextBox.Text = crossBoreSensorReadings[8].ToString();
+            this.CrossBoreSensorReading9TextBox.Text = crossBoreSensorReadings[9].ToString();
+            this.CrossBoreSensorReading10TextBox.Text = crossBoreSensorReadings[10].ToString();
+            this.CrossBoreSensorReading11TextBox.Text = crossBoreSensorReadings[11].ToString();
+            this.CrossBoreSensorReading12TextBox.Text = crossBoreSensorReadings[12].ToString();
+            this.CrossBoreSensorReading13TextBox.Text = crossBoreSensorReadings[13].ToString();
+            this.CrossBoreSensorReading14TextBox.Text = crossBoreSensorReadings[14].ToString();
          }
 
          #endregion
@@ -1686,6 +1714,8 @@ namespace CrossBore.DeviceTest
          this.DigitalIoBaudComboBox.Items.Add("125000");
          this.DigitalIoBaudComboBox.Items.Add("50000");
          this.DigitalIoBaudComboBox.SelectedIndex = 5;
+
+         this.CrossBoreSensorTraceTextBox.Text = string.Format("{0:X4}", this.crossBoreSensor.TraceMask);
       }
 
       #endregion
